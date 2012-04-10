@@ -1,0 +1,41 @@
+<h2><%=l 'Countries with notes entered' %> (<%= $num_co %>)</h2>
+<% foreach my $elem (@$countries) { %>
+    <img src="/images/<%= $elem->{'imgname'} %>.gif"> <%= $elem->{'cname'} %> - 
+    <%= $elem->{'count'} %> (<%= $elem->{'pct'} %>%) - 
+    <% foreach my $d (@{ $elem->{'detail'} }) { %>
+        [<%= $d->{'count'} %> <img src="/images/<%= $d->{'value'} %>.gif">]
+    <% } %>
+    <br>
+<% } %>
+
+<h2><%=l 'Number of notes by location' %> (<%= $num_locs %>)</h2>
+<% foreach my $elem (@$c_data) { %>
+    <h3><%= $elem->{'cname'} %></h3>
+    <% foreach my $loc (@{ $elem->{'loc_data'} }) { %>
+        <img src="/images/<%= $elem->{'imgname'} %>.gif"> <%= $loc->{'loc_name'} %> - <%= $loc->{'count'} %> (<%= $loc->{'pct'} %>%) - 
+        <% foreach my $d (@{ $loc->{'detail'} }) { %>
+            [<%= $d->{'count'} %> <img src="/images/<%= $d->{'value'} %>.gif">]
+        <% } %>
+        <br>
+    <% } %>
+<% } %>
+
+<h2><%=l 'Alphabets of locations by country' %></h2>
+<table>
+    <tr>
+        <th class="small_cell"><%=l 'Country' %></th>
+        <% foreach my $l ('A'..'Z') { %>
+            <th class="small_cell"><%= $l %></th>
+        <% } %>
+        <th class="small_cell">#</th>
+    </tr>
+    <% foreach my $c (@$ab) { %>
+        <tr>
+            <th class="small_cell"><img src="/images/<%= $c->{'imgname'} %>.gif"> <%= $c->{'cname'} %></th>
+            <% foreach my $l ('A'..'Z') { %>
+                <td class="small_cell"><div class="<%= $c->{'letters'}{$l} ? 'bingo_1' : 'bingo_na' %>"></div></td>
+            <% } %>
+            <th class="numeric small_cell"><%= $c->{'tot'} %></th>
+        </tr>
+    <% } %>
+</table>

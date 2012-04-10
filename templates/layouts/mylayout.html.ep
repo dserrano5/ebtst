@@ -1,0 +1,88 @@
+<!doctype html><html>
+    <head>
+        <title>EBTST</title>
+        <link rel="stylesheet" type="text/css" media="screen" href="ebt.css">
+    </head>
+    <body id="mainbody">
+        <div id="sections">
+            <form action="/bbcode" method="POST" target="_new">
+            <table>
+                <tr>
+                    <td><input type="checkbox" name="information"></td>
+                    <td><a class="section_link" id="information"     href="/information"><%=l 'Information' %></a><br>
+                </tr><tr>
+                    <td><input type="checkbox" name="value"></td>
+                    <td><a class="section_link" id="value"           href="/value"><%=l 'Value' %></a><br>
+                </tr><tr>
+                    <td><input type="checkbox" name="countries"></td>
+                    <td><a class="section_link" id="countries"       href="/countries"><%=l 'Countries' %></a><br>
+                </tr><tr>
+                    <td><input type="checkbox" name="locations"></td>
+                    <td><a class="section_link" id="locations"       href="/locations"><%=l 'Locations' %></a><br>
+                </tr><!-- !travel_stats --><tr>
+                    <td><input type="checkbox" name="printers"></td>
+                    <td><a class="section_link" id="printers"        href="/printers"><%=l 'Printers' %></a><br>
+<!--
+                </tr><tr>
+                    <td><input type="checkbox" name="huge_table"></td>
+                    <td><a class="section_link" id="huge_table"      href="/huge_table"><%=l 'Huge table' %></a><br>
+-->
+                </tr><tr>
+                    <td><input type="checkbox" name="short_codes"></td>
+                    <td><a class="section_link" id="short_codes"     href="/short_codes"><%=l 'Short codes' %></a><br>
+<!--
+                </tr><tr>
+                    <td><input type="checkbox" name="nice_serials"></td>
+                    <td><a class="section_link" id="nice_serials"    href="/nice_serials"><%=l 'Nice serials' %></a><br>
+-->
+                </tr><!-- note_analysis --><tr>
+                    <td><input type="checkbox" name="notes_per_year"></td>
+                    <td><a class="section_link" id="notes_per_year"  href="/notes_per_year"><%=l 'Notes/year' %></a><br>
+                </tr><tr>
+                    <td><input type="checkbox" name="notes_per_month"></td>
+                    <td><a class="section_link" id="notes_per_month" href="/notes_per_month"><%=l 'Notes/month' %></a><br>
+                </tr><tr>
+                    <td><input type="checkbox" name="top_days"></td>
+                    <td><a class="section_link" id="top_days"        href="/top_days"><%=l 'Top days' %></a><br>
+<!--
+                </tr><tr>
+                    <td><input type="checkbox" name="time_analysis"></td>
+                    <td><a class="section_link" id="time_analysis"   href="/time_analysis"><%=l 'Time analysis' %></a><br>
+-->
+                </tr><!-- comments --><tr>
+                    <td></td>
+                    <td><a class="section_link" id="combs"           href="/combs"><%=l 'Combinations' %></a><br>
+                </tr><tr>
+                    <td></td>
+                    <td><a class="section_link" id="evolution"       href="/evolution"><%=l 'Note evolution' %></a><br>
+                </tr><tr>
+                    <td></td>
+                    <td><a class="section_link" id="plate_bingo"     href="/plate_bingo"><%=l 'Plate bingo' %></a><br>
+                </tr><tr>
+                    <td><input type="checkbox" name="hit_list"></td>
+                    <td><a class="section_link" id="hit_list"     href="/hit_list"><%=l 'Hit list' %></a><br>
+                </tr>
+                <% if ($has_data) { %>
+                <tr>
+                    <td></td>
+                    <td><input type="submit" class="section_link bbcode_button" id="bbcode" value="<%=l 'BBCode' %>"><br>
+                </tr>
+                <% } %>
+                <!--<tr>
+                    <td></td>
+                    <td><a class="section_link" id="charts"          href="/charts"><%=l 'Charts' %></a><br>
+                </tr>--><tr>
+                    <td></td>
+                    <td><a class="section_link" id="configure"       href="/configure"><%=l 'Configuration' %></a><br>
+                </tr><!--<tr>
+                    <td></td>
+                    <td><a class="section_link" id="help"            href="/help"><%=l 'Help' %></a><br>
+                </tr>-->
+            </table>
+            </form>
+        </div>
+        <div id="repl">
+            <%= content %>
+        </div>
+    </body>
+</html>

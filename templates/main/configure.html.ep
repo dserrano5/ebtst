@@ -1,0 +1,26 @@
+<h2><%=l 'Configuration' %></h2>
+<%= form_for upload => (id => 'upload', method => 'post', enctype => 'multipart/form-data') => begin %>
+    <table>
+        <tr>
+            <td><%=l 'Name' %>:</td>
+            <td><%= text_field 'name' %></td>
+        </tr><tr>
+            <td><%=l 'EBT id number' %>:</td>
+            <td><%= text_field 'id' %></td>
+        </tr><tr>
+            <td><%=l 'Time zone' %>:</td>
+            <td><%= text_field 'tz' %></td>
+        </tr><tr>
+            <td><%=l 'Language' %>:</td>
+            <td><%= text_field 'lang' %></td>
+        </tr><tr>
+            <td><%=l 'Notes CSV file' %>:</td>
+            <td><%= file_field 'notes_csv_file' %> (o un [x] para bajar del web, con login y pass)</td
+        </tr><tr>
+            <td><%=l 'Hits CSV file' %>:</td>
+            <td><%= file_field 'hits_csv_file' %> (o un [x] para bajar del web, con login y pass)</td
+        </tr>
+    </table>
+    <br>
+    <%= submit_button 'Go' %>
+<% end %>

@@ -1,0 +1,49 @@
+<h2><%=l 'Absolute lowest and highest short codes' %></h2>
+<table>
+    <tr>
+        <th><%=l 'Short code/country' %></th>
+        <th><%=l 'Value' %></th>
+        <th><%=l 'Date' %></th>
+        <th class="invisible_cell small_cell">&nbsp;</th>
+        <th style="padding-left: 10px;"><%=l 'Short code/country' %></th>
+        <th><%=l 'Value' %></th>
+        <th><%=l 'Date' %></th>
+    </tr>
+    <% foreach my $elem (@{ $sc->{'all'} }) { %>
+    <tr>
+        <td><img src="/images/<%= $elem->{'lo'}{'pc_img'} %>.gif"> <img src="/images/<%= $elem->{'lo'}{'cc_img'} %>.gif"> <%= $elem->{'lo'}{'str'} %></td>
+        <td><img src="/images/<%= $elem->{'lo'}{'value'} %>.gif"></td>
+        <td><%= $elem->{'lo'}{'date'} %></td>
+        <td class="invisible_cell small_cell"></td>
+        <td><img src="/images/<%= $elem->{'hi'}{'pc_img'} %>.gif"> <img src="/images/<%= $elem->{'hi'}{'cc_img'} %>.gif"> <%= $elem->{'hi'}{'str'} %></td>
+        <td><img src="/images/<%= $elem->{'hi'}{'value'} %>.gif"></td>
+        <td><%= $elem->{'hi'}{'date'} %></td>
+    </tr>
+    <% } %>
+</table>
+
+<h2><%=l 'Lowest and highest short codes per value' %></h2>
+<% foreach my $v (@{ $EBT2::config{'values'} }) { %>
+    <h3><%= $v %></h3>
+    <table>
+        <tr>
+            <th><%=l 'Short code/country' %></th>
+            <th><%=l 'Date' %></th>
+            <td class="invisible_cell small_cell"></td>
+            <th><%=l 'Short code/country' %></th>
+            <th><%=l 'Date' %></th>
+        </tr>
+        <% foreach my $elem (@{ $sc->{$v} }) { %>
+            <% if (defined $elem) { %>
+            <tr>
+                <td><img src="/images/<%= $elem->{'lo'}{'pc_img'} %>.gif"> <img src="/images/<%= $elem->{'lo'}{'cc_img'} %>.gif"> <%= $elem->{'lo'}{'str'} %></td>
+                <td><%= $elem->{'lo'}{'date'} %></td>
+                <td class="invisible_cell small_cell"></td>
+                <td><img src="/images/<%= $elem->{'hi'}{'pc_img'} %>.gif"> <img src="/images/<%= $elem->{'hi'}{'cc_img'} %>.gif"> <%= $elem->{'hi'}{'str'} %></td>
+                <td><%= $elem->{'hi'}{'date'} %></td>
+            </tr>
+            <% } %>
+        <% } %>
+    </table>
+    <% if (500 != $v) { %><hr><% } %>
+<% } %>

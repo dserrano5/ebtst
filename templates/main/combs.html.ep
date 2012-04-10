@@ -1,0 +1,99 @@
+<h2><%=l 'Combinations bingo' %></h2>
+
+<% foreach my $idx (0 .. $#$presidents) { %>
+    <% my $sig         = $presidents->[$idx][0]; %>
+    <% my $sig_visible = $presidents->[$idx][1]; %>
+    <h3><%= $sig_visible %></h3>
+    <% my %seen; my %total; %>
+    <table>
+        <tr>
+            <th></th>
+            <th>5</th>
+            <th>10</th>
+            <th>20</th>
+            <th>50</th>
+            <th>100</th>
+            <th>200</th>
+            <th>500</th>
+            <th>any</th>
+        </tr>
+        <% foreach my $pc (sort keys %{ EBT2->printers }) { %>
+            <% foreach my $cc (sort keys %{ EBT2->countries }) { %>
+                <% my $k = $pc.$cc; %>
+                <% my $any_values_for_comb = 0; %>
+                <% if (grep { $_ eq $k } keys %{ $EBT2::combs_pc_cc_sig{$sig} }) { %>
+                    <tr>
+                        <th><%= "$pc/$cc" %></th>
+                        <% foreach my $v (@{ $EBT2::config{'values'} }) { %>
+                            <% my $k_pcv = sprintf '%s%s%03d', $pc, $cc, $v; %>
+                            <% if (exists $EBT2::combs_pc_cc_val_sig{$sig} and exists $EBT2::combs_pc_cc_val_sig{$sig}{$k_pcv}) {
+                                <% $total{$v}++; %>
+                                <% if (exists $nbc->{$sig}{$k} and exists $nbc->{$sig}{$k}{$v}) { %>
+                                    <td><div class="bingo_1"></div></td>
+                                    <% $any_values_for_comb = 1; %>
+                                    <% $seen{$v}++; %>
+                                <% } else { %>
+                                    <td><div class="bingo_0"></div></td>
+                                <% } %>
+                            <% } else { %>
+                                <td><div class="bingo_na"></div></td>
+                            <% } %>
+                        <% } %>
+
+                        <% $total{'any'}++; %>
+                        <% if ($any_values_for_comb) { %>
+                            <td><div class="bingo_1"></div></td>
+                            <% $seen{'any'}++; %>
+                        <% } else { %>
+                            <td><div class="bingo_0"></div></td>
+                        <% } %>
+                    </tr>
+                <% } %>
+            <% } %>
+        <% } %>
+        <tr>
+            <th></th>
+            <% foreach my $v (@{ $EBT2::config{'values'} }) { %>
+                <td class="small_cell"><%= $seen{$v}//0 %>/<%= $total{$v}//0 %></td>
+            <% } %>
+            <td class="small_cell"><%= $seen{'any'}//0 %>/<%= $total{'any'}//0 %></td>
+        </tr>
+    </table>
+    <% delete $seen{'any'}; delete $total{'any'}; %>
+    <% my $all_seen = 0;  $all_seen  += $_ for values %seen; %>
+    <% my $all_total = 0; $all_total += $_ for values %total; %>
+    <% my $all_pct = sprintf '%.2f', $all_total ? ($all_seen * 100 / $all_total) : 0;  ## $all_total is zero when a president is defined in the config, but no plates are assigned to them %>
+    <p><%=l 'Total for ' %><%= $sig_visible %>: <b><%= $all_seen; %>/<%= $all_total; %></b> (<%= $all_pct %>%)</p>
+<% } %>
+
+<h2><%=l 'Still missing combinations' %></h2>
+<% foreach my $elem (map { $missing->{$_} } sort keys %$missing) { %>
+    <img src="/images/<%= $elem->{'pname'} %>.gif"> <img src="/images/<%= $elem->{'cname'} %>.gif"> 
+    <%= $elem->{'pletter'} %>/<%= $elem->{'cletter'} %>: 
+    <% foreach my $d (@{ $elem->{'values'} }) { %>
+        <img src="/images/<%= $d %>.gif">
+    <% } %>
+    <br>
+<% } %>
+
+<% if ($unknown) { %>
+    <h2><%=l 'Unknown combinations' %></h2>
+    <% foreach my $unk (map { $unknown->{$_} } sort keys %$unknown) { %>
+        <img src="/images/<%= $unk->{'pname'} %>.gif"> <img src="/images/<%= $unk->{'cname'} %>.gif"> 
+        <%= $unk->{'pletter'} %>/<%= $unk->{'cletter'} %>: 
+        <% foreach my $l (@{ $unk->{'links'} }) { %>
+            <a href="http://www.eurobilltracker.com/notes/?id=<%= $l->{'id'} %>"><img src="/images/<%= $l->{'value'} %>.gif"></a>
+        <% } %>
+        <br>
+    <% } %>
+<% } %>
+
+<h2><%=l 'History' %></h2>
+<% foreach my $h (@$history) { %>
+    <%= $h->{'index'} %>.) <img src="/images/<%= $h->{'pname'} %>.gif"> <img src="/images/<%= $h->{'cname'} %>.gif">
+    <%= $h->{'pc'} %>/<%= $h->{'cc'} %>
+    <img src="/images/<%= $h->{'value'} %>.gif"> (<%=l 'note' %> <%= $h->{'num'} %>, <%=l 'entered on' %> <%= $h->{'date'} %> <%=l 'in' %> <%= $h->{'city'} %> <img src="/images/<%= $h->{'country'} %>.gif">)<br>
+<% } %>
+
+<br>
+<small><%=l 'Text format inspired by' %> <a href="https://en.eurobilltracker.com/profile/?user=112566">Dioniz</a>.</small>

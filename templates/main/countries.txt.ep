@@ -1,0 +1,11 @@
+[b]<%=l 'Number of notes by country code' %>[/b]
+<% for my $elem (@$nbc) { =%>
+ :flag-<%= $elem->{'imgname'} %>: [b]<%= $elem->{'cc'} %>[/b] <%= $elem->{'cname'} %>: <%= $elem->{'count'} %> <%= $elem->{'pct'} %>%
+<% } =%>
+
+[b]<%=l 'First notes by country code' %>[/b]
+<% for my $elem (@$fbcc) { =%>
+<%=l 'Note' %> <%= $elem->{'at'} . ' ' %><%=l 'was the first from' =%>
+ :flag-<%= $elem->{'imgname'} %>: [b]<%= $elem->{'cname'} %>[/b] ( :note-<%= $elem->{'value'} %>:<%=' '%><%=l 'entered on' =%>
+<%= ' ' . $elem->{'on'} . ' ' %><%=l 'in' %> <%= $elem->{'city'} %> :flag-<%= $elem->{'imgname2'} %>:)
+<% } =%>

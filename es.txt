@@ -1,0 +1,126 @@
+## index
+Information = Información
+Countries = Países
+Locations = Localidades
+Printers = Imprentas
+Huge table = Tabla tocha
+Short codes = Códigos cortos
+Nice serials = Números curiosos
+Notes/year = Billetes/año
+Notes/month = Billetes/mes
+Top days = Mejores días
+Time analysis = Análisis de tiempo
+Combinations = Combinaciones
+Note evolution = Evolución temporal
+Plate bingo = Bingo de planchas
+BBCode = BBCode
+Charts = Gráficas
+Configuration = Configuración
+Help = Ayuda
+
+## information
+General information = Información general
+First note entered = Primer billete introducido
+in = en
+Situation on = Situación el
+(full) days after the first note was entered = días (completos) después del primer billete
+Active/inactive EBT days = Días activos/inactivos en EBT
+days = días
+notes = billetes
+Longest period of consecutive active days = Período más largo de días activos seguidos
+Current consecutive active days = Período actual de días activos seguidos
+Longest break from EBT = Ausencia más larga de EBT
+Current break from EBT = Ausencia actual de EBT
+Total number of notes = Número total de billetes
+Total value of all notes = Valor total de los billetes
+Signatures = Firmas
+Unknown = Desconocida
+Average value per note = Valor medio de los billetes
+Average entering rate = Media de billetes al día
+
+## value
+Number of notes by value = Número de billetes por valor
+Value = Valor
+Notes = Billetes
+Percent = Porcentaje
+Amount = Cantidad
+
+## countries
+Number of notes by country code = Número de billetes por código de país
+Country = País
+Detail of notes per value and country code = Detalle de billetes por valor y código de país
+First notes by country code = Primer billete por código de país
+Note = El billete
+was the first from = fue el primero de
+entered on = introducido el
+note = billete
+
+## locations
+Countries with notes entered = Países en los que se han introducido billetes
+Number of notes by location = Número de billetes por localidad
+Alphabets of locations by country = Alfabetos de localidades por país
+First notes by printer code = Primer billete por código de imprenta
+
+## printers
+Number of notes by printer code = Número de billetes por código de imprenta
+Printer name = Nombre de la imprenta
+Detail of notes per value and printer code = Detalle de billetes por valor y código de imprenta
+
+## short codes
+Absolute lowest and highest short codes = Códigos cortos más bajos y altos, absolutos
+Lowest and highest short codes per value = Códigos cortos más bajos y altos, por valor
+Short code/country = Código corto/país
+Date = Fecha
+
+## notes_per_year
+Number of notes per year = Número de billetes por año
+
+## notes_per_month
+Number of notes per month = Número de billetes por mes
+
+## top_days
+Number of notes per day of the week = Número de billetes por día de la semana
+Top 10 days = Los 10 mejores días
+
+## combinations
+Result = Resultado
+Total = Total
+Combinations bingo = Bingo de combinaciones
+Still missing combinations = Combinaciones que faltan
+Unknown combinations = Combinaciones desconocidas
+History = Histórico
+Text format inspired by = Formato del texto inspirado por
+
+## note evolution
+Note evolution = Evolución temporal
+Interval = Intervalo
+Filter = Filtro
+Group by = Agrupar por
+Show only = Mostrar sólo
+Output = Salida
+
+## plate bingo
+Plate bingo = Bingo de planchas
+Total for = Total de
+
+## hit list
+Hit list = Lista de hits
+Dates = Fechas
+Val = Val
+Hit note = Billete
+Kms = Kms
+Days = Días
+Partners = Usuarios
+Note number = Billete número
+Old hit ratio = Hit ratio anterior
+New hit ratio = Hit ratio nuevo
+Notes between = Billetes entre medias
+Days between = Días entre medias
+
+## configuration
+Configuration = Configuración
+EBT id number = Número de ID en EBT
+Time zone = Huso horario
+Language = Idioma
+Notes CSV file = Archivo CSV de billetes
+Hits CSV file = Archivo CSV de hits

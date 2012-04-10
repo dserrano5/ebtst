@@ -1,0 +1,35 @@
+[b]<%=l 'General information' %>[/b]
+<%=l 'First note entered' %> <%= $ac->{'first_note'}{'date'} %> ( :note-<%= $ac->{'first_note'}{'value'} %>: <%=l 'in' %> <%= $ac->{'first_note'}{'city'} %> :flag-<%= $ac->{'first_note'}{'country'} %>:)
+<%=l 'Situation on' %> <%= $today %>, <%= $full_days %> <%=l '(full) days after the first note was entered' %>
+
+<%=l 'Active/inactive EBT days' %>: [b]<%= $ac->{'active_days_count'} %> - <%= $ac->{'inactive_days_count'} %>[/b] (<%= sprintf '%.2f', 100 * $ac->{'active_days_count'} / $ac->{'total_days_count'} %>% - <%= sprintf '%.2f', 100 * $ac->{'inactive_days_count'} / $ac->{'total_days_count'} %>%)
+<%=l 'Longest period of consecutive active days' %>: [b]<%= $ac->{'longest_active_period'} %>[/b] <%=l 'days' %> (<%= $ac->{'longest_active_period_notes'} %> <%=l 'notes' %>, <%= $ac->{'longest_active_period_from'} %> - <%= $ac->{'longest_active_period_to'} %>)
+<% if ($ac->{'current_active_period'}) { =%>
+<%=l 'Current consecutive active days' %>: [b]<%= $ac->{'current_active_period'} %>[/b] <%=l 'days' %> (<%= $ac->{'current_active_period_notes'} %> <%=l 'notes' %>, <%= $ac->{'current_active_period_from'} %> - <%= $ac->{'current_active_period_to'} %>)
+<% } else { =%>
+<%=l 'Current consecutive active days' %>: [b]0[/b] <%=l 'days' %>
+<% } =%>
+<% if ($ac->{'longest_break'}) { =%>
+<%=l 'Longest break from EBT' %>: [b]<%= $ac->{'longest_break'} %>[/b] <%=l 'days' %> (<%= $ac->{'longest_break_from'} %> - <%= $ac->{'longest_break_to'} %>)
+<% } else { =%>
+<%=l 'Longest break from EBT' %>: [b]0[/b] <%=l 'days' %>
+<% } =%>
+<% if ($ac->{'current_break'}) { =%>
+<%=l 'Current break from EBT' %>: [b]<%= $ac->{'current_break'} %>[/b] <%=l 'days' %> (<%= $ac->{'current_break_from'} %> - <%= $ac->{'current_break_to'} %>)
+<% } else { =%>
+<%=l 'Current break from EBT' %>: [b]0[/b] <%=l 'days' %>
+<% } =%>
+
+<%=l 'Total number of notes' %>: [b]<%= $count %>[/b]
+<%=l 'Total value of all notes' %>: [b]<%= $total_value %>[/b] EUR
+
+<%=l 'Signatures' %>:
+- [b]Duisenberg <%= $sigs_wd %>[/b] (<%= $sigs_wd_pct %>%)
+- [b]Trichet <%= $sigs_jct %>[/b] (<%= $sigs_jct_pct %>%)
+- [b]Draghi <%= $sigs_md %>[/b] (<%= $sigs_md_pct %>%)
+  <% if ($sigs_unk) { =%>
+  [b]<%=l 'Unknown' %>: <%= $sigs_unk %>[/b] (<%= $sigs_unk_pct %>%)
+  <% } =%>
+
+<%=l 'Average value per note' %>: [b]<%= $avg_value %>[/b] EUR
+<%=l 'Average entering rate' %>: [b]<%= $avg_per_day %>[/b] notes/day

@@ -1,0 +1,51 @@
+<h2><%=l 'Plate bingo' %></h2>
+<% foreach my $elem (@$cooked) { %>
+    <h3><%= $elem->{'value'} %></h3>
+    <table>
+        <% my %seen; my %total; %>
+        <tr>
+            <td></td>
+            <% foreach my $printer (@{ $elem->{'printers'} }) { %>
+                <% $seen{$printer} = $total{$printer} = 0; %>
+                <th><%= $printer %></th>
+            <% } %>
+        </tr>
+        <% foreach my $row (map { sprintf '%03d', $_ } 1 .. $elem->{'highest'}) { %>
+            <tr>
+                <th><%= $row %></th>
+                <% foreach my $printer (@{ $elem->{'printers'} }) { %>
+                    <% my $plate = sprintf '%s%03d', $printer, $row; %>
+                    <% my $class; %>
+                    <% if (exists $elem->{'plates'}{$plate}) { %>
+                        <% $total{$printer}++; %>
+                        <% if ($elem->{'plates'}{$plate}) { %>
+                            <% if ('err' eq $elem->{'plates'}{$plate}) { %>
+                                <% $class = 'bingo_err'; $seen{$printer}++; %>
+                            <% } else { %>
+                                <% $class = 'bingo_1'; $seen{$printer}++; %>
+                            <% } %>
+                        <% } else { %>
+                            <% $class = 'bingo_0'; %>
+                        <% } %>
+                    <% } else { %>
+                        <% $class = 'bingo_na'; %>
+                    <% } %>
+                    <td>
+                        <div class="<%= $class %>"></div>
+                    </td>
+                <% } %>
+            </tr>
+        <% } %>
+        <tr>
+            <th></th>
+            <% foreach my $printer (@{ $elem->{'printers'} }) { %>
+                <td class="small_cell"><%= $seen{$printer} %>/<%= $total{$printer} %></td>
+            <% } %>
+        </tr>
+    </table>
+    <% my $all_seen;  $all_seen  += $_ for values %seen; %>
+    <% my $all_total; $all_total += $_ for values %total; %>
+    <% my $all_pct = sprintf '%.2f', $all_seen * 100 / $all_total; %>
+    <p><%=l 'Total for' %> <%= $elem->{'value'} %>: <b><%= $all_seen; %>/<%= $all_total; %></b> (<%= $all_pct %>%)</p>
+    <% if ('all' eq $elem->{'value'} or 500 != $elem->{'value'}) { %><hr><% } %>
+<% } %>

@@ -1,0 +1,25 @@
+<h2><%=l 'Number of notes by value' %></h2>
+<table>
+    <tr>
+        <th><%=l 'Value' %></th>
+        <th><%=l 'Notes' %></th>
+        <th class="pct_cell"><%=l 'Percent' %></th>
+        <th><%=l 'Amount' %></th>
+    </tr>
+<% for my $elem (@$notes_by_val) { %>
+    % my $border;
+    % my $color = '#4040ff';
+    % if ($elem->{'count'}) {
+    %     $border = sprintf 'border-left: 1px solid %s;', $color;
+    % } else {
+    %     $border = '';
+    % }
+    % my $style = sprintf 'width: %s%%; float: left; %s background-color: %s', $elem->{'pct'}, $border, $color;
+    <tr>
+        <td><img src="/images/<%= $elem->{'value'} %>.gif"> <b><%= $elem->{'value'} %></b></td>
+        <td class="numeric"><%= $elem->{'count'} %></td>
+        <td class="numeric"><div style="<%= $style %>">&nbsp;</div><%= $elem->{'pct'} %>%</td>
+        <td class="numeric"><%= $elem->{'amount'} %> €</td>
+    </tr>
+<% } %>
+</table>

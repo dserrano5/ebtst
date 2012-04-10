@@ -1,0 +1,726 @@
+package EBTST::Main;
+
+use Mojo::Base 'Mojolicious::Controller';
+use Encode qw/encode/;
+use File::Spec;
+use DateTime;
+use List::Util qw/sum/;
+use List::MoreUtils qw/uniq/;
+
+sub index { shift->redirect_to ('information'); }
+
+sub information {
+    my ($self) = @_;
+
+    my $ac          = $self->ebt->get_activity;
+    my $count       = $self->ebt->get_count;
+    my $total_value = $self->ebt->get_total_value;
+    my $avg_value   = $total_value / $count;
+    my $sigs        = $self->ebt->get_signatures;
+    my $wd          = ($sigs->{'WD only'}//0)  + ($sigs->{'WD shared'}//0);
+    my $jct         = ($sigs->{'JCT only'}//0) + ($sigs->{'JCT shared'}//0);
+    my $md          = ($sigs->{'MD only'}//0)  + ($sigs->{'MD shared'}//0);
+    my $unk         = ($sigs->{'(unknown)'}//0);
+    my $today       = DateTime->now->set_time_zone ('Europe/Madrid')->strftime ('%Y-%m-%d %H:%M:%S');
+    my $full_days   = $self->ebt->get_days_elapsed;
+    my $avg_per_day = $count / $full_days;
+
+    $self->stash (
+        ac           => $ac,
+        today        => $today,
+        full_days    => $full_days,
+        count        => $count,
+        total_value  => $total_value,
+        avg_value    => (sprintf '%.2f', $avg_value),
+        avg_per_day  => (sprintf '%.2f', $avg_per_day),
+        sigs_wd      => $wd,
+        sigs_jct     => $jct,
+        sigs_md      => $md,
+        sigs_unk     => $unk,
+        sigs_wd_pct  => (sprintf '%.2f', 100 * $wd  / $count),
+        sigs_jct_pct => (sprintf '%.2f', 100 * $jct / $count),
+        sigs_md_pct  => (sprintf '%.2f', 100 * $md  / $count),
+        sigs_unk_pct => (sprintf '%.2f', 100 * $unk / $count),
+    );
+}
+
+sub value {
+    my ($self) = @_;
+
+    my $data = $self->ebt->get_notes_by_value;
+    my $count = $self->ebt->get_count;
+
+    my $notes_by_val;
+    for my $value (@{ $EBT2::config{'values'} }) {
+        push @$notes_by_val, {
+            value  => $value,
+            count  => ($data->{$value}//0),
+            pct    => (sprintf '%.2f', 100 * ($data->{$value}//0) / $count),
+            amount => ($data->{$value}//0) * $value,
+        };
+    }
+
+    $self->stash (notes_by_val => $notes_by_val);
+}
+
+sub countries {
+    my ($self) = @_;
+
+    my $data = $self->ebt->get_notes_by_cc;
+    my $count = $self->ebt->get_count;
+    my $count_by_value;
+    my $data_fbcc = $self->ebt->get_first_by_cc;
+
+    for my $cc (
+        sort {
+            ($data->{$b}{'total'}//0) <=> ($data->{$a}{'total'}//0) ||
+            $a cmp $b
+        } keys %$data
+    ) {
+        for my $v (grep { /^\d+$/ } keys %{ $data->{$cc} }) {
+            $count_by_value->{$v} += $data->{$cc}{$v};
+        }
+    }
+
+    my $nbc;
+    for my $cc (
+        sort {
+            ($data->{$b}{'total'}//0) <=> ($data->{$a}{'total'}//0) ||
+            EBT2->country_names (EBT2->countries ($a)) cmp EBT2->country_names (EBT2->countries ($b))
+        } keys %{ EBT2->countries }
+    ) {
+        my $detail;
+        for my $v (@{ $EBT2::config{'values'} }) {
+            if ($data->{$cc}{$v}) {
+                push @$detail, {
+                    count => $data->{$cc}{$v},
+                    pct   => (sprintf '%.2f', 100 * $data->{$cc}{$v} / $count_by_value->{$v}),
+                };
+            } else {
+                push @$detail, {
+                    count => 0,
+                    pct   => (sprintf '%.2f', 0),
+                };
+            }
+        }
+        my $iso3166 = do { local $ENV{'EBT_LANG'} = 'en'; EBT2->countries ($cc) };
+        push @$nbc, {
+            cname   => EBT2->country_names (EBT2->countries ($cc)),
+            imgname => $iso3166,
+            cc      => $cc,
+            count   => ($data->{$cc}{'total'}//0),
+            pct     => (sprintf '%.2f', 100 * ($data->{$cc}{'total'}//0) / $count),
+            detail  => $detail,
+        };
+    }
+
+    my $fbcc;
+    foreach my $cc (sort { $data_fbcc->{$a}{'at'} <=> $data_fbcc->{$b}{'at'} } keys %$data_fbcc) {
+        my $iso3166 = do { local $ENV{'EBT_LANG'} = 'en'; EBT2->countries ($cc) };
+        push @$fbcc, {
+            at       => $data_fbcc->{$cc}{'at'},
+            cname    => EBT2->country_names (EBT2->countries ($cc)),
+            imgname  => $iso3166,
+            value    => $data_fbcc->{$cc}{'value'},
+            on       => (split ' ', $data_fbcc->{$cc}{'date_entered'})[0],
+            city     => $data_fbcc->{$cc}{'city'},
+            imgname2 => $data_fbcc->{$cc}{'country'},
+        };
+    }
+
+    $self->stash (
+        nbc    => $nbc,
+        #cbv    => $count_by_value,
+        tot_bv => [ map { $count_by_value->{$_}//0 } @{ $EBT2::config{'values'} } ],
+        fbcc   => $fbcc,
+    );
+}
+
+sub locations {
+    my ($self) = @_;
+
+    my $nbco    = $self->ebt->get_notes_by_country;
+    my $nbci    = $self->ebt->get_notes_by_city;
+    my $count   = $self->ebt->get_count;
+    my $ab_data = $self->ebt->get_alphabets;
+
+    my $countries;
+    foreach my $iso3166 (
+        sort {
+            $nbco->{$b}{'total'} <=> $nbco->{$a}{'total'} or
+            $a cmp $b
+        } keys %$nbco
+    ) {
+        my $detail;
+        for my $v (@{ $EBT2::config{'values'} }) {
+            $nbco->{$iso3166}{$v} and push @$detail, {
+                value => $v,
+                count => $nbco->{$iso3166}{$v},
+            };
+        }
+        push @$countries, {
+            cname   => EBT2->country_names ($iso3166),
+            imgname => $iso3166,
+            count   => $nbco->{$iso3166}{'total'},
+            pct     => (sprintf '%.2f', 100 * $nbco->{$iso3166}{'total'} / $count),
+            detail  => $detail,
+        };
+    }
+
+    my $distinct_cities = sum @{[
+        map {
+            scalar keys %{ $nbci->{$_} }
+        } keys %$nbci
+    ]};
+
+    my $c_data;
+    foreach my $country (sort keys %$nbci) {
+        my $loc_data;
+        foreach my $loc (
+            sort {
+                $nbci->{$country}{$b}{'total'} <=> $nbci->{$country}{$a}{'total'} or
+                $a cmp $b
+            } keys %{ $nbci->{$country} }
+        ) {
+            my $detail;
+            for my $v (@{ $EBT2::config{'values'} }) {
+                $nbci->{$country}{$loc}{$v} and push @$detail, {
+                    value => $v,
+                    count => $nbci->{$country}{$loc}{$v},
+                };
+            }
+            push @$loc_data, {
+                loc_name => $loc,
+                count    => $nbci->{$country}{$loc}{'total'},
+                pct      => (sprintf '%.2f', 100 * $nbci->{$country}{$loc}{'total'} / $count),
+                detail   => $detail,
+            };
+        }
+        push @$c_data, {
+            cname    => EBT2->country_names ($country),
+            imgname  => $country,
+            loc_data => $loc_data,
+        };
+    }
+
+    my $ab;
+    foreach my $c (sort keys %$ab_data) {
+        my $letters;
+            
+        for my $letter ('A'..'Z') {
+            $letters->{$letter} = $ab_data->{$c}{$letter} // '';
+        }
+
+        push @$ab, {
+            imgname => $c,
+            cname   => EBT2->country_names ($c),
+            tot     => (scalar keys %{ $ab_data->{$c} }),
+            letters => $letters,
+        };
+    }
+
+    $self->stash (
+        num_co    => scalar keys %$nbco,
+        countries => $countries,
+        num_locs  => $distinct_cities,
+        c_data    => $c_data,
+        ab        => $ab,
+    );
+}
+
+sub printers {
+    my ($self) = @_;
+
+    my $data  = $self->ebt->get_notes_by_pc;
+    my $count = $self->ebt->get_count;
+    my $count_by_value;
+    my $data_fbpc = $self->ebt->get_first_by_pc;
+
+    for my $pc (
+        sort {
+            ($data->{$b}{'total'}//0) <=> ($data->{$a}{'total'}//0) ||
+            $a cmp $b
+        } keys %$data
+    ) {
+        for my $v (grep { /^\d+$/ } keys %{ $data->{$pc} }) {
+            $count_by_value->{$v} += $data->{$pc}{$v};
+        }
+    }
+
+    my $nbp;
+    foreach my $pc (sort {
+        $data->{$b}{'total'} <=> $data->{$a}{'total'} or
+        $a cmp $b
+    } keys %$data) {
+        my $detail;
+        for my $v (@{ $EBT2::config{'values'} }) {
+            if ($data->{$pc}{$v}) {
+                push @$detail, {
+                    count => $data->{$pc}{$v},
+                    pct   => (sprintf '%.2f', 100 * $data->{$pc}{$v} / $count_by_value->{$v}),
+                };
+            } else {
+                push @$detail, {
+                    count => 0,
+                    pct   => (sprintf '%.2f', 0),
+                };
+            }
+        }
+        push @$nbp, {
+            cname   => EBT2->country_names (EBT2->printers ($pc)),
+            pname   => EBT2->printers2name ($pc),
+            imgname => EBT2->printers ($pc),
+            pc      => $pc,
+            count   => $data->{$pc}{'total'},
+            pct     => (sprintf '%.2f', 100 * $data->{$pc}{'total'} / $count),
+            detail  => $detail,
+        };
+    }
+
+    my $fbpc;
+    foreach my $pc (sort { $data_fbpc->{$a}{'at'} <=> $data_fbpc->{$b}{'at'} } keys %$data_fbpc) {
+        my $iso3166 = do { local $ENV{'EBT_LANG'} = 'en'; EBT2->printers ($pc) };
+        push @$fbpc, {
+            at       => $data_fbpc->{$pc}{'at'},
+            pc       => $pc,
+            cname    => EBT2->country_names (EBT2->countries ($pc)),
+            imgname  => $iso3166,
+            value    => $data_fbpc->{$pc}{'value'},
+            on       => (split ' ', $data_fbpc->{$pc}{'date_entered'})[0],
+            city     => $data_fbpc->{$pc}{'city'},
+            imgname2 => $data_fbpc->{$pc}{'country'},
+        };
+    }
+
+    $self->stash (
+        nbp    => $nbp,
+        #cbv    => $count_by_value,
+        tot_bv => [ map { $count_by_value->{$_}//0 } @{ $EBT2::config{'values'} } ],
+        fbpc   => $fbpc,
+    );
+}
+
+sub short_codes {
+    my ($self) = @_;
+
+    my $cook = sub {
+        my ($str) = @_;
+        return $str =~ /^(.{6})(.*)/;
+    };
+
+    my $lo = $self->ebt->get_lowest_short_codes;
+#use Data::Dumper;warn sprintf "*** %s\n", (Dumper $lo);
+    my $hi = $self->ebt->get_highest_short_codes;
+    my @pcs = uniq keys %$lo, keys %$hi;
+
+    my $sc;
+    foreach my $pc (sort @pcs) {
+        foreach my $v ('all', @{ $EBT2::config{'values'} }) {
+            my $records = {
+                lo => $lo->{$pc}{$v},
+                hi => $hi->{$pc}{$v},
+            };
+            my $tmp;
+            foreach my $what (qw/lo hi/) {
+                next unless defined $records->{$what}{'short_code'};
+                my $pc = substr $records->{$what}{'short_code'}, 0, 1;
+                my $cc = substr $records->{$what}{'serial'},     0, 1;
+                $tmp->{$what} = {
+                    #pc     => $pc,
+                    #cc     => $cc,
+                    pc_img => EBT2->printers ($pc),
+                    cc_img => EBT2->countries ($cc),
+                    str    => (sprintf '%s/%s', $cook->($records->{$what}{'sort_key'})),
+                    value  => $records->{$what}{'value'},
+                    date   => (split ' ', $records->{$what}{'date_entered'})[0],
+                };
+            }
+            push @{ $sc->{$v} }, $tmp;
+
+            #if (!defined $lo->{$pc}{$v}{'sort_key'}) {
+            #    next;
+            #}
+        }
+    }
+
+    $self->stash (
+        sc  => $sc,
+    );
+}
+
+sub combs {
+    my ($self) = @_;
+
+    my $nbc        = $self->ebt->get_notes_by_combination;
+    #my $sbp        = $self->ebt->sigs_by_president;
+    my $comb_data  = $self->ebt->get_missing_combs_and_history;
+    my $presidents = [
+        map { [ split /:/ ] } 'any:Any signature', @{ $self->ebt->presidents }
+    ];
+
+    my $missing;
+    foreach my $k (sort keys %{ $comb_data->{'missing_pcv'} }) {
+        my ($p, $c, $v) = $k =~ /^(.)(.)(\d{3})$/;
+        $v += 0;
+
+        if (!exists $missing->{"$p$c"}) {
+            $missing->{"$p$c"} = {
+                pname   => do { local $ENV{'EBT_LANG'} = 'en'; EBT2->printers ($p) },
+                cname   => do { local $ENV{'EBT_LANG'} = 'en'; EBT2->countries ($c) },
+                pletter => $p,
+                cletter => $c,
+                values  => [ $v ],
+            };
+        } else {
+            push @{ $missing->{"$p$c"}{'values'} }, $v;
+        }
+    }
+
+    my $unknown;
+    if (my %unknown_combs = %{ $comb_data->{'unknown_combs'} }) {
+        foreach my $k (sort keys %unknown_combs) {
+            my ($p, $c, $v) = $k =~ /^(.)(.)(\d{3})$/;
+            $v += 0;
+
+            my @links;
+            foreach my $id (@{ $unknown_combs{$k} }) {
+                push @links, {
+                    value => $v,
+                    id    => $id,
+                };
+            }
+
+            if (!exists $unknown->{"$p$c"}) {
+                $unknown->{"$p$c"} = {
+                    pname   => do { local $ENV{'EBT_LANG'} = 'en'; EBT2->printers ($p) },
+                    cname   => do { local $ENV{'EBT_LANG'} = 'en'; EBT2->countries ($c) },
+                    pletter => $p,
+                    cletter => $c,
+                    links   => [ @links ],
+                };
+            } else {
+                push @{ $unknown->{"$p$c"}{'links'} }, [ @links ];
+            }
+        }
+    }
+
+    $self->stash (
+        nbc        => $nbc,
+        presidents => $presidents,
+        missing    => $missing,
+        unknown    => $unknown,
+        history    => $comb_data->{'history'},
+    );
+}
+
+sub plate_bingo {
+    my ($self) = @_;
+
+    my $plate_data = $self->ebt->get_plate_bingo;
+    my $cooked;
+    foreach my $value (
+        sort {
+            if ('all' eq $a) { return -1; }
+            if ('all' eq $b) { return 1; }
+            return $a <=> $b;
+        } keys %$plate_data
+    ) {
+        my %plates;
+        my @printers;
+        my $highest = 0;
+        foreach my $plate (sort keys %{ $plate_data->{$value} }) {
+            $plates{$plate} = $plate_data->{$value}{$plate};
+            push @printers, substr $plate, 0, 1;
+            my $ordinal = substr $plate, 1;
+            $highest = $ordinal if $ordinal > $highest;
+        }
+        @printers = sort +uniq @printers;
+
+        push @$cooked, {
+            value    => $value,
+            plates   => \%plates,
+            printers => \@printers,
+            highest  => $highest,
+        };
+    }
+
+    $self->stash (cooked => $cooked);
+}
+
+sub upload {
+    my ($self) = @_;
+
+    my $notes_csv = $self->req->upload ('notes_csv_file');
+    my $hits_csv  = $self->req->upload ('hits_csv_file');
+    if ($notes_csv) {
+        my $local_notes_file = File::Spec->catfile ($ENV{'TMP'}//$ENV{'TEMP'}, 'notes_uploaded.csv');
+        $notes_csv->move_to ($local_notes_file);
+        $self->ebt->load_notes ($local_notes_file);
+        unlink $local_notes_file or warn "unlink: '$local_notes_file': $!\n";
+    }
+    if ($hits_csv) {
+        my $local_hits_file  = File::Spec->catfile ($ENV{'TMP'}//$ENV{'TEMP'}, 'hits_uploaded.csv');
+        $hits_csv->move_to  ($local_hits_file) if $hits_csv;
+        $self->ebt->load_hits ($local_hits_file);
+        unlink $local_hits_file  or warn "unlink: '$local_hits_file': $!\n";
+    }
+
+    $self->redirect_to ('/information');
+}
+
+sub bbcode {
+    my ($self) = @_;
+
+    my @outputs;
+    foreach my $param (qw/information value countries locations printers short_codes combs plate_bingo/) {
+        if ($self->param ($param)) {
+            $self->$param;
+            push @outputs, $self->render_partial (template => "main/$param", format => 'txt');
+        }
+    }
+
+    my $body = encode 'UTF-8', join "\n\n", @outputs;
+    $self->res->headers->content_type ('text/plain; charset=utf-8');
+    $self->res->body ($body);
+    $self->rendered (200);
+}
+
+1;
+
+__END__
+
+sub help {
+    my ($self) = @_;
+
+    $self->flash (in => 'help');
+}
+
+sub quit {
+    my ($self) = @_;
+
+    #$self->render (text => 'bye!');
+    #$self->res->headers->content_length (4); $self->write('bye!');
+    exit;
+}
+
+sub huge_table {
+    my ($self) = @_;
+
+    $self->flash (in => 'huge_table');
+}
+
+sub nice_serials {
+    my ($self) = @_;
+
+    $self->flash (in => 'nice_serials');
+}
+
+sub notes_per_year {
+    my ($self) = @_;
+
+    my $nby_data = $self->ebt->get_notes_by_year;
+    my $count = $self->ebt->get_count;
+
+    my $nby;
+    foreach my $y (sort keys %$nby_data) {
+        my $detail;
+        foreach my $v (@EBT::values) {
+            next unless $nby_data->{$y}{$v};
+            push @$detail, {
+                value => $v,
+                count => $nby_data->{$y}{$v},
+            };
+        }
+        my $tot = $nby_data->{$y}{'total'};
+        push @$nby, {
+            year   => $y,
+            count  => $tot,
+            pct    => (sprintf '%.2f', 100 * $tot / $count),
+            detail => $detail,
+        };
+    }
+
+    $self->flash (in => 'notes_per_year');
+    $self->stash (
+        nby => $nby,
+    );
+}
+
+sub notes_per_month {
+    my ($self) = @_;
+
+    my $nbm_data = $self->ebt->get_notes_by_month;
+    my $count = $self->ebt->get_count;
+
+    my $nbm;
+    foreach my $m (sort keys %$nbm_data) {
+        my $detail;
+        foreach my $v (@EBT::values) {
+            next unless $nbm_data->{$m}{$v};
+            push @$detail, {
+                value => $v,
+                count => $nbm_data->{$m}{$v},
+            };
+        }
+        my $tot = $nbm_data->{$m}{'total'};
+        push @$nbm, {
+            month  => $m,
+            count  => $tot,
+            pct    => (sprintf '%.2f', 100 * $tot / $count),
+            detail => $detail,
+        };
+    }
+
+    $self->flash (in => 'notes_per_month');
+    $self->stash (
+        nbm => $nbm,
+    );
+}
+
+sub top_days {
+    my ($self) = @_;
+
+    my $t10d_data = $self->ebt->get_top10days;
+    my $nbdow_data = $self->ebt->get_notes_by_dow;
+    my $count = $self->ebt->get_count;
+
+    my $nbdow;
+    foreach my $dow (sort keys %$nbdow_data) {
+        my $detail;
+        foreach my $v (@EBT::values) {
+            next unless $nbdow_data->{$dow}{$v};
+            push @$detail, {
+                value => $v,
+                count => $nbdow_data->{$dow}{$v},
+            };
+        }
+        my $tot = $nbdow_data->{$dow}{'total'};
+        push @$nbdow, {
+            dow    => $EBT::dow2name[$dow],
+            count  => $tot,
+            pct    => (sprintf '%.2f', 100 * $tot / $count),
+            detail => $detail,
+        };
+    }
+
+    my $t10d;
+    foreach my $d (
+        sort {
+            $t10d_data->{$b}{'total'} <=> $t10d_data->{$a}{'total'} or
+            $a cmp $b
+        } keys %$t10d_data
+    ) {
+        my $detail;
+        foreach my $v (@EBT::values) {
+            next unless $t10d_data->{$d}{$v};
+            push @$detail, {
+                value => $v,
+                count => $t10d_data->{$d}{$v},
+            };
+        }
+        my $tot = $t10d_data->{$d}{'total'};
+        push @$t10d, {
+            date   => $d,
+            count  => $tot,
+            pct    => (sprintf '%.2f', 100 * $tot / $count),
+            detail => $detail,
+        };
+    }
+
+    $self->flash (in => 'top_days');
+    $self->stash (
+        nbdow => $nbdow,
+        t10d  => $t10d,
+    );
+}
+
+sub time_analysis {
+    my ($self) = @_;
+
+    $self->flash (in => 'time_analysis');
+}
+
+## 20120102: ugh, comento esto porque me sale:
+## 'Undefined subroutine &MooseX::Types::filter_tags called at /usr/share/perl5/MooseX/Types.pm line 345'
+## y como consecuencia no puedo usar EBT::OFC2
+#sub evolution {
+#    my ($self) = @_;
+#
+#    my $stats;
+#    if ($self->param ('interval_what')) {
+#        my $interval = 'all' eq  $self->param ('interval_what') ?
+#            'all' :
+#            $self->param ('interval_num') . $self->param ('interval_what');
+#
+#        my $filter;
+#        if (my $v = $self->param ('filter_val')) {
+#            $filter->{ lc $self->param ('filter_what') } = $v;
+#        }
+#
+#        my $group_by = lc $self->param ('group_by')||undef;
+#        my @show_only = split ',', $self->param ('show_only');
+#        my $output = $self->param ('output');
+#
+#        $self->ebt->note_evolution ($interval, $filter, $group_by, \@show_only, $output);
+#        my $data = $self->ebt->get_note_evolution;
+#        foreach my $chunk (@$data) {
+#            my $sd = $chunk->{'start_date'}; $sd =~ s/-//g;
+#            $stats->{$sd} = $chunk->{'val'};
+#        }
+#    }
+#
+#    $self->flash (in => 'evolution');
+#    if ($stats) {
+#        my ($knames, $all_data) = EBT::OFC2::gen_json_data 'f0f0f0', 'some title', $stats;
+#        my $js_blob = EBT::OFC2::create_js_blob $all_data, 790, 500, 'ofc2';
+#
+#        $self->stash (
+#            form_name => (join '', map { chr 97 + int rand 26 } 1..10),
+#            js_blob   => $js_blob,
+#            knames    => $knames,
+#        );
+#    } else {
+#        $self->stash (
+#            form_name => (join '', map { chr 97 + int rand 26 } 1..10),
+#            js_blob   => '',
+#            knames    => [],
+#        );
+#    }
+#}
+
+sub hit_list {
+    my ($self) = @_;
+
+## idx, dates, value, serial, Countries, Places, Kms, Days, Partner(s), Note number, Notes, old/new hit ratio, Notes between, Days between
+    my $hit_data = $self->ebt->get_hit_list;
+    my $cooked;
+    my $idx = 0;
+    foreach my $hit (@$hit_data) {
+        next if $hit->{'moderated'};
+        $hit->{'idx'} = ++$idx;
+        $hit->{'serial'} =~ s/^([A-Z])....(....)...$/$1xxxx$2xxx/;
+        push @$cooked, $hit;
+    }
+    @$cooked = sort {
+        $a->{'hit_date'} cmp $b->{'hit_date'}
+    } @$cooked;
+
+    $self->flash (in => 'hit_list');
+    $self->stash (
+        cooked   => $cooked,
+    );
+}
+
+sub bbcode {
+    my ($self) = @_;
+
+    $self->flash (in => 'bbcode');
+}
+
+sub charts {
+    my ($self) = @_;
+
+    $self->flash (in => 'charts');
+}
+
+1;

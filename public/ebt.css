@@ -1,0 +1,100 @@
+body {
+    background-color: #f0f0f0;
+    font-family: sans-serif;
+    font-size: 9pt;
+    color: #4040e0;
+    padding: 0px;
+    /*width: 800px;*/
+    overflow: auto;
+}
+#mainbody {
+    background-color: #c0c0ff;
+    font-family: sans-serif;
+    font-size: 9pt;
+    color: #4040e0;
+}
+#sections {
+    background-color: #f0f0f0;
+    padding: 5px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 180px;
+}
+#repl {
+    background-color: #f0f0f0;
+    padding: 5px;
+    position: absolute;
+    top: 20px;
+    left: 230px;
+    /*width: 800px;*/
+    overflow: auto;
+}
+h2 {
+    font-size: 15px;
+    text-decoration: underline;
+    /* TODO: que el underline sea más grueso y llegue hasta la derecha de todo */
+}
+.section_link {
+    color: #4040e0;
+    font-weight: bold;
+    text-decoration: none;
+}
+.bbcode_button {
+    border: none;
+    background-color: transparent;
+    padding: 0;
+    font-size: 1em;
+    cursor: pointer;
+}
+th {
+    text-align: left;
+    background-color: #b0b0ff;
+    padding: 1px 15px 1px 15px;
+}
+#sections table tr td {
+    background-color: #f0f0f0;  /* same as in '#sections' */
+    padding: 2px;
+}
+table tr td {
+    background-color: #e0e0ff;
+    padding: 1px 15px 1px 15px;
+}
+table tr .numeric {
+    text-align: right;
+}
+table tr .small_cell {
+    padding: 1px 4px 1px 4px;
+    font-size: 11px;
+}
+.pct_cell {
+    width: 160px;
+}
+.invisible_cell {
+    background-color: #f0f0f0;  /* same as in '#sections' */
+}
+a img {
+    border-style: none;
+}
+.bingo_0:after {
+    /*color: #b0b0ff;*/  /* same as in 'th' */
+    color: #c00000;
+    font-weight: bold;
+    font-size: 14px;
+    content: '×';
+}
+.bingo_1:after {
+    color: #00c000;
+    font-weight: bold;
+    font-size: 14px;
+    content: '✔';
+}
+.bingo_err:after {
+    color: #ff0000;
+    font-weight: bold;
+    font-size: 14px;
+    content: '!';
+}
+.bingo_na:after {
+    visibility: hidden;
+}

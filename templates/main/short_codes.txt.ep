@@ -1,1 +1,14 @@
-[b]<%=l 'Absolute lowest and highest short codes' %>[/b]
+[b]<%=l 'Absolute highest short codes' %>[/b]
+<% foreach my $elem (@{ $sc->{'all'} }) { =%>
+ :flag-<%= $elem->{'hi'}{'pc_img'} %>: :flag-<%= $elem->{'hi'}{'cc_img'} %>: <%= $elem->{'hi'}{'str'} %> :note-<%= $elem->{'hi'}{'value'} %>:, <%=l 'entered on' %> <%= $elem->{'hi'}{'date'} %>
+<% } =%>
+
+[b]<%=l 'Highest short codes per value' %>[/b]
+<% foreach my $v (@{ $EBT2::config{'values'} }) { =%>
+[i]<%= $v %>[/i]
+<% foreach my $elem (@{ $sc->{$v} }) { =%>
+<% if (defined $elem) { =%>
+ :flag-<%= $elem->{'hi'}{'pc_img'} %>: :flag-<%= $elem->{'hi'}{'cc_img'} %>: <%= $elem->{'hi'}{'str'} %>, <%=l 'entered on' %> <%= $elem->{'hi'}{'date'} %>
+<% } =%>
+<% } %>
+<% } =%>

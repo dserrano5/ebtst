@@ -69,6 +69,8 @@ Detail of notes per value and printer code = Detalle de billetes por valor y có
 ## short codes
 Absolute lowest and highest short codes = Códigos cortos más bajos y altos, absolutos
 Lowest and highest short codes per value = Códigos cortos más bajos y altos, por valor
+Absolute highest short codes = Códigos cortos más altos, absolutos
+Highest short codes per value = Códigos cortos más altos, por valor
 Short code/country = Código corto/país
 Date = Fecha
 

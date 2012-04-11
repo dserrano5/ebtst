@@ -9,11 +9,11 @@ use EBT2;
 my $obj = new_ok 'EBT2', [ db => '/tmp/ebt2-storable' ];
 ok $obj->{'data'};
 ok $obj->{'stats'};
-ok !$obj->has_data;
+ok !$obj->has_notes;
 
 $obj->load_notes ('t/notes1.csv');
-ok $obj->has_data;
-ok defined $obj->{'data'}{'notes'}, 'There are notes after loading CSV';
+ok $obj->has_notes;
+ok defined $obj->{'data'}{'notes'}, 'There are some notes after loading CSV';
 is scalar @{ $obj->{'data'}{'notes'} }, 2, 'Correct number of notes';
 $obj->load_hits ('t/hits1.csv');
 ok exists $obj->{'data'}{'notes'}[1]{'hit'}, 'There is a hit after loading hits CSV';

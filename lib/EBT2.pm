@@ -97,7 +97,7 @@ sub ebt_lang {
 sub load_notes { my ($self, $notes_file) = @_; $self->{'data'}->load_notes ($notes_file); return $self; }
 sub load_hits  { my ($self, $hits_file)  = @_; $self->{'data'}->load_hits  ($hits_file); return $self; }
 sub load_db    { my ($self)              = @_; $self->{'data'}->load_db; return $self; }
-sub has_data   { my ($self)              = @_; $self->{'data'}->has_data; }
+sub has_notes  { my ($self)              = @_; $self->{'data'}->has_notes; }
 
 our $AUTOLOAD;
 sub AUTOLOAD {

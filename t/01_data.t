@@ -9,11 +9,11 @@ use EBT2::Data;
 
 my $obj = new_ok 'EBT2::Data', [ db => '/tmp/ebt2-storable' ];
 ok $obj->{'db'};
-ok !$obj->has_data, 'Object reports having no data';
+ok !$obj->has_notes, 'Object reports having no notes';
 
 ## load_notes, load_db, check
 $obj->load_notes ('t/notes1.csv');
-ok $obj->has_data, 'Object reports having data';
+ok $obj->has_notes, 'Object reports having some notes';
 ok defined $obj->{'notes'}, 'There are notes after loading notes CSV';
 is scalar @{ $obj->{'notes'} }, 2, 'Correct number of notes';
 is ref $obj->{'notes'}[1]{'hit'}, '', 'No hits at all after initial loading of notes CSV';

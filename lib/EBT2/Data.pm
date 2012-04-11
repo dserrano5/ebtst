@@ -296,7 +296,7 @@ sub _clean_object {
     return $self;
 }
 
-sub has_data {
+sub has_notes {
     my ($self) = @_;
 
     return exists $self->{'notes'} && !!@{ $self->{'notes'} };

@@ -31,21 +31,21 @@ sub startup {
 
     $r->get ('/')->to ('main#index');
     #$r->get ('/quit')->to ('main#quit');
-    my $r_has_data = $r->under (sub {
+    my $r_has_notes = $r->under (sub {
         my ($self) = @_;
 
-        $self->stash (has_data => $self->ebt->has_data);
+        $self->stash (has_notes => $self->ebt->has_notes);
         return 1;
     });
 
-    $r_has_data->post ('/upload')->to ('main#upload');
-    $r_has_data->get ('/configure')->to ('main#configure');
-    #$r_has_data->get ('/help')->to ('main#help');
+    $r_has_notes->post ('/upload')->to ('main#upload');
+    $r_has_notes->get ('/configure')->to ('main#configure');
+    #$r_has_notes->get ('/help')->to ('main#help');
 
-    my $u = $r_has_data->under (sub {
+    my $u = $r_has_notes->under (sub {
         my ($self) = @_;
 
-        if (!$self->ebt->has_data) {
+        if (!$self->ebt->has_notes) {
             $self->redirect_to ('configure');
             return 0;
         }

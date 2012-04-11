@@ -3,9 +3,12 @@ package EBT2::Stats;
 use warnings;
 use strict;
 use DateTime;
+use List::Util qw/sum/;
 use List::MoreUtils qw/zip/;
 use EBT2::Data;
 use EBT2::NoteValidator;
+
+sub mean { return sum(@_)/@_; }
 
 sub new {
     my ($class, %args) = @_;
@@ -294,6 +297,27 @@ sub highest_short_codes {
 
     return $self->fooest_short_codes ($data, 1, 'highest_short_codes');
 }
+
+sub notes_per_year {
+    my ($self, $data) = @_;
+    my %ret;
+
+    my $iter = $data->note_getter;
+    while (my $hr = $iter->()) {
+        my $y = substr $hr->{'date_entered'}, 0, 4;
+        $ret{'notes_per_year'}{$y}{'total'}++;
+        $ret{'notes_per_year'}{$y}{ $hr->{'value'} }++;
+        push @{ $ret{'avgs_by_year'}{$y} }, $hr->{'value'};
+    }
+
+    ## compute the average value of notes
+    foreach my $year (keys %{ $ret{'avgs_by_year'} }) {
+        $ret{'avgs_by_year'}{$year} = mean @{ $ret{'avgs_by_year'}{$year} };
+    }
+
+    return \%ret;
+}
+#sub avgs_by_year { goto &notes_per_year; }
 
 ## module should calculate combs at the finest granularity (value*cc*plate*sig), it is up to the app to aggregate the pieces
 ## 20120406: no, that should be here, to prevent apps from performing the same work
@@ -600,30 +624,6 @@ sub coords_bingo {
 
     return $self;
 }
-
-sub notes_by_year {
-    my ($self) = @_;
-
-    #return $self if $self->{'notes_by_year'};  ## if already done
-
-    my $iter = $self->note_getter (one_result_aref => 0, one_result_full_data => 0);
-    while (my $hr = $iter->()) {
-        my $y = substr $hr->{'date_entered'}, 0, 4;
-        $self->{'notes_by_year'}{$y}{'total'}++;
-        $self->{'notes_by_year'}{$y}{ $hr->{'value'} }++;
-        push @{ $self->{'avgs_by_year'}{$y} }, $hr->{'value'};
-    }
-
-    ## compute the average value of notes
-    foreach my $year (keys %{ $self->{'avgs_by_year'} }) {
-        $self->{'avgs_by_year'}{$year} =
-            sum (@{ $self->{'avgs_by_year'}{$year} }) /
-            @{ $self->{'avgs_by_year'}{$year} };
-    }
-
-    return $self;
-}
-sub avgs_by_year { goto &notes_by_year; }
 
 sub notes_by_month {
     my ($self) = @_;

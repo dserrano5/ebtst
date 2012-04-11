@@ -348,6 +348,36 @@ sub short_codes {
     );
 }
 
+sub notes_per_year {
+    my ($self) = @_;
+
+    my $nby_data = $self->ebt->get_notes_per_year;
+    my $count = $self->ebt->get_count;
+
+    my $nby;
+    foreach my $y (sort keys %$nby_data) {
+        my $detail;
+        foreach my $v (@{ $EBT2::config{'values'} }) {
+            next unless $nby_data->{$y}{$v};
+            push @$detail, {
+                value => $v,
+                count => $nby_data->{$y}{$v},
+            };
+        }
+        my $tot = $nby_data->{$y}{'total'};
+        push @$nby, {
+            year   => $y,
+            count  => $tot,
+            pct    => (sprintf '%.2f', 100 * $tot / $count),
+            detail => $detail,
+        };
+    }
+
+    $self->stash (
+        nby => $nby,
+    );
+}
+
 sub combs {
     my ($self) = @_;
 
@@ -472,7 +502,10 @@ sub bbcode {
     my ($self) = @_;
 
     my @outputs;
-    foreach my $param (qw/information value countries locations printers short_codes combs plate_bingo/) {
+    foreach my $param (qw/
+        information value countries locations printers short_codes
+        notes_per_year combs plate_bingo
+    /) {
         if ($self->param ($param)) {
             $self->$param;
             push @outputs, $self->render_partial (template => "main/$param", format => 'txt');
@@ -513,37 +546,6 @@ sub nice_serials {
     my ($self) = @_;
 
     $self->flash (in => 'nice_serials');
-}
-
-sub notes_per_year {
-    my ($self) = @_;
-
-    my $nby_data = $self->ebt->get_notes_by_year;
-    my $count = $self->ebt->get_count;
-
-    my $nby;
-    foreach my $y (sort keys %$nby_data) {
-        my $detail;
-        foreach my $v (@EBT::values) {
-            next unless $nby_data->{$y}{$v};
-            push @$detail, {
-                value => $v,
-                count => $nby_data->{$y}{$v},
-            };
-        }
-        my $tot = $nby_data->{$y}{'total'};
-        push @$nby, {
-            year   => $y,
-            count  => $tot,
-            pct    => (sprintf '%.2f', 100 * $tot / $count),
-            detail => $detail,
-        };
-    }
-
-    $self->flash (in => 'notes_per_year');
-    $self->stash (
-        nby => $nby,
-    );
 }
 
 sub notes_per_month {

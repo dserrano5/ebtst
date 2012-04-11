@@ -9,6 +9,6 @@
 [i]<%= $elem->{'cname'} %>[/i]
 <% foreach my $loc (@{ $elem->{'loc_data'} }) { =%>
  :flag-<%= $elem->{'imgname'} %>: <%= $loc->{'loc_name'} %> - <%= $loc->{'count'} %> (<%= $loc->{'pct'} %><%= '%) - ' =%>
-<% foreach my $d (@{ $loc->{'detail'} }) { =%>[<%= $d->{'count'} %> :note-<%= $d->{'value'} %>:]<% } %>
+<% foreach my $d (@{ $loc->{'detail'} }) { =%>[<%= $d->{'count'} %> :note-<%= $d->{'value'} %>:] <% } %>
 <% } %>
 <% } =%>

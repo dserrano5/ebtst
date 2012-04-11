@@ -74,6 +74,9 @@ Highest short codes per value = Códigos cortos más altos, por valor
 Short code/country = Código corto/país
 Date = Fecha
 
+## coords_bingo
+Coordinates bingo = Bingo de coordenadas
+
 ## notes_per_year
 Number of notes per year = Número de billetes por año
 

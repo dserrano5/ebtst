@@ -298,6 +298,20 @@ sub highest_short_codes {
     return $self->fooest_short_codes ($data, 1, 'highest_short_codes');
 }
 
+sub coords_bingo {
+    my ($self, $data) = @_;
+    my %ret;
+
+    my $iter = $data->note_getter;
+    while (my $hr = $iter->()) {
+        my $coords = substr $hr->{'short_code'}, 4, 2;
+        $ret{'coords_bingo'}{ $hr->{'value'} }{$coords}++;
+        $ret{'coords_bingo'}{ 'all' }{$coords}++;
+    }
+
+    return \%ret;
+}
+
 sub notes_per_year {
     my ($self, $data) = @_;
     my %ret;
@@ -626,21 +640,6 @@ sub square_serials {
             $self->{'square_serials'}{'total'}++;
             $self->{'square_serials'}{ $hr->{'value'} }++;
         }
-    }
-
-    return $self;
-}
-
-sub coords_bingo {
-    my ($self) = @_;
-
-    #return $self if $self->{'coords_bingo'};  ## if already done
-
-    my $iter = $self->note_getter (one_result_aref => 0, one_result_full_data => 0);
-    while (my $hr = $iter->()) {
-        my $coords = substr $hr->{'short_code'}, 4, 2;
-        $self->{'coords_bingo'}{ $hr->{'value'} }{$coords}++;
-        $self->{'coords_bingo'}{ 'all' }{$coords}++;
     }
 
     return $self;

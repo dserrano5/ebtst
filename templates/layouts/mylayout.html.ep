@@ -35,6 +35,9 @@
                     <td><input type="checkbox" name="nice_serials"></td>
                     <td><a class="section_link" id="nice_serials"    href="/nice_serials"><%=l 'Nice serials' %></a><br>
 -->
+                </tr><tr>
+                    <td><input type="checkbox" name="coords_bingo"></td>
+                    <td><a class="section_link" id="coords_bingo"  href="/coords_bingo"><%=l 'Coordinates bingo' %></a><br>
                 </tr><!-- note_analysis --><tr>
                     <td><input type="checkbox" name="notes_per_year"></td>
                     <td><a class="section_link" id="notes_per_year"  href="/notes_per_year"><%=l 'Notes/year' %></a><br>

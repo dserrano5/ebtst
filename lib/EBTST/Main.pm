@@ -348,6 +348,21 @@ sub short_codes {
     );
 }
 
+sub coords_bingo {
+    my ($self) = @_;
+
+    my $cb_data = $self->ebt->get_coords_bingo;
+
+    my $cb = $cb_data;
+    #foreach my $v ('all', @{ $EBT2::config{'values'} }) {
+    #    next unless defined $cb_data->{$v};
+    #}
+
+    $self->stash (
+        cb => $cb,
+    );
+}
+
 sub notes_per_year {
     my ($self) = @_;
 
@@ -534,7 +549,7 @@ sub bbcode {
     my @outputs;
     foreach my $param (qw/
         information value countries locations printers short_codes
-        notes_per_year notes_per_month combs plate_bingo
+        coords_bingo notes_per_year notes_per_month combs plate_bingo
     /) {
         if ($self->param ($param)) {
             $self->$param;

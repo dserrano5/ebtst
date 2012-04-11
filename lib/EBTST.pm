@@ -62,7 +62,7 @@ sub startup {
     $u->get ('/short_codes')->to ('main#short_codes');
     #$u->get ('/nice_serials')->to ('main#nice_serials');
     $u->get ('/notes_per_year')->to ('main#notes_per_year');
-    #$u->get ('/notes_per_month')->to ('main#notes_per_month');
+    $u->get ('/notes_per_month')->to ('main#notes_per_month');
     #$u->get ('/top_days')->to ('main#top_days');
     #$u->get ('/time_analysis')->to ('main#time_analysis');
     $u->get ('/combs')->to ('main#combs');

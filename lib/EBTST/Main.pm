@@ -378,6 +378,36 @@ sub notes_per_year {
     );
 }
 
+sub notes_per_month {
+    my ($self) = @_;
+
+    my $nbm_data = $self->ebt->get_notes_per_month;
+    my $count = $self->ebt->get_count;
+
+    my $nbm;
+    foreach my $m (sort keys %$nbm_data) {
+        my $detail;
+        foreach my $v (@{ $EBT2::config{'values'} }) {
+            next unless $nbm_data->{$m}{$v};
+            push @$detail, {
+                value => $v,
+                count => $nbm_data->{$m}{$v},
+            };
+        }
+        my $tot = $nbm_data->{$m}{'total'};
+        push @$nbm, {
+            month  => $m,
+            count  => $tot,
+            pct    => (sprintf '%.2f', 100 * $tot / $count),
+            detail => $detail,
+        };
+    }
+
+    $self->stash (
+        nbm => $nbm,
+    );
+}
+
 sub combs {
     my ($self) = @_;
 
@@ -504,7 +534,7 @@ sub bbcode {
     my @outputs;
     foreach my $param (qw/
         information value countries locations printers short_codes
-        notes_per_year combs plate_bingo
+        notes_per_year notes_per_month combs plate_bingo
     /) {
         if ($self->param ($param)) {
             $self->$param;
@@ -546,37 +576,6 @@ sub nice_serials {
     my ($self) = @_;
 
     $self->flash (in => 'nice_serials');
-}
-
-sub notes_per_month {
-    my ($self) = @_;
-
-    my $nbm_data = $self->ebt->get_notes_by_month;
-    my $count = $self->ebt->get_count;
-
-    my $nbm;
-    foreach my $m (sort keys %$nbm_data) {
-        my $detail;
-        foreach my $v (@EBT::values) {
-            next unless $nbm_data->{$m}{$v};
-            push @$detail, {
-                value => $v,
-                count => $nbm_data->{$m}{$v},
-            };
-        }
-        my $tot = $nbm_data->{$m}{'total'};
-        push @$nbm, {
-            month  => $m,
-            count  => $tot,
-            pct    => (sprintf '%.2f', 100 * $tot / $count),
-            detail => $detail,
-        };
-    }
-
-    $self->flash (in => 'notes_per_month');
-    $self->stash (
-        nbm => $nbm,
-    );
 }
 
 sub top_days {

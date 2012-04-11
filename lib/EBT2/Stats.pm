@@ -319,6 +319,27 @@ sub notes_per_year {
 }
 #sub avgs_by_year { goto &notes_per_year; }
 
+sub notes_per_month {
+    my ($self, $data) = @_;
+    my %ret;
+
+    my $iter = $data->note_getter;
+    while (my $hr = $iter->()) {
+        my $m = substr $hr->{'date_entered'}, 0, 7;
+        $ret{'notes_per_month'}{$m}{'total'}++;
+        $ret{'notes_per_month'}{$m}{ $hr->{'value'} }++;
+        push @{ $ret{'avgs_by_month'}{$m} }, $hr->{'value'};
+    }
+
+    ## compute the average value of notes
+    foreach my $month (keys %{ $ret{'avgs_by_month'} }) {
+        $ret{'avgs_by_month'}{$month} = mean @{ $ret{'avgs_by_month'}{$month} };
+    }
+
+    return \%ret;
+}
+#sub avgs_by_month { goto &notes_per_month; }
+
 ## module should calculate combs at the finest granularity (value*cc*plate*sig), it is up to the app to aggregate the pieces
 ## 20120406: no, that should be here, to prevent apps from performing the same work
 sub missing_combs_and_history {
@@ -624,30 +645,6 @@ sub coords_bingo {
 
     return $self;
 }
-
-sub notes_by_month {
-    my ($self) = @_;
-
-    #return $self if $self->{'notes_by_month'};  ## if already done
-
-    my $iter = $self->note_getter (one_result_aref => 0, one_result_full_data => 0);
-    while (my $hr = $iter->()) {
-        my $m = substr $hr->{'date_entered'}, 0, 7;
-        $self->{'notes_by_month'}{$m}{'total'}++;
-        $self->{'notes_by_month'}{$m}{ $hr->{'value'} }++;
-        push @{$self->{'avgs_by_month'}{$m}}, $hr->{'value'};
-    }
-
-    ## compute the average value of notes
-    foreach my $month (keys %{ $self->{'avgs_by_month'} }) {
-        $self->{'avgs_by_month'}{$month} =
-            sum (@{ $self->{'avgs_by_month'}{$month} }) /
-            @{ $self->{'avgs_by_month'}{$month} };
-    }
-
-    return $self;
-}
-sub avgs_by_month { goto &notes_by_month; }
 
 sub notes_by_dow {
     my ($self) = @_;

@@ -1,0 +1,37 @@
+<h2><%=l 'Coordinates bingo' %></h2>
+<% foreach my $v ('all', @{ $EBT2::config{'values'} }) { =%>
+    <% next unless defined $cb->{$v}; =%>
+    <% my ($max_letter, $max_number) = qw/A 1/; =%>           <%# TODO: put qw/H 5/ here =%>
+    <%# obtain lower right corner: max letter and max number =%>
+    <% for my $coord (keys %{ $cb->{$v} }, 'H5') { =%>
+        <% my ($letter, $number) = $coord =~ /^(.)(.)$/; =%>
+        <% $max_letter = $letter if ord $letter > ord $max_letter; =%>
+        <% $max_number = $number if     $number >     $max_number; =%>
+    <% } =%>
+    <h3><%= $v %></h3>
+    <table>
+    <% for my $l ('A' .. $max_letter) { =%>
+        <tr>
+        <% for my $n (1 .. $max_number) { =%>
+            <% my $color; =%>
+            <% if (!exists $cb->{$v}{"$l$n"}) { =%>
+                <% $color = 'gray'; =%>
+            <% } elsif ($cb->{$v}{"$l$n"} >=    1 and $cb->{$v}{"$l$n"} <=   50) { =%>
+                <% $color = 'blue'; =%>
+            <% } elsif ($cb->{$v}{"$l$n"} >=   51 and $cb->{$v}{"$l$n"} <=  100) { =%>
+                <% $color = 'green'; =%>
+            <% } elsif ($cb->{$v}{"$l$n"} >=  101 and $cb->{$v}{"$l$n"} <=  500) { =%>
+                <% $color = '#FFBF00'; =%>
+            <% } elsif ($cb->{$v}{"$l$n"} >=  501 and $cb->{$v}{"$l$n"} <= 1000) { =%>
+                <% $color = 'red'; =%>
+            <% } elsif ($cb->{$v}{"$l$n"} >= 1001) { =%>
+                <% $color = 'grey'; =%>
+            <% } else { =%>
+                <% die 'Should not happen'; =%>
+            <% } =%>
+            <td><span style='color: <%= $color %>;'><%= $l.$n =%></span></td>
+        <% } =%>
+        </tr>
+    <% } =%>
+    </table>
+<% } =%>

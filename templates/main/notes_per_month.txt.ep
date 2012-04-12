@@ -1,0 +1,5 @@
+[b]<%=l 'Number of notes per month' %>[/b]
+<% foreach my $elem (@$nbm) { =%>
+[b]<%= $elem->{'month'} %>[/b] - <%= $elem->{'count'} %> (<%= $elem->{'pct'} %>%)<%= ' - ' =%>
+<% foreach my $d (@{ $elem->{'detail'} }) { =%>[<%= $d->{'count'} %> :note-<%= $d->{'value'} %>:] <% } %>
+<% } %>

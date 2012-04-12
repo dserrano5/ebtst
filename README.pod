@@ -1,26 +1,58 @@
-=head1 Test
+=encoding UTF-8
 
-=head2 Test
+=head2 EBT stats tool
 
-Test
+NoteInfoGenerator is (apparently) dead. Here's my own attempt at it.
 
-  $ Just
-  Testing
-
-=over 4
-
-=item foo
-
-=item bar
+=head2 Requirements
 
 =over 4
 
-=item baz
+=item Perl 5.10.1 or newer.
+
+To figure out what version you have, just run C<perl -v> and look to the first
+line of its output.
+
+=over 4
+
+=item Windows
+
+Strawberry Perl: L<http://strawberryperl.com/>.
+
+=item MacOS X
+
+No idea :). I'm told you already have Perl (although maybe not a recent one).
+
+=item Linux
+
+Most probably you already have it.
 
 =back
 
+=item Mojolicious
+
+To install Mojolicious, open a terminal and do the following:
+
+  > cpan
+  cpan> install Mojolicious
+
 =back
 
-Test
+=head2 Using it
+
+To start EBTST, simply run scripts/ebtst.pl, then point your web browser to
+L<http://localhost:8080/>. Feed it your CSV files using the Configuration
+section and enjoy your numbers.
+
+By ticking the checkboxes at the left and clicking on C<BBCode>, a separate
+tab/window is generated with the information in the selected sections
+formatted as BBCode, ready to copy and paste into the EBT forum.
+
+=head2 License
+
+EBTST itself is licensed under the GPL version 3.
+
+All images for flags and note values are intellectual property of the
+Association Européenne des EuroBillTrackers.
 
 =cut

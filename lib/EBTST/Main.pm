@@ -348,6 +348,19 @@ sub short_codes {
     );
 }
 
+sub nice_serials {
+    my ($self) = @_;
+
+    my $nice_data = $self->ebt->get_nice_serials;
+
+    $self->stash (
+        nicest      => $nice_data,
+        primes      => 'bar',
+        squares     => 'baz',
+        palindromes => 'qux',
+    );
+}
+
 sub coords_bingo {
     my ($self) = @_;
 
@@ -604,7 +617,7 @@ sub bbcode {
 
     my @outputs;
     foreach my $param (qw/
-        information value countries locations printers short_codes
+        information value countries locations printers short_codes nice_serials
         coords_bingo notes_per_year notes_per_month top_days combs plate_bingo
     /) {
         if ($self->param ($param)) {
@@ -641,12 +654,6 @@ sub huge_table {
     my ($self) = @_;
 
     $self->flash (in => 'huge_table');
-}
-
-sub nice_serials {
-    my ($self) = @_;
-
-    $self->flash (in => 'nice_serials');
 }
 
 sub time_analysis {

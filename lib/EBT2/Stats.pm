@@ -3,7 +3,7 @@ package EBT2::Stats;
 use warnings;
 use strict;
 use DateTime;
-use List::Util qw/sum/;
+use List::Util qw/sum reduce/;
 use List::MoreUtils qw/zip/;
 use EBT2::Data;
 use EBT2::NoteValidator;
@@ -296,6 +296,75 @@ sub highest_short_codes {
     my ($self, $data) = @_;
 
     return $self->fooest_short_codes ($data, 1, 'highest_short_codes');
+}
+
+sub _serial_niceness {
+    my ($serial) = @_;
+    my $prev_digit;
+    my @consecutives;
+    my %digits_present;
+
+    my $idx = 0;
+    foreach my $digit (split //, $serial) {
+        $digits_present{$digit} = 1;
+
+        if (!defined $prev_digit or $digit != $prev_digit) {
+            push @consecutives, { start => $idx, length => 1 };
+        } else {
+            $consecutives[-1]{'length'}++;
+        }
+
+        $prev_digit = $digit;
+        $idx++;
+    }
+    ## not the same as the preferred 'reverse sort { $a <=> $b }' due to repeated elements
+    @consecutives = sort { $b->{'length'} <=> $a->{'length'} } @consecutives;
+
+    my $longest = $consecutives[0]{'length'};
+    my $product = reduce { $a * $b } map { $_->{'length'} } @consecutives;
+    my $different_digits = keys %digits_present;
+
+    ## this initial algorithm was devised in 10 minutes. There are probably better alternatives
+    my $niceness =
+        1000000 * (11 - @consecutives) +
+        10000   * $longest +
+        100     * (11 - $different_digits) +
+        1       * $product;
+
+    my $visible_serial = $serial;
+    my $repl_char = 'A';
+    foreach my $elem (grep { 1 != $_->{'length'} } @consecutives) {
+        substr $visible_serial, $elem->{'start'}, $elem->{'length'}, $repl_char x $elem->{'length'};
+        $repl_char++;
+    }
+    $visible_serial =~ s/[0-9]/*/g;
+
+    return $niceness, $visible_serial;
+}
+
+sub nice_serials {
+    my ($self, $data) = @_;
+    my %ret;
+    my $num_elems = 10;
+    my @nicest;
+
+    my $iter = $data->note_getter;
+    while (my $hr = $iter->()) {
+        my ($score, $visible_serial) = _serial_niceness substr $hr->{'serial'}, 1;
+        if (@nicest < $num_elems or $score > $nicest[-1]{'score'}) {
+            ## this is a quicksort on an almost sorted list, I heard quicksort chokes on that
+            @nicest = reverse sort {
+                $a->{'score'} <=> $b->{'score'}
+            } @nicest, {
+                score  => $score,
+                serial => "*$visible_serial",
+            };
+            @nicest >= $num_elems and splice @nicest, $num_elems;
+        }
+    }
+    $ret{'nice_serials'} = \@nicest;
+
+    return \%ret;
 }
 
 sub coords_bingo {

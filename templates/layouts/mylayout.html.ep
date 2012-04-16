@@ -28,10 +28,10 @@
                 </tr>--><tr>
                     <td><input type="checkbox" name="short_codes"></td>
                     <td><a class="section_link" id="short_codes"     href="/short_codes"><%=l 'Short codes' %></a><br>
-                </tr><!--<tr>
+                </tr><tr>
                     <td><input type="checkbox" name="nice_serials"></td>
                     <td><a class="section_link" id="nice_serials"    href="/nice_serials"><%=l 'Nice serials' %></a><br>
-                </tr>--><tr>
+                </tr><tr>
                     <td><input type="checkbox" name="coords_bingo"></td>
                     <td><a class="section_link" id="coords_bingo"  href="/coords_bingo"><%=l 'Coordinates bingo' %></a><br>
                 </tr><!-- note_analysis --><tr>

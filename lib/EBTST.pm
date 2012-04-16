@@ -60,7 +60,7 @@ sub startup {
     $u->get ('/printers')->to ('main#printers');
     #$u->get ('/huge_table')->to ('main#huge_table');
     $u->get ('/short_codes')->to ('main#short_codes');
-    #$u->get ('/nice_serials')->to ('main#nice_serials');
+    $u->get ('/nice_serials')->to ('main#nice_serials');
     $u->get ('/coords_bingo')->to ('main#coords_bingo');
     $u->get ('/notes_per_year')->to ('main#notes_per_year');
     $u->get ('/notes_per_month')->to ('main#notes_per_month');

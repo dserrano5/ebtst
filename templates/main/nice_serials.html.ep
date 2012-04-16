@@ -1,0 +1,4 @@
+<% foreach my $elem (@$nicest) { %>
+    <%= $elem->{'score'} %> - <%= $elem->{'serial'} %>
+    <br>
+<% } %>

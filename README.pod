@@ -29,11 +29,29 @@ Most probably you already have it.
 
 =back
 
+=item Perl modules
+
+=over 4
+
+=item Config::General
+
+=item DateTime
+
+=item Locale::Country
+
+=item Text::CSV
+
 =item Mojolicious
 
-To install Mojolicious, open a terminal and do the following:
+=back
+
+To install these modules, open a terminal and do the following:
 
   > cpan
+  cpan> install Config::General
+  cpan> install DateTime
+  cpan> install Locale::Country
+  cpan> install Text::CSV
   cpan> install Mojolicious
 
 =back
@@ -45,7 +63,7 @@ L<http://localhost:8080/>. Feed it your CSV files using the Configuration
 section and enjoy your numbers.
 
 By ticking the checkboxes at the left and clicking on C<BBCode>, a separate
-tab/window is generated with the information in the selected sections
+browser tab/window is generated with the information in the selected sections
 formatted as BBCode, ready to copy and paste into the EBT forum.
 
 =head2 License

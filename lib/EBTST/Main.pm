@@ -353,8 +353,20 @@ sub nice_serials {
 
     my $nice_data = $self->ebt->get_nice_serials;
 
+    my $nice_notes;
+    foreach my $n (@$nice_data) {
+        push @$nice_notes, {
+            score   => $n->{'score'},
+            serial  => $n->{'visible_serial'},
+            value   => $n->{'value'},
+            date    => (split ' ', $n->{'date_entered'})[0],
+            city    => $n->{'city'},
+            imgname => $n->{'country'},
+        };
+    }
+
     $self->stash (
-        nicest      => $nice_data,
+        nicest      => $nice_notes,
         primes      => 'bar',
         squares     => 'baz',
         palindromes => 'qux',

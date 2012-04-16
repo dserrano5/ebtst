@@ -309,7 +309,7 @@ sub _serial_niceness {
         $digits_present{$digit} = 1;
 
         if (!defined $prev_digit or $digit != $prev_digit) {
-            push @consecutives, { start => $idx, length => 1 };
+            push @consecutives, { key => $digit, start => $idx, length => 1 };
         } else {
             $consecutives[-1]{'length'}++;
         }
@@ -334,7 +334,8 @@ sub _serial_niceness {
     my $visible_serial = $serial;
     my $repl_char = 'A';
     foreach my $elem (grep { 1 != $_->{'length'} } @consecutives) {
-        substr $visible_serial, $elem->{'start'}, $elem->{'length'}, $repl_char x $elem->{'length'};
+        $visible_serial =~ s/$elem->{'key'}/$repl_char/g;
+        #substr $visible_serial, $elem->{'start'}, $elem->{'length'}, $repl_char x $elem->{'length'};
         $repl_char++;
     }
     $visible_serial =~ s/[0-9]/*/g;
@@ -352,12 +353,14 @@ sub nice_serials {
     while (my $hr = $iter->()) {
         my ($score, $visible_serial) = _serial_niceness substr $hr->{'serial'}, 1;
         if (@nicest < $num_elems or $score > $nicest[-1]{'score'}) {
-            ## this is a quicksort on an almost sorted list, I heard quicksort chokes on that
+            ## this is a quicksort on an almost sorted list, I read
+            ## quicksort coughs on that so let's see how this performs
             @nicest = reverse sort {
                 $a->{'score'} <=> $b->{'score'}
             } @nicest, {
-                score  => $score,
-                serial => "*$visible_serial",
+                %$hr,
+                score          => $score,
+                visible_serial => "*$visible_serial",
             };
             @nicest >= $num_elems and splice @nicest, $num_elems;
         }

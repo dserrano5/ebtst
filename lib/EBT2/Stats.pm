@@ -354,8 +354,53 @@ sub notes_per_month {
 }
 #sub avgs_by_month { goto &notes_per_month; }
 
+sub top10days {
+    my ($self, $data) = @_;
+    my %ret;
+
+    my $iter = $data->note_getter;
+    while (my $hr = $iter->()) {
+        my $d = substr $hr->{'date_entered'}, 0, 10;
+        $ret{'top10days'}{$d}{'total'}++;
+        $ret{'top10days'}{$d}{ $hr->{'value'} }++;
+        push @{ $ret{'avgs_top10'}{$d} }, $hr->{'value'};
+    }
+
+    ## keep the 10 highest (delete the other ones)
+    my @sorted_days = sort {
+        $ret{'top10days'}{$b}{'total'} <=> $ret{'top10days'}{$a}{'total'} ||
+        $b cmp $a
+    } keys %{ $ret{'top10days'} };
+    delete @{ $ret{'top10days'}  }{ @sorted_days[10..$#sorted_days] };
+    delete @{ $ret{'avgs_top10'} }{ @sorted_days[10..$#sorted_days] };
+
+    ## compute the average value of notes
+    foreach my $d (keys %{ $ret{'top10days'} }) {
+        $ret{'avgs_top10'}{$d} = mean @{ $ret{'avgs_top10'}{$d} };
+    }
+
+    return \%ret;
+}
+sub avgs_top10 { goto &top10days; }
+
+sub notes_by_dow {
+    my ($self, $data) = @_;
+    my %ret;
+
+    my $iter = $data->note_getter;
+    while (my $hr = $iter->()) {
+        my $dow = DateTime->new (
+            zip @{[qw/year month day hour minute second/]}, @{[ split /[\s:-]/, $hr->{'date_entered'} ]}
+        )->dow;
+        $ret{'notes_by_dow'}{$dow}{'total'}++;
+        $ret{'notes_by_dow'}{$dow}{ $hr->{'value'} }++;
+    }
+
+    return \%ret;
+}
+
 ## module should calculate combs at the finest granularity (value*cc*plate*sig), it is up to the app to aggregate the pieces
-## 20120406: no, that should be here, to prevent apps from performing the same work
+## 20120406: no, that should be here, to prevent different apps from performing the same work
 sub missing_combs_and_history {
     my ($self, $data) = @_;
     my %ret;
@@ -645,23 +690,6 @@ sub square_serials {
     return $self;
 }
 
-sub notes_by_dow {
-    my ($self) = @_;
-
-    #return $self if $self->{'notes_by_dow'};  ## if already done
-
-    my $iter = $self->note_getter (one_result_aref => 0, one_result_full_data => 0);
-    while (my $hr = $iter->()) {
-        my $dow = DateTime->new (
-            zip @{[qw/year month day hour minute second/]}, @{[ split /[\s:-]/, $hr->{'date_entered'} ]}
-        )->dow;
-        $self->{'notes_by_dow'}{$dow}{'total'}++;
-        $self->{'notes_by_dow'}{$dow}{ $hr->{'value'} }++;
-    }
-
-    return $self;
-}
-
 sub rare_notes {
     my ($self) = @_;
 
@@ -751,38 +779,6 @@ sub rare_notes {
 
     return $self;
 }
-
-sub top10days {
-    my ($self) = @_;
-
-    #return $self if $self->{'top10days'};  ## if already done
-
-    my $iter = $self->note_getter (one_result_aref => 0, one_result_full_data => 0);
-    while (my $hr = $iter->()) {
-        my $d = substr $hr->{'date_entered'}, 0, 10;
-        $self->{'top10days'}{$d}{'total'}++;
-        $self->{'top10days'}{$d}{ $hr->{'value'} }++;
-        push @{ $self->{'avgs_top10'}{$d} }, $hr->{'value'};
-    }
-
-    ## keep the 10 highest (delete the other ones)
-    my @sorted_days = sort {
-        $self->{'top10days'}{$b}{'total'} <=> $self->{'top10days'}{$a}{'total'} ||
-        $b cmp $a
-    } keys %{ $self->{'top10days'} };
-    delete @{ $self->{'top10days'}  }{ @sorted_days[10..$#sorted_days] };
-    delete @{ $self->{'avgs_top10'} }{ @sorted_days[10..$#sorted_days] };
-
-    ## compute the average value of notes
-    foreach my $d (keys %{ $self->{'top10days'} }) {
-        $self->{'avgs_top10'}{$d} =
-            sum (@{ $self->{'avgs_top10'}{$d} }) /
-            @{ $self->{'avgs_top10'}{$d} };
-    }
-
-    return $self;
-}
-sub avgs_top10 { goto &top10days; }
 
 sub note_entering_days {
     my ($self) = @_;

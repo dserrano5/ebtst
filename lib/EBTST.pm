@@ -64,7 +64,7 @@ sub startup {
     $u->get ('/coords_bingo')->to ('main#coords_bingo');
     $u->get ('/notes_per_year')->to ('main#notes_per_year');
     $u->get ('/notes_per_month')->to ('main#notes_per_month');
-    #$u->get ('/top_days')->to ('main#top_days');
+    $u->get ('/top_days')->to ('main#top_days');
     #$u->get ('/time_analysis')->to ('main#time_analysis');
     $u->get ('/combs')->to ('main#combs');
     #$u->any ([qw/get post/], '/evolution')->to ('main#evolution');

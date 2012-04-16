@@ -1,0 +1,17 @@
+<h2><%=l 'Number of notes per day of the week' %></h2>
+<% foreach my $elem (@$nbdow) { %>
+    <b><%=l $elem->{'dow'} %></b> - <%= $elem->{'count'} %> (<%= $elem->{'pct'} %>%) - 
+    <% foreach my $d (@{ $elem->{'detail'} }) { %>
+        [<%= $d->{'count'} %> <img src="/images/<%= $d->{'value'} %>.gif">]
+    <% } %>
+    <br>
+<% } %>
+
+<h2><%=l 'Top 10 days' %></h2>
+<% foreach my $elem (@$t10d) { %>
+    <b><%= $elem->{'date'} %></b> - <%= $elem->{'count'} %> (<%= $elem->{'pct'} %>%) - 
+    <% foreach my $d (@{ $elem->{'detail'} }) { %>
+        [<%= $d->{'count'} %> <img src="/images/<%= $d->{'value'} %>.gif">]
+    <% } %>
+    <br>
+<% } %>

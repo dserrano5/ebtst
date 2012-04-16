@@ -423,6 +423,62 @@ sub notes_per_month {
     );
 }
 
+sub top_days {
+    my ($self) = @_;
+
+    my $t10d_data = $self->ebt->get_top10days;
+    my $nbdow_data = $self->ebt->get_notes_by_dow;
+    my $count = $self->ebt->get_count;
+
+    my $nbdow;
+    foreach my $dow (sort keys %$nbdow_data) {
+        my $detail;
+        foreach my $v (@{ $EBT2::config{'values'} }) {
+            next unless $nbdow_data->{$dow}{$v};
+            push @$detail, {
+                value => $v,
+                count => $nbdow_data->{$dow}{$v},
+            };
+        }
+        my $tot = $nbdow_data->{$dow}{'total'};
+        push @$nbdow, {
+            dow    => $EBT2::dow2english[$dow],
+            count  => $tot,
+            pct    => (sprintf '%.2f', 100 * $tot / $count),
+            detail => $detail,
+        };
+    }
+
+    my $t10d;
+    foreach my $d (
+        sort {
+            $t10d_data->{$b}{'total'} <=> $t10d_data->{$a}{'total'} or
+            $a cmp $b
+        } keys %$t10d_data
+    ) {
+        my $detail;
+        foreach my $v (@{ $EBT2::config{'values'} }) {
+            next unless $t10d_data->{$d}{$v};
+            push @$detail, {
+                value => $v,
+                count => $t10d_data->{$d}{$v},
+            };
+        }
+        my $tot = $t10d_data->{$d}{'total'};
+        push @$t10d, {
+            date   => $d,
+            count  => $tot,
+            pct    => (sprintf '%.2f', 100 * $tot / $count),
+            detail => $detail,
+        };
+    }
+
+    $self->stash (
+        nbdow => $nbdow,
+        t10d  => $t10d,
+    );
+}
+
 sub combs {
     my ($self) = @_;
 
@@ -549,7 +605,7 @@ sub bbcode {
     my @outputs;
     foreach my $param (qw/
         information value countries locations printers short_codes
-        coords_bingo notes_per_year notes_per_month combs plate_bingo
+        coords_bingo notes_per_year notes_per_month top_days combs plate_bingo
     /) {
         if ($self->param ($param)) {
             $self->$param;
@@ -591,63 +647,6 @@ sub nice_serials {
     my ($self) = @_;
 
     $self->flash (in => 'nice_serials');
-}
-
-sub top_days {
-    my ($self) = @_;
-
-    my $t10d_data = $self->ebt->get_top10days;
-    my $nbdow_data = $self->ebt->get_notes_by_dow;
-    my $count = $self->ebt->get_count;
-
-    my $nbdow;
-    foreach my $dow (sort keys %$nbdow_data) {
-        my $detail;
-        foreach my $v (@EBT::values) {
-            next unless $nbdow_data->{$dow}{$v};
-            push @$detail, {
-                value => $v,
-                count => $nbdow_data->{$dow}{$v},
-            };
-        }
-        my $tot = $nbdow_data->{$dow}{'total'};
-        push @$nbdow, {
-            dow    => $EBT::dow2name[$dow],
-            count  => $tot,
-            pct    => (sprintf '%.2f', 100 * $tot / $count),
-            detail => $detail,
-        };
-    }
-
-    my $t10d;
-    foreach my $d (
-        sort {
-            $t10d_data->{$b}{'total'} <=> $t10d_data->{$a}{'total'} or
-            $a cmp $b
-        } keys %$t10d_data
-    ) {
-        my $detail;
-        foreach my $v (@EBT::values) {
-            next unless $t10d_data->{$d}{$v};
-            push @$detail, {
-                value => $v,
-                count => $t10d_data->{$d}{$v},
-            };
-        }
-        my $tot = $t10d_data->{$d}{'total'};
-        push @$t10d, {
-            date   => $d,
-            count  => $tot,
-            pct    => (sprintf '%.2f', 100 * $tot / $count),
-            detail => $detail,
-        };
-    }
-
-    $self->flash (in => 'top_days');
-    $self->stash (
-        nbdow => $nbdow,
-        t10d  => $t10d,
-    );
 }
 
 sub time_analysis {

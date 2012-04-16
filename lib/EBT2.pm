@@ -30,6 +30,8 @@ my $cfg_file = File::Spec->catfile ($work_dir, 'ebt2.cfg');
 -r $cfg_file or die "Can't find configuration file '$cfg_file'\n";
 our %config = Config::General->new (-ConfigFile => $cfg_file, -IncludeRelative => 1, -UTF8 => 1)->getall;
 
+our @dow2english = qw/Sunday Monday Tuesday Wednesday Thursday Friday Saturday Sunday/;
+
 ## build empty hashes with all possible combinations
 #our %combs_pc_cc;
 our %combs_pc_cc_val;
@@ -205,7 +207,6 @@ our $VERSION = (qw$Revision$)[-1];
 my $primes_file   = File::Spec->catfile ($work_dir, 'prime-numbers');
 
 our @values = qw/5 10 20 50 100 200 500/;  ## move to config?
-our @dow2name = qw/Sunday Monday Tuesday Wednesday Thursday Friday Saturday Sunday/;  ## this is translatable
 my %combs1;
 my %combs2;
 my %combs3;

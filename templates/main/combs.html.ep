@@ -3,7 +3,7 @@
 <% foreach my $idx (0 .. $#$presidents) { %>
     <% my $sig         = $presidents->[$idx][0]; %>
     <% my $sig_visible = $presidents->[$idx][1]; %>
-    <h3><%= $sig_visible %></h3>
+    <h3><%=l $sig_visible %></h3>
     <% my %seen; my %total; %>
     <table>
         <tr>
@@ -15,7 +15,7 @@
             <th>100</th>
             <th>200</th>
             <th>500</th>
-            <th>any</th>
+            <th><%=l 'any' %></th>
         </tr>
         <% foreach my $pc (sort keys %{ EBT2->printers }) { %>
             <% foreach my $cc (sort keys %{ EBT2->countries }) { %>

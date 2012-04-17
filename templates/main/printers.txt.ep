@@ -5,5 +5,5 @@
 
 [b]<%=l 'First notes by printer code' %>[/b]
 <% for my $elem (@$fbpc) { =%>
-<%=l 'Note' %> <%= $elem->{'at'} %> <%=l 'was the first one from' %> :flag-<%= $elem->{'imgname'} %>: [b]<%= $elem->{'pc'} %>[/b] ( :note-<%= $elem->{'value'} %>: <%=l 'entered on' %> <%= $elem->{'on'} %> <%=l 'in' %> <%= $elem->{'city'} %> :flag-<%= $elem->{'imgname2'} %>:)
+<%=l 'Note' %> <%= $elem->{'at'} %> <%=l 'was the first from' %> :flag-<%= $elem->{'imgname'} %>: [b]<%= $elem->{'pc'} %>[/b] ( :note-<%= $elem->{'value'} %>: <%=l 'entered on' %> <%= $elem->{'on'} %> <%=l 'in' %> <%= $elem->{'city'} %> :flag-<%= $elem->{'imgname2'} %>:)
 <% } =%>

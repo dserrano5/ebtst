@@ -32,4 +32,4 @@
   <% } =%>
 
 <%=l 'Average value per note' %>: [b]<%= $avg_value %>[/b] EUR
-<%=l 'Average entering rate' %>: [b]<%= $avg_per_day %>[/b] notes/day
+<%=l 'Average entering rate' %>: [b]<%= $avg_per_day %>[/b] <%=l 'notes/day' %>

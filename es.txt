@@ -37,6 +37,7 @@ Signatures = Firmas
 Unknown = Desconocida
 Average value per note = Valor medio de los billetes
 Average entering rate = Media de billetes al día
+notes/day = billetes/día
 
 ## value
 Number of notes by value = Número de billetes por valor
@@ -74,6 +75,12 @@ Highest short codes per value = Códigos cortos más altos, por valor
 Short code/country = Código corto/país
 Date = Fecha
 
+## nice_serials
+note(s) = billete(s)
+of total = del total
+have = tienen
+numbers in a row = cifras seguidas
+
 ## coords_bingo
 Coordinates bingo = Bingo de coordenadas
 
@@ -87,7 +94,9 @@ Number of notes per month = Número de billetes por mes
 Number of notes per day of the week = Número de billetes por día de la semana
 Top 10 days = Los 10 mejores días
 
-## combinations
+## combs
+Any signature = Cualquier firma
+any = todos
 Result = Resultado
 Total = Total
 Combinations bingo = Bingo de combinaciones

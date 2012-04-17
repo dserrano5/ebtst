@@ -1,0 +1,37 @@
+<%=l 'Hours' %>: <%= scalar keys %{ $ta->{'hh'} } %>/24<br>
+<%=l 'Minutes' %>: <%= scalar keys %{ $ta->{'mm'} } %>/60<br>
+<%=l 'Seconds' %>: <%= scalar keys %{ $ta->{'ss'} } %>/60<br>
+<%=l 'Hours and minutes' %>: <% my $cnt = 0; %>
+<% foreach my $h (keys %{ $ta->{'hhmm'} }) { %>
+    <% foreach my $h (keys %{ $ta->{'hhmm'}{$h} }) { %>
+        <% $cnt++; %>
+    <% } %>
+<% } %><%= sprintf '%d/%d', $cnt, 24*60 %><br>
+<%=l 'Minutes and seconds' %>: <% $cnt = 0; %>
+<% foreach my $m (keys %{ $ta->{'mmss'} }) { %>
+    <% foreach my $s (keys %{ $ta->{'mmss'}{$m} }) { %>
+        <% $cnt++; %>
+    <% } %>
+<% } %><%= sprintf '%d/%d', $cnt, 60*60 %><br>
+<%=l 'Hours, minutes and seconds' %>: <% $cnt = 0; %>
+<% foreach my $h (keys %{ $ta->{'hhmmss'} }) { %>
+    <% foreach my $m (keys %{ $ta->{'hhmmss'}{$h} }) { %>
+        <% foreach my $s (keys %{ $ta->{'hhmmss'}{$h}{$m} }) { %>
+            <% $cnt++; %>
+        <% } %>
+    <% } %>
+<% } %><%= sprintf '%d/%d', $cnt, 24*60*60 %><br>
+<%=l 'Days of week and hours' %>: <% $cnt = 0; %>
+<% foreach my $dow (keys %{ $ta->{'dowhh'} }) { %>
+    <% foreach my $h (keys %{ $ta->{'dowhh'}{$dow} }) { %>
+        <% $cnt++; %>
+    <% } %>
+<% } %><%= sprintf '%d/%d', $cnt, 7*24 %><br>
+<%=l 'Days of week, hours and minutes' %>: <% $cnt = 0; %>
+<% foreach my $dow (keys %{ $ta->{'dowhhmm'} }) { %>
+    <% foreach my $h (keys %{ $ta->{'dowhhmm'}{$dow} }) { %>
+        <% foreach my $m (keys %{ $ta->{'dowhhmm'}{$dow}{$h} }) { %>
+            <% $cnt++; %>
+        <% } %>
+    <% } %>
+<% } %><%= sprintf '%d/%d', $cnt, 7*24*60 %><br>

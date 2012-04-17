@@ -33,13 +33,16 @@ sub new {
 ## - for presentation
 ## - used in the process of signature guessing when plates are shared
 sub serial_remove_meaningless_figures2 {
-    my ($serial) = @_;
+    my ($short, $serial) = @_;
 
+    my $pc = substr $short, 0, 1;
     my $cc = substr $serial, 0, 1;
     if ('M' eq $cc or 'T' eq $cc) {
         $serial = $cc . '*' . substr $serial, 2;
     } elsif ('H' eq $cc or 'N' eq $cc or 'U' eq $cc) {
         $serial = $cc . '**' . substr $serial, 3;
+    } elsif ('P' eq $cc and 'F' eq $pc) {
+        $serial = $cc . (substr $serial, 1, 2) . '**' . substr $serial, 5;
     } elsif ('Z' eq $cc) {
         $serial = $cc . '***' . substr $serial, 4;
     } else {
@@ -50,7 +53,7 @@ sub serial_remove_meaningless_figures2 {
 }
 
 sub _guess_signature {
-    my ($serial, $sign) = @_;    ## $sign example: "WD:0-1990, JCT:1991-99999"
+    my ($short, $serial, $sign) = @_;    ## $sign example: "WD:0-1990, JCT:1991-99999"
     
     $sign =~ s/\s//g;
     my $max_len = max map length, $sign =~ /\d+/g;  ## how many digits to evaluate
@@ -59,7 +62,7 @@ sub _guess_signature {
         my ($result, $range) = split /:/, $choice;
         my ($min, $max) = split /-/, $range;
 
-        $serial = serial_remove_meaningless_figures2 $serial;
+        $serial = serial_remove_meaningless_figures2 $short, $serial;
         $serial =~ s/\D//g;
         my ($num) = $serial =~ /^(.{$max_len})/;
         next if $num < $min or $num > $max;
@@ -81,7 +84,7 @@ sub _find_out_signature {
         $sig = '(unknown)';
     } else {
         if ($sig =~ /,/) {
-            if (!defined ($sig = _guess_signature $serial, $sig)) {
+            if (!defined ($sig = _guess_signature $short, $serial, $sig)) {
                 warn "Couldn't guess signature for note ($value) ($cc) ($plate)\n";
             }
         } else {

@@ -268,7 +268,7 @@ sub fooest_short_codes {
     my $iter = $data->note_getter;
     while (my $hr = $iter->()) {
         my $pc = substr $hr->{'short_code'}, 0, 1;
-        my $serial = EBT2::Data::serial_remove_meaningless_figures2 $hr->{'serial'};
+        my $serial = EBT2::Data::serial_remove_meaningless_figures2 $hr->{'short_code'}, $hr->{'serial'};
         $serial =~ s/^([A-Z]\**\d{3}).*$/$1/;
         my $sort_key = sprintf '%s%s', $hr->{'short_code'}, $serial;
 
@@ -635,7 +635,7 @@ sub fooest_serial_per_comb3 {
         my $cc    = substr $hr->{'serial'}, 0, 1;
         my $comb3 = sprintf '%s%s%03d', $plate, $cc, $hr->{'value'};
 
-        my $serial = $self->serial_remove_meaningless_figures2 ($hr->{'serial'});
+        my $serial = $self->serial_remove_meaningless_figures2 ($hr->{'short_code'}, $hr->{'serial'});
         #$serial =~ s/\*//g;
 
         if (!exists $self->{$hash_key}{$comb3}) {

@@ -94,6 +94,16 @@ Number of notes per month = Número de billetes por mes
 Number of notes per day of the week = Número de billetes por día de la semana
 Top 10 days = Los 10 mejores días
 
+## time analysis
+Hours = Horas
+Minutes = Minutos
+Seconds = Segundos
+Hours and minutes = Horas y minutos
+Minutes and seconds = Minutos y segundos
+Hours, minutes and seconds = Horas, minutos y segundos
+Days of week and hours = Días de la semana y horas
+Days of week, hours and minutes = Días de la semana, horas y minutos
+
 ## combs
 Any signature = Cualquier firma
 any = todos

@@ -535,6 +535,16 @@ sub top_days {
     );
 }
 
+sub time_analysis {
+    my ($self) = @_;
+
+    my $ta_data = $self->ebt->get_time_analysis;
+
+    $self->stash (
+        ta => $ta_data,
+    );
+}
+
 sub combs {
     my ($self) = @_;
 

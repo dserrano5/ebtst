@@ -474,6 +474,31 @@ sub top10days {
 }
 sub avgs_top10 { goto &top10days; }
 
+sub time_analysis {
+    my ($self, $data) = @_;
+    my %ret;
+
+    my $iter = $data->note_getter;
+    while (my $hr = $iter->()) {
+        my ($y, $m, $d, $H, $M, $S) = map { sprintf '%02d', $_ } split /[\s:-]/, $hr->{'date_entered'};
+        my $dow = DateTime->new (
+            year => $y, month => $m, day => $d,
+            hour => $H, minute => $M, second => $S,
+        )->dow;
+        $ret{'time_analysis'}{'hh'}{$H}++;
+        $ret{'time_analysis'}{'mm'}{$M}++;
+        $ret{'time_analysis'}{'ss'}{$S}++;
+        $ret{'time_analysis'}{'hhmm'}{$H}{$M}++;
+        $ret{'time_analysis'}{'mmss'}{$M}{$S}++;
+        $ret{'time_analysis'}{'hhmmss'}{$H}{$M}{$S}++;
+        $ret{'time_analysis'}{'dow'}{$dow}++;    ## XXX: this partially replaces notes_by_dow below
+        $ret{'time_analysis'}{'dowhh'}{$dow}{$H}++;
+        $ret{'time_analysis'}{'dowhhmm'}{$dow}{$H}{$M}++;
+    }
+
+    return \%ret;
+}
+
 sub notes_by_dow {
     my ($self, $data) = @_;
     my %ret;

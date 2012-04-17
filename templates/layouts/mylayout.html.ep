@@ -43,10 +43,10 @@
                 </tr><tr>
                     <td><input type="checkbox" name="top_days"></td>
                     <td><a class="section_link" id="top_days"        href="/top_days"><%=l 'Top days' %></a><br>
-                </tr><!--<tr>
+                </tr><tr>
                     <td><input type="checkbox" name="time_analysis"></td>
                     <td><a class="section_link" id="time_analysis"   href="/time_analysis"><%=l 'Time analysis' %></a><br>
-                </tr>-->
+                </tr>
                 <!-- comments -->
                 <tr>
                     <td></td>

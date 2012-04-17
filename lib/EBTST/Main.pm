@@ -352,6 +352,8 @@ sub nice_serials {
     my ($self) = @_;
 
     my $nice_data = $self->ebt->get_nice_serials;
+    my $numbers_in_a_row = $self->ebt->get_numbers_in_a_row;
+    my $count = $self->ebt->get_count;
 
     my $nice_notes;
     foreach my $n (@$nice_data) {
@@ -365,11 +367,19 @@ sub nice_serials {
         };
     }
 
+    my $niar;
+    foreach my $length (keys %$numbers_in_a_row) {
+        my $num = $numbers_in_a_row->{$length};
+        my $pct = $num * 100 / $count;
+        $niar->{$length} = { count => $num, pct => sprintf '%.2f', $pct };
+    }
+
     $self->stash (
-        nicest      => $nice_notes,
-        primes      => 'bar',
-        squares     => 'baz',
-        palindromes => 'qux',
+        nicest           => $nice_notes,
+        numbers_in_a_row => $niar,
+        primes           => 'bar',
+        squares          => 'baz',
+        palindromes      => 'qux',
     );
 }
 

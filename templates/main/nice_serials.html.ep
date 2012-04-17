@@ -2,3 +2,9 @@
     <%= $elem->{'score'} %> - <%= $elem->{'serial'} %> (<img src="/images/<%= $elem->{'value'} %>.gif"> <%=l 'entered on' %> <%= $elem->{'date'} %> <%=l 'in' %> <%= $elem->{'city'} %> <img src="/images/<%= $elem->{'imgname'} %>.gif">)
     <br>
 <% } %>
+
+<br>
+<% foreach my $length (sort { $a <=> $b } keys %$numbers_in_a_row) { %>
+    <%= $numbers_in_a_row->{$length}{'count'} %> note(s) (<%= $numbers_in_a_row->{$length}{'pct'} %>% of total) had <%= $length %> numbers in a row.
+    <br>
+<% } %>

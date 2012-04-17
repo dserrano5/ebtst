@@ -22,10 +22,10 @@
                 </tr><!-- !travel_stats --><tr>
                     <td><input type="checkbox" name="printers"></td>
                     <td><a class="section_link" id="printers"        href="/printers"><%=l 'Printers' %></a><br>
-                </tr><!--<tr>
-                    <td><input type="checkbox" name="huge_table"></td>
+                </tr><tr>
+                    <td></td>
                     <td><a class="section_link" id="huge_table"      href="/huge_table"><%=l 'Huge table' %></a><br>
-                </tr>--><tr>
+                </tr><tr>
                     <td><input type="checkbox" name="short_codes"></td>
                     <td><a class="section_link" id="short_codes"     href="/short_codes"><%=l 'Short codes' %></a><br>
                 </tr><tr>

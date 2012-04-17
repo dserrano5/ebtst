@@ -300,6 +300,27 @@ sub printers {
     );
 }
 
+sub huge_table {
+    my ($self) = @_;
+
+    my $ht_data = $self->ebt->get_huge_table;
+
+    my $ht;
+    foreach my $plate (keys %$ht_data) {
+        $ht->{$plate}{'values'} = $ht_data->{$plate};
+        foreach my $value (keys %{ $ht->{$plate}{'values'} }) {
+            foreach my $serial (keys %{ $ht->{$plate}{'values'}{$value} }) {
+                $ht->{$plate}{'values'}{$value}{$serial}{'flag'} = EBT2->countries (substr $serial, 0, 1);
+            }
+        }
+        $ht->{$plate}{'plate_flag'} = EBT2->printers (substr $plate, 0, 1);
+    }
+
+    $self->stash (
+        ht => $ht,
+    );
+}
+
 sub short_codes {
     my ($self) = @_;
 

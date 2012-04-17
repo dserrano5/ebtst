@@ -240,6 +240,23 @@ sub first_by_pc {
     return \%ret;
 }
 
+sub huge_table {
+    my ($self, $data) = @_;
+    my %ret;
+
+    my $iter = $data->note_getter;
+    while (my $hr = $iter->()) {
+        my $plate = substr $hr->{'short_code'}, 0, 4;
+        my $serial = EBT2::Data::serial_remove_meaningless_figures2 $hr->{'short_code'}, $hr->{'serial'};
+        my $num_stars = $serial =~ tr/*/*/;
+        $serial = substr $serial, 0, 4+$num_stars;
+
+        $ret{'huge_table'}{$plate}{ $hr->{'value'} }{$serial}{'count'}++;
+    }
+
+    return \%ret;
+}
+
 sub alphabets {
     my ($self, $data) = @_;
     my %ret;

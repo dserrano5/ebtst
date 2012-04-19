@@ -8,66 +8,63 @@
             <table>
                 <tr>
                     <td></td>
-                    <td><a class="section_link" id="information"     href="information.html"><%=l 'Information' %></a><br>
+                    <td><a class="section_link" id="information"     href="information.html"><%=l 'Information' %></a></td>
                 </tr><tr>
                     <td></td>
-                    <td><a class="section_link" id="value"           href="value.html"><%=l 'Value' %></a><br>
+                    <td><a class="section_link" id="value"           href="value.html"><%=l 'Value' %></a></td>
                 </tr><tr>
                     <td></td>
-                    <td><a class="section_link" id="countries"       href="countries.html"><%=l 'Countries' %></a><br>
+                    <td><a class="section_link" id="countries"       href="countries.html"><%=l 'Countries' %></a></td>
                 </tr><tr>
                     <td></td>
-                    <td><a class="section_link" id="locations"       href="locations.html"><%=l 'Locations' %></a><br>
+                    <td><a class="section_link" id="locations"       href="locations.html"><%=l 'Locations' %></a></td>
                 </tr><!-- !travel_stats --><tr>
                     <td></td>
-                    <td><a class="section_link" id="printers"        href="printers.html"><%=l 'Printers' %></a><br>
+                    <td><a class="section_link" id="printers"        href="printers.html"><%=l 'Printers' %></a></td>
                 </tr><tr>
                     <td></td>
-                    <td><a class="section_link" id="huge_table"      href="huge_table.html"><%=l 'Huge table' %></a><br>
+                    <td><a class="section_link" id="huge_table"      href="huge_table.html"><%=l 'Huge table' %></a></td>
                 </tr><tr>
                     <td></td>
-                    <td><a class="section_link" id="short_codes"     href="short_codes.html"><%=l 'Short codes' %></a><br>
+                    <td><a class="section_link" id="short_codes"     href="short_codes.html"><%=l 'Short codes' %></a></td>
                 </tr><tr>
                     <td></td>
-                    <td><a class="section_link" id="nice_serials"    href="nice_serials.html"><%=l 'Nice serials' %></a><br>
+                    <td><a class="section_link" id="nice_serials"    href="nice_serials.html"><%=l 'Nice serials' %></a></td>
                 </tr><tr>
                     <td></td>
-                    <td><a class="section_link" id="coords_bingo"  href="coords_bingo.html"><%=l 'Coordinates bingo' %></a><br>
+                    <td><a class="section_link" id="coords_bingo"  href="coords_bingo.html"><%=l 'Coordinates bingo' %></a></td>
                 </tr><!-- note_analysis --><tr>
                     <td></td>
-                    <td><a class="section_link" id="notes_per_year"  href="notes_per_year.html"><%=l 'Notes/year' %></a><br>
+                    <td><a class="section_link" id="notes_per_year"  href="notes_per_year.html"><%=l 'Notes/year' %></a></td>
                 </tr><tr>
                     <td></td>
-                    <td><a class="section_link" id="notes_per_month" href="notes_per_month.html"><%=l 'Notes/month' %></a><br>
+                    <td><a class="section_link" id="notes_per_month" href="notes_per_month.html"><%=l 'Notes/month' %></a></td>
                 </tr><tr>
                     <td></td>
-                    <td><a class="section_link" id="top_days"        href="top_days.html"><%=l 'Top days' %></a><br>
+                    <td><a class="section_link" id="top_days"        href="top_days.html"><%=l 'Top days' %></a></td>
                 </tr><tr>
                     <td></td>
-                    <td><a class="section_link" id="time_analysis"   href="time_analysis.html"><%=l 'Time analysis' %></a><br>
+                    <td><a class="section_link" id="time_analysis"   href="time_analysis.html"><%=l 'Time analysis' %></a></td>
                 </tr>
                 <!-- comments -->
                 <tr>
                     <td></td>
-                    <td><a class="section_link" id="combs"           href="combs.html"><%=l 'Combinations' %></a><br>
+                    <td><a class="section_link" id="combs"           href="combs.html"><%=l 'Combinations' %></a></td>
                 </tr><!--<tr>
                     <td></td>
-                    <td><a class="section_link" id="evolution"       href="evolution.html"><%=l 'Note evolution' %></a><br>
+                    <td><a class="section_link" id="evolution"       href="evolution.html"><%=l 'Note evolution' %></a></td>
                 </tr>--><tr>
                     <td></td>
-                    <td><a class="section_link" id="plate_bingo"     href="plate_bingo.html"><%=l 'Plate bingo' %></a><br>
+                    <td><a class="section_link" id="plate_bingo"     href="plate_bingo.html"><%=l 'Plate bingo' %></a></td>
                 </tr><!--<tr>
                     <td></td>
-                    <td><a class="section_link" id="hit_list"     href="hit_list.html"><%=l 'Hit list' %></a><br>
+                    <td><a class="section_link" id="hit_list"     href="hit_list.html"><%=l 'Hit list' %></a></td>
                 </tr>--><!--<tr>
                     <td></td>
-                    <td><a class="section_link" id="charts"          href="charts.html"><%=l 'Charts' %></a><br>
-                </tr>--><tr>
+                    <td><a class="section_link" id="charts"          href="charts.html"><%=l 'Charts' %></a></td>
+                </tr>--><!--<tr>
                     <td></td>
-                    <td><a class="section_link" id="configure"       href="configure.html"><%=l 'Configuration' %></a><br>
-                </tr><!--<tr>
-                    <td></td>
-                    <td><a class="section_link" id="help"            href="help.html"><%=l 'Help' %></a><br>
+                    <td><a class="section_link" id="help"            href="help.html"><%=l 'Help' %></a></td>
                 </tr>-->
             </table>
         </div>

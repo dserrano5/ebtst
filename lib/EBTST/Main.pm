@@ -717,7 +717,7 @@ sub _prepare_html_dir {
 }
 
 sub _save_html {
-    my ($self, $param, $html_dir, $html) = @_;
+    my ($self, $param, $html_dir, $html, @req_params) = @_;
 
     my $file = File::Spec->catfile ($html_dir, "$param.html");
     if (open my $fd, '>', $file) {
@@ -734,6 +734,21 @@ sub _save_html {
     return;
 }
 
+## remove entries in class #sections which don't appear in @req_params
+sub _trim_html_sections {
+    my ($self, $html, @req_params) = @_;
+
+    my $dom = Mojo::DOM->new ($html);
+    my $sections = $dom->at ('#sections');
+    foreach my $tr ($sections->find ('tr')->each) {
+        my $id = $tr->td->a->{'id'};
+        unless (grep { $_ eq $id } @req_params) {
+            $tr->replace ('');
+        }
+    }
+    return $dom->to_xml;
+}
+
 sub gen_output {
     my ($self) = @_;
     my @params = qw/
@@ -741,20 +756,22 @@ sub gen_output {
         coords_bingo notes_per_year notes_per_month top_days combs plate_bingo
     /;
 
+    my @req_params = grep { $self->param ($_) } @params;
+
     my $html_dir = File::Spec->catfile ($FindBin::Bin, '..', 'html');
     $self->_prepare_html_dir ($html_dir);
-    my $layout = encode 'UTF-8', $self->render_partial (template => 'layouts/offline', format => 'html');
+    my $html_layout = encode 'UTF-8', $self->render_partial (template => 'layouts/offline', format => 'html');
+    $html_layout = $self->_trim_html_sections ($html_layout, @req_params);
 
     my @rendered_bbcode;
-    foreach my $param (@params) {
-        next unless $self->param ($param);
+    foreach my $param (@req_params) {
         $self->$param;
 
         ## bbcode: store in memory for later output
         push @rendered_bbcode, encode 'UTF-8', $self->render_partial (template => "main/$param", format => 'txt');
 
         ## html: save to file
-        $self->_save_html ($param, $html_dir, $layout);
+        $self->_save_html ($param, $html_dir, $html_layout, @req_params);
     }
 
     ## now output stored bbcode

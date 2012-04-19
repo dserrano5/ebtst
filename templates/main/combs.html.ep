@@ -24,7 +24,7 @@
                 <% if (grep { $_ eq $k } keys %{ $EBT2::combs_pc_cc_sig{$sig} }) { %>
                     <tr>
                         <th><%= "$pc/$cc" %></th>
-                        <% foreach my $v (@{ $EBT2::config{'values'} }) { %>
+                        <% foreach my $v (@{ EBT2->values }) { %>
                             <% my $k_pcv = sprintf '%s%s%03d', $pc, $cc, $v; %>
                             <% if (exists $EBT2::combs_pc_cc_val_sig{$sig} and exists $EBT2::combs_pc_cc_val_sig{$sig}{$k_pcv}) {
                                 <% $total{$v}++; %>
@@ -53,7 +53,7 @@
         <% } %>
         <tr>
             <th></th>
-            <% foreach my $v (@{ $EBT2::config{'values'} }) { %>
+            <% foreach my $v (@{ EBT2->values }) { %>
                 <td class="small_cell"><%= $seen{$v}//0 %>/<%= $total{$v}//0 %></td>
             <% } %>
             <td class="small_cell"><%= $seen{'any'}//0 %>/<%= $total{'any'}//0 %></td>

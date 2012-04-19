@@ -19,7 +19,7 @@ sub note_serial_cksum {
 sub validate_note {
     my ($hr) = @_;
 
-    return "bad value" unless grep { $_ eq $hr->{'value'} } @{ $EBT2::config{'values'} };
+    return "bad value" unless grep { $_ eq $hr->{'value'} } @{ EBT2->values };
     return "bad year" if '2002' ne $hr->{'year'};
     return "bad serial" unless note_serial_cksum $hr->{'serial'};
     return "bad date" if

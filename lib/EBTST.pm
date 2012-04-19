@@ -14,12 +14,14 @@ sub startup {
     eval { $ebt = EBT2->new (db => '/tmp/ebt2-storable'); };
     $@ and die "Initializing model: $@\n";
     eval { $ebt->load_db; };
-    $@ and warn "Loading db: $@\n";
+    if ($@ and $@ !~ /No such file or directory/) {
+        warn "Loading db: $@\n";
+    }
 
     $self->helper (ebt => sub { return $ebt; });
     $self->secret ('[12:36:04] gnome-screensaver-dialog: gkr-pam: unlocked login keyring');   ## :P
     $self->defaults (layout => 'mylayout');
-    $self->plugin ('i18n');
+    $self->plugin ('I18N');
 
     #$self->hook (before_dispatch => sub {
     #    my ($self) = @_;

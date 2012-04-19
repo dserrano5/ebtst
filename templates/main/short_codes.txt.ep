@@ -4,7 +4,7 @@
 <% } =%>
 
 [b]<%=l 'Highest short codes per value' %>[/b]
-<% foreach my $v (@{ $EBT2::config{'values'} }) { =%>
+<% foreach my $v (@{ EBT2->values }) { =%>
 [i]<%= $v %>[/i]
 <% foreach my $elem (@{ $sc->{$v} }) { =%>
 <% if (defined $elem) { =%>

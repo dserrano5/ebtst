@@ -11,7 +11,7 @@ sub _work_dir {
     my $work_dir;
 
     if ('MSWin32' eq $^O) {
-        $work_dir = $FindBin::Bin;   ## FIXME: use $ENV{something} to point to Documents and Settings or similar
+        $work_dir = File::Spec->catfile ($FindBin::Bin, '..');
     } else {
         $work_dir = File::Spec->catfile ($ENV{'HOME'}, '.ebt');
     }
@@ -100,6 +100,7 @@ sub load_notes { my ($self, $notes_file) = @_; $self->{'data'}->load_notes ($not
 sub load_hits  { my ($self, $hits_file)  = @_; $self->{'data'}->load_hits  ($hits_file); return $self; }
 sub load_db    { my ($self)              = @_; $self->{'data'}->load_db; return $self; }
 sub has_notes  { my ($self)              = @_; $self->{'data'}->has_notes; }
+sub values     { return $config{'values'}; }
 
 our $AUTOLOAD;
 sub AUTOLOAD {

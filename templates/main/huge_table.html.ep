@@ -1,7 +1,7 @@
 <table>
     <tr>
         <th></th>
-        <% foreach my $v (@{ $EBT2::config{'values'} }) { %>
+        <% foreach my $v (@{ EBT2->values }) { %>
         <th><%= $v %></th>
         <% } %>
     </tr>
@@ -10,7 +10,7 @@
         <td class="small_cell" style="vertical-align: top;">
             <img src="/images/<%= $ht->{$plate}{'plate_flag'} %>.gif"> <%= $plate %>
         </td>
-        <% foreach my $v (@{ $EBT2::config{'values'} }) { %>
+        <% foreach my $v (@{ EBT2->values }) { %>
         <td class="small_cell" style="vertical-align: top;">
             <% if (exists $ht->{$plate}{'values'}{$v}) { %>
                 <% foreach my $serial (sort keys %{ $ht->{$plate}{'values'}{$v} }) { %>

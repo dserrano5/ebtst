@@ -1,7 +1,6 @@
 package EBT2::Data;
 
 ## requires that EBT2 is loaded:
-## - new uses $EBT2::work_dir
 ## - _find_out_signature uses %EBT2::config
 
 use warnings;

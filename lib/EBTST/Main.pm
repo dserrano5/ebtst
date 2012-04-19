@@ -51,7 +51,7 @@ sub value {
     my $count = $self->ebt->get_count;
 
     my $notes_by_val;
-    for my $value (@{ $EBT2::config{'values'} }) {
+    for my $value (@{ EBT2->values }) {
         push @$notes_by_val, {
             value  => $value,
             count  => ($data->{$value}//0),
@@ -90,7 +90,7 @@ sub countries {
         } keys %{ EBT2->countries }
     ) {
         my $detail;
-        for my $v (@{ $EBT2::config{'values'} }) {
+        for my $v (@{ EBT2->values }) {
             if ($data->{$cc}{$v}) {
                 push @$detail, {
                     count => $data->{$cc}{$v},
@@ -131,7 +131,7 @@ sub countries {
     $self->stash (
         nbc    => $nbc,
         #cbv    => $count_by_value,
-        tot_bv => [ map { $count_by_value->{$_}//0 } @{ $EBT2::config{'values'} } ],
+        tot_bv => [ map { $count_by_value->{$_}//0 } @{ EBT2->values } ],
         fbcc   => $fbcc,
     );
 }
@@ -152,7 +152,7 @@ sub locations {
         } keys %$nbco
     ) {
         my $detail;
-        for my $v (@{ $EBT2::config{'values'} }) {
+        for my $v (@{ EBT2->values }) {
             $nbco->{$iso3166}{$v} and push @$detail, {
                 value => $v,
                 count => $nbco->{$iso3166}{$v},
@@ -183,7 +183,7 @@ sub locations {
             } keys %{ $nbci->{$country} }
         ) {
             my $detail;
-            for my $v (@{ $EBT2::config{'values'} }) {
+            for my $v (@{ EBT2->values }) {
                 $nbci->{$country}{$loc}{$v} and push @$detail, {
                     value => $v,
                     count => $nbci->{$country}{$loc}{$v},
@@ -253,7 +253,7 @@ sub printers {
         $a cmp $b
     } keys %$data) {
         my $detail;
-        for my $v (@{ $EBT2::config{'values'} }) {
+        for my $v (@{ EBT2->values }) {
             if ($data->{$pc}{$v}) {
                 push @$detail, {
                     count => $data->{$pc}{$v},
@@ -295,7 +295,7 @@ sub printers {
     $self->stash (
         nbp    => $nbp,
         #cbv    => $count_by_value,
-        tot_bv => [ map { $count_by_value->{$_}//0 } @{ $EBT2::config{'values'} } ],
+        tot_bv => [ map { $count_by_value->{$_}//0 } @{ EBT2->values } ],
         fbpc   => $fbpc,
     );
 }
@@ -336,7 +336,7 @@ sub short_codes {
 
     my $sc;
     foreach my $pc (sort @pcs) {
-        foreach my $v ('all', @{ $EBT2::config{'values'} }) {
+        foreach my $v ('all', @{ EBT2->values }) {
             my $records = {
                 lo => $lo->{$pc}{$v},
                 hi => $hi->{$pc}{$v},
@@ -410,7 +410,7 @@ sub coords_bingo {
     my $cb_data = $self->ebt->get_coords_bingo;
 
     my $cb = $cb_data;
-    #foreach my $v ('all', @{ $EBT2::config{'values'} }) {
+    #foreach my $v ('all', @{ EBT2->values }) {
     #    next unless defined $cb_data->{$v};
     #}
 
@@ -428,7 +428,7 @@ sub notes_per_year {
     my $nby;
     foreach my $y (sort keys %$nby_data) {
         my $detail;
-        foreach my $v (@{ $EBT2::config{'values'} }) {
+        foreach my $v (@{ EBT2->values }) {
             next unless $nby_data->{$y}{$v};
             push @$detail, {
                 value => $v,
@@ -458,7 +458,7 @@ sub notes_per_month {
     my $nbm;
     foreach my $m (sort keys %$nbm_data) {
         my $detail;
-        foreach my $v (@{ $EBT2::config{'values'} }) {
+        foreach my $v (@{ EBT2->values }) {
             next unless $nbm_data->{$m}{$v};
             push @$detail, {
                 value => $v,
@@ -489,7 +489,7 @@ sub top_days {
     my $nbdow;
     foreach my $dow (sort keys %$nbdow_data) {
         my $detail;
-        foreach my $v (@{ $EBT2::config{'values'} }) {
+        foreach my $v (@{ EBT2->values }) {
             next unless $nbdow_data->{$dow}{$v};
             push @$detail, {
                 value => $v,
@@ -513,7 +513,7 @@ sub top_days {
         } keys %$t10d_data
     ) {
         my $detail;
-        foreach my $v (@{ $EBT2::config{'values'} }) {
+        foreach my $v (@{ EBT2->values }) {
             next unless $t10d_data->{$d}{$v};
             push @$detail, {
                 value => $v,

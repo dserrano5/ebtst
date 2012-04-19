@@ -1,5 +1,5 @@
 [b]<%=l 'Coordinates bingo' %>[/b]
-<% foreach my $v ('all', @{ $EBT2::config{'values'} }) { =%>
+<% foreach my $v ('all', @{ EBT2->values }) { =%>
 <% next unless defined $cb->{$v}; =%>
 <% my ($max_letter, $max_number) = qw/H 5/; =%>
 <%# obtain lower right corner: max letter and max number =%>

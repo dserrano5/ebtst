@@ -148,3 +148,4 @@ Time zone = Huso horario
 Language = Idioma
 Notes CSV file = Archivo CSV de billetes
 Hits CSV file = Archivo CSV de hits
+Submit = Enviar

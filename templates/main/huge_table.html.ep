@@ -8,13 +8,13 @@
     <% foreach my $plate (sort keys %$ht) { %>
     <tr>
         <td class="small_cell" style="vertical-align: top;">
-            <img src="/images/<%= $ht->{$plate}{'plate_flag'} %>.gif"> <%= $plate %>
+            <img src="images/<%= $ht->{$plate}{'plate_flag'} %>.gif"> <%= $plate %>
         </td>
         <% foreach my $v (@{ EBT2->values }) { %>
         <td class="small_cell" style="vertical-align: top;">
             <% if (exists $ht->{$plate}{'values'}{$v}) { %>
                 <% foreach my $serial (sort keys %{ $ht->{$plate}{'values'}{$v} }) { %>
-                    <img src="/images/<%= $ht->{$plate}{'values'}{$v}{$serial}{'flag'} %>.gif">
+                    <img src="images/<%= $ht->{$plate}{'values'}{$v}{$serial}{'flag'} %>.gif">
                     <%= $serial %> - <%= $ht->{$plate}{'values'}{$v}{$serial}{'count'} %>
                     <br>
                 <% } %>

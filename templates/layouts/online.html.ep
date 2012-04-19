@@ -5,7 +5,7 @@
     </head>
     <body id="mainbody">
         <div id="sections">
-            <form action="/bbcode" method="POST" target="_new">
+            <form action="/gen_output" method="POST" target="_new">
             <table>
                 <tr>
                     <td><input type="checkbox" name="information"></td>
@@ -64,7 +64,7 @@
                 <% if ($has_notes) { %>
                 <tr>
                     <td></td>
-                    <td><input type="submit" class="section_link bbcode_button" id="bbcode" value="<%=l 'BBCode' %>"><br>
+                    <td><input type="submit" class="section_link gen_output_button" id="gen_output" value="<%= 'BBCode/HTML' %>"><br>
                 </tr>
                 <% } %>
                 <!--<tr>

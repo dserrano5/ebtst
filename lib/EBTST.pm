@@ -20,7 +20,7 @@ sub startup {
 
     $self->helper (ebt => sub { return $ebt; });
     $self->secret ('[12:36:04] gnome-screensaver-dialog: gkr-pam: unlocked login keyring');   ## :P
-    $self->defaults (layout => 'mylayout');
+    $self->defaults (layout => 'online');
     $self->plugin ('I18N');
 
     #$self->hook (before_dispatch => sub {
@@ -72,7 +72,7 @@ sub startup {
     #$u->any ([qw/get post/], '/evolution')->to ('main#evolution');
     $u->get ('/plate_bingo')->to ('main#plate_bingo');
     #$u->get ('/hit_list')->to ('main#hit_list');
-    $u->post ('/bbcode')->to ('main#bbcode');
+    $u->post ('/gen_output')->to ('main#gen_output');
     #$u->get ('/charts')->to ('main#charts');
 }
 

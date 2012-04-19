@@ -11,12 +11,12 @@
     </tr>
     <% foreach my $elem (@{ $sc->{'all'} }) { %>
     <tr>
-        <td><img src="/images/<%= $elem->{'lo'}{'pc_img'} %>.gif"> <img src="/images/<%= $elem->{'lo'}{'cc_img'} %>.gif"> <%= $elem->{'lo'}{'str'} %></td>
-        <td><img src="/images/<%= $elem->{'lo'}{'value'} %>.gif"></td>
+        <td><img src="images/<%= $elem->{'lo'}{'pc_img'} %>.gif"> <img src="images/<%= $elem->{'lo'}{'cc_img'} %>.gif"> <%= $elem->{'lo'}{'str'} %></td>
+        <td><img src="images/<%= $elem->{'lo'}{'value'} %>.gif"></td>
         <td><%= $elem->{'lo'}{'date'} %></td>
         <td class="invisible_cell small_cell"></td>
-        <td><img src="/images/<%= $elem->{'hi'}{'pc_img'} %>.gif"> <img src="/images/<%= $elem->{'hi'}{'cc_img'} %>.gif"> <%= $elem->{'hi'}{'str'} %></td>
-        <td><img src="/images/<%= $elem->{'hi'}{'value'} %>.gif"></td>
+        <td><img src="images/<%= $elem->{'hi'}{'pc_img'} %>.gif"> <img src="images/<%= $elem->{'hi'}{'cc_img'} %>.gif"> <%= $elem->{'hi'}{'str'} %></td>
+        <td><img src="images/<%= $elem->{'hi'}{'value'} %>.gif"></td>
         <td><%= $elem->{'hi'}{'date'} %></td>
     </tr>
     <% } %>
@@ -36,10 +36,10 @@
         <% foreach my $elem (@{ $sc->{$v} }) { %>
             <% if (defined $elem) { %>
             <tr>
-                <td><img src="/images/<%= $elem->{'lo'}{'pc_img'} %>.gif"> <img src="/images/<%= $elem->{'lo'}{'cc_img'} %>.gif"> <%= $elem->{'lo'}{'str'} %></td>
+                <td><img src="images/<%= $elem->{'lo'}{'pc_img'} %>.gif"> <img src="images/<%= $elem->{'lo'}{'cc_img'} %>.gif"> <%= $elem->{'lo'}{'str'} %></td>
                 <td><%= $elem->{'lo'}{'date'} %></td>
                 <td class="invisible_cell small_cell"></td>
-                <td><img src="/images/<%= $elem->{'hi'}{'pc_img'} %>.gif"> <img src="/images/<%= $elem->{'hi'}{'cc_img'} %>.gif"> <%= $elem->{'hi'}{'str'} %></td>
+                <td><img src="images/<%= $elem->{'hi'}{'pc_img'} %>.gif"> <img src="images/<%= $elem->{'hi'}{'cc_img'} %>.gif"> <%= $elem->{'hi'}{'str'} %></td>
                 <td><%= $elem->{'hi'}{'date'} %></td>
             </tr>
             <% } %>

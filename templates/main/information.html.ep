@@ -1,5 +1,5 @@
 <h2><%=l 'General information' %></h2>
-<%=l 'First note entered' %> <%= $ac->{'first_note'}{'date'} %> (<img src="/images/<%= $ac->{'first_note'}{'value'} %>.gif"> <%=l 'in' %> <%= $ac->{'first_note'}{'city'} %> <img src="/images/<%= $ac->{'first_note'}{'country'} %>.gif">)<br>
+<%=l 'First note entered' %> <%= $ac->{'first_note'}{'date'} %> (<img src="images/<%= $ac->{'first_note'}{'value'} %>.gif"> <%=l 'in' %> <%= $ac->{'first_note'}{'city'} %> <img src="images/<%= $ac->{'first_note'}{'country'} %>.gif">)<br>
 <%=l 'Situation on' %> <%= $today %>, <%= $full_days %> <%=l '(full) days after the first note was entered' %><br>
 <br>
 <%=l 'Active/inactive EBT days' %>: <b><%= $ac->{'active_days_count'} %> - <%= $ac->{'inactive_days_count'} %></b> (<%= sprintf '%.2f', 100 * $ac->{'active_days_count'} / $ac->{'total_days_count'} %>% - <%= sprintf '%.2f', 100 * $ac->{'inactive_days_count'} / $ac->{'total_days_count'} %>%)<br>

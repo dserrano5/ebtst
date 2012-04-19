@@ -13,7 +13,6 @@ Time analysis = Análisis de tiempo
 Combinations = Combinaciones
 Note evolution = Evolución temporal
 Plate bingo = Bingo de planchas
-BBCode = BBCode
 Charts = Gráficas
 Configuration = Configuración
 Help = Ayuda

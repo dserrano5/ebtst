@@ -1,9 +1,9 @@
 <h2><%=l 'Countries with notes entered' %> (<%= $num_co %>)</h2>
 <% foreach my $elem (@$countries) { %>
-    <img src="/images/<%= $elem->{'imgname'} %>.gif"> <%= $elem->{'cname'} %> - 
+    <img src="images/<%= $elem->{'imgname'} %>.gif"> <%= $elem->{'cname'} %> - 
     <%= $elem->{'count'} %> (<%= $elem->{'pct'} %>%) - 
     <% foreach my $d (@{ $elem->{'detail'} }) { %>
-        [<%= $d->{'count'} %> <img src="/images/<%= $d->{'value'} %>.gif">]
+        [<%= $d->{'count'} %> <img src="images/<%= $d->{'value'} %>.gif">]
     <% } %>
     <br>
 <% } %>
@@ -12,9 +12,9 @@
 <% foreach my $elem (@$c_data) { %>
     <h3><%= $elem->{'cname'} %></h3>
     <% foreach my $loc (@{ $elem->{'loc_data'} }) { %>
-        <img src="/images/<%= $elem->{'imgname'} %>.gif"> <%= $loc->{'loc_name'} %> - <%= $loc->{'count'} %> (<%= $loc->{'pct'} %>%) - 
+        <img src="images/<%= $elem->{'imgname'} %>.gif"> <%= $loc->{'loc_name'} %> - <%= $loc->{'count'} %> (<%= $loc->{'pct'} %>%) - 
         <% foreach my $d (@{ $loc->{'detail'} }) { %>
-            [<%= $d->{'count'} %> <img src="/images/<%= $d->{'value'} %>.gif">]
+            [<%= $d->{'count'} %> <img src="images/<%= $d->{'value'} %>.gif">]
         <% } %>
         <br>
     <% } %>
@@ -31,7 +31,7 @@
     </tr>
     <% foreach my $c (@$ab) { %>
         <tr>
-            <th class="small_cell"><img src="/images/<%= $c->{'imgname'} %>.gif"> <%= $c->{'cname'} %></th>
+            <th class="small_cell"><img src="images/<%= $c->{'imgname'} %>.gif"> <%= $c->{'cname'} %></th>
             <% foreach my $l ('A'..'Z') { %>
                 <td class="small_cell"><div class="<%= $c->{'letters'}{$l} ? 'bingo_1' : 'bingo_na' %>"></div></td>
             <% } %>

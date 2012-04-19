@@ -6,6 +6,7 @@ use File::Spec;
 use DateTime;
 use List::Util qw/sum/;
 use List::MoreUtils qw/uniq/;
+use File::Copy;
 
 sub index { shift->redirect_to ('information'); }
 
@@ -665,21 +666,99 @@ sub upload {
     $self->redirect_to ('/information');
 }
 
-sub bbcode {
-    my ($self) = @_;
+sub _prepare_html_dir {
+    my ($self, $dest_dir) = @_;
+    my $src_dir = File::Spec->catfile ($FindBin::Bin, '..', 'public');
+    my $dest_img_dir = File::Spec->catfile ($dest_dir, 'images');
+    my $src_img_dir  = File::Spec->catfile ($src_dir,  'images');
 
-    my @outputs;
-    foreach my $param (qw/
-        information value countries locations printers short_codes nice_serials
-        coords_bingo notes_per_year notes_per_month top_days combs plate_bingo
-    /) {
-        if ($self->param ($param)) {
-            $self->$param;
-            push @outputs, $self->render_partial (template => "main/$param", format => 'txt');
+    if (!unlink glob "$dest_img_dir/*") {
+        if (2 != $!) {   ## "No such file or directory"
+            die "unlink: $!";
+        }
+    }
+    if (!unlink glob "$dest_dir/*") {
+        if (2 != $!) {
+            die "unlink: $!";
         }
     }
 
-    my $body = encode 'UTF-8', join "\n\n", @outputs;
+    if (!rmdir $dest_img_dir) {
+        if (2 != $!) {
+            die "rmdir: '$dest_img_dir': $!";
+        }
+    }
+
+    if (!rmdir $dest_dir) {
+        if (2 != $!) {
+            die "rmdir: '$dest_dir': $!";
+        }
+    }
+
+    if (!mkdir $dest_dir) {
+        if (17 != $!) {   ## "File exists"
+            die "Couldn't create directory: '$dest_dir': $!\n";
+        }
+    }
+
+    if (!mkdir $dest_img_dir) {
+        if (17 != $!) {
+            die "Couldn't create directory: '$dest_img_dir': $!\n";
+        }
+    }
+
+    foreach my $f (glob "$src_img_dir/*") {
+        copy $f, $dest_img_dir or die "copy: '$f': $!";
+    }
+
+    copy "$src_dir/ebt.css", $dest_dir or die "copy: '$src_dir/ebt.css': $!";
+
+    return;
+}
+
+sub _save_html {
+    my ($self, $param, $html_dir, $html) = @_;
+
+    my $file = File::Spec->catfile ($html_dir, "$param.html");
+    if (open my $fd, '>', $file) {
+        my $partial_html = encode 'UTF-8', $self->render_partial (template => "main/$param", format => 'html');
+
+        $html =~ s/<!-- content -->/$partial_html/;
+
+        print $fd $html or warn "print: '$file': $!";
+        close $fd       or warn "close: '$file': $!";
+    } else {
+        warn "open: '$file': $!";
+    }
+
+    return;
+}
+
+sub gen_output {
+    my ($self) = @_;
+    my @params = qw/
+        information value countries locations printers short_codes nice_serials
+        coords_bingo notes_per_year notes_per_month top_days combs plate_bingo
+    /;
+
+    my $html_dir = File::Spec->catfile ($FindBin::Bin, '..', 'html');
+    $self->_prepare_html_dir ($html_dir);
+    my $layout = encode 'UTF-8', $self->render_partial (template => 'layouts/offline', format => 'html');
+
+    my @rendered_bbcode;
+    foreach my $param (@params) {
+        next unless $self->param ($param);
+        $self->$param;
+
+        ## bbcode: store in memory for later output
+        push @rendered_bbcode, encode 'UTF-8', $self->render_partial (template => "main/$param", format => 'txt');
+
+        ## html: save to file
+        $self->_save_html ($param, $html_dir, $layout);
+    }
+
+    ## now output stored bbcode
+    my $body = join "\n\n", @rendered_bbcode;
     $self->res->headers->content_type ('text/plain; charset=utf-8');
     $self->res->body ($body);
     $self->rendered (200);

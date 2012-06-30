@@ -10,7 +10,9 @@ use File::Spec;
 use Text::CSV;
 use List::Util qw/max sum/;
 use Storable qw/retrieve store/;
-use Locale::Country; Locale::Country::alias_code (uk => 'gb');
+use Locale::Country;
+Locale::Country::alias_code (uk => 'gb');
+Locale::Country::rename_country ('va' => 'Vatican City');
 
 sub new {
     my ($class, %args) = @_;

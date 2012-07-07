@@ -49,8 +49,7 @@ foreach my $v (keys %{ $config{'sigs'} }) {
             my $k_pcv = sprintf '%s%s%03d', $pc, $cc, $v;
             $combs_pc_cc_val{$k_pcv} = undef;
 
-            my $sig = $config{'sigs'}{$v}{$cc}{$plate};
-            $sig = [ $sig ] if 'ARRAY' ne ref $sig;
+            my $sig = [ split /, */, $config{'sigs'}{$v}{$cc}{$plate} ];
             foreach my $s (@$sig) {
                 $s =~ /^([A-Z]+)/ or die "invalid signature '$s' found in configuration, v ($v) cc ($cc) plate ($plate)";
                 $s = $1;
@@ -228,12 +227,16 @@ foreach my $v (keys %{ $config{'sigs'} }) {
 
             my $key = "$pc$cc$v";
             my $sig = $config{'sigs'}{$v}{$cc}{$plate};
-            ## unlikely bug: if a given president is *only* returned from the multiple
-            ## ranges mechanism and from nowhere else, then we shouldn't ignore it here
-            next if $sig =~ /,/;
-
+            if ($sig =~ /,/) {
+                $sig =~ s/\s//g;
+                foreach my $choice (split /,/, $sig) {
+                    my ($result, $range) = split /:/, $choice;
+                    $sigs_by_president{$result}{$key}++;
+                }
+            } else {
+                $sigs_by_president{$sig}{$key}++;
+            }
             $sigs_by_president{'any'}{$key}++;
-            $sigs_by_president{$sig}{$key}++;
 
             ## el 'our $all_plates' ahora lo creamos aquí
             push @{ $all_plates{$cc}{$v} }, $plate;

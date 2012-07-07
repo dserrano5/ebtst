@@ -86,7 +86,7 @@ sub _find_out_signature {
     } else {
         if ($sig =~ /,/) {
             if (!defined ($sig = _guess_signature $short, $serial, $sig)) {
-                warn "Couldn't guess signature for note ($value) ($cc) ($plate)\n";
+                warn "Couldn't guess signature for note ($value) ($cc) ($plate) ($short) ($serial)\n";
             }
         } else {
             $sig = sprintf '%s only', $sig;

@@ -16,7 +16,7 @@
     % }
     % my $style = sprintf 'width: %s%%; float: left; %s background-color: %s', $elem->{'pct'}, $border, $color;
     <tr>
-        <td><img src="/images/<%= $elem->{'value'} %>.gif"> <b><%= $elem->{'value'} %></b></td>
+        <td><img src="images/<%= $elem->{'value'} %>.gif"> <b><%= $elem->{'value'} %></b></td>
         <td class="numeric"><%= $elem->{'count'} %></td>
         <td class="numeric"><div style="<%= $style %>">&nbsp;</div><%= $elem->{'pct'} %>%</td>
         <td class="numeric"><%= $elem->{'amount'} %> €</td>

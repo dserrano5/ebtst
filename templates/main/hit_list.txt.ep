@@ -1,0 +1,19 @@
+[b]Hit list[/b]
+<% foreach my $hit (@$cooked) { =%>
+<% my $flags = join ' ', map { ":flag-$_:" } @{ $hit->{'countries'} }; =%>
+<% my $cities = join ' :arrow: ', map { "[b]${_}[/b]" } @{ $hit->{'cities'} };=%>
+<% my $km_days = sprintf '%s km in %s days', $hit->{'km'}, $hit->{'days'}; =%>
+<% my $before = 1; my @hit_partners; =%>
+<% foreach my $p (@{ $hit->{'hit_partners'} }) { =%>
+<%     if ($p =~ /^dserrano/) { $before = 0; next; } =%>
+<%     my ($hit_color, $hit_direction); =%>
+<%     if ($before) { =%>
+<%         ($hit_color, $hit_direction) = ('darkred', 'from'); =%>
+<%     } else { =%>
+<%         ($hit_color, $hit_direction) = ('darkblue', 'to'); =%>
+<%     } =%>
+<%     push @hit_partners, "[color=$hit_color]${hit_direction}[/color]", $p; =%>
+<% } =%>
+<% my $hit_partners = join ' ', @hit_partners; =%>
+[b]<%= $hit->{'idx'} %>.[/b] <%= ((split ' ', $hit->{'hit_date'})[0]) %> :note-<%= $hit->{'value'} %>: <%= $hit->{'serial'} %> <%= $flags %> <%= $cities %> <%= $km_days %> <%= $hit_partners %>
+<% } %>

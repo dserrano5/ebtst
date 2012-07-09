@@ -645,6 +645,22 @@ sub plate_bingo {
     $self->stash (cooked => $cooked);
 }
 
+sub hit_list {
+    my ($self) = @_;
+
+    my $hit_data = $self->ebt->get_hit_list;
+    my $cooked;
+    my $idx = 0;
+    foreach my $hit (@$hit_data) {
+        next if $hit->{'moderated'};
+        $hit->{'idx'} = ++$idx;
+        $hit->{'serial'} =~ s/^([A-Z])....(....)...$/$1xxxx$2xxx/;
+        push @$cooked, $hit;
+    }
+
+    $self->stash (cooked => $cooked);
+}
+
 sub upload {
     my ($self) = @_;
 
@@ -754,6 +770,7 @@ sub gen_output {
     my @params = qw/
         information value countries locations printers short_codes nice_serials
         coords_bingo notes_per_year notes_per_month top_days combs plate_bingo
+        hit_list
     /;
 
     my @req_params = grep { $self->param ($_) } @params;
@@ -858,29 +875,6 @@ sub time_analysis {
 #        );
 #    }
 #}
-
-sub hit_list {
-    my ($self) = @_;
-
-## idx, dates, value, serial, Countries, Places, Kms, Days, Partner(s), Note number, Notes, old/new hit ratio, Notes between, Days between
-    my $hit_data = $self->ebt->get_hit_list;
-    my $cooked;
-    my $idx = 0;
-    foreach my $hit (@$hit_data) {
-        next if $hit->{'moderated'};
-        $hit->{'idx'} = ++$idx;
-        $hit->{'serial'} =~ s/^([A-Z])....(....)...$/$1xxxx$2xxx/;
-        push @$cooked, $hit;
-    }
-    @$cooked = sort {
-        $a->{'hit_date'} cmp $b->{'hit_date'}
-    } @$cooked;
-
-    $self->flash (in => 'hit_list');
-    $self->stash (
-        cooked   => $cooked,
-    );
-}
 
 sub bbcode {
     my ($self) = @_;

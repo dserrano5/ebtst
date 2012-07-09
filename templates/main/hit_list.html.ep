@@ -1,0 +1,49 @@
+<h2><%=l 'Hit list' %></h2>
+<table>
+    <tr>
+        <th class="small_cell">#</th>
+        <th class="small_cell"><%=l 'Hit date' %></th>
+        <th class="small_cell"><%=l 'Val' %></th>
+        <th class="small_cell"><%=l 'Hit note' %></th>
+        <th class="small_cell"><%=l 'Countries' %></th>
+        <th class="small_cell"><%=l 'Locations' %></th>
+        <th class="small_cell"><%=l 'Kms' %></th>
+        <th class="small_cell"><%=l 'Days' %></th>
+        <th class="small_cell"><%=l 'Partners' %></th>
+        <th class="small_cell"><%=l 'Note number' %></th>
+        <th class="small_cell"><%=l 'Notes' %></th>
+        <th class="small_cell"><%=l 'Old hit ratio' %></th>
+        <th class="small_cell"><%=l 'New hit ratio' %></th>
+        <th class="small_cell"><%=l 'Notes between' %></th>
+        <th class="small_cell"><%=l 'Days between' %></th>
+    </tr>
+    <% foreach my $hit (@$cooked) { %>
+    <% my $before = 1; my @hit_partners; =%>
+    <% foreach my $p (@{ $hit->{'hit_partners'} }) { =%>
+    <%     if ($p =~ /^dserrano/) { $before = 0; next; } =%>
+    <%     if ($before) { =%>
+    <%         push @hit_partners, $p, '<img src="images/red_arrow.gif">'; =%>
+    <%     } else { =%>
+    <%         push @hit_partners, '<img src="images/blue_arrow.gif">', $p; =%>
+    <%     } =%>
+    <% } =%>
+    <% my $hit_partners = join ' ', @hit_partners; =%>
+        <tr>
+            <td class="small_cell"><%= $hit->{'idx'} %></td>
+            <td class="small_cell"><%= ((split ' ', $hit->{'hit_date'})[0]) %><%# syntax error without additional parens... %></td>
+            <td class="small_cell"><img src="images/<%= $hit->{'value'} %>.gif"></td>
+            <td class="small_cell"><%= $hit->{'serial'} %></td>
+            <td class="small_cell"><%== join ' ', map { qq[<img src="images/$_.gif">] } @{ $hit->{'countries'} } %></td>
+            <td class="small_cell"><%== join ',<br>', @{ $hit->{'cities'} } %></td>
+            <td class="small_cell"><%= $hit->{'km'} %></td>
+            <td class="small_cell"><%= $hit->{'days'} %></td>
+            <td class="small_cell"><%== $hit_partners %></td>
+            <td class="small_cell"><%= $hit->{'note_no'} %></td>
+            <td class="small_cell"><%= $hit->{'notes'} %></td>
+            <td class="small_cell"><%= defined $hit->{'old_hit_ratio'} ? sprintf '%.2f', $hit->{'old_hit_ratio'} : 'N/A' %></td>
+            <td class="small_cell"><%= sprintf '%.2f', $hit->{'new_hit_ratio'} %></td>
+            <td class="small_cell"><%= $hit->{'notes_between'} %></td>
+            <td class="small_cell"><%= $hit->{'days_between'} %></td>
+        </tr>
+    <% } %>
+</table>

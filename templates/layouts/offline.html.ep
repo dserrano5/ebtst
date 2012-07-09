@@ -40,9 +40,9 @@
                     <td><a class="section_link" id="evolution"       href="evolution.html"><%=l 'Note evolution' %></a></td>
                 </tr>--><tr>
                     <td><a class="section_link" id="plate_bingo"     href="plate_bingo.html"><%=l 'Plate bingo' %></a></td>
-                </tr><!--<tr>
+                </tr><tr>
                     <td><a class="section_link" id="hit_list"     href="hit_list.html"><%=l 'Hit list' %></a></td>
-                </tr>--><!--<tr>
+                </tr><!--<tr>
                     <td><a class="section_link" id="charts"          href="charts.html"><%=l 'Charts' %></a></td>
                 </tr>--><!--<tr>
                     <td><a class="section_link" id="help"            href="help.html"><%=l 'Help' %></a></td>

@@ -266,6 +266,7 @@ sub load_hits {
         my $k = $hr->{'serial'};
         if ($second_pass) {
             delete @$hr{qw/value serial short_code year/};
+            $hr->{'country'} = _cc $hr->{'country'};
             push @{ $hits{$k}{'parts'} }, $hr;
         } else {
             $hits{$k} = $hr;

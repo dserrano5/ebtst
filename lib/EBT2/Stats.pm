@@ -660,6 +660,74 @@ sub plate_bingo {
     return \%ret;
 }
 
+sub hit_list {
+    my ($self, $data) = @_;
+    my %ret;
+
+    my $note_no = 0;
+    my $notes_elapsed = 0;
+    my $hit_no = 0;
+    my $notes_between = 0;
+    my $prev_hit_dt;
+
+    my $iter = $data->note_getter;
+    my @gotten;
+    while (my $hr = $iter->()) {
+        $hr->{'note_no'} = ++$note_no;
+        push @gotten, $hr;
+    }
+    foreach my $hr (sort {
+        (defined $a->{'hit'} && defined $b->{'hit'}) ? $a->{'hit'}{'hit_date'} cmp $b->{'hit'}{'hit_date'} :
+        (defined $a->{'hit'} && !defined $b->{'hit'}) ? $a->{'hit'}{'hit_date'} cmp $b->{'date_entered'} :
+        (!defined $a->{'hit'} && defined $b->{'hit'}) ? $a->{'date_entered'} cmp $b->{'hit'}{'hit_date'} :
+        (!defined $a->{'hit'} && !defined $b->{'hit'}) ? $a->{'date_entered'} cmp $b->{'date_entered'} :
+        die 'kk while sorting' 
+    } @gotten) {
+        $notes_between++;
+        $notes_elapsed++;
+        if (1 == $hr->{'note_no'}) {
+            my $base_date = $hr->{'hit'} ? $hr->{'hit'}{'hit_date'} : $hr->{'date_entered'};
+            $prev_hit_dt = DateTime->new (
+                zip @{[qw/year month day hour minute second/]}, @{[ split /[\s:-]/, $base_date ]}
+            );
+        }
+        next unless exists $hr->{'hit'};
+        next if $hr->{'hit'}{'moderated'};
+
+        ## passive hit? then we shouldn't have increased notes_elapsed and notes_between, decrease them here
+        $notes_elapsed--, $notes_between-- if 0;   ## TODO: need to know who I am to determine whether a hit is passive or not
+        $notes_elapsed--, $notes_between-- if $hr->{'hit'}{'parts'}[0] =~ /^dserrano/;     ## for now this will do
+
+        $hit_no++;
+        push @{ $ret{'hit_list'} }, {
+            dates         => [ map { $_->{'date_entered'} } @{ $hr->{'hit'}{'parts'} } ],
+            hit_date      => $hr->{'hit'}{'hit_date'},
+            value         => $hr->{'value'},
+            serial        => $hr->{'serial'},
+            countries     => [ map { $_->{'country'} } @{ $hr->{'hit'}{'parts'} } ],
+            cities        => [ map { $_->{'city'} } @{ $hr->{'hit'}{'parts'} } ],
+            km            => $hr->{'hit'}{'tot_km'},
+            days          => $hr->{'hit'}{'tot_days'},
+            hit_partners  => [ map { $_->{'user_name'} } @{ $hr->{'hit'}{'parts'} } ],
+            note_no       => $hr->{'note_no'},
+            notes         => $notes_elapsed,
+            moderated     => $hr->{'hit'}{'moderated'},
+            old_hit_ratio => ($hit_no > 1 ? ($notes_elapsed-1)/($hit_no-1) : undef),
+            new_hit_ratio => $notes_elapsed/$hit_no,
+            notes_between => $notes_between,
+            days_between  => DateTime->new (
+                zip @{[qw/year month day hour minute second/]}, @{[ split /[\s:-]/, $hr->{'hit'}{'hit_date'} ]}
+            )->delta_days ($prev_hit_dt)->delta_days,
+        };
+        $notes_between = 0;
+        $prev_hit_dt = DateTime->new (
+            zip @{[qw/year month day hour minute second/]}, @{[ split /[\s:-]/, $hr->{'hit'}{'hit_date'} ]}
+        );
+    }
+
+    return \%ret;
+}
+
 1;
 
 __END__
@@ -944,56 +1012,6 @@ sub notes_by_hour_min {
 sub notes_by_min_sec { goto &notes_by_hour_min; }
 
 ## todo: notes by hours in a week, 0 .. 167
-
-sub hit_list {
-    my ($self) = @_;
-    my $note_no = 0;
-    my $hit_no = 0;
-    my $notes_between = 0;
-    my $prev_hit_dt;
-
-    #return $self if $self->{'hit_list'};  ## if already done
-    my $iter = $self->note_getter (one_result_aref => 0, one_result_full_data => 0);
-    while (my $hr = $iter->()) {
-        $note_no++;
-        $notes_between++;
-        if (!$prev_hit_dt) {      ## first note
-            my $base_date = $hr->{'hit'} ? $hr->{'hit'}{'hit_date'} : $hr->{'date_entered'};
-            $prev_hit_dt = DateTime->new (
-                zip @{[qw/year month day hour minute second/]}, @{[ split /[\s:-]/, $base_date ]}
-            );
-        }
-        next unless exists $hr->{'hit'};
-        next if $hr->{'hit'}{'moderated'};
-        $hit_no++;
-        push @{ $self->{'hit_list'} }, {
-            dates         => [ map { $_->{'date_entered'} } @{ $hr->{'hit'}{'parts'} } ],
-            hit_date      => $hr->{'hit'}{'hit_date'},
-            value         => $hr->{'value'},
-            serial        => $hr->{'serial'},
-            countries     => [ map { $_->{'country'} } @{ $hr->{'hit'}{'parts'} } ],
-            cities        => [ map { $_->{'city'} } @{ $hr->{'hit'}{'parts'} } ],
-            km            => $hr->{'hit'}{'tot_km'},
-            days          => $hr->{'hit'}{'tot_days'},
-            hit_partners  => [ map { $_->{'user_name'} } @{ $hr->{'hit'}{'parts'} } ],
-            note_no       => $note_no,
-            #"notes"?   ## total notes entered when this hit happened. Is equal to note_no on active hits, isn't on passive hits
-            moderated     => $hr->{'hit'}{'moderated'},
-            old_hit_ratio => ($hit_no > 1 ? ($note_no-1)/($hit_no-1) : undef),
-            new_hit_ratio => $note_no/$hit_no,
-            notes_between => $notes_between,
-            days_between  => DateTime->new (
-                zip @{[qw/year month day hour minute second/]}, @{[ split /[\s:-]/, $hr->{'hit'}{'hit_date'} ]}
-            )->delta_days ($prev_hit_dt)->delta_days,
-        };
-        $notes_between = 0;
-        $prev_hit_dt = DateTime->new (
-            zip @{[qw/year month day hour minute second/]}, @{[ split /[\s:-]/, $hr->{'hit'}{'hit_date'} ]}
-        );
-    }
-
-    return $self;
-}
 
 
 

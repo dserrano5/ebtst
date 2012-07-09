@@ -57,10 +57,10 @@
                 </tr>--><tr>
                     <td></td>
                     <td><a class="section_link" id="plate_bingo"     href="/plate_bingo"><%=l 'Plate bingo' %></a></td>
-                </tr><!--<tr>
+                </tr><tr>
                     <td><input type="checkbox" name="hit_list"></td>
                     <td><a class="section_link" id="hit_list"     href="/hit_list"><%=l 'Hit list' %></a></td>
-                </tr>-->
+                </tr>
                 <% if ($has_notes) { %>
                 <tr>
                     <td></td>

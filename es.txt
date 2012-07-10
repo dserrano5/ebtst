@@ -128,7 +128,7 @@ Total for = Total de
 
 ## hit list
 Hit list = Lista de hits
-Dates = Fechas
+Hit date = Fecha
 Val = Val
 Hit note = Billete
 Kms = Kms
@@ -139,6 +139,8 @@ Old hit ratio = Hit ratio anterior
 New hit ratio = Hit ratio nuevo
 Notes between = Billetes entre medias
 Days between = Días entre medias
+from = de
+to = a
 
 ## configuration
 Configuration = Configuración

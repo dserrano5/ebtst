@@ -4,7 +4,7 @@
         <link rel="stylesheet" type="text/css" media="screen" href="ebt.css">
     </head>
     <body id="mainbody">
-        <% if ($has_notes) { %>
+        <% if ($has_notes and $logged_in) { %>
         <div id="sections">
             <form action="/gen_output" method="POST" target="_new">
             <table>
@@ -72,6 +72,9 @@
                 </tr>--><tr>
                     <td></td>
                     <td><a class="section_link" id="configure"       href="/configure"><%=l 'Configuration' %></a></td>
+                </tr><tr>
+                    <td></td>
+                    <td><a class="section_link" id="logout"          href="/logout"><%=l 'Logout' %></a></td>
                 </tr><!--<tr>
                     <td></td>
                     <td><a class="section_link" id="help"            href="/help"><%=l 'Help' %></a></td>

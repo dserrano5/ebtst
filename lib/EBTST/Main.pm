@@ -8,7 +8,29 @@ use List::Util qw/sum/;
 use List::MoreUtils qw/uniq/;
 use File::Copy;
 
-sub index { shift->redirect_to ('information'); }
+sub index {
+    my ($self) = @_;
+
+    $self->redirect_to ('information') if ref $self->stash ('sess') and $self->stash ('sess')->load;
+}
+
+sub login {
+    my ($self) = @_;
+
+    if ('foouser' eq $self->param ('user') and 'foopass' eq $self->param ('pass')) {
+        $self->stash ('sess')->create;
+        $self->redirect_to ('/information');
+    } else {
+        $self->redirect_to ('/');
+    }
+}
+
+sub logout {
+    my ($self) = @_;
+
+    $self->stash ('sess')->expire;
+    $self->redirect_to ('/');
+}
 
 sub information {
     my ($self) = @_;

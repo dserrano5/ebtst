@@ -1,4 +1,4 @@
-## index
+## layout
 Information = Información
 Countries = Países
 Locations = Localidades
@@ -15,7 +15,14 @@ Note evolution = Evolución temporal
 Plate bingo = Bingo de planchas
 Charts = Gráficas
 Configuration = Configuración
+Logout = Salir
 Help = Ayuda
+
+## index
+Welcome = Bienvenido
+User = Usuario
+Password = Contraseña
+Login = Entrar
 
 ## information
 General information = Información general

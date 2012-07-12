@@ -5,9 +5,11 @@ package EBTST;
 
 use Mojo::Base 'Mojolicious';
 use FindBin;
+use DBI;
 use EBT2;
 
 my $db = '/tmp/ebt2-storable';
+my $sess_dir = '/home/hue/.ebt/session_store';
 
 sub startup {
     my ($self) = @_;
@@ -20,10 +22,26 @@ sub startup {
         warn "Loading db: $@\n";
     }
 
+    my $dbh = DBI->connect ('dbi:CSV:', undef, undef, {
+        f_dir            => $sess_dir,
+        f_encoding       => "utf8",
+        #csv_eol          => "\r\n",
+        #csv_sep_char     => ",",
+        #csv_quote_char   => '"',
+        #csv_escape_char  => '"',
+        RaiseError       => 1,
+        #PrintError       => 1,
+    }) or die $DBI::errstr;
+
     $self->helper (ebt => sub { return $ebt; });
     $self->secret ('[12:36:04] gnome-screensaver-dialog: gkr-pam: unlocked login keyring');   ## :P
     $self->defaults (layout => 'online');
     $self->plugin ('I18N');
+    $self->plugin (session => {
+        stash_key     => 'sess',
+        store         => [ dbi => { dbh => $dbh } ],
+        expires_delta => 30*60,
+    });
 
     #$self->hook (before_dispatch => sub {
     #    my ($self) = @_;
@@ -39,10 +57,21 @@ sub startup {
         $self->stash (has_notes => $self->ebt->has_notes);
         return 1;
     });
-    $r_has_notes->get ('/configure')->to ('main#configure');
-    $r_has_notes->post ('/upload')->to ('main#upload');
+    $r_has_notes->get ('/')->to ('main#index');
+    $r_has_notes->post ('/login')->to ('main#login');
+    my $r_user = $r_has_notes->under (sub {
+        my ($self) = @_;
 
-    my $u = $r_has_notes->under (sub {
+        if (ref $self->stash ('sess') and $self->stash ('sess')->load) {
+            return 1;
+        }
+        $self->redirect_to ('/');
+        return 0;
+    });
+    $r_user->get ('/configure')->to ('main#configure');
+    $r_user->post ('/upload')->to ('main#upload');
+
+    my $u = $r_user->under (sub {
         my ($self) = @_;
 
         if (!$self->ebt->has_notes) {
@@ -52,8 +81,7 @@ sub startup {
 
         return 1;
     });
-
-    $u->get ('/')->to ('main#index');
+    $u->get ('/logout')->to ('main#logout');
     #$u->get ('/quit')->to ('main#quit');
     #$u->get ('/help')->to ('main#help');
     $u->get ('/information')->to ('main#information');

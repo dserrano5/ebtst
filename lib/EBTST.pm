@@ -7,11 +7,13 @@ use Mojo::Base 'Mojolicious';
 use FindBin;
 use EBT2;
 
+my $db = '/tmp/ebt2-storable';
+
 sub startup {
     my ($self) = @_;
 
     my $ebt;
-    eval { $ebt = EBT2->new (db => '/tmp/ebt2-storable'); };
+    eval { $ebt = EBT2->new (db => $db); };
     $@ and die "Initializing model: $@\n";
     eval { $ebt->load_db; };
     if ($@ and $@ !~ /No such file or directory/) {
@@ -31,18 +33,14 @@ sub startup {
 
     my $r = $self->routes;
 
-    $r->get ('/')->to ('main#index');
-    #$r->get ('/quit')->to ('main#quit');
     my $r_has_notes = $r->under (sub {
         my ($self) = @_;
 
         $self->stash (has_notes => $self->ebt->has_notes);
         return 1;
     });
-
-    $r_has_notes->post ('/upload')->to ('main#upload');
     $r_has_notes->get ('/configure')->to ('main#configure');
-    #$r_has_notes->get ('/help')->to ('main#help');
+    $r_has_notes->post ('/upload')->to ('main#upload');
 
     my $u = $r_has_notes->under (sub {
         my ($self) = @_;
@@ -55,6 +53,9 @@ sub startup {
         return 1;
     });
 
+    $u->get ('/')->to ('main#index');
+    #$u->get ('/quit')->to ('main#quit');
+    #$u->get ('/help')->to ('main#help');
     $u->get ('/information')->to ('main#information');
     $u->get ('/value')->to ('main#value');
     $u->get ('/countries')->to ('main#countries');

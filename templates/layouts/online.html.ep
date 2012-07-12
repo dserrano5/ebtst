@@ -4,6 +4,7 @@
         <link rel="stylesheet" type="text/css" media="screen" href="ebt.css">
     </head>
     <body id="mainbody">
+        <% if ($has_notes) { %>
         <div id="sections">
             <form action="/gen_output" method="POST" target="_new">
             <table>
@@ -61,12 +62,10 @@
                     <td><input type="checkbox" name="hit_list"></td>
                     <td><a class="section_link" id="hit_list"     href="/hit_list"><%=l 'Hit list' %></a></td>
                 </tr>
-                <% if ($has_notes) { %>
                 <tr>
                     <td></td>
                     <td><input type="submit" class="section_link gen_output_button" id="gen_output" value="<%= 'BBCode/HTML' %>"></td>
                 </tr>
-                <% } %>
                 <!--<tr>
                     <td></td>
                     <td><a class="section_link" id="charts"          href="/charts"><%=l 'Charts' %></a></td>
@@ -80,6 +79,7 @@
             </table>
             </form>
         </div>
+        <% } %>
         <div id="repl">
             <%= content %>
         </div>

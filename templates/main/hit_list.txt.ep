@@ -1,4 +1,4 @@
-[b]<%= l 'Hit list' %>[/b]
+[b]<%=l 'Hit list' %>[/b]
 <% foreach my $hit (@$cooked) { =%>
 <% my $flags = join ' ', map { ":flag-$_:" } @{ $hit->{'countries'} }; =%>
 <% my $cities = join ' :arrow: ', map { "[b]${_}[/b]" } @{ $hit->{'cities'} };=%>

@@ -55,6 +55,7 @@ sub startup {
         my ($self) = @_;
 
         $self->stash (has_notes => $self->ebt->has_notes);
+        $self->stash (logged_in => 0);
         return 1;
     });
     $r_has_notes->get ('/')->to ('main#index');
@@ -63,6 +64,7 @@ sub startup {
         my ($self) = @_;
 
         if (ref $self->stash ('sess') and $self->stash ('sess')->load) {
+            $self->stash (logged_in => 1);
             return 1;
         }
         $self->redirect_to ('/');

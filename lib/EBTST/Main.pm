@@ -8,6 +8,15 @@ use List::Util qw/sum/;
 use List::MoreUtils qw/uniq/;
 use File::Copy;
 
+my %users;
+open my $fd, '<', '/home/hue/.ebt/mojo-users' or die "open: '/home/hue/.ebt/mojo-users': $!";
+while (<$fd>) {
+    chomp;
+    my ($u, $p) = split /\t/;
+    $users{$u} = $p;
+}
+close $fd;
+
 sub index {
     my ($self) = @_;
 
@@ -17,7 +26,10 @@ sub index {
 sub login {
     my ($self) = @_;
 
-    if ('foouser' eq $self->param ('user') and 'foopass' eq $self->param ('pass')) {
+    if (
+        exists $users{$self->param ('user')} and
+        $users{$self->param ('user')} eq $self->param ('pass')
+    ) {
         $self->stash ('sess')->create;
         $self->redirect_to ('/information');
     } else {

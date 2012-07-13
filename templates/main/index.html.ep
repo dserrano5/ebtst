@@ -1,0 +1,14 @@
+<h2><%=l 'Welcome' %></h2>
+<%= form_for login => (id => 'login', method => 'post', enctype => 'multipart/form-data') => begin %>
+    <table>
+        <tr>
+            <td><%=l 'User' %>:</td>
+            <td><%= text_field 'user' %></td>
+        </tr><tr>
+            <td><%=l 'Password' %>:</td>
+            <td><%= text_field 'pass' %></td>
+        </tr>
+    </table>
+    <br>
+    <%= submit_button l 'Login' %>
+<% end %>

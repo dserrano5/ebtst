@@ -1,0 +1,3 @@
+<h2><%=l 'Hit summary' %></h2>
+
+<%=l 'Hits' %>: 42 (12 <%=l 'national' %>, 23 <%=l 'international' %>, 34 <%=l 'moderated' %>)

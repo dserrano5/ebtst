@@ -32,6 +32,7 @@ sub startup {
     $self->secret ('[12:36:04] gnome-screensaver-dialog: gkr-pam: unlocked login keyring');   ## :P
     $self->defaults (layout => 'online');
     $self->plugin ('I18N');
+    $self->plugin ('Mojolicious::Plugin::CSRFDefender');
     $self->plugin (session => {
         stash_key     => 'sess',
         store         => [ dbi => { dbh => $dbh } ],

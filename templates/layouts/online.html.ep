@@ -4,10 +4,11 @@
         <link rel="stylesheet" type="text/css" media="screen" href="ebt.css">
     </head>
     <body id="mainbody">
+        <% if (defined $user) { %>
         <div id="sections">
             <form action="/gen_output" method="POST" target="_new">
             <table>
-                <% if ($has_notes and defined $user) { %>
+                <% if ($has_notes) { %>
                 <tr>
                     <td><input type="checkbox" name="information"></td>
                     <td><a class="section_link" id="information"     href="/information"><%=l 'Information' %></a></td>
@@ -85,6 +86,7 @@
             </table>
             </form>
         </div>
+        <% } %>
         <div id="repl">
             <%= content %>
         </div>

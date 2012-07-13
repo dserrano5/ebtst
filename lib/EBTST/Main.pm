@@ -3,6 +3,7 @@ package EBTST::Main;
 use Mojo::Base 'Mojolicious::Controller';
 use Encode qw/encode/;
 use File::Spec;
+use Digest::SHA qw/sha512_hex/;
 use DateTime;
 use List::Util qw/sum/;
 use List::MoreUtils qw/uniq/;
@@ -11,7 +12,7 @@ my %users;
 open my $fd, '<', '/home/hue/.ebt/mojo-users' or die "open: '/home/hue/.ebt/mojo-users': $!";
 while (<$fd>) {
     chomp;
-    my ($u, $p) = split /\t/;
+    my ($u, $p) = split /:/;
     $users{$u} = $p;
 }
 close $fd;
@@ -27,7 +28,7 @@ sub login {
 
     if (
         exists $users{$self->param ('user')} and
-        $users{$self->param ('user')} eq $self->param ('pass')
+        $users{$self->param ('user')} eq sha512_hex $self->param ('pass')
     ) {
         $self->stash ('sess')->create;
         $self->stash ('sess')->data ('user' => $self->param ('user'));

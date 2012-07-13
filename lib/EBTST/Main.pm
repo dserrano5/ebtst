@@ -6,7 +6,6 @@ use File::Spec;
 use DateTime;
 use List::Util qw/sum/;
 use List::MoreUtils qw/uniq/;
-use File::Copy;
 
 my %users;
 open my $fd, '<', '/home/hue/.ebt/mojo-users' or die "open: '/home/hue/.ebt/mojo-users': $!";
@@ -719,24 +718,16 @@ sub upload {
 
 sub _prepare_html_dir {
     my ($self, $dest_dir) = @_;
-    my $src_dir = File::Spec->catfile ($FindBin::Bin, '..', 'public');
-    my $dest_img_dir = File::Spec->catfile ($dest_dir, 'images');
-    my $src_img_dir  = File::Spec->catfile ($src_dir,  'images');
 
-    if (!defined unlink glob "$dest_img_dir/*") {
-        if (2 != $!) {   ## "No such file or directory"
-            die "unlink: $!";
-        }
-    }
+    my $src_dir = File::Spec->catfile ('..', '..');
+    my $src_img_dir  = File::Spec->catfile ($src_dir,  'images');
+    my $src_css      = File::Spec->catfile ($src_dir,  'ebt.css');
+    my $dest_img_dir = File::Spec->catfile ($dest_dir, 'images');
+    my $dest_css     = File::Spec->catfile ($dest_dir, 'ebt.css');
+
     if (!defined unlink glob "$dest_dir/*") {
         if (2 != $!) {
             die "unlink: $!";
-        }
-    }
-
-    if (!rmdir $dest_img_dir) {
-        if (2 != $!) {
-            die "rmdir: '$dest_img_dir': $!";
         }
     }
 
@@ -752,17 +743,8 @@ sub _prepare_html_dir {
         }
     }
 
-    if (!mkdir $dest_img_dir) {
-        if (17 != $!) {
-            die "Couldn't create directory: '$dest_img_dir': $!\n";
-        }
-    }
-
-    foreach my $f (glob "$src_img_dir/*") {
-        copy $f, $dest_img_dir or die "copy: '$f': $!";
-    }
-
-    copy "$src_dir/ebt.css", $dest_dir or die "copy: '$src_dir/ebt.css': $!";
+    symlink $src_img_dir, $dest_img_dir or die "symlink: '$src_img_dir' to '$dest_img_dir': $!";
+    symlink $src_css, $dest_css or die "symlink: '$src_css' to '$dest_css': $!";
 
     return;
 }
@@ -810,7 +792,7 @@ sub gen_output {
 
     my @req_params = grep { $self->param ($_) } @params;
 
-    my $html_dir = File::Spec->catfile ($FindBin::Bin, '..', 'html');
+    my $html_dir = File::Spec->catfile ($FindBin::Bin, '..', 'public', 'stats', $self->stash ('user'));
     $self->_prepare_html_dir ($html_dir);
     my $html_layout = encode 'UTF-8', $self->render_partial (template => 'layouts/offline', format => 'html');
     $html_layout = $self->_trim_html_sections ($html_layout, @req_params);

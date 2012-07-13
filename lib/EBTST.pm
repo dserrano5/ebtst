@@ -59,19 +59,24 @@ sub startup {
         my ($self) = @_;
 
         if (ref $self->stash ('sess') and $self->stash ('sess')->load) {
-            $self->stash (user => $self->stash ('sess')->data ('user'));
+            my $user = $self->stash ('sess')->data ('user');
 
-            my $user_data_dir = File::Spec->catfile ($user_data_basedir, $self->stash ('user'));
-            my $db = File::Spec->catfile ($user_data_dir, 'db');
-            if (!-d $user_data_dir) {
-                mkdir $user_data_dir or die "mkdir: '$user_data_dir': $!";
-            }
+            my $user_data_dir = File::Spec->catfile ($user_data_basedir, $user);
+            my $html_dir      = File::Spec->catfile ($user_data_dir, 'html');
+            my $db            = File::Spec->catfile ($user_data_dir, 'db');
+
+            $self->stash (user      => $user);
+            $self->stash (html_dir  => $html_dir);
+
+            if (!-d $user_data_dir) { mkdir $user_data_dir or die "mkdir: '$user_data_dir': $!"; }
+            if (!-d $html_dir)      { mkdir $html_dir      or die "mkdir: '$html_dir': $!"; }
             eval { $ebt = EBT2->new (db => $db); };
             $@ and die "Initializing model: '$@'\n";
             eval { $ebt->load_db; };
             if ($@ and $@ !~ /No such file or directory/) {
                 warn "Loading db: '$@'. Going on anyway.\n";
             }
+            $self->stash (has_notes => $self->ebt->has_notes);
 
             return 1;
         }

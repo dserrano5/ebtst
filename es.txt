@@ -21,7 +21,7 @@ Help = Ayuda
 ## index
 Welcome = Bienvenido
 User = Usuario
-Password = Contraseña
+Passphrase = Contraseña
 Login = Entrar
 
 ## information

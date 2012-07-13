@@ -723,12 +723,12 @@ sub _prepare_html_dir {
     my $dest_img_dir = File::Spec->catfile ($dest_dir, 'images');
     my $src_img_dir  = File::Spec->catfile ($src_dir,  'images');
 
-    if (!unlink glob "$dest_img_dir/*") {
+    if (!defined unlink glob "$dest_img_dir/*") {
         if (2 != $!) {   ## "No such file or directory"
             die "unlink: $!";
         }
     }
-    if (!unlink glob "$dest_dir/*") {
+    if (!defined unlink glob "$dest_dir/*") {
         if (2 != $!) {
             die "unlink: $!";
         }

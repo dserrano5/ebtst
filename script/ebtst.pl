@@ -17,4 +17,5 @@ Please visit http://mojolicio.us for detailed installation instructions.
 EOF
 
 $ENV{'MOJO_APP'} ||= 'EBTST';
-Mojolicious::Commands->start ('daemon', '--listen' => 'http://localhost:8080');
+Mojolicious::Commands->start (@ARGV);
+#Mojolicious::Commands->start ('daemon', '--listen' => 'http://localhost:8080');

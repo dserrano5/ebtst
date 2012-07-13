@@ -4,24 +4,19 @@ package EBTST;
 ## seleccionar un conjunto de billetes, principalmente los introducidos en un periodo determinado de tiempo, y sacar las estadísticas
 
 use Mojo::Base 'Mojolicious';
+use File::Spec;
 use FindBin;
 use DBI;
 use EBT2;
 
-my $db = '/tmp/ebt2-storable';
-my $sess_dir = '/home/hue/.ebt/session_store';
+#my $db = '/tmp/ebt2-storable';
+my $sess_dir = '/home/hue/.ebt/session-store';
+my $user_data_basedir = '/home/hue/.ebt/user-data';
 
 sub startup {
     my ($self) = @_;
 
     my $ebt;
-    eval { $ebt = EBT2->new (db => $db); };
-    $@ and die "Initializing model: $@\n";
-    eval { $ebt->load_db; };
-    if ($@ and $@ !~ /No such file or directory/) {
-        warn "Loading db: $@\n";
-    }
-
     my $dbh = DBI->connect ('dbi:CSV:', undef, undef, {
         f_dir            => $sess_dir,
         f_encoding       => "utf8",
@@ -54,8 +49,8 @@ sub startup {
     my $r_has_notes = $r->under (sub {
         my ($self) = @_;
 
-        $self->stash (has_notes => $self->ebt->has_notes);
-        $self->stash (logged_in => 0);
+        $self->stash (has_notes => defined $self->ebt && $self->ebt->has_notes);
+        $self->stash (user => undef);
         return 1;
     });
     $r_has_notes->get ('/')->to ('main#index');
@@ -64,7 +59,20 @@ sub startup {
         my ($self) = @_;
 
         if (ref $self->stash ('sess') and $self->stash ('sess')->load) {
-            $self->stash (logged_in => 1);
+            $self->stash (user => $self->stash ('sess')->data ('user'));
+
+            my $user_data_dir = File::Spec->catfile ($user_data_basedir, $self->stash ('user'));
+            my $db = File::Spec->catfile ($user_data_dir, 'db');
+            if (!-d $user_data_dir) {
+                mkdir $user_data_dir or die "mkdir: '$user_data_dir': $!";
+            }
+            eval { $ebt = EBT2->new (db => $db); };
+            $@ and die "Initializing model: '$@'\n";
+            eval { $ebt->load_db; };
+            if ($@ and $@ !~ /No such file or directory/) {
+                warn "Loading db: '$@'. Going on anyway.\n";
+            }
+
             return 1;
         }
         $self->redirect_to ('/');
@@ -76,7 +84,7 @@ sub startup {
     my $u = $r_user->under (sub {
         my ($self) = @_;
 
-        if (!$self->ebt->has_notes) {
+        if (!$self->stash ('has_notes')) {
             $self->redirect_to ('configure');
             return 0;
         }

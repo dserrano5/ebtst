@@ -31,6 +31,7 @@ sub login {
         $users{$self->param ('user')} eq $self->param ('pass')
     ) {
         $self->stash ('sess')->create;
+        $self->stash ('sess')->data ('user' => $self->param ('user'));
         $self->redirect_to ('/information');
     } else {
         $self->redirect_to ('/');

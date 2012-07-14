@@ -32,9 +32,9 @@ sub login {
     ) {
         $self->stash ('sess')->create;
         $self->stash ('sess')->data ('user' => $self->param ('user'));
-        $self->redirect_to ('/information');
+        $self->redirect_to ('information');
     } else {
-        $self->redirect_to ('/');
+        $self->redirect_to ('index');
     }
 }
 
@@ -42,7 +42,7 @@ sub logout {
     my ($self) = @_;
 
     $self->stash ('sess')->expire;
-    $self->redirect_to ('/');
+    $self->redirect_to ('index');
 }
 
 sub information {
@@ -714,7 +714,7 @@ sub upload {
         unlink $local_hits_file  or warn "unlink: '$local_hits_file': $!\n";
     }
 
-    $self->redirect_to ('/information');
+    $self->redirect_to ('information');
 }
 
 sub _prepare_html_dir {

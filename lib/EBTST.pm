@@ -86,7 +86,7 @@ sub startup {
 
             return 1;
         }
-        $self->redirect_to ('/');
+        $self->redirect_to ('index');
         return 0;
     });
     $r_user->get ('/configure')->to ('main#configure');

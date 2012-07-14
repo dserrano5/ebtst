@@ -1,5 +1,5 @@
 <h2><%=l 'Welcome' %></h2>
-<%= form_for login => (id => 'login', method => 'post', enctype => 'multipart/form-data') => begin %>
+<form action="login" enctype="multipart/form-data" id="login" method="post">
     <table>
         <tr>
             <td><%=l 'User' %>:</td>
@@ -11,4 +11,4 @@
     </table>
     <br>
     <%= submit_button l 'Login' %>
-<% end %>
+</form>

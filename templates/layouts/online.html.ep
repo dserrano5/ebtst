@@ -6,62 +6,62 @@
     <body id="mainbody">
         <% if (defined $user) { %>
         <div id="sections">
-            <form action="/gen_output" method="POST" target="_new">
+            <form action="gen_output" method="POST" target="_new">
             <table>
                 <% if ($has_notes) { %>
                 <tr>
                     <td><input type="checkbox" name="information"></td>
-                    <td><a class="section_link" id="information"     href="/information"><%=l 'Information' %></a></td>
+                    <td><a class="section_link" id="information"     href="information"><%=l 'Information' %></a></td>
                 </tr><tr>
                     <td><input type="checkbox" name="value"></td>
-                    <td><a class="section_link" id="value"           href="/value"><%=l 'Value' %></a></td>
+                    <td><a class="section_link" id="value"           href="value"><%=l 'Value' %></a></td>
                 </tr><tr>
                     <td><input type="checkbox" name="countries"></td>
-                    <td><a class="section_link" id="countries"       href="/countries"><%=l 'Countries' %></a></td>
+                    <td><a class="section_link" id="countries"       href="countries"><%=l 'Countries' %></a></td>
                 </tr><tr>
                     <td><input type="checkbox" name="locations"></td>
-                    <td><a class="section_link" id="locations"       href="/locations"><%=l 'Locations' %></a></td>
+                    <td><a class="section_link" id="locations"       href="locations"><%=l 'Locations' %></a></td>
                 </tr><!-- !travel_stats --><tr>
                     <td><input type="checkbox" name="printers"></td>
-                    <td><a class="section_link" id="printers"        href="/printers"><%=l 'Printers' %></a></td>
+                    <td><a class="section_link" id="printers"        href="printers"><%=l 'Printers' %></a></td>
                 </tr><tr>
                     <td></td>
-                    <td><a class="section_link" id="huge_table"      href="/huge_table"><%=l 'Huge table' %></a></td>
+                    <td><a class="section_link" id="huge_table"      href="huge_table"><%=l 'Huge table' %></a></td>
                 </tr><tr>
                     <td><input type="checkbox" name="short_codes"></td>
-                    <td><a class="section_link" id="short_codes"     href="/short_codes"><%=l 'Short codes' %></a></td>
+                    <td><a class="section_link" id="short_codes"     href="short_codes"><%=l 'Short codes' %></a></td>
                 </tr><tr>
                     <td><input type="checkbox" name="nice_serials"></td>
-                    <td><a class="section_link" id="nice_serials"    href="/nice_serials"><%=l 'Nice serials' %></a></td>
+                    <td><a class="section_link" id="nice_serials"    href="nice_serials"><%=l 'Nice serials' %></a></td>
                 </tr><tr>
                     <td><input type="checkbox" name="coords_bingo"></td>
-                    <td><a class="section_link" id="coords_bingo"  href="/coords_bingo"><%=l 'Coordinates bingo' %></a></td>
+                    <td><a class="section_link" id="coords_bingo"  href="coords_bingo"><%=l 'Coordinates bingo' %></a></td>
                 </tr><!-- note_analysis --><tr>
                     <td><input type="checkbox" name="notes_per_year"></td>
-                    <td><a class="section_link" id="notes_per_year"  href="/notes_per_year"><%=l 'Notes/year' %></a></td>
+                    <td><a class="section_link" id="notes_per_year"  href="notes_per_year"><%=l 'Notes/year' %></a></td>
                 </tr><tr>
                     <td><input type="checkbox" name="notes_per_month"></td>
-                    <td><a class="section_link" id="notes_per_month" href="/notes_per_month"><%=l 'Notes/month' %></a></td>
+                    <td><a class="section_link" id="notes_per_month" href="notes_per_month"><%=l 'Notes/month' %></a></td>
                 </tr><tr>
                     <td><input type="checkbox" name="top_days"></td>
-                    <td><a class="section_link" id="top_days"        href="/top_days"><%=l 'Top days' %></a></td>
+                    <td><a class="section_link" id="top_days"        href="top_days"><%=l 'Top days' %></a></td>
                 </tr><tr>
                     <td><input type="checkbox" name="time_analysis"></td>
-                    <td><a class="section_link" id="time_analysis"   href="/time_analysis"><%=l 'Time analysis' %></a></td>
+                    <td><a class="section_link" id="time_analysis"   href="time_analysis"><%=l 'Time analysis' %></a></td>
                 </tr>
                 <!-- comments -->
                 <tr>
                     <td></td>
-                    <td><a class="section_link" id="combs"           href="/combs"><%=l 'Combinations' %></a></td>
+                    <td><a class="section_link" id="combs"           href="combs"><%=l 'Combinations' %></a></td>
                 </tr><!--<tr>
                     <td></td>
-                    <td><a class="section_link" id="evolution"       href="/evolution"><%=l 'Note evolution' %></a></td>
+                    <td><a class="section_link" id="evolution"       href="evolution"><%=l 'Note evolution' %></a></td>
                 </tr>--><tr>
                     <td></td>
-                    <td><a class="section_link" id="plate_bingo"     href="/plate_bingo"><%=l 'Plate bingo' %></a></td>
+                    <td><a class="section_link" id="plate_bingo"     href="plate_bingo"><%=l 'Plate bingo' %></a></td>
                 </tr><tr>
                     <td><input type="checkbox" name="hit_list"></td>
-                    <td><a class="section_link" id="hit_list"     href="/hit_list"><%=l 'Hit list' %></a></td>
+                    <td><a class="section_link" id="hit_list"     href="hit_list"><%=l 'Hit list' %></a></td>
                 </tr>
                 <tr>
                     <td></td>
@@ -69,19 +69,19 @@
                 </tr>
                 <!--<tr>
                     <td></td>
-                    <td><a class="section_link" id="charts"          href="/charts"><%=l 'Charts' %></a></td>
+                    <td><a class="section_link" id="charts"          href="charts"><%=l 'Charts' %></a></td>
                 </tr>--><tr>
                     <td></td>
-                    <td><a class="section_link" id="configure"       href="/configure"><%=l 'Configuration' %></a></td>
+                    <td><a class="section_link" id="configure"       href="configure"><%=l 'Configuration' %></a></td>
                 </tr>
                 <!--<tr>
                     <td></td>
-                    <td><a class="section_link" id="help"            href="/help"><%=l 'Help' %></a></td>
+                    <td><a class="section_link" id="help"            href="help"><%=l 'Help' %></a></td>
                 </tr>-->
                 <% } %>
                 <tr>
                     <td></td>
-                    <td><a class="section_link" id="logout"          href="/logout"><%=l 'Logout' %></a></td>
+                    <td><a class="section_link" id="logout"          href="logout"><%=l 'Logout' %></a></td>
                 </tr>
             </table>
             </form>

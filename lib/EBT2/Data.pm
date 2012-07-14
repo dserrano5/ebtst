@@ -218,7 +218,7 @@ sub load_notes {
         if ($store_path) {
             my $serial2 = $hr->{'serial'};
             $serial2 =~ s/...$/xxx/;
-            printf $outfd "%s\n", join ';', @$hr{qw/value year serial short_code date_entered city country/};
+            printf $outfd "%s\n", join ';', @$hr{qw/value year/}, $serial2, @$hr{qw/short_code date_entered city country/};
         }
 
         $hr->{'country'} = _cc $hr->{'country'};

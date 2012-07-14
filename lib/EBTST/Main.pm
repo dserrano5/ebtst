@@ -9,7 +9,7 @@ use List::Util qw/sum/;
 use List::MoreUtils qw/uniq/;
 
 my %users;
-open my $fd, '<', '/home/hue/.ebt/mojo-users' or die "open: '/home/hue/.ebt/mojo-users': $!";
+open my $fd, '<', $EBTST::config{'users_db'} or die "open: '$EBTST::config{'users_db'}': $!";
 while (<$fd>) {
     chomp;
     my ($u, $p) = split /:/;

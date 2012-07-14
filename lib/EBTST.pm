@@ -13,7 +13,7 @@ use EBT2;
 my $work_dir = EBT2::_work_dir;
 my $cfg_file = File::Spec->catfile ($work_dir, 'ebtst.cfg');
 -r $cfg_file or die "Can't find configuration file '$cfg_file'\n";
-my %config = Config::General->new (-ConfigFile => $cfg_file, -IncludeRelative => 1, -UTF8 => 1)->getall;
+our %config = Config::General->new (-ConfigFile => $cfg_file, -IncludeRelative => 1, -UTF8 => 1)->getall;
 
 my $sess_dir = '/home/hue/.ebt/session-store';
 my $user_data_basedir = '/home/hue/.ebt/user-data';
@@ -24,7 +24,7 @@ sub startup {
     my $ebt;
     my $dbh = DBI->connect ('dbi:CSV:', undef, undef, {
         f_dir            => $sess_dir,
-        f_encoding       => "utf8",
+        f_encoding       => 'utf8',
         #csv_eol          => "\r\n",
         #csv_sep_char     => ",",
         #csv_quote_char   => '"',

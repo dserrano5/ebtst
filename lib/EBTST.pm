@@ -5,11 +5,16 @@ package EBTST;
 
 use Mojo::Base 'Mojolicious';
 use File::Spec;
+use Config::General;
 use FindBin;
 use DBI;
 use EBT2;
 
-#my $db = '/tmp/ebt2-storable';
+my $work_dir = EBT2::_work_dir;
+my $cfg_file = File::Spec->catfile ($work_dir, 'ebtst.cfg');
+-r $cfg_file or die "Can't find configuration file '$cfg_file'\n";
+my %config = Config::General->new (-ConfigFile => $cfg_file, -IncludeRelative => 1, -UTF8 => 1)->getall;
+
 my $sess_dir = '/home/hue/.ebt/session-store';
 my $user_data_basedir = '/home/hue/.ebt/user-data';
 

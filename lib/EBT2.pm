@@ -25,7 +25,7 @@ sub _work_dir {
     return $work_dir;
 }
 
-our $work_dir = _work_dir;
+my $work_dir = _work_dir;
 my $cfg_file = File::Spec->catfile ($work_dir, 'ebt2.cfg');
 -r $cfg_file or die "Can't find configuration file '$cfg_file'\n";
 our %config = Config::General->new (-ConfigFile => $cfg_file, -IncludeRelative => 1, -UTF8 => 1)->getall;

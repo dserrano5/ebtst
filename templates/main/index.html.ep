@@ -6,7 +6,7 @@
             <td><%= text_field 'user' %></td>
         </tr><tr>
             <td><%=l 'Passphrase' %>:</td>
-            <td><%= text_field 'pass' %></td>
+            <td><%= password_field 'pass' %></td>
         </tr>
     </table>
     <br>

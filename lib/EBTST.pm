@@ -23,17 +23,21 @@ my $html_dir = $config{'html_dir'} // join '/', dirname(__FILE__), '..', 'public
 sub startup {
     my ($self) = @_;
 
-    $self->hook (before_dispatch => sub {
-        my $self = shift;
+    if ($self->mode eq 'production') {
+        $self->hook (before_dispatch => sub {
+            my $self = shift;
 
-        if ($self->mode eq 'production') {
             ## Move first part from path to base path in production mode
             push @{$self->req->url->base->path->parts}, shift @{$self->req->url->path->parts};
             $self->stash (production => 1);
-        } else {
+        });
+    } else {
+        $self->hook (before_dispatch => sub {
+            my $self = shift;
+
             $self->stash (production => 0);
-        }
-    });
+        });
+    }
 
     my $ebt;
     my $dbh = DBI->connect ('dbi:CSV:', undef, undef, {

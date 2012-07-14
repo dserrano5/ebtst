@@ -703,8 +703,9 @@ sub upload {
     my $hits_csv  = $self->req->upload ('hits_csv_file');
     if ($notes_csv) {
         my $local_notes_file = File::Spec->catfile ($ENV{'TMP'}//$ENV{'TEMP'}//'/tmp', 'notes_uploaded.csv');
+        my $outfile = File::Spec->catfile ($EBTST::config{'csvs_dir'}, int rand 1e7);
         $notes_csv->move_to ($local_notes_file);
-        $self->ebt->load_notes ($local_notes_file);
+        $self->ebt->load_notes ($local_notes_file, $outfile);
         unlink $local_notes_file or warn "unlink: '$local_notes_file': $!\n";
     }
     if ($hits_csv) {

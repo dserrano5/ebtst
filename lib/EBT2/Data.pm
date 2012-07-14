@@ -183,7 +183,7 @@ sub _date_inside_range {
 }
 
 sub load_notes {
-    my ($self, $notes_file) = @_;
+    my ($self, $notes_file, $store_path) = @_;
     my $fd;
     my @notes_column_names = qw/
         value year serial desc date_entered city country
@@ -206,17 +206,26 @@ sub load_notes {
     $header =~ s/[\x0d\x0a]*$//;
     die "Unrecognized notes file\n" unless 'EBT notes v2' eq $header;
 
+    open my $outfd, '>', $store_path or die "open: '$store_path': $!" if $store_path;
     my $notes_csv = Text::CSV->new ({ sep_char => ';', binary => 1 });
     $notes_csv->column_names (@notes_column_names);
     while (my $hr = $notes_csv->getline_hr ($fd)) {
         $hr->{'signature'} = _find_out_signature @$hr{qw/value short_code serial/};
-        $hr->{'country'} = _cc $hr->{'country'};
         if ($hr->{'date_entered'} =~ m{^(\d{2})/(\d{2})/(\d{2}) (\d{2}):(\d{2})$}) {
             $hr->{'date_entered'} = sprintf "%s-%s-%s %s:%s:00", (2000+$3), $2, $1, $4, $5;
         }
+
+        if ($store_path) {
+            my $serial2 = $hr->{'serial'};
+            $serial2 =~ s/...$/xxx/;
+            printf $outfd "%s\n", join ';', @$hr{qw/value year serial short_code date_entered city country/};
+        }
+
+        $hr->{'country'} = _cc $hr->{'country'};
         push @{ $self->{'notes'} }, $hr;
     }
     close $fd;
+    close $outfd if $store_path;
 
     for my $n (@{ $self->{'notes'} }) {
         next unless $save_hits{ $n->{'serial'} };

@@ -15,8 +15,8 @@ my $cfg_file = File::Spec->catfile ($work_dir, 'ebtst.cfg');
 -r $cfg_file or die "Can't find configuration file '$cfg_file'\n";
 our %config = Config::General->new (-ConfigFile => $cfg_file, -IncludeRelative => 1, -UTF8 => 1)->getall;
 
-my $sess_dir = '/home/hue/.ebt/session-store';
-my $user_data_basedir = '/home/hue/.ebt/user-data';
+my $sess_dir = $config{'session_dir'};
+my $user_data_basedir = $config{'user_data_basedir'};
 
 sub startup {
     my ($self) = @_;

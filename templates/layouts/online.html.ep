@@ -1,6 +1,9 @@
 <!doctype html><html>
     <head>
         <title>EBTST</title>
+        <% if ($production) { =%>
+        <base href="https://dserrano5.es/ebtst-dev/">
+        <% } =%>
         <link rel="stylesheet" type="text/css" media="screen" href="ebt.css">
     </head>
     <body id="mainbody">

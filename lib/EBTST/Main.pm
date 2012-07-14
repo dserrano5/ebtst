@@ -702,13 +702,13 @@ sub upload {
     my $notes_csv = $self->req->upload ('notes_csv_file');
     my $hits_csv  = $self->req->upload ('hits_csv_file');
     if ($notes_csv) {
-        my $local_notes_file = File::Spec->catfile ($ENV{'TMP'}//$ENV{'TEMP'}, 'notes_uploaded.csv');
+        my $local_notes_file = File::Spec->catfile ($ENV{'TMP'}//$ENV{'TEMP'}//'/tmp', 'notes_uploaded.csv');
         $notes_csv->move_to ($local_notes_file);
         $self->ebt->load_notes ($local_notes_file);
         unlink $local_notes_file or warn "unlink: '$local_notes_file': $!\n";
     }
     if ($hits_csv) {
-        my $local_hits_file  = File::Spec->catfile ($ENV{'TMP'}//$ENV{'TEMP'}, 'hits_uploaded.csv');
+        my $local_hits_file  = File::Spec->catfile ($ENV{'TMP'}//$ENV{'TEMP'}//'/tmp', 'hits_uploaded.csv');
         $hits_csv->move_to  ($local_hits_file) if $hits_csv;
         $self->ebt->load_hits ($local_hits_file);
         unlink $local_hits_file  or warn "unlink: '$local_hits_file': $!\n";

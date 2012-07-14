@@ -21,6 +21,15 @@ my $user_data_basedir = $config{'user_data_basedir'};
 sub startup {
     my ($self) = @_;
 
+    $self->stash (production => 0);
+    $self->hook (before_dispatch => sub {
+        my $self = shift;
+
+        ## Move first part from path to base path in production mode
+        push @{$self->req->url->base->path->parts}, shift @{$self->req->url->path->parts};
+        $self->stash (production => 1);
+    }) if $self->mode eq 'production';
+
     my $ebt;
     my $dbh = DBI->connect ('dbi:CSV:', undef, undef, {
         f_dir            => $sess_dir,
@@ -60,6 +69,7 @@ sub startup {
         return 1;
     });
     $r_has_notes->get ('/')->to ('main#index');
+    $r_has_notes->get ('/index')->to ('main#index');
     $r_has_notes->post ('/login')->to ('main#login');
     my $r_user = $r_has_notes->under (sub {
         my ($self) = @_;

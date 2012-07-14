@@ -5,6 +5,7 @@ package EBTST;
 
 use Mojo::Base 'Mojolicious';
 use File::Spec;
+use File::Basename 'dirname';
 use Config::General;
 use FindBin;
 use DBI;
@@ -17,18 +18,22 @@ our %config = Config::General->new (-ConfigFile => $cfg_file, -IncludeRelative =
 
 my $sess_dir = $config{'session_dir'};
 my $user_data_basedir = $config{'user_data_basedir'};
+my $html_dir = $config{'html_dir'} // join '/', dirname(__FILE__), '..', 'public', 'stats';
 
 sub startup {
     my ($self) = @_;
 
-    $self->stash (production => 0);
     $self->hook (before_dispatch => sub {
         my $self = shift;
 
-        ## Move first part from path to base path in production mode
-        push @{$self->req->url->base->path->parts}, shift @{$self->req->url->path->parts};
-        $self->stash (production => 1);
-    }) if $self->mode eq 'production';
+        if ($self->mode eq 'production') {
+            ## Move first part from path to base path in production mode
+            push @{$self->req->url->base->path->parts}, shift @{$self->req->url->path->parts};
+            $self->stash (production => 1);
+        } else {
+            $self->stash (production => 0);
+        }
+    });
 
     my $ebt;
     my $dbh = DBI->connect ('dbi:CSV:', undef, undef, {
@@ -78,7 +83,6 @@ sub startup {
             my $user = $self->stash ('sess')->data ('user');
 
             my $user_data_dir = File::Spec->catfile ($user_data_basedir, $user);
-            my $html_dir      = File::Spec->catfile ($user_data_dir, 'html');
             my $db            = File::Spec->catfile ($user_data_dir, 'db');
 
             $self->stash (user      => $user);

@@ -9,7 +9,7 @@ use List::Util qw/sum/;
 use List::MoreUtils qw/uniq/;
 
 my %users;
-open my $fd, '<', $EBTST::config{'users_db'} or die "open: '$EBTST::config{'users_db'}': $!";
+open my $fd, '<:encoding(UTF-8)', $EBTST::config{'users_db'} or die "open: '$EBTST::config{'users_db'}': $!";
 while (<$fd>) {
     chomp;
     my ($u, $p) = split /:/;
@@ -806,14 +806,14 @@ sub gen_output {
         ## bbcode: store in memory for later output
         ## missing templates yield an undef result
         my $r = encode 'UTF-8', $self->render_partial (template => "main/$param", format => 'txt');
-        push @rendered_bbcode, ($r // '');
+        push @rendered_bbcode, $r;
 
         ## html: save to file
         $self->_save_html ($param, $html_dir, $html_output, @req_params);
     }
 
     ## now output stored bbcode
-    my $body = join "\n\n", @rendered_bbcode;
+    my $body = join "\n\n", grep defined, @rendered_bbcode;
     $self->res->headers->content_type ('text/plain; charset=utf-8');
     $self->res->body ($body);
     $self->rendered (200);

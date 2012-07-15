@@ -53,8 +53,8 @@ sub startup {
     $self->helper (ebt => sub {
         my ($self) = @_;
 
-        if (ref $self->stash ('sess')) {
-            my $ret = $self->stash ('sess')->data ('ebt');
+        if (ref $self->stash ('ebt')) {
+            my $ret = $self->stash ('ebt');
             return $ret;
         } else {
             die "Oops, this shouldn't happen";
@@ -92,7 +92,7 @@ sub startup {
 
             if (!-d $user_data_dir) { mkdir $user_data_dir or die "mkdir: '$user_data_dir': $!"; }
             if (!-d $html_dir)      { mkdir $html_dir      or die "mkdir: '$html_dir': $!"; }
-            eval { $self->stash ('sess')->data (ebt => EBT2->new (db => $db)); };
+            eval { $self->stash (ebt => EBT2->new (db => $db)); };
             $@ and die "Initializing model: '$@'\n";
             eval { $self->ebt->load_db; };
             if ($@ and $@ !~ /No such file or directory/) {

@@ -19,6 +19,8 @@ our %config = Config::General->new (-ConfigFile => $cfg_file, -IncludeRelative =
 my $sess_dir = $config{'session_dir'};
 my $user_data_basedir = $config{'user_data_basedir'};
 my $html_dir = $config{'html_dir'} // join '/', dirname(__FILE__), '..', 'public', 'stats';
+my $session_expire = $config{'session_expire'} // 30;
+my $obj_store;
 
 sub startup {
     my ($self) = @_;
@@ -67,7 +69,7 @@ sub startup {
     $self->plugin (session => {
         stash_key     => 'sess',
         store         => [ dbi => { dbh => $dbh } ],
-        expires_delta => 30*60,
+        expires_delta => $session_expire * 60,
     });
 
     #$self->hook (before_dispatch => sub {
@@ -80,9 +82,18 @@ sub startup {
 
     my $r_has_notes_hits = $r->under (sub {
         my ($self) = @_;
+        my $t = time;
+
+        ## expire old $obj_store entries
+        my @sids_to_del;
+        for (keys %$obj_store) {
+            push @sids_to_del, $_ if $t - $obj_store->{$_}{'ts'} > $session_expire * 60 / 3;
+        }
+        delete @$obj_store{@sids_to_del};
 
         if (ref $self->stash ('sess') and $self->stash ('sess')->load) {
             my $user = $self->stash ('sess')->data ('user');
+            my $sid = $self->stash ('sess')->sid;
 
             my $user_data_dir = File::Spec->catfile ($user_data_basedir, $user);
             my $db            = File::Spec->catfile ($user_data_dir, 'db');
@@ -92,12 +103,20 @@ sub startup {
 
             if (!-d $user_data_dir) { mkdir $user_data_dir or die "mkdir: '$user_data_dir': $!"; }
             if (!-d $html_dir)      { mkdir $html_dir      or die "mkdir: '$html_dir': $!"; }
-            eval { $self->stash (ebt => EBT2->new (db => $db)); };
-            $@ and die "Initializing model: '$@'\n";
-            eval { $self->ebt->load_db; };
-            if ($@ and $@ !~ /No such file or directory/) {
-                warn "Loading db: '$@'. Going on anyway.\n";
+
+            if ($obj_store->{$sid}) {
+                $self->stash (ebt => $obj_store->{$sid}{'obj'});
+            } else {
+                eval { $self->stash (ebt => EBT2->new (db => $db)); };
+                $@ and die "Initializing model: '$@'\n";
+                eval { $self->ebt->load_db; };
+                if ($@ and $@ !~ /No such file or directory/) {
+                    warn "Loading db: '$@'. Going on anyway.\n";
+                }
+                $obj_store->{$sid}{'obj'} = $self->stash ('ebt');
             }
+            $obj_store->{$sid}{'ts'} = $t;
+
             $self->stash (has_notes => $self->ebt->has_notes);
             $self->stash (has_hits  => $self->ebt->has_hits);
 

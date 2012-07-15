@@ -443,15 +443,15 @@ sub nice_serials {
 sub coords_bingo {
     my ($self) = @_;
 
-    my $cb_data = $self->ebt->get_coords_bingo;
+    my $cbingo_data = $self->ebt->get_coords_bingo;
 
-    my $cb = $cb_data;
+    my $cbingo = $cbingo_data;
     #foreach my $v ('all', @{ EBT2->values }) {
-    #    next unless defined $cb_data->{$v};
+    #    next unless defined $cbingo_data->{$v};
     #}
 
     $self->stash (
-        cb => $cb,
+        cbingo => $cbingo,
     );
 }
 

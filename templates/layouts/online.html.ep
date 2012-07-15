@@ -28,7 +28,7 @@
                     <td><input type="checkbox" name="printers"></td>
                     <td><a class="section_link" id="printers"        href="printers"><%=l 'Printers' %></a></td>
                 </tr><tr>
-                    <td></td>
+                    <td><input type="checkbox" name="huge_table"></td>
                     <td><a class="section_link" id="huge_table"      href="huge_table"><%=l 'Huge table' %></a></td>
                 </tr><tr>
                     <td><input type="checkbox" name="short_codes"></td>
@@ -54,13 +54,13 @@
                 </tr>
                 <!-- comments -->
                 <tr>
-                    <td></td>
+                    <td><input type="checkbox" name="combs"></td>
                     <td><a class="section_link" id="combs"           href="combs"><%=l 'Combinations' %></a></td>
                 </tr><!--<tr>
                     <td></td>
                     <td><a class="section_link" id="evolution"       href="evolution"><%=l 'Note evolution' %></a></td>
                 </tr>--><tr>
-                    <td></td>
+                    <td><input type="checkbox" name="plate_bingo"></td>
                     <td><a class="section_link" id="plate_bingo"     href="plate_bingo"><%=l 'Plate bingo' %></a></td>
                 </tr>
                 <% if ($has_hits) { %>

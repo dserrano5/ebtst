@@ -787,27 +787,29 @@ sub _trim_html_sections {
 sub gen_output {
     my ($self) = @_;
     my @params = qw/
-        information value countries locations printers short_codes nice_serials
-        coords_bingo notes_per_year notes_per_month top_days combs plate_bingo
-        hit_list
+        information value countries locations printers huge_table short_codes nice_serials
+        coords_bingo notes_per_year notes_per_month top_days time_analysis combs
+        plate_bingo hit_list
     /;
 
     my @req_params = grep { $self->param ($_) } @params;
 
     my $html_dir = File::Spec->catfile ($FindBin::Bin, '..', 'public', 'stats', $self->stash ('user'));
     $self->_prepare_html_dir ($html_dir);
-    my $html_layout = encode 'UTF-8', $self->render_partial (template => 'layouts/offline', format => 'html');
-    $html_layout = $self->_trim_html_sections ($html_layout, @req_params);
+    my $html_output = encode 'UTF-8', $self->render_partial (template => 'layouts/offline', format => 'html');
+    $html_output = $self->_trim_html_sections ($html_output, @req_params);
 
     my @rendered_bbcode;
     foreach my $param (@req_params) {
         $self->$param;
 
         ## bbcode: store in memory for later output
-        push @rendered_bbcode, encode 'UTF-8', $self->render_partial (template => "main/$param", format => 'txt');
+        ## missing templates yield an undef result
+        my $r = encode 'UTF-8', $self->render_partial (template => "main/$param", format => 'txt');
+        push @rendered_bbcode, ($r // '');
 
         ## html: save to file
-        $self->_save_html ($param, $html_dir, $html_layout, @req_params);
+        $self->_save_html ($param, $html_dir, $html_output, @req_params);
     }
 
     ## now output stored bbcode

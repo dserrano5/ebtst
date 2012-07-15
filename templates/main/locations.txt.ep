@@ -1,6 +1,6 @@
 [b]<%=l 'Countries with notes entered' %> (<%= $num_co %>)[/b]
 <% foreach my $elem (@$countries) { =%>
-:flag-<%= $elem->{'imgname'} %>: <%= $elem->{'cname'} %> - <%= $elem->{'count'} %> (<%= $elem->{'pct'} %><%= '%) - ' =%>
+ :flag-<%= $elem->{'imgname'} %>: <%= $elem->{'cname'} %> - <%= $elem->{'count'} %> (<%= $elem->{'pct'} %><%= '%) - ' =%>
 <% foreach my $d (@{ $elem->{'detail'} }) { =%> [<%= $d->{'count'} %> :note-<%= $d->{'value'} %>:] <% } %>
 <% } %>
 

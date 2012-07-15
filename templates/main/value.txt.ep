@@ -1,4 +1,4 @@
 [b]<%=l 'Number of notes by value' %>[/b]
 <% for my $elem (@$notes_by_val) { =%>
-:note-<%= $elem->{'value'} %>: <%= $elem->{'value'} %> - <%= $elem->{'count'} %> (<%= $elem->{'pct'} %> %) - <%= $elem->{'amount'} %> EUR
+ :note-<%= $elem->{'value'} %>: <%= $elem->{'value'} %> - <%= $elem->{'count'} %> (<%= $elem->{'pct'} %> %) - <%= $elem->{'amount'} %> EUR
 <% } =%>

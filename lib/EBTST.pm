@@ -39,7 +39,6 @@ sub startup {
         });
     }
 
-    my $ebt;
     my $dbh = DBI->connect ('dbi:CSV:', undef, undef, {
         f_dir            => $sess_dir,
         f_encoding       => 'utf8',
@@ -51,7 +50,16 @@ sub startup {
         #PrintError       => 1,
     }) or die $DBI::errstr;
 
-    $self->helper (ebt => sub { return $ebt; });
+    $self->helper (ebt => sub {
+        my ($self) = @_;
+
+        if (ref $self->stash ('sess')) {
+            my $ret = $self->stash ('sess')->data ('ebt');
+            return $ret;
+        } else {
+            die "Oops, this shouldn't happen";
+        }
+    });
     $self->secret ('[12:36:04] gnome-screensaver-dialog: gkr-pam: unlocked login keyring');   ## :P
     $self->defaults (layout => 'online');
     $self->plugin ('I18N');
@@ -70,17 +78,7 @@ sub startup {
 
     my $r = $self->routes;
 
-    my $r_has_notes = $r->under (sub {
-        my ($self) = @_;
-
-        $self->stash (has_notes => defined $self->ebt && $self->ebt->has_notes);
-        $self->stash (user => undef);
-        return 1;
-    });
-    $r_has_notes->get ('/')->to ('main#index');
-    $r_has_notes->get ('/index')->to ('main#index');
-    $r_has_notes->post ('/login')->to ('main#login');
-    my $r_user = $r_has_notes->under (sub {
+    my $r_has_notes_hits = $r->under (sub {
         my ($self) = @_;
 
         if (ref $self->stash ('sess') and $self->stash ('sess')->load) {
@@ -94,14 +92,30 @@ sub startup {
 
             if (!-d $user_data_dir) { mkdir $user_data_dir or die "mkdir: '$user_data_dir': $!"; }
             if (!-d $html_dir)      { mkdir $html_dir      or die "mkdir: '$html_dir': $!"; }
-            eval { $ebt = EBT2->new (db => $db); };
+            eval { $self->stash ('sess')->data (ebt => EBT2->new (db => $db)); };
             $@ and die "Initializing model: '$@'\n";
-            eval { $ebt->load_db; };
+            eval { $self->ebt->load_db; };
             if ($@ and $@ !~ /No such file or directory/) {
                 warn "Loading db: '$@'. Going on anyway.\n";
             }
             $self->stash (has_notes => $self->ebt->has_notes);
+            $self->stash (has_hits  => $self->ebt->has_hits);
 
+            return 1;
+        }
+
+        $self->stash (has_notes => undef);
+        $self->stash (has_hits => undef);
+        $self->stash (user => undef);
+        return 1;
+    });
+    $r_has_notes_hits->get ('/')->to ('main#index');
+    $r_has_notes_hits->get ('/index')->to ('main#index');
+    $r_has_notes_hits->post ('/login')->to ('main#login');
+    my $r_user = $r_has_notes_hits->under (sub {
+        my ($self) = @_;
+
+        if (ref $self->stash ('sess') and $self->stash ('sess')->sid) {
             return 1;
         }
         $self->redirect_to ('index');

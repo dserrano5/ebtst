@@ -8,7 +8,7 @@ use strict;
 use DateTime;
 use File::Spec;
 use Text::CSV;
-use List::Util qw/max sum/;
+use List::Util qw/first max sum/;
 use Storable qw/retrieve store/;
 use Locale::Country;
 Locale::Country::alias_code (uk => 'gb');
@@ -190,6 +190,7 @@ sub load_notes {
         zip short_code id times_entered moderated_hit lat long
     /;
 
+    ## if uploading only a notes csv, keep known hits (if any)
     my %save_hits;
     for my $n (@{ $self->{'notes'} }) {
         next unless exists $n->{'hit'};
@@ -206,7 +207,7 @@ sub load_notes {
     $header =~ s/[\x0d\x0a]*$//;
     die "Unrecognized notes file\n" unless 'EBT notes v2' eq $header;
 
-    open my $outfd, '>', $store_path or die "open: '$store_path': $!" if $store_path;
+    open my $outfd, '>:encoding(UTF-8)', $store_path or die "open: '$store_path': $!" if $store_path;
     my $notes_csv = Text::CSV->new ({ sep_char => ';', binary => 1 });
     $notes_csv->column_names (@notes_column_names);
     while (my $hr = $notes_csv->getline_hr ($fd)) {
@@ -314,6 +315,13 @@ sub has_notes {
     my ($self) = @_;
 
     return exists $self->{'notes'} && !!@{ $self->{'notes'} };
+}
+
+sub has_hits {
+    my ($self) = @_;
+
+    my $ret = exists $self->{'notes'} && !!first { exists $_->{'hit'} } @{ $self->{'notes'} };
+    return $ret;
 }
 
 sub load_db {

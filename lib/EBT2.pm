@@ -99,6 +99,7 @@ sub load_notes { my ($self, @args) = @_; $self->{'data'}->load_notes (@args); re
 sub load_hits  { my ($self, @args) = @_; $self->{'data'}->load_hits  (@args); return $self; }
 sub load_db    { my ($self)        = @_; $self->{'data'}->load_db; return $self; }
 sub has_notes  { my ($self)        = @_; $self->{'data'}->has_notes; }
+sub has_hits   { my ($self)        = @_; $self->{'data'}->has_hits; }
 sub values     { return $config{'values'}; }
 
 our $AUTOLOAD;

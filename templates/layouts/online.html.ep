@@ -62,10 +62,13 @@
                 </tr>--><tr>
                     <td></td>
                     <td><a class="section_link" id="plate_bingo"     href="plate_bingo"><%=l 'Plate bingo' %></a></td>
-                </tr><tr>
+                </tr>
+                <% if ($has_hits) { %>
+                <tr>
                     <td><input type="checkbox" name="hit_list"></td>
                     <td><a class="section_link" id="hit_list"     href="hit_list"><%=l 'Hit list' %></a></td>
                 </tr>
+                <% } %>
                 <tr>
                     <td></td>
                     <td><input type="submit" class="section_link gen_output_button" id="gen_output" value="<%= 'BBCode/HTML' %>"></td>

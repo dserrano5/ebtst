@@ -288,8 +288,19 @@ sub load_hits {
     ## set hit_date (date in which this note became a hit for me)
     foreach my $serial (keys %hits) {
         my $p = $hits{$serial}{'parts'};
-        ## TODO: user id!!!
-        my $idx = (grep { 153477 == $p->[$_]{'user_id'} } 0 .. $#$p)[0];  ## where I appear in the hit
+
+        if (!defined $self->{'whoami'}) {
+            my $d1 = $hits{$serial}{'date_entered'};
+            foreach my $part (@$p) {
+                my $d2 = $part->{'date_entered'};
+                if ($d1 eq $d2) {
+                    $self->{'whoami'} = $part->{'user_id'};
+                    last;
+                }
+            }
+        }
+
+        my $idx = (grep { $self->{'whoami'} == $p->[$_]{'user_id'} } 0 .. $#$p)[0];  ## where I appear in the hit
         $idx ||= 1;                                                       ## can't be zero, a hit occurs at the second part
         $hits{$serial}{'hit_date'} = $p->[$idx]{'date_entered'};
 

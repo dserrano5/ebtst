@@ -1,11 +1,13 @@
 ## layout
 Information = Información
+Value = Valor
 Countries = Países
 Locations = Localidades
 Printers = Imprentas
 Huge table = Tabla tocha
 Short codes = Códigos cortos
 Nice serials = Números curiosos
+Coordinates bingo = Bingo de coordenadas
 Notes/year = Billetes/año
 Notes/month = Billetes/mes
 Top days = Mejores días
@@ -13,6 +15,9 @@ Time analysis = Análisis de tiempo
 Combinations = Combinaciones
 Note evolution = Evolución temporal
 Plate bingo = Bingo de planchas
+Hit list = Lista de hits
+Hits by month = Hits al mes
+Hit analysis = Análisis de hits
 Charts = Gráficas
 Configuration = Configuración
 Logout = Salir
@@ -47,7 +52,6 @@ notes/day = billetes/día
 
 ## value
 Number of notes by value = Número de billetes por valor
-Value = Valor
 Notes = Billetes
 Percent = Porcentaje
 Amount = Cantidad
@@ -87,9 +91,6 @@ of total = del total
 have = tienen
 numbers in a row = cifras seguidas
 
-## coords_bingo
-Coordinates bingo = Bingo de coordenadas
-
 ## notes_per_year
 Number of notes per year = Número de billetes por año
 
@@ -122,7 +123,6 @@ History = Histórico
 Text format inspired by = Formato del texto inspirado por
 
 ## note evolution
-Note evolution = Evolución temporal
 Interval = Intervalo
 Filter = Filtro
 Group by = Agrupar por
@@ -130,11 +130,9 @@ Show only = Mostrar sólo
 Output = Salida
 
 ## plate bingo
-Plate bingo = Bingo de planchas
 Total for = Total de
 
 ## hit list
-Hit list = Lista de hits
 Hit date = Fecha
 Val = Val
 Hit note = Billete
@@ -150,7 +148,6 @@ from = de
 to = a
 
 ## hits by month
-Hits by month = Hits al mes
 Natural month = Mes natural
 Insert month = Mes de registro
 

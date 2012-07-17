@@ -294,7 +294,8 @@ sub load_hits {
             foreach my $part (@$p) {
                 my $d2 = $part->{'date_entered'};
                 if ($d1 eq $d2) {
-                    $self->{'whoami'} = $part->{'user_id'};
+                    $self->{'whoami'}{'id'}   = $part->{'user_id'};
+                    $self->{'whoami'}{'name'} = $part->{'user_name'};
                     last;
                 }
             }

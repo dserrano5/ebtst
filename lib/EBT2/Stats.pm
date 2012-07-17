@@ -728,6 +728,42 @@ sub hit_list {
     return \%ret;
 }
 
+sub hits_by_month {
+    my ($self, $data, $whoami, $activity, $hit_list) = @_;
+    my %ret;
+
+    my %hbm;
+    my %hbim;  ## by insert month
+
+    foreach my $hit (@$hit_list) {
+        my $month = substr $hit->{'hit_date'}, 0, 7;
+        $hbm{$month}++;
+
+        my $insert_month;
+        for (my $idx = 0;; $idx++) {
+            if ($whoami->{'name'} eq $hit->{'hit_partners'}[$idx]) {
+                $insert_month = $hit->{'dates'}[$idx];
+                last;
+            }
+        }
+        $insert_month = substr $insert_month, 0, 7;
+        $hbim{$insert_month}++;
+    }
+
+    my ($y, $m) = $activity->{'first_note'}{'date'} =~ /^(\d{4})-(\d{2})/;
+    my $dt = DateTime->new (year => $y, month => $m);
+    my $now = DateTime->now;
+    while (1) {
+        last if $dt > $now;
+        my $str = $dt->strftime ('%Y-%m');
+        $ret{'hits_by_month'}{'natural'}{$str} = $hbm{$str}  // 0;
+        $ret{'hits_by_month'}{'insert'}{$str}  = $hbim{$str} // 0;
+        $dt->add (months => 1);
+    }
+
+    return \%ret;
+}
+
 1;
 
 __END__

@@ -173,6 +173,7 @@ sub startup {
     #$u->any ([qw/get post/], '/evolution')->to ('main#evolution');
     $u->get ('/plate_bingo')->to ('main#plate_bingo');
     $u->get ('/hit_list')->to ('main#hit_list');
+    $u->get ('/hits_by_month')->to ('main#hits_by_month');
     $u->post ('/gen_output')->to ('main#gen_output');
     #$u->get ('/charts')->to ('main#charts');
 }

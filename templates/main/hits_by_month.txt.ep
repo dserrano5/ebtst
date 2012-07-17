@@ -1,0 +1,2 @@
+[b]<%=l 'Hits by month' %>[/b]
+[table][tr][td][/td][td]<%=' ❘ ' . l 'Natural month' %>[/td][td]<%=' ❘ ' . l 'Insert month' %>[/td][/tr]<% foreach my $row (@$rows) { =%>[tr][td]<%= $row->{'month'} %>[/td][td]<%= ' ❘ ' . $row->{'natural'} %> (<%= sprintf '%.2f%%', 100 * $row->{'natural'} / $n_hits %>)[/td][td]<%= ' ❘ ' . $row->{'insert'} %> (<%=  sprintf '%.2f%%', 100 * $row->{'insert'}  / $n_hits %>)[/td][/tr]<% } =%>[/table]

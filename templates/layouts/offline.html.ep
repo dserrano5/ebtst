@@ -23,7 +23,7 @@
                 </tr><tr>
                     <td><a class="section_link" id="nice_serials"    href="nice_serials.html"><%=l 'Nice serials' %></a></td>
                 </tr><tr>
-                    <td><a class="section_link" id="coords_bingo"  href="coords_bingo.html"><%=l 'Coordinates bingo' %></a></td>
+                    <td><a class="section_link" id="coords_bingo"    href="coords_bingo.html"><%=l 'Coordinates bingo' %></a></td>
                 </tr><!-- note_analysis --><tr>
                     <td><a class="section_link" id="notes_per_year"  href="notes_per_year.html"><%=l 'Notes/year' %></a></td>
                 </tr><tr>
@@ -41,7 +41,9 @@
                 </tr>--><tr>
                     <td><a class="section_link" id="plate_bingo"     href="plate_bingo.html"><%=l 'Plate bingo' %></a></td>
                 </tr><tr>
-                    <td><a class="section_link" id="hit_list"     href="hit_list.html"><%=l 'Hit list' %></a></td>
+                    <td><a class="section_link" id="hit_list"        href="hit_list.html"><%=l 'Hit list' %></a></td>
+                </tr><tr>
+                    <td><a class="section_link" id="hits_by_month"   href="hits_by_month.html"><%=l 'Hits by month' %></a></td>
                 </tr><!--<tr>
                     <td><a class="section_link" id="charts"          href="charts.html"><%=l 'Charts' %></a></td>
                 </tr>--><!--<tr>

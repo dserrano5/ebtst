@@ -149,6 +149,11 @@ Days between = Días entre medias
 from = de
 to = a
 
+## hits by month
+Hits by month = Hits al mes
+Natural month = Mes natural
+Insert month = Mes de registro
+
 ## configuration
 Configuration = Configuración
 EBT id number = Número de ID en EBT

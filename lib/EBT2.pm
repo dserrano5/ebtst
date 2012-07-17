@@ -100,6 +100,7 @@ sub load_hits  { my ($self, @args) = @_; $self->{'data'}->load_hits  (@args); re
 sub load_db    { my ($self)        = @_; $self->{'data'}->load_db; return $self; }
 sub has_notes  { my ($self)        = @_; $self->{'data'}->has_notes; }
 sub has_hits   { my ($self)        = @_; $self->{'data'}->has_hits; }
+sub whoami     { my ($self)        = @_; $self->{'data'}->{'whoami'}; }  ## a little bit of foreign introspection here
 sub values     { return $config{'values'}; }
 
 our $AUTOLOAD;
@@ -118,7 +119,7 @@ sub AUTOLOAD {
         return ref $self->{'data'}{$field} ? dclone $self->{'data'}{$field} : $self->{'data'}{$field} if exists $self->{'data'}{$field};
 
         if ($self->{'stats'}->can ($field)) {    ## if we can JIT compute the value, do it
-            my $ret = $self->{'stats'}->$field ($self->{'data'});
+            my $ret = $self->{'stats'}->$field ($self->{'data'}, @args);
             @{ $self->{'data'} }{keys %$ret} = @$ret{keys %$ret};
             $self->{'data'}->write_db;
             return ref $self->{'data'}{$field} ? dclone $self->{'data'}{$field} : $self->{'data'}{$field} if exists $self->{'data'}{$field};

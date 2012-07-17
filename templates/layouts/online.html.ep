@@ -67,6 +67,9 @@
                 <tr>
                     <td><input type="checkbox" name="hit_list"></td>
                     <td><a class="section_link" id="hit_list"     href="hit_list"><%=l 'Hit list' %></a></td>
+                </tr><tr>
+                    <td><input type="checkbox" name="hits_by_month"></td>
+                    <td><a class="section_link" id="hits_by_month" href="hits_by_month"><%=l 'Hits by month' %></a></td>
                 </tr>
                 <% } %>
                 <tr>

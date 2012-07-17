@@ -688,7 +688,7 @@ sub hit_list {
     my $idx = 0;
     foreach my $hit (@$hit_data) {
         next if $hit->{'moderated'};
-        $hit->{'idx'} = ++$idx;
+        $hit->{'idx'} = ++$idx;    ## TODO: use $hit->{'hit_no'} instead of this
         $hit->{'serial'} =~ s/^([A-Z])....(....)...$/$1xxxx$2xxx/;
         push @$cooked, $hit;
     }
@@ -713,6 +713,29 @@ sub hits_by_month {
     }
 
     $self->stash (n_hits => scalar @$hit_list, rows => $rows);
+}
+
+sub hit_analysis {
+    my ($self) = @_;
+
+    my $hit_list = $self->ebt->get_hit_list;
+
+    my $ha = $self->ebt->get_hit_analysis ($hit_list);
+    my $longest;
+    my $oldest;
+    foreach my $hit (@{ $ha->{'longest'} }) {
+        $hit->{'serial'} =~ s/^([A-Z])....(....)...$/$1xxxx$2xxx/;
+        push @$longest, $hit;
+    }
+    foreach my $hit (@{ $ha->{'oldest'} }) {
+        $hit->{'serial'} =~ s/^([A-Z])....(....)...$/$1xxxx$2xxx/;
+        push @$oldest, $hit;
+    }
+
+    $self->stash (
+        longest => $longest,
+        oldest  => $oldest,
+    );
 }
 
 sub upload {
@@ -808,7 +831,7 @@ sub gen_output {
     my @params = qw/
         information value countries locations printers huge_table short_codes nice_serials
         coords_bingo notes_per_year notes_per_month top_days time_analysis combs
-        plate_bingo hit_list hits_by_month
+        plate_bingo hit_list hits_by_month hit_analysis
     /;
 
     my @req_params = grep { $self->param ($_) } @params;

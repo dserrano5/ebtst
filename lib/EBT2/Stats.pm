@@ -700,6 +700,7 @@ sub hit_list {
 
         $hit_no++;
         push @{ $ret{'hit_list'} }, {
+            hit_no        => $hit_no,
             dates         => [ map { $_->{'date_entered'} } @{ $hr->{'hit'}{'parts'} } ],
             hit_date      => $hr->{'hit'}{'hit_date'},
             value         => $hr->{'value'},
@@ -760,6 +761,16 @@ sub hits_by_month {
         $ret{'hits_by_month'}{'insert'}{$str}  = $hbim{$str} // 0;
         $dt->add (months => 1);
     }
+
+    return \%ret;
+}
+
+sub hit_analysis {
+    my ($self, $data, $hit_list) = @_;
+    my %ret;
+
+    $ret{'hit_analysis'}{'longest'} = [ (reverse sort { $a->{'km'}   <=> $b->{'km'}   } @$hit_list)[0..9] ];
+    $ret{'hit_analysis'}{'oldest'}  = [ (reverse sort { $a->{'days'} <=> $b->{'days'} } @$hit_list)[0..9] ];
 
     return \%ret;
 }

@@ -1,0 +1,48 @@
+<h2><%=l 'Hit analysis' %></h2>
+<%= my @tables = ( %>
+<%=     { msg => (l 'Most kilometers'), array => $longest }, %>
+<%=     { msg => (l 'Most days'),       array => $oldest }, %>
+<%= ); %>
+
+<% foreach my $table (@tables) { %>
+<%=l 'Hit top-10' %>: <%= $table->{'msg'} %>
+<table>
+    <tr>
+        <th>#</th>
+        <th><%=l 'Hit date' %></th>
+        <th><%=l 'Val' %></th>
+        <th><%=l 'Hit note' %></th>
+        <th><%=l 'Countries' %></th>
+        <th><%=l 'Locations' %></th>
+        <th><%=l 'Kms' %></th>
+        <th><%=l 'Days' %></th>
+        <th><%=l 'Partners' %></th>
+        <th><%=l 'Note number' %></th>
+    </tr>
+    <% foreach my $hit (@{ $table->{'array'} }) { %>
+    <% my $before = 1; my @hit_partners; =%>
+    <% foreach my $p (@{ $hit->{'hit_partners'} }) { =%>
+    <%     if ($p =~ /^dserrano/) { $before = 0; next; } =%>
+    <%     if ($before) { =%>
+    <%         push @hit_partners, $p, '<img src="images/red_arrow.gif">'; =%>
+    <%     } else { =%>
+    <%         push @hit_partners, '<img src="images/blue_arrow.gif">', $p; =%>
+    <%     } =%>
+    <% } =%>
+    <% my $hit_partners = join ' ', @hit_partners; =%>
+        <tr>
+            <td class="small_cell"><%= $hit->{'hit_no'} %></td>
+            <td class="small_cell"><%= ((split ' ', $hit->{'hit_date'})[0]) %><%# syntax error without additional parens... %></td>
+            <td class="small_cell"><img src="images/<%= $hit->{'value'} %>.gif"></td>
+            <td class="small_cell"><%= $hit->{'serial'} %></td>
+            <td class="small_cell"><%== join ' ', map { qq[<img src="images/$_.gif">] } @{ $hit->{'countries'} } %></td>
+            <td class="small_cell"><%== join ',<br>', @{ $hit->{'cities'} } %></td>
+            <td class="small_cell"><%= $hit->{'km'} %></td>
+            <td class="small_cell"><%= $hit->{'days'} %></td>
+            <td class="small_cell"><%== $hit_partners %></td>
+            <td class="small_cell"><%= $hit->{'note_no'} %></td>
+        </tr>
+    <% } %>
+</table>
+<br>
+<% } %>

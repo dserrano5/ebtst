@@ -1,8 +1,8 @@
 <!doctype html><html>
     <head>
         <title>EBTST</title>
-        <% if ($production) { =%>
-        <base href="https://dserrano5.es/ebtst-dev/">
+        <% if ($production and $base_href) { =%>
+        <base href="<%= $base_href %>">
         <% } =%>
         <link rel="stylesheet" type="text/css" media="screen" href="ebt.css">
     </head>

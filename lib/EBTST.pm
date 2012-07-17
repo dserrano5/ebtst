@@ -20,6 +20,7 @@ my $sess_dir = $config{'session_dir'};
 my $user_data_basedir = $config{'user_data_basedir'};
 my $html_dir = $config{'html_dir'} // join '/', dirname(__FILE__), '..', 'public', 'stats';
 my $session_expire = $config{'session_expire'} // 30;
+my $base_href = $config{'base_href'};
 my $obj_store;
 
 sub startup {
@@ -29,15 +30,17 @@ sub startup {
         $self->hook (before_dispatch => sub {
             my $self = shift;
 
-            ## Move first part from path to base path in production mode
+            ## Move first part from path to base path
             push @{$self->req->url->base->path->parts}, shift @{$self->req->url->path->parts};
             $self->stash (production => 1);
+            $self->stash (base_href => $base_href);
         });
     } else {
         $self->hook (before_dispatch => sub {
             my $self = shift;
 
             $self->stash (production => 0);
+            $self->stash (base_href => $base_href);
         });
     }
 

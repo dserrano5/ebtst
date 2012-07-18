@@ -3,6 +3,7 @@ package EBT2::Stats;
 use warnings;
 use strict;
 use DateTime;
+use Date::DayOfWeek;
 use List::Util qw/sum reduce/;
 use List::MoreUtils qw/zip/;
 use EBT2::Data;
@@ -489,10 +490,7 @@ sub time_analysis {
     my $iter = $data->note_getter;
     while (my $hr = $iter->()) {
         my ($y, $m, $d, $H, $M, $S) = map { sprintf '%02d', $_ } split /[\s:-]/, $hr->{'date_entered'};
-        my $dow = DateTime->new (
-            year => $y, month => $m, day => $d,
-            hour => $H, minute => $M, second => $S,
-        )->dow;
+        my $dow = 1 + dayofweek $d, $m, $y;
         $ret{'time_analysis'}{'hh'}{$H}++;
         $ret{'time_analysis'}{'mm'}{$M}++;
         $ret{'time_analysis'}{'ss'}{$S}++;
@@ -513,9 +511,8 @@ sub notes_by_dow {
 
     my $iter = $data->note_getter;
     while (my $hr = $iter->()) {
-        my $dow = DateTime->new (
-            zip @{[qw/year month day hour minute second/]}, @{[ split /[\s:-]/, $hr->{'date_entered'} ]}
-        )->dow;
+        my ($Y, $m, $d) = (split /[\s:-]/, $hr->{'date_entered'})[0..2];
+        my $dow = 1 + dayofweek $d, $m, $Y;
         $ret{'notes_by_dow'}{$dow}{'total'}++;
         $ret{'notes_by_dow'}{$dow}{ $hr->{'value'} }++;
     }

@@ -1,8 +1,8 @@
 <h2><%=l 'Hit analysis' %></h2>
-<%= my @tables = ( %>
-<%=     { msg => (l 'Most kilometers'), array => $longest }, %>
-<%=     { msg => (l 'Most days'),       array => $oldest }, %>
-<%= ); %>
+<% my @tables = ( =%>
+<%     { msg => (l 'Most kilometers'), array => $longest }, =%>
+<%     { msg => (l 'Most days'),       array => $oldest }, =%>
+<% ); %>
 
 <% foreach my $table (@tables) { %>
 <%=l 'Hit top-10' %>: <%= $table->{'msg'} %>
@@ -22,7 +22,7 @@
     <% foreach my $hit (@{ $table->{'array'} }) { %>
     <% my $before = 1; my @hit_partners; =%>
     <% foreach my $p (@{ $hit->{'hit_partners'} }) { =%>
-    <%     if ($p =~ /^dserrano/) { $before = 0; next; } =%>
+    <%     if ($p eq $whoami->{'name'}) { $before = 0; next; } =%>
     <%     if ($before) { =%>
     <%         push @hit_partners, $p, '<img src="images/red_arrow.gif">'; =%>
     <%     } else { =%>

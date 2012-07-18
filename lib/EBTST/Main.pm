@@ -683,7 +683,8 @@ sub plate_bingo {
 sub hit_list {
     my ($self) = @_;
 
-    my $hit_data = $self->ebt->get_hit_list;
+    my $whoami = $self->ebt->whoami;
+    my $hit_data = $self->ebt->get_hit_list ($whoami);
     my $cooked;
     my $idx = 0;
     foreach my $hit (@$hit_data) {
@@ -693,7 +694,10 @@ sub hit_list {
         push @$cooked, $hit;
     }
 
-    $self->stash (cooked => $cooked);
+    $self->stash (
+        cooked => $cooked,
+        whoami => $whoami,
+    );
 }
 
 sub hits_by_month {
@@ -718,6 +722,7 @@ sub hits_by_month {
 sub hit_analysis {
     my ($self) = @_;
 
+    my $whoami   = $self->ebt->whoami;
     my $hit_list = $self->ebt->get_hit_list;
 
     my $ha = $self->ebt->get_hit_analysis ($hit_list);
@@ -735,6 +740,7 @@ sub hit_analysis {
     $self->stash (
         longest => $longest,
         oldest  => $oldest,
+        whoami  => $whoami,
     );
 }
 

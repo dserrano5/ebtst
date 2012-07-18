@@ -661,7 +661,7 @@ sub plate_bingo {
 }
 
 sub hit_list {
-    my ($self, $data) = @_;
+    my ($self, $data, $whoami) = @_;
     my %ret;
 
     my $note_no = 0;
@@ -695,8 +695,7 @@ sub hit_list {
         next if $hr->{'hit'}{'moderated'};
 
         ## passive hit? then we shouldn't have increased notes_elapsed and notes_between, decrease them here
-        $notes_elapsed--, $notes_between-- if 0;   ## TODO: need to know who I am to determine whether a hit is passive or not
-        $notes_elapsed--, $notes_between-- if $hr->{'hit'}{'parts'}[0] =~ /^dserrano/;     ## for now this will do
+        $notes_elapsed--, $notes_between-- if $whoami->{'id'} eq $hr->{'hit'}{'parts'}[0]{'user_id'};
 
         $hit_no++;
         push @{ $ret{'hit_list'} }, {

@@ -5,7 +5,7 @@
 <% my $km_days = sprintf '%s km %s %s %s', $hit->{'km'}, (l 'in'), $hit->{'days'}, (l 'days'); =%>
 <% my $before = 1; my @hit_partners; =%>
 <% foreach my $p (@{ $hit->{'hit_partners'} }) { =%>
-<%     if ($p =~ /^dserrano/) { $before = 0; next; } =%>
+<%     if ($p eq $whoami->{'name'}) { $before = 0; next; } =%>
 <%     my ($hit_color, $hit_direction); =%>
 <%     if ($before) { =%>
 <%         ($hit_color, $hit_direction) = ('darkred', l 'from'); =%>

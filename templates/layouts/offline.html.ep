@@ -44,6 +44,8 @@
                     <td><a class="section_link" id="hit_list"        href="hit_list.html"><%=l 'Hit list' %></a></td>
                 </tr><tr>
                     <td><a class="section_link" id="hits_by_month"   href="hits_by_month.html"><%=l 'Hits by month' %></a></td>
+                </tr><tr>
+                    <td><a class="section_link" id="hits_analysis"   href="hits_analysis.html"><%=l 'Hit analysis' %></a></td>
                 </tr><!--<tr>
                     <td><a class="section_link" id="charts"          href="charts.html"><%=l 'Charts' %></a></td>
                 </tr>--><!--<tr>

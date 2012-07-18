@@ -806,23 +806,24 @@ sub bundle {
         $ret{'coords_bingo'}{ $hr->{'value'} }{$coords}++;
         $ret{'coords_bingo'}{ 'all' }{$coords}++;
 
+        my ($y, $m, $d, $H, $M, $S) = map { sprintf '%02d', $_ } split /[\s:-]/, $hr->{'date_entered'};
         ## notes_per_year
-        my $y = substr $hr->{'date_entered'}, 0, 4;
+        #my $y = substr $hr->{'date_entered'}, 0, 4;
         $ret{'notes_per_year'}{$y}{'total'}++;
         $ret{'notes_per_year'}{$y}{ $hr->{'value'} }++;
 
         ## notes_per_month
-        my $m = substr $hr->{'date_entered'}, 0, 7;
+        #my $m = substr $hr->{'date_entered'}, 0, 7;
         $ret{'notes_per_month'}{$m}{'total'}++;
         $ret{'notes_per_month'}{$m}{ $hr->{'value'} }++;
 
         ## top10days
-        my $d = substr $hr->{'date_entered'}, 0, 10;
+        #my $d = substr $hr->{'date_entered'}, 0, 10;
         $ret{'top10days'}{$d}{'total'}++;
         $ret{'top10days'}{$d}{ $hr->{'value'} }++;
 
         ## time_analysis
-        my ($y, $m, $d, $H, $M, $S) = map { sprintf '%02d', $_ } split /[\s:-]/, $hr->{'date_entered'};
+        #my ($y, $m, $d, $H, $M, $S) = map { sprintf '%02d', $_ } split /[\s:-]/, $hr->{'date_entered'};
         my $dow = 1 + dayofweek $d, $m, $y;
         $ret{'time_analysis'}{'hh'}{$H}++;
         $ret{'time_analysis'}{'mm'}{$M}++;

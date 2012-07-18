@@ -481,8 +481,6 @@ sub top10days {
 }
 sub avgs_top10 { goto &top10days; }
 
-=cut
-
 sub time_analysis {
     my ($self, $data) = @_;
     my %ret;
@@ -519,6 +517,8 @@ sub notes_by_dow {
 
     return \%ret;
 }
+
+=cut
 
 ## module should calculate combs at the finest granularity (value*cc*plate*sig), it is up to the app to aggregate the pieces
 ## 20120406: no, that should be here, to prevent different apps from performing the same work
@@ -816,10 +816,29 @@ sub bundle {
         $ret{'notes_per_month'}{$m}{'total'}++;
         $ret{'notes_per_month'}{$m}{ $hr->{'value'} }++;
 
-        ## top_10_days
+        ## top10days
         my $d = substr $hr->{'date_entered'}, 0, 10;
         $ret{'top10days'}{$d}{'total'}++;
         $ret{'top10days'}{$d}{ $hr->{'value'} }++;
+
+        ## time_analysis
+        my ($y, $m, $d, $H, $M, $S) = map { sprintf '%02d', $_ } split /[\s:-]/, $hr->{'date_entered'};
+        my $dow = 1 + dayofweek $d, $m, $y;
+        $ret{'time_analysis'}{'hh'}{$H}++;
+        $ret{'time_analysis'}{'mm'}{$M}++;
+        $ret{'time_analysis'}{'ss'}{$S}++;
+        $ret{'time_analysis'}{'hhmm'}{$H}{$M}++;
+        $ret{'time_analysis'}{'mmss'}{$M}{$S}++;
+        $ret{'time_analysis'}{'hhmmss'}{$H}{$M}{$S}++;
+        $ret{'time_analysis'}{'dow'}{$dow}++;    ## XXX: this partially replaces notes_by_dow below
+        $ret{'time_analysis'}{'dowhh'}{$dow}{$H}++;
+        $ret{'time_analysis'}{'dowhhmm'}{$dow}{$H}{$M}++;
+
+        ## notes_by_dow
+        #my ($Y, $m, $d) = (split /[\s:-]/, $hr->{'date_entered'})[0..2];
+        #my $dow = 1 + dayofweek $d, $m, $Y;
+        $ret{'notes_by_dow'}{$dow}{'total'}++;
+        $ret{'notes_by_dow'}{$dow}{ $hr->{'value'} }++;
 
         ## notes_by_combination
         my $comb1 = sprintf '%s%s',   (substr $hr->{'short_code'}, 0, 1), (substr $hr->{'serial'}, 0, 1);
@@ -874,6 +893,8 @@ sub coords_bingo { goto &bundle; }
 sub notes_per_year { goto &bundle; }
 sub notes_per_month { goto &bundle; }
 sub top10days { goto &bundle; }
+sub time_analysis { goto &bundle; }
+sub notes_by_dow { goto &bundle; }
 sub notes_by_combination { goto &bundle; }
 sub plate_bingo { goto &bundle; }
 

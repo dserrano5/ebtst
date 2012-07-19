@@ -7,6 +7,9 @@ use Digest::SHA qw/sha512_hex/;
 use DateTime;
 use List::Util qw/sum/;
 use List::MoreUtils qw/uniq/;
+use IO::Uncompress::Gunzip qw/gunzip $GunzipError/;
+use IO::Uncompress::Unzip  qw/unzip  $UnzipError/;
+use File::Temp qw/tempfile/;
 
 my %users;
 open my $fd, '<:encoding(UTF-8)', $EBTST::config{'users_db'} or die "open: '$EBTST::config{'users_db'}': $!";
@@ -742,6 +745,28 @@ sub hit_analysis {
     );
 }
 
+## both gunzip and unzip appear to accept already uncompressed data, which makes things easier: just blindly uncompress everything
+sub _decompress {
+    my ($file) = @_;
+    my ($fd, $tmpfile);
+
+    ($fd, $tmpfile) = tempfile 'ebtst-uncompress.XXXXXX', DIR => $ENV{'TMP'}//$ENV{'TEMP'}//'/tmp';
+    if (!gunzip $file, $fd, AutoClose => 1) {
+        warn "gunzip: $GunzipError";
+        unlink $tmpfile or warn "unlink: '$tmpfile': $!";
+    }
+    rename $tmpfile, $file or warn "rename: '$tmpfile' to '$file': $!";
+
+    ($fd, $tmpfile) = tempfile 'ebtst-uncompress.XXXXXX', DIR => $ENV{'TMP'}//$ENV{'TEMP'}//'/tmp';
+    if (!unzip $file, $fd, AutoClose => 1) {
+        warn "unzip: $UnzipError";
+        unlink $tmpfile or warn "unlink: '$tmpfile': $!";
+    }
+    rename $tmpfile, $file or warn "rename: '$tmpfile' to '$file': $!";
+
+    return;
+}
+
 sub upload {
     my ($self) = @_;
 
@@ -751,12 +776,14 @@ sub upload {
         my $local_notes_file = File::Spec->catfile ($ENV{'TMP'}//$ENV{'TEMP'}//'/tmp', 'notes_uploaded.csv');
         my $outfile = File::Spec->catfile ($EBTST::config{'csvs_dir'}, int rand 1e7);
         $notes_csv->move_to ($local_notes_file);
+        _decompress $local_notes_file;
         $self->ebt->load_notes ($local_notes_file, $outfile);
         unlink $local_notes_file or warn "unlink: '$local_notes_file': $!\n";
     }
     if ($hits_csv->size) {
-        my $local_hits_file  = File::Spec->catfile ($ENV{'TMP'}//$ENV{'TEMP'}//'/tmp', 'hits_uploaded.csv');
-        $hits_csv->move_to  ($local_hits_file) if $hits_csv;
+        my $local_hits_file = File::Spec->catfile ($ENV{'TMP'}//$ENV{'TEMP'}//'/tmp', 'hits_uploaded.csv');
+        $hits_csv->move_to ($local_hits_file);
+        _decompress $local_hits_file;
         $self->ebt->load_hits ($local_hits_file);
         unlink $local_hits_file  or warn "unlink: '$local_hits_file': $!\n";
     }

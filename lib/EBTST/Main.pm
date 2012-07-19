@@ -686,10 +686,8 @@ sub hit_list {
     my $whoami = $self->ebt->whoami;
     my $hit_data = $self->ebt->get_hit_list ($whoami);
     my $cooked;
-    my $idx = 0;
     foreach my $hit (@$hit_data) {
         next if $hit->{'moderated'};
-        $hit->{'idx'} = ++$idx;    ## TODO: use $hit->{'hit_no'} instead of this
         $hit->{'serial'} =~ s/^([A-Z])....(....)...$/$1xxxx$2xxx/;
         push @$cooked, $hit;
     }

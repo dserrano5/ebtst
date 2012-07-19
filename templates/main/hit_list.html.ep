@@ -29,7 +29,7 @@
     <% } =%>
     <% my $hit_partners = join ' ', @hit_partners; =%>
         <tr>
-            <td class="small_cell"><%= $hit->{'idx'} %></td>
+            <td class="small_cell"><%= $hit->{'hit_no'} %></td>
             <td class="small_cell"><%= ((split ' ', $hit->{'hit_date'})[0]) %><%# syntax error without additional parens... %></td>
             <td class="small_cell"><img src="images/<%= $hit->{'value'} %>.gif"></td>
             <td class="small_cell"><%= $hit->{'serial'} %></td>

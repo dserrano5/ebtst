@@ -669,34 +669,6 @@ sub plate_bingo {
 
 =cut
 
-## 0.00 hit_analysis
-## 0.01 hits_by_month
-##  0.22 notes_by_value
-##  0.26 first_by_pc
-##  0.27 count
-##  0.28 notes_by_pc
-##  0.30 days_elapsed
-##  0.32 notes_per_month
-##  0.33 first_by_cc
-##  0.34 top10days
-##  0.35 coords_bingo
-##  0.36 notes_per_year
-##  0.36 notes_by_cc
-##  0.38 huge_table
-##  0.40 plate_bingo
-##  0.41 alphabets
-##  0.42 notes_by_city
-## 0.42 hit_list
-##  0.47 notes_by_country
-##  0.52 lowest_short_codes
-##  0.52 highest_short_codes
-##  0.57 notes_by_combination
-## 0.59 activity
-## 1.18 missing_combs_and_history
-## 1.57 nice_serials
-## 5.12 notes_by_dow
-## 5.58 time_analysis
-
 sub bundle {
     my ($self, $data) = @_;
     my %ret;

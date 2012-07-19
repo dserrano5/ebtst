@@ -15,5 +15,5 @@
 <%     push @hit_partners, "[color=$hit_color]${hit_direction}[/color]", $p; =%>
 <% } =%>
 <% my $hit_partners = join ' ', @hit_partners; =%>
-[b]<%= $hit->{'idx'} %>.[/b] <%= ((split ' ', $hit->{'hit_date'})[0]) %> :note-<%= $hit->{'value'} %>: <%= $hit->{'serial'} %> <%= $flags %> <%= $cities %> <%= $km_days %> <%= $hit_partners %>
+[b]<%= $hit->{'hit_no'} %>.[/b] <%= ((split ' ', $hit->{'hit_date'})[0]) %> :note-<%= $hit->{'value'} %>: <%= $hit->{'serial'} %> <%= $flags %> <%= $cities %> <%= $km_days %> <%= $hit_partners %>
 <% } %>

@@ -754,15 +754,17 @@ sub _decompress {
     if (!gunzip $file, $fd, AutoClose => 1) {
         warn "gunzip: $GunzipError";
         unlink $tmpfile or warn "unlink: '$tmpfile': $!";
+    } else {
+        rename $tmpfile, $file or warn "rename: '$tmpfile' to '$file': $!";
     }
-    rename $tmpfile, $file or warn "rename: '$tmpfile' to '$file': $!";
 
     ($fd, $tmpfile) = tempfile 'ebtst-uncompress.XXXXXX', DIR => $ENV{'TMP'}//$ENV{'TEMP'}//'/tmp';
     if (!unzip $file, $fd, AutoClose => 1) {
         warn "unzip: $UnzipError";
         unlink $tmpfile or warn "unlink: '$tmpfile': $!";
+    } else {
+        rename $tmpfile, $file or warn "rename: '$tmpfile' to '$file': $!";
     }
-    rename $tmpfile, $file or warn "rename: '$tmpfile' to '$file': $!";
 
     return;
 }

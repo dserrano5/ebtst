@@ -17,6 +17,7 @@ Please visit http://mojolicio.us for detailed installation instructions.
 EOF
 
 $ENV{'MOJO_APP'} ||= 'EBTST';
+$ENV{'MOJO_MAX_MESSAGE_SIZE'} = 20*1024*1024;
 #$ENV{'MOJO_MODE'} = 'production'; $ENV{'MOJO_REVERSE_PROXY'} = 1;
 Mojolicious::Commands->start (@ARGV);
 #Mojolicious::Commands->start ('daemon', '--listen' => 'http://localhost:8080');

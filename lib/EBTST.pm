@@ -119,6 +119,7 @@ sub startup {
                 $obj_store->{$sid}{'obj'} = $self->stash ('ebt');
             }
             $obj_store->{$sid}{'ts'} = $t;
+            $self->stash ('sess')->expires (time + $session_expire * 60);
 
             $self->stash (has_notes => $self->ebt->has_notes);
             $self->stash (has_hits  => $self->ebt->has_hits);

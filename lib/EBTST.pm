@@ -147,6 +147,7 @@ sub startup {
         }
 
         my $requested_url = $self->req->url->path->leading_slash (0)->to_string;
+        $requested_url = '' if 'logout' eq $requested_url;
         $self->flash (requested_url => $requested_url);
         $self->redirect_to ('index');
         return 0;

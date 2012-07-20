@@ -8,6 +8,6 @@
     % my $line   = join "\n", map { sprintf "%4d: %s", $_->[0], $_->[1] }    $exception->line;
     % my $after  = join "\n", map { sprintf "%4d: %s", $_->[0], $_->[1] } @{ $exception->lines_after };
     % my $full_txt = join "\n", $before, $line, $after;
-    <textarea cols="200" rows="11"><%= $full_txt %></textarea>
+    <pre><%= $full_txt %></pre>
 </body>
 </html>

@@ -33,6 +33,9 @@ sub validate_note {
     return "bad latitude"  if length $hr->{'lat'}  and $hr->{'lat'}  !~ /^ -? \d+ (?: \. \d+ )? $/x;
     return "bad longitude" if length $hr->{'long'} and $hr->{'long'} !~ /^ -? \d+ (?: \. \d+ )? $/x;
 
+    my $k_pcv = sprintf '%s%s%03d', (substr $hr->{'short_code'}, 0, 1), (substr $hr->{'serial'}, 0, 1), $hr->{'value'};
+    return "bad combo" if !exists $EBT2::combs_pc_cc_val{$k_pcv};
+
     return;
 }
 

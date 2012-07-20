@@ -11,6 +11,8 @@ use Text::CSV;
 use List::Util qw/first max sum/;
 use Storable qw/retrieve store/;
 use Locale::Country;
+use EBT2::NoteValidator;
+
 Locale::Country::alias_code (uk => 'gb');
 
 sub new {
@@ -242,6 +244,9 @@ sub load_notes {
         }
 
         $hr->{'country'} = _cc $hr->{'country'};
+        if (my $error = EBT2::NoteValidator::validate_note $hr) {
+            $hr->{'invalid'} = 1;
+        }
         push @{ $self->{'notes'} }, $hr;
     }
     close $fd;

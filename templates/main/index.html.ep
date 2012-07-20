@@ -10,5 +10,6 @@
         </tr>
     </table>
     <br>
+    <%= hidden_field requested_url => flash 'requested_url' %>
     <%= submit_button l 'Login' %>
 </form>

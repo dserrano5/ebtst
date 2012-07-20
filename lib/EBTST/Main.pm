@@ -24,6 +24,7 @@ sub index {
     my ($self) = @_;
 
     $self->redirect_to ('information') if ref $self->stash ('sess') and $self->stash ('sess')->load;
+    $self->flash (requested_url => $self->flash ('requested_url'));
 }
 
 sub login {
@@ -35,7 +36,8 @@ sub login {
     ) {
         $self->stash ('sess')->create;
         $self->stash ('sess')->data (user => $self->param ('user'));
-        $self->redirect_to ('information');
+        my $dest = $self->param ('requested_url') || 'information';
+        $self->redirect_to ($dest);
     } else {
         $self->redirect_to ('index');
     }

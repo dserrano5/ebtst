@@ -145,6 +145,9 @@ sub startup {
         if (ref $self->stash ('sess') and $self->stash ('sess')->sid) {
             return 1;
         }
+
+        my $requested_url = $self->req->url->path->leading_slash (0)->to_string;
+        $self->flash (requested_url => $requested_url);
         $self->redirect_to ('index');
         return 0;
     });

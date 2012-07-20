@@ -635,7 +635,7 @@ sub combs {
                     links   => [ @links ],
                 };
             } else {
-                push @{ $unknown->{"$p$c"}{'links'} }, [ @links ];
+                push @{ $unknown->{"$p$c"}{'links'} }, @links;
             }
         }
     }

@@ -76,18 +76,6 @@
     <br>
 <% } %>
 
-<% if ($unknown) { %>
-    <h2><%=l 'Unknown combinations' %></h2>
-    <% foreach my $unk (map { $unknown->{$_} } sort keys %$unknown) { %>
-        <img src="images/<%= $unk->{'pname'} %>.gif"> <img src="images/<%= $unk->{'cname'} %>.gif"> 
-        <%= $unk->{'pletter'} %>/<%= $unk->{'cletter'} %>: 
-        <% foreach my $l (@{ $unk->{'links'} }) { %>
-            <a href="http://www.eurobilltracker.com/notes/?id=<%= $l->{'id'} %>"><img src="images/<%= $l->{'value'} %>.gif"></a>
-        <% } %>
-        <br>
-    <% } %>
-<% } %>
-
 <h2><%=l 'History' %></h2>
 <% foreach my $h (@$history) { %>
     <%= $h->{'index'} %>.) <img src="images/<%= $h->{'pname'} %>.gif"> <img src="images/<%= $h->{'cname'} %>.gif">

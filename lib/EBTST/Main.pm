@@ -614,39 +614,10 @@ sub combs {
         }
     }
 
-    my $unknown;
-    if (my %unknown_combs = %{ $comb_data->{'unknown_combs'} }) {
-        foreach my $k (sort keys %unknown_combs) {
-            my ($p, $c, $v) = $k =~ /^(.)(.)(\d{3})$/;
-            $v += 0;
-
-            my @links;
-            foreach my $id (@{ $unknown_combs{$k} }) {
-                push @links, {
-                    value => $v,
-                    id    => $id,
-                };
-            }
-
-            if (!exists $unknown->{"$p$c"}) {
-                $unknown->{"$p$c"} = {
-                    pname   => do { local $ENV{'EBT_LANG'} = 'en'; EBT2->printers ($p) },
-                    cname   => do { local $ENV{'EBT_LANG'} = 'en'; EBT2->countries ($c) },
-                    pletter => $p,
-                    cletter => $c,
-                    links   => [ @links ],
-                };
-            } else {
-                push @{ $unknown->{"$p$c"}{'links'} }, @links;
-            }
-        }
-    }
-
     $self->stash (
         nbc        => $nbc,
         presidents => $presidents,
         missing    => $missing,
-        unknown    => $unknown,
         history    => $comb_data->{'history'},
     );
 }

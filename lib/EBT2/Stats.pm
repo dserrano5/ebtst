@@ -531,17 +531,12 @@ sub missing_combs_and_history {
     my $hist_idx = 0;
     my @history;
     my %combs = %{ \%EBT2::combs_pc_cc_val };
-    my %unknown_combs;
     my %sigs;
-    my @error_notes;
 
     my $iter = $data->note_getter;
     while (my $hr = $iter->()) {
-        if (my $error = EBT2::NoteValidator::validate_note $hr) {
-            push @error_notes, [ $error, $hr ];
-            next;
-        }
         $num_note++;
+        next if $hr->{'invalid'};
 
         my $p = substr $hr->{'short_code'}, 0, 1;
         my $c = substr $hr->{'serial'}, 0, 1;
@@ -549,35 +544,22 @@ sub missing_combs_and_history {
         my $s = (split ' ', $hr->{'signature'})[0];
 
         my $k = sprintf '%s%s%03d', $p, $c, $v;
-        if (!exists $combs{$k}) {
-            warn "unknown combination ($k)\n";
-            push @{ $unknown_combs{$k} }, $hr->{'id'};
-        } else {
-            if (!$combs{$k}) {
-                push @history, {
-                    index   => ++$hist_idx,
-                    pname   => EBT2->printers ($p),
-                    cname   => EBT2->countries ($c),
-                    pc      => $p,
-                    cc      => $c,
-                    value   => $hr->{'value'},
-                    num     => $num_note,
-                    date    => (split ' ', $hr->{'date_entered'})[0],
-                    city    => $hr->{'city'},
-                    country => $hr->{'country'},
-                };
-            }
-            $combs{$k}++;
-            $sigs{$s}{$k}++;
+        if (!$combs{$k}) {
+            push @history, {
+                index   => ++$hist_idx,
+                pname   => EBT2->printers ($p),
+                cname   => EBT2->countries ($c),
+                pc      => $p,
+                cc      => $c,
+                value   => $hr->{'value'},
+                num     => $num_note,
+                date    => (split ' ', $hr->{'date_entered'})[0],
+                city    => $hr->{'city'},
+                country => $hr->{'country'},
+            };
         }
-    }
-    if (@error_notes) {
-        foreach my $error (@error_notes) {
-            my ($error, $hr) = @$error;
-            warn "$error:\n";
-            warn sprintf "%s: %s\n", $_, $hr->{$_} for sort keys %$hr;
-            warn "\n";
-        }
+        $combs{$k}++;
+        $sigs{$s}{$k}++;
     }
 
     ## gather missing combinations
@@ -603,7 +585,6 @@ sub missing_combs_and_history {
     $ret{'missing_combs_and_history'}{'num_total_combs'} = $num_total_combs;
     $ret{'missing_combs_and_history'}{'num_missing_combs'} = $num_missing_combs;
     $ret{'missing_combs_and_history'}{'missing_pcv'} = \%missing_pcv;
-    $ret{'missing_combs_and_history'}{'unknown_combs'} = \%unknown_combs;
     $ret{'missing_combs_and_history'}{'history'} = \@history;
     $ret{'missing_combs_and_history'}{'sigs'} = \%sigs;
 
@@ -819,13 +800,14 @@ sub bundle {
         $ret{'notes_by_dow'}{$dow}{ $hr->{'value'} }++;
 
         ## notes_by_combination
-        my $comb1 = sprintf '%s%s',   (substr $hr->{'short_code'}, 0, 1), (substr $hr->{'serial'}, 0, 1);
-        my $comb2 = sprintf '%s%s%s', (substr $hr->{'short_code'}, 0, 1), (substr $hr->{'serial'}, 0, 1), $hr->{'value'};
-        if (my ($sig) = $hr->{'signature'} =~ /^(\w+)/) {
-            $ret{'notes_by_combination'}{'any'}{$comb1}{'total'}++;
-            $ret{'notes_by_combination'}{'any'}{$comb1}{ $hr->{'value'} }++;
-            $ret{'notes_by_combination'}{$sig}{$comb1}{'total'}++;
-            $ret{'notes_by_combination'}{$sig}{$comb1}{ $hr->{'value'} }++;
+        if (!$hr->{'invalid'}) {
+            my $comb1 = sprintf '%s%s',   (substr $hr->{'short_code'}, 0, 1), (substr $hr->{'serial'}, 0, 1);
+            if (my ($sig) = $hr->{'signature'} =~ /^(\w+)/) {
+                $ret{'notes_by_combination'}{'any'}{$comb1}{'total'}++;
+                $ret{'notes_by_combination'}{'any'}{$comb1}{ $hr->{'value'} }++;
+                $ret{'notes_by_combination'}{$sig}{$comb1}{'total'}++;
+                $ret{'notes_by_combination'}{$sig}{$comb1}{ $hr->{'value'} }++;
+            }
         }
 
         ## plate_bingo

@@ -737,10 +737,12 @@ sub bundle {
 
         ## huge_table
         my $plate = substr $hr->{'short_code'}, 0, 4;
-        my $serial = EBT2::Data::serial_remove_meaningless_figures2 $hr->{'short_code'}, $hr->{'serial'};
-        my $num_stars = $serial =~ tr/*/*/;
-        $serial = substr $serial, 0, 4+$num_stars;
-        $ret{'huge_table'}{$plate}{ $hr->{'value'} }{$serial}{'count'}++;
+        if (!$hr->{'invalid'}) {
+            my $serial = EBT2::Data::serial_remove_meaningless_figures2 $hr->{'short_code'}, $hr->{'serial'};
+            my $num_stars = $serial =~ tr/*/*/;
+            $serial = substr $serial, 0, 4+$num_stars;
+            $ret{'huge_table'}{$plate}{ $hr->{'value'} }{$serial}{'count'}++;
+        }
 
         ## alphabets
         my $city = $hr->{'city'};
@@ -832,9 +834,9 @@ sub bundle {
             !exists $ret{'plate_bingo'}{ $hr->{'value'} }{$plate} or
             'err' eq $ret{'plate_bingo'}{ $hr->{'value'} }{$plate}
         ) {
-            warn sprintf "invalid note: plate '%s' doesn't exist for value '%s' and country '%s'\n",
-                $plate, $hr->{'value'}, substr $hr->{'serial'}, 0, 1;
-            $ret{'plate_bingo'}{ $hr->{'value'} }{$plate} = 'err';
+            #warn sprintf "invalid note: plate '%s' doesn't exist for value '%s' and country '%s'\n",
+            #    $plate, $hr->{'value'}, substr $hr->{'serial'}, 0, 1;
+            #$ret{'plate_bingo'}{ $hr->{'value'} }{$plate} = 'err';
         } else {
             $ret{'plate_bingo'}{ $hr->{'value'} }{$plate}++;
             $ret{'plate_bingo'}{ 'all' }{$plate}++;

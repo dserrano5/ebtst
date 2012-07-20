@@ -2,6 +2,7 @@ package EBT2::Stats;
 
 use warnings;
 use strict;
+use utf8;
 use DateTime;
 use Date::DayOfWeek;
 use List::Util qw/sum reduce/;
@@ -747,8 +748,10 @@ sub bundle {
         if ($city =~ /^'s[- ](.*)/) {
             $city = $1;
         }
-        ## probably more to do here
-        my $initial = uc substr $city, 0, 1;
+        ## ...probably more similar cases to be handled here...
+        my $initial = substr $city, 0, 1;
+        ## removing diacritics is a hard task; let's follow the KISS principle here
+        $initial =~ tr/áéíóúÁÉÍÓÚàèìòùÀÈÌÒÙäëïöüÄËÏÖÜ/AEIOUAEIOUAEIOUAEIOUAEIOUAEIOU/;  ## turn to uppercase in the same step
         $ret{'alphabets'}{ $hr->{'country'} }{$initial}++;
 
         ## fooest_short_codes

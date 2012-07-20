@@ -34,7 +34,7 @@ sub login {
         $users{$self->param ('user')} eq sha512_hex $self->param ('pass')
     ) {
         $self->stash ('sess')->create;
-        $self->stash ('sess')->data ('user' => $self->param ('user'));
+        $self->stash ('sess')->data (user => $self->param ('user'));
         $self->redirect_to ('information');
     } else {
         $self->redirect_to ('index');
@@ -868,6 +868,7 @@ sub gen_output {
     /;
 
     my @req_params = grep { $self->param ($_) } @params;
+    $self->ebt->set_checked_boxes (@req_params);
 
     my $html_dir = File::Spec->catfile ($FindBin::Bin, '..', 'public', 'stats', $self->stash ('user'));
     $self->_prepare_html_dir ($html_dir);

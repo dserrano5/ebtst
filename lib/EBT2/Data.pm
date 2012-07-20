@@ -336,7 +336,10 @@ sub load_hits {
 sub _clean_object {
     my ($self) = @_;
 
-    my @del_keys = grep { 'db' ne $_ } keys %$self;
+    my @del_keys = grep {
+        'db'            ne $_ and
+        'checked_boxes' ne $_
+    } keys %$self;
     delete @$self{ @del_keys };
 
     return $self;

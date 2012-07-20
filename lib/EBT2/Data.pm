@@ -29,6 +29,26 @@ sub new {
     }, $class;
 }
 
+sub whoami {
+    my ($self) = @_;
+
+    return $self->{'whoami'};
+}
+
+sub set_checked_boxes {
+    my ($self, @cbs) = @_;
+
+    $self->{'checked_boxes'} = \@cbs;
+    $self->write_db;
+    return;
+}
+
+sub get_checked_boxes {
+    my ($self) = @_;
+
+    return $self->{'checked_boxes'};
+}
+
 ## this is:
 ## - for sorting
 ## - for presentation

@@ -96,15 +96,15 @@ sub ebt_lang {
     return substr +($ENV{'EBT_LANG'} || $ENV{'LANG'} || $ENV{'LANGUAGE'} || 'en'), 0, 2;
 }
 
-sub load_notes { my ($self, @args) = @_; $self->{'data'}->load_notes (@args); return $self; }
-sub load_hits  { my ($self, @args) = @_; $self->{'data'}->load_hits  (@args); return $self; }
-sub load_db    { my ($self)        = @_; $self->{'data'}->load_db; return $self; }
-sub has_notes  { my ($self)        = @_; $self->{'data'}->has_notes; }
-sub has_hits   { my ($self)        = @_; $self->{'data'}->has_hits; }
-sub whoami     { my ($self)        = @_; $self->{'data'}->{'whoami'}; }  ## a little bit of foreign introspection here
-sub set_checked_boxes { my ($self, @cbs)  = @_; $self->{'data'}{'checked_boxes'} = \@cbs; $self->{'data'}->write_db; }   ## and here
-sub get_checked_boxes { my ($self)        = @_; return $self->{'data'}{'checked_boxes'}; }                               ## and here
-sub values     { return $config{'values'}; }
+sub load_notes        { my ($self, @args) = @_; $self->{'data'}->load_notes (@args); return $self; }
+sub load_hits         { my ($self, @args) = @_; $self->{'data'}->load_hits  (@args); return $self; }
+sub load_db           { my ($self)        = @_; $self->{'data'}->load_db; return $self; }
+sub has_notes         { my ($self)        = @_; $self->{'data'}->has_notes; }
+sub has_hits          { my ($self)        = @_; $self->{'data'}->has_hits; }
+sub whoami            { my ($self)        = @_; $self->{'data'}->whoami; }
+sub set_checked_boxes { my ($self, @cbs)  = @_; $self->{'data'}->set_checked_boxes (@cbs); }
+sub get_checked_boxes { my ($self)        = @_; return $self->{'data'}->get_checked_boxes; }
+sub values            { return $config{'values'}; }
 
 our $AUTOLOAD;
 sub AUTOLOAD {

@@ -6,6 +6,7 @@ use Storable qw/dclone/;
 use Config::General;
 use EBT2::Data;
 use EBT2::Stats;
+use Locale::Country;
 
 sub _work_dir {
     my $work_dir;
@@ -154,6 +155,12 @@ EOF
                 my (\$self, \$what) = \@_;
                 my \$lang = ebt_lang;
                 if (\$what) {
+                    if (
+                        'en' eq \$lang and
+                        !defined \$config{\$field}{\$lang}{\$what}
+                    ) {
+                        return code2country \$what;
+                    }
                     return \$config{\$field}{\$lang}{\$what};
                 } else {
                     return \$config{\$field}{\$lang};

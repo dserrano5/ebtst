@@ -785,14 +785,14 @@ sub bundle {
         $ret{'notes_per_year'}{$y}{ $hr->{'value'} }++;
 
         ## notes_per_month
-        #my $m = substr $hr->{'date_entered'}, 0, 7;
-        $ret{'notes_per_month'}{$m}{'total'}++;
-        $ret{'notes_per_month'}{$m}{ $hr->{'value'} }++;
+        my $ym = substr $hr->{'date_entered'}, 0, 7;
+        $ret{'notes_per_month'}{$ym}{'total'}++;
+        $ret{'notes_per_month'}{$ym}{ $hr->{'value'} }++;
 
         ## top10days
-        #my $d = substr $hr->{'date_entered'}, 0, 10;
-        $ret{'top10days'}{$d}{'total'}++;
-        $ret{'top10days'}{$d}{ $hr->{'value'} }++;
+        my $ymd = substr $hr->{'date_entered'}, 0, 10;
+        $ret{'top10days'}{$ymd}{'total'}++;
+        $ret{'top10days'}{$ymd}{ $hr->{'value'} }++;
 
         ## time_analysis
         #my ($y, $m, $d, $H, $M, $S) = map { sprintf '%02d', $_ } split /[\s:-]/, $hr->{'date_entered'};

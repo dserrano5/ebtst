@@ -1,6 +1,6 @@
 [b]<%=l 'Nice serials' %>[/b]
 <% foreach my $elem (@$nicest) { =%>
-<%= $elem->{'score'} %> - <%= $elem->{'serial'} %> ( :note-<%= $elem->{'value'} %>: <%=l 'entered on' %> <%= $elem->{'date'} %> <%=l 'in' %> <%= $elem->{'city'} %> :flag-<%= $elem->{'imgname'} %>:)
+<%= $elem->{'serial'} %> ( :note-<%= $elem->{'value'} %>: <%=l 'entered on' %> <%= $elem->{'date'} %> <%=l 'in' %> <%= $elem->{'city'} %> :flag-<%= $elem->{'imgname'} %>:)
 <% } =%>
 
 <% foreach my $length (sort { $a <=> $b } keys %$numbers_in_a_row) { =%>

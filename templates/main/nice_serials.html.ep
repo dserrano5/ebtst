@@ -1,5 +1,5 @@
 <% foreach my $elem (@$nicest) { %>
-    <%= $elem->{'score'} %> - <%= $elem->{'serial'} %> (<img src="images/<%= $elem->{'value'} %>.gif"> <%=l 'entered on' %> <%= $elem->{'date'} %> <%=l 'in' %> <%= $elem->{'city'} %> <img src="images/<%= $elem->{'imgname'} %>.gif">)
+    <%= $elem->{'serial'} %> (<img src="images/<%= $elem->{'value'} %>.gif"> <%=l 'entered on' %> <%= $elem->{'date'} %> <%=l 'in' %> <%= $elem->{'city'} %> <img src="images/<%= $elem->{'imgname'} %>.gif">)
     <br>
 <% } %>
 

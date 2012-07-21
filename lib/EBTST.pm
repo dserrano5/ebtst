@@ -101,9 +101,6 @@ sub startup {
             my $user_data_dir = File::Spec->catfile ($user_data_basedir, $user);
             my $db            = File::Spec->catfile ($user_data_dir, 'db');
 
-            $self->stash (user      => $user);
-            $self->stash (html_dir  => $html_dir);
-
             if (!-d $user_data_dir) { mkdir $user_data_dir or die "mkdir: '$user_data_dir': $!"; }
             if (!-d $html_dir)      { mkdir $html_dir      or die "mkdir: '$html_dir': $!"; }
 
@@ -126,6 +123,8 @@ sub startup {
             $self->stash (checked_boxes => \%cbs);
             $self->stash (has_notes     => $self->ebt->has_notes);
             $self->stash (has_hits      => $self->ebt->has_hits);
+            $self->stash (user          => $user);
+            $self->stash (html_dir      => $html_dir);
 
             return 1;
         }

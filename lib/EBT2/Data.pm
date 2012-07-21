@@ -361,6 +361,12 @@ sub has_notes {
     return exists $self->{'notes'} && !!@{ $self->{'notes'} };
 }
 
+sub has_bad_notes {
+    my ($self) = @_;
+
+    return exists $self->{'notes'} && !!grep { $_->{'invalid'} } @{ $self->{'notes'} };
+}
+
 sub has_hits {
     my ($self) = @_;
 

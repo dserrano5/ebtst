@@ -101,6 +101,7 @@ sub load_hits         { my ($self, @args) = @_; $self->{'data'}->load_hits  (@ar
 sub load_db           { my ($self)        = @_; $self->{'data'}->load_db; return $self; }
 sub has_notes         { my ($self)        = @_; $self->{'data'}->has_notes; }
 sub has_hits          { my ($self)        = @_; $self->{'data'}->has_hits; }
+sub has_bad_notes     { my ($self)        = @_; $self->{'data'}->has_bad_notes; }
 sub whoami            { my ($self)        = @_; $self->{'data'}->whoami; }
 sub set_checked_boxes { my ($self, @cbs)  = @_; $self->{'data'}->set_checked_boxes (@cbs); }
 sub get_checked_boxes { my ($self)        = @_; return $self->{'data'}->get_checked_boxes; }

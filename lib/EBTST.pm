@@ -123,6 +123,7 @@ sub startup {
             $self->stash (checked_boxes => \%cbs);
             $self->stash (has_notes     => $self->ebt->has_notes);
             $self->stash (has_hits      => $self->ebt->has_hits);
+            $self->stash (has_bad_notes => $self->ebt->has_bad_notes);
             $self->stash (user          => $user);
             $self->stash (html_dir      => $html_dir);
 
@@ -132,6 +133,7 @@ sub startup {
         $self->stash (checked_boxes => {});
         $self->stash (has_notes => undef);
         $self->stash (has_hits => undef);
+        $self->stash (has_bad_notes => undef);
         $self->stash (user => undef);
         return 1;
     });

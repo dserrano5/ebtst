@@ -56,14 +56,15 @@ sub information {
     my $ac          = $self->ebt->get_activity;
     my $count       = $self->ebt->get_count;
     my $total_value = $self->ebt->get_total_value;
-    my $avg_value   = $total_value / $count;
     my $sigs        = $self->ebt->get_signatures;
+    my $full_days   = $self->ebt->get_days_elapsed;
+
+    my $avg_value   = $total_value / $count;
     my $wd          = ($sigs->{'WD only'}//0)  + ($sigs->{'WD shared'}//0);
     my $jct         = ($sigs->{'JCT only'}//0) + ($sigs->{'JCT shared'}//0);
     my $md          = ($sigs->{'MD only'}//0)  + ($sigs->{'MD shared'}//0);
     my $unk         = ($sigs->{'(unknown)'}//0);
     my $today       = DateTime->now->set_time_zone ('Europe/Madrid')->strftime ('%Y-%m-%d %H:%M:%S');
-    my $full_days   = $self->ebt->get_days_elapsed;
     my $avg_per_day = $count / $full_days;
 
     $self->stash (

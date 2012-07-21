@@ -25,7 +25,7 @@ sub new {
     bless {}, $class;
 }
 
-sub activity {
+sub bundle1 {
     my ($self, $data) = @_;
     my %ret;
 
@@ -33,6 +33,7 @@ sub activity {
     my $cursor;
     my $iter = $data->note_getter;
     while (my $hr = $iter->()) {
+        ## activity
         my $date_entered = (split ' ', $hr->{'date_entered'})[0];
         if (!$ret{'activity'}{'first_note'}) {
             $date_entered =~ /^(\d{4})-(\d{2})-(\d{2})$/;
@@ -45,6 +46,19 @@ sub activity {
             };
         }
         $active_days{$date_entered}++;  ## number of notes
+
+        ## count (total_value, signatures)
+        $ret{'count'}++;
+        $ret{'total_value'} += $hr->{'value'};
+        $ret{'signatures'}{ $hr->{'signature'} }++;
+
+        ## days_elapsed
+        if (!exists $ret{'days_elapsed'}) {
+            my $dt0 = DateTime->new (
+                zip @{[qw/year month day hour minute second/]}, @{[ split /[\s:-]/, $hr->{'date_entered'} ]}
+            );
+            $ret{'days_elapsed'} = DateTime->now->delta_days ($dt0)->delta_days;
+        }
     }
 
     my $today = DateTime->now->strftime ('%Y-%m-%d');
@@ -113,6 +127,11 @@ sub activity {
 
     return \%ret;
 }
+sub activity     { goto &bundle1; }
+sub count        { goto &bundle1; }
+sub total_value  { goto &bundle1; }
+sub signatures   { goto &bundle1; }
+sub days_elapsed { goto &bundle1; }
 
 =pod
 
@@ -651,7 +670,7 @@ sub plate_bingo {
 
 =cut
 
-sub bundle {
+sub bundle2 {
     my ($self, $data) = @_;
     my %ret;
     my $at = 0;
@@ -668,19 +687,6 @@ sub bundle {
 
     my $iter = $data->note_getter;
     while (my $hr = $iter->()) {
-        ## count (total_value, signatures)
-        $ret{'count'}++;
-        $ret{'total_value'} += $hr->{'value'};
-        $ret{'signatures'}{ $hr->{'signature'} }++;
-
-        ## days_elapsed
-        if (!exists $ret{'days_elapsed'}) {
-            my $dt0 = DateTime->new (
-                zip @{[qw/year month day hour minute second/]}, @{[ split /[\s:-]/, $hr->{'date_entered'} ]}
-            );
-            $ret{'days_elapsed'} = DateTime->now->delta_days ($dt0)->delta_days;
-        }
-
         ## notes_by_value
         $ret{'notes_by_value'}{ $hr->{'value'} }++;
 
@@ -839,30 +845,26 @@ sub bundle {
 
     return \%ret;
 }
-sub count { goto &bundle; }
-sub total_value { goto &bundle; }
-sub signatures  { goto &bundle; }
-sub days_elapsed { goto &bundle; }
-sub notes_by_value { goto &bundle; }
-sub notes_by_cc { goto &bundle; }
-sub first_by_cc { goto &bundle; }
-sub notes_by_country { goto &bundle; }
-sub notes_by_city { goto &bundle; }
-sub notes_by_pc { goto &bundle; }
-sub first_by_pc { goto &bundle; }
-sub huge_table { goto &bundle; }
-sub alphabets { goto &bundle; }
-sub lowest_short_codes { goto &bundle; }
-sub highest_short_codes { goto &bundle; }
-sub coords_bingo { goto &bundle; }
-sub notes_per_year { goto &bundle; }
-sub notes_per_month { goto &bundle; }
-sub top10days { goto &bundle; }
-sub time_analysis { goto &bundle; }
-sub notes_by_dow { goto &bundle; }
-sub notes_by_combination { goto &bundle; }
-sub plate_bingo { goto &bundle; }
-sub bad_notes { goto &bundle; }
+sub notes_by_value       { goto &bundle2; }
+sub notes_by_cc          { goto &bundle2; }
+sub first_by_cc          { goto &bundle2; }
+sub notes_by_country     { goto &bundle2; }
+sub notes_by_city        { goto &bundle2; }
+sub notes_by_pc          { goto &bundle2; }
+sub first_by_pc          { goto &bundle2; }
+sub huge_table           { goto &bundle2; }
+sub alphabets            { goto &bundle2; }
+sub lowest_short_codes   { goto &bundle2; }
+sub highest_short_codes  { goto &bundle2; }
+sub coords_bingo         { goto &bundle2; }
+sub notes_per_year       { goto &bundle2; }
+sub notes_per_month      { goto &bundle2; }
+sub top10days            { goto &bundle2; }
+sub time_analysis        { goto &bundle2; }
+sub notes_by_dow         { goto &bundle2; }
+sub notes_by_combination { goto &bundle2; }
+sub plate_bingo          { goto &bundle2; }
+sub bad_notes            { goto &bundle2; }
 
 sub hit_list {
     my ($self, $data, $whoami) = @_;

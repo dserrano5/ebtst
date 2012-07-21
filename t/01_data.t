@@ -40,7 +40,7 @@ ok exists $obj->{'notes'}[1]{'hit'}, 'There is a hit after loading hits CSV';
 $obj->load_notes ('t/notes1.csv');
 ok defined $obj->{'notes'}, 'There are notes after loading CSV';
 is scalar @{ $obj->{'notes'} }, 2, 'Correct number of notes';
-ok exists $obj->{'notes'}[1]{'hit'}, 'There is still a hit after loading new notes CSV';
+ok !exists $obj->{'notes'}[1]{'hit'}, 'No hits after loading new notes CSV';
 
 ## use another CSV for the following tests
 $obj = new_ok 'EBT2::Data', [ db => '/tmp/ebt2-storable' ];

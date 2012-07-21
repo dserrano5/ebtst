@@ -20,14 +20,14 @@ ok exists $obj->{'data'}{'notes'}[1]{'hit'}, 'There is a hit after loading hits 
 is ref $obj->{'notes'}[0]{'hit'}, '', 'No spurious hits after loading hits CSV';
 
 $obj->load_notes ('t/notes1.csv');
-ok exists $obj->{'data'}{'notes'}[1]{'hit'}, 'There is still a hit after loading new notes CSV';
+ok !exists $obj->{'data'}{'notes'}[1]{'hit'}, 'No hits after loading new notes CSV';
 is ref $obj->{'notes'}[0]{'hit'}, '', 'No spurious hits after loading new notes CSV';
 
 $obj->load_db;
 ok defined $obj->{'data'}{'notes'}, 'There are notes after loading db';
 is scalar @{ $obj->{'data'}{'notes'} }, 2, 'Correct number of notes';
-ok exists $obj->{'data'}{'notes'}[1]{'hit'}, 'There is a hit after loading db';
-is ref $obj->{'notes'}[0]{'hit'}, '', 'No spurious hits after loading db';
+ok !exists $obj->{'data'}{'notes'}[1]{'hit'}, 'No spurious hits after loading db';
+is ref $obj->{'data'}{'notes'}[0]{'hit'}, '', 'No spurious hits after loading db';
 
 my $gotten;
 $gotten = $obj->get_activity;

@@ -248,7 +248,7 @@ sub load_notes {
 
         $hr->{'country'} = _cc $hr->{'country'};
         if (my $errors = EBT2::NoteValidator::validate_note $hr) {
-            $hr->{'invalid'} = $errors;
+            $hr->{'errors'} = $errors;
         }
         push @{ $self->{'notes'} }, $hr;
     }
@@ -364,7 +364,7 @@ sub has_notes {
 sub has_bad_notes {
     my ($self) = @_;
 
-    return exists $self->{'notes'} && !!grep { $_->{'invalid'} } @{ $self->{'notes'} };
+    return exists $self->{'notes'} && !!grep { $_->{'errors'} } @{ $self->{'notes'} };
 }
 
 sub has_hits {

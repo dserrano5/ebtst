@@ -555,7 +555,7 @@ sub missing_combs_and_history {
     my $iter = $data->note_getter;
     while (my $hr = $iter->()) {
         $num_note++;
-        next if $hr->{'invalid'};
+        next if $hr->{'errors'};
 
         my $p = substr $hr->{'short_code'}, 0, 1;
         my $c = substr $hr->{'serial'}, 0, 1;
@@ -724,7 +724,7 @@ sub bundle2 {
 
         ## huge_table
         my $plate = substr $hr->{'short_code'}, 0, 4;
-        if (!$hr->{'invalid'}) {
+        if (!$hr->{'errors'}) {
             my $serial = EBT2::Data::serial_remove_meaningless_figures2 $hr->{'short_code'}, $hr->{'serial'};
             my $num_stars = $serial =~ tr/*/*/;
             $serial = substr $serial, 0, 4+$num_stars;
@@ -806,7 +806,7 @@ sub bundle2 {
         $ret{'notes_by_dow'}{$dow}{ $hr->{'value'} }++;
 
         ## notes_by_combination
-        if (!$hr->{'invalid'}) {
+        if (!$hr->{'errors'}) {
             my $comb1 = sprintf '%s%s',   (substr $hr->{'short_code'}, 0, 1), (substr $hr->{'serial'}, 0, 1);
             if (my ($sig) = $hr->{'signature'} =~ /^(\w+)/) {
                 $ret{'notes_by_combination'}{'any'}{$comb1}{'total'}++;
@@ -831,7 +831,7 @@ sub bundle2 {
         }
 
         ## bad_notes
-        if ($hr->{'invalid'}) {
+        if ($hr->{'errors'}) {
             push @{ $ret{'bad_notes'} }, $hr;
         }
     }

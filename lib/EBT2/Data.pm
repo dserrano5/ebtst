@@ -203,6 +203,7 @@ sub _date_inside_range {
         $date le $end;
 }
 
+my $do_keep_hits = 0;   ## not sure whether to make this configurable or not...
 sub load_notes {
     my ($self, $notes_file, $store_path) = @_;
     my $fd;
@@ -211,11 +212,13 @@ sub load_notes {
         zip short_code id times_entered moderated_hit lat long
     /;
 
-    ## if uploading only a notes csv, keep known hits (if any)
+    ## maybe keep known hits (if any)
     my %save_hits;
-    for my $n (@{ $self->{'notes'} }) {
-        next unless exists $n->{'hit'};
-        $save_hits{ $n->{'serial'} } = $n->{'hit'};
+    if ($do_keep_hits) {
+        for my $n (@{ $self->{'notes'} }) {
+            next unless exists $n->{'hit'};
+            $save_hits{ $n->{'serial'} } = $n->{'hit'};
+        }
     }
 
     $self->_clean_object;
@@ -252,9 +255,11 @@ sub load_notes {
     close $fd;
     close $outfd if $store_path;
 
-    for my $n (@{ $self->{'notes'} }) {
-        next unless $save_hits{ $n->{'serial'} };
-        $n->{'hit'} = $save_hits{ $n->{'serial'} };
+    if (%save_hits) {
+        for my $n (@{ $self->{'notes'} }) {
+            next unless $save_hits{ $n->{'serial'} };
+            $n->{'hit'} = $save_hits{ $n->{'serial'} };
+        }
     }
 
     $self->{'notes_pos'} = 0;

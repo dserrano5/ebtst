@@ -18,25 +18,27 @@ sub note_serial_cksum {
 
 sub validate_note {
     my ($hr) = @_;
+    my @errors;
 
-    return "bad value" unless grep { $_ eq $hr->{'value'} } @{ EBT2->values };
-    return "bad year" if '2002' ne $hr->{'year'};
-    return "bad serial" unless note_serial_cksum $hr->{'serial'};
-    return "bad date" if
+    push @errors, "Bad value '$hr->{'value'}'" unless grep { $_ eq $hr->{'value'} } @{ EBT2->values };
+    push @errors, "Bad year '$hr->{'year'}'" if '2002' ne $hr->{'year'};
+    push @errors, "Invalid checksum for serial number '$hr->{'serial'}'" unless note_serial_cksum $hr->{'serial'};
+    push @errors, "Bad date '$hr->{'date_entered'}'" if
         $hr->{'date_entered'} !~ /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/ and
         $hr->{'date_entered'} !~ m{^\d{2}/\d{2}/\d{2} \d{2}:\d{2}$};
-    return "bad city" unless length $hr->{'city'};
-    return "bad country" unless length $hr->{'country'};
-    #return "bad zip" unless length $hr->{'zip'};  ## irish notes haven't a zip code
-    return "bad short code" if $hr->{'short_code'} !~ /^([DEFGHJKLMNPRTU]\d{3}[A-J][0-6])$/;
-    return "bad id" if $hr->{'id'} !~ /^\d+$/;
-    return "bad latitude"  if length $hr->{'lat'}  and $hr->{'lat'}  !~ /^ -? \d+ (?: \. \d+ )? $/x;
-    return "bad longitude" if length $hr->{'long'} and $hr->{'long'} !~ /^ -? \d+ (?: \. \d+ )? $/x;
+    #push @errors, "Bad city '$hr->{'city'}'" unless length $hr->{'city'};
+    #push @errors, "Bad country '$hr->{'country'}'" unless length $hr->{'country'};
+    #push @errors, "Bad zip '$hr->{'zip'}'" unless length $hr->{'zip'};  ## irish notes haven't a zip code
+    push @errors, "Bad short code '$hr->{'short_code'}'" if $hr->{'short_code'} !~ /^([DEFGHJKLMNPRTU]\d{3}[A-J][0-6])$/;
+    push @errors, "Bad id '$hr->{'id'}'" if $hr->{'id'} !~ /^\d+$/;
+    push @errors, "Bad latitude '$hr->{'lat'}'"  if length $hr->{'lat'}  and $hr->{'lat'}  !~ /^ -? \d+ (?: \. \d+ )? $/x;
+    push @errors, "Bad longitude '$hr->{'long'}'" if length $hr->{'long'} and $hr->{'long'} !~ /^ -? \d+ (?: \. \d+ )? $/x;
 
-    my $k_pcv = sprintf '%s%s%03d', (substr $hr->{'short_code'}, 0, 1), (substr $hr->{'serial'}, 0, 1), $hr->{'value'};
-    return "bad combo" if !exists $EBT2::combs_pc_cc_val{$k_pcv};
+    my $k_pcv         = sprintf '%s%s%03d', (substr $hr->{'short_code'}, 0, 1), (substr $hr->{'serial'}, 0, 1), $hr->{'value'};
+    my $visible_k_pcv = sprintf '%s/%s %d', (substr $hr->{'short_code'}, 0, 1), (substr $hr->{'serial'}, 0, 1), $hr->{'value'};
+    push @errors, "Bad combination '$visible_k_pcv'" if !exists $EBT2::combs_pc_cc_val{$k_pcv};
 
-    return;
+    return @errors ? \@errors : ();
 }
 
 1;

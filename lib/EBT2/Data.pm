@@ -247,8 +247,8 @@ sub load_notes {
         }
 
         $hr->{'country'} = _cc $hr->{'country'};
-        if (my $error = EBT2::NoteValidator::validate_note $hr) {
-            $hr->{'invalid'} = 1;
+        if (my $errors = EBT2::NoteValidator::validate_note $hr) {
+            $hr->{'invalid'} = $errors;
         }
         push @{ $self->{'notes'} }, $hr;
     }

@@ -33,14 +33,12 @@ sub startup {
             ## Move first part from path to base path
             push @{$self->req->url->base->path->parts}, shift @{$self->req->url->path->parts};
             $self->stash (production => 1);
-            $self->stash (base_href => $base_href);
         });
     } else {
         $self->hook (before_dispatch => sub {
             my $self = shift;
 
             $self->stash (production => 0);
-            $self->stash (base_href => $base_href);
         });
     }
 
@@ -86,6 +84,8 @@ sub startup {
     my $r_has_notes_hits = $r->under (sub {
         my ($self) = @_;
         my $t = time;
+
+        $self->stash (base_href => $base_href);
 
         ## expire old $obj_store entries
         my @sids_to_del;

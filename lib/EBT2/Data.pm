@@ -102,7 +102,7 @@ sub _find_out_signature {
     my $cc = substr $serial, 0, 1;
     my $sig = $EBT2::config{'sigs'}{$value}{$cc}{$plate};
     if (!defined $sig) {
-        warn "No signature found (unknown combination?) for note ($value) ($cc) ($plate)\n";
+        #warn "No signature found (unknown combination?) for note ($value) ($cc) ($plate)\n";
         $sig = '(unknown)';
     } else {
         if ($sig =~ /,/) {

@@ -823,6 +823,11 @@ sub bundle {
             $ret{'plate_bingo'}{ $hr->{'value'} }{$plate}++;
             $ret{'plate_bingo'}{ 'all' }{$plate}++;
         }
+
+        ## bad_notes
+        if ($hr->{'invalid'}) {
+            push @{ $ret{'bad_notes'} }, $hr;
+        }
     }
 
     ## top_10_days: keep the 10 highest (delete the other ones)
@@ -857,6 +862,7 @@ sub time_analysis { goto &bundle; }
 sub notes_by_dow { goto &bundle; }
 sub notes_by_combination { goto &bundle; }
 sub plate_bingo { goto &bundle; }
+sub bad_notes { goto &bundle; }
 
 sub hit_list {
     my ($self, $data, $whoami) = @_;

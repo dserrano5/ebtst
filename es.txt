@@ -15,6 +15,7 @@ Time analysis = Análisis de tiempo
 Combinations = Combinaciones
 Note evolution = Evolución temporal
 Plate bingo = Bingo de planchas
+Bad notes = Billetes erróneos
 Hit list = Lista de hits
 Hits by month = Hits al mes
 Hit analysis = Análisis de hits
@@ -131,6 +132,8 @@ Output = Salida
 
 ## plate bingo
 Total for = Total de
+
+## bad notes
 
 ## hit list
 Hit date = Fecha

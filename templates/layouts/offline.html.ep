@@ -41,6 +41,8 @@
                 </tr>--><tr>
                     <td><a class="section_link" id="plate_bingo"     href="plate_bingo.html"><%=l 'Plate bingo' %></a></td>
                 </tr><tr>
+                    <td><a class="section_link" id="bad_notes"       href="bad_notes.html"><%=l 'Bad notes' %></a></td>
+                </tr><tr>
                     <td><a class="section_link" id="hit_list"        href="hit_list.html"><%=l 'Hit list' %></a></td>
                 </tr><tr>
                     <td><a class="section_link" id="hits_by_month"   href="hits_by_month.html"><%=l 'Hits by month' %></a></td>

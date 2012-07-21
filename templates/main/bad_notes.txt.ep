@@ -1,0 +1,4 @@
+[b]<%=l 'Bad notes' %>[/b]
+<% foreach my $note (@$bad_notes) { =%>
+<%= $note->{'idx'} %>.) <img src="images/<%= $note->{'pc_img'} %>.gif"> <img src="images/<%= $note->{'cc_img'} %>.gif"> <%= $note->{'short_code'} %>/<%= $note->{'serial'} %> <img src="images/<%= $note->{'value'} %>.gif">, <%=l 'entered on' %> <%= ((split / /, $note->{'date_entered'})[0]) %> <%=l 'in' %> <%= $note->{'city'} %> <img src="images/<%= $note->{'country'} %>.gif">.
+<% } =%>

@@ -656,6 +656,31 @@ sub plate_bingo {
     $self->stash (cooked => $cooked);
 }
 
+sub bad_notes {
+    my ($self) = @_;
+
+    my $bad_notes = $self->ebt->get_bad_notes;
+    my @cooked;
+
+    my $idx = 0;
+    foreach my $bn (@$bad_notes) {
+        my $pc = substr $bn->{'short_code'}, 0, 1;
+        my $cc = substr $bn->{'serial'},     0, 1;
+        $bn->{'serial'} =~ s/^([A-Z])....(....)...$/$1xxxx$2xxx/;
+        $bn->{'short_code'} = substr $bn->{'short_code'}, 0, 4;
+        push @cooked, {
+            %$bn,
+            idx    => ++$idx,
+            pc_img => EBT2->printers ($pc),
+            cc_img => EBT2->countries ($cc),
+        };
+    }
+
+    $self->stash (
+        bad_notes => \@cooked,
+    );
+}
+
 sub hit_list {
     my ($self) = @_;
 
@@ -837,7 +862,7 @@ sub gen_output {
     my @params = qw/
         information value countries locations printers huge_table short_codes nice_serials
         coords_bingo notes_per_year notes_per_month top_days time_analysis combs
-        plate_bingo hit_list hits_by_month hit_analysis
+        plate_bingo bad_notes hit_list hits_by_month hit_analysis
     /;
 
     my @req_params = grep { $self->param ($_) } @params;

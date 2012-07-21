@@ -660,7 +660,7 @@ sub bad_notes {
     my ($self) = @_;
 
     my $bad_notes = $self->ebt->get_bad_notes;
-    my @cooked = [];
+    my @cooked;
 
     my $idx = 0;
     foreach my $bn (@$bad_notes) {

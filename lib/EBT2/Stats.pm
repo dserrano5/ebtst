@@ -666,6 +666,9 @@ sub bundle {
         }
     }
 
+    ## bad_notes: prepare
+    $ret{'bad_notes'} = [];
+
     my $iter = $data->note_getter;
     while (my $hr = $iter->()) {
         ## count (total_value, signatures)

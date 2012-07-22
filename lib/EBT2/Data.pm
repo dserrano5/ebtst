@@ -223,9 +223,6 @@ sub load_notes {
 
     $self->_clean_object;
 
-    ## just as in load_hits
-    return unless -s $notes_file;
-
     open $fd, '<:encoding(UTF-8)', $notes_file or die "open: '$notes_file': $!\n";
     my $header = <$fd>;
     $header =~ s/[\x0d\x0a]*$//;
@@ -284,9 +281,6 @@ sub load_hits {
 
     my $second_pass = 0;
     my %hits;
-
-    ## mojolicious feeds us an empty file, this is probably solved in a better way before reaching this point...
-    return unless -s $hits_file;
 
     open $fd, '<:encoding(UTF-8)', $hits_file or die "open: '$hits_file': $!\n";
     my $header = <$fd>;

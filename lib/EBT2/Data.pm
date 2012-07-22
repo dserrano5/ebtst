@@ -9,7 +9,7 @@ use DateTime;
 use File::Spec;
 use Text::CSV;
 use List::Util qw/first max sum/;
-use Storable qw/retrieve store dclone/;
+use Storable qw/retrieve store/;
 use Locale::Country;
 use EBT2::NoteValidator;
 
@@ -250,14 +250,7 @@ sub load_notes {
         if (my $errors = EBT2::NoteValidator::validate_note $hr) {
             $hr->{'errors'} = $errors;
         }
-        push @{ $self->{'notes'} }, {
-            str1 => (
-                sprintf '%3s;%4s;%12s;%19s;%2s;%10s;%6s;%9s;%1s;%1s;%7s;%7s;%10s',
-                @$hr{qw/value year serial date_entered country zip short_code id times_entered moderated_hit lat long signature/}
-            ),
-            str2 => (sprintf '%s;%s', @$hr{qw/city desc/}),
-            ($hr->{'errors'} ? (errors => $hr->{'errors'}) : ()),
-        };
+        push @{ $self->{'notes'} }, $hr;
     }
     close $fd;
     close $outfd if $store_path;
@@ -342,7 +335,7 @@ sub load_hits {
         $hits{$serial}{'hit_date'} = $p->[$idx]{'date_entered'};
 
         ## this grep is expensive, let's see if it causes some lag with a high number of hits
-        my ($note) = grep { $serial eq substr $_->{'str1'}, 9, 12 } @{ $self->{'notes'} };
+        my ($note) = grep { $_->{'serial'} eq $serial } @{ $self->{'notes'} };
         $note->{'hit'} = $hits{$serial};
     }
 
@@ -409,18 +402,7 @@ sub rewind {
 
 sub next_note {
     my ($self) = @_;
-
-    my $next = $self->{'notes'}[ $self->{'notes_pos'}++ ];
-
-    if (defined $next) {
-        $next = dclone $next;
-        @$next{qw/value year serial date_entered country zip short_code id times_entered moderated_hit lat long signature/} = split /\s*;\s*/, $next->{'str1'};
-        @$next{qw/city desc/} = split /;/, $next->{'str2'}, 2;
-        $next->{'value'} += 0;  ## remove leading spaces
-        delete @$next{qw/str1 str2/};
-    }
-
-    return $next;
+    return $self->{'notes'}[ $self->{'notes_pos'}++ ];
 }
 
 my ($last_read, $chunk_start, $chunk_end);

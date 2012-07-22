@@ -256,6 +256,7 @@ sub load_notes {
                 @$hr{qw/value year serial date_entered country zip short_code id times_entered moderated_hit lat long signature/}
             ),
             str2 => (sprintf '%s;%s', @$hr{qw/city desc/}),
+            ($hr->{'errors'} ? (errors => $hr->{'errors'}) : ()),
         };
     }
     close $fd;

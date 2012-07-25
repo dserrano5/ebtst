@@ -110,8 +110,8 @@ sub countries {
 
     my $data = $self->ebt->get_notes_by_cc;
     my $count = $self->ebt->get_count;
-    my $count_by_value;
     my $data_fbcc = $self->ebt->get_first_by_cc;
+    my $count_by_value;
 
     for my $cc (
         sort {

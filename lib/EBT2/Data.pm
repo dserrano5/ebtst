@@ -563,6 +563,10 @@ one_result_full_data specifies whether to return dates along with notes or not
 sub note_getter {
     my ($self, %args) = @_;
 
+    ## shortcut: skip the iterator and the multiple fetchrows
+    ## to use the getter as before, just feed a bogus argument, e.g. $self->note_getter (foo => 'bar');
+    return $self->{'notes'} unless %args;
+
     die "filter must be a hashref\n" if $args{'filter'} and 'HASH' ne ref $args{'filter'};
 
     $args{'interval'}             = '1n' unless defined $args{'interval'};

@@ -107,8 +107,9 @@ sub startup {
             if ($obj_store->{$sid}) {
                 $self->stash (ebt => $obj_store->{$sid}{'obj'});
             } else {
-                eval { $self->stash (ebt => EBT2->new (db => $db)); };
-                $@ and die "Initializing model: '$@'\n";
+                my $ebt = eval { EBT2->new (db => $db); };
+                $@ and die "Initializing model: '$@'\n";   ## TODO: this isn's working
+                $self->stash (ebt => $ebt);
                 eval { $self->ebt->load_db; };
                 if ($@ and $@ !~ /No such file or directory/) {
                     warn "Loading db: '$@'. Going on anyway.\n";

@@ -9,9 +9,44 @@ use DateTime;
 use File::Spec;
 use Text::CSV;
 use List::Util qw/first max sum/;
-use Storable qw/retrieve store/;
+use Storable qw/retrieve store freeze/;
 use Locale::Country;
+use MIME::Base64;
 use EBT2::NoteValidator;
+use EBT2::Constants ':all';
+
+#use Inline C => <<'EOC';
+#void my_split (char *str, int nfields) {
+#    int n;
+#    int len;
+#    char *start;
+#    char *substr;
+#    char *copy;
+#
+#    inline_stack_vars;
+#    inline_stack_reset;
+#
+#    copy = calloc (4096, 1);
+#    start = str;
+#    substr = index (str, ';');
+#    for (n = 0; n < nfields-1; n++) {
+#        len = substr-start;
+#        strncpy (copy, start, len);
+#        /* printf ("substr (%s) start (%s) copy (%s)\n", substr, start, copy); */
+#        if (!strncmp (copy, ";", 1)) {
+#            inline_stack_push (sv_2mortal (newSVpvn ("", 0)));
+#        } else {
+#            inline_stack_push (sv_2mortal (newSVpvn (copy, len)));
+#        }
+#        bzero (copy, len);
+#        start = substr+1;
+#        substr = index (start, ';');
+#    }
+#    inline_stack_push (sv_2mortal (newSVpvf ("%s", start)));
+#    inline_stack_done;
+#    free (copy);
+#}
+#EOC
 
 Locale::Country::alias_code (uk => 'gb');
 
@@ -207,6 +242,7 @@ my $do_keep_hits = 0;   ## not sure whether to make this configurable or not...
 sub load_notes {
     my ($self, $notes_file, $store_path) = @_;
     my $fd;
+    my $note_no;
     my @notes_column_names = qw/
         value year serial desc date_entered city country
         zip short_code id times_entered moderated_hit lat long
@@ -232,7 +268,6 @@ sub load_notes {
     my $notes_csv = Text::CSV->new ({ sep_char => ';', binary => 1 });
     $notes_csv->column_names (@notes_column_names);
     while (my $hr = $notes_csv->getline_hr ($fd)) {
-        $hr->{'signature'} = _find_out_signature @$hr{qw/value short_code serial/};
         if ($hr->{'date_entered'} =~ m{^(\d{2})/(\d{2})/(\d{2}) (\d{2}):(\d{2})$}) {
             $hr->{'date_entered'} = sprintf "%s-%s-%s %s:%s:00", (2000+$3), $2, $1, $4, $5;
         }
@@ -243,11 +278,27 @@ sub load_notes {
             printf $outfd "%s\n", join ';', @$hr{qw/value year/}, $serial2, @$hr{qw/short_code date_entered city country/};
         }
 
+        #$hr->{$_} +=0 for qw/value year id times_entered moderated_hit lat long/;
+        $hr->{'note_no'} = ++$note_no;
+        $hr->{'signature'} = _find_out_signature @$hr{qw/value short_code serial/};
         $hr->{'country'} = _cc $hr->{'country'};
-        if (my $errors = EBT2::NoteValidator::validate_note $hr) {
-            $hr->{'errors'} = $errors;
-        }
-        push @{ $self->{'notes'} }, $hr;
+        $hr->{'errors'} = EBT2::NoteValidator::validate_note $hr;
+        $hr->{'hit'} = '';
+
+        ## HASH
+        #push @{ $self->{'notes'} }, $hr;
+
+        ## ARRAY
+        #push @{ $self->{'notes'} }, [ @$hr{+COL_NAMES} ];
+
+        ## STRING, CSV
+        my $fmt = join ';', ('%s') x NCOLS;
+        push @{ $self->{'notes'} }, sprintf $fmt, @$hr{+COL_NAMES};
+
+        ## STRING, FIXED LENGTH STRINGS
+        ##         val yr  ser  ts   city co  zip  pc  id   t   mod lat  long sig  err   hit   desc
+        #my $fmt = '%3s;%4s;%12s;%19s;%30s;%2s;%12s;%6s;%10s;%1s;%1s;%18s;%18s;%10s;%100s;%100s;%250s';
+        #push @{ $self->{'notes'} }, sprintf $fmt, @$hr{+COL_NAMES};
     }
     close $fd;
     close $outfd if $store_path;
@@ -277,7 +328,12 @@ sub load_hits {
         city zip user_id user_name lat long km days
     /;
 
-    delete $_->{'hit'} for @{ $self->{'notes'} };
+    foreach my $n (@{ $self->{'notes'} }) {
+        my @arr = split ';', $n, NCOLS;
+        next unless $arr[HIT];
+        $arr[HIT] = '';
+        $n = join ';', @arr;
+    }
 
     my $second_pass = 0;
     my %hits;
@@ -328,9 +384,14 @@ sub load_hits {
         $idx ||= 1;                                                       ## can't be zero, a hit occurs at the second part
         $hits{$serial}{'hit_date'} = $p->[$idx]{'date_entered'};
 
-        ## this grep is expensive, let's see if it causes some lag with a high number of hits
-        my ($note) = grep { $_->{'serial'} eq $serial } @{ $self->{'notes'} };
-        $note->{'hit'} = $hits{$serial};
+        ## this is potentially expensive, let's see if it causes some lag with a high number of hits
+        foreach my $n (@{ $self->{'notes'} }) {
+            my @arr = split ';', $n, NCOLS;
+            next if $arr[SERIAL] ne $serial;
+            $arr[HIT] = encode_base64 +(freeze $hits{$serial}), '';
+            $n = join ';', @arr;
+            last;
+        }
     }
 
     $self->write_db;
@@ -358,14 +419,36 @@ sub has_notes {
 sub has_bad_notes {
     my ($self) = @_;
 
-    return exists $self->{'notes'} && !!grep { $_->{'errors'} } @{ $self->{'notes'} };
+    ## ARRAY
+    #return exists $self->{'notes'} && !!first { $_->[ERRORS] } @{ $self->{'notes'} };
+
+    ## STRING, CSV
+    return exists $self->{'notes'} && !!first { (split ';', $_, NCOLS)[ERRORS] } @{ $self->{'notes'} };
+
+    ## STRING, CSV, MY_SPLIT
+    #return exists $self->{'notes'} && !!first { (my_split $_, NCOLS)[ERRORS] } @{ $self->{'notes'} };
+
+    ## STRING, FIXED LENGTH STRINGS
+    #my $err;
+    #my $empty = ' ' x 100;
+    #if (exists $self->{'notes'}) {
+    #    foreach my $n (@{ $self->{'notes'} }) {
+    #        next if $empty eq substr $n, 3+4+12+19+30+2+12+6+10+1+1+18+18+10, 100;
+    #        $err = 1;
+    #        last;
+    #    }
+    #}
+    #return $err;
 }
 
 sub has_hits {
     my ($self) = @_;
 
-    my $ret = exists $self->{'notes'} && !!first { exists $_->{'hit'} } @{ $self->{'notes'} };
-    return $ret;
+    return 0 unless exists $self->{'notes'};
+    foreach my $n (@{ $self->{'notes'} }) {
+        return 1 if (split ';', $n, NCOLS)[HIT];
+    }
+    return 0;
 }
 
 sub load_db {
@@ -396,7 +479,11 @@ sub rewind {
 
 sub next_note {
     my ($self) = @_;
-    return $self->{'notes'}[ $self->{'notes_pos'}++ ];
+
+    ## untested, since this code path isn't used in EBTST
+    my $n = $self->{'notes'}[ $self->{'notes_pos'}++ ];
+    my %h = zip @{[ COL_NAMES ]}, @{[ split ';', $n, NCOLS ]};
+    return \%h;
 }
 
 my ($last_read, $chunk_start, $chunk_end);
@@ -565,7 +652,44 @@ sub note_getter {
 
     ## shortcut: skip the iterator and the multiple fetchrows
     ## to use the getter as before, just feed a bogus argument, e.g. $self->note_getter (foo => 'bar');
-    return $self->{'notes'} unless %args;
+    if (!%args) {
+        ## HASH, ARRAY
+        #return $self->{'notes'};
+
+        ## STRING, CSV
+        return [
+            map { [ split ';', $_, NCOLS ] } @{ $self->{'notes'} }
+        ];
+
+        ## STRING, CSV, MY_SPLIT
+        #return [
+        #    map { [ my_split $_, NCOLS ] } @{ $self->{'notes'} }
+        #];
+
+        ## STRING, FIXED LENGTH STRINGS
+        #my (@arr,@arr2);
+        #foreach my $n (@{ $self->{'notes'} }) {
+        #    $arr2[0]  = substr $n, 0, 3;
+        #    $arr2[1]  = substr $n, 0+3, 4;
+        #    $arr2[2]  = substr $n, 0+3+4, 12;
+        #    $arr2[3]  = substr $n, 0+3+4+12, 19;
+        #    $arr2[4]  = substr $n, 0+3+4+12+19, 30;
+        #    $arr2[5]  = substr $n, 0+3+4+12+19+30, 2;
+        #    $arr2[6]  = substr $n, 0+3+4+12+19+30+2, 12;
+        #    $arr2[7]  = substr $n, 0+3+4+12+19+30+2+12, 6;
+        #    $arr2[8]  = substr $n, 0+3+4+12+19+30+2+12+6, 10;
+        #    $arr2[9]  = substr $n, 0+3+4+12+19+30+2+12+6+10, 1;
+        #    $arr2[10] = substr $n, 0+3+4+12+19+30+2+12+6+10+1, 1;
+        #    $arr2[11] = substr $n, 0+3+4+12+19+30+2+12+6+10+1+1, 18;
+        #    $arr2[12] = substr $n, 0+3+4+12+19+30+2+12+6+10+1+1+18, 18;
+        #    $arr2[13] = substr $n, 0+3+4+12+19+30+2+12+6+10+1+1+18+18, 10;
+        #    $arr2[14] = substr $n, 0+3+4+12+19+30+2+12+6+10+1+1+18+18+10, 100;
+        #    $arr2[15] = substr $n, 0+3+4+12+19+30+2+12+6+10+1+1+18+18+10+100, 100;
+        #    $arr2[16] = substr $n, 0+3+4+12+19+30+2+12+6+10+1+1+18+18+10+100+100, 250;
+        #    push @arr, [ @arr2 ];
+        #}
+        #return \@arr;
+    }
 
     die "filter must be a hashref\n" if $args{'filter'} and 'HASH' ne ref $args{'filter'};
 

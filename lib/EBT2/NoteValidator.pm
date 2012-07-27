@@ -3,6 +3,7 @@ package EBT2::NoteValidator;
 use warnings;
 use strict;
 use List::Util qw/sum/;
+use MIME::Base64;
 
 sub note_serial_cksum {
     my ($s) = map uc, @_;
@@ -38,7 +39,7 @@ sub validate_note {
     my $visible_k_pcv = sprintf '%s/%s %d', (substr $hr->{'short_code'}, 0, 1), (substr $hr->{'serial'}, 0, 1), $hr->{'value'};
     push @errors, "Bad combination '$visible_k_pcv'" if !exists $EBT2::combs_pc_cc_val{$k_pcv};
 
-    return @errors ? \@errors : ();
+    return encode_base64 +(join ';', @errors), '';
 }
 
 1;

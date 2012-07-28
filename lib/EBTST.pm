@@ -151,7 +151,7 @@ sub startup {
         }
 
         my $requested_url = $self->req->url->path->leading_slash (0)->to_string;
-        $requested_url = '' if 'logout' eq $requested_url or 'index' eq $requested_url;
+        $requested_url = '' if grep { $_ eq $requested_url } qw/logout index gen_output/;
         $requested_url = 'configure' if 'upload' eq $requested_url;
         $self->flash (requested_url => $requested_url);
         $self->redirect_to ('index');

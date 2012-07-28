@@ -4,7 +4,7 @@
 <% foreach my $d (@{ $elem->{'detail'} }) { =%>[<%= $d->{'count'} %> :note-<%= $d->{'value'} %>:]<% } %>
 <% } =%>
 
-[b]><%=l 'Top 10 days' %>[/b]
+[b]<%=l 'Top 10 days' %>[/b]
 <% foreach my $elem (@$t10d) { =%>
 [b]<%= $elem->{'date'} %>[/b] - <%= $elem->{'count'} %> (<%= $elem->{'pct'} %>%)<%= ' - ' =%>
 <% foreach my $d (@{ $elem->{'detail'} }) { =%>[<%= $d->{'count'} %> :note-<%= $d->{'value'} %>:]<% } %>

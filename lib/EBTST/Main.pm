@@ -837,7 +837,7 @@ sub _save_html {
 
         if ('information' eq $param) {
             my $index_html = File::Spec->catfile ($html_dir, 'index.html');
-            symlink $file, $index_html or warn "symlink: '$file' to '$index_html': $!";
+            symlink 'information.html', $index_html or warn "symlink: 'information.html' to '$index_html': $!";
         }
     } else {
         warn "open: '$file': $!";

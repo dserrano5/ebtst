@@ -9,6 +9,7 @@ use DateTime;
 use File::Spec;
 use Text::CSV;
 use List::Util qw/first max sum/;
+use List::MoreUtils qw/zip/;
 use Storable qw/retrieve store freeze/;
 use Locale::Country;
 use MIME::Base64;

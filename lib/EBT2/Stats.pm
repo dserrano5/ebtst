@@ -28,7 +28,7 @@ sub new {
     bless {}, $class;
 }
 
-sub activity {
+sub bundle_information {
     my ($self, $data) = @_;
     my %ret;
 
@@ -36,6 +36,7 @@ sub activity {
     my $cursor;
     my $iter = $data->note_getter;
     foreach my $hr (@$iter) {
+        ## activity
         my $date_entered = (split ' ', $hr->[DATE_ENTERED])[0];
         if (!$ret{'activity'}{'first_note'}) {
             $date_entered =~ /^(\d{4})-(\d{2})-(\d{2})$/;
@@ -48,6 +49,19 @@ sub activity {
             };
         }
         $active_days{$date_entered}++;  ## number of notes
+
+        ## count (total_value, signatures)
+        $ret{'count'}++;
+        $ret{'total_value'} += $hr->[VALUE];
+        $ret{'signatures'}{ $hr->[SIGNATURE] }++;
+
+        ## days_elapsed
+        if (!exists $ret{'days_elapsed'}) {
+            my $dt0 = DateTime->new (
+                zip @{[qw/year month day hour minute second/]}, @{[ split /[\s:-]/, $hr->[DATE_ENTERED] ]}
+            );
+            $ret{'days_elapsed'} = DateTime->now->delta_days ($dt0)->delta_days;
+        }
     }
 
     my $today = DateTime->now->strftime ('%Y-%m-%d');
@@ -116,6 +130,13 @@ sub activity {
 
     return \%ret;
 }
+sub activity     { goto &bundle_information; }
+sub count        { goto &bundle_information; }
+sub total_value  { goto &bundle_information; }
+sub signatures   { goto &bundle_information; }
+sub days_elapsed { goto &bundle_information; }
+
+=pod
 
 sub count {
     my ($self, $data) = @_;
@@ -146,6 +167,8 @@ sub days_elapsed {
 
     return \%ret;
 }
+
+=cut
 
 sub notes_by_value {
     my ($self, $data) = @_;
@@ -189,6 +212,44 @@ sub first_by_cc {
     return \%ret;
 }
 
+sub bundle_locations {
+    my ($self, $data) = @_;
+    my %ret;
+
+    my $iter = $data->note_getter;
+    foreach my $hr (@$iter) {
+        ## notes_by_country
+        $ret{'notes_by_country'}{ $hr->[COUNTRY] }{'total'}++;
+        $ret{'notes_by_country'}{ $hr->[COUNTRY] }{ $hr->[VALUE] }++;
+
+        ## notes_by_city
+        $ret{'notes_by_city'}{ $hr->[COUNTRY] }{ $hr->[CITY] }{'total'}++;
+        $ret{'notes_by_city'}{ $hr->[COUNTRY] }{ $hr->[CITY] }{ $hr->[VALUE] }++;
+
+        ## alphabets
+        my $city = $hr->[CITY];
+
+        ## some Dutch cities have an abbreviated article at the beginning, ignore it
+        if ($city =~ /^'s[- ](.*)/) {
+            $city = $1;
+        }
+        ## ...probably more similar cases to be handled here...
+
+        my $initial = uc substr $city, 0, 1;
+        ## removing diacritics is a hard task; let's follow the KISS principle here
+        $initial =~ tr/ÁÉÍÓÚÀÈÌÒÙÄËÏÖÜ/AEIOUAEIOUAEIOU/;
+
+        $ret{'alphabets'}{ $hr->[COUNTRY] }{$initial}++;
+    }
+
+    return \%ret;
+}
+sub notes_by_country { goto &bundle_locations; }
+sub notes_by_city    { goto &bundle_locations; }
+sub alphabets        { goto &bundle_locations; }
+
+=pod
+
 sub notes_by_country {
     my ($self, $data) = @_;
     my %ret;
@@ -214,6 +275,8 @@ sub notes_by_city {
 
     return \%ret;
 }
+
+=cut
 
 sub notes_by_pc {
     my ($self, $data) = @_;
@@ -263,6 +326,8 @@ sub huge_table {
     return \%ret;
 }
 
+=pod
+
 sub alphabets {
     my ($self, $data) = @_;
     my %ret;
@@ -275,17 +340,22 @@ sub alphabets {
         if ($city =~ /^'s[- ](.*)/) {
             $city = $1;
         }
-        ## probably more to do here
+        ## ...probably more similar cases to be handled here...
 
         my $initial = uc substr $city, 0, 1;
+        ## removing diacritics is a hard task; let's follow the KISS principle here
+        $initial =~ tr/ÁÉÍÓÚÀÈÌÒÙÄËÏÖÜ/AEIOUAEIOUAEIOU/;
+
         $ret{'alphabets'}{ $hr->[COUNTRY] }{$initial}++;
     }
 
     return \%ret;
 }
 
+=cut
+
 sub fooest_short_codes {
-    my ($self, $data, $cmp_key, $hash_key) = @_;
+    my ($self, $data) = @_;
     my %ret;
 
     my $iter = $data->note_getter;
@@ -297,11 +367,17 @@ sub fooest_short_codes {
         my $sort_key = sprintf '%s%s', $hr->[SHORT_CODE], $serial;
 
         for my $value ('all', $hr->[VALUE]) {
-            if (!exists $ret{$hash_key}{$pc}{$value}) {
-                $ret{$hash_key}{$pc}{$value} = { %hr2, sort_key => $sort_key };
-            } else {
-                if ($cmp_key == ($sort_key cmp $ret{$hash_key}{$pc}{$value}{'sort_key'})) {
+            for my $param (
+                [ -1, 'lowest_short_codes' ],
+                [ 1, 'highest_short_codes' ],
+            ) {
+                my ($cmp_key, $hash_key) = @$param;
+                if (!exists $ret{$hash_key}{$pc}{$value}) {
                     $ret{$hash_key}{$pc}{$value} = { %hr2, sort_key => $sort_key };
+                } else {
+                    if ($cmp_key == ($sort_key cmp $ret{$hash_key}{$pc}{$value}{'sort_key'})) {
+                        $ret{$hash_key}{$pc}{$value} = { %hr2, sort_key => $sort_key };
+                    }
                 }
             }
         }
@@ -309,6 +385,10 @@ sub fooest_short_codes {
 
     return \%ret;
 }
+sub lowest_short_codes  { goto &fooest_short_codes; }
+sub highest_short_codes { goto &fooest_short_codes; }
+
+=pod
 
 sub lowest_short_codes {
     my ($self, $data) = @_;
@@ -321,6 +401,8 @@ sub highest_short_codes {
 
     return $self->fooest_short_codes ($data, 1, 'highest_short_codes');
 }
+
+=cut
 
 sub _serial_niceness {
     my ($serial) = @_;
@@ -411,6 +493,65 @@ sub coords_bingo {
     return \%ret;
 }
 
+sub bundle_time {
+    my ($self, $data) = @_;
+    my %ret;
+
+    my $iter = $data->note_getter;
+    foreach my $hr (@$iter) {
+        my ($y, $m, $d, $H, $M, $S) = map { sprintf '%02d', $_ } split /[\s:-]/, $hr->[DATE_ENTERED];
+        ## notes_per_year
+        #my $y = substr $hr->[DATE_ENTERED], 0, 4;
+        $ret{'notes_per_year'}{$y}{'total'}++;
+        $ret{'notes_per_year'}{$y}{ $hr->[VALUE] }++;
+
+        ## notes_per_month
+        my $ym = substr $hr->[DATE_ENTERED], 0, 7;
+        $ret{'notes_per_month'}{$ym}{'total'}++;
+        $ret{'notes_per_month'}{$ym}{ $hr->[VALUE] }++;
+
+        ## top10days
+        my $ymd = substr $hr->[DATE_ENTERED], 0, 10;
+        $ret{'top10days'}{$ymd}{'total'}++;
+        $ret{'top10days'}{$ymd}{ $hr->[VALUE] }++;
+
+        ## time_analysis
+        #my ($y, $m, $d, $H, $M, $S) = map { sprintf '%02d', $_ } split /[\s:-]/, $hr->[DATE_ENTERED];
+        my $dow = 1 + dayofweek $d, $m, $y;
+        $ret{'time_analysis'}{'hh'}{$H}++;
+        $ret{'time_analysis'}{'mm'}{$M}++;
+        $ret{'time_analysis'}{'ss'}{$S}++;
+        $ret{'time_analysis'}{'hhmm'}{$H}{$M}++;
+        $ret{'time_analysis'}{'mmss'}{$M}{$S}++;
+        $ret{'time_analysis'}{'hhmmss'}{$H}{$M}{$S}++;
+        $ret{'time_analysis'}{'dow'}{$dow}++;    ## XXX: this partially replaces notes_by_dow below
+        $ret{'time_analysis'}{'dowhh'}{$dow}{$H}++;
+        $ret{'time_analysis'}{'dowhhmm'}{$dow}{$H}{$M}++;
+
+        ## notes_by_dow
+        #my ($Y, $m, $d) = (split /[\s:-]/, $hr->[DATE_ENTERED])[0..2];
+        #my $dow = 1 + dayofweek $d, $m, $Y;
+        $ret{'notes_by_dow'}{$dow}{'total'}++;
+        $ret{'notes_by_dow'}{$dow}{ $hr->[VALUE] }++;
+    }
+
+    ## top10days: keep the 10 highest (delete the other ones)
+    my @sorted_days = sort {
+        $ret{'top10days'}{$b}{'total'} <=> $ret{'top10days'}{$a}{'total'} ||
+        $b cmp $a
+    } keys %{ $ret{'top10days'} };
+    delete @{ $ret{'top10days'}  }{ @sorted_days[10..$#sorted_days] };
+
+    return \%ret;
+}
+sub notes_per_year  { goto &bundle_time; }
+sub notes_per_month { goto &bundle_time; }
+sub top10days       { goto &bundle_time; }
+sub time_analysis   { goto &bundle_time; }
+sub notes_by_dow    { goto &bundle_time; }
+
+=pod
+
 sub notes_per_year {
     my ($self, $data) = @_;
     my %ret;
@@ -480,7 +621,7 @@ sub top10days {
 
     return \%ret;
 }
-sub avgs_top10 { goto &top10days; }
+#sub avgs_top10 { goto &top10days; }
 
 sub time_analysis {
     my ($self, $data) = @_;
@@ -518,6 +659,8 @@ sub notes_by_dow {
 
     return \%ret;
 }
+
+=cut
 
 ## module should calculate combs at the finest granularity (value*cc*plate*sig), it is up to the app to aggregate the pieces
 ## 20120406: no, that should be here, to prevent different apps from performing the same work

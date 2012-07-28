@@ -160,10 +160,11 @@ Most kilometers = Más largos
 Most days = Más antiguos
 
 ## configuration
-Configuration = Configuración
-EBT id number = Número de ID en EBT
-Time zone = Huso horario
-Language = Idioma
+#Name = Nombre
+#EBT id number = Número de ID en EBT
+#Time zone = Huso horario
+#Language = Idioma
 Notes CSV file = Archivo CSV de billetes
 Hits CSV file = Archivo CSV de hits
+A copy of the notes CSV will be kept in the following format = Se almacenará una copia del archivo de billetes, con el siguiente formato
 Submit = Enviar

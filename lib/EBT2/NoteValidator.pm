@@ -3,7 +3,16 @@ package EBT2::NoteValidator;
 use warnings;
 use strict;
 use List::Util qw/sum/;
+use List::MoreUtils qw/uniq/;
 use MIME::Base64;
+
+my @existing_plates;
+for my $v (keys %{ $EBT2::config{'sigs'} }) {
+    for my $cc (keys %{ $EBT2::config{'sigs'}{$v} }) {
+        push @existing_plates, keys %{ $EBT2::config{'sigs'}{$v}{$cc} };
+    }
+}
+@existing_plates = uniq @existing_plates;
 
 sub note_serial_cksum {
     my ($s) = map uc, @_;
@@ -20,6 +29,8 @@ sub note_serial_cksum {
 sub validate_note {
     my ($hr) = @_;
     my @errors;
+    my $plate = substr $hr->{'short_code'}, 0, 4;
+    my $position = substr $hr->{'short_code'}, 4, 2;
 
     push @errors, "Bad value '$hr->{'value'}'" unless grep { $_ eq $hr->{'value'} } @{ EBT2->values };
     push @errors, "Bad year '$hr->{'year'}'" if '2002' ne $hr->{'year'};
@@ -30,7 +41,8 @@ sub validate_note {
     #push @errors, "Bad city '$hr->{'city'}'" unless length $hr->{'city'};
     #push @errors, "Bad country '$hr->{'country'}'" unless length $hr->{'country'};
     #push @errors, "Bad zip '$hr->{'zip'}'" unless length $hr->{'zip'};  ## irish notes haven't a zip code
-    push @errors, "Bad short code '$hr->{'short_code'}'" if $hr->{'short_code'} !~ /^([DEFGHJKLMNPRTU]\d{3}[A-J][0-6])$/;
+    push @errors, "Bad short code position '$position'" if $position !~ /^[A-J][0-6]$/;
+    push @errors, "Non-existing plate '$plate'" unless grep { $_ eq $plate } @existing_plates;
     push @errors, "Bad id '$hr->{'id'}'" if $hr->{'id'} !~ /^\d+$/;
     push @errors, "Bad latitude '$hr->{'lat'}'"  if length $hr->{'lat'}  and $hr->{'lat'}  !~ /^ -? \d+ (?: \. \d+ )? $/x;
     push @errors, "Bad longitude '$hr->{'long'}'" if length $hr->{'long'} and $hr->{'long'} !~ /^ -? \d+ (?: \. \d+ )? $/x;

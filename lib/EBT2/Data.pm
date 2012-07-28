@@ -1,8 +1,5 @@
 package EBT2::Data;
 
-## requires that EBT2 is loaded:
-## - _find_out_signature uses %EBT2::config
-
 use warnings;
 use strict;
 use DateTime;

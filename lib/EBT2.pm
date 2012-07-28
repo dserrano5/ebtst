@@ -4,8 +4,6 @@ use warnings;
 use strict;
 use Storable qw/dclone/;
 use Config::General;
-use EBT2::Data;
-use EBT2::Stats;
 use Locale::Country;
 
 sub _work_dir {
@@ -26,10 +24,18 @@ sub _work_dir {
     return $work_dir;
 }
 
-my $work_dir = _work_dir;
-my $cfg_file = File::Spec->catfile ($work_dir, 'ebt2.cfg');
--r $cfg_file or die "Can't find configuration file '$cfg_file'\n";
-our %config = Config::General->new (-ConfigFile => $cfg_file, -IncludeRelative => 1, -UTF8 => 1)->getall;
+## set up configuration before use'ing other EBT2 modules
+my $work_dir;
+our %config;
+BEGIN {
+    $work_dir = _work_dir;
+    my $cfg_file = File::Spec->catfile ($work_dir, 'ebt2.cfg');
+    -r $cfg_file or die "Can't find configuration file '$cfg_file'\n";
+    %config = Config::General->new (-ConfigFile => $cfg_file, -IncludeRelative => 1, -UTF8 => 1)->getall;
+}
+
+use EBT2::Data;
+use EBT2::Stats;
 
 our @dow2english = qw/Sunday Monday Tuesday Wednesday Thursday Friday Saturday Sunday/;
 

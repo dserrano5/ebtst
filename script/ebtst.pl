@@ -3,10 +3,18 @@
 use 5.010;
 use strict;
 use warnings;
+use Cwd;
 use File::Basename 'dirname';
 use File::Spec;
-use lib join '/', File::Spec->splitdir (dirname (__FILE__)), 'lib';
-use lib join '/', File::Spec->splitdir (dirname (__FILE__)), '..', 'lib';
+
+BEGIN {
+    if ('/' eq substr __FILE__, 0, 1) {
+        $ENV{'BASE_DIR'} = File::Spec->catfile (        (dirname __FILE__), '..');
+    } else {
+        $ENV{'BASE_DIR'} = File::Spec->catfile (getcwd, (dirname __FILE__), '..');
+    }
+}
+use lib File::Spec->catfile ($ENV{'BASE_DIR'}, 'lib');
 
 # Check if Mojo is installed
 eval 'use Mojolicious::Commands';

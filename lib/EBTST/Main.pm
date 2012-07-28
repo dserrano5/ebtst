@@ -793,13 +793,7 @@ sub upload {
 }
 
 sub _prepare_html_dir {
-    my ($self, $dest_dir) = @_;
-
-    my $src_dir = File::Spec->catfile ('..', '..');
-    my $src_img_dir  = File::Spec->catfile ($src_dir,  'images');
-    my $src_css      = File::Spec->catfile ($src_dir,  'ebt.css');
-    my $dest_img_dir = File::Spec->catfile ($dest_dir, 'images');
-    my $dest_css     = File::Spec->catfile ($dest_dir, 'ebt.css');
+    my ($self, $statics_dir, $dest_dir) = @_;
 
     if (!defined unlink glob "$dest_dir/*") {
         if (2 != $!) {
@@ -819,8 +813,12 @@ sub _prepare_html_dir {
         }
     }
 
-    symlink $src_img_dir, $dest_img_dir or die "symlink: '$src_img_dir' to '$dest_img_dir': $!";
-    symlink $src_css, $dest_css or die "symlink: '$src_css' to '$dest_css': $!";
+    my $src_img_dir  = File::Spec->catfile ($statics_dir,  'images');
+    my $src_css      = File::Spec->catfile ($statics_dir,  'ebt.css');
+    my $dest_img_dir = File::Spec->catfile ($dest_dir, 'images');
+    my $dest_css     = File::Spec->catfile ($dest_dir, 'ebt.css');
+    symlink $src_img_dir, $dest_img_dir or warn "symlink: '$src_img_dir' to '$dest_img_dir': $!";
+    symlink $src_css, $dest_css         or warn "symlink: '$src_css' to '$dest_css': $!";
 
     return;
 }
@@ -836,6 +834,11 @@ sub _save_html {
 
         print $fd $html or warn "print: '$file': $!";
         close $fd       or warn "close: '$file': $!";
+
+        if ('information' eq $param) {
+            my $index_html = File::Spec->catfile ($html_dir, 'index.html');
+            symlink $file, $index_html or warn "symlink: '$file' to '$index_html': $!";
+        }
     } else {
         warn "open: '$file': $!";
     }
@@ -869,8 +872,8 @@ sub gen_output {
     my @req_params = grep { $self->param ($_) } @params;
     $self->ebt->set_checked_boxes (@req_params);
 
-    my $html_dir = File::Spec->catfile ($FindBin::Bin, '..', 'public', 'stats', $self->stash ('user'));
-    $self->_prepare_html_dir ($html_dir);
+    my $html_dir = File::Spec->catfile ($self->stash ('html_dir'), $self->stash ('user'));
+    $self->_prepare_html_dir ($self->stash ('statics_dir'), $html_dir);
     my $html_output = encode 'UTF-8', $self->render_partial (template => 'layouts/offline', format => 'html');
     $html_output = $self->_trim_html_sections ($html_output, @req_params);
 

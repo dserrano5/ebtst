@@ -5,7 +5,6 @@ package EBTST;
 
 use Mojo::Base 'Mojolicious';
 use File::Spec;
-use File::Basename 'dirname';
 use Config::General;
 use FindBin;
 use DBI;
@@ -16,11 +15,12 @@ my $cfg_file = File::Spec->catfile ($work_dir, 'ebtst.cfg');
 -r $cfg_file or die "Can't find configuration file '$cfg_file'\n";
 our %config = Config::General->new (-ConfigFile => $cfg_file, -IncludeRelative => 1, -UTF8 => 1)->getall;
 
-my $sess_dir = $config{'session_dir'};
+my $sess_dir          = $config{'session_dir'};
 my $user_data_basedir = $config{'user_data_basedir'};
-my $html_dir = $config{'html_dir'} // join '/', dirname(__FILE__), '..', 'public', 'stats';
-my $session_expire = $config{'session_expire'} // 30;
-my $base_href = $config{'base_href'};
+my $html_dir          = $config{'html_dir'}    // File::Spec->catfile ($ENV{'BASE_DIR'}, 'public', 'stats');
+my $statics_dir       = $config{'statics_dir'} // File::Spec->catfile ($ENV{'BASE_DIR'}, 'public');
+my $session_expire    = $config{'session_expire'} // 30;
+my $base_href         = $config{'base_href'};
 my $base_parts = @{ Mojo::URL->new ($base_href)->path->parts };
 my $obj_store;
 
@@ -128,6 +128,7 @@ sub startup {
             $self->stash (has_bad_notes => $self->ebt->has_bad_notes);
             $self->stash (user          => $user);
             $self->stash (html_dir      => $html_dir);
+            $self->stash (statics_dir   => $statics_dir);
 
             return 1;
         }

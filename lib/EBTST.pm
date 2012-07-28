@@ -117,7 +117,7 @@ sub startup {
                 $obj_store->{$sid}{'obj'} = $self->stash ('ebt');
             }
             $obj_store->{$sid}{'ts'} = $t;
-            $self->stash ('sess')->expires (time + $session_expire * 60);
+            $self->stash ('sess')->extend_expires;
 
             my $cbs = $self->ebt->get_checked_boxes // [];
             my %cbs; @cbs{@$cbs} = (1) x @$cbs;
@@ -132,10 +132,10 @@ sub startup {
         }
 
         $self->stash (checked_boxes => {});
-        $self->stash (has_notes => undef);
-        $self->stash (has_hits => undef);
+        $self->stash (has_notes     => undef);
+        $self->stash (has_hits      => undef);
         $self->stash (has_bad_notes => undef);
-        $self->stash (user => undef);
+        $self->stash (user          => undef);
         return 1;
     });
     $r_has_notes_hits->get ('/')->to ('main#index');

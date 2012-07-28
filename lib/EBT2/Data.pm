@@ -253,7 +253,10 @@ sub load_notes {
             next unless exists $n->{'hit'};
             $save_hits{ $n->{'serial'} } = $n->{'hit'};
         }
+    } else {
+        $self->{'has_hits'} = 0;
     }
+    $self->{'has_bad_notes'} = 0;
 
     $self->_clean_object;
 
@@ -283,6 +286,8 @@ sub load_notes {
         $hr->{'errors'} = EBT2::NoteValidator::validate_note $hr;
         $hr->{'hit'} = '';
 
+        $self->{'has_bad_notes'} = 1 if $hr->{'errors'};
+
         ## HASH
         #push @{ $self->{'notes'} }, $hr;
 
@@ -308,6 +313,7 @@ sub load_notes {
         }
     }
 
+    $self->{'has_notes'} = !!@{ $self->{'notes'} };
     $self->{'notes_pos'} = 0;
     $self->write_db;
 
@@ -332,6 +338,7 @@ sub load_hits {
         $arr[HIT] = '';
         $n = join ';', @arr;
     }
+    $self->{'has_hits'} = 0;
 
     my $second_pass = 0;
     my %hits;
@@ -392,6 +399,7 @@ sub load_hits {
         }
     }
 
+    $self->{'has_hits'} = 1 if %hits;
     $self->write_db;
 }
 
@@ -411,42 +419,19 @@ sub _clean_object {
 sub has_notes {
     my ($self) = @_;
 
-    return exists $self->{'notes'} && !!@{ $self->{'notes'} };
+    return $self->{'has_notes'};
 }
 
 sub has_bad_notes {
     my ($self) = @_;
 
-    ## ARRAY
-    #return exists $self->{'notes'} && !!first { $_->[ERRORS] } @{ $self->{'notes'} };
-
-    ## STRING, CSV
-    return exists $self->{'notes'} && !!first { (split ';', $_, NCOLS)[ERRORS] } @{ $self->{'notes'} };
-
-    ## STRING, CSV, MY_SPLIT
-    #return exists $self->{'notes'} && !!first { (my_split $_, NCOLS)[ERRORS] } @{ $self->{'notes'} };
-
-    ## STRING, FIXED LENGTH STRINGS
-    #my $err;
-    #my $empty = ' ' x 100;
-    #if (exists $self->{'notes'}) {
-    #    foreach my $n (@{ $self->{'notes'} }) {
-    #        next if $empty eq substr $n, 3+4+12+19+30+2+12+6+10+1+1+18+18+10, 100;
-    #        $err = 1;
-    #        last;
-    #    }
-    #}
-    #return $err;
+    return $self->{'has_bad_notes'};
 }
 
 sub has_hits {
     my ($self) = @_;
 
-    return 0 unless exists $self->{'notes'};
-    foreach my $n (@{ $self->{'notes'} }) {
-        return 1 if (split ';', $n, NCOLS)[HIT];
-    }
-    return 0;
+    return $self->{'has_hits'};
 }
 
 sub load_db {

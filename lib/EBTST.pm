@@ -21,6 +21,7 @@ my $user_data_basedir = $config{'user_data_basedir'};
 my $html_dir = $config{'html_dir'} // join '/', dirname(__FILE__), '..', 'public', 'stats';
 my $session_expire = $config{'session_expire'} // 30;
 my $base_href = $config{'base_href'};
+my $base_parts = @{ Mojo::URL->new ($base_href)->path->parts };
 my $obj_store;
 
 sub startup {
@@ -30,8 +31,8 @@ sub startup {
         $self->hook (before_dispatch => sub {
             my $self = shift;
 
-            ## Move first part from path to base path
-            push @{$self->req->url->base->path->parts}, shift @{$self->req->url->path->parts};
+            ## Move prefix from path to base path
+            push @{$self->req->url->base->path->parts}, shift @{$self->req->url->path->parts} for 1..$base_parts;
             $self->stash (production => 1);
         });
     } else {

@@ -2,7 +2,9 @@
 <% foreach my $elem (@$nbm) { %>
     <b><%= $elem->{'month'} %></b> - <%= $elem->{'count'} %> (<%= $elem->{'pct'} %>%) - 
     <% foreach my $d (@{ $elem->{'detail'} }) { %>
-        [<%= $d->{'count'} %> <img src="images/<%= $d->{'value'} %>.gif">]
+        <% if ($d->{'count'}) { %>
+            [<%= $d->{'count'} %> <img src="images/<%= $d->{'value'} %>.gif">]
+        <% } %>
     <% } %>
     <br>
 <% } %>

@@ -1,8 +1,9 @@
 [b]<%=l 'Hit list' %>[/b]
+[table]\
+[tr][td]#[/td][td] ❘ <%=l 'Hit date' %>[/td][td] ❘ <%=l 'Val' %>[/td][td] ❘ <%=l 'Hit note' %>[/td][td] ❘ <%=l 'Countries' %>[/td][td] ❘ <%=l 'Locations' %>[/td][td] ❘ <%=l 'Kms' %>[/td][td] ❘ <%=l 'Days' %>[/td][td] ❘ <%=l 'Partner(s)' %>[/td][/tr]\
 <% foreach my $hit (@$cooked) { =%>
 <% my $flags = join ' ', map { EBT2->flag ($_) } @{ $hit->{'countries'} }; =%>
 <% my $cities = join ' :arrow: ', map { "[b]${_}[/b]" } @{ $hit->{'cities'} };=%>
-<% my $km_days = sprintf '%s km %s %s %s', $hit->{'km'}, (l 'in'), $hit->{'days'}, (l 'days'); =%>
 <% my $before = 1; my @hit_partners; =%>
 <% foreach my $p (@{ $hit->{'hit_partners'} }) { =%>
 <%     if ($p eq $whoami->{'name'}) { $before = 0; next; } =%>
@@ -15,5 +16,16 @@
 <%     push @hit_partners, "[color=$hit_color]${hit_direction}[/color]", $p; =%>
 <% } =%>
 <% my $hit_partners = join ' ', @hit_partners; =%>
-[b]<%= $hit->{'hit_no'} %>.[/b] <%= ((split ' ', $hit->{'hit_date'})[0]) %> :note-<%= $hit->{'value'} %>: <%= $hit->{'serial'} %> <%= $flags %> <%= $cities %> <%= $km_days %> <%= $hit_partners %>
-<% } %>
+[tr]\
+    [td][b]<%= $hit->{'hit_no'} %>.[/b][/td]\
+    [td] ❘ <%= ((split ' ', $hit->{'hit_date'})[0]) %>[/td]\
+    [td] ❘ :note-<%= $hit->{'value'} %>:[/td]\
+    [td] ❘ <%= $hit->{'serial'} %>[/td]\
+    [td] ❘ <%= $flags %>[/td]\
+    [td] ❘ <%= $cities %>[/td]\
+    [td] ❘ <%= $hit->{'km'} %>[/td]\
+    [td] ❘ <%= $hit->{'days'} %>[/td]\
+    [td] ❘ <%= $hit_partners %>[/td]\
+[/tr]\
+<% } =%>
+[/table]

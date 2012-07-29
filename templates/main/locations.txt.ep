@@ -1,14 +1,35 @@
 [b]<%=l 'Countries with notes entered' %> (<%= $num_co %>)[/b]
+[table]\
+[tr][td][/td][td][/td][td] ❘ :note-5:[/td][td] ❘ :note-10:[/td][td] ❘ :note-20:[/td][td] ❘ :note-50:[/td][td] ❘ :note-100:[/td][td] ❘ :note-200:[/td][td] ❘ :note-500:[/td][/tr]\
 <% foreach my $elem (@$countries) { =%>
- <%= $elem->{'bbflag'} %> <%= $elem->{'cname'} %> - <%= $elem->{'count'} %> (<%= $elem->{'pct'} %><%= '%) - ' =%>
-<% foreach my $d (@{ $elem->{'detail'} }) { =%> [<%= $d->{'count'} %> :note-<%= $d->{'value'} %>:] <% } %>
-<% } %>
+    [tr][td] <%= $elem->{'bbflag'} %> <%= $elem->{'cname'} %>[/td][td] ❘ <%= $elem->{'count'} %> (<%= $elem->{'pct'} %>%)[/td]\
+    <% foreach my $d (@{ $elem->{'detail'} }) { =%>
+        <% if ($d->{'count'}) { =%>
+            [td] ❘ <%= $d->{'count'} %>[/td]\
+        <% } else { =%>
+            [td] ❘ [/td]\
+        <% } =%>
+    <% } =%>
+    [/tr]\
+<% } =%>
+[/table]
 
 [b]<%=l 'Number of notes by location' %> (<%= $num_locs %>)[/b]
+[table]\
 <% foreach my $elem (@$c_data) { =%>
-[i]<%= $elem->{'cname'} %>[/i]
-<% foreach my $loc (@{ $elem->{'loc_data'} }) { =%>
- <%= $elem->{'bbflag'} %> <%= $loc->{'loc_name'} %> - <%= $loc->{'count'} %> (<%= $loc->{'pct'} %><%= '%) - ' =%>
-<% foreach my $d (@{ $loc->{'detail'} }) { =%>[<%= $d->{'count'} %> :note-<%= $d->{'value'} %>:] <% } %>
-<% } %>
+    [tr][td][i]<%= $elem->{'cname'} %>[/i][/td][/tr]\
+    [tr][td][/td][td][/td][td] ❘ :note-5:[/td][td] ❘ :note-10:[/td][td] ❘ :note-20:[/td][td] ❘ :note-50:[/td][td] ❘ :note-100:[/td][td] ❘ :note-200:[/td][td] ❘ :note-500:[/td][/tr]\
+    <% foreach my $loc (@{ $elem->{'loc_data'} }) { =%>
+        [tr][td] <%= $elem->{'bbflag'} %> <%= $loc->{'loc_name'} %>[/td][td] ❘ <%= $loc->{'count'} %> (<%= $loc->{'pct'} %>%)[/td]\
+        <% foreach my $d (@{ $loc->{'detail'} }) { =%>
+            <% if ($d->{'count'}) { =%>
+                [td] ❘ <%= $d->{'count'} %>[/td]\
+            <% } else { =%>
+                [td] ❘ [/td]\
+            <% } =%>
+        <% } =%>
+        [/tr]\
+    <% } =%>
+    <% if ($elem != $c_data->[-1]) { %>[tr][td]<%= ".\xa0" %>[/td][/tr][tr][td]<%= ".\xa0" %>[/td][/tr]<% } =%>
 <% } =%>
+[/table]

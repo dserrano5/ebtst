@@ -3,7 +3,9 @@
     <img src="images/<%= $elem->{'imgname'} %>.gif"> <%= $elem->{'cname'} %> - 
     <%= $elem->{'count'} %> (<%= $elem->{'pct'} %>%) - 
     <% foreach my $d (@{ $elem->{'detail'} }) { %>
-        [<%= $d->{'count'} %> <img src="images/<%= $d->{'value'} %>.gif">]
+        <% if ($d->{'count'}) { %>
+            [<%= $d->{'count'} %> <img src="images/<%= $d->{'value'} %>.gif">]
+        <% } %>
     <% } %>
     <br>
 <% } %>
@@ -14,7 +16,9 @@
     <% foreach my $loc (@{ $elem->{'loc_data'} }) { %>
         <img src="images/<%= $elem->{'imgname'} %>.gif"> <%= $loc->{'loc_name'} %> - <%= $loc->{'count'} %> (<%= $loc->{'pct'} %>%) - 
         <% foreach my $d (@{ $loc->{'detail'} }) { %>
-            [<%= $d->{'count'} %> <img src="images/<%= $d->{'value'} %>.gif">]
+            <% if ($d->{'count'}) { %>
+                [<%= $d->{'count'} %> <img src="images/<%= $d->{'value'} %>.gif">]
+            <% } %>
         <% } %>
         <br>
     <% } %>

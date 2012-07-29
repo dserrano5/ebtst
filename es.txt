@@ -94,13 +94,16 @@ numbers in a row = cifras seguidas
 
 ## notes_per_year
 Number of notes per year = Número de billetes por año
+Year = Año
 
 ## notes_per_month
 Number of notes per month = Número de billetes por mes
+Month = Mes
 
 ## top_days
 Number of notes per day of the week = Número de billetes por día de la semana
 Top 10 days = Los 10 mejores días
+Day = Día
 
 ## time analysis
 Hours = Horas
@@ -141,7 +144,7 @@ Val = Val
 Hit note = Billete
 Kms = Kms
 Days = Días
-Partners = Usuarios
+Partner(s) = Usuario(s)
 Note number = Billete número
 Old hit ratio = Hit ratio anterior
 New hit ratio = Hit ratio nuevo

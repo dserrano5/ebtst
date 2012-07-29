@@ -1,11 +1,20 @@
 [b]<%=l 'Number of notes by country code' %>[/b]
+[table]\
 <% for my $elem (@$nbc) { =%>
- <%= $elem->{'bbflag'} %> [b]<%= $elem->{'cc'} %>[/b] <%= $elem->{'cname'} %>: <%= $elem->{'count'} %> <%= $elem->{'pct'} %>%
+    [tr][td] <%= $elem->{'bbflag'} %> [b]<%= $elem->{'cc'} %>[/b] <%= $elem->{'cname'} %>[/td][td] ❘ <%= $elem->{'count'} %>[/td][td] ❘ <%= $elem->{'pct'} %>%[/td][/tr]\
 <% } =%>
+[/table]
 
 [b]<%=l 'First notes by country code' %>[/b]
+[table]\
+[tr][td]<%=l 'Note' %>[/td][td] ❘ <%=l 'was the first from' %>[/td][td] ❘ Value[/td][td] ❘ <%=l 'entered on' %>[/td][td] ❘ <%=l 'in' %>[/td][/tr]\
 <% for my $elem (@$fbcc) { =%>
-<%=l 'Note' %> <%= $elem->{'at'} . ' ' %><%=l 'was the first from' =%>
- <%= $elem->{'bbflag'} %> [b]<%= $elem->{'cname'} %>[/b] ( :note-<%= $elem->{'value'} %>:<%=' '%><%=l 'entered on' =%>
-<%= ' ' . $elem->{'on'} %> <%=l 'in' %> <%= $elem->{'city'} %> <%= $elem->{'bbflag2'} %>)
+    [tr]\
+        [td]<%= $elem->{'at'} %>[/td]\
+        [td] ❘ <%= $elem->{'bbflag'} %> [b]<%= $elem->{'cname'} %>[/b][/td]\
+        [td] ❘ :note-<%= $elem->{'value'} %>:[/td]\
+        [td] ❘ <%= $elem->{'on'} %>[/td]\
+        [td] ❘ <%= $elem->{'city'} %> <%= $elem->{'bbflag2'} %>[/td]\
+    [/tr]\
 <% } =%>
+[/table]

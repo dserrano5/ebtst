@@ -199,7 +199,7 @@ sub locations {
     ) {
         my $detail;
         for my $v (@{ EBT2->values }) {
-            $nbco->{$iso3166}{$v} and push @$detail, {
+            push @$detail, {
                 value => $v,
                 count => $nbco->{$iso3166}{$v},
             };
@@ -231,7 +231,7 @@ sub locations {
         ) {
             my $detail;
             for my $v (@{ EBT2->values }) {
-                $nbci->{$country}{$loc}{$v} and push @$detail, {
+                push @$detail, {
                     value => $v,
                     count => $nbci->{$country}{$loc}{$v},
                 };
@@ -480,7 +480,6 @@ sub notes_per_year {
     foreach my $y (sort keys %$nby_data) {
         my $detail;
         foreach my $v (@{ EBT2->values }) {
-            next unless $nby_data->{$y}{$v};
             push @$detail, {
                 value => $v,
                 count => $nby_data->{$y}{$v},
@@ -510,7 +509,6 @@ sub notes_per_month {
     foreach my $m (sort keys %$nbm_data) {
         my $detail;
         foreach my $v (@{ EBT2->values }) {
-            next unless $nbm_data->{$m}{$v};
             push @$detail, {
                 value => $v,
                 count => $nbm_data->{$m}{$v},
@@ -541,7 +539,6 @@ sub top_days {
     foreach my $dow (sort keys %$nbdow_data) {
         my $detail;
         foreach my $v (@{ EBT2->values }) {
-            next unless $nbdow_data->{$dow}{$v};
             push @$detail, {
                 value => $v,
                 count => $nbdow_data->{$dow}{$v},
@@ -565,7 +562,6 @@ sub top_days {
     ) {
         my $detail;
         foreach my $v (@{ EBT2->values }) {
-            next unless $t10d_data->{$d}{$v};
             push @$detail, {
                 value => $v,
                 count => $t10d_data->{$d}{$v},

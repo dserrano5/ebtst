@@ -16,7 +16,7 @@
         <th><%=l 'Locations' %></th>
         <th><%=l 'Kms' %></th>
         <th><%=l 'Days' %></th>
-        <th><%=l 'Partners' %></th>
+        <th><%=l 'Partner(s)' %></th>
         <th><%=l 'Note number' %></th>
     </tr>
     <% foreach my $hit (@{ $table->{'array'} }) { %>

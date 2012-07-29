@@ -1,11 +1,33 @@
 [b]<%=l 'Number of notes per day of the week' %>[/b]
+[table]\
+[tr][td]<%=l 'Day' %>[/td][td] ❘ <%=l 'Notes'  %>[/td][td] ❘ :note-5:[/td][td] ❘ :note-10:[/td][td] ❘ :note-20:[/td][td] ❘ :note-50:[/td][td] ❘ :note-100:[/td][td] ❘ :note-200:[/td][td] ❘ :note-500:[/td][/tr]\
 <% foreach my $elem (@$nbdow) { =%>
-[b]<%=l $elem->{'dow'} %>[/b] - <%= $elem->{'count'} %> (<%= $elem->{'pct'} %>%)<%= ' - ' =%>
-<% foreach my $d (@{ $elem->{'detail'} }) { =%>[<%= $d->{'count'} %> :note-<%= $d->{'value'} %>:]<% } %>
+    [tr]\
+    [td][b]<%=l $elem->{'dow'} %>[/b][/td][td] ❘ <%= $elem->{'count'} %> (<%= $elem->{'pct'} %>%)[/td]\
+    <% foreach my $d (@{ $elem->{'detail'} }) { =%>
+        <% if ($d->{'count'}) { =%>
+            [td] ❘ <%= $d->{'count'} %>[/td]\
+        <% } else { =%>
+            [td] ❘ [/td]\
+        <% } =%>
+    <% } =%>
+    [/tr]\
 <% } =%>
+[/table]
 
 [b]<%=l 'Top 10 days' %>[/b]
+[table]\
+[tr][td]<%=l 'Day' %>[/td][td] ❘ <%=l 'Notes'  %>[/td][td] ❘ :note-5:[/td][td] ❘ :note-10:[/td][td] ❘ :note-20:[/td][td] ❘ :note-50:[/td][td] ❘ :note-100:[/td][td] ❘ :note-200:[/td][td] ❘ :note-500:[/td][/tr]\
 <% foreach my $elem (@$t10d) { =%>
-[b]<%= $elem->{'date'} %>[/b] - <%= $elem->{'count'} %> (<%= $elem->{'pct'} %>%)<%= ' - ' =%>
-<% foreach my $d (@{ $elem->{'detail'} }) { =%>[<%= $d->{'count'} %> :note-<%= $d->{'value'} %>:]<% } %>
+    [tr]\
+    [td][b]<%= $elem->{'date'} %>[/b][/td][td] ❘ <%= $elem->{'count'} %> (<%= $elem->{'pct'} %>%)[/td]\
+    <% foreach my $d (@{ $elem->{'detail'} }) { =%>
+        <% if ($d->{'count'}) { =%>
+            [td] ❘ <%= $d->{'count'} %>[/td]\
+        <% } else { =%>
+            [td] ❘ [/td]\
+        <% } =%>
+    <% } =%>
+    [/tr]\
 <% } =%>
+[/table]

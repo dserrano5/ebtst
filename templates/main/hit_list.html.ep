@@ -9,7 +9,7 @@
         <th class="small_cell"><%=l 'Locations' %></th>
         <th class="small_cell"><%=l 'Kms' %></th>
         <th class="small_cell"><%=l 'Days' %></th>
-        <th class="small_cell"><%=l 'Partners' %></th>
+        <th class="small_cell"><%=l 'Partner(s)' %></th>
         <th class="small_cell"><%=l 'Note number' %></th>
         <th class="small_cell"><%=l 'Notes' %></th>
         <th class="small_cell"><%=l 'Old hit ratio' %></th>

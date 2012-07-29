@@ -1,5 +1,5 @@
 [b]<%=l 'General information' %>[/b]
-<%=l 'First note entered' %> <%= $ac->{'first_note'}{'date'} %> ( :note-<%= $ac->{'first_note'}{'value'} %>: <%=l 'in' %> <%= $ac->{'first_note'}{'city'} %> :flag-<%= $ac->{'first_note'}{'country'} %>:)
+<%=l 'First note entered' %> <%= $ac->{'first_note'}{'date'} %> ( :note-<%= $ac->{'first_note'}{'value'} %>: <%=l 'in' %> <%= $ac->{'first_note'}{'city'} %> <%= $bbflag %>)
 <%=l 'Situation on' %> <%= $today %>, <%= $full_days %> <%=l '(full) days after the first note was entered' %>
 
 <%=l 'Active/inactive EBT days' %>: [b]<%= $ac->{'active_days_count'} %> - <%= $ac->{'inactive_days_count'} %>[/b] (<%= sprintf '%.2f', 100 * $ac->{'active_days_count'} / $ac->{'total_days_count'} %>% - <%= sprintf '%.2f', 100 * $ac->{'inactive_days_count'} / $ac->{'total_days_count'} %>%)

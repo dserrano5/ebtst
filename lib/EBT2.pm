@@ -102,6 +102,23 @@ sub ebt_lang {
     return substr +($ENV{'EBT_LANG'} || $ENV{'LANG'} || $ENV{'LANGUAGE'} || 'en'), 0, 2;
 }
 
+sub flag {
+    my ($self, $iso3166) = @_;
+    my $flag_txt;
+
+    if (grep { $_ eq $iso3166 } values %{ EBT2->countries }, values %{ EBT2->printers }) {
+        $flag_txt = ":flag-$iso3166:";
+    } else {
+        $flag_txt = sprintf '[img]http://www.eurobilltracker.eu/img/flags/%s.gif[/img]', do {
+            local $ENV{'EBT_LANG'} = 'en';
+            EBT2->country_names ($iso3166);
+        };
+        $flag_txt = ":flag-$iso3166:(err)" unless defined $flag_txt;
+    }
+
+    return $flag_txt;
+}
+
 sub load_notes        { my ($self, @args) = @_; $self->{'data'}->load_notes (@args); return $self; }
 sub load_hits         { my ($self, @args) = @_; $self->{'data'}->load_hits  (@args); return $self; }
 sub load_db           { my ($self)        = @_; $self->{'data'}->load_db; return $self; }
@@ -224,72 +241,6 @@ our $VERSION = (qw$Revision$)[-1];
 
 my $primes_file   = File::Spec->catfile ($work_dir, 'prime-numbers');
 
-our @values = qw/5 10 20 50 100 200 500/;  ## move to config?
-my %combs1;
-my %combs2;
-my %combs3;
-my %sigs_by_president;
-our %all_plates;
-foreach my $v (keys %{ $config{'sigs'} }) {
-    foreach my $cc (keys %{ $config{'sigs'}{$v} }) {
-        for my $plate (keys %{ $config{'sigs'}{$v}{$cc} }) {
-            my $pc = substr $plate, 0, 1;
-
-            my $k1 = sprintf '%s%s',       $pc, $cc;
-            my $k2 = sprintf '%s%s%03d',   $pc, $cc, $v;
-            my $k3 = sprintf '%s%s%03d',   $plate, $cc, $v;
-            #my $k4 = sprintf '%s%s%03d%s', $plate, $cc, $v, $sig;
-            $combs1{$k1}{$v} = undef;
-            $combs2{$k2}     = undef;
-            $combs3{$k3}     = undef;
-
-            my $key = "$pc$cc$v";
-            my $sig = $config{'sigs'}{$v}{$cc}{$plate};
-            if ($sig =~ /,/) {
-                $sig =~ s/\s//g;
-                foreach my $choice (split /,/, $sig) {
-                    my ($result, $range) = split /:/, $choice;
-                    $sigs_by_president{$result}{$key}++;
-                }
-            } else {
-                $sigs_by_president{$sig}{$key}++;
-            }
-            $sigs_by_president{'any'}{$key}++;
-
-            ## el 'our $all_plates' ahora lo creamos aquí
-            push @{ $all_plates{$cc}{$v} }, $plate;
-        }
-    }
-}
-
-################# SUBS
-
-
-## CLASS METHODS
-
-## only for showing
-sub flag {
-    my ($cc) = @_;
-    my $flag_txt;
-
-    if (grep { $_ eq $cc } values %{ EBT->countries }, values %{ EBT->printers }) {
-        $flag_txt = ":flag-$cc:";
-    } else {
-        $flag_txt = sprintf '[img]http://www.eurobilltracker.eu/img/flags/%s.gif[/img]', do {
-            local $ENV{'EBT_LANG'} = 'en';
-            EBT->country_names ($cc);
-        };
-        $flag_txt = 'oops, no country found...' unless defined $flag_txt;
-    }
-
-    return $flag_txt;
-}
-
-
-
-
-
-
 
 ## DATA METHODS
 
@@ -397,93 +348,6 @@ sub note_evolution {
     }
 
     return $self;
-}
-
-
-
-
-
-
-
-our $AUTOLOAD;
-sub AUTOLOAD {
-    my ($self, @args) = @_;
-    my ($pkg, $field) = (__PACKAGE__, $AUTOLOAD);
-
-    $field =~ s/${pkg}:://;
-    return if $field eq 'DESTROY';
-    if ($field =~ s/^get_//) {
-        if (!$self->{'has_data'}) {
-            warn "'$field' was queried but there's no data\n";
-            return undef;
-        }
-
-        return ref $self->{$field} ? dclone $self->{$field} : $self->{$field} if exists $self->{$field};
-
-        if ($self->can ($field)) {  ## if we can JIT compute the value, do it
-            $self->$field;
-            $self->write_storable;
-            return ref $self->{$field} ? dclone $self->{$field} : $self->{$field} if exists $self->{$field};
-        }
-
-        die "Unknown field '$field'\n";
-
-    } elsif ($field =~ /^(countries|printers|presidents)$/) {
-        ## close over %config - the quoted eval doesn't do it, resulting in 'Variable "%config" is not available'
-        %config if 0;
-
-        eval <<"EOF";
-            *$field = sub {
-                my (\$self, \$what) = \@_;
-                my \$lang = ebt_lang;
-                if (\$what) {
-                    return \$config{\$field}{\$what};
-                } else {
-                    return \$config{\$field};
-                }
-            };
-EOF
-        $@ and die "eval failed: $@\n";
-        goto &$field;
-
-    } elsif ($field =~ /^(printers2name|note_procedence|country_names)$/) {
-        ## close over %config - the quoted eval doesn't do it, resulting in 'Variable "%config" is not available'
-        %config if 0;
-
-        eval <<"EOF";
-            *$field = sub {
-                my (\$self, \$what) = \@_;
-                my \$lang = ebt_lang;
-                if (\$what) {
-                    return \$config{\$field}{\$lang}{\$what};
-                } else {
-                    return \$config{\$field}{\$lang};
-                }
-            };
-EOF
-        $@ and die "eval failed: $@\n";
-        goto &$field;
-
-    } elsif ($field =~ /^(sigs_by_president|combs1|combs2|combs3)$/) {
-        ## close over these variables - the quoted eval doesn't do it,
-        ## resulting in errors like 'Variable "%combs1" is not available'
-        map $_, %sigs_by_president, %combs1, %combs2, %combs3;
-
-        eval <<"EOF";
-            *$field = sub {
-                my (\$self, \$what) = \@_;
-                if (\$what) {
-                    return \$${field}{\$what};
-                } else {
-                    return \\%$field;
-                }
-            };
-EOF
-        $@ and die "eval failed: $@\n";
-        goto &$field;
-    } else {
-        die "Can't call non existing method '$field'\n";
-    }
 }
 
 1;

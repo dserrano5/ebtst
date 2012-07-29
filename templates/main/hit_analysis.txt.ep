@@ -6,7 +6,7 @@
 <% foreach my $table (@tables) { =%>
 [i]<%= $table->{'msg'} %>[/i]
 <% foreach my $hit (@{ $table->{'array'} }) { =%>
-<% my $flags = join ' ', map { ":flag-$_:" } @{ $hit->{'countries'} }; =%>
+<% my $flags = join ' ', map { EBT2->flag ($_) } @{ $hit->{'countries'} }; =%>
 <% my $cities = join ' :arrow: ', map { "[b]${_}[/b]" } @{ $hit->{'cities'} };=%>
 <% my $km_days = sprintf '%s km %s %s %s', $hit->{'km'}, (l 'in'), $hit->{'days'}, (l 'days'); =%>
 <% my $before = 1; my @hit_partners; =%>

@@ -1,6 +1,6 @@
 [b]<%=l 'Absolute highest short codes' %>[/b]
 <% foreach my $elem (@{ $sc->{'all'} }) { =%>
- :flag-<%= $elem->{'hi'}{'pc_img'} %>: :flag-<%= $elem->{'hi'}{'cc_img'} %>: <%= $elem->{'hi'}{'str'} %> :note-<%= $elem->{'hi'}{'value'} %>:, <%=l 'entered on' %> <%= $elem->{'hi'}{'date'} %>
+ <%= $elem->{'hi'}{'pc_flag'} %> <%= $elem->{'hi'}{'cc_flag'} %> <%= $elem->{'hi'}{'str'} %> :note-<%= $elem->{'hi'}{'value'} %>:, <%=l 'entered on' %> <%= $elem->{'hi'}{'date'} %>
 <% } =%>
 
 [b]<%=l 'Highest short codes per value' %>[/b]
@@ -8,7 +8,7 @@
 [i]<%= $v %>[/i]
 <% foreach my $elem (@{ $sc->{$v} }) { =%>
 <% if (defined $elem) { =%>
- :flag-<%= $elem->{'hi'}{'pc_img'} %>: :flag-<%= $elem->{'hi'}{'cc_img'} %>: <%= $elem->{'hi'}{'str'} %>, <%=l 'entered on' %> <%= $elem->{'hi'}{'date'} %>
+ <%= $elem->{'hi'}{'pc_flag'} %> <%= $elem->{'hi'}{'cc_flag'} %> <%= $elem->{'hi'}{'str'} %>, <%=l 'entered on' %> <%= $elem->{'hi'}{'date'} %>
 <% } =%>
 <% } %>
 <% } =%>

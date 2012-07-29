@@ -69,6 +69,7 @@ sub information {
 
     $self->stash (
         ac           => $ac,
+        bbflag       => EBT2->flag ($ac->{'first_note'}{'country'}),
         today        => $today,
         full_days    => $full_days,
         count        => $count,
@@ -149,6 +150,7 @@ sub countries {
         push @$nbc, {
             cname   => EBT2->country_names (EBT2->countries ($cc)),
             imgname => $iso3166,
+            bbflag  => EBT2->flag ($iso3166),
             cc      => $cc,
             count   => ($data->{$cc}{'total'}//0),
             pct     => (sprintf '%.2f', 100 * ($data->{$cc}{'total'}//0) / $count),
@@ -163,10 +165,12 @@ sub countries {
             at       => $data_fbcc->{$cc}{'at'},
             cname    => EBT2->country_names (EBT2->countries ($cc)),
             imgname  => $iso3166,
+            bbflag   => EBT2->flag ($iso3166),
             value    => $data_fbcc->{$cc}{'value'},
             on       => (split ' ', $data_fbcc->{$cc}{'date_entered'})[0],
             city     => $data_fbcc->{$cc}{'city'},
             imgname2 => $data_fbcc->{$cc}{'country'},
+            bbflag2  => EBT2->flag ($data_fbcc->{$cc}{'country'}),
         };
     }
 
@@ -203,6 +207,7 @@ sub locations {
         push @$countries, {
             cname   => EBT2->country_names ($iso3166),
             imgname => $iso3166,
+            bbflag  => EBT2->flag ($iso3166),
             count   => $nbco->{$iso3166}{'total'},
             pct     => (sprintf '%.2f', 100 * $nbco->{$iso3166}{'total'} / $count),
             detail  => $detail,
@@ -241,6 +246,7 @@ sub locations {
         push @$c_data, {
             cname    => EBT2->country_names ($country),
             imgname  => $country,
+            bbflag   => EBT2->flag ($country),
             loc_data => $loc_data,
         };
     }
@@ -312,6 +318,7 @@ sub printers {
             cname   => EBT2->country_names (EBT2->printers ($pc)),
             pname   => EBT2->printers2name ($pc),
             imgname => EBT2->printers ($pc),
+            bbflag  => EBT2->flag (EBT2->printers ($pc)),
             pc      => $pc,
             count   => $data->{$pc}{'total'},
             pct     => (sprintf '%.2f', 100 * $data->{$pc}{'total'} / $count),
@@ -327,10 +334,12 @@ sub printers {
             pc       => $pc,
             cname    => EBT2->country_names (EBT2->countries ($pc)),
             imgname  => $iso3166,
+            bbflag   => EBT2->flag ($iso3166),
             value    => $data_fbpc->{$pc}{'value'},
             on       => (split ' ', $data_fbpc->{$pc}{'date_entered'})[0],
             city     => $data_fbpc->{$pc}{'city'},
             imgname2 => $data_fbpc->{$pc}{'country'},
+            bbflag2  => EBT2->flag ($data_fbpc->{$pc}{'country'}),
         };
     }
 
@@ -372,7 +381,6 @@ sub short_codes {
     };
 
     my $lo = $self->ebt->get_lowest_short_codes;
-#use Data::Dumper;warn sprintf "*** %s\n", (Dumper $lo);
     my $hi = $self->ebt->get_highest_short_codes;
     my @pcs = uniq keys %$lo, keys %$hi;
 
@@ -389,13 +397,13 @@ sub short_codes {
                 my $pc = substr $records->{$what}{'short_code'}, 0, 1;
                 my $cc = substr $records->{$what}{'serial'},     0, 1;
                 $tmp->{$what} = {
-                    #pc     => $pc,
-                    #cc     => $cc,
-                    pc_img => EBT2->printers ($pc),
-                    cc_img => EBT2->countries ($cc),
-                    str    => (sprintf '%s/%s', $cook->($records->{$what}{'sort_key'})),
-                    value  => $records->{$what}{'value'},
-                    date   => (split ' ', $records->{$what}{'date_entered'})[0],
+                    pc_img  => EBT2->printers ($pc),
+                    pc_flag => EBT2->flag (EBT2->printers ($pc)),
+                    cc_img  => EBT2->countries ($cc),
+                    cc_flag => EBT2->flag (EBT2->countries ($cc)),
+                    str     => (sprintf '%s/%s', $cook->($records->{$what}{'sort_key'})),
+                    value   => $records->{$what}{'value'},
+                    date    => (split ' ', $records->{$what}{'date_entered'})[0],
                 };
             }
             push @{ $sc->{$v} }, $tmp;
@@ -427,6 +435,7 @@ sub nice_serials {
             date    => (split ' ', $n->{'date_entered'})[0],
             city    => $n->{'city'},
             imgname => $n->{'country'},
+            bbflag  => EBT2->flag ($n->{'country'}),
         };
     }
 

@@ -546,7 +546,7 @@ sub top_days {
         }
         my $tot = $nbdow_data->{$dow}{'total'};
         push @$nbdow, {
-            dow    => $EBT2::dow2english[$dow],
+            dow    => EBT2->dow_names($dow),
             count  => $tot,
             pct    => (sprintf '%.2f', 100 * $tot / $count),
             detail => $detail,

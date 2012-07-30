@@ -37,8 +37,6 @@ BEGIN {
 use EBT2::Data;
 use EBT2::Stats;
 
-our @dow2english = qw/Sunday Monday Tuesday Wednesday Thursday Friday Saturday Sunday/;
-
 ## build empty hashes with all possible combinations
 #our %combs_pc_cc;
 our %combs_pc_cc_val;
@@ -172,7 +170,7 @@ EOF
         $@ and die "eval failed: $@\n";
         goto &$field;
 
-    } elsif ($field =~ /^(printers2name|country_names)$/) {   ## printers2name|note_procedence|country_names
+    } elsif ($field =~ /^(printers2name|country_names|dow_names)$/) {   ## note_procedence
         ## close over %config - the quoted eval doesn't do it, resulting in 'Variable "%config" is not available'
         %config if 0;
 
@@ -183,6 +181,7 @@ EOF
                 if (\$what) {
                     if (
                         'en' eq \$lang and
+                        'country_names' eq \$field and
                         !defined \$config{\$field}{\$lang}{\$what}
                     ) {
                         return code2country \$what;

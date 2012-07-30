@@ -121,7 +121,7 @@
     </tr>
     <% foreach my $dow (1 .. 7) { %>
         <tr>
-            <td class="small_cell"><%= $EBT2::dow2english[$dow] %></td>
+            <td class="small_cell"><%= EBT2->dow_names($dow) %></td>
             <% foreach my $h (map { sprintf '%02d', $_ } 0 .. 23) { %>
                 <% my $class = $ta->{'dowhh'}{$dow}{$h} ? 'bingo_1' : 'bingo_0'; %>
                 <td class="small_cell"><div class="<%= $class %>"></div></td>

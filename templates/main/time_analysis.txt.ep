@@ -1,18 +1,39 @@
 [b]<%=l 'Hours' %>[/b]: <%= scalar keys %{ $ta->{'hh'} } %>/24
+<% foreach my $h (map { sprintf '%02d', $_ } 0 .. 23) { =%>
+    <% my $color = $ta->{'hh'}{$h} ? '0000FF' : 'B0B0B0'; =%>
+    <%=''=%>[color=#<%= $color %>] <%= $h %>[/color]\
+<% } =%>
+
+
 [b]<%=l 'Minutes' %>[/b]: <%= scalar keys %{ $ta->{'mm'} } %>/60
+
 [b]<%=l 'Seconds' %>[/b]: <%= scalar keys %{ $ta->{'ss'} } %>/60
+
 [b]<%=l 'Hours and minutes' %>[/b]: <% my $cnt = 0; =%>
 <% foreach my $h (keys %{ $ta->{'hhmm'} }) { =%>
     <% foreach my $h (keys %{ $ta->{'hhmm'}{$h} }) { =%>
         <% $cnt++; =%>
     <% } =%>
 <% } =%><%= sprintf ' %d/%d', $cnt, 24*60 %>
+<% foreach my $h (map { sprintf '%02d', $_ } 0 .. 23) { =%>
+    <%= " $h" =%>
+<% } =%>
+<%= "\n" . '-' x 99 %>
+<% foreach my $m (map { sprintf '%02d', $_ } 0 .. 59) { =%>
+    <% foreach my $h (map { sprintf '%02d', $_ } 0 .. 23) { =%>
+        <% my $color = $ta->{'hhmm'}{$h}{$m} ? '0000FF' : 'B0B0B0'; =%>
+        <%=''=%>[color=#<%= $color %>] <%= $m %>[/color]\
+    <% } =%>
+
+<% } =%>
+
 [b]<%=l 'Minutes and seconds' %>[/b]: <% $cnt = 0; =%>
 <% foreach my $m (keys %{ $ta->{'mmss'} }) { =%>
     <% foreach my $s (keys %{ $ta->{'mmss'}{$m} }) { =%>
         <% $cnt++; =%>
     <% } =%>
 <% } =%><%= sprintf ' %d/%d', $cnt, 60*60 %>
+
 [b]<%=l 'Hours, minutes and seconds' %>[/b]: <% $cnt = 0; =%>
 <% foreach my $h (keys %{ $ta->{'hhmmss'} }) { =%>
     <% foreach my $m (keys %{ $ta->{'hhmmss'}{$h} }) { =%>
@@ -21,12 +42,21 @@
         <% } =%>
     <% } =%>
 <% } =%><%= sprintf ' %d/%d', $cnt, 24*60*60 %>
+
 [b]<%=l 'Days of week and hours' %>[/b]: <% $cnt = 0; =%>
 <% foreach my $dow (keys %{ $ta->{'dowhh'} }) { =%>
     <% foreach my $h (keys %{ $ta->{'dowhh'}{$dow} }) { =%>
         <% $cnt++; =%>
     <% } =%>
 <% } =%><%= sprintf ' %d/%d', $cnt, 7*24 %>
+<% foreach my $dow (1 .. 7) { =%>
+    <% foreach my $h (map { sprintf '%02d', $_ } 0 .. 23) { =%>
+        <% my $color = $ta->{'dowhh'}{$dow}{$h} ? '0000FF' : 'B0B0B0'; =%>
+        <%=''=%>[color=#<%= $color %>] <%= $h %>[/color]\
+    <% } =%>
+    <%= ' ' . EBT2->dow_names($dow) %>
+<% } =%>
+
 [b]<%=l 'Days of week, hours and minutes' %>[/b]: <% $cnt = 0; =%>
 <% foreach my $dow (keys %{ $ta->{'dowhhmm'} }) { =%>
     <% foreach my $h (keys %{ $ta->{'dowhhmm'}{$dow} }) { =%>

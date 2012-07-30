@@ -1,6 +1,7 @@
 <!doctype html><html>
     <head>
         <title>EBTST</title>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
         <link rel="stylesheet" type="text/css" media="screen" href="ebt.css">
     </head>
     <body id="mainbody">

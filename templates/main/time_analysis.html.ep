@@ -2,7 +2,7 @@
 <table>
     <tr>
         <% foreach my $h (map { sprintf '%02d', $_ } 0 .. 23) { %>
-            <td class="small_cell"><%= $h %></td>
+            <th class="small_cell"><%= $h %></th>
         <% } %>
     </tr>
     <tr>
@@ -18,7 +18,7 @@
 <table>
     <tr>
         <% foreach my $m (map { sprintf '%02d', $_ } 0 .. 59) { %>
-            <td class="tiny_cell"><%= $m %></td>
+            <th class="tiny_cell"><%= $m %></th>
         <% } %>
     </tr>
     <tr>
@@ -34,7 +34,7 @@
 <table>
     <tr>
         <% foreach my $s (map { sprintf '%02d', $_ } 0 .. 59) { %>
-            <td class="tiny_cell"><%= $s %></td>
+            <th class="tiny_cell"><%= $s %></th>
         <% } %>
     </tr>
     <tr>
@@ -54,14 +54,14 @@
 <% } %><%= sprintf '%d/%d', $cnt, 24*60 %><br>
 <table>
     <tr>
-        <td class="small_cell"></td>
+        <th class="small_cell"></th>
         <% foreach my $h (map { sprintf '%02d', $_ } 0 .. 23) { %>
-            <td class="small_cell"><%= $h %></td>
+            <th class="small_cell"><%= $h %></th>
         <% } %>
     </tr>
     <% foreach my $m (map { sprintf '%02d', $_ } 0 .. 59) { %>
         <tr>
-            <td class="small_cell"><%= $m %></td>
+            <th class="small_cell"><%= $m %></th>
             <% foreach my $h (map { sprintf '%02d', $_ } 0 .. 23) { %>
                 <% my $class = $ta->{'hhmm'}{$h}{$m} ? 'bingo_1' : 'bingo_0'; %>
                 <td class="small_cell"><div class="<%= $class %>"></div></td>
@@ -79,14 +79,14 @@
 <% } %><%= sprintf '%d/%d', $cnt, 60*60 %><br>
 <table>
     <tr>
-        <td class="tiny_cell"></td>
+        <th class="tiny_cell"></th>
         <% foreach my $s (map { sprintf '%02d', $_ } 0 .. 59) { %>
-            <td class="tiny_cell"><%= $s %></td>
+            <th class="tiny_cell"><%= $s %></th>
         <% } %>
     </tr>
     <% foreach my $m (map { sprintf '%02d', $_ } 0 .. 59) { %>
         <tr>
-            <td class="tiny_cell"><%= $m %></td>
+            <th class="tiny_cell"><%= $m %></th>
             <% foreach my $s (map { sprintf '%02d', $_ } 0 .. 59) { %>
                 <% my $class = $ta->{'mmss'}{$m}{$s} ? 'bingo_1' : 'bingo_0'; %>
                 <td class="tiny_cell"><div class="<%= $class %>"></div></td>
@@ -114,14 +114,14 @@
 <% } %><%= sprintf '%d/%d', $cnt, 7*24 %><br>
 <table>
     <tr>
-        <td class="small_cell"></td>
+        <th class="small_cell"></th>
         <% foreach my $h (map { sprintf '%02d', $_ } 0 .. 23) { %>
-            <td class="small_cell"><%= $h %></td>
+            <th class="small_cell"><%= $h %></th>
         <% } %>
     </tr>
     <% foreach my $dow (1 .. 7) { %>
         <tr>
-            <td class="small_cell"><%= EBT2->dow_names($dow) %></td>
+            <th class="small_cell"><%= EBT2->dow_names($dow) %></th>
             <% foreach my $h (map { sprintf '%02d', $_ } 0 .. 23) { %>
                 <% my $class = $ta->{'dowhh'}{$dow}{$h} ? 'bingo_1' : 'bingo_0'; %>
                 <td class="small_cell"><div class="<%= $class %>"></div></td>

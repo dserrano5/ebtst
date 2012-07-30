@@ -1,37 +1,141 @@
-<%=l 'Hours' %>: <%= scalar keys %{ $ta->{'hh'} } %>/24<br>
-<%=l 'Minutes' %>: <%= scalar keys %{ $ta->{'mm'} } %>/60<br>
-<%=l 'Seconds' %>: <%= scalar keys %{ $ta->{'ss'} } %>/60<br>
-<%=l 'Hours and minutes' %>: <% my $cnt = 0; %>
-<% foreach my $h (keys %{ $ta->{'hhmm'} }) { %>
-    <% foreach my $h (keys %{ $ta->{'hhmm'}{$h} }) { %>
-        <% $cnt++; %>
-    <% } %>
+<b><%=l 'Hours' %></b>: <%= scalar keys %{ $ta->{'hh'} } %>/24<br>
+<table>
+    <tr>
+        <% foreach my $h (map { sprintf '%02d', $_ } 0 .. 23) { %>
+            <td class="small_cell"><%= $h %></td>
+        <% } %>
+    </tr>
+    <tr>
+        <% foreach my $h (map { sprintf '%02d', $_ } 0 .. 23) { %>
+            <% my $class = $ta->{'hh'}{$h} ? 'bingo_1' : 'bingo_0'; %>
+            <td class="small_cell"><div class="<%= $class %>"></div></td>
+        <% } %>
+    </tr>
+</table>
+<br>
+
+<b><%=l 'Minutes' %></b>: <%= scalar keys %{ $ta->{'mm'} } %>/60<br>
+<table>
+    <tr>
+        <% foreach my $m (map { sprintf '%02d', $_ } 0 .. 59) { %>
+            <td class="tiny_cell"><%= $m %></td>
+        <% } %>
+    </tr>
+    <tr>
+        <% foreach my $m (map { sprintf '%02d', $_ } 0 .. 59) { %>
+            <% my $class = $ta->{'mm'}{$m} ? 'bingo_1' : 'bingo_0'; %>
+            <td class="tiny_cell"><div class="<%= $class %>"></div></td>
+        <% } %>
+    </tr>
+</table>
+<br>
+
+<b><%=l 'Seconds' %></b>: <%= scalar keys %{ $ta->{'ss'} } %>/60<br>
+<table>
+    <tr>
+        <% foreach my $s (map { sprintf '%02d', $_ } 0 .. 59) { %>
+            <td class="tiny_cell"><%= $s %></td>
+        <% } %>
+    </tr>
+    <tr>
+        <% foreach my $s (map { sprintf '%02d', $_ } 0 .. 59) { %>
+            <% my $class = $ta->{'ss'}{$s} ? 'bingo_1' : 'bingo_0'; %>
+            <td class="tiny_cell"><div class="<%= $class %>"></div></td>
+        <% } %>
+    </tr>
+</table>
+<br>
+
+<b><%=l 'Hours and minutes' %></b>: <% my $cnt = 0; %>
+<% foreach my $h (keys %{ $ta->{'hhmm'} }) { =%>
+    <% foreach my $h (keys %{ $ta->{'hhmm'}{$h} }) { =%>
+        <% $cnt++; =%>
+    <% } =%>
 <% } %><%= sprintf '%d/%d', $cnt, 24*60 %><br>
-<%=l 'Minutes and seconds' %>: <% $cnt = 0; %>
-<% foreach my $m (keys %{ $ta->{'mmss'} }) { %>
-    <% foreach my $s (keys %{ $ta->{'mmss'}{$m} }) { %>
-        <% $cnt++; %>
+<table>
+    <tr>
+        <td class="small_cell"></td>
+        <% foreach my $h (map { sprintf '%02d', $_ } 0 .. 23) { %>
+            <td class="small_cell"><%= $h %></td>
+        <% } %>
+    </tr>
+    <% foreach my $m (map { sprintf '%02d', $_ } 0 .. 59) { %>
+        <tr>
+            <td class="small_cell"><%= $m %></td>
+            <% foreach my $h (map { sprintf '%02d', $_ } 0 .. 23) { %>
+                <% my $class = $ta->{'hhmm'}{$h}{$m} ? 'bingo_1' : 'bingo_0'; %>
+                <td class="small_cell"><div class="<%= $class %>"></div></td>
+            <% } %>
+        </tr>
     <% } %>
+</table>
+<br>
+
+<b><%=l 'Minutes and seconds' %></b>: <% $cnt = 0; %>
+<% foreach my $m (keys %{ $ta->{'mmss'} }) { =%>
+    <% foreach my $s (keys %{ $ta->{'mmss'}{$m} }) { =%>
+        <% $cnt++; =%>
+    <% } =%>
 <% } %><%= sprintf '%d/%d', $cnt, 60*60 %><br>
-<%=l 'Hours, minutes and seconds' %>: <% $cnt = 0; %>
-<% foreach my $h (keys %{ $ta->{'hhmmss'} }) { %>
-    <% foreach my $m (keys %{ $ta->{'hhmmss'}{$h} }) { %>
-        <% foreach my $s (keys %{ $ta->{'hhmmss'}{$h}{$m} }) { %>
-            <% $cnt++; %>
+<table>
+    <tr>
+        <td class="tiny_cell"></td>
+        <% foreach my $s (map { sprintf '%02d', $_ } 0 .. 59) { %>
+            <td class="tiny_cell"><%= $s %></td>
         <% } %>
+    </tr>
+    <% foreach my $m (map { sprintf '%02d', $_ } 0 .. 59) { %>
+        <tr>
+            <td class="tiny_cell"><%= $m %></td>
+            <% foreach my $s (map { sprintf '%02d', $_ } 0 .. 59) { %>
+                <% my $class = $ta->{'mmss'}{$m}{$s} ? 'bingo_1' : 'bingo_0'; %>
+                <td class="tiny_cell"><div class="<%= $class %>"></div></td>
+            <% } %>
+        </tr>
     <% } %>
+</table>
+<br>
+
+<b><%=l 'Hours, minutes and seconds' %></b>: <% $cnt = 0; %>
+<% foreach my $h (keys %{ $ta->{'hhmmss'} }) { =%>
+    <% foreach my $m (keys %{ $ta->{'hhmmss'}{$h} }) { =%>
+        <% foreach my $s (keys %{ $ta->{'hhmmss'}{$h}{$m} }) { =%>
+            <% $cnt++; =%>
+        <% } =%>
+    <% } =%>
 <% } %><%= sprintf '%d/%d', $cnt, 24*60*60 %><br>
-<%=l 'Days of week and hours' %>: <% $cnt = 0; %>
-<% foreach my $dow (keys %{ $ta->{'dowhh'} }) { %>
-    <% foreach my $h (keys %{ $ta->{'dowhh'}{$dow} }) { %>
-        <% $cnt++; %>
-    <% } %>
+<br>
+
+<b><%=l 'Days of week and hours' %></b>: <% $cnt = 0; %>
+<% foreach my $dow (keys %{ $ta->{'dowhh'} }) { =%>
+    <% foreach my $h (keys %{ $ta->{'dowhh'}{$dow} }) { =%>
+        <% $cnt++; =%>
+    <% } =%>
 <% } %><%= sprintf '%d/%d', $cnt, 7*24 %><br>
-<%=l 'Days of week, hours and minutes' %>: <% $cnt = 0; %>
-<% foreach my $dow (keys %{ $ta->{'dowhhmm'} }) { %>
-    <% foreach my $h (keys %{ $ta->{'dowhhmm'}{$dow} }) { %>
-        <% foreach my $m (keys %{ $ta->{'dowhhmm'}{$dow}{$h} }) { %>
-            <% $cnt++; %>
+<table>
+    <tr>
+        <td class="small_cell"></td>
+        <% foreach my $h (map { sprintf '%02d', $_ } 0 .. 23) { %>
+            <td class="small_cell"><%= $h %></td>
         <% } %>
+    </tr>
+    <% foreach my $dow (1 .. 7) { %>
+        <tr>
+            <td class="small_cell"><%= $EBT2::dow2english[$dow] %></td>
+            <% foreach my $h (map { sprintf '%02d', $_ } 0 .. 23) { %>
+                <% my $class = $ta->{'dowhh'}{$dow}{$h} ? 'bingo_1' : 'bingo_0'; %>
+                <td class="small_cell"><div class="<%= $class %>"></div></td>
+            <% } %>
+        </tr>
     <% } %>
+</table>
+<br>
+
+<b><%=l 'Days of week, hours and minutes' %></b>: <% $cnt = 0; %>
+<% foreach my $dow (keys %{ $ta->{'dowhhmm'} }) { =%>
+    <% foreach my $h (keys %{ $ta->{'dowhhmm'}{$dow} }) { =%>
+        <% foreach my $m (keys %{ $ta->{'dowhhmm'}{$dow}{$h} }) { =%>
+            <% $cnt++; =%>
+        <% } =%>
+    <% } =%>
 <% } %><%= sprintf '%d/%d', $cnt, 7*24*60 %><br>

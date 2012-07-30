@@ -67,6 +67,10 @@ table tr .small_cell {
     padding: 1px 4px 1px 4px;
     font-size: 11px;
 }
+table tr .tiny_cell {
+    padding: 0px 1px 0px 1px;
+    font-size: 8px;
+}
 .pct_cell {
     width: 160px;
 }

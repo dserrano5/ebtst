@@ -16,6 +16,7 @@
             <th>200</th>
             <th>500</th>
             <th><%=l 'any' %></th>
+            <th><%=l 'Total' %></th>
         </tr>
         <% foreach my $pc (sort keys %{ EBT2->printers }) { %>
             <% foreach my $cc (sort keys %{ EBT2->countries }) { %>
@@ -23,12 +24,14 @@
                 <% my $any_values_for_comb = 0; %>
                 <% if (grep { $_ eq $k } keys %{ $EBT2::combs_pc_cc_sig{$sig} }) { %>
                     <tr>
+                        <% my $row_sum = 0; %>
                         <th><%= "$pc/$cc" %></th>
                         <% foreach my $v (@{ EBT2->values }) { %>
                             <% my $k_pcv = sprintf '%s%s%03d', $pc, $cc, $v; %>
                             <% if (exists $EBT2::combs_pc_cc_val_sig{$sig} and exists $EBT2::combs_pc_cc_val_sig{$sig}{$k_pcv}) {
                                 <% $total{$v}++; %>
                                 <% if (exists $nbc->{$sig}{$k} and exists $nbc->{$sig}{$k}{$v}) { %>
+                                    <% $row_sum += $nbc->{$sig}{$k}{$v}; %>
                                     <td><div class="bingo_1"></div></td>
                                     <% $any_values_for_comb = 1; %>
                                     <% $seen{$v}++; %>
@@ -47,6 +50,7 @@
                         <% } else { %>
                             <td><div class="bingo_0"></div></td>
                         <% } %>
+                        <td><%= $row_sum %> (<%= sprintf '%.2f', 100*$row_sum/$count %>%)</td>
                     </tr>
                 <% } %>
             <% } %>

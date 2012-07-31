@@ -120,6 +120,7 @@ Any signature = Cualquier firma
 any = todos
 Result = Resultado
 Total = Total
+Total for = Total de
 Combinations bingo = Bingo de combinaciones
 Still missing combinations = Combinaciones que faltan
 Unknown combinations = Combinaciones desconocidas
@@ -134,7 +135,6 @@ Show only = Mostrar sólo
 Output = Salida
 
 ## plate bingo
-Total for = Total de
 
 ## bad notes
 

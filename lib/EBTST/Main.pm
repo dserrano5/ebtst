@@ -616,6 +616,7 @@ sub combs {
     my $nbc        = $self->ebt->get_notes_by_combination;
     #my $sbp        = $self->ebt->sigs_by_president;
     my $comb_data  = $self->ebt->get_missing_combs_and_history;
+    my $count      = $self->ebt->get_count;
     my $presidents = [
         map { [ split /:/ ] } 'any:Any signature', @{ $self->ebt->presidents }
     ];
@@ -643,6 +644,7 @@ sub combs {
         presidents => $presidents,
         missing    => $missing,
         history    => $comb_data->{'history'},
+        count      => $count,
     );
 }
 

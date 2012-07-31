@@ -769,7 +769,7 @@ sub hit_analysis {
 
 ## both gunzip and unzip appear to accept already uncompressed data, which makes things easier: just blindly uncompress everything
 sub _decompress {
-    my ($file) = @_;
+    my ($self, $file) = @_;
     my ($fd, $tmpfile);
 
     ($fd, $tmpfile) = tempfile 'ebtst-uncompress.XXXXXX', DIR => $ENV{'TMP'}//$ENV{'TEMP'}//'/tmp';
@@ -800,7 +800,7 @@ sub upload {
         my $local_notes_file = File::Spec->catfile ($ENV{'TMP'}//$ENV{'TEMP'}//'/tmp', 'notes_uploaded.csv');
         my $outfile = File::Spec->catfile ($EBTST::config{'csvs_dir'}, int rand 1e7);
         $notes_csv->move_to ($local_notes_file);
-        _decompress $local_notes_file;
+        $self->_decompress ($local_notes_file);
         $self->app->log->info ("will store a censored copy at '$outfile'");
         $self->ebt->load_notes ($local_notes_file, $outfile);
         unlink $local_notes_file or $self->app->log->warn ("upload: unlink: '$local_notes_file': $!\n");
@@ -808,7 +808,7 @@ sub upload {
     if ($hits_csv and $hits_csv->size) {
         my $local_hits_file = File::Spec->catfile ($ENV{'TMP'}//$ENV{'TEMP'}//'/tmp', 'hits_uploaded.csv');
         $hits_csv->move_to ($local_hits_file);
-        _decompress $local_hits_file;
+        $self->_decompress ($local_hits_file);
         $self->ebt->load_hits ($local_hits_file);
         unlink $local_hits_file  or $self->app->log->warn ("upload: unlink: '$local_hits_file': $!\n");
     }

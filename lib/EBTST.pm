@@ -132,6 +132,7 @@ sub startup {
                 $obj_store->{$sid}{'obj'} = $self->stash ('ebt');
             }
             $obj_store->{$sid}{'ts'} = $t;
+            $self->app->log->info (sprintf "EBT2 object initialized, object store size is %.2f Kb (%d objects)", (total_size $obj_store), scalar keys %$obj_store);
             $self->stash ('sess')->extend_expires;
 
             my $cbs = $self->ebt->get_checked_boxes // [];

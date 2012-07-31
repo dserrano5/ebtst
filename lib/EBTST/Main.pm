@@ -12,13 +12,19 @@ use IO::Uncompress::Unzip  qw/unzip  $UnzipError/;
 use File::Temp qw/tempfile/;
 
 my %users;
-open my $fd, '<:encoding(UTF-8)', $EBTST::config{'users_db'} or die "open: '$EBTST::config{'users_db'}': $!";
-while (<$fd>) {
-    chomp;
-    my ($u, $p) = split /:/;
-    $users{$u} = $p;
+sub load_users {
+    my ($self) = @_;
+
+    open my $fd, '<:encoding(UTF-8)', $EBTST::config{'users_db'} or die "open: '$EBTST::config{'users_db'}': $!";
+    while (<$fd>) {
+        chomp;
+        my ($u, $p) = split /:/;
+        $users{$u} = $p;
+    }
+    close $fd;
+
+    $self->app->log->info (sprintf "load_users: loaded %d users", scalar keys %users);
 }
-close $fd;
 
 sub index {
     my ($self) = @_;
@@ -30,6 +36,7 @@ sub index {
 sub login {
     my ($self) = @_;
 
+    $self->load_users;
     my $u = $self->param ('user');
     $self->app->log->info (sprintf "login: user is '%s'", $u//'<undef>');
 

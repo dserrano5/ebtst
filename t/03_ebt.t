@@ -3,8 +3,10 @@
 use warnings;
 use strict;
 use Test::More;
-
+use MIME::Base64;
+use Storable qw/thaw/;
 use EBT2;
+use EBT2::Constants ':all';
 
 my $obj = new_ok 'EBT2', [ db => '/tmp/ebt2-storable' ];
 ok $obj->{'data'};
@@ -16,18 +18,18 @@ ok $obj->has_notes;
 ok defined $obj->{'data'}{'notes'}, 'There are some notes after loading CSV';
 is scalar @{ $obj->{'data'}{'notes'} }, 2, 'Correct number of notes';
 $obj->load_hits ('t/hits1.csv');
-ok exists $obj->{'data'}{'notes'}[1]{'hit'}, 'There is a hit after loading hits CSV';
-is ref $obj->{'notes'}[0]{'hit'}, '', 'No spurious hits after loading hits CSV';
+is ref (thaw decode_base64 +(split ';', $obj->{'data'}{'notes'}[1], NCOLS)[HIT]), 'HASH', 'There is a hit after loading hits CSV';
+is +(split ';', $obj->{'data'}{'notes'}[0], NCOLS)[HIT],, '', 'No spurious hits after loading hits CSV';
 
 $obj->load_notes ('t/notes1.csv');
-ok !exists $obj->{'data'}{'notes'}[1]{'hit'}, 'No hits after loading new notes CSV';
+is +(split ';', $obj->{'data'}{'notes'}[1], NCOLS)[HIT], '', 'No hits after loading new notes CSV';
 is ref $obj->{'notes'}[0]{'hit'}, '', 'No spurious hits after loading new notes CSV';
 
 $obj->load_db;
 ok defined $obj->{'data'}{'notes'}, 'There are notes after loading db';
 is scalar @{ $obj->{'data'}{'notes'} }, 2, 'Correct number of notes';
-ok !exists $obj->{'data'}{'notes'}[1]{'hit'}, 'No spurious hits after loading db';
-is ref $obj->{'data'}{'notes'}[0]{'hit'}, '', 'No spurious hits after loading db';
+is +(split ';', $obj->{'data'}{'notes'}[1], NCOLS)[HIT], '', 'No spurious hits after loading db';
+is +(split ';', $obj->{'data'}{'notes'}[0], NCOLS)[HIT], '', 'No spurious hits after loading db';
 
 my $gotten;
 $gotten = $obj->get_activity;

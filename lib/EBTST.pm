@@ -1,8 +1,5 @@
 package EBTST;
 
-## sacar datos estáticos de EBT.pm y meterlos en configuración
-## seleccionar un conjunto de billetes, principalmente los introducidos en un periodo determinado de tiempo, y sacar las estadísticas
-
 use Mojo::Base 'Mojolicious';
 use File::Spec;
 use Config::General;
@@ -26,6 +23,19 @@ my $obj_store;
 
 sub startup {
     my ($self) = @_;
+
+    ## In case of CSRF token mismatch, Mojolicious::Plugin::CSRFDefender calls render without specifying a layout,
+    ## then our layout 'online' is rendered and Mojo croaks on non-declared variables. Work that around.
+    $self->hook (before_dispatch => sub {
+        my $self = shift;
+
+        $self->stash (base_href     => $base_href);
+        $self->stash (checked_boxes => {});
+        $self->stash (has_notes     => undef);
+        $self->stash (has_hits      => undef);
+        $self->stash (has_bad_notes => undef);
+        $self->stash (user          => undef);
+    });
 
     if ($self->mode eq 'production') {
         $self->hook (before_dispatch => sub {
@@ -86,8 +96,6 @@ sub startup {
         my ($self) = @_;
         my $t = time;
 
-        $self->stash (base_href => $base_href);
-
         ## expire old $obj_store entries
         my @sids_to_del;
         for (keys %$obj_store) {
@@ -133,11 +141,6 @@ sub startup {
             return 1;
         }
 
-        $self->stash (checked_boxes => {});
-        $self->stash (has_notes     => undef);
-        $self->stash (has_hits      => undef);
-        $self->stash (has_bad_notes => undef);
-        $self->stash (user          => undef);
         return 1;
     });
     $r_has_notes_hits->get ('/')->to ('main#index');

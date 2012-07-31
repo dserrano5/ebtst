@@ -19,6 +19,14 @@ $csrftoken = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->html->body->di
 
 $t->post_form_ok ('/login' => {
     user => 'foouser',
+    pass => 'invalid pass',
+    csrftoken => $csrftoken,
+})->status_is (302)->header_like (Location => qr/index/);
+$t->get_ok ('/');
+$csrftoken = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->html->body->div->form->input->[0]->{'value'};
+
+$t->post_form_ok ('/login' => {
+    user => 'foouser',
     pass => 'foopass',
     csrftoken => $csrftoken,
 })->status_is (302)->header_like (Location => qr/information/);
@@ -45,4 +53,4 @@ $t->get_ok ('/value.txt')->status_is (200)->content_like (qr/\b20\b.*\b1\b.*\b50
 
 $t->get_ok ('/logout')->status_is (302)->header_like (Location => qr/index/);
 
-done_testing 28;
+done_testing 32;

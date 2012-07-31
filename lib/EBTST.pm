@@ -2,6 +2,7 @@ package EBTST;
 
 use Mojo::Base 'Mojolicious';
 use File::Spec;
+use Devel::Size qw/total_size/;
 use Config::General;
 use FindBin;
 use DBI;
@@ -97,11 +98,16 @@ sub startup {
         my $t = time;
 
         ## expire old $obj_store entries
+        $self->app->log->info (sprintf "object store size is %.2f Kb (%d objects)", (total_size $obj_store), scalar keys %$obj_store);
         my @sids_to_del;
         for (keys %$obj_store) {
             push @sids_to_del, $_ if $t - $obj_store->{$_}{'ts'} > $session_expire * 60 / 3;
         }
-        delete @$obj_store{@sids_to_del};
+        if (@sids_to_del) {
+            $self->app->log->info (sprintf "deleting %d sids (@sids_to_del) from object store", scalar @sids_to_del);
+            delete @$obj_store{@sids_to_del};
+            $self->app->log->info (sprintf "now object store size is %.2f Kb (%d objects)", (total_size $obj_store), scalar keys %$obj_store);
+        }
 
         if (ref $self->stash ('sess') and $self->stash ('sess')->load) {
             my $user = $self->stash ('sess')->data ('user');
@@ -121,7 +127,7 @@ sub startup {
                 $self->stash (ebt => $ebt);
                 eval { $self->ebt->load_db; };
                 if ($@ and $@ !~ /No such file or directory/) {
-                    warn "Loading db: '$@'. Going on anyway.\n";
+                    $self->app->log->warn ("loading db: '$@'. Going on anyway.\n");
                 }
                 $obj_store->{$sid}{'obj'} = $self->stash ('ebt');
             }

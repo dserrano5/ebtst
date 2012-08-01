@@ -107,7 +107,7 @@ sub startup {
         my $t = time;
 
         ## expire old $obj_store entries
-        $self->app->log->info (sprintf "object store size is %.2f Kb (%d objects)", (total_size $obj_store / 1024), scalar keys %$obj_store);
+        $self->app->log->info (sprintf "object store size is %.2f Kb (%d objects)", (total_size $obj_store) / 1024, scalar keys %$obj_store);
         my @sids_to_del;
         for (keys %$obj_store) {
             push @sids_to_del, $_ if $t - $obj_store->{$_}{'ts'} > $session_expire * 60 / 3;
@@ -115,7 +115,7 @@ sub startup {
         if (@sids_to_del) {
             $self->app->log->info (sprintf "deleting %d sids (@sids_to_del) from object store", scalar @sids_to_del);
             delete @$obj_store{@sids_to_del};
-            $self->app->log->info (sprintf "now object store size is %.2f Kb (%d objects)", (total_size $obj_store / 1024), scalar keys %$obj_store);
+            $self->app->log->info (sprintf "now object store size is %.2f Kb (%d objects)", (total_size $obj_store) / 1024, scalar keys %$obj_store);
         }
 
         if (ref $self->stash ('sess') and $self->stash ('sess')->load) {
@@ -141,7 +141,7 @@ sub startup {
                 $obj_store->{$sid}{'obj'} = $self->stash ('ebt');
             }
             $obj_store->{$sid}{'ts'} = $t;
-            $self->app->log->info (sprintf "EBT2 object initialized, object store size is %.2f Kb (%d objects)", (total_size $obj_store / 1024), scalar keys %$obj_store);
+            $self->app->log->info (sprintf "EBT2 object initialized, object store size is %.2f Kb (%d objects)", (total_size $obj_store) / 1024, scalar keys %$obj_store);
             $self->stash ('sess')->extend_expires;
 
             my $cbs = $self->ebt->get_checked_boxes // [];

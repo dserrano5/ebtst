@@ -13,16 +13,15 @@ my $cfg_file = File::Spec->catfile ($work_dir, 'ebtst.cfg');
 -r $cfg_file or die "Can't find configuration file '$cfg_file'\n";
 our %config = Config::General->new (-ConfigFile => $cfg_file, -IncludeRelative => 1, -UTF8 => 1)->getall;
 
-my $sess_dir           = $config{'session_dir'};
-my $user_data_basedir  = $config{'user_data_basedir'};
+my $sess_dir           = $config{'session_dir'}       // die "'session_dir' isn't configured";
+my $user_data_basedir  = $config{'user_data_basedir'} // die "'user_data_basedir' isn't configured";
 my $html_dir           = $config{'html_dir'}    // File::Spec->catfile ($ENV{'BASE_DIR'}, 'public', 'stats');
 my $statics_dir        = $config{'statics_dir'} // File::Spec->catfile ($ENV{'BASE_DIR'}, 'public');
 my $session_expire     = $config{'session_expire'} // 30;
 my $base_href          = $config{'base_href'};
-my $hypnotoad_listen   = $config{'hypnotoad_listen'}; $hypnotoad_listen = [ $hypnotoad_listen ] if 'ARRAY' ne ref $hypnotoad_listen;
-my $hypnotoad_is_proxy = $config{'hypnotoad_is_proxy'};
+my $hypnotoad_listen   = $config{'hypnotoad_listen'} // 'http://localhost:3000'; $hypnotoad_listen = [ $hypnotoad_listen ] if 'ARRAY' ne ref $hypnotoad_listen;
+my $hypnotoad_is_proxy = $config{'hypnotoad_is_proxy'} // 0;
 my $base_parts = @{ Mojo::URL->new ($base_href)->path->parts };
-my $obj_store;
 
 sub startup {
     my ($self) = @_;
@@ -106,18 +105,6 @@ sub startup {
         my ($self) = @_;
         my $t = time;
 
-        ## expire old $obj_store entries
-        $self->app->log->info (sprintf "object store size is %.2f Kb (%d objects)", (total_size $obj_store) / 1024, scalar keys %$obj_store);
-        my @sids_to_del;
-        for (keys %$obj_store) {
-            push @sids_to_del, $_ if $t - $obj_store->{$_}{'ts'} > $session_expire * 60 / 3;
-        }
-        if (@sids_to_del) {
-            $self->app->log->info (sprintf "deleting %d sids (@sids_to_del) from object store", scalar @sids_to_del);
-            delete @$obj_store{@sids_to_del};
-            $self->app->log->info (sprintf "now object store size is %.2f Kb (%d objects)", (total_size $obj_store) / 1024, scalar keys %$obj_store);
-        }
-
         if (ref $self->stash ('sess') and $self->stash ('sess')->load) {
             my $user = $self->stash ('sess')->data ('user');
             my $sid = $self->stash ('sess')->sid;
@@ -128,20 +115,13 @@ sub startup {
             if (!-d $user_data_dir) { mkdir $user_data_dir or die "mkdir: '$user_data_dir': $!"; }
             if (!-d $html_dir)      { mkdir $html_dir      or die "mkdir: '$html_dir': $!"; }
 
-            if ($obj_store->{$sid}) {
-                $self->stash (ebt => $obj_store->{$sid}{'obj'});
-            } else {
-                my $ebt = eval { EBT2->new (db => $db); };
-                $@ and die "Initializing model: '$@'\n";   ## TODO: this isn's working
-                $self->stash (ebt => $ebt);
-                eval { $self->ebt->load_db; };
-                if ($@ and $@ !~ /No such file or directory/) {
-                    $self->app->log->warn ("loading db: '$@'. Going on anyway.\n");
-                }
-                $obj_store->{$sid}{'obj'} = $self->stash ('ebt');
+            my $ebt = eval { EBT2->new (db => $db); };
+            $@ and die "Initializing model: '$@'\n";   ## TODO: this isn's working
+            $self->stash (ebt => $ebt);
+            eval { $self->ebt->load_db; };
+            if ($@ and $@ !~ /No such file or directory/) {
+                $self->app->log->warn ("loading db: '$@'. Going on anyway.\n");
             }
-            $obj_store->{$sid}{'ts'} = $t;
-            $self->app->log->info (sprintf "EBT2 object initialized, object store size is %.2f Kb (%d objects)", (total_size $obj_store) / 1024, scalar keys %$obj_store);
             $self->stash ('sess')->extend_expires;
 
             my $cbs = $self->ebt->get_checked_boxes // [];

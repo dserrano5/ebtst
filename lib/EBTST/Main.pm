@@ -928,32 +928,6 @@ sub gen_output {
 
 __END__
 
-sub help {
-    my ($self) = @_;
-
-    $self->flash (in => 'help');
-}
-
-sub quit {
-    my ($self) = @_;
-
-    #$self->render (text => 'bye!');
-    #$self->res->headers->content_length (4); $self->write('bye!');
-    exit;
-}
-
-sub huge_table {
-    my ($self) = @_;
-
-    $self->flash (in => 'huge_table');
-}
-
-sub time_analysis {
-    my ($self) = @_;
-
-    $self->flash (in => 'time_analysis');
-}
-
 ## 20120102: ugh, comento esto porque me sale:
 ## 'Undefined subroutine &MooseX::Types::filter_tags called at /usr/share/perl5/MooseX/Types.pm line 345'
 ## y como consecuencia no puedo usar EBT::OFC2
@@ -1001,17 +975,5 @@ sub time_analysis {
 #        );
 #    }
 #}
-
-sub bbcode {
-    my ($self) = @_;
-
-    $self->flash (in => 'bbcode');
-}
-
-sub charts {
-    my ($self) = @_;
-
-    $self->flash (in => 'charts');
-}
 
 1;

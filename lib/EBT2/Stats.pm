@@ -937,8 +937,6 @@ sub hit_analysis {
 
 __END__
 
-## NIG METHODS
-
 sub fooest_serial_per_comb3 {
     my ($self, $cmp_key, $hash_key) = @_;
 
@@ -1183,41 +1181,3 @@ sub note_entering_days {
 
     return $self;
 }
-
-sub notes_by_hour_of_day {
-    my ($self) = @_;
-
-    #return $self if $self->{'notes_by_hour_of_day'};  ## if already done
-
-    my $iter = $self->note_getter (one_result_aref => 0, one_result_full_data => 0);
-    while (my $hr = $iter->()) {
-        my $h = substr $hr->{'date_entered'}, 11, 2;
-        $self->{'notes_by_hour_of_day'}{$h}{'total'}++;
-        $self->{'notes_by_hour_of_day'}{$h}{ $hr->{'value'} }++;
-    }
-
-    return $self;
-}
-
-sub notes_by_hour_min {
-    my ($self) = @_;
-
-    #return $self if $self->{'notes_by_hour_min'};  ## if already done
-
-    my $iter = $self->note_getter (one_result_aref => 0, one_result_full_data => 0);
-    while (my $hr = $iter->()) {
-        $hr->{'date_entered'} =~ /(\d\d):(\d\d):(\d\d)$/;
-        my ($hr, $min, $sec) = ($1, $2, $3);
-        $self->{'notes_by_hour_min'}{$hr}{$min}++;
-        $self->{'notes_by_min_sec'}{$min}{$sec}++;
-    }
-
-    return $self;
-}
-sub notes_by_min_sec { goto &notes_by_hour_min; }
-
-## todo: notes by hours in a week, 0 .. 167
-
-
-
-

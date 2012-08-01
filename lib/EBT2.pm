@@ -9,12 +9,7 @@ use Locale::Country;
 sub _work_dir {
     my $work_dir;
 
-    if ('MSWin32' eq $^O) {
-        $work_dir = File::Spec->catfile ($FindBin::Bin, '..');
-    } else {
-        $work_dir = File::Spec->catfile ($ENV{'HOME'}, '.ebt');
-    }
-
+    $work_dir = File::Spec->catfile ($ENV{'HOME'}, '.ebt');
     if (!mkdir $work_dir) {
         if (17 != $!) {   ## "File exists"
             die "Couldn't create work directory: '$work_dir': $!\n";

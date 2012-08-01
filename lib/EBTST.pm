@@ -2,9 +2,7 @@ package EBTST;
 
 use Mojo::Base 'Mojolicious';
 use File::Spec;
-use Devel::Size qw/total_size/;
 use Config::General;
-use FindBin;
 use DBI;
 use EBT2;
 
@@ -93,12 +91,6 @@ sub startup {
         expires_delta => $session_expire * 60,
     });
 
-    #$self->hook (before_dispatch => sub {
-    #    my ($self) = @_;
-    #    #$ENV{'EBT_LANG'} = (split /[;,-]/, $self->req->headers->accept_language)[0];
-    #    $ENV{'EBT_LANG'} = substr +($self->req->headers->accept_language // 'en'), 0, 2;
-    #});
-
     my $r = $self->routes;
 
     my $r_has_notes_hits = $r->under (sub {
@@ -115,9 +107,8 @@ sub startup {
             if (!-d $user_data_dir) { mkdir $user_data_dir or die "mkdir: '$user_data_dir': $!"; }
             if (!-d $html_dir)      { mkdir $html_dir      or die "mkdir: '$html_dir': $!"; }
 
-            my $ebt = eval { EBT2->new (db => $db); };
+            eval { $self->stash (ebt => EBT2->new (db => $db)); };
             $@ and die "Initializing model: '$@'\n";   ## TODO: this isn's working
-            $self->stash (ebt => $ebt);
             eval { $self->ebt->load_db; };
             if ($@ and $@ !~ /No such file or directory/) {
                 $self->app->log->warn ("loading db: '$@'. Going on anyway.\n");
@@ -142,6 +133,7 @@ sub startup {
     $r_has_notes_hits->get ('/')->to ('main#index');
     $r_has_notes_hits->get ('/index')->to ('main#index');
     $r_has_notes_hits->post ('/login')->to ('main#login');
+
     my $r_user = $r_has_notes_hits->under (sub {
         my ($self) = @_;
 
@@ -170,7 +162,6 @@ sub startup {
         return 1;
     });
     $u->get ('/logout')->to ('main#logout');
-    #$u->get ('/quit')->to ('main#quit');
     #$u->get ('/help')->to ('main#help');
     $u->get ('/information')->to ('main#information');
     $u->get ('/value')->to ('main#value');

@@ -13,17 +13,26 @@ my $cfg_file = File::Spec->catfile ($work_dir, 'ebtst.cfg');
 -r $cfg_file or die "Can't find configuration file '$cfg_file'\n";
 our %config = Config::General->new (-ConfigFile => $cfg_file, -IncludeRelative => 1, -UTF8 => 1)->getall;
 
-my $sess_dir          = $config{'session_dir'};
-my $user_data_basedir = $config{'user_data_basedir'};
-my $html_dir          = $config{'html_dir'}    // File::Spec->catfile ($ENV{'BASE_DIR'}, 'public', 'stats');
-my $statics_dir       = $config{'statics_dir'} // File::Spec->catfile ($ENV{'BASE_DIR'}, 'public');
-my $session_expire    = $config{'session_expire'} // 30;
-my $base_href         = $config{'base_href'};
+my $sess_dir           = $config{'session_dir'};
+my $user_data_basedir  = $config{'user_data_basedir'};
+my $html_dir           = $config{'html_dir'}    // File::Spec->catfile ($ENV{'BASE_DIR'}, 'public', 'stats');
+my $statics_dir        = $config{'statics_dir'} // File::Spec->catfile ($ENV{'BASE_DIR'}, 'public');
+my $session_expire     = $config{'session_expire'} // 30;
+my $base_href          = $config{'base_href'};
+my $hypnotoad_listen   = $config{'hypnotoad_listen'}; $hypnotoad_listen = [ $hypnotoad_listen ] if 'ARRAY' ne ref $hypnotoad_listen;
+my $hypnotoad_is_proxy = $config{'hypnotoad_is_proxy'};
 my $base_parts = @{ Mojo::URL->new ($base_href)->path->parts };
 my $obj_store;
 
 sub startup {
     my ($self) = @_;
+
+    $self->app->config ({
+        hypnotoad => {
+            listen => $hypnotoad_listen,
+            proxy  => $hypnotoad_is_proxy,
+        }
+    });
 
     ## In case of CSRF token mismatch, Mojolicious::Plugin::CSRFDefender calls render without specifying a layout,
     ## then our layout 'online' is rendered and Mojo croaks on non-declared variables. Work that around.
@@ -98,7 +107,7 @@ sub startup {
         my $t = time;
 
         ## expire old $obj_store entries
-        $self->app->log->info (sprintf "object store size is %.2f Kb (%d objects)", (total_size $obj_store), scalar keys %$obj_store);
+        $self->app->log->info (sprintf "object store size is %.2f Kb (%d objects)", (total_size $obj_store / 1024), scalar keys %$obj_store);
         my @sids_to_del;
         for (keys %$obj_store) {
             push @sids_to_del, $_ if $t - $obj_store->{$_}{'ts'} > $session_expire * 60 / 3;
@@ -106,7 +115,7 @@ sub startup {
         if (@sids_to_del) {
             $self->app->log->info (sprintf "deleting %d sids (@sids_to_del) from object store", scalar @sids_to_del);
             delete @$obj_store{@sids_to_del};
-            $self->app->log->info (sprintf "now object store size is %.2f Kb (%d objects)", (total_size $obj_store), scalar keys %$obj_store);
+            $self->app->log->info (sprintf "now object store size is %.2f Kb (%d objects)", (total_size $obj_store / 1024), scalar keys %$obj_store);
         }
 
         if (ref $self->stash ('sess') and $self->stash ('sess')->load) {
@@ -132,7 +141,7 @@ sub startup {
                 $obj_store->{$sid}{'obj'} = $self->stash ('ebt');
             }
             $obj_store->{$sid}{'ts'} = $t;
-            $self->app->log->info (sprintf "EBT2 object initialized, object store size is %.2f Kb (%d objects)", (total_size $obj_store), scalar keys %$obj_store);
+            $self->app->log->info (sprintf "EBT2 object initialized, object store size is %.2f Kb (%d objects)", (total_size $obj_store / 1024), scalar keys %$obj_store);
             $self->stash ('sess')->extend_expires;
 
             my $cbs = $self->ebt->get_checked_boxes // [];

@@ -183,6 +183,7 @@ sub startup {
     $u->get ('/hit_list')->to ('main#hit_list');
     $u->get ('/hits_by_month')->to ('main#hits_by_month');
     $u->get ('/hit_analysis')->to ('main#hit_analysis');
+    $u->get ('/hit_summary')->to ('main#hit_summary');
     $u->post ('/gen_output')->to ('main#gen_output');
     #$u->get ('/charts')->to ('main#charts');
 }

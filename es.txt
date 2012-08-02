@@ -19,6 +19,7 @@ Bad notes = Billetes erróneos
 Hit list = Lista de hits
 Hits by month = Hits al mes
 Hit analysis = Análisis de hits
+Hit summary = Resumen de hits
 Charts = Gráficas
 Configuration = Configuración
 Logout = Salir
@@ -161,6 +162,39 @@ Insert month = Mes de registro
 Hit top-10 = Top-10
 Most kilometers = Más largos
 Most days = Más antiguos
+
+## hit summary
+Hits = Hits
+national = nacionales
+international = internacionales
+moderated = moderados
+Normal hits = Hits normales
+Triples = Triples
+Quadruples = Cuádruples
+Pentuples = Quíntuples
+Best = Mejor
+Average = Media
+Worst = Peor
+Current = Actual
+Hit ratios = Ratios
+Hit finder/maker - giver/getter ratio = Ratio activos/pasivos
+Next hit should occur on average on = El siguiente hit debería ocurrir, en promedio, el
+or it's a dry spell = o es una mala racha
+Minimum = Mínimo
+Maximum = Máximo
+Travel days = Días de viaje
+Travel kilometers = Kilómetros de viaje
+Hit/hitless days = Días con/sin hits
+Longest period of consecutive hit days = Período más largo de días con hit consecutivos
+Current consecutive hit days = Días con hit consecutivos ahora mismo
+Consecutive hit days = Días con hit consecutivos
+Start = Inicio
+End = Fin
+Hits by combination = Hits por combinación
+Frequent hit partner = Compañer@ de hit frecuente
+% of all hits = % de todos los hits
+Hits with same kilometers and days = Hits con el mismo número de kilómetros y de días
+None = Ninguno
 
 ## configuration
 #Name = Nombre

@@ -79,6 +79,9 @@
                 </tr><tr>
                     <td><input type="checkbox" name="hit_analysis" <%= $checked_boxes->{'hit_analysis'} ? 'checked=""' : '' %>></td>
                     <td><a class="section_link" id="hit_analysis" href="hit_analysis"><%=l 'Hit analysis' %></a></td>
+                </tr><tr>
+                    <td><input type="checkbox" name="hit_summary" <%= $checked_boxes->{'hit_summary'} ? 'checked=""' : '' %>></td>
+                    <td><a class="section_link" id="hit_summary" href="hit_summary"><%=l 'Hit summary' %></a></td>
                 </tr>
                 <% } %>
                 <tr>

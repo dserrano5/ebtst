@@ -1,0 +1,73 @@
+[b]<%=l 'Hit summary' %>[/b]
+
+<%=l 'Hits' %>: <%= $hs->{'total'} %> (\
+    <%=''=%><%= $hs->{'national'}      // 0 %> <%=l 'national' %>,\
+    <%= $hs->{'international'} // 0 %> <%=l 'international' %>,\
+    <%= $hs->{'moderated'}     // 0 %> <%=l 'moderated' %>\
+)
+
+<%=l 'Normal hits' %>: [b]<%= $hs->{'2way'} // 0 %>[/b]
+<%=l 'Triples' %>: [b]<%= $hs->{'3way'} // 0 %>[/b]
+<%=l 'Quadruples' %>: [b]<%= $hs->{'4way'} // 0 %>[/b]
+<%=l 'Pentuples' %>: [b]<%= $hs->{'5way'} // 0 %>[/b]
+
+[table]\
+    [tr][td][/td][td] ❘ <%=l 'Best' %>[/td][td] ❘ <%=l 'Worst' %>[/td][td] ❘ <%=l 'Current' %>[/td][/tr]\
+    [tr][td]<%=l 'Hit ratios' %>[/td][td] ❘ <%= sprintf '%.2f', $hs->{'ratio'}{'best'} %>[/td][td] ❘ <%= $hs->{'ratio'}{'worst'} ? (sprintf '%.2f', $hs->{'ratio'}{'worst'}) : 'N/A' %>[/td][td] ❘ [b]<%= sprintf '%.2f', $hs->{'ratio'}{'current'} %>[/b][/td][/tr]\
+[/table]\
+
+<%=l 'Hit finder/maker - giver/getter ratio' %>: <%= $hs->{'active'} %> - <%= $hs->{'passive'} %> \
+([b]<%= sprintf '%.1f', 100 * $hs->{'active'} / $hs->{'total'} %>%[/b] - [b]<%= sprintf '%.1f', 100 * $hs->{'passive'} / $hs->{'total'} %>%[/b])
+
+[table]\
+    [tr][td][/td][td] ❘ <%=l 'Best' %>[/td][td] ❘ <%=l 'Average' %>[/td][td] ❘ <%=l 'Worst' %>[/td][td] ❘ <%=l 'Current' %>[/td][/tr]\
+    [tr][td]<%=l 'Days between' %>[/td][td] ❘ <%= $hs->{'days_between'}{'best'} %>[/td][td] ❘ <%= sprintf '%.2f', $hs->{'days_between'}{'avg'} %>[/td][td] ❘ <%= $hs->{'days_between'}{'worst'} %>[/td][td][b]<%= $hs->{'days_between'}{'current'} %>[/b][/td][/tr]\
+    [tr][td]<%=l 'Notes between' %>[/td][td] ❘ <%= $hs->{'notes_between'}{'best'} %>[/td][td] ❘ <%= sprintf '%.2f', $hs->{'notes_between'}{'avg'} %>[/td][td] ❘ <%= $hs->{'notes_between'}{'worst'} %>[/td][td][b]<%= $hs->{'notes_between'}{'current'} %>[/b][/td][/tr]\
+[/table]\
+
+<%=l 'Next hit should occur on average on' %> [b]<%= $hs->{'days_forecast'} %>[/b] (<%==l "or it's a dry spell" %> ;))
+
+[table]\
+    [tr][td][/td][td] ❘ <%=l 'Minimum' %>[/td][td] ❘ <%=l 'Average' %>[/td][td] ❘ <%=l 'Maximum' %>[/td][/tr]\
+    [tr][td]<%=l 'Travel days' %>[/td][td] ❘ <%= $hs->{'days'}{'min'} %>[/td][td] ❘ <%= sprintf '%.2f', $hs->{'days'}{'avg'} %>[/td][td] ❘ <%= $hs->{'days'}{'max'} %>[/td][/tr]\
+    [tr][td]<%=l 'Travel kilometers' %>[/td][td] ❘ <%= $hs->{'km'}{'min'} %>[/td][td] ❘ <%= sprintf '%.2f', $hs->{'km'}{'avg'} %>[/td][td] ❘ <%= $hs->{'km'}{'max'} %>[/td][/tr]\
+[/table]\
+
+<%=l 'Hit/hitless days' %>: [b]<%= $hs->{'hit_days'}{'total'} %>[/b] - [b]<%= $hs->{'hitless_days'}{'total'} %>[/b] (<%= sprintf '%.2f', 100 * $hs->{'hit_days'}{'total'} / $hs->{'total_days'} %>% - <%= sprintf '%.2f', 100 * $hs->{'hitless_days'}{'total'} / $hs->{'total_days'} %>%)
+<%=l 'Longest period of consecutive hit days' %>: [b]<%= $hs->{'hit_dates'}{'consecutive'}{'longest'}{'len'} %> <%=l 'days' %>[/b] (<%= $hs->{'hit_dates'}{'consecutive'}{'longest'}{'start'} %> - <%= $hs->{'hit_dates'}{'consecutive'}{'longest'}{'end'} %>)
+<%=l 'Current consecutive hit days' %>: [b]<%= $hs->{'hit_dates'}{'consecutive'}{'hist'}[-1]{'len'} %> <%=l 'days' %>[/b]\
+<% if ($hs->{'hit_dates'}{'consecutive'}{'hist'}[-1]{'len'}) { =%>
+    (<%= $hs->{'hit_dates'}{'consecutive'}{'hist'}[-1]{'start'} %> - <%= $hs->{'hit_dates'}{'consecutive'}{'hist'}[-1]{'end'} %>)\
+<% } %>
+
+[b]<%=l 'Consecutive hit days' %>[/b]
+[table]\
+    [tr][td]<%=l 'Start' %>[/td][td] ❘ <%=l 'End' %>[/td][td] ❘ <%=l 'Days' %>[/td][/tr]\
+    <% foreach my $cons (@{ $hs->{'hit_dates'}{'consecutive'}{'hist'} }) { =%>
+        <% next if 1 >= ($cons->{'len'} // 0); =%>
+        [tr][td]<%= $cons->{'start'} %>[/td][td] ❘ <%= $cons->{'end'} %>[/td][td] ❘ <%= $cons->{'len'} %>[/td][/tr]\
+    <% } =%>
+[/table]\
+
+[b]<%=l 'Hits by combination' %>[/b]
+<% foreach my $hbc (reverse sort { $hs->{'hits_by_combo'}{$a}{'count'} <=> $hs->{'hits_by_combo'}{$b}{'count'} } keys %{ $hs->{'hits_by_combo'} }) { =%>
+    <%= $hs->{'hits_by_combo'}{$hbc}{'pcflag'} %> <%= $hs->{'hits_by_combo'}{$hbc}{'ccflag'} %> <%= $hbc %> - <%= $hs->{'hits_by_combo'}{$hbc}{'count'} %> (<%= sprintf '%.2f', 100 * $hs->{'hits_by_combo'}{$hbc}{'count'} / $hs->{'total'} %>%)
+<% } =%>
+
+[table]\
+    [tr][td]<%=l 'Frequent hit partner' %>[/td][td] ❘ <%=l 'Hits' %>[/td][td] ❘ <%=l '% of all hits' %>[/td][/tr]\
+    <% my $done = 0; =%>
+    <% foreach my $p (reverse sort { $hs->{'freq_partners'}{$a}{'hits'} <=> $hs->{'freq_partners'}{$b}{'hits'} } keys %{ $hs->{'freq_partners'} }) { =%>
+        [tr][td]<%= $hs->{'freq_partners'}{$p}{'partner'} %>[/td][td] ❘ <%= $hs->{'freq_partners'}{$p}{'hits'} %>[/td][td] ❘ <%= sprintf '%.2f', 100 * $hs->{'freq_partners'}{$p}{'hits'} / $hs->{'total'} %>[/td][/tr]\
+        <% last if ++$done >= 10; =%>
+    <% } =%>
+[/table]\
+
+[b]<%=l 'Hits with same kilometers and days' %>[/b]
+<% if ($hs->{'equal_km_days'}) { =%>
+    <% foreach my $equal (sort keys %{ $hs->{'equal_km_days'} }) { =%>
+        <%= $equal %> - <%= $equal %>
+    <% } =%>
+<% } else { =%>
+    (<%=l 'None' %>)
+<% } =%>

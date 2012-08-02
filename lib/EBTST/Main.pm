@@ -749,8 +749,8 @@ sub hit_analysis {
 
     my $whoami   = $self->ebt->whoami;
     my $hit_list = $self->ebt->get_hit_list;
+    my $ha       = $self->ebt->get_hit_analysis ($hit_list);
 
-    my $ha = $self->ebt->get_hit_analysis ($hit_list);
     my $longest;
     my $oldest;
     foreach my $hit (@{ $ha->{'longest'} }) {
@@ -766,6 +766,25 @@ sub hit_analysis {
         longest => $longest,
         oldest  => $oldest,
         whoami  => $whoami,
+    );
+}
+
+sub hit_summary {
+    my ($self) = @_;
+
+    my $whoami       = $self->ebt->whoami;
+    my $activity     = $self->ebt->get_activity;
+    my $count        = $self->ebt->get_count;
+    my $hit_list     = $self->ebt->get_hit_list ($whoami);
+    my $hs           = $self->ebt->get_hit_summary ($whoami, $activity, $count, $hit_list);
+
+    foreach my $combo (keys %{ $hs->{'hits_by_combo'} }) {
+        $hs->{'hits_by_combo'}{$combo}{'pcflag'} = EBT2->flag (EBT2->printers  ($hs->{'hits_by_combo'}{$combo}{'pc'})),
+        $hs->{'hits_by_combo'}{$combo}{'ccflag'} = EBT2->flag (EBT2->countries ($hs->{'hits_by_combo'}{$combo}{'cc'})),
+    }
+
+    $self->stash (
+        hs => $hs,
     );
 }
 
@@ -892,7 +911,7 @@ sub gen_output {
     my @params = qw/
         information value countries locations printers huge_table short_codes nice_serials
         coords_bingo notes_per_year notes_per_month top_days time_analysis combs
-        plate_bingo bad_notes hit_list hits_by_month hit_analysis
+        plate_bingo bad_notes hit_list hits_by_month hit_analysis hit_summary
     /;
 
     my @req_params = grep { $self->param ($_) } @params;

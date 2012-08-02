@@ -6,7 +6,7 @@ use utf8;
 use DateTime;
 use Date::DayOfWeek;
 use List::Util qw/sum reduce/;
-use List::MoreUtils qw/zip/;
+use List::MoreUtils qw/uniq zip/;
 use Storable qw/thaw/;
 use MIME::Base64;
 use EBT2::Data;
@@ -535,7 +535,7 @@ sub bundle_time {
         $ret{'notes_by_dow'}{$dow}{ $hr->[VALUE] }++;
     }
 
-    ## top10days: keep the 10 highest (delete the other ones)
+    ## postfix: top10days (keep the 10 highest and delete the other ones)
     my @sorted_days = sort {
         $ret{'top10days'}{$b}{'total'} <=> $ret{'top10days'}{$a}{'total'} ||
         $b cmp $a
@@ -863,6 +863,7 @@ sub hit_list {
             hit_date      => $hit->{'hit_date'},
             value         => $hr->[VALUE],
             serial        => $hr->[SERIAL],
+            short_code    => $hr->[SHORT_CODE],
             countries     => [ map { $_->{'country'} } @{ $hit->{'parts'} } ],
             cities        => [ map { $_->{'city'} } @{ $hit->{'parts'} } ],
             km            => $hit->{'tot_km'},
@@ -929,6 +930,171 @@ sub hit_analysis {
 
     $ret{'hit_analysis'}{'longest'} = [ (reverse sort { $a->{'km'}   <=> $b->{'km'}   } @$hit_list)[0..9] ];
     $ret{'hit_analysis'}{'oldest'}  = [ (reverse sort { $a->{'days'} <=> $b->{'days'} } @$hit_list)[0..9] ];
+
+    return \%ret;
+}
+
+sub hit_summary {
+    my ($self, $data, $whoami, $activity, $count, $hit_list) = @_;
+    my %ret;
+
+    foreach my $hit (@$hit_list) {
+        ## total, national, international, moderated
+        $ret{'hit_summary'}{'total'}++;
+        if (1 == @{[ uniq @{ $hit->{'countries'} } ]}) {
+            $ret{'hit_summary'}{'national'}++;
+        } else {
+            $ret{'hit_summary'}{'international'}++;
+        }
+        $ret{'hit_summary'}{'moderated'}++ if $hit->{'moderated'};   ## TODO: hit_list only lists interesting hits
+
+        ## normal, triple, quad, pent
+        my $k = sprintf '%dway', scalar @{ $hit->{'dates'} };
+        $ret{'hit_summary'}{$k}++;
+
+        ## best/current/worst ratio
+        if ($hit->{'new_hit_ratio'} < ($ret{'hit_summary'}{'ratio'}{'best'} // ~0)) {
+            $ret{'hit_summary'}{'ratio'}{'best'} = $hit->{'new_hit_ratio'};
+        }
+        if (($hit->{'old_hit_ratio'} // 0) > ($ret{'hit_summary'}{'ratio'}{'worst'} // 0)) {
+            $ret{'hit_summary'}{'ratio'}{'worst'} = $hit->{'old_hit_ratio'};
+        }
+
+        ## TODO: hit ratio chart
+
+        ## finder/maker - giver/getter
+        if ($whoami->{'name'} eq $hit->{'hit_partners'}[0]) {
+            $ret{'hit_summary'}{'passive'}++;
+        } else {
+            $ret{'hit_summary'}{'active'}++;
+        }
+        ## XXX: in the case of "someone -> you -> someone", it counts only as active
+
+        ## notes between/days between best/avg/cur/worst (notes avg == hit ratio), days forecast
+        foreach my $what (qw/notes days/) {
+            my $k = "${what}_between";
+
+            if ($hit->{$k} < ($ret{'hit_summary'}{$k}{'best'} // ~0)) {
+                $ret{'hit_summary'}{$k}{'best'} = $hit->{$k};
+            }
+            if ($hit->{$k} > ($ret{'hit_summary'}{$k}{'worst'} // 0)) {
+                $ret{'hit_summary'}{$k}{'worst'} = $hit->{$k};
+            }
+            push @{ $ret{'hit_summary'}{$k}{'elems'} }, $hit->{$k};
+        }
+
+        ## min/avg/max of $hit->{'days'} and $hit->{'km'}, speed too
+        foreach my $what (qw/days km/) {
+            if ($hit->{$what} < ($ret{'hit_summary'}{$what}{'min'} // ~0)) {
+                $ret{'hit_summary'}{$what}{'min'} = $hit->{$what};
+            }
+            if ($hit->{$what} > ($ret{'hit_summary'}{$what}{'max'} // 0)) {
+                $ret{'hit_summary'}{$what}{'max'} = $hit->{$what};
+            }
+            push @{ $ret{'hit_summary'}{$what}{'elems'} }, $hit->{$what};
+        }
+        my $speed = $hit->{'km'} / $hit->{'days'};
+        if ($speed < ($ret{'hit_summary'}{'speed'}{'min'} // ~0)) {
+            $ret{'hit_summary'}{'speed'}{'min'} = $speed;
+        }
+        if ($speed > ($ret{'hit_summary'}{'speed'}{'max'} // 0)) {
+            $ret{'hit_summary'}{'speed'}{'max'} = $speed;
+        }
+        push @{ $ret{'hit_summary'}{'speed'}{'elems'} }, $speed;
+
+        ## TODO: charts of the above
+
+        ## total hit/hitless days
+        my $hd = (split ' ', $hit->{'hit_date'})[0];
+        $ret{'hit_summary'}{'hit_dates'}{$hd} = 1;
+
+        ## current/longest period of consecutive hit/hitless days
+
+        ## list of consecutive hit days
+
+        ## TODO: hit ratio/avg travel days/avg km, by value
+
+        ## hits by combination
+        my $pc = substr $hit->{'short_code'}, 0, 1;
+        my $cc = substr $hit->{'serial'}, 0, 1;
+        my $combo = "$pc/$cc";
+        $ret{'hit_summary'}{'hits_by_combo'}{$combo} = {
+            pc => $pc,
+            cc => $cc,
+            count => ($ret{'hit_summary'}{'hits_by_combo'}{$combo}{'count'} // 0) + 1,
+        };
+
+        ## frequent hit partner (min: 2 hits)
+        map { $ret{'hit_summary'}{'partners'}{$_}++ } @{ $hit->{'hit_partners'} };
+
+        ## TODO: hits with top 200 users
+
+        ## hit with same km and days
+        if ($hit->{'days'} != 0 and $hit->{'days'} == $hit->{'km'}) {
+            $ret{'hit_summary'}{'equal_km_days'}{ $hit->{'km'} }++;
+        }
+    }
+    my ($y, $m, $d);
+
+    ## postfix: best/current/worst ratio (calculate current hit ratio)
+    $ret{'hit_summary'}{'ratio'}{'current'} = $count / $ret{'hit_summary'}{'total'};
+
+    ## postfix: notes between/days between best/avg/cur/worst (notes avg == hit ratio), days forecast (cur/avg days/notes, days forecast)
+    ($y, $m, $d) = $hit_list->[-1]{'dates'}[1] =~ /^(\d{4})-(\d{2})-(\d{2})/;
+    my $last_hit_date = DateTime->new (year => $y, month => $m, day => $d);
+    $ret{'hit_summary'}{'days_between'}{'current'} = $last_hit_date->delta_days (DateTime->now)->delta_days;
+    $ret{'hit_summary'}{'notes_between'}{'current'} = $count - $hit_list->[-1]{'notes'};
+    $ret{'hit_summary'}{'days_between'}{'avg'}  = mean @{ $ret{'hit_summary'}{'days_between'}{'elems'} };
+    $ret{'hit_summary'}{'notes_between'}{'avg'} = mean @{ $ret{'hit_summary'}{'notes_between'}{'elems'} };
+    $ret{'hit_summary'}{'days_forecast'} = $last_hit_date->add (days => $ret{'hit_summary'}{'days_between'}{'avg'})->strftime ('%Y-%m-%d');
+
+    ## postfix: min/avg/max of $hit->{'days'} and $hit->{'km'}, speed too (calculate averages)
+    $ret{'hit_summary'}{'days'}{'avg'}  = mean @{ $ret{'hit_summary'}{'days'}{'elems'} };
+    $ret{'hit_summary'}{'km'}{'avg'}    = mean @{ $ret{'hit_summary'}{'km'}{'elems'} };
+    $ret{'hit_summary'}{'speed'}{'avg'} = mean @{ $ret{'hit_summary'}{'speed'}{'elems'} };
+    delete $ret{'hit_summary'}{'days'}{'elems'};
+    delete $ret{'hit_summary'}{'km'}{'elems'};
+    delete $ret{'hit_summary'}{'speed'}{'elems'};
+
+    ## postfix: total hit/hitless days
+    ## postfix: current/longest period of consecutive hit/hitless days
+    ## postfix: list of consecutive hit days
+    ($y, $m, $d) = $activity->{'first_note'}{'date'} =~ /^(\d{4})-(\d{2})-(\d{2})/;
+    my $dt = DateTime->new (year => $y, month => $m, day => $d);
+    my $now = DateTime->now;
+    $ret{'hit_summary'}{'hit_dates'}{'consecutive'}{'hist'} = [ { len => 0 } ];
+    $ret{'hit_summary'}{'hit_dates'}{'consecutive'}{'longest'} = {};
+    my $cons = $ret{'hit_summary'}{'hit_dates'}{'consecutive'};  ## abbreviation
+    while (1) {
+        last if $dt > $now;
+        my $str = $dt->strftime ('%Y-%m-%d');
+        if (!exists $ret{'hit_summary'}{'hit_dates'}{$str}) {
+            $ret{'hit_summary'}{'hit_dates'}{$str} = 0;
+            exists $cons->{'hist'}[-1]{'start'} and push @{ $cons->{'hist'} }, { len => 0 };
+        } else {
+            $cons->{'hist'}[-1]{'start'} //= $str;
+            $cons->{'hist'}[-1]{'end'} = $str;
+            $cons->{'hist'}[-1]{'len'}++;
+        }
+        if (($cons->{'hist'}[-1]{'len'} // 0) > ($cons->{'longest'}{'len'} // 0)) {
+            $cons->{'longest'} = $cons->{'hist'}[-1];
+        }
+        $dt->add (days => 1);
+    }
+    $ret{'hit_summary'}{'hit_days'}{'total'}     = grep { 1 == $ret{'hit_summary'}{'hit_dates'}{$_} } keys %{ $ret{'hit_summary'}{'hit_dates'} };
+    $ret{'hit_summary'}{'hitless_days'}{'total'} = grep { 0 == $ret{'hit_summary'}{'hit_dates'}{$_} } keys %{ $ret{'hit_summary'}{'hit_dates'} };
+    $ret{'hit_summary'}{'total_days'} = scalar keys %{ $ret{'hit_summary'}{'hit_dates'} };
+
+    ## postfix: frequent hit partner (min: 2 hits) (remove myself, build data structure)
+    delete $ret{'hit_summary'}{'partners'}{ $whoami->{'name'} };
+    foreach my $p (keys %{ $ret{'hit_summary'}{'partners'} }) {
+        next if 1 == $ret{'hit_summary'}{'partners'}{$p};
+        $ret{'hit_summary'}{'freq_partners'}{$p} = {
+            partner => $p,
+            hits    => $ret{'hit_summary'}{'partners'}{$p},
+        };
+    }
+    delete $ret{'hit_summary'}{'partners'};
 
     return \%ret;
 }

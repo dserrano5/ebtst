@@ -107,6 +107,7 @@ Top 10 days = Los 10 mejores días
 Day = Día
 
 ## time analysis
+Calendar = Calendario
 Hours = Horas
 Minutes = Minutos
 Seconds = Segundos

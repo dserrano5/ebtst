@@ -518,6 +518,7 @@ sub bundle_time {
         ## time_analysis
         #my ($y, $m, $d, $H, $M, $S) = map { sprintf '%02d', $_ } split /[\s:-]/, $hr->[DATE_ENTERED];
         my $dow = 1 + dayofweek $d, $m, $y;
+        $ret{'time_analysis'}{'cal'}{$m}{$d}++;
         $ret{'time_analysis'}{'hh'}{$H}++;
         $ret{'time_analysis'}{'mm'}{$M}++;
         $ret{'time_analysis'}{'ss'}{$S}++;

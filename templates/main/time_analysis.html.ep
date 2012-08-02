@@ -1,3 +1,27 @@
+<h2><%=l 'Time analysis' %></h2>
+
+<% use List::Util qw/sum/; %>
+<% my %last_days = qw/01 31   02 29   03 31   04 30   05 31   06 30   07 31   08 31   09 30   10 31   11 30   12 31/; %>
+<b><%=l 'Calendar' %></b>: <%= sum map { scalar keys %{ $ta->{'cal'}{$_} } } keys %{ $ta->{'cal'} } %>/366<br>
+<table>
+    <tr>
+    <th class="small_cell"></th>
+    <% foreach my $d (map { sprintf '%02d', $_ } 1 .. 31) { %>
+        <th class="small_cell"><%= $d %></th>
+    <% } %>
+    </tr>
+<% foreach my $m (map { sprintf '%02d', $_ } 1 .. 12) { %>
+    <tr>
+        <th class="small_cell"><%= EBT2->month_names (0+$m) %></th>
+        <% foreach my $d (map { sprintf '%02d', $_ } 1 .. $last_days{$m}) { %>
+            <% my $class = $ta->{'cal'}{$m}{$d} ? 'bingo_1' : 'bingo_0'; %>
+            <td class="small_cell"><div class="<%= $class %>"></div></td>
+        <% } %>
+    </tr>
+<% } %>
+</table>
+<br>
+
 <b><%=l 'Hours' %></b>: <%= scalar keys %{ $ta->{'hh'} } %>/24<br>
 <table>
     <tr>

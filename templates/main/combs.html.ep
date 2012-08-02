@@ -50,7 +50,7 @@
                         <% } else { %>
                             <td><div class="bingo_0"></div></td>
                         <% } %>
-                        <td><%= $row_sum %> (<%= sprintf '%.2f', 100*$row_sum/$count %>%)</td>
+                        <td><b><%= $row_sum %></b> (<%= sprintf '%.2f', 100*$row_sum/$count %>%)</td>
                     </tr>
                 <% } %>
             <% } %>

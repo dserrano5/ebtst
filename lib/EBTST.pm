@@ -36,6 +36,7 @@ sub startup {
     $self->hook (before_dispatch => sub {
         my $self = shift;
 
+        $ENV{'LANG'} = substr $self->tx->req->content->headers->accept_language, 0, 2;  ## could be improved...
         $self->stash (base_href     => $base_href);
         $self->stash (checked_boxes => {});
         $self->stash (has_notes     => undef);

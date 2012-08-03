@@ -11,6 +11,13 @@ use IO::Uncompress::Gunzip qw/gunzip $GunzipError/;
 use IO::Uncompress::Unzip  qw/unzip  $UnzipError/;
 use File::Temp qw/tempfile/;
 
+sub _log {
+    my ($self, $prio, $msg) = @_;
+
+    my $user = $self->stash ('user');
+    $self->app->log->$prio (sprintf '%s: %s', ($user // '<no user>'), $msg);
+}
+
 my %users;
 sub load_users {
     my ($self) = @_;
@@ -23,7 +30,7 @@ sub load_users {
     }
     close $fd;
 
-    $self->app->log->info (sprintf "load_users: loaded %d users", scalar keys %users);
+    $self->_log (debug => sprintf "load_users: loaded %d users", scalar keys %users);
 }
 
 sub index {
@@ -38,22 +45,22 @@ sub login {
 
     $self->load_users;
     my $u = $self->param ('user');
-    $self->app->log->info (sprintf "login: user is '%s'", $u//'<undef>');
+    $self->_log (debug => sprintf "login: user is '%s'", $u//'<undef>');
 
     if (exists $users{$self->param ('user')}) {
-        $self->app->log->info ("login attempt for existing user '$u'");
+        $self->_log (info => "login attempt for existing user '$u'");
         if ($users{$self->param ('user')} eq sha512_hex $self->param ('pass')) {
             $self->stash ('sess')->create;
             $self->stash ('sess')->data (user => $self->param ('user'));
             my $dest = $self->param ('requested_url') || 'information';
-            $self->app->log->info ("login successful, redirecting to '$dest'");
+            $self->_log (info => "login successful, redirecting to '$dest'");
             $self->redirect_to ($dest);
             return;
         } else {
-            $self->app->log->info ("login failed");
+            $self->_log (info => 'login failed');
         }
     } else {
-        $self->app->log->info ("login attempt for non-existing user '$u'");
+        $self->_log (info => "login attempt for non-existing user '$u'");
     }
 
     $self->redirect_to ('index');
@@ -63,7 +70,7 @@ sub logout {
     my ($self) = @_;
 
     my $user = $self->stash ('user');
-    $self->app->log->info ("logging out user '$user'");
+    $self->_log (info => 'logging out');
     $self->stash ('sess')->expire;
     $self->redirect_to ('index');
 }
@@ -795,18 +802,18 @@ sub _decompress {
 
     ($fd, $tmpfile) = tempfile 'ebtst-uncompress.XXXXXX', DIR => $ENV{'TMP'}//$ENV{'TEMP'}//'/tmp';
     if (!gunzip $file, $fd, AutoClose => 1) {
-        $self->app->log->warn ("_decompress: gunzip: $GunzipError");
-        unlink $tmpfile or $self->app->log->warn ("_decompress: unlink: '$tmpfile': $!");
+        $self->_log (warn => "_decompress: gunzip: $GunzipError");
+        unlink $tmpfile or $self->_log (warn => "_decompress: unlink: '$tmpfile': $!");
     } else {
-        rename $tmpfile, $file or $self->app->log->warn ("_decompress: rename: '$tmpfile' to '$file': $!");
+        rename $tmpfile, $file or $self->_log (warn => "_decompress: rename: '$tmpfile' to '$file': $!");
     }
 
     ($fd, $tmpfile) = tempfile 'ebtst-uncompress.XXXXXX', DIR => $ENV{'TMP'}//$ENV{'TEMP'}//'/tmp';
     if (!unzip $file, $fd, AutoClose => 1) {
-        $self->app->log->warn ("_decompress: unzip: $UnzipError");
-        unlink $tmpfile or $self->app->log->warn ("_decompress: unlink: '$tmpfile': $!");
+        $self->_log (warn => "_decompress: unzip: $UnzipError");
+        unlink $tmpfile or $self->_log (warn => "_decompress: unlink: '$tmpfile': $!");
     } else {
-        rename $tmpfile, $file or $self->app->log->warn ("_decompress: rename: '$tmpfile' to '$file': $!");
+        rename $tmpfile, $file or $self->_log (warn => "_decompress: rename: '$tmpfile' to '$file': $!");
     }
 
     return;
@@ -822,16 +829,16 @@ sub upload {
         my $outfile = File::Spec->catfile ($EBTST::config{'csvs_dir'}, int rand 1e7);
         $notes_csv->move_to ($local_notes_file);
         $self->_decompress ($local_notes_file);
-        $self->app->log->info ("will store a censored copy at '$outfile'");
+        $self->_log (info => "will store a censored copy at '$outfile'");
         $self->ebt->load_notes ($local_notes_file, $outfile);
-        unlink $local_notes_file or $self->app->log->warn ("upload: unlink: '$local_notes_file': $!\n");
+        unlink $local_notes_file or $self->_log (warn => "upload: unlink: '$local_notes_file': $!\n");
     }
     if ($hits_csv and $hits_csv->size) {
         my $local_hits_file = File::Spec->catfile ($ENV{'TMP'}//$ENV{'TEMP'}//'/tmp', 'hits_uploaded.csv');
         $hits_csv->move_to ($local_hits_file);
         $self->_decompress ($local_hits_file);
         $self->ebt->load_hits ($local_hits_file);
-        unlink $local_hits_file  or $self->app->log->warn ("upload: unlink: '$local_hits_file': $!\n");
+        unlink $local_hits_file  or $self->_log (warn => "upload: unlink: '$local_hits_file': $!\n");
     }
 
     $self->redirect_to ('information');
@@ -862,8 +869,8 @@ sub _prepare_html_dir {
     my $src_css      = File::Spec->catfile ($statics_dir,  'ebt.css');
     my $dest_img_dir = File::Spec->catfile ($dest_dir, 'images');
     my $dest_css     = File::Spec->catfile ($dest_dir, 'ebt.css');
-    symlink $src_img_dir, $dest_img_dir or $self->app->log->warn ("_prepare_html_dir: symlink: '$src_img_dir' to '$dest_img_dir': $!");
-    symlink $src_css, $dest_css         or $self->app->log->warn ("_prepare_html_dir: symlink: '$src_css' to '$dest_css': $!");
+    symlink $src_img_dir, $dest_img_dir or $self->_log (warn => "_prepare_html_dir: symlink: '$src_img_dir' to '$dest_img_dir': $!");
+    symlink $src_css, $dest_css         or $self->_log (warn => "_prepare_html_dir: symlink: '$src_css' to '$dest_css': $!");
 
     return;
 }
@@ -877,15 +884,15 @@ sub _save_html {
 
         $html_text =~ s/<!-- content -->/$partial_html/;
 
-        print $fd $html_text or $self->app->log->warn ("_save_html: print: '$file': $!");
-        close $fd            or $self->app->log->warn ("_save_html: close: '$file': $!");
+        print $fd $html_text or $self->_log (warn => "_save_html: print: '$file': $!");
+        close $fd            or $self->_log (warn => "_save_html: close: '$file': $!");
 
         if ('information' eq $param) {
             my $index_html = File::Spec->catfile ($html_dir, 'index.html');
-            symlink 'information.html', $index_html or $self->app->log->warn ("_save_html: symlink: 'information.html' to '$index_html': $!");
+            symlink 'information.html', $index_html or $self->_log (warn => "_save_html: symlink: 'information.html' to '$index_html': $!");
         }
     } else {
-        $self->app->log->warn ("_save_html: open: '$file': $!");
+        $self->_log (warn => "_save_html: open: '$file': $!");
     }
 
     return;
@@ -918,7 +925,7 @@ sub gen_output {
     $self->ebt->set_checked_boxes (@req_params);
 
     my $html_dir = File::Spec->catfile ($self->stash ('html_dir'), $self->stash ('user'));
-    $self->app->log->info ("gen_output: req_params '@req_params', html_dir '$html_dir'");
+    $self->_log (debug => "gen_output: req_params '@req_params', html_dir '$html_dir'");
     $self->_prepare_html_dir ($self->stash ('statics_dir'), $html_dir);
     my $html_output = encode 'UTF-8', $self->render_partial (template => 'layouts/offline', format => 'html');
     $html_output = $self->_trim_html_sections ($html_output, @req_params);

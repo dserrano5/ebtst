@@ -100,6 +100,7 @@ sub startup {
         if (ref $self->stash ('sess') and $self->stash ('sess')->load) {
             my $user = $self->stash ('sess')->data ('user');
             my $sid = $self->stash ('sess')->sid;
+            $self->app->log->debug ("user: '$user'");
 
             my $user_data_dir = File::Spec->catfile ($user_data_basedir, $user);
             my $db            = File::Spec->catfile ($user_data_dir, 'db');

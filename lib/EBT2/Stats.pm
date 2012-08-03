@@ -929,8 +929,8 @@ sub hit_analysis {
     my ($self, $data, $hit_list) = @_;
     my %ret;
 
-    $ret{'hit_analysis'}{'longest'} = [ (reverse sort { $a->{'km'}   <=> $b->{'km'}   } @$hit_list)[0..9] ];
-    $ret{'hit_analysis'}{'oldest'}  = [ (reverse sort { $a->{'days'} <=> $b->{'days'} } @$hit_list)[0..9] ];
+    $ret{'hit_analysis'}{'longest'} = [ grep defined, (reverse sort { $a->{'km'}   <=> $b->{'km'}   } @$hit_list)[0..9] ];
+    $ret{'hit_analysis'}{'oldest'}  = [ grep defined, (reverse sort { $a->{'days'} <=> $b->{'days'} } @$hit_list)[0..9] ];
 
     return \%ret;
 }

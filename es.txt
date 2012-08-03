@@ -206,3 +206,12 @@ Notes CSV file = Archivo CSV de billetes
 Hits CSV file = Archivo CSV de hits
 A copy of the notes CSV will be kept in the following format = Se almacenará una copia del archivo de billetes, con el siguiente formato
 Submit = Enviar
+
+## days of week
+Monday = Lunes
+Tuesday = Martes
+Wednesday = Miércoles
+Thursday = Jueves
+Friday = Viernes
+Saturday = Sábado
+Sunday = Domingo

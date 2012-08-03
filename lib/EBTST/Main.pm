@@ -11,6 +11,9 @@ use IO::Uncompress::Gunzip qw/gunzip $GunzipError/;
 use IO::Uncompress::Unzip  qw/unzip  $UnzipError/;
 use File::Temp qw/tempfile/;
 
+our %dows = qw/1 Monday 2 Tuesday 3 Wednesday 4 Thursday 5 Friday 6 Saturday 7 Sunday/;
+my %users;
+
 sub _log {
     my ($self, $prio, $msg) = @_;
 
@@ -18,7 +21,6 @@ sub _log {
     $self->app->log->$prio (sprintf '%s: %s', ($user // '<no user>'), $msg);
 }
 
-my %users;
 sub load_users {
     my ($self) = @_;
 
@@ -341,7 +343,6 @@ sub printers {
         }
         push @$nbp, {
             cname   => EBT2->country_names (EBT2->printers ($pc)),
-            pname   => EBT2->printers2name ($pc),
             imgname => EBT2->printers ($pc),
             bbflag  => EBT2->flag (EBT2->printers ($pc)),
             pc      => $pc,
@@ -571,7 +572,7 @@ sub top_days {
         }
         my $tot = $nbdow_data->{$dow}{'total'};
         push @$nbdow, {
-            dow    => EBT2->dow_names($dow),
+            dow    => $dows{$dow},
             count  => $tot,
             pct    => (sprintf '%.2f', 100 * $tot / $count),
             detail => $detail,

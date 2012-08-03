@@ -748,7 +748,7 @@ sub hit_analysis {
     my ($self) = @_;
 
     my $whoami   = $self->ebt->whoami;
-    my $hit_list = $self->ebt->get_hit_list;
+    my $hit_list = $self->ebt->get_hit_list ($whoami);
     my $ha       = $self->ebt->get_hit_analysis ($hit_list);
 
     my $longest;

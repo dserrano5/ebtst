@@ -51,6 +51,14 @@ $t->post_form_ok ('/gen_output', {
 $t->get_ok ('/information.txt')->status_is (200)->content_type_is ('text/plain')->content_like (qr/Signatures:.*\bDuisenberg 0.*\bTrichet 2.*\bDraghi 0\b/s);
 $t->get_ok ('/value.txt')->status_is (200)->content_like (qr/\b20\b.*\b1\b.*\b50\.00 %.*\b20\b/s);
 
+$t->post_form_ok ('/upload', {
+    hits_csv_file => { file => 't/hits1.csv' },
+    csrftoken => $csrftoken,
+})->status_is (302)->header_like (Location => qr/information/);
+
+$t->get_ok ('/hit_analysis')->status_is (200)->content_like (qr{<td class="small_cell">Lxxxx2379xxx</td>});
+#$csrftoken = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->html->body->div->[0]->form->input->{'value'};
+
 $t->get_ok ('/logout')->status_is (302)->header_like (Location => qr/index/);
 
-done_testing 32;
+done_testing 38;

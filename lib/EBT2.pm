@@ -166,34 +166,12 @@ EOF
         eval <<"EOF";
             *$field = sub {
                 my (\$self, \$what) = \@_;
-                my \$lang = ebt_lang;
-                if (\$what) {
-                    return \$config{\$field}{\$lang}{\$what};
-                } else {
-                    return \$config{\$field}{\$lang};
-                }
+                return \$config{\$field}{\$lang}{\$what};
             };
 EOF
         $@ and die "eval failed: $@\n";
         goto &$field;
 
-#    } elsif ($field =~ /^(sigs_by_president|combs1|combs2|combs3)$/) {
-#        ## close over these variables - the quoted eval doesn't do it,
-#        ## resulting in errors like 'Variable "%combs1" is not available'
-#        map $_, %sigs_by_president, %combs1, %combs2, %combs3;
-
-#        eval <<"EOF";
-#            *$field = sub {
-#                my (\$self, \$what) = \@_;
-#                if (\$what) {
-#                    return \$${field}{\$what};
-#                } else {
-#                    return \\%$field;
-#                }
-#            };
-#EOF
-#        $@ and die "eval failed: $@\n";
-#        goto &$field;
     } else {
         die "Can't call non existing method '$field'\n";
     }

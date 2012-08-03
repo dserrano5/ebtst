@@ -836,7 +836,8 @@ sub hit_list {
 
     my $note_no = 0;
     my $notes_elapsed = 0;
-    my $hit_no = 0;
+    my $hit_no = 0;   ## only interesting
+    my $hit_no2 = 0;  ## including moderated
     my $notes_between = 0;
     my $prev_hit_dt;
 
@@ -852,14 +853,15 @@ sub hit_list {
             );
         }
         next unless $hit;
-        next if $hit->{'moderated'};
 
         ## passive hit? then we shouldn't have increased notes_elapsed and notes_between, decrease them here
         $notes_elapsed--, $notes_between-- if $whoami->{'id'} eq $hit->{'parts'}[0]{'user_id'};
 
-        $hit_no++;
-        push @{ $ret{'hit_list'} }, {
+        $hit->{'moderated'} or $hit_no++;
+        $hit_no2++;
+        my $entry = {
             hit_no        => $hit_no,
+            hit_no2       => $hit_no2,
             dates         => [ map { $_->{'date_entered'} } @{ $hit->{'parts'} } ],
             hit_date      => $hit->{'hit_date'},
             value         => $hr->[VALUE],
@@ -873,17 +875,21 @@ sub hit_list {
             note_no       => $hr->[NOTE_NO],
             notes         => $notes_elapsed,
             moderated     => $hit->{'moderated'},
-            old_hit_ratio => ($hit_no > 1 ? ($notes_elapsed-1)/($hit_no-1) : undef),
-            new_hit_ratio => $notes_elapsed/$hit_no,
-            notes_between => $notes_between,
-            days_between  => DateTime->new (
-                zip @{[qw/year month day hour minute second/]}, @{[ split /[\s:-]/, $hit->{'hit_date'} ]}
-            )->delta_days ($prev_hit_dt)->delta_days,
         };
-        $notes_between = 0;
-        $prev_hit_dt = DateTime->new (
-            zip @{[qw/year month day hour minute second/]}, @{[ split /[\s:-]/, $hit->{'hit_date'} ]}
-        );
+        if (!$hit->{'moderated'}) {
+            $entry->{'old_hit_ratio'} = ($hit_no > 1 ? ($notes_elapsed-1)/($hit_no-1) : undef);
+            $entry->{'new_hit_ratio'} = $notes_elapsed/$hit_no;
+            $entry->{'notes_between'} = $notes_between;
+            $entry->{'days_between'}  = DateTime->new (
+                zip @{[qw/year month day hour minute second/]}, @{[ split /[\s:-]/, $hit->{'hit_date'} ]}
+            )->delta_days ($prev_hit_dt)->delta_days;
+
+            $notes_between = 0;
+            $prev_hit_dt = DateTime->new (
+                zip @{[qw/year month day hour minute second/]}, @{[ split /[\s:-]/, $hit->{'hit_date'} ]}
+            );
+        }
+        push @{ $ret{'hit_list'} }, $entry;
     }
 
     return \%ret;
@@ -897,6 +903,7 @@ sub hits_by_month {
     my %hbim;  ## by insert month
 
     foreach my $hit (@$hit_list) {
+        next if $hit->{'moderated'};
         my $month = substr $hit->{'hit_date'}, 0, 7;
         $hbm{$month}++;
 
@@ -929,8 +936,21 @@ sub hit_analysis {
     my ($self, $data, $hit_list) = @_;
     my %ret;
 
-    $ret{'hit_analysis'}{'longest'} = [ grep defined, (reverse sort { $a->{'km'}   <=> $b->{'km'}   } @$hit_list)[0..9] ];
-    $ret{'hit_analysis'}{'oldest'}  = [ grep defined, (reverse sort { $a->{'days'} <=> $b->{'days'} } @$hit_list)[0..9] ];
+    foreach my $what (
+        [ qw/longest km/ ],
+        [ qw/oldest days/ ],
+    ) {
+        my ($key1, $key2) = @$what;
+        $ret{'hit_analysis'}{$key1} = [
+            reverse
+            grep defined,
+            (
+                sort { $a->{$key2} <=> $b->{$key2} }
+                grep { !$_->{'moderated'} }
+                @$hit_list
+            )[0..9]
+        ];
+    }
 
     return \%ret;
 }
@@ -939,15 +959,21 @@ sub hit_summary {
     my ($self, $data, $whoami, $activity, $count, $hit_list) = @_;
     my %ret;
 
+    $ret{'hit_summary'}{'active'} = 0;
+    $ret{'hit_summary'}{'passive'} = 0;
+
     foreach my $hit (@$hit_list) {
         ## total, national, international, moderated
+        if ($hit->{'moderated'}) {
+            $ret{'hit_summary'}{'moderated'}++;
+            next;
+        }
         $ret{'hit_summary'}{'total'}++;
         if (1 == @{[ uniq @{ $hit->{'countries'} } ]}) {
             $ret{'hit_summary'}{'national'}++;
         } else {
             $ret{'hit_summary'}{'international'}++;
         }
-        $ret{'hit_summary'}{'moderated'}++ if $hit->{'moderated'};   ## TODO: hit_list only lists interesting hits
 
         ## normal, triple, quad, pent
         my $k = sprintf '%dway', scalar @{ $hit->{'dates'} };

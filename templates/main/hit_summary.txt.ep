@@ -1,10 +1,9 @@
 [b]<%=l 'Hit summary' %>[/b]
 
 <%=l 'Hits' %>: <%= $hs->{'total'} %> (\
-    <%=''=%><%= $hs->{'national'}      // 0 %> <%=l 'national' %>,\
-    <%= $hs->{'international'} // 0 %> <%=l 'international' %>,\
-    <%= $hs->{'moderated'}     // 0 %> <%=l 'moderated' %>\
-)
+    <%=''=%><%= $hs->{'national'}      // 0 %> <%=l 'national' %> and\
+    <%= $hs->{'international'} // 0 %> <%=l 'international' %>, plus\
+    <%= $hs->{'moderated'}     // 0 %> <%=l 'moderated' %>
 
 <%=l 'Normal hits' %>: [b]<%= $hs->{'2way'} // 0 %>[/b]
 <%=l 'Triples' %>: [b]<%= $hs->{'3way'} // 0 %>[/b]

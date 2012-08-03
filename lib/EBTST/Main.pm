@@ -730,8 +730,8 @@ sub hits_by_month {
 
     my $activity = $self->ebt->get_activity;
     my $hit_list = $self->ebt->get_hit_list;
-
     my $hbm = $self->ebt->get_hits_by_month ($self->ebt->whoami, $activity, $hit_list);
+
     my $rows;
     foreach my $month (sort keys %{ $hbm->{'natural'} }) {
         push @$rows, {

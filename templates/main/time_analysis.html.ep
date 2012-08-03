@@ -12,7 +12,7 @@
     </tr>
 <% foreach my $m (map { sprintf '%02d', $_ } 1 .. 12) { %>
     <tr>
-        <th class="small_cell"><%= EBT2->month_names (0+$m) %></th>
+        <th class="small_cell"><%=l $EBTST::Main::months{0+$m} %></th>
         <% foreach my $d (map { sprintf '%02d', $_ } 1 .. $last_days{$m}) { %>
             <% my $class = $ta->{'cal'}{$m}{$d} ? 'bingo_1' : 'bingo_0'; %>
             <td class="small_cell"><div class="<%= $class %>"></div></td>

@@ -10,7 +10,7 @@
         <% my $color = $ta->{'cal'}{$m}{$d} ? '0000FF' : 'B0B0B0'; =%>
         <%=''=%>[color=#<%= $color %>] <%= $d %>[/color]\
     <% } =%>
-    [/td][td] ❘ <%= EBT2->month_names (0+$m) %>[/td][/tr]\
+    [/td][td] ❘ <%=l $EBTST::Main::months{0+$m} %>[/td][/tr]\
 <% } =%>
 [/table]
 

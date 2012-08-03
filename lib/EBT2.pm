@@ -165,7 +165,7 @@ EOF
         $@ and die "eval failed: $@\n";
         goto &$field;
 
-    } elsif ($field =~ /^(printer_names|country_names|month_names)$/) {
+    } elsif ($field =~ /^(printer_names|country_names)$/) {
         ## close over %config - the quoted eval doesn't do it, resulting in 'Variable "%config" is not available'
         %config if 0;
 

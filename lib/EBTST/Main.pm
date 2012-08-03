@@ -10,10 +10,26 @@ use List::MoreUtils qw/uniq/;
 use IO::Uncompress::Gunzip qw/gunzip $GunzipError/;
 use IO::Uncompress::Unzip  qw/unzip  $UnzipError/;
 use File::Temp qw/tempfile/;
+use Locale::Country;
 
 our %dows = qw/1 Monday 2 Tuesday 3 Wednesday 4 Thursday 5 Friday 6 Saturday 7 Sunday/;
 our %months = qw/1 January 2 February 3 March 4 April 5 May 6 June 7 July 8 August 9 September 10 October 11 November 12 December/;
+our %country_names = (
+    ru => 'Russia',
+    va => 'Vatican City',
+    ve => 'Venezuela',
+);
 my %users;
+
+sub _country_names {
+    my ($self, $what) = @_;
+
+    my $lang = substr +($ENV{'EBT_LANG'} || $ENV{'LANG'} || $ENV{'LANGUAGE'} || 'en'), 0, 2;
+    if ('en' eq $lang and !exists $country_names{$what}) {
+        return code2country $what;
+    }
+    return $self->l ($what);
+}
 
 sub _log {
     my ($self, $prio, $msg) = @_;
@@ -157,7 +173,7 @@ sub countries {
     for my $cc (
         sort {
             ($data->{$b}{'total'}//0) <=> ($data->{$a}{'total'}//0) ||
-            EBT2->country_names (EBT2->countries ($a)) cmp EBT2->country_names (EBT2->countries ($b))
+            $self->_country_names (EBT2->countries ($a)) cmp $self->_country_names (EBT2->countries ($b))
         } keys %{ EBT2->countries }
     ) {
         my $detail;
@@ -176,7 +192,7 @@ sub countries {
         }
         my $iso3166 = do { local $ENV{'EBT_LANG'} = 'en'; EBT2->countries ($cc) };
         push @$nbc, {
-            cname   => EBT2->country_names (EBT2->countries ($cc)),
+            cname   => $self->_country_names (EBT2->countries ($cc)),
             imgname => $iso3166,
             bbflag  => EBT2->flag ($iso3166),
             cc      => $cc,
@@ -191,7 +207,7 @@ sub countries {
         my $iso3166 = do { local $ENV{'EBT_LANG'} = 'en'; EBT2->countries ($cc) };
         push @$fbcc, {
             at       => $data_fbcc->{$cc}{'at'},
-            cname    => EBT2->country_names (EBT2->countries ($cc)),
+            cname    => $self->_country_names (EBT2->countries ($cc)),
             imgname  => $iso3166,
             bbflag   => EBT2->flag ($iso3166),
             value    => $data_fbcc->{$cc}{'value'},
@@ -233,7 +249,7 @@ sub locations {
             };
         }
         push @$countries, {
-            cname   => EBT2->country_names ($iso3166),
+            cname   => $self->_country_names ($iso3166),
             imgname => $iso3166,
             bbflag  => EBT2->flag ($iso3166),
             count   => $nbco->{$iso3166}{'total'},
@@ -272,7 +288,7 @@ sub locations {
             };
         }
         push @$c_data, {
-            cname    => EBT2->country_names ($country),
+            cname    => $self->_country_names ($country),
             imgname  => $country,
             bbflag   => EBT2->flag ($country),
             loc_data => $loc_data,
@@ -289,7 +305,7 @@ sub locations {
 
         push @$ab, {
             imgname => $c,
-            cname   => EBT2->country_names ($c),
+            cname   => $self->_country_names ($c),
             tot     => (scalar keys %{ $ab_data->{$c} }),
             letters => $letters,
         };
@@ -343,7 +359,7 @@ sub printers {
             }
         }
         push @$nbp, {
-            cname   => EBT2->country_names (EBT2->printers ($pc)),
+            cname   => $self->_country_names (EBT2->printers ($pc)),
             imgname => EBT2->printers ($pc),
             bbflag  => EBT2->flag (EBT2->printers ($pc)),
             pc      => $pc,
@@ -359,7 +375,7 @@ sub printers {
         push @$fbpc, {
             at       => $data_fbpc->{$pc}{'at'},
             pc       => $pc,
-            cname    => EBT2->country_names (EBT2->countries ($pc)),
+            cname    => $self->_country_names (EBT2->countries ($pc)),
             imgname  => $iso3166,
             bbflag   => EBT2->flag ($iso3166),
             value    => $data_fbpc->{$pc}{'value'},

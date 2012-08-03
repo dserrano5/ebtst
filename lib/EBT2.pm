@@ -4,7 +4,6 @@ use warnings;
 use strict;
 use Storable qw/dclone/;
 use Config::General;
-use Locale::Country;
 
 sub _work_dir {
     my $work_dir;
@@ -102,11 +101,7 @@ sub flag {
     if (grep { $_ eq $iso3166 } values %{ EBT2->countries }, values %{ EBT2->printers }) {
         $flag_txt = ":flag-$iso3166:";
     } else {
-        $flag_txt = sprintf '[img]http://www.eurobilltracker.eu/img/flags/%s.gif[/img]', do {
-            local $ENV{'EBT_LANG'} = 'en';
-            EBT2->country_names ($iso3166);
-        };
-        $flag_txt = ":flag-$iso3166:(err)" unless defined $flag_txt;
+        $flag_txt = sprintf '[img]https://dserrano5.es/ebtdev/ebtst/images/%s.gif[/img]', $iso3166;
     }
 
     return $flag_txt;
@@ -154,7 +149,6 @@ sub AUTOLOAD {
         eval <<"EOF";
             *$field = sub {
                 my (\$self, \$what) = \@_;
-                my \$lang = ebt_lang;
                 if (\$what) {
                     return \$config{\$field}{\$what};
                 } else {
@@ -165,7 +159,7 @@ EOF
         $@ and die "eval failed: $@\n";
         goto &$field;
 
-    } elsif ($field =~ /^(printer_names|country_names)$/) {
+    } elsif ($field =~ /^(printer_names)$/) {
         ## close over %config - the quoted eval doesn't do it, resulting in 'Variable "%config" is not available'
         %config if 0;
 
@@ -174,13 +168,6 @@ EOF
                 my (\$self, \$what) = \@_;
                 my \$lang = ebt_lang;
                 if (\$what) {
-                    if (
-                        'en' eq \$lang and
-                        'country_names' eq \$field and
-                        !defined \$config{\$field}{\$lang}{\$what}
-                    ) {
-                        return code2country \$what;
-                    }
                     return \$config{\$field}{\$lang}{\$what};
                 } else {
                     return \$config{\$field}{\$lang};

@@ -78,17 +78,17 @@
 <% } %><%= sprintf '%d/%d', $cnt, 24*60 %><br>
 <table>
     <tr>
-        <th class="small_cell"></th>
-        <% foreach my $h (map { sprintf '%02d', $_ } 0 .. 23) { %>
-            <th class="small_cell"><%= $h %></th>
+        <th class="tiny_cell"></th>
+        <% foreach my $m (map { sprintf '%02d', $_ } 0 .. 59) { %>
+            <th class="tiny_cell"><%= $m %></th>
         <% } %>
     </tr>
-    <% foreach my $m (map { sprintf '%02d', $_ } 0 .. 59) { %>
+    <% foreach my $h (map { sprintf '%02d', $_ } 0 .. 23) { %>
         <tr>
-            <th class="small_cell"><%= $m %></th>
-            <% foreach my $h (map { sprintf '%02d', $_ } 0 .. 23) { %>
+            <th class="tiny_cell"><%= $h %></th>
+            <% foreach my $m (map { sprintf '%02d', $_ } 0 .. 59) { %>
                 <% my $class = $ta->{'hhmm'}{$h}{$m} ? 'bingo_1' : 'bingo_0'; %>
-                <td class="small_cell"><div class="<%= $class %>"></div></td>
+                <td class="tiny_cell"><div class="<%= $class %>"></div></td>
             <% } %>
         </tr>
     <% } %>

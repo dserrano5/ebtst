@@ -32,17 +32,6 @@
         <% $cnt++; =%>
     <% } =%>
 <% } =%><%= sprintf ' %d/%d', $cnt, 24*60 %>
-<% foreach my $h (map { sprintf '%02d', $_ } 0 .. 23) { =%>
-    <%= " $h" =%>
-<% } =%>
-<%= "\n" . '-' x 99 %>
-<% foreach my $m (map { sprintf '%02d', $_ } 0 .. 59) { =%>
-    <% foreach my $h (map { sprintf '%02d', $_ } 0 .. 23) { =%>
-        <% my $color = $ta->{'hhmm'}{$h}{$m} ? '0000FF' : 'B0B0B0'; =%>
-        <%=''=%>[color=#<%= $color %>] <%= $m %>[/color]\
-    <% } =%>
-
-<% } =%>
 
 [b]<%=l 'Minutes and seconds' %>[/b]: <% $cnt = 0; =%>
 <% foreach my $m (keys %{ $ta->{'mmss'} }) { =%>

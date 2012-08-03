@@ -896,23 +896,27 @@ sub _prepare_html_dir {
 }
 
 sub _save_html {
-    my ($self, $param, $html_dir, $html_text, @req_params) = @_;
+    my ($self, $html_dir, $html_text, @req_params) = @_;
 
-    my $file = File::Spec->catfile ($html_dir, "$param.html");
-    if (open my $fd, '>', $file) {
+    my $index_symlink_done = 0;
+    foreach my $param (@req_params) {
         my $partial_html = encode 'UTF-8', $self->render_partial (template => "main/$param", format => 'html');
+        my $html_copy = $html_text;
+        $html_copy =~ s/<!-- content -->/$partial_html/;
 
-        $html_text =~ s/<!-- content -->/$partial_html/;
+        my $file = File::Spec->catfile ($html_dir, "$param.html");
+        if (open my $fd, '>', $file) {
+            print $fd $html_copy or $self->_log (warn => "_save_html: print: '$file': $!");
+            close $fd            or $self->_log (warn => "_save_html: close: '$file': $!");
 
-        print $fd $html_text or $self->_log (warn => "_save_html: print: '$file': $!");
-        close $fd            or $self->_log (warn => "_save_html: close: '$file': $!");
-
-        if ('information' eq $param) {
-            my $index_html = File::Spec->catfile ($html_dir, 'index.html');
-            symlink 'information.html', $index_html or $self->_log (warn => "_save_html: symlink: 'information.html' to '$index_html': $!");
+            if (!$index_symlink_done) {
+                my $index_html = File::Spec->catfile ($html_dir, 'index.html');
+                symlink "$param.html", $index_html or $self->_log (warn => "_save_html: symlink: '$param.html' to '$index_html': $!");
+                $index_symlink_done = 1;
+            }
+        } else {
+            $self->_log (warn => "_save_html: open: '$file': $!");
         }
-    } else {
-        $self->_log (warn => "_save_html: open: '$file': $!");
     }
 
     return;
@@ -950,17 +954,17 @@ sub gen_output {
     my $html_output = encode 'UTF-8', $self->render_partial (template => 'layouts/offline', format => 'html');
     $html_output = $self->_trim_html_sections ($html_output, @req_params);
 
+    $self->$_ for @req_params;
+
+    $self->_save_html ($html_dir, $html_output, @req_params);
+
     my @rendered_bbcode;
     foreach my $param (@req_params) {
-        $self->$param;
-
         ## bbcode: store in memory for later output
         ## missing templates yield an undef result
         my $r = encode 'UTF-8', $self->render_partial (template => "main/$param", format => 'txt');
         push @rendered_bbcode, $r;
 
-        ## html: save to file
-        $self->_save_html ($param, $html_dir, $html_output, @req_params);
     }
 
     ## now output stored bbcode

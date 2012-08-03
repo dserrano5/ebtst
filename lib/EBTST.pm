@@ -36,7 +36,7 @@ sub startup {
     $self->hook (before_dispatch => sub {
         my $self = shift;
 
-        $ENV{'LANG'} = substr $self->tx->req->content->headers->accept_language, 0, 2;  ## could be improved...
+        my $al = $self->tx->req->content->headers->accept_language // ''; $ENV{'LANG'} = substr $al, 0, 2;  ## could be improved...
         $self->stash (base_href     => $base_href);
         $self->stash (checked_boxes => {});
         $self->stash (has_notes     => undef);
@@ -96,7 +96,6 @@ sub startup {
 
     my $r_has_notes_hits = $r->under (sub {
         my ($self) = @_;
-        my $t = time;
 
         if (ref $self->stash ('sess') and $self->stash ('sess')->load) {
             my $user = $self->stash ('sess')->data ('user');
@@ -125,8 +124,6 @@ sub startup {
             $self->stash (user          => $user);
             $self->stash (html_dir      => $html_dir);
             $self->stash (statics_dir   => $statics_dir);
-
-            return 1;
         }
 
         return 1;
@@ -151,6 +148,7 @@ sub startup {
     });
     $r_user->get ('/configure')->to ('main#configure');
     $r_user->post ('/upload')->to ('main#upload');
+    $r_user->get ('/logout')->to ('main#logout');
 
     my $u = $r_user->under (sub {
         my ($self) = @_;
@@ -162,7 +160,6 @@ sub startup {
 
         return 1;
     });
-    $u->get ('/logout')->to ('main#logout');
     #$u->get ('/help')->to ('main#help');
     $u->get ('/information')->to ('main#information');
     $u->get ('/value')->to ('main#value');

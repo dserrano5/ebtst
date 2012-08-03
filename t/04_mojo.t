@@ -22,6 +22,7 @@ $t->post_form_ok ('/login' => {
     pass => 'invalid pass',
     csrftoken => $csrftoken,
 })->status_is (302)->header_like (Location => qr/index/);
+
 $t->get_ok ('/');
 $csrftoken = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->html->body->div->form->input->[0]->{'value'};
 
@@ -57,8 +58,18 @@ $t->post_form_ok ('/upload', {
 })->status_is (302)->header_like (Location => qr/information/);
 
 $t->get_ok ('/hit_analysis')->status_is (200)->content_like (qr{<td class="small_cell">Lxxxx2379xxx</td>});
-#$csrftoken = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->html->body->div->[0]->form->input->{'value'};
 
 $t->get_ok ('/logout')->status_is (302)->header_like (Location => qr/index/);
 
-done_testing 38;
+$t->get_ok ('/');
+$csrftoken = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->html->body->div->form->input->[0]->{'value'};
+
+$t->post_form_ok ('/login' => {
+    user => 'emptyuser',
+    pass => 'emptypass',
+    csrftoken => $csrftoken,
+})->status_is (302)->header_like (Location => qr/information/);
+$t->get_ok ('/information')->status_is (302)->header_like (Location => qr/configure/);
+$t->get_ok ('/logout')->status_is (302)->header_like (Location => qr/index/);
+
+done_testing 48;

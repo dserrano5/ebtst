@@ -13,7 +13,7 @@
     % } else {
     %     $border = '';
     % }
-    % my $style = sprintf 'width: %s%%; float: left; %s background-color: %s', 1.5*$elem->{'pct'}, $border, $color;
+    % my $style = sprintf 'width: %s%%; float: left; %s background-color: %s', 1.4*$elem->{'pct'}, $border, $color;
     <tr>
         <td><img src="images/<%= $elem->{'imgname'} %>.gif"> <b><%= $elem->{'cc'} %></b> <%= $elem->{'cname'} %></td>
         <td class="numeric"><%= $elem->{'count'} %></td>

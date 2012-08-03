@@ -946,6 +946,7 @@ sub gen_output {
     /;
 
     my @req_params = grep { $self->param ($_) } @params;
+    @req_params = 'information' unless @req_params;
     $self->ebt->set_checked_boxes (@req_params);
 
     my $html_dir = File::Spec->catfile ($self->stash ('html_dir'), $self->stash ('user'));

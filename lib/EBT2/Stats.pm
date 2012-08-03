@@ -364,6 +364,7 @@ sub fooest_short_codes {
         my $pc = substr $hr->[SHORT_CODE], 0, 1;
         my $serial = EBT2::Data::serial_remove_meaningless_figures2 $hr->[SHORT_CODE], $hr->[SERIAL];
         $serial =~ s/^([A-Z]\**\d{3}).*$/$1/;
+        $serial =~ s/^([A-Z]\d{2}\**\d).*$/$1/;  ## 500 F/P
         my $sort_key = sprintf '%s%s', $hr->[SHORT_CODE], $serial;
 
         for my $value ('all', $hr->[VALUE]) {

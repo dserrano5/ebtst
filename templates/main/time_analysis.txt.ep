@@ -71,7 +71,7 @@
         <% my $color = $ta->{'dowhh'}{$dow}{$h} ? '0000FF' : 'B0B0B0'; =%>
         <%=''=%>[color=#<%= $color %>] <%= $h %>[/color]\
     <% } =%>
-    <%= ' ❘ ' . EBT2->dow_names($dow) %>
+    <%= ' ❘ ' . l $EBTST::Main::dows{$dow} %>
 <% } =%>
 
 [b]<%=l 'Days of week, hours and minutes' %>[/b]: <% $cnt = 0; =%>

@@ -13,6 +13,9 @@ use MIME::Base64;
 use EBT2::NoteValidator;
 use EBT2::Constants ':all';
 
+## whenever there are changes in the data format, this has to be increased in order to detect users with old data formats
+my $DATA_VERSION = '20120804-01';
+
 #use Inline C => <<'EOC';
 #void my_split (char *str, int nfields) {
 #    int n;
@@ -315,6 +318,7 @@ sub load_notes {
 
     $self->{'has_notes'} = !!@{ $self->{'notes'} };
     $self->{'notes_pos'} = 0;
+    $self->{'version'} = $DATA_VERSION;
     $self->write_db;
 
     return $self;
@@ -438,8 +442,14 @@ sub load_db {
     my ($self) = @_;
 
     $self->_clean_object;
+
     my $r = retrieve $self->{'db'};
     $self->{$_} = $r->{$_} for keys %$r;
+
+    if (!exists $self->{'version'} or $self->{'version'} < $DATA_VERSION) {
+        warn sprintf "version of data '%s' is less than \$DATA_VERSION '$DATA_VERSION', cleaning object\n", ($self->{'version'} // '<undef>');
+        $self->_clean_object;   ## wipe everything, the upload of a new CSV is required to rebuild the database
+    }
 
     return $self;
 }

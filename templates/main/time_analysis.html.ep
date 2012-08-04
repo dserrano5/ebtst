@@ -5,17 +5,17 @@
 <b><%=l 'Calendar' %></b>: <%= sum map { scalar keys %{ $ta->{'cal'}{$_} } } keys %{ $ta->{'cal'} } %>/366<br>
 <table>
     <tr>
-    <th class="small_cell"></th>
+    <th class="tiny_cell"></th>
     <% foreach my $d (map { sprintf '%02d', $_ } 1 .. 31) { %>
-        <th class="small_cell"><%= $d %></th>
+        <th class="tiny_cell"><%= $d %></th>
     <% } %>
     </tr>
 <% foreach my $m (map { sprintf '%02d', $_ } 1 .. 12) { %>
     <tr>
-        <th class="small_cell"><%=l $EBTST::Main::months{0+$m} %></th>
+        <th class="tiny_cell"><%=l $EBTST::Main::months{0+$m} %></th>
         <% foreach my $d (map { sprintf '%02d', $_ } 1 .. $last_days{$m}) { %>
             <% my $class = $ta->{'cal'}{$m}{$d} ? 'bingo_1' : 'bingo_0'; %>
-            <td class="small_cell"><div class="<%= $class %>"></div></td>
+            <td class="tiny_cell"><div class="<%= $class %>"></div></td>
         <% } %>
     </tr>
 <% } %>

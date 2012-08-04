@@ -48,7 +48,7 @@ is +(split ';', $obj->{'notes'}[1], NCOLS)[HIT], '', 'No hits after loading new 
 $obj = new_ok 'EBT2::Data', [ db => '/tmp/ebt2-storable' ];
 $obj->load_notes ('t/notes2.csv');
 ok defined $obj->{'notes'}, 'There are notes after loading CSV';
-is scalar @{ $obj->{'notes'} }, 6, 'Correct number of notes';
+is scalar @{ $obj->{'notes'} }, 7, 'Correct number of notes';
 
 SKIP: {
     skip 'Pay attention to note_getter with params before testing it', 14;
@@ -57,11 +57,11 @@ SKIP: {
 
     is ref ($iter = $obj->note_getter), 'CODE', 'Iterator returned';
     $c = 0; while (my $notes = $iter->()) { $c++; }
-    is $c, 6, 'One by one: did 6 iterations';
+    is $c, 7, 'One by one: did 7 iterations';
 
     is ref ($iter = $obj->note_getter (interval => '3n')), 'CODE', 'Iterator returned';
     $c = 0; while (my $notes = $iter->()) { $c++; }
-    is $c, 2, 'Three by three: did 2 iterations';
+    is $c, 3, 'Three by three: did 3 iterations';
 
     is ref ($iter = $obj->note_getter (interval => '1d')), 'CODE', 'Iterator returned';
     $c = 0; while (my $notes = $iter->()) { $c++; }

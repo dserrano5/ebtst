@@ -131,11 +131,23 @@ sub AUTOLOAD {
             return undef;
         }
 
-        return ref $self->{'data'}{$field} ? dclone $self->{'data'}{$field} : $self->{'data'}{$field} if exists $self->{'data'}{$field};
+        if (
+            $self->{'data'}{'stats_version'} and
+            -1 != ($self->{'data'}{'stats_version'} cmp $EBT2::Stats::STATS_VERSION)
+        ) {
+            if (exists $self->{'data'}{$field}) {
+                ## we have precomputed data and its version is ok: return it
+                return ref $self->{'data'}{$field} ? dclone $self->{'data'}{$field} : $self->{'data'}{$field};
+            }
+        } else {
+            warn sprintf "version of stats '%s' is less than \$STATS_VERSION '$EBT2::Stats::STATS_VERSION', recalculating field '$field'\n",
+                ($self->{'data'}{'stats_version'} // '<undef>');
+        }
 
         if ($self->{'stats'}->can ($field)) {    ## if we can JIT compute the value, do it
             my $ret = $self->{'stats'}->$field ($self->{'data'}, @args);
             @{ $self->{'data'} }{keys %$ret} = @$ret{keys %$ret};
+            $self->{'data'}{'stats_version'} = $EBT2::Stats::STATS_VERSION;
             $self->{'data'}->write_db;
             return ref $self->{'data'}{$field} ? dclone $self->{'data'}{$field} : $self->{'data'}{$field} if exists $self->{'data'}{$field};
         }

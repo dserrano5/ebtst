@@ -1,10 +1,27 @@
 <h2><%=l 'Number of notes per month' %></h2>
-<% foreach my $elem (@$nbm) { %>
-    <b><%= $elem->{'month'} %></b> - <%= $elem->{'count'} %> (<%= $elem->{'pct'} %>%) - 
-    <% foreach my $d (@{ $elem->{'detail'} }) { %>
-        <% if ($d->{'count'}) { %>
-            [<%= $d->{'count'} %> <img src="images/<%= $d->{'value'} %>.gif">]
-        <% } %>
+<table>
+    <tr>
+        <th><%=l 'Month' %></th>
+        <th><%=l 'Notes' %></th>
+        <th><img src="images/5.gif"></th>
+        <th><img src="images/10.gif"></th>
+        <th><img src="images/20.gif"></th>
+        <th><img src="images/50.gif"></th>
+        <th><img src="images/100.gif"></th>
+        <th><img src="images/200.gif"></th>
+        <th><img src="images/500.gif"></th>
+    </tr>
+    <% foreach my $elem (@$nbm) { %>
+        <tr>
+            <td><b><%= $elem->{'month'} %></b></td>
+            <td><%= $elem->{'count'} %> (<%= $elem->{'pct'} %>%)</td>
+            <% foreach my $d (@{ $elem->{'detail'} }) { %>
+                <% if ($d->{'count'}) { %>
+                    <td><%= $d->{'count'} %></td>
+                <% } else { %>
+                    <td></td>
+                <% } %>
+            <% } %>
+        </tr>
     <% } %>
-    <br>
-<% } %>
+</table>

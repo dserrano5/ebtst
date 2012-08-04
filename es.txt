@@ -76,6 +76,7 @@ First notes by printer code = Primer billete por código de imprenta
 
 ## printers
 Number of notes by printer code = Número de billetes por código de imprenta
+Printer = Imprenta
 Printer name = Nombre de la imprenta
 Detail of notes per value and printer code = Detalle de billetes por valor y código de imprenta
 

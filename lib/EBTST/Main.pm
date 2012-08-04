@@ -382,7 +382,6 @@ sub printers {
         push @$fbpc, {
             at       => $data_fbpc->{$pc}{'at'},
             pc       => $pc,
-            cname    => $self->_country_names (EBT2->countries ($pc)),
             imgname  => $iso3166,
             bbflag   => EBT2->flag ($iso3166),
             value    => $data_fbpc->{$pc}{'value'},

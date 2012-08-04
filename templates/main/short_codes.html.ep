@@ -1,21 +1,25 @@
 <h2><%=l 'Absolute lowest and highest short codes' %></h2>
 <table>
     <tr>
-        <th><%=l 'Short code/country' %></th>
+        <th><%=l 'Short code' %></th>
+        <th><%=l 'Country' %></th>
         <th><%=l 'Value' %></th>
         <th><%=l 'Date' %></th>
         <th class="invisible_cell small_cell">&nbsp;</th>
-        <th style="padding-left: 10px;"><%=l 'Short code/country' %></th>
+        <th><%=l 'Short code' %></th>
+        <th><%=l 'Country' %></th>
         <th><%=l 'Value' %></th>
         <th><%=l 'Date' %></th>
     </tr>
     <% foreach my $elem (@{ $sc->{'all'} }) { %>
     <tr>
-        <td><img src="images/<%= $elem->{'lo'}{'pc_img'} %>.gif"> <img src="images/<%= $elem->{'lo'}{'cc_img'} %>.gif"> <%= $elem->{'lo'}{'str'} %></td>
+        <td><img src="images/<%= $elem->{'lo'}{'pc_img'} %>.gif"> <%= $elem->{'lo'}{'pc_str'} %></td>
+        <td><img src="images/<%= $elem->{'lo'}{'cc_img'} %>.gif"> <%= $elem->{'lo'}{'cc_str'} %></td>
         <td><img src="images/<%= $elem->{'lo'}{'value'} %>.gif"></td>
         <td><%= $elem->{'lo'}{'date'} %></td>
         <td class="invisible_cell small_cell"></td>
-        <td><img src="images/<%= $elem->{'hi'}{'pc_img'} %>.gif"> <img src="images/<%= $elem->{'hi'}{'cc_img'} %>.gif"> <%= $elem->{'hi'}{'str'} %></td>
+        <td><img src="images/<%= $elem->{'hi'}{'pc_img'} %>.gif"> <%= $elem->{'hi'}{'pc_str'} %></td>
+        <td><img src="images/<%= $elem->{'hi'}{'cc_img'} %>.gif"> <%= $elem->{'hi'}{'cc_str'} %></td>
         <td><img src="images/<%= $elem->{'hi'}{'value'} %>.gif"></td>
         <td><%= $elem->{'hi'}{'date'} %></td>
     </tr>
@@ -27,19 +31,23 @@
     <h3><%= $v %></h3>
     <table>
         <tr>
-            <th><%=l 'Short code/country' %></th>
+            <th><%=l 'Short code' %></th>
+            <th><%=l 'Country' %></th>
             <th><%=l 'Date' %></th>
             <td class="invisible_cell small_cell"></td>
-            <th><%=l 'Short code/country' %></th>
+            <th><%=l 'Short code' %></th>
+            <th><%=l 'Country' %></th>
             <th><%=l 'Date' %></th>
         </tr>
         <% foreach my $elem (@{ $sc->{$v} }) { %>
             <% if (defined $elem) { %>
             <tr>
-                <td><img src="images/<%= $elem->{'lo'}{'pc_img'} %>.gif"> <img src="images/<%= $elem->{'lo'}{'cc_img'} %>.gif"> <%= $elem->{'lo'}{'str'} %></td>
+                <td><img src="images/<%= $elem->{'lo'}{'pc_img'} %>.gif"> <%= $elem->{'lo'}{'pc_str'} %></td>
+                <td><img src="images/<%= $elem->{'lo'}{'cc_img'} %>.gif"> <%= $elem->{'lo'}{'cc_str'} %></td>
                 <td><%= $elem->{'lo'}{'date'} %></td>
                 <td class="invisible_cell small_cell"></td>
-                <td><img src="images/<%= $elem->{'hi'}{'pc_img'} %>.gif"> <img src="images/<%= $elem->{'hi'}{'cc_img'} %>.gif"> <%= $elem->{'hi'}{'str'} %></td>
+                <td><img src="images/<%= $elem->{'hi'}{'pc_img'} %>.gif"> <%= $elem->{'hi'}{'pc_str'} %></td>
+                <td><img src="images/<%= $elem->{'hi'}{'cc_img'} %>.gif"> <%= $elem->{'hi'}{'cc_str'} %></td>
                 <td><%= $elem->{'hi'}{'date'} %></td>
             </tr>
             <% } %>

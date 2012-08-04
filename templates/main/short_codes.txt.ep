@@ -1,8 +1,8 @@
 [b]<%=l 'Absolute highest short codes' %>[/b]
 [table]\
-[tr][td]<%=l 'Note' %>[/td][td] ❘ <%=l 'Value' %>[/td][td] ❘ <%=l 'entered on' %>[/td][/tr]\
+[tr][td]<%=l 'Short code' %>[/td][td] ❘ <%=l 'Country' %>[/td][td] ❘ <%=l 'Value' %>[/td][td] ❘ <%=l 'entered on' %>[/td][/tr]\
 <% foreach my $elem (@{ $sc->{'all'} }) { =%>
-    [tr][td] <%= $elem->{'hi'}{'pc_flag'} %> <%= $elem->{'hi'}{'cc_flag'} %> <%= $elem->{'hi'}{'str'} %>[/td][td] ❘ :note-<%= $elem->{'hi'}{'value'} %>:[/td][td] ❘ <%= $elem->{'hi'}{'date'} %>[/td][/tr]\
+    [tr][td] <%= $elem->{'hi'}{'pc_flag'} %> <%= $elem->{'hi'}{'pc_str'} %>[/td][td] ❘ <%= $elem->{'hi'}{'cc_flag'} %> <%= $elem->{'hi'}{'cc_str'} %>[/td][td] ❘ :note-<%= $elem->{'hi'}{'value'} %>:[/td][td] ❘ <%= $elem->{'hi'}{'date'} %>[/td][/tr]\
 <% } =%>
 [/table]
 
@@ -10,10 +10,10 @@
 [table]\
 <% foreach my $v (@{ EBT2->values }) { =%>
     [tr][td][i]<%= $v %>[/i][/td][/tr]\
-    [tr][td]<%=l 'Note' %>[/td][td] ❘ <%=l 'entered on' %>[/td][/tr]\
+    [tr][td]<%=l 'Short code' %>[/td][td] ❘ <%=l 'Country' %>[/td][td] ❘ <%=l 'entered on' %>[/td][/tr]\
     <% foreach my $elem (@{ $sc->{$v} }) { =%>
         <% if (defined $elem) { =%>
-            [tr][td] <%= $elem->{'hi'}{'pc_flag'} %> <%= $elem->{'hi'}{'cc_flag'} %> <%= $elem->{'hi'}{'str'} %>[/td][td] ❘ <%= $elem->{'hi'}{'date'} %>[/td][/tr]\
+            [tr][td] <%= $elem->{'hi'}{'pc_flag'} %> <%= $elem->{'hi'}{'pc_str'} %>[/td][td] ❘ <%= $elem->{'hi'}{'cc_flag'} %> <%= $elem->{'hi'}{'cc_str'} %>[/td][td] ❘ <%= $elem->{'hi'}{'date'} %>[/td][/tr]\
         <% } =%>
     <% } =%>
     <% if ($v != ${ EBT2->values }[-1]) { %>[tr][td]<%= ".\xa0" %>[/td][/tr][tr][td]<%= ".\xa0" %>[/td][/tr]<% } =%>

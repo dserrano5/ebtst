@@ -85,7 +85,7 @@ Absolute lowest and highest short codes = Códigos cortos más bajos y altos, ab
 Lowest and highest short codes per value = Códigos cortos más bajos y altos, por valor
 Absolute highest short codes = Códigos cortos más altos, absolutos
 Highest short codes per value = Códigos cortos más altos, por valor
-Short code/country = Código corto/país
+Short code = Código corto
 Date = Fecha
 
 ## nice_serials

@@ -445,12 +445,14 @@ sub short_codes {
                 next unless defined $records->{$what}{'short_code'};
                 my $pc = substr $records->{$what}{'short_code'}, 0, 1;
                 my $cc = substr $records->{$what}{'serial'},     0, 1;
+                my ($pc_str, $cc_str) = $cook->($records->{$what}{'sort_key'});
                 $tmp->{$what} = {
                     pc_img  => EBT2->printers ($pc),
                     pc_flag => EBT2->flag (EBT2->printers ($pc)),
                     cc_img  => EBT2->countries ($cc),
                     cc_flag => EBT2->flag (EBT2->countries ($cc)),
-                    str     => (sprintf '%s/%s', $cook->($records->{$what}{'sort_key'})),
+                    pc_str  => $pc_str,
+                    cc_str  => $cc_str,
                     value   => $records->{$what}{'value'},
                     date    => (split ' ', $records->{$what}{'date_entered'})[0],
                 };

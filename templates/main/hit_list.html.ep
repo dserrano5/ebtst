@@ -17,7 +17,7 @@
         <th class="small_cell"><%=l 'Notes between' %></th>
         <th class="small_cell"><%=l 'Days between' %></th>
     </tr>
-    <% foreach my $hit (@$cooked) { %>
+    <% foreach my $hit (@$hit_list) { %>
     <% my $before = 1; my @hit_partners; =%>
     <% foreach my $p (@{ $hit->{'hit_partners'} }) { =%>
     <%     if ($p eq $whoami->{'name'}) { $before = 0; next; } =%>

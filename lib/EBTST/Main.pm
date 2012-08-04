@@ -710,7 +710,7 @@ sub plate_bingo {
         };
     }
 
-    $self->stash (cooked => $cooked);
+    $self->stash (plate_bingo => $cooked);
 }
 
 sub bad_notes {
@@ -751,8 +751,8 @@ sub hit_list {
     }
 
     $self->stash (
-        cooked => $cooked,
-        whoami => $whoami,
+        hit_list => $cooked,
+        whoami   => $whoami,
     );
 }
 

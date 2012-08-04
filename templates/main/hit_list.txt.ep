@@ -1,7 +1,7 @@
 [b]<%=l 'Hit list' %>[/b]
 [table]\
 [tr][td]#[/td][td] ❘ <%=l 'Hit date' %>[/td][td] ❘ <%=l 'Val' %>[/td][td] ❘ <%=l 'Hit note' %>[/td][td] ❘ <%=l 'Countries' %>[/td][td] ❘ <%=l 'Locations' %>[/td][td] ❘ <%=l 'Kms' %>[/td][td] ❘ <%=l 'Days' %>[/td][td] ❘ <%=l 'Partner(s)' %>[/td][/tr]\
-<% foreach my $hit (@$cooked) { =%>
+<% foreach my $hit (@$hit_list) { =%>
 <% my $flags = join ' ', map { EBT2->flag ($_) } @{ $hit->{'countries'} }; =%>
 <% my $cities = join ' :arrow: ', map { "[b]${_}[/b]" } @{ $hit->{'cities'} };=%>
 <% my $before = 1; my @hit_partners; =%>

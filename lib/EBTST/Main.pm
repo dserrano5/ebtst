@@ -634,10 +634,12 @@ sub top_days {
 sub time_analysis {
     my ($self) = @_;
 
+    my $count   = $self->ebt->get_count;
     my $ta_data = $self->ebt->get_time_analysis;
 
     $self->stash (
-        ta => $ta_data,
+        count => $count,
+        ta    => $ta_data,
     );
 }
 

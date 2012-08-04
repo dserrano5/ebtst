@@ -24,14 +24,18 @@
 <br><br>
 
 <% %color_counts = (); =%>
-<b><%=l 'Hours' %></b><br>
 <table>
     <tr>
-        <% foreach my $h (map { sprintf '%02d', $_ } 0 .. 23) { %>
-            <% my $color = color $ta->{'hh'}{$h}; $color_counts{$color}++; %>
-            <td class="small_cell"><span style="color: <%= $color %>"><%= $h %></span></td>
-        <% } %>
+        <th></th>
+        <th><b><%=l 'Hours' %></b></th>
     </tr>
+    <% foreach my $num (map { sprintf '%02d', $_ } 0 .. 23) { =%>
+        <tr>
+            <th><%= $num %></th>
+            <% my $color = color $ta->{'hh'}{$num}; $color_counts{$color}++; %>
+            <td><span style="color: <%= $color %>"><%= $ta->{'hh'}{$num} %></span> (<%= sprintf '%.2f', 100 * $ta->{'hh'}{$num} / $count %>%)</td>
+        </tr>
+    <% } %>
 </table>
 <b><%=l 'Colors' %></b>:
 <span style="color: <%= color    1 %>"><%= sum map { $color_counts{$_}//0 } qw/blue green #FFBF00 red black/ %>/24</span>,

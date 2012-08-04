@@ -1,6 +1,6 @@
 [b]<%=l 'Number of notes by country code' %>[/b]
 [table]\
-<% for my $elem (@$nbc) { =%>
+<% for my $elem (@$nbcountry) { =%>
     [tr][td] <%= $elem->{'bbflag'} %> [b]<%= $elem->{'cc'} %>[/b] <%= $elem->{'cname'} %>[/td][td] ❘ <%= $elem->{'count'} %>[/td][td] ❘ <%= $elem->{'pct'} %>%[/td][/tr]\
 <% } =%>
 [/table]

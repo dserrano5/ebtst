@@ -5,7 +5,7 @@
         <th><%=l 'Notes' %></th>
         <th class="pct_cell"><%=l 'Percent' %></th>
     </tr>
-<% for my $elem (@$nbc) { %>
+<% for my $elem (@$nbcountry) { %>
     % my $border;
     % my $color = '#4040ff';
     % if ($elem->{'count'}) {
@@ -34,7 +34,7 @@
         <th class="small_cell">200</th><th>%</th>
         <th class="small_cell">500</th><th>%</th>
     </tr>
-<% for my $elem (@$nbc) { %>
+<% for my $elem (@$nbcountry) { %>
     <tr>
         <td class="small_cell"><b><img src="images/<%= $elem->{'imgname'} %>.gif"> <%= $elem->{'cc'} %></b></td>
         <% for my $det (@{ $elem->{'detail'} }) { %>

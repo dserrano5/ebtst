@@ -30,8 +30,8 @@
                             <% my $k_pcv = sprintf '%s%s%03d', $pc, $cc, $v; %>
                             <% if (exists $EBT2::combs_pc_cc_val_sig{$sig} and exists $EBT2::combs_pc_cc_val_sig{$sig}{$k_pcv}) {
                                 <% $total{$v}++; %>
-                                <% if (exists $nbc->{$sig}{$k} and exists $nbc->{$sig}{$k}{$v}) { %>
-                                    <% $row_sum += $nbc->{$sig}{$k}{$v}; %>
+                                <% if (exists $nbcombo->{$sig}{$k} and exists $nbcombo->{$sig}{$k}{$v}) { %>
+                                    <% $row_sum += $nbcombo->{$sig}{$k}{$v}; %>
                                     <td><div class="bingo_1"></div></td>
                                     <% $any_values_for_comb = 1; %>
                                     <% $seen{$v}++; %>

@@ -176,7 +176,7 @@ sub countries {
         }
     }
 
-    my $nbc;
+    my $nbcountry;
     for my $cc (
         sort {
             ($data->{$b}{'total'}//0) <=> ($data->{$a}{'total'}//0) ||
@@ -198,7 +198,7 @@ sub countries {
             }
         }
         my $iso3166 = do { local $ENV{'EBT_LANG'} = 'en'; EBT2->countries ($cc) };
-        push @$nbc, {
+        push @$nbcountry, {
             cname   => $self->_country_names (EBT2->countries ($cc)),
             imgname => $iso3166,
             bbflag  => EBT2->flag ($iso3166),
@@ -226,10 +226,10 @@ sub countries {
     }
 
     $self->stash (
-        nbc    => $nbc,
-        #cbv    => $count_by_value,
-        tot_bv => [ map { $count_by_value->{$_}//0 } @{ EBT2->values } ],
-        fbcc   => $fbcc,
+        nbcountry    => $nbcountry,
+        #cbv          => $count_by_value,
+        tot_bv       => [ map { $count_by_value->{$_}//0 } @{ EBT2->values } ],
+        fbcc         => $fbcc,
     );
 }
 
@@ -645,7 +645,7 @@ sub time_analysis {
 sub combs {
     my ($self) = @_;
 
-    my $nbc        = $self->ebt->get_notes_by_combination;
+    my $nbcombo    = $self->ebt->get_notes_by_combination;
     #my $sbp        = $self->ebt->sigs_by_president;
     my $comb_data  = $self->ebt->get_missing_combs_and_history;
     my $count      = $self->ebt->get_count;
@@ -672,7 +672,7 @@ sub combs {
     }
 
     $self->stash (
-        nbc        => $nbc,
+        nbcombo    => $nbcombo,
         presidents => $presidents,
         missing    => $missing,
         history    => $comb_data->{'history'},

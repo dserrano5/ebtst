@@ -23,21 +23,26 @@ my %country_names = (
 );
 my %users;
 
+sub _log {
+    my ($self, $prio, $msg) = @_;
+
+    my $user = $self->stash ('user');
+    $self->app->log->$prio (sprintf '%s: %s', ($user // '<no user>'), $msg);
+}
+
 sub _country_names {
     my ($self, $what) = @_;
+
+    if (!defined $what) {
+        $self->_log (warn sprintf "_country_names: undefined param, called from '%s'", (caller 1)[3]);
+        return '';
+    }
 
     my $lang = substr +($ENV{'EBT_LANG'} || $ENV{'LANG'} || $ENV{'LANGUAGE'} || 'en'), 0, 2;
     if ('en' eq $lang and !exists $country_names{$what}) {
         return code2country $what;
     }
     return $self->l ($what);
-}
-
-sub _log {
-    my ($self, $prio, $msg) = @_;
-
-    my $user = $self->stash ('user');
-    $self->app->log->$prio (sprintf '%s: %s', ($user // '<no user>'), $msg);
 }
 
 sub load_users {

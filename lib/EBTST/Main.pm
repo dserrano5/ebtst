@@ -42,7 +42,7 @@ sub _country_names {
     if ('en' eq $lang and !exists $country_names{$what}) {
         return code2country $what;
     }
-    return $self->l ($what);
+    return $self->l ("iso3166_$what");
 }
 
 sub load_users {

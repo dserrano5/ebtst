@@ -143,12 +143,21 @@
 <% %color_counts = (); =%>
 <b><%=l 'Days of week and hours' %></b><br>
 <table>
-    <% foreach my $dow (1 .. 7) { %>
-        <tr>
+    <tr>
+        <th></th>
+        <% foreach my $dow (1 .. 7) { %>
             <th class="small_cell"><%=l $EBTST::Main::dows{$dow} %></th>
-            <% foreach my $h (map { sprintf '%02d', $_ } 0 .. 23) { %>
+        <% } %>
+    </tr>
+    <% foreach my $h (map { sprintf '%02d', $_ } 0 .. 23) { %>
+        <tr>
+            <th><%= $h %></th>
+            <% foreach my $dow (1 .. 7) { %>
                 <% my $color = color $ta->{'dowhh'}{$dow}{$h}; $color_counts{$color}++; %>
-                <td class="small_cell"><span style="color: <%= $color %>"><%= $h %></span></td>
+                <td>
+                    <span style="color: <%= $color %>"><%= $ta->{'dowhh'}{$dow}{$h}//0 %></span>
+                    (<%= sprintf '%.2f', 100 * ($ta->{'dowhh'}{$dow}{$h}//0) / $count %>%)
+                </td>
             <% } %>
         </tr>
     <% } %>

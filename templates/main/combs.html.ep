@@ -6,55 +6,34 @@
     <h3><%=l $sig_visible %></h3>
     <% my %seen; my %total; %>
     <table>
-        <tr>
-            <th></th>
-            <th>5</th>
-            <th>10</th>
-            <th>20</th>
-            <th>50</th>
-            <th>100</th>
-            <th>200</th>
-            <th>500</th>
-            <th><%=l 'any' %></th>
-            <th><%=l 'Total' %></th>
-        </tr>
-        <% foreach my $pc (sort keys %{ EBT2->printers }) { %>
-            <% foreach my $cc (sort keys %{ EBT2->countries }) { %>
-                <% my $k = $pc.$cc; %>
-                <% my $any_values_for_comb = 0; %>
-                <% if (grep { $_ eq $k } keys %{ $EBT2::combs_pc_cc_sig{$sig} }) { %>
+        <% foreach my $pc (sort keys %{ EBT2->printers }) { =%>
+            <% foreach my $cc (sort keys %{ EBT2->countries }) { =%>
+                <% my $k = $pc.$cc; =%>
+                <% if (grep { $_ eq $k } keys %{ $EBT2::combs_pc_cc_sig{$sig} }) { =%>
                     <tr>
-                        <% my $row_sum = 0; %>
+                        <% my $row_sum = 0; =%>
                         <th><%= "$pc/$cc" %></th>
-                        <% foreach my $v (@{ EBT2->values }) { %>
-                            <% my $k_pcv = sprintf '%s%s%03d', $pc, $cc, $v; %>
-                            <% if (exists $EBT2::combs_pc_cc_val_sig{$sig} and exists $EBT2::combs_pc_cc_val_sig{$sig}{$k_pcv}) {
-                                <% $total{$v}++; %>
-                                <% if (exists $nbcombo->{$sig}{$k} and exists $nbcombo->{$sig}{$k}{$v}) { %>
-                                    <% $row_sum += $nbcombo->{$sig}{$k}{$v}; %>
-                                    <td><div class="bingo_1"></div></td>
-                                    <% $any_values_for_comb = 1; %>
-                                    <% $seen{$v}++; %>
-                                <% } else { %>
-                                    <td><div class="bingo_0"></div></td>
-                                <% } %>
-                            <% } else { %>
-                                <td><div class="bingo_na"></div></td>
-                            <% } %>
-                        <% } %>
+                        <% foreach my $v (@{ EBT2->values }) { =%>
+                            <% my $k_pcv = sprintf '%s%s%03d', $pc, $cc, $v; =%>
+                            <% if (exists $EBT2::combs_pc_cc_val_sig{$sig} and exists $EBT2::combs_pc_cc_val_sig{$sig}{$k_pcv}) { =%>
+                                <% $total{$v}++; =%>
+                                <% if (exists $nbcombo->{$sig}{$k} and exists $nbcombo->{$sig}{$k}{$v}) { =%>
+                                    <% $row_sum += $nbcombo->{$sig}{$k}{$v}; =%>
+                                    <% $seen{$v}++; =%>
+                                <% } =%>
+                                <td><span style="color: <%= color $nbcombo->{$sig}{$k}{$v} %>"><%= $v %></span></td>
+                            <% } else { =%>
+                                <td><div class="bingo_na"></div></td><%# shouldn't happen since this code doesn't receive bad notes %>
+                            <% } =%>
+                        <% } =%>
 
-                        <% $total{'any'}++; %>
-                        <% if ($any_values_for_comb) { %>
-                            <td><div class="bingo_1"></div></td>
-                            <% $seen{'any'}++; %>
-                        <% } else { %>
-                            <td><div class="bingo_0"></div></td>
-                        <% } %>
-                        <td><b><%= $row_sum %></b> (<%= sprintf '%.2f', 100*$row_sum/$count %>%)</td>
+                        <% $total{'any'}++; =%>
+                        <% $row_sum and $seen{'any'}++; =%>
+                        <td><b><span style="color: <%= color $row_sum %>"><%= $row_sum %></span></b> (<%= sprintf '%.2f', 100*$row_sum/$count %>%)</td>
                     </tr>
-                <% } %>
-            <% } %>
-        <% } %>
+                <% } =%>
+            <% } =%>
+        <% } =%>
         <tr>
             <th></th>
             <% foreach my $v (@{ EBT2->values }) { %>
@@ -71,21 +50,20 @@
 <% } %>
 
 <h2><%=l 'Still missing combinations' %></h2>
-<% foreach my $elem (map { $missing->{$_} } sort keys %$missing) { %>
+<% foreach my $elem (map { $missing->{$_} } sort keys %$missing) { =%>
     <img src="images/<%= $elem->{'pname'} %>.gif"> <img src="images/<%= $elem->{'cname'} %>.gif"> 
     <%= $elem->{'pletter'} %>/<%= $elem->{'cletter'} %>: 
-    <% foreach my $d (@{ $elem->{'values'} }) { %>
+    <% foreach my $d (@{ $elem->{'values'} }) { =%>
         <img src="images/<%= $d %>.gif">
-    <% } %>
+    <% } =%>
     <br>
-<% } %>
+<% } =%>
 
 <h2><%=l 'History' %></h2>
-<% foreach my $h (@$history) { %>
+<% foreach my $h (@$history) { =%>
     <%= $h->{'index'} %>.) <img src="images/<%= $h->{'pname'} %>.gif"> <img src="images/<%= $h->{'cname'} %>.gif">
     <%= $h->{'pc'} %>/<%= $h->{'cc'} %>
     <img src="images/<%= $h->{'value'} %>.gif"> (<%=l 'note' %> <%= $h->{'num'} %>, <%=l 'entered on' %> <%= $h->{'date'} %> <%=l 'in' %> <%= $h->{'city'} %> <img src="images/<%= $h->{'country'} %>.gif">)<br>
-<% } %>
+<% } =%>
 
-<br>
-<small><%=l 'Text format inspired by' %> <a href="https://en.eurobilltracker.com/profile/?user=112566">Dioniz</a>.</small>
+<small><%=l 'History text format inspired by' %> <a href="https://en.eurobilltracker.com/profile/?user=112566">Dioniz</a>.</small>

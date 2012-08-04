@@ -446,7 +446,10 @@ sub load_db {
     my $r = retrieve $self->{'db'};
     $self->{$_} = $r->{$_} for keys %$r;
 
-    if (!exists $self->{'version'} or $self->{'version'} < $DATA_VERSION) {
+    if (
+        !exists $self->{'version'} or
+        -1 == ($self->{'version'} cmp $DATA_VERSION)
+    ) {
         warn sprintf "version of data '%s' is less than \$DATA_VERSION '$DATA_VERSION', cleaning object\n", ($self->{'version'} // '<undef>');
         $self->_clean_object;   ## wipe everything, the upload of a new CSV is required to rebuild the database
     }

@@ -34,7 +34,7 @@ sub _country_names {
     my ($self, $what) = @_;
 
     if (!defined $what) {
-        $self->_log (warn sprintf "_country_names: undefined param, called from '%s'", (caller 1)[3]);
+        $self->_log (warn => sprintf "_country_names: undefined param, called from '%s'", (caller 1)[3]);
         return '';
     }
 

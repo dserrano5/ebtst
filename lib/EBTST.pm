@@ -86,7 +86,7 @@ sub startup {
         my ($self, $num) = @_;
         my $color = '#00FF00';
 
-        if (!$num)                             { $color = '#808080';
+        if (!$num)                             { $color = '#B0B0B0';
         } elsif ($num >=    1 and $num <=  49) { $color = 'blue';
         } elsif ($num >=   50 and $num <=  99) { $color = 'green';
         } elsif ($num >=  100 and $num <= 499) { $color = '#FFBF00';

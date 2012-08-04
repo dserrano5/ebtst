@@ -307,7 +307,7 @@ sub locations {
         my $letters;
             
         for my $letter ('A'..'Z') {
-            $letters->{$letter} = $ab_data->{$c}{$letter} // '';
+            $letters->{$letter} = $ab_data->{$c}{$letter};
         }
 
         push @$ab, {

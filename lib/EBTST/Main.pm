@@ -39,8 +39,8 @@ sub _country_names {
     }
 
     my $lang = substr +($ENV{'EBT_LANG'} || $ENV{'LANG'} || $ENV{'LANGUAGE'} || 'en'), 0, 2;
-    if ('en' eq $lang and !exists $country_names{$what}) {
-        return code2country $what;
+    if ('en' eq $lang) {
+        return exists $country_names{$what} ? $country_names{$what} : code2country $what;
     }
     return $self->l ("iso3166_$what");
 }

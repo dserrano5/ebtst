@@ -82,6 +82,22 @@ sub startup {
             die "Oops, this shouldn't happen";
         }
     });
+    $self->helper (color => sub {
+        my ($self, $num) = @_;
+        my $color = '#00FF00';
+
+        if (!$num)                             { $color = '#808080';
+        } elsif ($num >=    1 and $num <=  49) { $color = 'blue';
+        } elsif ($num >=   50 and $num <=  99) { $color = 'green';
+        } elsif ($num >=  100 and $num <= 499) { $color = '#FFBF00';
+        } elsif ($num >=  500 and $num <= 999) { $color = 'red';
+        } elsif ($num >= 1000)                 { $color = 'black';
+        } else {
+            die "Should not happen, num ($num)";
+        }
+
+        return $color;
+    });
     $self->secret ('[12:36:04] gnome-screensaver-dialog: gkr-pam: unlocked login keyring');   ## :P
     $self->defaults (layout => 'online');
     $self->plugin ('I18N');

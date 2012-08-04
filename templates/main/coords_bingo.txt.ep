@@ -13,23 +13,7 @@
     <% for my $l ('A' .. $max_letter) { =%>
         [tr]\
         <% for my $n (1 .. $max_number) { =%>
-            <% my $color; =%>
-            <% if (!exists $cbingo->{$v}{"$l$n"}) { =%>
-                <% $color = '#808080'; =%>
-            <% } elsif ($cbingo->{$v}{"$l$n"} >=    1 and $cbingo->{$v}{"$l$n"} <=   50) { =%>
-                <% $color = 'blue'; =%>
-            <% } elsif ($cbingo->{$v}{"$l$n"} >=   51 and $cbingo->{$v}{"$l$n"} <=  100) { =%>
-                <% $color = 'green'; =%>
-            <% } elsif ($cbingo->{$v}{"$l$n"} >=  101 and $cbingo->{$v}{"$l$n"} <=  500) { =%>
-                <% $color = '#FFBF00'; =%>
-            <% } elsif ($cbingo->{$v}{"$l$n"} >=  501 and $cbingo->{$v}{"$l$n"} <= 1000) { =%>
-                <% $color = 'red'; =%>
-            <% } elsif ($cbingo->{$v}{"$l$n"} >= 1001) { =%>
-                <% $color = 'black'; =%>
-            <% } else { =%>
-                <% die 'Should not happen'; =%>
-            <% } =%>
-            [td]<%= sprintf '[color=%s]%s[/color] ', $color, $l.$n; =%>[/td]\
+            [td]<%= sprintf '[color=%s]%s[/color] ', (color $cbingo->{$v}{"$l$n"}), $l.$n; =%>[/td]\
         <% } =%>
         [/tr]\
     <% } =%>

@@ -1,165 +1,174 @@
 <h2><%=l 'Time analysis' %></h2>
-
-<% use List::Util qw/sum/; %>
+<% no warnings 'qw'; use List::Util qw/sum/; %>
 <% my %last_days = qw/01 31   02 29   03 31   04 30   05 31   06 30   07 31   08 31   09 30   10 31   11 30   12 31/; %>
-<b><%=l 'Calendar' %></b>: <%= sum map { scalar keys %{ $ta->{'cal'}{$_} } } keys %{ $ta->{'cal'} } %>/366<br>
+<% my %color_counts; =%>
+
+<b><%=l 'Calendar' %></b><br>
 <table>
-    <tr>
-    <th class="tiny_cell"></th>
-    <% foreach my $d (map { sprintf '%02d', $_ } 1 .. 31) { %>
-        <th class="tiny_cell"><%= $d %></th>
-    <% } %>
-    </tr>
 <% foreach my $m (map { sprintf '%02d', $_ } 1 .. 12) { %>
     <tr>
-        <th class="tiny_cell"><%=l $EBTST::Main::months{0+$m} %></th>
+        <th class="small_cell"><%=l $EBTST::Main::months{0+$m} %></th>
         <% foreach my $d (map { sprintf '%02d', $_ } 1 .. $last_days{$m}) { %>
-            <% my $class = $ta->{'cal'}{$m}{$d} ? 'bingo_1' : 'bingo_0'; %>
-            <td class="tiny_cell"><div class="<%= $class %>"></div></td>
+            <% my $color = color $ta->{'cal'}{$m}{$d}; $color_counts{$color}++; %>
+            <td class="small_cell"><span style="color: <%= $color %>"><%= $d %></span></td>
         <% } %>
     </tr>
 <% } %>
 </table>
-<br>
+<b><%=l 'Colors' %></b>:
+<span style="color: <%= color    1 %>"><%= sum map { $color_counts{$_}//0 } qw/blue green #FFBF00 red black/ %>/366</span>,
+<span style="color: <%= color   51 %>"><%= sum map { $color_counts{$_}//0 } qw/     green #FFBF00 red black/ %>/366</span>,
+<span style="color: <%= color  101 %>"><%= sum map { $color_counts{$_}//0 } qw/           #FFBF00 red black/ %>/366</span>,
+<span style="color: <%= color  501 %>"><%= sum map { $color_counts{$_}//0 } qw/                   red black/ %>/366</span>,
+<span style="color: <%= color 1001 %>"><%= sum map { $color_counts{$_}//0 } qw/                       black/ %>/366</span><br>
+<br><br>
 
-<b><%=l 'Hours' %></b>: <%= scalar keys %{ $ta->{'hh'} } %>/24<br>
+<% %color_counts = (); =%>
+<b><%=l 'Hours' %></b><br>
 <table>
     <tr>
         <% foreach my $h (map { sprintf '%02d', $_ } 0 .. 23) { %>
-            <th class="small_cell"><%= $h %></th>
-        <% } %>
-    </tr>
-    <tr>
-        <% foreach my $h (map { sprintf '%02d', $_ } 0 .. 23) { %>
-            <% my $class = $ta->{'hh'}{$h} ? 'bingo_1' : 'bingo_0'; %>
-            <td class="small_cell"><div class="<%= $class %>"></div></td>
+            <% my $color = color $ta->{'hh'}{$h}; $color_counts{$color}++; %>
+            <td class="small_cell"><span style="color: <%= $color %>"><%= $h %></span></td>
         <% } %>
     </tr>
 </table>
-<br>
+<b><%=l 'Colors' %></b>:
+<span style="color: <%= color    1 %>"><%= sum map { $color_counts{$_}//0 } qw/blue green #FFBF00 red black/ %>/24</span>,
+<span style="color: <%= color   51 %>"><%= sum map { $color_counts{$_}//0 } qw/     green #FFBF00 red black/ %>/24</span>,
+<span style="color: <%= color  101 %>"><%= sum map { $color_counts{$_}//0 } qw/           #FFBF00 red black/ %>/24</span>,
+<span style="color: <%= color  501 %>"><%= sum map { $color_counts{$_}//0 } qw/                   red black/ %>/24</span>,
+<span style="color: <%= color 1001 %>"><%= sum map { $color_counts{$_}//0 } qw/                       black/ %>/24</span><br>
+<br><br>
 
-<b><%=l 'Minutes' %></b>: <%= scalar keys %{ $ta->{'mm'} } %>/60<br>
+<% %color_counts = (); =%>
+<b><%=l 'Minutes' %></b><br>
 <table>
     <tr>
         <% foreach my $m (map { sprintf '%02d', $_ } 0 .. 59) { %>
-            <th class="tiny_cell"><%= $m %></th>
-        <% } %>
-    </tr>
-    <tr>
-        <% foreach my $m (map { sprintf '%02d', $_ } 0 .. 59) { %>
-            <% my $class = $ta->{'mm'}{$m} ? 'bingo_1' : 'bingo_0'; %>
-            <td class="tiny_cell"><div class="<%= $class %>"></div></td>
+            <% my $color = color $ta->{'mm'}{$m}; $color_counts{$color}++; %>
+            <td class="tiny_cell"><span style="color: <%= $color %>"><%= $m %></span></td>
         <% } %>
     </tr>
 </table>
-<br>
+<b><%=l 'Colors' %></b>:
+<span style="color: <%= color    1 %>"><%= sum map { $color_counts{$_}//0 } qw/blue green #FFBF00 red black/ %>/60</span>,
+<span style="color: <%= color   51 %>"><%= sum map { $color_counts{$_}//0 } qw/     green #FFBF00 red black/ %>/60</span>,
+<span style="color: <%= color  101 %>"><%= sum map { $color_counts{$_}//0 } qw/           #FFBF00 red black/ %>/60</span>,
+<span style="color: <%= color  501 %>"><%= sum map { $color_counts{$_}//0 } qw/                   red black/ %>/60</span>,
+<span style="color: <%= color 1001 %>"><%= sum map { $color_counts{$_}//0 } qw/                       black/ %>/60</span><br>
+<br><br>
 
-<b><%=l 'Seconds' %></b>: <%= scalar keys %{ $ta->{'ss'} } %>/60<br>
+<% %color_counts = (); =%>
+<b><%=l 'Seconds' %></b><br>
 <table>
     <tr>
         <% foreach my $s (map { sprintf '%02d', $_ } 0 .. 59) { %>
-            <th class="tiny_cell"><%= $s %></th>
-        <% } %>
-    </tr>
-    <tr>
-        <% foreach my $s (map { sprintf '%02d', $_ } 0 .. 59) { %>
-            <% my $class = $ta->{'ss'}{$s} ? 'bingo_1' : 'bingo_0'; %>
-            <td class="tiny_cell"><div class="<%= $class %>"></div></td>
+            <% my $color = color $ta->{'ss'}{$s}; $color_counts{$color}++; %>
+            <td class="tiny_cell"><span style="color: <%= $color %>"><%= $s %></span></td>
         <% } %>
     </tr>
 </table>
-<br>
+<b><%=l 'Colors' %></b>:
+<span style="color: <%= color    1 %>"><%= sum map { $color_counts{$_}//0 } qw/blue green #FFBF00 red black/ %>/60</span>,
+<span style="color: <%= color   51 %>"><%= sum map { $color_counts{$_}//0 } qw/     green #FFBF00 red black/ %>/60</span>,
+<span style="color: <%= color  101 %>"><%= sum map { $color_counts{$_}//0 } qw/           #FFBF00 red black/ %>/60</span>,
+<span style="color: <%= color  501 %>"><%= sum map { $color_counts{$_}//0 } qw/                   red black/ %>/60</span>,
+<span style="color: <%= color 1001 %>"><%= sum map { $color_counts{$_}//0 } qw/                       black/ %>/60</span><br>
+<br><br>
 
-<b><%=l 'Hours and minutes' %></b>: <% my $cnt = 0; %>
-<% foreach my $h (keys %{ $ta->{'hhmm'} }) { =%>
-    <% foreach my $h (keys %{ $ta->{'hhmm'}{$h} }) { =%>
-        <% $cnt++; =%>
-    <% } =%>
-<% } %><%= sprintf '%d/%d', $cnt, 24*60 %><br>
+<% %color_counts = (); =%>
+<b><%=l 'Hours and minutes' %></b><br>
 <table>
-    <tr>
-        <th class="tiny_cell"></th>
-        <% foreach my $m (map { sprintf '%02d', $_ } 0 .. 59) { %>
-            <th class="tiny_cell"><%= $m %></th>
-        <% } %>
-    </tr>
     <% foreach my $h (map { sprintf '%02d', $_ } 0 .. 23) { %>
         <tr>
             <th class="tiny_cell"><%= $h %></th>
             <% foreach my $m (map { sprintf '%02d', $_ } 0 .. 59) { %>
-                <% my $class = $ta->{'hhmm'}{$h}{$m} ? 'bingo_1' : 'bingo_0'; %>
-                <td class="tiny_cell"><div class="<%= $class %>"></div></td>
+                <% my $color = color $ta->{'hhmm'}{$h}{$m}; $color_counts{$color}++; %>
+                <td class="tiny_cell"><span style="color: <%= $color %>"><%= $m %></span></td>
             <% } %>
         </tr>
     <% } %>
 </table>
-<br>
+<b><%=l 'Colors' %></b>:
+<span style="color: <%= color    1 %>"><%= sum map { $color_counts{$_}//0 } qw/blue green #FFBF00 red black/ %>/1440</span>,
+<span style="color: <%= color   51 %>"><%= sum map { $color_counts{$_}//0 } qw/     green #FFBF00 red black/ %>/1440</span>,
+<span style="color: <%= color  101 %>"><%= sum map { $color_counts{$_}//0 } qw/           #FFBF00 red black/ %>/1440</span>,
+<span style="color: <%= color  501 %>"><%= sum map { $color_counts{$_}//0 } qw/                   red black/ %>/1440</span>,
+<span style="color: <%= color 1001 %>"><%= sum map { $color_counts{$_}//0 } qw/                       black/ %>/1440</span><br>
+<br><br>
 
-<b><%=l 'Minutes and seconds' %></b>: <% $cnt = 0; %>
-<% foreach my $m (keys %{ $ta->{'mmss'} }) { =%>
-    <% foreach my $s (keys %{ $ta->{'mmss'}{$m} }) { =%>
-        <% $cnt++; =%>
-    <% } =%>
-<% } %><%= sprintf '%d/%d', $cnt, 60*60 %><br>
+<% %color_counts = (); =%>
+<b><%=l 'Minutes and seconds' %></b><br>
 <table>
-    <tr>
-        <th class="tiny_cell"></th>
-        <% foreach my $s (map { sprintf '%02d', $_ } 0 .. 59) { %>
-            <th class="tiny_cell"><%= $s %></th>
-        <% } %>
-    </tr>
     <% foreach my $m (map { sprintf '%02d', $_ } 0 .. 59) { %>
         <tr>
             <th class="tiny_cell"><%= $m %></th>
             <% foreach my $s (map { sprintf '%02d', $_ } 0 .. 59) { %>
-                <% my $class = $ta->{'mmss'}{$m}{$s} ? 'bingo_1' : 'bingo_0'; %>
-                <td class="tiny_cell"><div class="<%= $class %>"></div></td>
+                <% my $color = color $ta->{'mmss'}{$m}{$s}; $color_counts{$color}++; %>
+                <td class="tiny_cell"><span style="color: <%= $color %>"><%= $s %></span></td>
             <% } %>
         </tr>
     <% } %>
 </table>
-<br>
+<b><%=l 'Colors' %></b>:
+<span style="color: <%= color    1 %>"><%= sum map { $color_counts{$_}//0 } qw/blue green #FFBF00 red black/ %>/3660</span>,
+<span style="color: <%= color   51 %>"><%= sum map { $color_counts{$_}//0 } qw/     green #FFBF00 red black/ %>/3660</span>,
+<span style="color: <%= color  101 %>"><%= sum map { $color_counts{$_}//0 } qw/           #FFBF00 red black/ %>/3660</span>,
+<span style="color: <%= color  501 %>"><%= sum map { $color_counts{$_}//0 } qw/                   red black/ %>/3660</span>,
+<span style="color: <%= color 1001 %>"><%= sum map { $color_counts{$_}//0 } qw/                       black/ %>/3660</span><br>
+<br><br>
 
-<b><%=l 'Hours, minutes and seconds' %></b>: <% $cnt = 0; %>
+<% %color_counts = (); =%>
+<b><%=l 'Hours, minutes and seconds' %></b><br>
 <% foreach my $h (keys %{ $ta->{'hhmmss'} }) { =%>
     <% foreach my $m (keys %{ $ta->{'hhmmss'}{$h} }) { =%>
         <% foreach my $s (keys %{ $ta->{'hhmmss'}{$h}{$m} }) { =%>
-            <% $cnt++; =%>
+            <% my $color = color $ta->{'hhmmss'}{$h}{$m}{$s}; $color_counts{$color}++; %>
         <% } =%>
     <% } =%>
-<% } %><%= sprintf '%d/%d', $cnt, 24*60*60 %><br>
-<br>
+<% } %>
+<b><%=l 'Colors' %></b>:
+<span style="color: <%= color    1 %>"><%= sum map { $color_counts{$_}//0 } qw/blue green #FFBF00 red black/ %>/86400</span>,
+<span style="color: <%= color   51 %>"><%= sum map { $color_counts{$_}//0 } qw/     green #FFBF00 red black/ %>/86400</span>,
+<span style="color: <%= color  101 %>"><%= sum map { $color_counts{$_}//0 } qw/           #FFBF00 red black/ %>/86400</span>,
+<span style="color: <%= color  501 %>"><%= sum map { $color_counts{$_}//0 } qw/                   red black/ %>/86400</span>,
+<span style="color: <%= color 1001 %>"><%= sum map { $color_counts{$_}//0 } qw/                       black/ %>/86400</span><br>
+<br><br>
 
-<b><%=l 'Days of week and hours' %></b>: <% $cnt = 0; %>
-<% foreach my $dow (keys %{ $ta->{'dowhh'} }) { =%>
-    <% foreach my $h (keys %{ $ta->{'dowhh'}{$dow} }) { =%>
-        <% $cnt++; =%>
-    <% } =%>
-<% } %><%= sprintf '%d/%d', $cnt, 7*24 %><br>
+<% %color_counts = (); =%>
+<b><%=l 'Days of week and hours' %></b><br>
 <table>
-    <tr>
-        <th class="small_cell"></th>
-        <% foreach my $h (map { sprintf '%02d', $_ } 0 .. 23) { %>
-            <th class="small_cell"><%= $h %></th>
-        <% } %>
-    </tr>
     <% foreach my $dow (1 .. 7) { %>
         <tr>
             <th class="small_cell"><%=l $EBTST::Main::dows{$dow} %></th>
             <% foreach my $h (map { sprintf '%02d', $_ } 0 .. 23) { %>
-                <% my $class = $ta->{'dowhh'}{$dow}{$h} ? 'bingo_1' : 'bingo_0'; %>
-                <td class="small_cell"><div class="<%= $class %>"></div></td>
+                <% my $color = color $ta->{'dowhh'}{$dow}{$h}; $color_counts{$color}++; %>
+                <td class="small_cell"><span style="color: <%= $color %>"><%= $h %></span></td>
             <% } %>
         </tr>
     <% } %>
 </table>
-<br>
+<b><%=l 'Colors' %></b>:
+<span style="color: <%= color    1 %>"><%= sum map { $color_counts{$_}//0 } qw/blue green #FFBF00 red black/ %>/168</span>,
+<span style="color: <%= color   51 %>"><%= sum map { $color_counts{$_}//0 } qw/     green #FFBF00 red black/ %>/168</span>,
+<span style="color: <%= color  101 %>"><%= sum map { $color_counts{$_}//0 } qw/           #FFBF00 red black/ %>/168</span>,
+<span style="color: <%= color  501 %>"><%= sum map { $color_counts{$_}//0 } qw/                   red black/ %>/168</span>,
+<span style="color: <%= color 1001 %>"><%= sum map { $color_counts{$_}//0 } qw/                       black/ %>/168</span><br>
+<br><br>
 
-<b><%=l 'Days of week, hours and minutes' %></b>: <% $cnt = 0; %>
+<% %color_counts = (); =%>
+<b><%=l 'Days of week, hours and minutes' %></b><br>
 <% foreach my $dow (keys %{ $ta->{'dowhhmm'} }) { =%>
     <% foreach my $h (keys %{ $ta->{'dowhhmm'}{$dow} }) { =%>
         <% foreach my $m (keys %{ $ta->{'dowhhmm'}{$dow}{$h} }) { =%>
-            <% $cnt++; =%>
+            <% my $color = color $ta->{'dowhhmm'}{$dow}{$h}{$m}; $color_counts{$color}++; %>
         <% } =%>
     <% } =%>
-<% } %><%= sprintf '%d/%d', $cnt, 7*24*60 %><br>
+<% } %>
+<b><%=l 'Colors' %></b>:
+<span style="color: <%= color    1 %>"><%= sum map { $color_counts{$_}//0 } qw/blue green #FFBF00 red black/ %>/10080</span>,
+<span style="color: <%= color   51 %>"><%= sum map { $color_counts{$_}//0 } qw/     green #FFBF00 red black/ %>/10080</span>,
+<span style="color: <%= color  101 %>"><%= sum map { $color_counts{$_}//0 } qw/           #FFBF00 red black/ %>/10080</span>,
+<span style="color: <%= color  501 %>"><%= sum map { $color_counts{$_}//0 } qw/                   red black/ %>/10080</span>,
+<span style="color: <%= color 1001 %>"><%= sum map { $color_counts{$_}//0 } qw/                       black/ %>/10080</span><br>

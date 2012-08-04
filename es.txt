@@ -108,6 +108,7 @@ Top 10 days = Los 10 mejores días
 Day = Día
 
 ## time analysis
+Colors = Colores
 Calendar = Calendario
 Hours = Horas
 Minutes = Minutos

@@ -101,4 +101,5 @@ a img {
 }
 .bingo_na:after {
     visibility: hidden;
+    content: '.';
 }

@@ -3,41 +3,33 @@
     <h3><%= $elem->{'value'} %></h3>
     <table>
         <% my %seen; my %total; %>
-        <tr>
-            <td></td>
-            <% foreach my $printer (@{ $elem->{'printers'} }) { %>
-                <% $seen{$printer} = $total{$printer} = 0; %>
-                <th><%= $printer %></th>
-            <% } %>
-        </tr>
+        <% foreach my $printer (@{ $elem->{'printers'} }) { %>
+            <% $seen{$printer} = $total{$printer} = 0; %>
+        <% } %>
         <% foreach my $row (map { sprintf '%03d', $_ } 1 .. $elem->{'highest'}) { %>
             <tr>
-                <th><%= $row %></th>
                 <% foreach my $printer (@{ $elem->{'printers'} }) { %>
                     <% my $plate = sprintf '%s%03d', $printer, $row; %>
-                    <% my $class; %>
+                    <% my $color; %>
                     <% if (exists $elem->{'plates'}{$plate}) { %>
                         <% $total{$printer}++; %>
                         <% if ($elem->{'plates'}{$plate}) { %>
-                            <% if ('err' eq $elem->{'plates'}{$plate}) { %>
-                                <% $class = 'bingo_err'; $seen{$printer}++; %>
+                            <% $seen{$printer}++; %>
+                            <% if ('err' eq $elem->{'plates'}{$plate}) { %><%# shouldn't happen since this code doesn't receive bad notes %>
+                                <td class="small_cell"><div class="bingo_err"></div></td>
                             <% } else { %>
-                                <% $class = 'bingo_1'; $seen{$printer}++; %>
+                                <td class="small_cell"><span style="color: <%= color $elem->{'plates'}{$plate} %>"><%= $plate %></span></td>
                             <% } %>
                         <% } else { %>
-                            <% $class = 'bingo_0'; %>
+                            <td class="small_cell"><span style="color: <%= color 0 %>"><%= $plate %></span></td>
                         <% } %>
                     <% } else { %>
-                        <% $class = 'bingo_na'; %>
+                        <td class="small_cell"><div class="bingo_na"></div></td>
                     <% } %>
-                    <td>
-                        <div class="<%= $class %>"></div>
-                    </td>
                 <% } %>
             </tr>
         <% } %>
         <tr>
-            <th></th>
             <% foreach my $printer (@{ $elem->{'printers'} }) { %>
                 <td class="small_cell"><%= $seen{$printer} %>/<%= $total{$printer} %></td>
             <% } %>

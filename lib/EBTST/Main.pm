@@ -185,15 +185,30 @@ sub countries {
     ) {
         my $detail;
         for my $v (@{ EBT2->values }) {
-            if ($data->{$cc}{$v}) {
-                push @$detail, {
-                    count => $data->{$cc}{$v},
-                    pct   => (sprintf '%.2f', 100 * $data->{$cc}{$v} / $count_by_value->{$v}),
-                };
+            my $exists = 0;
+            foreach my $pc (keys %{ EBT2->printers }) {
+                my $k = sprintf '%s%s%03d', $pc, $cc, $v;
+                if (exists $EBT2::combs_pc_cc_val{$k}) {
+                    $exists = 1;
+                    last;
+                }
+            }
+            if ($exists) {
+                if ($data->{$cc}{$v}) {
+                    push @$detail, {
+                        count => $data->{$cc}{$v},
+                        pct   => (sprintf '%.2f', 100 * $data->{$cc}{$v} / $count_by_value->{$v}),
+                    };
+                } else {
+                    push @$detail, {
+                        count => 0,
+                        pct   => (sprintf '%.2f', 0),
+                    };
+                }
             } else {
                 push @$detail, {
-                    count => 0,
-                    pct   => (sprintf '%.2f', 0),
+                    count => undef,
+                    pct   => undef,
                 };
             }
         }
@@ -353,15 +368,30 @@ sub printers {
     } keys %$data) {
         my $detail;
         for my $v (@{ EBT2->values }) {
-            if ($data->{$pc}{$v}) {
-                push @$detail, {
-                    count => $data->{$pc}{$v},
-                    pct   => (sprintf '%.2f', 100 * $data->{$pc}{$v} / $count_by_value->{$v}),
-                };
+            my $exists = 0;
+            foreach my $cc (keys %{ EBT2->countries }) {
+                my $k = sprintf '%s%s%03d', $pc, $cc, $v;
+                if (exists $EBT2::combs_pc_cc_val{$k}) {
+                    $exists = 1;
+                    last;
+                }
+            }
+            if ($exists) {
+                if ($data->{$pc}{$v}) {
+                    push @$detail, {
+                        count => $data->{$pc}{$v},
+                        pct   => (sprintf '%.2f', 100 * $data->{$pc}{$v} / $count_by_value->{$v}),
+                    };
+                } else {
+                    push @$detail, {
+                        count => 0,
+                        pct   => (sprintf '%.2f', 0),
+                    };
+                }
             } else {
                 push @$detail, {
-                    count => 0,
-                    pct   => (sprintf '%.2f', 0),
+                    count => undef,
+                    pct   => undef,
                 };
             }
         }

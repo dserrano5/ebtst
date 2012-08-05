@@ -38,8 +38,13 @@
     <tr>
         <td class="small_cell"><b><img src="images/<%= $elem->{'imgname'} %>.gif"> <%= $elem->{'pc'} %></b></td>
         <% for my $det (@{ $elem->{'detail'} }) { %>
-            <td class="numeric small_cell"><b><%= $det->{'count'} %></b></td>
-            <td class="numeric small_cell"><%= $det->{'pct'} %>%</td>
+            <% if (defined $det->{'count'}) { =%>
+                <td class="numeric small_cell"><b><%= $det->{'count'} %></b></td>
+                <td class="numeric small_cell"><%= $det->{'pct'} %>%</td>
+            <% } else { =%>
+                <td class="numeric small_cell"></td>
+                <td class="numeric small_cell"></td>
+            <% } =%>
         <% } %>
     </tr>
 <% } %>

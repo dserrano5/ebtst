@@ -810,6 +810,19 @@ sub hits_by_month {
     $self->stash (n_hits => scalar @$hit_list, rows => $rows);
 }
 
+sub hit_times {
+    my ($self) = @_;
+
+    my $whoami   = $self->ebt->whoami;
+    my $hit_list = $self->ebt->get_hit_list ($whoami);
+    my $ht       = $self->ebt->get_hit_times ($hit_list);
+
+    $self->stash (
+        count     => (scalar @$hit_list),
+        hit_times => $ht,
+    );
+}
+
 sub hit_analysis {
     my ($self) = @_;
 
@@ -981,7 +994,7 @@ sub gen_output {
     my @params = qw/
         information value countries locations printers huge_table short_codes nice_serials
         coords_bingo notes_per_year notes_per_month top_days time_analysis combs_bingo combs_detail
-        plate_bingo bad_notes hit_list hits_by_month hit_analysis hit_summary
+        plate_bingo bad_notes hit_list hits_by_month hit_times hit_analysis hit_summary
     /;
 
     my @req_params = grep { $self->param ($_) } @params;

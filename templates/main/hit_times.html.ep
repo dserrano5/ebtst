@@ -1,4 +1,4 @@
-<h2><%=l 'Time analysis' %></h2>
+<h2><%=l 'Hit times' %></h2>
 <% no warnings 'qw'; use List::Util qw/sum/; %>
 <% my %last_days = qw/01 31   02 29   03 31   04 30   05 31   06 30   07 31   08 31   09 30   10 31   11 30   12 31/; %>
 <% my %color_counts; =%>
@@ -9,7 +9,7 @@
     <tr>
         <th class="small_cell"><%=l $EBTST::Main::months{0+$m} %></th>
         <% foreach my $d (map { sprintf '%02d', $_ } 1 .. $last_days{$m}) { %>
-            <% my $color = color $ta->{'cal'}{$m}{$d}; $color_counts{$color}++; %>
+            <% my $color = color $hit_times->{'cal'}{$m}{$d}; $color_counts{$color}++; %>
             <td class="small_cell"><span style="color: <%= $color %>"><%= $d %></span></td>
         <% } %>
     </tr>
@@ -32,8 +32,8 @@
     <% foreach my $num (map { sprintf '%02d', $_ } 0 .. 23) { =%>
         <tr>
             <th><%= $num %></th>
-            <% my $color = color $ta->{'hh'}{$num}; $color_counts{$color}++; %>
-            <td><span style="color: <%= $color %>"><%= $ta->{'hh'}{$num}//0 %></span> (<%= sprintf '%.2f', 100 * ($ta->{'hh'}{$num}//0) / $count %>%)</td>
+            <% my $color = color $hit_times->{'hh'}{$num}; $color_counts{$color}++; %>
+            <td><span style="color: <%= $color %>"><%= $hit_times->{'hh'}{$num}//0 %></span> (<%= sprintf '%.2f', 100 * ($hit_times->{'hh'}{$num}//0) / $count %>%)</td>
         </tr>
     <% } %>
 </table>
@@ -50,7 +50,7 @@
 <table>
     <tr>
         <% foreach my $m (map { sprintf '%02d', $_ } 0 .. 59) { %>
-            <% my $color = color $ta->{'mm'}{$m}; $color_counts{$color}++; %>
+            <% my $color = color $hit_times->{'mm'}{$m}; $color_counts{$color}++; %>
             <td class="tiny_cell"><span style="color: <%= $color %>"><%= $m %></span></td>
         <% } %>
     </tr>
@@ -68,7 +68,7 @@
 <table>
     <tr>
         <% foreach my $s (map { sprintf '%02d', $_ } 0 .. 59) { %>
-            <% my $color = color $ta->{'ss'}{$s}; $color_counts{$color}++; %>
+            <% my $color = color $hit_times->{'ss'}{$s}; $color_counts{$color}++; %>
             <td class="tiny_cell"><span style="color: <%= $color %>"><%= $s %></span></td>
         <% } %>
     </tr>
@@ -88,7 +88,7 @@
         <tr>
             <th class="tiny_cell"><%= $h %></th>
             <% foreach my $m (map { sprintf '%02d', $_ } 0 .. 59) { %>
-                <% my $color = color $ta->{'hhmm'}{$h}{$m}; $color_counts{$color}++; %>
+                <% my $color = color $hit_times->{'hhmm'}{$h}{$m}; $color_counts{$color}++; %>
                 <td class="tiny_cell"><span style="color: <%= $color %>"><%= $m %></span></td>
             <% } %>
         </tr>
@@ -109,7 +109,7 @@
         <tr>
             <th class="tiny_cell"><%= $m %></th>
             <% foreach my $s (map { sprintf '%02d', $_ } 0 .. 59) { %>
-                <% my $color = color $ta->{'mmss'}{$m}{$s}; $color_counts{$color}++; %>
+                <% my $color = color $hit_times->{'mmss'}{$m}{$s}; $color_counts{$color}++; %>
                 <td class="tiny_cell"><span style="color: <%= $color %>"><%= $s %></span></td>
             <% } %>
         </tr>
@@ -125,10 +125,10 @@
 
 <% %color_counts = (); =%>
 <b><%=l 'Hours, minutes and seconds' %></b><br>
-<% foreach my $h (keys %{ $ta->{'hhmmss'} }) { =%>
-    <% foreach my $m (keys %{ $ta->{'hhmmss'}{$h} }) { =%>
-        <% foreach my $s (keys %{ $ta->{'hhmmss'}{$h}{$m} }) { =%>
-            <% my $color = color $ta->{'hhmmss'}{$h}{$m}{$s}; $color_counts{$color}++; %>
+<% foreach my $h (keys %{ $hit_times->{'hhmmss'} }) { =%>
+    <% foreach my $m (keys %{ $hit_times->{'hhmmss'}{$h} }) { =%>
+        <% foreach my $s (keys %{ $hit_times->{'hhmmss'}{$h}{$m} }) { =%>
+            <% my $color = color $hit_times->{'hhmmss'}{$h}{$m}{$s}; $color_counts{$color}++; %>
         <% } =%>
     <% } =%>
 <% } %>
@@ -153,10 +153,10 @@
         <tr>
             <th><%= $h %></th>
             <% foreach my $dow (1 .. 7) { %>
-                <% my $color = color $ta->{'dowhh'}{$dow}{$h}; $color_counts{$color}++; %>
+                <% my $color = color $hit_times->{'dowhh'}{$dow}{$h}; $color_counts{$color}++; %>
                 <td>
-                    <span style="color: <%= $color %>"><%= $ta->{'dowhh'}{$dow}{$h}//0 %></span>
-                    (<%= sprintf '%.2f', 100 * ($ta->{'dowhh'}{$dow}{$h}//0) / $count %>%)
+                    <span style="color: <%= $color %>"><%= $hit_times->{'dowhh'}{$dow}{$h}//0 %></span>
+                    (<%= sprintf '%.2f', 100 * ($hit_times->{'dowhh'}{$dow}{$h}//0) / $count %>%)
                 </td>
             <% } %>
         </tr>
@@ -172,10 +172,10 @@
 
 <% %color_counts = (); =%>
 <b><%=l 'Days of week, hours and minutes' %></b><br>
-<% foreach my $dow (keys %{ $ta->{'dowhhmm'} }) { =%>
-    <% foreach my $h (keys %{ $ta->{'dowhhmm'}{$dow} }) { =%>
-        <% foreach my $m (keys %{ $ta->{'dowhhmm'}{$dow}{$h} }) { =%>
-            <% my $color = color $ta->{'dowhhmm'}{$dow}{$h}{$m}; $color_counts{$color}++; %>
+<% foreach my $dow (keys %{ $hit_times->{'dowhhmm'} }) { =%>
+    <% foreach my $h (keys %{ $hit_times->{'dowhhmm'}{$dow} }) { =%>
+        <% foreach my $m (keys %{ $hit_times->{'dowhhmm'}{$dow}{$h} }) { =%>
+            <% my $color = color $hit_times->{'dowhhmm'}{$dow}{$h}{$m}; $color_counts{$color}++; %>
         <% } =%>
     <% } =%>
 <% } %>

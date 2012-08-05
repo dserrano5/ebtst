@@ -936,6 +936,30 @@ sub hits_by_month {
     return \%ret;
 }
 
+sub hit_times {
+    my ($self, $data, $hit_list) = @_;
+    my %ret;
+
+    foreach my $hit (@$hit_list) {
+        next if $hit->{'moderated'};
+
+        my ($y, $m, $d, $H, $M, $S) = map { sprintf '%02d', $_ } split /[\s:-]/, $hit->{'hit_date'};
+        my $dow = 1 + dayofweek $d, $m, $y;
+        $ret{'hit_times'}{'cal'}{$m}{$d}++;
+        $ret{'hit_times'}{'hh'}{$H}++;
+        $ret{'hit_times'}{'mm'}{$M}++;
+        $ret{'hit_times'}{'ss'}{$S}++;
+        $ret{'hit_times'}{'hhmm'}{$H}{$M}++;
+        $ret{'hit_times'}{'mmss'}{$M}{$S}++;
+        $ret{'hit_times'}{'hhmmss'}{$H}{$M}{$S}++;
+        $ret{'hit_times'}{'dow'}{$dow}++;
+        $ret{'hit_times'}{'dowhh'}{$dow}{$H}++;
+        $ret{'hit_times'}{'dowhhmm'}{$dow}{$H}{$M}++;
+    }
+
+    return \%ret;
+}
+
 sub hit_analysis {
     my ($self, $data, $hit_list) = @_;
     my %ret;

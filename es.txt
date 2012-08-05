@@ -18,6 +18,7 @@ Plate bingo = Bingo de planchas
 Bad notes = Billetes erróneos
 Hit list = Lista de hits
 Hits by month = Hits al mes
+Hit times = Análisis de tiempo (hits)
 Hit analysis = Análisis de hits
 Hit summary = Resumen de hits
 Charts = Gráficas
@@ -160,6 +161,8 @@ to = a
 ## hits by month
 Natural month = Mes natural
 Insert month = Mes de registro
+
+## hit times
 
 ## hit analysis
 Hit top-10 = Top-10

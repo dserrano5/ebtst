@@ -1,0 +1,67 @@
+[b]<%=l 'Hit times' %>[/b]
+<% use List::Util qw/sum/; =%>
+<% my %last_days = qw/01 31   02 29   03 31   04 30   05 31   06 30   07 31   08 31   09 30   10 31   11 30   12 31/; %>
+[b]<%=l 'Calendar' %>[/b]: <%= sum map { scalar keys %{ $hit_times->{'cal'}{$_} } } keys %{ $hit_times->{'cal'} } %>/366
+[table]\
+<% foreach my $m (map { sprintf '%02d', $_ } 1 .. 12) { =%>
+    [tr][td]\
+    <% foreach my $d (map { sprintf '%02d', $_ } 1 .. $last_days{$m}) { =%>
+        <% my $color = color $hit_times->{'cal'}{$m}{$d}; =%>
+        <%=''=%>[color=<%= $color %>] <%= $d %>[/color]\
+    <% } =%>
+    [/td][td] ❘ <%=l $EBTST::Main::months{0+$m} %>[/td][/tr]\
+<% } =%>
+[/table]
+
+[b]<%=l 'Hours' %>[/b]: <%= scalar keys %{ $hit_times->{'hh'} } %>/24
+<% foreach my $h (map { sprintf '%02d', $_ } 0 .. 23) { =%>
+    <% my $color = color $hit_times->{'hh'}{$h}; =%>
+    <%=''=%>[color=<%= $color %>] <%= $h %>[/color]\
+<% } =%>
+
+
+[b]<%=l 'Minutes' %>[/b]: <%= scalar keys %{ $hit_times->{'mm'} } %>/60
+[b]<%=l 'Seconds' %>[/b]: <%= scalar keys %{ $hit_times->{'ss'} } %>/60
+[b]<%=l 'Hours and minutes' %>[/b]: <% my $cnt = 0; =%>
+<% foreach my $h (keys %{ $hit_times->{'hhmm'} }) { =%>
+    <% foreach my $h (keys %{ $hit_times->{'hhmm'}{$h} }) { =%>
+        <% $cnt++; =%>
+    <% } =%>
+<% } =%><%= sprintf ' %d/%d', $cnt, 24*60 %>
+[b]<%=l 'Minutes and seconds' %>[/b]: <% $cnt = 0; =%>
+<% foreach my $m (keys %{ $hit_times->{'mmss'} }) { =%>
+    <% foreach my $s (keys %{ $hit_times->{'mmss'}{$m} }) { =%>
+        <% $cnt++; =%>
+    <% } =%>
+<% } =%><%= sprintf ' %d/%d', $cnt, 60*60 %>
+[b]<%=l 'Hours, minutes and seconds' %>[/b]: <% $cnt = 0; =%>
+<% foreach my $h (keys %{ $hit_times->{'hhmmss'} }) { =%>
+    <% foreach my $m (keys %{ $hit_times->{'hhmmss'}{$h} }) { =%>
+        <% foreach my $s (keys %{ $hit_times->{'hhmmss'}{$h}{$m} }) { =%>
+            <% $cnt++; =%>
+        <% } =%>
+    <% } =%>
+<% } =%><%= sprintf ' %d/%d', $cnt, 24*60*60 %>
+
+[b]<%=l 'Days of week and hours' %>[/b]: <% $cnt = 0; =%>
+<% foreach my $dow (keys %{ $hit_times->{'dowhh'} }) { =%>
+    <% foreach my $h (keys %{ $hit_times->{'dowhh'}{$dow} }) { =%>
+        <% $cnt++; =%>
+    <% } =%>
+<% } =%><%= sprintf ' %d/%d', $cnt, 7*24 %>
+<% foreach my $dow (1 .. 7) { =%>
+    <% foreach my $h (map { sprintf '%02d', $_ } 0 .. 23) { =%>
+        <% my $color = color $hit_times->{'dowhh'}{$dow}{$h}; =%>
+        <%=''=%>[color=<%= $color %>] <%= $h %>[/color]\
+    <% } =%>
+    <%= ' ❘ ' . l $EBTST::Main::dows{$dow} %>
+<% } =%>
+
+[b]<%=l 'Days of week, hours and minutes' %>[/b]: <% $cnt = 0; =%>
+<% foreach my $dow (keys %{ $hit_times->{'dowhhmm'} }) { =%>
+    <% foreach my $h (keys %{ $hit_times->{'dowhhmm'}{$dow} }) { =%>
+        <% foreach my $m (keys %{ $hit_times->{'dowhhmm'}{$dow}{$h} }) { =%>
+            <% $cnt++; =%>
+        <% } =%>
+    <% } =%>
+<% } =%><%= sprintf ' %d/%d', $cnt, 7*24*60 %>

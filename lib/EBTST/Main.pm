@@ -791,25 +791,6 @@ sub hit_list {
     );
 }
 
-sub hits_by_month {
-    my ($self) = @_;
-
-    my $activity = $self->ebt->get_activity;
-    my $hit_list = $self->ebt->get_hit_list;
-    my $hbm = $self->ebt->get_hits_by_month ($self->ebt->whoami, $activity, $hit_list);
-
-    my $rows;
-    foreach my $month (sort keys %{ $hbm->{'natural'} }) {
-        push @$rows, {
-            month   => $month,
-            natural => $hbm->{'natural'}{$month},
-            insert  => $hbm->{'insert'}{$month},
-        };
-    }
-
-    $self->stash (n_hits => scalar @$hit_list, rows => $rows);
-}
-
 sub hit_times {
     my ($self) = @_;
 
@@ -994,7 +975,7 @@ sub gen_output {
     my @params = qw/
         information value countries locations printers huge_table short_codes nice_serials
         coords_bingo notes_per_year notes_per_month top_days time_analysis combs_bingo combs_detail
-        plate_bingo bad_notes hit_list hits_by_month hit_times hit_analysis hit_summary
+        plate_bingo bad_notes hit_list hit_times hit_analysis hit_summary
     /;
 
     my @req_params = grep { $self->param ($_) } @params;

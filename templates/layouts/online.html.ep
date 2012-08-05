@@ -77,9 +77,6 @@
                     <td><input type="checkbox" name="hit_list" <%= $checked_boxes->{'hit_list'} ? 'checked=""' : '' %>></td>
                     <td><a class="section_link" id="hit_list"     href="hit_list"><%=l 'Hit list' %></a></td>
                 </tr><tr>
-                    <td><input type="checkbox" name="hits_by_month" <%= $checked_boxes->{'hits_by_month'} ? 'checked=""' : '' %>></td>
-                    <td><a class="section_link" id="hits_by_month" href="hits_by_month"><%=l 'Hits by month' %></a></td>
-                </tr><tr>
                     <td><input type="checkbox" name="hit_times" <%= $checked_boxes->{'hit_times'} ? 'checked=""' : '' %>></td>
                     <td><a class="section_link" id="hit_times" href="hit_times"><%=l 'Hit times' %></a></td>
                 </tr><tr>

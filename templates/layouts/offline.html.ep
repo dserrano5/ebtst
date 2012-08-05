@@ -36,6 +36,8 @@
                 </tr>
                 <!-- comments -->
                 <tr>
+                    <td><a class="section_link" id="combs_bingo"     href="combs_bingo.html"><%=l 'Combinations (bingo)' %></a></td>
+                </tr><tr>
                     <td><a class="section_link" id="combs_detail"    href="combs_detail.html"><%=l 'Combinations (detail)' %></a></td>
                 </tr><!--<tr>
                     <td><a class="section_link" id="evolution"       href="evolution.html"><%=l 'Note evolution' %></a></td>

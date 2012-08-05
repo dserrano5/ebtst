@@ -54,6 +54,9 @@
                 </tr>
                 <!-- comments -->
                 <tr>
+                    <td><input type="checkbox" name="combs_bingo"   <%= $checked_boxes->{'combs_bingo'} ? 'checked=""' : '' %>></td>
+                    <td><a class="section_link" id="combs_bingo"     href="combs_bingo"><%=l 'Combinations (bingo)' %></a></td>
+                </tr><tr>
                     <td><input type="checkbox" name="combs_detail"   <%= $checked_boxes->{'combs_detail'} ? 'checked=""' : '' %>></td>
                     <td><a class="section_link" id="combs_detail"     href="combs_detail"><%=l 'Combinations (detail)' %></a></td>
                 </tr><!--<tr>

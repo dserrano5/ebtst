@@ -129,7 +129,7 @@ Combinations bingo = Bingo de combinaciones
 Still missing combinations = Combinaciones que faltan
 Unknown combinations = Combinaciones desconocidas
 History = Histórico
-Text format inspired by = Formato del texto inspirado por
+History text format inspired by = Formato del historial inspirado por
 
 ## note evolution
 Interval = Intervalo

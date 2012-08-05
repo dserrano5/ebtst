@@ -191,7 +191,7 @@ sub startup {
     $u->get ('/notes_per_month')->to ('main#notes_per_month');
     $u->get ('/top_days')->to ('main#top_days');
     $u->get ('/time_analysis')->to ('main#time_analysis');
-    $u->get ('/combs')->to ('main#combs');
+    $u->get ('/combs_detail')->to ('main#combs_detail');
     #$u->any ([qw/get post/], '/evolution')->to ('main#evolution');
     $u->get ('/plate_bingo')->to ('main#plate_bingo');
     $u->get ('/bad_notes')->to ('main#bad_notes');

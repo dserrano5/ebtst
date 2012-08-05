@@ -645,7 +645,7 @@ sub time_analysis {
     );
 }
 
-sub combs {
+sub combs_detail {
     my ($self) = @_;
 
     my $nbcombo    = $self->ebt->get_notes_by_combination;
@@ -949,7 +949,7 @@ sub gen_output {
     my ($self) = @_;
     my @params = qw/
         information value countries locations printers huge_table short_codes nice_serials
-        coords_bingo notes_per_year notes_per_month top_days time_analysis combs
+        coords_bingo notes_per_year notes_per_month top_days time_analysis combs_detail
         plate_bingo bad_notes hit_list hits_by_month hit_analysis hit_summary
     /;
 

@@ -12,7 +12,7 @@ Notes/year = Billetes/año
 Notes/month = Billetes/mes
 Top days = Mejores días
 Time analysis = Análisis de tiempo
-Combinations = Combinaciones
+Combinations (detail) = Combinaciones (detail)
 Note evolution = Evolución temporal
 Plate bingo = Bingo de planchas
 Bad notes = Billetes erróneos
@@ -119,7 +119,7 @@ Hours, minutes and seconds = Horas, minutos y segundos
 Days of week and hours = Días de la semana y horas
 Days of week, hours and minutes = Días de la semana, horas y minutos
 
-## combs
+## combs detail
 Any signature = Cualquier firma
 any = todos
 Result = Resultado

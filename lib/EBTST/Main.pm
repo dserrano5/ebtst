@@ -736,8 +736,8 @@ sub time_analysis {
     my $ta_data = $self->ebt->get_time_analysis;
 
     $self->stash (
-        count => $count,
-        ta    => $ta_data,
+        ta_count => $count,
+        ta       => $ta_data,
     );
 }
 
@@ -865,8 +865,8 @@ sub hit_times {
     my $ht       = $self->ebt->get_hit_times ($hit_list);
 
     $self->stash (
-        count     => (scalar @$hit_list),
-        hit_times => $ht,
+        hit_times_count => (scalar @$hit_list),
+        hit_times       => $ht,
     );
 }
 

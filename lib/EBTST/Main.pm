@@ -130,7 +130,7 @@ sub information {
     }
 
     EBTST::Main::Gnuplot::bartime_chart
-        output => (sprintf '%s/%s', $self->stash ('images_dir'), 'pct_by_pres.png'),
+        output => File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'pct_by_pres.png'),
         xdata => $notes_dates,
         percent => 1,
         dsets => [
@@ -192,7 +192,7 @@ sub value {
     #    }
     #}
     EBTST::Main::Gnuplot::line_chart
-        output => (sprintf '%s/%s', $self->stash ('images_dir'), 'acum_by_val.png'),
+        output => File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'acum_by_val.png'),
         xdata => $notes_dates,
         dsets => [
             { title => 'Total', color => 'black',  points => $dpoints{'Total'} },
@@ -687,7 +687,7 @@ sub top_days {
         };
     }
     EBTST::Main::Gnuplot::bar_chart
-        output     => (sprintf '%s/%s', $self->stash ('images_dir'), 'week_days.png'),
+        output     => File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'week_days.png'),
         labels     => [ qw/Monday Tuesday Wednesday Thursday Friday Saturday Sunday/ ],
         bar_border => 1,
         dsets => [

@@ -119,6 +119,13 @@ sub startup {
             my $sid = $self->stash ('sess')->sid;
             $self->app->log->debug ("user: '$user'");
 
+            my $gnuplot_img_dir = File::Spec->catfile ($images_dir, $user);
+            if (!mkdir $gnuplot_img_dir) {
+                if (17 != $!) {   ## "File exists"
+                    die "Couldn't create directory: '$gnuplot_img_dir': $!\n";
+                }
+            }
+
             my $user_data_dir = File::Spec->catfile ($user_data_basedir, $user);
             my $db            = File::Spec->catfile ($user_data_dir, 'db');
 

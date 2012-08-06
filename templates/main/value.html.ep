@@ -25,4 +25,4 @@
 </table>
 <br>
 <br>
-<img src="images/acum_by_val.png">
+<img src="images/<%= $user %>/acum_by_val.png">

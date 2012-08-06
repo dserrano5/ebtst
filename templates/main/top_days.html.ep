@@ -27,7 +27,7 @@
 </table>
 <br>
 <br>
-<img src="images/week_days.png">
+<img src="images/<%= $user %>/week_days.png">
 
 <h2><%=l 'Top 10 days' %></h2>
 <table>

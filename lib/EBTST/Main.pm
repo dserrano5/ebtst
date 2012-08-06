@@ -11,6 +11,7 @@ use IO::Uncompress::Gunzip qw/gunzip $GunzipError/;
 use IO::Uncompress::Unzip  qw/unzip  $UnzipError/;
 use File::Temp qw/tempfile/;
 use Locale::Country;
+use EBTST::Main::Gnuplot;
 
 our %dows = qw/1 Monday 2 Tuesday 3 Wednesday 4 Thursday 5 Friday 6 Saturday 7 Sunday/;
 our %months = qw/1 January 2 February 3 March 4 April 5 May 6 June 7 July 8 August 9 September 10 October 11 November 12 December/;
@@ -142,6 +143,8 @@ sub value {
     my ($self) = @_;
 
     my $data = $self->ebt->get_notes_by_value;
+    my $notes_dates = $self->ebt->get_notes_dates;
+    my $elem_by_val = $self->ebt->get_elem_notes_by_value;
     my $count = $self->ebt->get_count;
 
     my $notes_by_val;
@@ -153,6 +156,33 @@ sub value {
             amount => ($data->{$value}//0) * $value,
         };
     }
+
+    ## chart
+    my %dpoints;
+    foreach my $elem (split ',', $elem_by_val) {
+        push @{ $dpoints{$_} }, $dpoints{$_}[-1] for 'Total', @{ EBT2->values };
+        $dpoints{'Total'}[-1]++;
+        $dpoints{$elem}[-1]++;
+    }
+    ## overwrite values with their percentages
+    #foreach my $idx (0..$#$notes_dates) {
+    #    foreach my $v (@{ EBT2->values }) {
+    #        $dpoints{$v}[$idx] = 100 * ($dpoints{$v}[$idx]//0) / $dpoints{'Total'}[$idx];
+    #    }
+    #}
+    EBTST::Main::Gnuplot::line_chart
+        output => (sprintf '%s/%s', $self->stash ('images_dir'), 'acum_by_val.png'),
+        xdata => $notes_dates,
+        dsets => [
+            #{ title => 'Total', color => 'black',  points => $dpoints{'Total'} },
+            { title =>     '5', color => 'grey',   points => $dpoints{'5'}   },
+            { title =>    '10', color => 'red',    points => $dpoints{'10'}  },
+            { title =>    '20', color => 'blue',   points => $dpoints{'20'}  },
+            { title =>    '50', color => 'orange', points => $dpoints{'50'}  },
+            { title =>   '100', color => 'green',  points => $dpoints{'100'} },
+            { title =>   '200', color => 'yellow', points => $dpoints{'200'} },
+            { title =>   '500', color => 'purple', points => $dpoints{'500'} },
+        ];
 
     $self->stash (notes_by_val => $notes_by_val);
 }
@@ -617,6 +647,7 @@ sub top_days {
     my $count = $self->ebt->get_count;
 
     my $nbdow;
+    my %dpoints;
     foreach my $dow (sort keys %$nbdow_data) {
         my $detail;
         foreach my $v (@{ EBT2->values }) {
@@ -624,6 +655,7 @@ sub top_days {
                 value => $v,
                 count => $nbdow_data->{$dow}{$v},
             };
+            push @{ $dpoints{$v} }, ($nbdow_data->{$dow}{$v}//0);
         }
         my $tot = $nbdow_data->{$dow}{'total'};
         push @$nbdow, {
@@ -633,6 +665,19 @@ sub top_days {
             detail => $detail,
         };
     }
+    EBTST::Main::Gnuplot::bar_chart
+        output     => (sprintf '%s/%s', $self->stash ('images_dir'), 'week_days.png'),
+        labels     => [ qw/Monday Tuesday Wednesday Thursday Friday Saturday Sunday/ ],
+        bar_border => 1,
+        dsets => [
+            { title =>     '5', color => 'grey',   points => $dpoints{'5'}   },
+            { title =>    '10', color => 'red',    points => $dpoints{'10'}  },
+            { title =>    '20', color => 'blue',   points => $dpoints{'20'}  },
+            { title =>    '50', color => 'orange', points => $dpoints{'50'}  },
+            { title =>   '100', color => 'green',  points => $dpoints{'100'} },
+            { title =>   '200', color => 'yellow', points => $dpoints{'200'} },
+            { title =>   '500', color => 'purple', points => $dpoints{'500'} },
+        ];
 
     my $t10d;
     foreach my $d (

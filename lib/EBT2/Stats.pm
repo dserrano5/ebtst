@@ -65,6 +65,9 @@ sub bundle_information {
             );
             $ret{'days_elapsed'} = DateTime->now->delta_days ($dt0)->delta_days;
         }
+
+        ## notes_dates
+        push @{ $ret{'notes_dates'} }, $hr->[DATE_ENTERED];
     }
 
     my $today = DateTime->now->strftime ('%Y-%m-%d');
@@ -138,6 +141,7 @@ sub count        { goto &bundle_information; }
 sub total_value  { goto &bundle_information; }
 sub signatures   { goto &bundle_information; }
 sub days_elapsed { goto &bundle_information; }
+sub notes_dates  { goto &bundle_information; }
 
 =pod
 
@@ -180,10 +184,13 @@ sub notes_by_value {
     my $iter = $data->note_getter;
     foreach my $hr (@$iter) {
         $ret{'notes_by_value'}{ $hr->[VALUE] }++;
+        $ret{'elem_notes_by_value'} .= $hr->[VALUE] . ',';
     }
+    chop $ret{'elem_notes_by_value'};
 
     return \%ret;
 }
+sub elem_notes_by_value { goto &notes_by_value; }
 
 sub notes_by_cc {
     my ($self, $data) = @_;

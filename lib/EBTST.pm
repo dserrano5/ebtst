@@ -15,6 +15,7 @@ my $sess_dir           = $config{'session_dir'}       // die "'session_dir' isn'
 my $user_data_basedir  = $config{'user_data_basedir'} // die "'user_data_basedir' isn't configured";
 my $html_dir           = $config{'html_dir'}    // File::Spec->catfile ($ENV{'BASE_DIR'}, 'public', 'stats');
 my $statics_dir        = $config{'statics_dir'} // File::Spec->catfile ($ENV{'BASE_DIR'}, 'public');
+my $images_dir         = $config{'statics_dir'} // File::Spec->catfile ($ENV{'BASE_DIR'}, 'public', 'images');
 my $session_expire     = $config{'session_expire'} // 30;
 my $base_href          = $config{'base_href'};
 my $hypnotoad_listen   = $config{'hypnotoad_listen'} // 'http://localhost:3000'; $hypnotoad_listen = [ $hypnotoad_listen ] if 'ARRAY' ne ref $hypnotoad_listen;
@@ -141,6 +142,7 @@ sub startup {
             $self->stash (user          => $user);
             $self->stash (html_dir      => $html_dir);
             $self->stash (statics_dir   => $statics_dir);
+            $self->stash (images_dir    => $images_dir);
         }
 
         return 1;

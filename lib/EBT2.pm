@@ -86,10 +86,6 @@ sub new {
     }, $class;
 }
 
-sub presidents {
-    return $config{'presidents'};
-}
-
 sub ebt_lang {
     return substr +($ENV{'EBT_LANG'} || $ENV{'LANG'} || $ENV{'LANGUAGE'} || 'en'), 0, 2;
 }
@@ -116,7 +112,8 @@ sub has_bad_notes     { my ($self)        = @_; $self->{'data'}->has_bad_notes; 
 sub whoami            { my ($self)        = @_; $self->{'data'}->whoami; }
 sub set_checked_boxes { my ($self, @cbs)  = @_; $self->{'data'}->set_checked_boxes (@cbs); }
 sub get_checked_boxes { my ($self)        = @_; return $self->{'data'}->get_checked_boxes; }
-sub values            { return $config{'values'}; }
+sub values            { return $config{'values'};     }
+sub presidents        { return $config{'presidents'}; }
 
 our $AUTOLOAD;
 sub AUTOLOAD {

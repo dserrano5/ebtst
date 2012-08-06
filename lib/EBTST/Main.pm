@@ -110,6 +110,8 @@ sub information {
     my $total_value = $self->ebt->get_total_value;
     my $sigs        = $self->ebt->get_signatures;
     my $full_days   = $self->ebt->get_days_elapsed;
+    my $notes_dates = $self->ebt->get_notes_dates;
+    my $elem_by_pres = $self->ebt->get_elem_notes_by_president;
 
     my $avg_value   = $total_value / $count;
     my $wd          = ($sigs->{'WD only'}//0)  + ($sigs->{'WD shared'}//0);
@@ -118,6 +120,25 @@ sub information {
     my $unk         = ($sigs->{'(unknown)'}//0);
     my $today       = DateTime->now->set_time_zone ('Europe/Madrid')->strftime ('%Y-%m-%d %H:%M:%S');
     my $avg_per_day = $count / $full_days;
+
+    my @initials_pres = map { (split /:/)[0] } @{ EBT2->presidents };
+    my %dpoints;
+    foreach my $elem (map { (split ' ')[0] } split ',', $elem_by_pres) {
+        push @{ $dpoints{$_} }, ($dpoints{$_}[-1]//0) for 'Total', @initials_pres;
+        $dpoints{'Total'}[-1]++;
+        $dpoints{$elem}[-1]++ if '(unknown)' ne $elem;
+    }
+
+    EBTST::Main::Gnuplot::bartime_chart
+        output => (sprintf '%s/%s', $self->stash ('images_dir'), 'pct_by_pres.png'),
+        xdata => $notes_dates,
+        percent => 1,
+        dsets => [
+            { title =>    'WD', color => 'grey',   points => $dpoints{'WD'}  },
+            { title =>   'JCT', color => 'red',    points => $dpoints{'JCT'} },
+            { title =>    'MD', color => 'blue',   points => $dpoints{'MD'}  },
+            #{ title => 'Total', color => 'black',  points => $dpoints{'Total'} },
+        ];
 
     $self->stash (
         ac           => $ac,
@@ -160,7 +181,7 @@ sub value {
     ## chart
     my %dpoints;
     foreach my $elem (split ',', $elem_by_val) {
-        push @{ $dpoints{$_} }, $dpoints{$_}[-1] for 'Total', @{ EBT2->values };
+        push @{ $dpoints{$_} }, ($dpoints{$_}[-1]//0) for 'Total', @{ EBT2->values };
         $dpoints{'Total'}[-1]++;
         $dpoints{$elem}[-1]++;
     }
@@ -174,7 +195,7 @@ sub value {
         output => (sprintf '%s/%s', $self->stash ('images_dir'), 'acum_by_val.png'),
         xdata => $notes_dates,
         dsets => [
-            #{ title => 'Total', color => 'black',  points => $dpoints{'Total'} },
+            { title => 'Total', color => 'black',  points => $dpoints{'Total'} },
             { title =>     '5', color => 'grey',   points => $dpoints{'5'}   },
             { title =>    '10', color => 'red',    points => $dpoints{'10'}  },
             { title =>    '20', color => 'blue',   points => $dpoints{'20'}  },

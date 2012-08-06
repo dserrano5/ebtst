@@ -68,7 +68,11 @@ sub bundle_information {
 
         ## notes_dates
         push @{ $ret{'notes_dates'} }, $hr->[DATE_ENTERED];
+
+        ## elem_notes_by_president
+        $ret{'elem_notes_by_president'} .= $hr->[SIGNATURE] . ',';
     }
+    chop $ret{'elem_notes_by_president'};
 
     my $today = DateTime->now->strftime ('%Y-%m-%d');
     my ($this_period_active,   $this_period_active_notes, $active_start_date,   $active_end_date)   = (0, 0, '', '');
@@ -142,6 +146,7 @@ sub total_value  { goto &bundle_information; }
 sub signatures   { goto &bundle_information; }
 sub days_elapsed { goto &bundle_information; }
 sub notes_dates  { goto &bundle_information; }
+sub elem_notes_by_president { goto &bundle_information; }
 
 =pod
 

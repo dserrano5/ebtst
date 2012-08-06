@@ -37,3 +37,6 @@
 <br>
 <%=l 'Average value per note' %>: <b><%= $avg_value %></b> EUR<br>
 <%=l 'Average entering rate' %>: <b><%= $avg_per_day %></b> <%=l 'notes/day' %>
+<br>
+<br>
+<img src="images/pct_by_pres.png">

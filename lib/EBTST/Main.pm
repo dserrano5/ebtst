@@ -669,7 +669,7 @@ sub top_days {
 
     my $nbdow;
     my %dpoints;
-    foreach my $dow (sort keys %$nbdow_data) {
+    foreach my $dow (1..7) {
         my $detail;
         foreach my $v (@{ EBT2->values }) {
             push @$detail, {
@@ -678,7 +678,7 @@ sub top_days {
             };
             push @{ $dpoints{$v} }, ($nbdow_data->{$dow}{$v}//0);
         }
-        my $tot = $nbdow_data->{$dow}{'total'};
+        my $tot = $nbdow_data->{$dow}{'total'} // 0;
         push @$nbdow, {
             dow    => $dows{$dow},
             count  => $tot,

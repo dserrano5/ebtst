@@ -14,7 +14,7 @@ use EBT2::NoteValidator;
 use EBT2::Constants ':all';
 
 ## whenever there are changes in any stats format, this has to be increased in order to detect users with old stats formats
-our $STATS_VERSION = '20120804-01';
+our $STATS_VERSION = '20120807-02';
 
 sub mean { return sum(@_)/@_; }
 
@@ -533,7 +533,7 @@ sub bundle_time {
 
         ## time_analysis
         #my ($y, $m, $d, $H, $M, $S) = map { sprintf '%02d', $_ } split /[\s:-]/, $hr->[DATE_ENTERED];
-        my $dow = 1 + dayofweek $d, $m, $y;
+        my $dow = dayofweek $d, $m, $y; $dow = 1 + ($dow-1) % 7;   ## turn 0 (sunday) into 7. So we end up with 1..7
         $ret{'time_analysis'}{'cal'}{$m}{$d}++;
         $ret{'time_analysis'}{'hh'}{$H}++;
         $ret{'time_analysis'}{'mm'}{$M}++;
@@ -919,7 +919,7 @@ sub hit_times {
         next if $hit->{'moderated'};
 
         my ($y, $m, $d, $H, $M, $S) = map { sprintf '%02d', $_ } split /[\s:-]/, $hit->{'hit_date'};
-        my $dow = 1 + dayofweek $d, $m, $y;
+        my $dow = dayofweek $d, $m, $y; $dow = 1 + ($dow-1) % 7;
         $ret{'hit_times'}{'cal'}{$m}{$d}++;
         $ret{'hit_times'}{'hh'}{$H}++;
         $ret{'hit_times'}{'mm'}{$M}++;

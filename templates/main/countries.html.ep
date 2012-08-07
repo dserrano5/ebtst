@@ -1,64 +1,10 @@
-<h2><%=l 'Number of notes by country code' %></h2>
-<table>
-    <tr>
-        <th><%=l 'Country' %></th>
-        <th><%=l 'Notes' %></th>
-        <th class="pct_cell"><%=l 'Percent' %></th>
-    </tr>
-<% for my $elem (@$nbcountry) { %>
-    % my $border;
-    % my $color = '#4040ff';
-    % if ($elem->{'count'}) {
-    %     $border = sprintf 'border-left: 1px solid %s;', $color;
-    % } else {
-    %     $border = '';
-    % }
-    % my $style = sprintf 'width: %s%%; float: left; %s background-color: %s', 1.4*$elem->{'pct'}, $border, $color;
-    <tr>
-        <td><img src="images/<%= $elem->{'imgname'} %>.gif"> <b><%= $elem->{'cc'} %></b> <%= $elem->{'cname'} %></td>
-        <td class="numeric"><%= $elem->{'count'} %></td>
-        <td class="numeric"><div style="<%= $style %>">&nbsp;</div><%= $elem->{'pct'} %>%</td>
-    </tr>
-<% } %>
-</table>
-
-<h2><%=l 'Detail of notes per value and country code' %></h2>
-<table>
-    <tr>
-        <th class="small_cell"><%=l 'Country' %></th>
-        <th class="small_cell">5</th><th>%</th>
-        <th class="small_cell">10</th><th>%</th>
-        <th class="small_cell">20</th><th>%</th>
-        <th class="small_cell">50</th><th>%</th>
-        <th class="small_cell">100</th><th>%</th>
-        <th class="small_cell">200</th><th>%</th>
-        <th class="small_cell">500</th><th>%</th>
-    </tr>
-<% for my $elem (@$nbcountry) { %>
-    <tr>
-        <td class="small_cell"><b><img src="images/<%= $elem->{'imgname'} %>.gif"> <%= $elem->{'cc'} %></b></td>
-        <% for my $det (@{ $elem->{'detail'} }) { %>
-            <% if (defined $det->{'count'}) { =%>
-                <td class="numeric small_cell"><b><%= $det->{'count'} %></b></td>
-                <td class="numeric small_cell"><%= $det->{'pct'} %>%</td>
-            <% } else { =%>
-                <td class="numeric small_cell"></td>
-                <td class="numeric small_cell"></td>
-            <% } =%>
-        <% } %>
-    </tr>
-<% } %>
-    <tr>
-        <th class="small_cell"><b>Total</b></th>
-    <% for my $elem (@{ $tot_bv }) { %>
-            <th class="numeric small_cell"><%= $elem %></th>
-            <th>&nbsp;</th>
-    <% } %>
-    </tr>
-</table>
-
-<h2><%=l 'First notes by country code' %></h2>
-<% for my $elem (@$fbcc) { %>
-    <%=l 'Note' %> <%= $elem->{'at'} %> <%=l 'was the first from' %> <img src="images/<%= $elem->{'imgname'} %>.gif"> <b><%= $elem->{'cname'} %></b>
-    (<img src="images/<%= $elem->{'value'} %>.gif"> <%=l 'entered on' %> <%= $elem->{'on'} %> <%=l 'in' %> <%= $elem->{'city'} %> <img src="images/<%= $elem->{'imgname2'} %>.gif">)<br>
-<% } %>
+<%= include 'main/_num_detail_1st',
+        title         => (l 'Number of notes by country code'),
+        table_header  => (l 'Country'),
+        notes_by      => $nbcountry,
+        elem_notes_by => 'cc',
+        detail_title  => (l 'Detail of notes per value and country code'),
+        tot_bv        => $tot_c_bv,
+        first_title   => (l 'First notes by country code'),
+        first_by      => $fbcc,
+        elem_1stby    => 'cname'; %>

@@ -211,29 +211,25 @@ sub value {
 sub countries {
     my ($self) = @_;
 
-    my $data = $self->ebt->get_notes_by_cc;
-    my $count = $self->ebt->get_count;
+    my $data      = $self->ebt->get_notes_by_cc;
+    my $count     = $self->ebt->get_count;
     my $data_fbcc = $self->ebt->get_first_by_cc;
     my $count_by_value;
 
-    for my $cc (
-        sort {
-            ($data->{$b}{'total'}//0) <=> ($data->{$a}{'total'}//0) ||
-            $a cmp $b
-        } keys %$data
-    ) {
+    for my $cc (sort {
+        ($data->{$b}{'total'}//0) <=> ($data->{$a}{'total'}//0) ||
+        $a cmp $b
+    } keys %$data) {
         for my $v (grep { /^\d+$/ } keys %{ $data->{$cc} }) {
             $count_by_value->{$v} += $data->{$cc}{$v};
         }
     }
 
     my $nbcountry;
-    for my $cc (
-        sort {
-            ($data->{$b}{'total'}//0) <=> ($data->{$a}{'total'}//0) ||
-            $self->_country_names (EBT2->countries ($a)) cmp $self->_country_names (EBT2->countries ($b))
-        } keys %{ EBT2->countries }
-    ) {
+    for my $cc (sort {
+        ($data->{$b}{'total'}//0) <=> ($data->{$a}{'total'}//0) ||
+        $a cmp $b
+    } keys %{ EBT2->countries }) {
         my $detail;
         for my $v (@{ EBT2->values }) {
             my $exists = 0;
@@ -263,11 +259,10 @@ sub countries {
                 };
             }
         }
-        my $iso3166 = do { local $ENV{'EBT_LANG'} = 'en'; EBT2->countries ($cc) };
         push @$nbcountry, {
             cname   => $self->_country_names (EBT2->countries ($cc)),
-            imgname => $iso3166,
-            bbflag  => EBT2->flag ($iso3166),
+            imgname => EBT2->countries ($cc),
+            bbflag  => EBT2->flag (EBT2->countries ($cc)),
             cc      => $cc,
             count   => ($data->{$cc}{'total'}//0),
             pct     => (sprintf '%.2f', 100 * ($data->{$cc}{'total'}//0) / $count),
@@ -277,12 +272,11 @@ sub countries {
 
     my $fbcc;
     foreach my $cc (sort { $data_fbcc->{$a}{'at'} <=> $data_fbcc->{$b}{'at'} } keys %$data_fbcc) {
-        my $iso3166 = do { local $ENV{'EBT_LANG'} = 'en'; EBT2->countries ($cc) };
         push @$fbcc, {
             at       => $data_fbcc->{$cc}{'at'},
             cname    => $self->_country_names (EBT2->countries ($cc)),
-            imgname  => $iso3166,
-            bbflag   => EBT2->flag ($iso3166),
+            imgname  => EBT2->countries ($cc),
+            bbflag   => EBT2->flag (EBT2->countries ($cc)),
             value    => $data_fbcc->{$cc}{'value'},
             on       => (split ' ', $data_fbcc->{$cc}{'date_entered'})[0],
             city     => $data_fbcc->{$cc}{'city'},
@@ -292,10 +286,9 @@ sub countries {
     }
 
     $self->stash (
-        nbcountry    => $nbcountry,
-        #cbv          => $count_by_value,
-        tot_bv       => [ map { $count_by_value->{$_}//0 } @{ EBT2->values } ],
-        fbcc         => $fbcc,
+        nbcountry => $nbcountry,
+        tot_c_bv  => [ map { $count_by_value->{$_}//0 } @{ EBT2->values } ],
+        fbcc      => $fbcc,
     );
 }
 
@@ -396,27 +389,25 @@ sub locations {
 sub printers {
     my ($self) = @_;
 
-    my $data  = $self->ebt->get_notes_by_pc;
-    my $count = $self->ebt->get_count;
-    my $count_by_value;
+    my $data      = $self->ebt->get_notes_by_pc;
+    my $count     = $self->ebt->get_count;
     my $data_fbpc = $self->ebt->get_first_by_pc;
+    my $count_by_value;
 
-    for my $pc (
-        sort {
-            ($data->{$b}{'total'}//0) <=> ($data->{$a}{'total'}//0) ||
-            $a cmp $b
-        } keys %$data
-    ) {
+    for my $pc (sort {
+        ($data->{$b}{'total'}//0) <=> ($data->{$a}{'total'}//0) ||
+        $a cmp $b
+    } keys %$data) {
         for my $v (grep { /^\d+$/ } keys %{ $data->{$pc} }) {
             $count_by_value->{$v} += $data->{$pc}{$v};
         }
     }
 
-    my $nbp;
+    my $nbprinter;
     foreach my $pc (sort {
-        $data->{$b}{'total'} <=> $data->{$a}{'total'} or
+        ($data->{$b}{'total'}//0) <=> ($data->{$a}{'total'}//0) or
         $a cmp $b
-    } keys %$data) {
+    } keys %{ EBT2->printers }) {
         my $detail;
         for my $v (@{ EBT2->values }) {
             my $exists = 0;
@@ -446,25 +437,24 @@ sub printers {
                 };
             }
         }
-        push @$nbp, {
+        push @$nbprinter, {
             cname   => $self->_country_names (EBT2->printers ($pc)),
             imgname => EBT2->printers ($pc),
             bbflag  => EBT2->flag (EBT2->printers ($pc)),
             pc      => $pc,
-            count   => $data->{$pc}{'total'},
-            pct     => (sprintf '%.2f', 100 * $data->{$pc}{'total'} / $count),
+            count   => ($data->{$pc}{'total'}//0),
+            pct     => (sprintf '%.2f', 100 * ($data->{$pc}{'total'}//0) / $count),
             detail  => $detail,
         };
     }
 
     my $fbpc;
     foreach my $pc (sort { $data_fbpc->{$a}{'at'} <=> $data_fbpc->{$b}{'at'} } keys %$data_fbpc) {
-        my $iso3166 = do { local $ENV{'EBT_LANG'} = 'en'; EBT2->printers ($pc) };
         push @$fbpc, {
             at       => $data_fbpc->{$pc}{'at'},
             pc       => $pc,
-            imgname  => $iso3166,
-            bbflag   => EBT2->flag ($iso3166),
+            imgname  => EBT2->printers ($pc),
+            bbflag   => EBT2->flag (EBT2->printers ($pc)),
             value    => $data_fbpc->{$pc}{'value'},
             on       => (split ' ', $data_fbpc->{$pc}{'date_entered'})[0],
             city     => $data_fbpc->{$pc}{'city'},
@@ -474,10 +464,9 @@ sub printers {
     }
 
     $self->stash (
-        nbp    => $nbp,
-        #cbv    => $count_by_value,
-        tot_bv => [ map { $count_by_value->{$_}//0 } @{ EBT2->values } ],
-        fbpc   => $fbpc,
+        nbprinter => $nbprinter,
+        tot_p_bv  => [ map { $count_by_value->{$_}//0 } @{ EBT2->values } ],
+        fbpc      => $fbpc,
     );
 }
 

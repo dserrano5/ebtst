@@ -1,6 +1,6 @@
 [b]<%=l 'Number of notes by printer code' %>[/b]
 [table]\
-<% for my $elem (@$nbp) { =%>
+<% for my $elem (@$nbprinter) { =%>
     [tr][td] <%= $elem->{'bbflag'} %> [b]<%= $elem->{'pc'} %>[/b] <%= $elem->{'cname'} %>[/td][td] ❘ <%= $elem->{'count'} %>[/td][td] ❘ <%= $elem->{'pct'} %>%[/td][/tr]\
 <% } =%>
 [/table]

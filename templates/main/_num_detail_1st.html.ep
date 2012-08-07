@@ -1,0 +1,64 @@
+<h2><%= $title %></h2>
+<table>
+    <tr>
+        <th><%= $table_header %></th>
+        <th><%=l 'Notes' %></th>
+        <th class="pct_cell"><%=l 'Percent' %></th>
+    </tr>
+<% for my $elem (@$notes_by) { %>
+    % my $border;
+    % my $color = '#4040ff';
+    % if ($elem->{'count'}) {
+    %     $border = sprintf 'border-left: 1px solid %s;', $color;
+    % } else {
+    %     $border = '';
+    % }
+    % my $style = sprintf 'width: %s%%; float: left; %s background-color: %s', 1.4*$elem->{'pct'}, $border, $color;
+    <tr>
+        <td><img src="images/<%= $elem->{'imgname'} %>.gif"> <b><%= $elem->{$elem_notes_by} %></b> <%= $elem->{'cname'} %></td>
+        <td class="numeric"><%= $elem->{'count'} %></td>
+        <td class="numeric"><div style="<%= $style %>">&nbsp;</div><%= $elem->{'pct'} %>%</td>
+    </tr>
+<% } %>
+</table>
+
+<h2><%= $detail_title %></h2>
+<table>
+    <tr>
+        <th class="small_cell"><%= $table_header %></th>
+        <th class="small_cell">5</th><th>%</th>
+        <th class="small_cell">10</th><th>%</th>
+        <th class="small_cell">20</th><th>%</th>
+        <th class="small_cell">50</th><th>%</th>
+        <th class="small_cell">100</th><th>%</th>
+        <th class="small_cell">200</th><th>%</th>
+        <th class="small_cell">500</th><th>%</th>
+    </tr>
+<% for my $elem (@$notes_by) { %>
+    <tr>
+        <td class="small_cell"><b><img src="images/<%= $elem->{'imgname'} %>.gif"> <%= $elem->{$elem_notes_by} %></b></td>
+        <% for my $det (@{ $elem->{'detail'} }) { %>
+            <% if (defined $det->{'count'}) { =%>
+                <td class="numeric small_cell"><b><%= $det->{'count'} %></b></td>
+                <td class="numeric small_cell"><%= $det->{'pct'} %>%</td>
+            <% } else { =%>
+                <td class="numeric small_cell"></td>
+                <td class="numeric small_cell"></td>
+            <% } =%>
+        <% } %>
+    </tr>
+<% } %>
+    <tr>
+        <th class="small_cell"><b>Total</b></th>
+    <% for my $elem (@{ $tot_bv }) { %>
+            <th class="numeric small_cell"><%= $elem %></th>
+            <th>&nbsp;</th>
+    <% } %>
+    </tr>
+</table>
+
+<h2><%= $first_title %></h2>
+<% for my $elem (@$first_by) { %>
+    <%=l 'Note' %> <%= $elem->{'at'} %> <%=l 'was the first from' %> <img src="images/<%= $elem->{'imgname'} %>.gif"> <b><%= $elem->{$elem_1stby} %></b>
+    (<img src="images/<%= $elem->{'value'} %>.gif"> <%=l 'entered on' %> <%= $elem->{'on'} %> <%=l 'in' %> <%= $elem->{'city'} %> <img src="images/<%= $elem->{'imgname2'} %>.gif">)<br>
+<% } %>

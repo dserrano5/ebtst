@@ -1,6 +1,6 @@
 [b]<%=l 'Number of notes by value' %>[/b]
 [table]\
-<% for my $elem (@$notes_by_val) { =%>
+<% for my $elem (@$nbval) { =%>
     [tr][td] :note-<%= $elem->{'value'} %>:[/td][td] ❘ <%= $elem->{'count'} %> (<%= $elem->{'pct'} %> %)[/td][td] ❘ <%= $elem->{'amount'} %> EUR[/td][/tr]\
 <% } =%>
 [/table]

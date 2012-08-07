@@ -197,6 +197,21 @@ sub notes_by_value {
 }
 sub elem_notes_by_value { goto &notes_by_value; }
 
+sub first_by_value {
+    my ($self, $data) = @_;
+    my $at = 0;
+    my %ret;
+
+    my $iter = $data->note_getter;
+    foreach my $hr (@$iter) {
+        $at++;
+        my %hr2 = zip @{[ COL_NAMES ]}, @$hr;
+        $ret{'first_by_value'}{ $hr->[VALUE] } ||= { %hr2, at => $at };
+    }
+
+    return \%ret;
+}
+
 sub notes_by_cc {
     my ($self, $data) = @_;
     my %ret;
@@ -220,8 +235,7 @@ sub first_by_cc {
         $at++;
         my %hr2 = zip @{[ COL_NAMES ]}, @$hr;
         my $cc = substr $hr2{'serial'}, 0, 1;
-        next if exists $ret{'first_by_cc'}{$cc};
-        $ret{'first_by_cc'}{$cc} = { %hr2, at => $at };
+        $ret{'first_by_cc'}{$cc} ||= { %hr2, at => $at };
     }
 
     return \%ret;
@@ -317,8 +331,7 @@ sub first_by_pc {
         $at++;
         my %hr2 = zip @{[ COL_NAMES ]}, @$hr;
         my $pc = substr $hr->[SHORT_CODE], 0, 1;
-        next if exists $ret{'first_by_pc'}{$pc};
-        $ret{'first_by_pc'}{$pc} = { %hr2, at => $at };
+        $ret{'first_by_pc'}{$pc} ||= { %hr2, at => $at };
     }
 
     return \%ret;

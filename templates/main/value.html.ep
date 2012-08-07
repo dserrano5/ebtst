@@ -6,7 +6,7 @@
         <th class="pct_cell"><%=l 'Percent' %></th>
         <th><%=l 'Amount' %></th>
     </tr>
-<% for my $elem (@$notes_by_val) { %>
+<% for my $elem (@$nbval) { %>
     % my $border;
     % my $color = '#4040ff';
     % if ($elem->{'count'}) {
@@ -26,3 +26,11 @@
 <br>
 <br>
 <img src="images/<%= $user %>/acum_by_val.png">
+<br>
+<br>
+
+<h2><%=l 'First notes by value' %></h2>
+<% for my $elem (@$fbval) { %>
+    <%=l 'Note' %> <%= $elem->{'at'} %> <%=l 'was the first' %> <img src="images/<%= $elem->{'value'} %>.gif">
+    (<%=l 'entered on' %> <%= $elem->{'on'} %> <%=l 'in' %> <%= $elem->{'city'} %> <img src="images/<%= $elem->{'imgname2'} %>.gif">)<br>
+<% } %>

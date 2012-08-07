@@ -58,6 +58,7 @@ Number of notes by value = Número de billetes por valor
 Notes = Billetes
 Percent = Porcentaje
 Amount = Cantidad
+was the first = fue el primer
 
 ## countries
 Number of notes by country code = Número de billetes por código de país

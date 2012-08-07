@@ -164,8 +164,9 @@ sub value {
     my ($self) = @_;
 
     my $data = $self->ebt->get_notes_by_value;
-    my $notes_dates = $self->ebt->get_notes_dates;
-    my $elem_by_val = $self->ebt->get_elem_notes_by_value;
+    my $data_first = $self->ebt->get_first_by_value;
+    my $notes_dates = $self->ebt->get_notes_dates;          ## for the chart
+    my $elem_by_val = $self->ebt->get_elem_notes_by_value;  ## for the chart
     my $count = $self->ebt->get_count;
 
     my $notes_by_val;
@@ -175,6 +176,18 @@ sub value {
             count  => ($data->{$value}//0),
             pct    => (sprintf '%.2f', 100 * ($data->{$value}//0) / $count),
             amount => ($data->{$value}//0) * $value,
+        };
+    }
+
+    my $first_by;
+    foreach my $value (sort { $data_first->{$a}{'at'} <=> $data_first->{$b}{'at'} } keys %$data_first) {
+        push @$first_by, {
+            value => $value,
+            at       => $data_first->{$value}{'at'},
+            on       => (split ' ', $data_first->{$value}{'date_entered'})[0],
+            city     => $data_first->{$value}{'city'},
+            imgname2 => $data_first->{$value}{'country'},
+            bbflag2  => EBT2->flag ($data_first->{$value}{'country'}),
         };
     }
 
@@ -205,14 +218,18 @@ sub value {
             { title =>   '500', color => 'purple', points => $dpoints{'500'} },
         ];
 
-    $self->stash (notes_by_val => $notes_by_val);
+    $self->stash (
+        nbval => $notes_by_val,
+        fbval => $first_by,
+    );
 }
 
 sub _num_detail_1st {
     my ($self, %args) = @_;
 
     my ($data, $data_first, $method1, $method2, $notes_by_key) = @args{qw/data data_first method1 method2 notes_by_key/};
-    my $count     = $self->ebt->get_count;
+
+    my $count = $self->ebt->get_count;
     my $count_by_value;
 
     for my $code1 (sort {

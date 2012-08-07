@@ -208,14 +208,11 @@ sub value {
     $self->stash (notes_by_val => $notes_by_val);
 }
 
-sub countries {
-    my ($self) = @_;
+sub _num_detail_1st {
+    my ($self, %args) = @_;
 
-    my $data      = $self->ebt->get_notes_by_cc;
+    my ($data, $data_first, $method1, $method2, $notes_by_key) = @args{qw/data data_first method1 method2 notes_by_key/};
     my $count     = $self->ebt->get_count;
-    my $data_first = $self->ebt->get_first_by_cc;
-    my ($method1, $method2) = qw/countries printers/;
-    my $notes_by_key = 'cc';
     my $count_by_value;
 
     for my $code1 (sort {
@@ -295,6 +292,25 @@ sub countries {
             bbflag2  => EBT2->flag ($data_first->{$code1}{'country'}),
         };
     }
+
+    return $notes_by, $count_by_value, $first_by;
+}
+
+sub countries {
+    my ($self) = @_;
+
+    my $data      = $self->ebt->get_notes_by_cc;
+    my $data_first = $self->ebt->get_first_by_cc;
+    my ($method1, $method2) = qw/countries printers/;
+    my $notes_by_key = 'cc';
+
+    my ($notes_by, $count_by_value, $first_by) = $self->_num_detail_1st (
+        data         => $data,
+        data_first   => $data_first,
+        method1      => 'countries',
+        method2      => 'printers',
+        notes_by_key => 'cc',
+    );
 
     $self->stash (
         nbcountry => $notes_by,
@@ -401,89 +417,17 @@ sub printers {
     my ($self) = @_;
 
     my $data      = $self->ebt->get_notes_by_pc;
-    my $count     = $self->ebt->get_count;
     my $data_first = $self->ebt->get_first_by_pc;
     my ($method1, $method2) = qw/printers countries/;
     my $notes_by_key = 'pc';
-    my $count_by_value;
 
-    for my $code1 (sort {
-        ($data->{$b}{'total'}//0) <=> ($data->{$a}{'total'}//0) ||
-        $a cmp $b
-    } keys %$data) {
-        for my $v (grep { /^\d+$/ } keys %{ $data->{$code1} }) {
-            $count_by_value->{$v} += $data->{$code1}{$v};
-        }
-    }
-
-    my $notes_by;
-    foreach my $code1 (sort {
-        ($data->{$b}{'total'}//0) <=> ($data->{$a}{'total'}//0) ||
-        $a cmp $b
-    } keys %{ EBT2->$method1 }) {
-        my $detail;
-        for my $v (@{ EBT2->values }) {
-            my $exists = 0;
-            foreach my $code2 (keys %{ EBT2->$method2 }) {
-                my $k;
-                if ('countries' eq $method1) {
-                    $k = sprintf '%s%s%03d', $code2, $code1, $v;
-                } else {
-                    $k = sprintf '%s%s%03d', $code1, $code2, $v;
-                }
-                if (exists $EBT2::combs_pc_cc_val{$k}) {
-                    $exists = 1;
-                    last;
-                }
-            }
-            if ($exists) {
-                if ($data->{$code1}{$v}) {
-                    push @$detail, {
-                        count => $data->{$code1}{$v},
-                        pct   => (sprintf '%.2f', 100 * $data->{$code1}{$v} / $count_by_value->{$v}),
-                    };
-                } else {
-                    push @$detail, {
-                        count => 0,
-                        pct   => (sprintf '%.2f', 0),
-                    };
-                }
-            } else {
-                push @$detail, {
-                    count => undef,
-                    pct   => undef,
-                };
-            }
-        }
-        push @$notes_by, {
-            cname   => $self->_country_names (EBT2->$method1 ($code1)),
-            imgname => EBT2->$method1 ($code1),
-            bbflag  => EBT2->flag (EBT2->$method1 ($code1)),
-            $notes_by_key => $code1,
-            count   => ($data->{$code1}{'total'}//0),
-            pct     => (sprintf '%.2f', 100 * ($data->{$code1}{'total'}//0) / $count),
-            detail  => $detail,
-        };
-    }
-
-    my $first_by;
-    foreach my $code1 (sort { $data_first->{$a}{'at'} <=> $data_first->{$b}{'at'} } keys %$data_first) {
-        push @$first_by, {
-            (
-                'countries' eq $method1 ?
-                (cname => $self->_country_names (EBT2->$method1 ($code1))) :
-                (pc => $code1)
-            ),
-            at       => $data_first->{$code1}{'at'},
-            imgname  => EBT2->$method1 ($code1),
-            bbflag   => EBT2->flag (EBT2->$method1 ($code1)),
-            value    => $data_first->{$code1}{'value'},
-            on       => (split ' ', $data_first->{$code1}{'date_entered'})[0],
-            city     => $data_first->{$code1}{'city'},
-            imgname2 => $data_first->{$code1}{'country'},
-            bbflag2  => EBT2->flag ($data_first->{$code1}{'country'}),
-        };
-    }
+    my ($notes_by, $count_by_value, $first_by) = $self->_num_detail_1st (
+        data         => $data,
+        data_first   => $data_first,
+        method1      => 'printers',
+        method2      => 'countries',
+        notes_by_key => 'pc',
+    );
 
     $self->stash (
         nbprinter => $notes_by,

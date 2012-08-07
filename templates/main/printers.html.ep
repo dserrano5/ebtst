@@ -2,9 +2,9 @@
         title         => (l 'Number of notes by printer code'),
         table_header  => (l 'Printer'),
         notes_by      => $nbprinter,
-        elem_notes_by => 'pc',
+        notes_by_key  => 'pc',
         detail_title  => (l 'Detail of notes per value and printer code'),
         tot_bv        => $tot_p_bv,
         first_title   => (l 'First notes by printer code'),
         first_by      => $fbpc,
-        elem_1stby    => 'pc'; %>
+        first_from    => 'pc'; %>

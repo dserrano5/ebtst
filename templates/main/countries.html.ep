@@ -2,9 +2,9 @@
         title         => (l 'Number of notes by country code'),
         table_header  => (l 'Country'),
         notes_by      => $nbcountry,
-        elem_notes_by => 'cc',
+        notes_by_key  => 'cc',
         detail_title  => (l 'Detail of notes per value and country code'),
         tot_bv        => $tot_c_bv,
         first_title   => (l 'First notes by country code'),
         first_by      => $fbcc,
-        elem_1stby    => 'cname'; %>
+        first_from    => 'cname'; %>

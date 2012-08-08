@@ -27,6 +27,8 @@
 <br>
 <img src="images/<%= $user %>/acum_by_val.png">
 <br>
+<img src="images/<%= $user %>/pct_by_val.png">
+<br>
 <br>
 
 <h2><%=l 'First notes by value' %></h2>

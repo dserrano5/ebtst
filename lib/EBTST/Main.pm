@@ -218,6 +218,20 @@ sub value {
             { title =>   '500', color => 'purple', points => $dpoints{'500'} },
         ];
 
+    EBTST::Main::Gnuplot::bartime_chart
+        output => File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'pct_by_val.png'),
+        xdata => $notes_dates,
+        percent => 1,
+        dsets => [
+            { title =>     '5', color => 'grey',   points => $dpoints{'5'}   },
+            { title =>    '10', color => 'red',    points => $dpoints{'10'}  },
+            { title =>    '20', color => 'blue',   points => $dpoints{'20'}  },
+            { title =>    '50', color => 'orange', points => $dpoints{'50'}  },
+            { title =>   '100', color => 'green',  points => $dpoints{'100'} },
+            { title =>   '200', color => 'yellow', points => $dpoints{'200'} },
+            { title =>   '500', color => 'purple', points => $dpoints{'500'} },
+        ];
+
     $self->stash (
         nbval => $notes_by_val,
         fbval => $first_by,

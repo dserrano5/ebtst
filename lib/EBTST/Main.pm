@@ -193,10 +193,13 @@ sub value {
 
     ## chart
     my %dpoints;
+    my ($sum, $count);
     foreach my $elem (split ',', $elem_by_val) {
-        push @{ $dpoints{$_} }, ($dpoints{$_}[-1]//0) for 'Total', @{ EBT2->values };
+        push @{ $dpoints{$_} }, ($dpoints{$_}[-1]//0) for qw/Total Mean/, @{ EBT2->values };
         $dpoints{'Total'}[-1]++;
         $dpoints{$elem}[-1]++;
+        $sum += $elem;
+        $dpoints{'Mean'}[-1] = $sum/++$count;
     }
     ## overwrite values with their percentages
     #foreach my $idx (0..$#$notes_dates) {
@@ -230,6 +233,13 @@ sub value {
             { title =>   '100', color => 'green',  points => $dpoints{'100'} },
             { title =>   '200', color => 'yellow', points => $dpoints{'200'} },
             { title =>   '500', color => 'purple', points => $dpoints{'500'} },
+        ];
+
+    EBTST::Main::Gnuplot::line_chart
+        output => File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'dev_of_mean.png'),
+        xdata => $notes_dates,
+        dsets => [
+            { title => 'Average value', color => 'black', points => $dpoints{'Mean'} },
         ];
 
     $self->stash (

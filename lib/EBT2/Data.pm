@@ -15,7 +15,7 @@ use EBT2::NoteValidator;
 use EBT2::Constants ':all';
 
 ## whenever there are changes in the data format, this has to be increased in order to detect users with old data formats
-my $DATA_VERSION = '20120808-02';
+my $DATA_VERSION = '20120808-03';
 
 #use Inline C => <<'EOC';
 #void my_split (char *str, int nfields) {
@@ -408,6 +408,10 @@ sub load_hits {
         my $idx = (grep { $self->{'whoami'} == $p->[$_]{'user_id'} } 0 .. $#$p)[0];  ## where I appear in the hit
         $idx ||= 1;                                                       ## can't be zero, a hit occurs at the second part
         $hits{$serial}{'hit_date'} = $p->[$idx]{'date_entered'};
+
+        my ($y, $m, $d) = (split /[-: ]/, $hits{$serial}{'hit_date'})[0,1,2];
+        my $dow = dayofweek $d, $m, $y; $dow = 1 + ($dow-1) % 7;
+        $hits{$serial}{'dow'} = $dow;
 
         ## this is potentially expensive, let's see if it causes some lag with a high number of hits
         foreach my $n (@{ $self->{'notes'} }) {

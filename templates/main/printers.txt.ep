@@ -1,20 +1,7 @@
-[b]<%=l 'Number of notes by printer code' %>[/b]
-[table]\
-<% for my $elem (@$nbprinter) { =%>
-    [tr][td] <%= $elem->{'bbflag'} %> [b]<%= $elem->{'pc'} %>[/b] <%= $elem->{'cname'} %>[/td][td] ❘ <%= $elem->{'count'} %>[/td][td] ❘ <%= $elem->{'pct'} %>%[/td][/tr]\
-<% } =%>
-[/table]
-
-[b]<%=l 'First notes by printer code' %>[/b]
-[table]\
-[tr][td]<%=l 'Note' %>[/td][td] ❘ <%=l 'was the first from' %>[/td][td] ❘ Value[/td][td] ❘ <%=l 'entered on' %>[/td][td] ❘ <%=l 'in' %>[/td][/tr]\
-<% for my $elem (@$fbpc) { =%>
-    [tr]\
-        [td]<%= $elem->{'at'} %>[/td]\
-        [td] ❘ <%= $elem->{'bbflag'} %> [b]<%= $elem->{'pc'} %>[/b][/td]\
-        [td] ❘ :note-<%= $elem->{'value'} %>:[/td]\
-        [td] ❘ <%= $elem->{'on'} %>[/td]\
-        [td] ❘ <%= $elem->{'city'} %> <%= $elem->{'bbflag2'} %>[/td]\
-    [/tr]\
-<% } =%>
-[/table]
+<%= include 'main/_num_detail_1st',
+        title         => (l 'Number of notes by printer code'),
+        notes_by      => $nbprinter,
+        notes_by_key  => 'pc',
+        first_title   => (l 'First notes by printer code'),
+        first_by      => $fbpc,
+        first_from    => 'pc'; %>

@@ -4,3 +4,16 @@
     [tr][td] :note-<%= $elem->{'value'} %>:[/td][td] ❘ <%= $elem->{'count'} %> (<%= $elem->{'pct'} %> %)[/td][td] ❘ <%= $elem->{'amount'} %> EUR[/td][/tr]\
 <% } =%>
 [/table]
+
+[b]<%=l 'First notes by value' %>[/b]
+[table]\
+[tr][td]<%=l 'Note' %>[/td][td] ❘ <%=l 'was the first' %>[/td][td] ❘ <%=l 'entered on' %>[/td][td] ❘ <%=l 'in' %>[/td][/tr]\
+<% for my $elem (@$fbval) { =%>
+    [tr]\
+        [td]<%= $elem->{'at'} %>[/td]\
+        [td] ❘ :note-<%= $elem->{'value'} %>:[/td]\
+        [td] ❘ <%= $elem->{'on'} %>[/td]\
+        [td] ❘ <%= $elem->{'city'} %> <%= $elem->{'bbflag2'} %>[/td]\
+    [/tr]\
+<% } %>
+[/table]

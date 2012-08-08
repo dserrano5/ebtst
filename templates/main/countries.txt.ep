@@ -1,20 +1,7 @@
-[b]<%=l 'Number of notes by country code' %>[/b]
-[table]\
-<% for my $elem (@$nbcountry) { =%>
-    [tr][td] <%= $elem->{'bbflag'} %> [b]<%= $elem->{'cc'} %>[/b] <%= $elem->{'cname'} %>[/td][td] ❘ <%= $elem->{'count'} %>[/td][td] ❘ <%= $elem->{'pct'} %>%[/td][/tr]\
-<% } =%>
-[/table]
-
-[b]<%=l 'First notes by country code' %>[/b]
-[table]\
-[tr][td]<%=l 'Note' %>[/td][td] ❘ <%=l 'was the first from' %>[/td][td] ❘ Value[/td][td] ❘ <%=l 'entered on' %>[/td][td] ❘ <%=l 'in' %>[/td][/tr]\
-<% for my $elem (@$fbcc) { =%>
-    [tr]\
-        [td]<%= $elem->{'at'} %>[/td]\
-        [td] ❘ <%= $elem->{'bbflag'} %> [b]<%= $elem->{'cname'} %>[/b][/td]\
-        [td] ❘ :note-<%= $elem->{'value'} %>:[/td]\
-        [td] ❘ <%= $elem->{'on'} %>[/td]\
-        [td] ❘ <%= $elem->{'city'} %> <%= $elem->{'bbflag2'} %>[/td]\
-    [/tr]\
-<% } =%>
-[/table]
+<%= include 'main/_num_detail_1st',
+        title         => (l 'Number of notes by country code'),
+        notes_by      => $nbcountry,
+        notes_by_key  => 'cc',
+        first_title   => (l 'First notes by country code'),
+        first_by      => $fbcc,
+        first_from    => 'cname'; %>

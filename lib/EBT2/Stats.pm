@@ -546,7 +546,7 @@ sub bundle_time {
 
         ## time_analysis
         #my ($y, $m, $d, $H, $M, $S) = map { sprintf '%02d', $_ } split /[\s:-]/, $hr->[DATE_ENTERED];
-        my $dow = dayofweek $d, $m, $y; $dow = 1 + ($dow-1) % 7;   ## turn 0 (sunday) into 7. So we end up with 1..7
+        my $dow = $hr->[DOW];
         $ret{'time_analysis'}{'cal'}{$m}{$d}++;
         $ret{'time_analysis'}{'hh'}{$H}++;
         $ret{'time_analysis'}{'mm'}{$M}++;
@@ -893,6 +893,7 @@ sub hit_list {
             hit_no2       => $hit_no2,
             dates         => [ map { $_->{'date_entered'} } @{ $hit->{'parts'} } ],
             hit_date      => $hit->{'hit_date'},
+            dow           => $hit->{'dow'},
             value         => $hr->[VALUE],
             serial        => $hr->[SERIAL],
             short_code    => $hr->[SHORT_CODE],
@@ -932,7 +933,7 @@ sub hit_times {
         next if $hit->{'moderated'};
 
         my ($y, $m, $d, $H, $M, $S) = map { sprintf '%02d', $_ } split /[\s:-]/, $hit->{'hit_date'};
-        my $dow = dayofweek $d, $m, $y; $dow = 1 + ($dow-1) % 7;
+        my $dow = $hit->{'dow'};
         $ret{'hit_times'}{'cal'}{$m}{$d}++;
         $ret{'hit_times'}{'hh'}{$H}++;
         $ret{'hit_times'}{'mm'}{$M}++;

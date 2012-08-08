@@ -91,6 +91,7 @@ Short code = Código corto
 Date = Fecha
 
 ## nice_serials
+Serial number = Número de serie
 note(s) = billete(s)
 of total = del total
 have = tienen

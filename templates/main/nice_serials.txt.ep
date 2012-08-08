@@ -1,6 +1,6 @@
 [b]<%=l 'Nice serials' %>[/b]
 [table]\
-[tr][td]<%=l 'Note' %>[/td][td] ❘ <%=l 'Value' %>[/td][td] ❘ <%=l 'entered on' %>[/td][td] ❘ <%=l 'in' %>[/td][/tr]\
+[tr][td]<%=l 'Serial number' %>[/td][td] ❘ <%=l 'Value' %>[/td][td] ❘ <%=l 'entered on' %>[/td][td] ❘ <%=l 'in' %>[/td][/tr]\
 <% foreach my $elem (@$nicest) { =%>
     [tr][td]<%= $elem->{'serial'} %>[/td][td] ❘ :note-<%= $elem->{'value'} %>:[/td][td] ❘ <%= $elem->{'date'} %>[/td][td] ❘ <%= $elem->{'city'} %> <%= $elem->{'bbflag'} %>[/td][/tr]\
 <% } =%>

@@ -1,7 +1,7 @@
 <h2><%=l 'Nice serials' %></h2>
 <table>
     <tr>
-        <th><%=l 'Note' %></th>
+        <th><%=l 'Serial number' %></th>
         <th><%=l 'Value' %></th>
         <th><%=l 'entered on' %></th>
         <th><%=l 'in' %></th>

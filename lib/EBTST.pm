@@ -18,6 +18,7 @@ my $statics_dir        = $config{'statics_dir'} // File::Spec->catfile ($ENV{'BA
 my $images_dir         = File::Spec->catfile ($config{'statics_dir'} ? $config{'statics_dir'} : ($ENV{'BASE_DIR'}, 'public'), 'images');
 my $session_expire     = $config{'session_expire'} // 30;
 my $base_href          = $config{'base_href'};
+our @graphs_colors     = $config{'graphs_colors'} ? (split /[\s,]+/, $config{'graphs_colors'}) : ('blue', 'green', '#FFBF00', 'red', 'black');
 my $hypnotoad_listen   = $config{'hypnotoad_listen'} // 'http://localhost:3000'; $hypnotoad_listen = [ $hypnotoad_listen ] if 'ARRAY' ne ref $hypnotoad_listen;
 my $hypnotoad_is_proxy = $config{'hypnotoad_is_proxy'} // 0;
 my $base_parts = @{ Mojo::URL->new ($base_href)->path->parts };
@@ -85,14 +86,14 @@ sub startup {
     });
     $self->helper (color => sub {
         my ($self, $num) = @_;
-        my $color = '#00FF00';
+        my $color;
 
         if (!$num)                             { $color = '#B0B0B0';
-        } elsif ($num >=    1 and $num <=  49) { $color = 'blue';
-        } elsif ($num >=   50 and $num <=  99) { $color = 'green';
-        } elsif ($num >=  100 and $num <= 499) { $color = '#FFBF00';
-        } elsif ($num >=  500 and $num <= 999) { $color = 'red';
-        } elsif ($num >= 1000)                 { $color = 'black';
+        } elsif ($num >=    1 and $num <=  49) { $color = $graphs_colors[0];
+        } elsif ($num >=   50 and $num <=  99) { $color = $graphs_colors[1];
+        } elsif ($num >=  100 and $num <= 499) { $color = $graphs_colors[2];
+        } elsif ($num >=  500 and $num <= 999) { $color = $graphs_colors[3];
+        } elsif ($num >= 1000)                 { $color = $graphs_colors[4];
         } else {
             die "Should not happen, num ($num)";
         }

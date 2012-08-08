@@ -861,7 +861,7 @@ sub hit_times {
     my $ht       = $self->ebt->get_hit_times ($hit_list);
 
     $self->stash (
-        hit_times_count => (scalar @$hit_list),
+        hit_times_count => (scalar grep { !$_->{'moderated'} } @$hit_list),
         hit_times       => $ht,
     );
 }

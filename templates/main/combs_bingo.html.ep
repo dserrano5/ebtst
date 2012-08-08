@@ -56,7 +56,8 @@
             <% foreach my $v (@{ EBT2->values }) { %>
                 <td class="small_cell"><%= $seen{$v}//0 %>/<%= $total{$v}//0 %></td>
             <% } %>
-            <td class="small_cell"><%= $seen{'any'}//0 %>/<%= $total{'any'}//0 %></td>
+            <% my $seen_pct = 100 * ($seen{'any'}//0) / ($total{'any'}//0); =%>
+            <td class="small_cell"><%= $seen{'any'}//0 %>/<%= $total{'any'}//0 %> (<%= sprintf '%.2f', $seen_pct %>%)</td>
         </tr>
     </table>
     <% delete $seen{'any'}; delete $total{'any'}; %>

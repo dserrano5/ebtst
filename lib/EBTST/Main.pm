@@ -193,13 +193,13 @@ sub value {
 
     ## chart
     my %dpoints;
-    my ($sum, $count);
+    my ($avg_sum, $avg_count);
     foreach my $elem (split ',', $elem_by_val) {
         push @{ $dpoints{$_} }, ($dpoints{$_}[-1]//0) for qw/Total Mean/, @{ EBT2->values };
         $dpoints{'Total'}[-1]++;
         $dpoints{$elem}[-1]++;
-        $sum += $elem;
-        $dpoints{'Mean'}[-1] = $sum/++$count;
+        $avg_sum += $elem;
+        $dpoints{'Mean'}[-1] = $avg_sum/++$avg_count;
     }
     ## overwrite values with their percentages
     #foreach my $idx (0..$#$notes_dates) {

@@ -103,3 +103,19 @@ a img {
     visibility: hidden;
     content: '.';
 }
+.recent_0:after {}
+.recent_1:after {
+    color: blue;
+    padding-left: 4px;
+    content: '*';
+}
+.recent_2:after {
+    color: green;
+    padding-left: 4px;
+    content: '**';
+}
+.recent_3:after {
+    color: red;
+    padding-left: 4px;
+    content: '***';
+}

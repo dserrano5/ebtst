@@ -16,12 +16,12 @@
         <td><img src="images/<%= $elem->{'lo'}{'pc_img'} %>.gif"> <%= $elem->{'lo'}{'pc_str'} %></td>
         <td><img src="images/<%= $elem->{'lo'}{'cc_img'} %>.gif"> <%= $elem->{'lo'}{'cc_str'} %></td>
         <td><img src="images/<%= $elem->{'lo'}{'value'} %>.gif"></td>
-        <td><%= $elem->{'lo'}{'date'} %></td>
+        <td><%= $elem->{'lo'}{'date'} %><span class="recent_<%= $elem->{'lo'}{'recent'} %>"></span></td>
         <td class="invisible_cell small_cell"></td>
         <td><img src="images/<%= $elem->{'hi'}{'pc_img'} %>.gif"> <%= $elem->{'hi'}{'pc_str'} %></td>
         <td><img src="images/<%= $elem->{'hi'}{'cc_img'} %>.gif"> <%= $elem->{'hi'}{'cc_str'} %></td>
         <td><img src="images/<%= $elem->{'hi'}{'value'} %>.gif"></td>
-        <td><%= $elem->{'hi'}{'date'} %></td>
+        <td><%= $elem->{'hi'}{'date'} %><span class="recent_<%= $elem->{'hi'}{'recent'} %>"></span></td>
     </tr>
     <% } %>
 </table>
@@ -44,11 +44,11 @@
             <tr>
                 <td><img src="images/<%= $elem->{'lo'}{'pc_img'} %>.gif"> <%= $elem->{'lo'}{'pc_str'} %></td>
                 <td><img src="images/<%= $elem->{'lo'}{'cc_img'} %>.gif"> <%= $elem->{'lo'}{'cc_str'} %></td>
-                <td><%= $elem->{'lo'}{'date'} %></td>
+                <td><%= $elem->{'lo'}{'date'} %><span class="recent_<%= $elem->{'lo'}{'recent'} %>"></span></td>
                 <td class="invisible_cell small_cell"></td>
                 <td><img src="images/<%= $elem->{'hi'}{'pc_img'} %>.gif"> <%= $elem->{'hi'}{'pc_str'} %></td>
                 <td><img src="images/<%= $elem->{'hi'}{'cc_img'} %>.gif"> <%= $elem->{'hi'}{'cc_str'} %></td>
-                <td><%= $elem->{'hi'}{'date'} %></td>
+                <td><%= $elem->{'hi'}{'date'} %><span class="recent_<%= $elem->{'hi'}{'recent'} %>"></span></td>
             </tr>
             <% } %>
         <% } %>

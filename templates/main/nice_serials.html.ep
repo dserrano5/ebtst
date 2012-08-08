@@ -1,9 +1,22 @@
-<% foreach my $elem (@$nicest) { %>
-    <%= $elem->{'serial'} %> (<img src="images/<%= $elem->{'value'} %>.gif"> <%=l 'entered on' %> <%= $elem->{'date'} %> <%=l 'in' %> <%= $elem->{'city'} %> <img src="images/<%= $elem->{'imgname'} %>.gif">)
-    <br>
-<% } %>
-
+<h2><%=l 'Nice serials' %></h2>
+<table>
+    <tr>
+        <th><%=l 'Note' %></th>
+        <th><%=l 'Value' %></th>
+        <th><%=l 'entered on' %></th>
+        <th><%=l 'in' %></th>
+    </tr>
+    <% foreach my $elem (@$nicest) { =%>
+        <tr>
+            <td><%= $elem->{'serial'} %></td>
+            <td><img src="images/<%= $elem->{'value'} %>.gif"></td>
+            <td><%= $elem->{'date'} %><span class="recent_<%= $elem->{'recent'} %>"></span></td>
+            <td><%= $elem->{'city'} %> <img src="images/<%= $elem->{'imgname'} %>.gif"></td>
+        </tr>
+    <% } =%>
+</table>
 <br>
+
 <% foreach my $length (sort { $a <=> $b } keys %$numbers_in_a_row) { %>
     <%= $numbers_in_a_row->{$length}{'count'} %> <%=l 'note(s)' %> (<%= $numbers_in_a_row->{$length}{'pct'} %>% <%=l 'of total' %>) <%=l 'have' %> <%= $length %> <%=l 'numbers in a row' %>.
     <br>

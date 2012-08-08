@@ -14,7 +14,7 @@ use EBT2::NoteValidator;
 use EBT2::Constants ':all';
 
 ## whenever there are changes in any stats format, this has to be increased in order to detect users with old stats formats
-our $STATS_VERSION = '20120807-02';
+our $STATS_VERSION = '20120808-01';
 
 sub mean { return sum(@_)/@_; }
 
@@ -349,6 +349,7 @@ sub huge_table {
         $serial = substr $serial, 0, 4+$num_stars;
 
         $ret{'huge_table'}{$plate}{ $hr->[VALUE] }{$serial}{'count'}++;
+        $ret{'huge_table'}{$plate}{ $hr->[VALUE] }{$serial}{'recent'} = $hr->[RECENT];  ## since @$iter is ordered, we'll get the latest value
     }
 
     return \%ret;

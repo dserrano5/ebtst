@@ -532,6 +532,7 @@ sub short_codes {
                     cc_str  => $cc_str,
                     value   => $records->{$what}{'value'},
                     date    => (split ' ', $records->{$what}{'date_entered'})[0],
+                    recent  => $records->{$what}{'recent'},
                 };
             }
             push @{ $sc->{$v} }, $tmp;
@@ -561,6 +562,7 @@ sub nice_serials {
             serial  => $n->{'visible_serial'},
             value   => $n->{'value'},
             date    => (split ' ', $n->{'date_entered'})[0],
+            recent  => $n->{'recent'},
             city    => $n->{'city'},
             imgname => $n->{'country'},
             bbflag  => EBT2->flag ($n->{'country'}),

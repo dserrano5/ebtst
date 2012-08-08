@@ -3,6 +3,7 @@ package EBT2::Data;
 use warnings;
 use strict;
 use DateTime;
+use Date::DayOfWeek;
 use File::Spec;
 use Text::CSV;
 use List::Util qw/first max sum/;
@@ -14,7 +15,7 @@ use EBT2::NoteValidator;
 use EBT2::Constants ':all';
 
 ## whenever there are changes in the data format, this has to be increased in order to detect users with old data formats
-my $DATA_VERSION = '20120804-01';
+my $DATA_VERSION = '20120808-02';
 
 #use Inline C => <<'EOC';
 #void my_split (char *str, int nfields) {
@@ -248,6 +249,12 @@ sub load_notes {
         value year serial desc date_entered city country
         zip short_code id times_entered moderated_hit lat long
     /;
+    my %recent_cutoffs = (
+        _1year   => DateTime->now->subtract (years  => 1)->strftime ('%Y%m%d'),
+        _3months => DateTime->now->subtract (months => 3)->strftime ('%Y%m%d'),
+        _1week   => DateTime->now->subtract (weeks  => 1)->strftime ('%Y%m%d'),
+    );
+
 
     ## maybe keep known hits (if any)
     my %save_hits;
@@ -275,6 +282,14 @@ sub load_notes {
         if ($hr->{'date_entered'} =~ m{^(\d{2})/(\d{2})/(\d{2}) (\d{2}):(\d{2})$}) {
             $hr->{'date_entered'} = sprintf "%s-%s-%s %s:%s:00", (2000+$3), $2, $1, $4, $5;
         }
+        my ($y, $m, $d) = (split /[-: ]/, $hr->{'date_entered'})[0,1,2];
+        my $dow = dayofweek $d, $m, $y; $dow = 1 + ($dow-1) % 7;   ## turn 0 (sunday) into 7. So we end up with 1..7
+
+        my $ymd = join '', $y, $m, $d;
+        if    ($ymd > $recent_cutoffs{'_1week'})   { $hr->{'recent'} = 3; }
+        elsif ($ymd > $recent_cutoffs{'_3months'}) { $hr->{'recent'} = 2; }
+        elsif ($ymd > $recent_cutoffs{'_1year'})   { $hr->{'recent'} = 1; }
+        else                                       { $hr->{'recent'} = 0; }
 
         if ($store_path) {
             my $serial2 = $hr->{'serial'};
@@ -282,16 +297,17 @@ sub load_notes {
             printf $outfd "%s\n", join ';', @$hr{qw/value year/}, $serial2, @$hr{qw/short_code date_entered city country/};
         }
 
-        #$hr->{$_} +=0 for qw/value year id times_entered moderated_hit lat long/;
         $hr->{'note_no'} = ++$note_no;
-        $hr->{'signature'} = _find_out_signature @$hr{qw/value short_code serial/};
+        $hr->{'dow'} = $dow;
         $hr->{'country'} = _cc $hr->{'country'};
+        $hr->{'signature'} = _find_out_signature @$hr{qw/value short_code serial/};
         $hr->{'errors'} = EBT2::NoteValidator::validate_note $hr;
         $hr->{'hit'} = '';
 
         $self->{'has_bad_notes'} = 1 if $hr->{'errors'};
 
         ## HASH
+        #$hr->{$_} +=0 for qw/value year id times_entered moderated_hit lat long/;
         #push @{ $self->{'notes'} }, $hr;
 
         ## ARRAY
@@ -302,8 +318,8 @@ sub load_notes {
         push @{ $self->{'notes'} }, sprintf $fmt, @$hr{+COL_NAMES};
 
         ## STRING, FIXED LENGTH STRINGS
-        ##         val yr  ser  ts   city co  zip  pc  id   t   mod lat  long sig  err   hit   desc
-        #my $fmt = '%3s;%4s;%12s;%19s;%30s;%2s;%12s;%6s;%10s;%1s;%1s;%18s;%18s;%10s;%100s;%100s;%250s';
+        ##         val yr  ser  ts   city co  zip  pc  id   t   mod lat  long sig  err   hit    desc
+        #my $fmt = '%3s;%4s;%12s;%19s;%30s;%2s;%12s;%6s;%10s;%1s;%1s;%18s;%18s;%10s;%150s;%1200s;%250s';
         #push @{ $self->{'notes'} }, sprintf $fmt, @$hr{+COL_NAMES};
     }
     close $fd;

@@ -156,6 +156,7 @@ sub startup {
         return 1;
     });
     $r_has_notes_hits->get ('/')->to ('main#index');
+    $r_has_notes_hits->get ('//')->to ('main#index');
     $r_has_notes_hits->get ('/index')->to ('main#index');
     $r_has_notes_hits->post ('/login')->to ('main#login');
 

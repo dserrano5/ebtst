@@ -30,7 +30,7 @@
                         <% if (exists $EBT2::combs_pc_cc_val_sig{$sig} and exists $EBT2::combs_pc_cc_val_sig{$sig}{$k_pcv}) { =%>
                             <% $total{$v}++; =%>
                             <% if (exists $nbcombo->{$sig}{$k} and exists $nbcombo->{$sig}{$k}{$v}) { =%>
-                                <% $row_sum += $nbcombo->{$sig}{$k}{$v}; =%>
+                                <% $seen{$v}++; $row_sum += $nbcombo->{$sig}{$k}{$v}; =%>
                                 <% $val_totals{$v} += $nbcombo->{$sig}{$k}{$v}; =%>
                             <% } =%>
                             <% push @cols, { color => (color $nbcombo->{$sig}{$k}{$v}), v => $v, num => $nbcombo->{$sig}{$k}{$v}//0 }; =%>
@@ -53,7 +53,7 @@
                 <% foreach my $col (@$row) { =%>
                     <% if (defined $col) { =%>
                         <% if ('bingo' eq $mode) { =%>
-                            <% if ($val_totals{ $col->{'v'} }) { =%>
+                            <% if ($col->{'num'}) { =%>
                                 <td><div class="bingo_1"></div></td>
                             <% } else { =%>
                                 <td><div class="bingo_0"></div></td>

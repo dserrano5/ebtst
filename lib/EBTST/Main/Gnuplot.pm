@@ -25,6 +25,7 @@ sub line_chart {
     }
 
     my $gp = Chart::Gnuplot->new (
+        encoding  => 'utf8',
         #imagesize => '8, 6',   ## default: '10, 7' for some reason
         output    => $args{'output'},
         #title     => 'Title',
@@ -32,7 +33,7 @@ sub line_chart {
         #ylabel    => 'Notes',
         timeaxis  => 'x',
         #bg        => 'white',
-        #logscale  => 'y',
+        ($args{'logscale'} ? (logscale => $args{'logscale'}) : ()),
         #yrange    => [ 0, '*' ],
         grid => {
             type  => 'dot',
@@ -83,6 +84,7 @@ sub bar_chart {
     }
 
     my $gp = Chart::Gnuplot->new (
+        encoding     => 'utf8',
         output       => $args{'output'},
         boxwidth     => '0.75 absolute',
         'style fill' => ($args{'bar_border'} ? 'solid 1 border lt -1' : 'solid 1'),
@@ -165,6 +167,7 @@ sub bartime_chart {
         );
     }
     my $gp = Chart::Gnuplot->new (
+        encoding     => 'utf8',
         output       => $args{'output'},
         timeaxis  => 'x',
         #boxwidth     => '0.75 absolute',

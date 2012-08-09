@@ -129,15 +129,15 @@ sub information {
         $dpoints{$elem}[-1]++ if '(unknown)' ne $elem;
     }
 
-    EBTST::Main::Gnuplot::bartime_chart
-        output => File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'pct_by_pres.png'),
+    my $dest_img = File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'pct_by_pres.png');
+    -e $dest_img or EBTST::Main::Gnuplot::bartime_chart
+        output => $dest_img,
         xdata => $notes_dates,
         percent => 1,
         dsets => [
             { title =>    'WD', color => 'grey',   points => $dpoints{'WD'}  },
             { title =>   'JCT', color => 'red',    points => $dpoints{'JCT'} },
             { title =>    'MD', color => 'blue',   points => $dpoints{'MD'}  },
-            #{ title => 'Total', color => 'black',  points => $dpoints{'Total'} },
         ];
 
     $self->stash (
@@ -207,8 +207,9 @@ sub value {
     #        $dpoints{$v}[$idx] = 100 * ($dpoints{$v}[$idx]//0) / $dpoints{'Total'}[$idx];
     #    }
     #}
-    EBTST::Main::Gnuplot::line_chart
-        output => File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'acum_by_val.png'),
+    my $dest_img = File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'acum_by_val.png');
+    -e $dest_img or EBTST::Main::Gnuplot::line_chart
+        output => $dest_img,
         xdata => $notes_dates,
         dsets => [
             { title => 'Total', color => 'black',  points => $dpoints{'Total'} },
@@ -221,8 +222,9 @@ sub value {
             { title =>   '500', color => 'purple', points => $dpoints{'500'} },
         ];
 
-    EBTST::Main::Gnuplot::bartime_chart
-        output => File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'pct_by_val.png'),
+    $dest_img = File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'pct_by_val.png');
+    -e $dest_img or EBTST::Main::Gnuplot::bartime_chart
+        output => $dest_img,
         xdata => $notes_dates,
         percent => 1,
         dsets => [
@@ -235,8 +237,9 @@ sub value {
             { title =>   '500', color => 'purple', points => $dpoints{'500'} },
         ];
 
-    EBTST::Main::Gnuplot::line_chart
-        output => File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'dev_of_mean.png'),
+    $dest_img = File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'dev_of_mean.png');
+    -e $dest_img or EBTST::Main::Gnuplot::line_chart
+        output => $dest_img,
         xdata => $notes_dates,
         dsets => [
             { title => 'Average value', color => 'black', points => $dpoints{'Mean'} },
@@ -684,8 +687,9 @@ sub top_days {
             detail => $detail,
         };
     }
-    EBTST::Main::Gnuplot::bar_chart
-        output     => File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'week_days.png'),
+    my $dest_img = File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'week_days.png');
+    -e $dest_img or EBTST::Main::Gnuplot::bar_chart
+        output     => $dest_img,
         labels     => [ qw/Monday Tuesday Wednesday Thursday Friday Saturday Sunday/ ],
         bar_border => 1,
         dsets => [
@@ -949,6 +953,9 @@ sub upload {
         $self->_log (info => "will store a censored copy at '$outfile'");
         $self->ebt->load_notes ($local_notes_file, $outfile);
         unlink $local_notes_file or $self->_log (warn => "upload: unlink: '$local_notes_file': $!\n");
+        foreach my $img (glob File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), '*')) {
+            unlink $img or $self->_log (warn => "upload: unlink: '$img': $!\n");
+        }
     }
     if ($hits_csv and $hits_csv->size) {
         my $local_hits_file = File::Spec->catfile ($ENV{'TMP'}//$ENV{'TEMP'}//'/tmp', 'hits_uploaded.csv');
@@ -956,6 +963,9 @@ sub upload {
         $self->_decompress ($local_hits_file);
         $self->ebt->load_hits ($local_hits_file);
         unlink $local_hits_file  or $self->_log (warn => "upload: unlink: '$local_hits_file': $!\n");
+        foreach my $img (glob File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'hits_*')) {
+            unlink $img or $self->_log (warn => "upload: unlink: '$img': $!\n");
+        }
     }
 
     $self->redirect_to ('information');

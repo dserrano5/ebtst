@@ -24,6 +24,28 @@ my %country_names = (
 );
 my %users;
 
+my %section_titles;
+foreach my $section (qw/
+    index information value countries locations printers huge_table short_codes nice_serials
+    top_days plate_bingo bad_notes hit_list hit_analysis hit_summary
+/) {
+    my $title = ucfirst $section;
+    $title =~ s/_/ /g;
+    $section_titles{$section} = $title;
+}
+%section_titles = (
+    %section_titles,
+    notes_per_year       => 'Notes/year',
+    notes_per_month      => 'Notes/month',
+    coords_bingo         => 'Coordinates bingo',
+    time_analysis_bingo  => 'Time analysis (bingo)',
+    time_analysis_detail => 'Time analysis (detail)',
+    combs_bingo          => 'Combinations (bingo)',
+    combs_detail         => 'Combinations (detail)',
+    hit_times_bingo      => 'Hit times (bingo)',
+    hit_times_detail     => 'Hit times (detail)',
+);
+
 sub _log {
     my ($self, $prio, $msg) = @_;
 
@@ -65,6 +87,7 @@ sub index {
 
     $self->redirect_to ('information') if ref $self->stash ('sess') and $self->stash ('sess')->load;
     $self->flash (requested_url => $self->flash ('requested_url'));
+    $self->stash (title => $section_titles{'index'});
 }
 
 sub login {
@@ -141,6 +164,7 @@ sub information {
         ];
 
     $self->stash (
+        title        => $section_titles{'information'},
         ac           => $ac,
         bbflag       => EBT2->flag ($ac->{'first_note'}{'country'}),
         today        => $today,
@@ -246,6 +270,7 @@ sub value {
         ];
 
     $self->stash (
+        title => $section_titles{'value'},
         nbval => $notes_by_val,
         fbval => $first_by,
     );
@@ -357,6 +382,7 @@ sub countries {
     );
 
     $self->stash (
+        title     => $section_titles{'countries'},
         nbcountry => $notes_by,
         tot_c_bv  => [ map { $count_by_value->{$_}//0 } @{ EBT2->values } ],
         fbcc      => $first_by,
@@ -449,6 +475,7 @@ sub locations {
     }
 
     $self->stash (
+        title     => $section_titles{'locations'},
         num_co    => scalar keys %$nbco,
         countries => $countries,
         num_locs  => $distinct_cities,
@@ -474,6 +501,7 @@ sub printers {
     );
 
     $self->stash (
+        title     => $section_titles{'printers'},
         nbprinter => $notes_by,
         tot_p_bv  => [ map { $count_by_value->{$_}//0 } @{ EBT2->values } ],
         fbpc      => $first_by,
@@ -497,7 +525,8 @@ sub huge_table {
     }
 
     $self->stash (
-        ht => $ht,
+        title => $section_titles{'huge_table'},
+        ht    => $ht,
     );
 }
 
@@ -547,7 +576,8 @@ sub short_codes {
     }
 
     $self->stash (
-        sc  => $sc,
+        title => $section_titles{'short_codes'},
+        sc    => $sc,
     );
 }
 
@@ -580,6 +610,7 @@ sub nice_serials {
     }
 
     $self->stash (
+        title            => $section_titles{'nice_serials'},
         nicest           => $nice_notes,
         numbers_in_a_row => $niar,
         primes           => 'bar',
@@ -599,6 +630,7 @@ sub coords_bingo {
     #}
 
     $self->stash (
+        title  => $section_titles{'coords_bingo'},
         cbingo => $cbingo,
     );
 }
@@ -628,7 +660,8 @@ sub notes_per_year {
     }
 
     $self->stash (
-        nby => $nby,
+        title => $section_titles{'notes_per_year'},
+        nby   => $nby,
     );
 }
 
@@ -657,7 +690,8 @@ sub notes_per_month {
     }
 
     $self->stash (
-        nbm => $nbm,
+        title => $section_titles{'notes_per_month'},
+        nbm   => $nbm,
     );
 }
 
@@ -726,26 +760,28 @@ sub top_days {
     }
 
     $self->stash (
+        title => $section_titles{'top_days'},
         nbdow => $nbdow,
         t10d  => $t10d,
     );
 }
 
 sub time_analysis_bingo {
-    my ($self) = @_;
+    my ($self, $detail) = @_;
 
     my $count   = $self->ebt->get_count;
     my $ta_data = $self->ebt->get_time_analysis;
 
     $self->stash (
+        title    => ($detail ? $section_titles{'time_analysis_detail'} : $section_titles{'time_analysis_bingo'}),
         ta_count => $count,
         ta       => $ta_data,
     );
 }
-sub time_analysis_detail { goto &time_analysis_bingo; }
+sub time_analysis_detail { push @_, 1; goto &time_analysis_bingo; }
 
 sub combs_bingo {
-    my ($self) = @_;
+    my ($self, $detail) = @_;
 
     my $nbcombo    = $self->ebt->get_notes_by_combination;
     #my $sbp        = $self->ebt->sigs_by_president;
@@ -774,6 +810,7 @@ sub combs_bingo {
     }
 
     $self->stash (
+        title      => ($detail ? $section_titles{'combs_detail'} : $section_titles{'combs_bingo'}),
         nbcombo    => $nbcombo,
         presidents => $presidents,
         missing    => $missing,
@@ -781,7 +818,7 @@ sub combs_bingo {
         count      => $count,
     );
 }
-sub combs_detail { goto &combs_bingo; }
+sub combs_detail { push @_, 1; goto &combs_bingo; }
 
 sub plate_bingo {
     my ($self) = @_;
@@ -814,7 +851,10 @@ sub plate_bingo {
         };
     }
 
-    $self->stash (plate_bingo => $cooked);
+    $self->stash (
+        title       => $section_titles{'plate_bingo'},
+        plate_bingo => $cooked,
+    );
 }
 
 sub bad_notes {
@@ -838,6 +878,7 @@ sub bad_notes {
     }
 
     $self->stash (
+        title     => $section_titles{'bad_notes'},
         bad_notes => \@cooked,
     );
 }
@@ -855,24 +896,26 @@ sub hit_list {
     }
 
     $self->stash (
+        title    => $section_titles{'hit_list'},
         hit_list => $cooked,
         whoami   => $whoami,
     );
 }
 
 sub hit_times_bingo {
-    my ($self) = @_;
+    my ($self, $detail) = @_;
 
     my $whoami   = $self->ebt->whoami;
     my $hit_list = $self->ebt->get_hit_list ($whoami);
     my $ht       = $self->ebt->get_hit_times ($hit_list);
 
     $self->stash (
+        title           => ($detail ? $section_titles{'hit_times_detail'} : $section_titles{'hit_times_bingo'}),
         hit_times_count => (scalar grep { !$_->{'moderated'} } @$hit_list),
         hit_times       => $ht,
     );
 }
-sub hit_times_detail { goto &hit_times_bingo; }
+sub hit_times_detail { push @_, 1; goto &hit_times_bingo; }
 
 sub hit_analysis {
     my ($self) = @_;
@@ -893,6 +936,7 @@ sub hit_analysis {
     }
 
     $self->stash (
+        title   => $section_titles{'hit_analysis'},
         longest => $longest,
         oldest  => $oldest,
         whoami  => $whoami,
@@ -914,7 +958,8 @@ sub hit_summary {
     }
 
     $self->stash (
-        hs => $hs,
+        title => $section_titles{'hit_summary'},
+        hs    => $hs,
     );
 }
 
@@ -1010,8 +1055,10 @@ sub _save_html {
     my $index_symlink_done = 0;
     foreach my $param (@req_params) {
         my $partial_html = encode 'UTF-8', $self->render_partial (template => "main/$param", format => 'html');
+        my $title = encode 'UTF-8', $self->l ($section_titles{$param});
         my $html_copy = $html_text;
         $html_copy =~ s/<!-- content -->/$partial_html/;
+        $html_copy =~ s/<!-- title -->/$title/;
 
         my $file = File::Spec->catfile ($html_dir, "$param.html");
         if (open my $fd, '>', $file) {

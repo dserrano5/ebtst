@@ -1,6 +1,6 @@
 <!doctype html><html>
     <head>
-        <title>EBTST</title>
+        <title>EBTST - <%=l $title %></title>
         <% if ($production and $base_href) { =%>
         <base href="<%= $base_href %>">
         <% } =%>

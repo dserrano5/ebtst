@@ -1,0 +1,20 @@
+[b]<%= $title %>[/b]
+[table]\
+<% for my $elem (@$notes_by) { =%>
+    [tr][td] <%= $elem->{'bbflag'} %> [b]<%= $elem->{$notes_by_key} %>[/b] <%= $elem->{'cname'} %>[/td][td] ❘ <%= $elem->{'count'} %>[/td][td] ❘ <%= $elem->{'pct'} %>%[/td][/tr]\
+<% } =%>
+[/table]
+
+[b]<%= $first_title %>[/b]
+[table]\
+[tr][td]<%=l 'Note' %>[/td][td] ❘ <%=l 'was the first from' %>[/td][td] ❘ Value[/td][td] ❘ <%=l 'entered on' %>[/td][td] ❘ <%=l 'in' %>[/td][/tr]\
+<% for my $elem (@$first_by) { =%>
+    [tr]\
+        [td]<%= $elem->{'at'} %>[/td]\
+        [td] ❘ <%= $elem->{'bbflag'} %> [b]<%= $elem->{$first_from} %>[/b][/td]\
+        [td] ❘ :note-<%= $elem->{'value'} %>:[/td]\
+        [td] ❘ <%= $elem->{'on'} %>[/td]\
+        [td] ❘ <%= $elem->{'city'} %> <%= $elem->{'bbflag2'} %>[/td]\
+    [/tr]\
+<% } =%>
+[/table]

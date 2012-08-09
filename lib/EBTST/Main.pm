@@ -144,24 +144,27 @@ sub information {
     my $today       = DateTime->now->set_time_zone ('Europe/Madrid')->strftime ('%Y-%m-%d %H:%M:%S');
     my $avg_per_day = $count / $full_days;
 
-    my @initials_pres = map { (split /:/)[0] } @{ EBT2->presidents };
-    my %dpoints;
-    foreach my $elem (map { (split ' ')[0] } split ',', $elem_by_pres) {
-        push @{ $dpoints{$_} }, ($dpoints{$_}[-1]//0) for 'Total', @initials_pres;
-        $dpoints{'Total'}[-1]++;
-        $dpoints{$elem}[-1]++ if '(unknown)' ne $elem;
-    }
-
     my $dest_img = File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'pct_by_pres.png');
-    -e $dest_img or EBTST::Main::Gnuplot::bartime_chart
-        output => $dest_img,
-        xdata => $notes_dates,
-        percent => 1,
-        dsets => [
-            { title =>    'WD', color => 'grey',   points => $dpoints{'WD'}  },
-            { title =>   'JCT', color => 'red',    points => $dpoints{'JCT'} },
-            { title =>    'MD', color => 'blue',   points => $dpoints{'MD'}  },
-        ];
+    if (!-e $dest_img) {
+        my @initials_pres = map { (split /:/)[0] } @{ EBT2->presidents };
+        my %dpoints;
+        foreach my $elem (map { (split ' ')[0] } split ',', $elem_by_pres) {
+            push @{ $dpoints{$_} }, ($dpoints{$_}[-1]//0) for 'Total', @initials_pres;
+            $dpoints{'Total'}[-1]++;
+            $dpoints{$elem}[-1]++ if '(unknown)' ne $elem;
+        }
+
+        my $dest_img = File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'pct_by_pres.png');
+        EBTST::Main::Gnuplot::bartime_chart
+            output => $dest_img,
+            xdata => $notes_dates,
+            percent => 1,
+            dsets => [
+                { title =>    'WD', color => 'grey',   points => $dpoints{'WD'}  },
+                { title =>   'JCT', color => 'red',    points => $dpoints{'JCT'} },
+                { title =>    'MD', color => 'blue',   points => $dpoints{'MD'}  },
+            ];
+    }
 
     $self->stash (
         title        => $section_titles{'information'},
@@ -216,58 +219,60 @@ sub value {
     }
 
     ## chart
-    my %dpoints;
-    my ($avg_sum, $avg_count);
-    foreach my $elem (split ',', $elem_by_val) {
-        push @{ $dpoints{$_} }, ($dpoints{$_}[-1]//0) for qw/Total Mean/, @{ EBT2->values };
-        $dpoints{'Total'}[-1]++;
-        $dpoints{$elem}[-1]++;
-        $avg_sum += $elem;
-        $dpoints{'Mean'}[-1] = $avg_sum/++$avg_count;
+    my $dest_img1 = File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'acum_by_val.png');
+    my $dest_img2 = File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'pct_by_val.png');
+    my $dest_img3 = File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'dev_of_mean.png');
+    if (!-e $dest_img1 or !-e $dest_img2 or !-e $dest_img3) {
+        my %dpoints;
+        my ($avg_sum, $avg_count);
+        foreach my $elem (split ',', $elem_by_val) {
+            push @{ $dpoints{$_} }, ($dpoints{$_}[-1]//0) for qw/Total Mean/, @{ EBT2->values };
+            $dpoints{'Total'}[-1]++;
+            $dpoints{$elem}[-1]++;
+            $avg_sum += $elem;
+            $dpoints{'Mean'}[-1] = $avg_sum/++$avg_count;
+        }
+        ## overwrite values with their percentages
+        #foreach my $idx (0..$#$notes_dates) {
+        #    foreach my $v (@{ EBT2->values }) {
+        #        $dpoints{$v}[$idx] = 100 * ($dpoints{$v}[$idx]//0) / $dpoints{'Total'}[$idx];
+        #    }
+        #}
+        -e $dest_img1 or EBTST::Main::Gnuplot::line_chart
+            output => $dest_img1,
+            xdata => $notes_dates,
+            dsets => [
+                { title => 'Total', color => 'black',  points => $dpoints{'Total'} },
+                { title =>     '5', color => 'grey',   points => $dpoints{'5'}   },
+                { title =>    '10', color => 'red',    points => $dpoints{'10'}  },
+                { title =>    '20', color => 'blue',   points => $dpoints{'20'}  },
+                { title =>    '50', color => 'orange', points => $dpoints{'50'}  },
+                { title =>   '100', color => 'green',  points => $dpoints{'100'} },
+                { title =>   '200', color => 'yellow', points => $dpoints{'200'} },
+                { title =>   '500', color => 'purple', points => $dpoints{'500'} },
+            ];
+
+        -e $dest_img2 or EBTST::Main::Gnuplot::bartime_chart
+            output => $dest_img2,
+            xdata => $notes_dates,
+            percent => 1,
+            dsets => [
+                { title =>     '5', color => 'grey',   points => $dpoints{'5'}   },
+                { title =>    '10', color => 'red',    points => $dpoints{'10'}  },
+                { title =>    '20', color => 'blue',   points => $dpoints{'20'}  },
+                { title =>    '50', color => 'orange', points => $dpoints{'50'}  },
+                { title =>   '100', color => 'green',  points => $dpoints{'100'} },
+                { title =>   '200', color => 'yellow', points => $dpoints{'200'} },
+                { title =>   '500', color => 'purple', points => $dpoints{'500'} },
+            ];
+
+        -e $dest_img3 or EBTST::Main::Gnuplot::line_chart
+            output => $dest_img3,
+            xdata => $notes_dates,
+            dsets => [
+                { title => 'Average value', color => 'black', points => $dpoints{'Mean'} },
+            ];
     }
-    ## overwrite values with their percentages
-    #foreach my $idx (0..$#$notes_dates) {
-    #    foreach my $v (@{ EBT2->values }) {
-    #        $dpoints{$v}[$idx] = 100 * ($dpoints{$v}[$idx]//0) / $dpoints{'Total'}[$idx];
-    #    }
-    #}
-    my $dest_img = File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'acum_by_val.png');
-    -e $dest_img or EBTST::Main::Gnuplot::line_chart
-        output => $dest_img,
-        xdata => $notes_dates,
-        dsets => [
-            { title => 'Total', color => 'black',  points => $dpoints{'Total'} },
-            { title =>     '5', color => 'grey',   points => $dpoints{'5'}   },
-            { title =>    '10', color => 'red',    points => $dpoints{'10'}  },
-            { title =>    '20', color => 'blue',   points => $dpoints{'20'}  },
-            { title =>    '50', color => 'orange', points => $dpoints{'50'}  },
-            { title =>   '100', color => 'green',  points => $dpoints{'100'} },
-            { title =>   '200', color => 'yellow', points => $dpoints{'200'} },
-            { title =>   '500', color => 'purple', points => $dpoints{'500'} },
-        ];
-
-    $dest_img = File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'pct_by_val.png');
-    -e $dest_img or EBTST::Main::Gnuplot::bartime_chart
-        output => $dest_img,
-        xdata => $notes_dates,
-        percent => 1,
-        dsets => [
-            { title =>     '5', color => 'grey',   points => $dpoints{'5'}   },
-            { title =>    '10', color => 'red',    points => $dpoints{'10'}  },
-            { title =>    '20', color => 'blue',   points => $dpoints{'20'}  },
-            { title =>    '50', color => 'orange', points => $dpoints{'50'}  },
-            { title =>   '100', color => 'green',  points => $dpoints{'100'} },
-            { title =>   '200', color => 'yellow', points => $dpoints{'200'} },
-            { title =>   '500', color => 'purple', points => $dpoints{'500'} },
-        ];
-
-    $dest_img = File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'dev_of_mean.png');
-    -e $dest_img or EBTST::Main::Gnuplot::line_chart
-        output => $dest_img,
-        xdata => $notes_dates,
-        dsets => [
-            { title => 'Average value', color => 'black', points => $dpoints{'Mean'} },
-        ];
 
     $self->stash (
         title => $section_titles{'value'},
@@ -503,29 +508,31 @@ sub travel_stats {
     }
 
     ## chart
-    my @_8best = (reverse sort { $travel_stats->{$a}{'total'} <=> $travel_stats->{$b}{'total'}} keys %$travel_stats)[0..7];
-    my %dpoints;
-    foreach my $elem (split ',', $elem_by_city) {
-        push @{ $dpoints{$_} }, ($dpoints{$_}[-1]//0) for @_8best;
-        next unless grep { $_ eq $elem } @_8best;
-        $dpoints{$elem}[-1]++;
-    }
-
     my $dest_img = File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'travel_stats.png');
-    -e $dest_img and EBTST::Main::Gnuplot::line_chart
-        output => $dest_img,
-        xdata => $notes_dates,
-        logscale => 'y',
-        dsets => [
-            { title => (encode 'UTF-8', $_8best[0]), color => 'red',     points => $dpoints{ $_8best[0] } },
-            { title => (encode 'UTF-8', $_8best[1]), color => 'blue',    points => $dpoints{ $_8best[1] } },
-            { title => (encode 'UTF-8', $_8best[2]), color => '#FFCF00', points => $dpoints{ $_8best[2] } },
-            { title => (encode 'UTF-8', $_8best[3]), color => 'green',   points => $dpoints{ $_8best[3] } },
-            { title => (encode 'UTF-8', $_8best[4]), color => 'magenta', points => $dpoints{ $_8best[4] } },
-            { title => (encode 'UTF-8', $_8best[5]), color => '#808000', points => $dpoints{ $_8best[5] } },
-            { title => (encode 'UTF-8', $_8best[6]), color => '#000080', points => $dpoints{ $_8best[6] } },
-            { title => (encode 'UTF-8', $_8best[7]), color => '#008080', points => $dpoints{ $_8best[7] } },
-        ];
+    if (!-e $dest_img) {
+        my @_8best = (reverse sort { $travel_stats->{$a}{'total'} <=> $travel_stats->{$b}{'total'}} keys %$travel_stats)[0..7];
+        my %dpoints;
+        foreach my $elem (split ',', $elem_by_city) {
+            push @{ $dpoints{$_} }, ($dpoints{$_}[-1]//0) for @_8best;
+            next unless grep { $_ eq $elem } @_8best;
+            $dpoints{$elem}[-1]++;
+        }
+
+        EBTST::Main::Gnuplot::line_chart
+            output => $dest_img,
+            xdata => $notes_dates,
+            logscale => 'y',
+            dsets => [
+                { title => (encode 'UTF-8', $_8best[0]), color => 'red',     points => $dpoints{ $_8best[0] } },
+                { title => (encode 'UTF-8', $_8best[1]), color => 'blue',    points => $dpoints{ $_8best[1] } },
+                { title => (encode 'UTF-8', $_8best[2]), color => '#FFCF00', points => $dpoints{ $_8best[2] } },
+                { title => (encode 'UTF-8', $_8best[3]), color => 'green',   points => $dpoints{ $_8best[3] } },
+                { title => (encode 'UTF-8', $_8best[4]), color => 'magenta', points => $dpoints{ $_8best[4] } },
+                { title => (encode 'UTF-8', $_8best[5]), color => '#808000', points => $dpoints{ $_8best[5] } },
+                { title => (encode 'UTF-8', $_8best[6]), color => '#000080', points => $dpoints{ $_8best[6] } },
+                { title => (encode 'UTF-8', $_8best[7]), color => '#008080', points => $dpoints{ $_8best[7] } },
+            ];
+    }
 
     $self->stash (
         title           => $section_titles{'travel_stats'},
@@ -774,20 +781,6 @@ sub top_days {
             detail => $detail,
         };
     }
-    my $dest_img = File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'week_days.png');
-    -e $dest_img or EBTST::Main::Gnuplot::bar_chart
-        output     => $dest_img,
-        labels     => [ qw/Monday Tuesday Wednesday Thursday Friday Saturday Sunday/ ],
-        bar_border => 1,
-        dsets => [
-            { title =>     '5', color => 'grey',   points => $dpoints{'5'}   },
-            { title =>    '10', color => 'red',    points => $dpoints{'10'}  },
-            { title =>    '20', color => 'blue',   points => $dpoints{'20'}  },
-            { title =>    '50', color => 'orange', points => $dpoints{'50'}  },
-            { title =>   '100', color => 'green',  points => $dpoints{'100'} },
-            { title =>   '200', color => 'yellow', points => $dpoints{'200'} },
-            { title =>   '500', color => 'purple', points => $dpoints{'500'} },
-        ];
 
     my $t10d;
     foreach my $d (
@@ -811,6 +804,21 @@ sub top_days {
             detail => $detail,
         };
     }
+
+    my $dest_img = File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'week_days.png');
+    -e $dest_img or EBTST::Main::Gnuplot::bar_chart
+        output     => $dest_img,
+        labels     => [ qw/Monday Tuesday Wednesday Thursday Friday Saturday Sunday/ ],
+        bar_border => 1,
+        dsets => [
+            { title =>     '5', color => 'grey',   points => $dpoints{'5'}   },
+            { title =>    '10', color => 'red',    points => $dpoints{'10'}  },
+            { title =>    '20', color => 'blue',   points => $dpoints{'20'}  },
+            { title =>    '50', color => 'orange', points => $dpoints{'50'}  },
+            { title =>   '100', color => 'green',  points => $dpoints{'100'} },
+            { title =>   '200', color => 'yellow', points => $dpoints{'200'} },
+            { title =>   '500', color => 'purple', points => $dpoints{'500'} },
+        ];
 
     $self->stash (
         title => $section_titles{'top_days'},

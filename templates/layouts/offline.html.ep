@@ -32,7 +32,9 @@
                 </tr><tr>
                     <td><a class="section_link" id="top_days"        href="top_days.html"><%=l 'Top days' %></a></td>
                 </tr><tr>
-                    <td><a class="section_link" id="time_analysis"   href="time_analysis.html"><%=l 'Time analysis' %></a></td>
+                    <td><a class="section_link" id="time_analysis_bingo"   href="time_analysis_bingo.html"><%=l 'Time analysis (bingo)' %></a></td>
+                </tr><tr>
+                    <td><a class="section_link" id="time_analysis_detail"   href="time_analysis_detail.html"><%=l 'Time analysis (detail)' %></a></td>
                 </tr>
                 <!-- comments -->
                 <tr>
@@ -48,7 +50,9 @@
                 </tr><tr>
                     <td><a class="section_link" id="hit_list"        href="hit_list.html"><%=l 'Hit list' %></a></td>
                 </tr><tr>
-                    <td><a class="section_link" id="hit_times"       href="hit_times.html"><%=l 'Hit times' %></a></td>
+                    <td><a class="section_link" id="hit_times_bingo"       href="hit_times_bingo.html"><%=l 'Hit times (bingo)' %></a></td>
+                </tr><tr>
+                    <td><a class="section_link" id="hit_times_detail"       href="hit_times_detail.html"><%=l 'Hit times (detail)' %></a></td>
                 </tr><tr>
                     <td><a class="section_link" id="hit_analysis"    href="hit_analysis.html"><%=l 'Hit analysis' %></a></td>
                 </tr><tr>

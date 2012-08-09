@@ -201,14 +201,16 @@ sub startup {
     $u->get ('/notes_per_year')->to ('main#notes_per_year');
     $u->get ('/notes_per_month')->to ('main#notes_per_month');
     $u->get ('/top_days')->to ('main#top_days');
-    $u->get ('/time_analysis')->to ('main#time_analysis');
+    $u->get ('/time_analysis_bingo')->to ('main#time_analysis_bingo');
+    $u->get ('/time_analysis_detail')->to ('main#time_analysis_detail');
     $u->get ('/combs_bingo')->to ('main#combs_bingo');
     $u->get ('/combs_detail')->to ('main#combs_detail');
     #$u->any ([qw/get post/], '/evolution')->to ('main#evolution');
     $u->get ('/plate_bingo')->to ('main#plate_bingo');
     $u->get ('/bad_notes')->to ('main#bad_notes');
     $u->get ('/hit_list')->to ('main#hit_list');
-    $u->get ('/hit_times')->to ('main#hit_times');
+    $u->get ('/hit_times_bingo')->to ('main#hit_times_bingo');
+    $u->get ('/hit_times_detail')->to ('main#hit_times_detail');
     $u->get ('/hit_analysis')->to ('main#hit_analysis');
     $u->get ('/hit_summary')->to ('main#hit_summary');
     $u->post ('/gen_output')->to ('main#gen_output');

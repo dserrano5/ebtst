@@ -1,2 +1,0 @@
-<h2><%=l 'Time analysis' %></h2>
-<%= include 'main/_times', time_data => $ta, count => $ta_count; %>

@@ -1,2 +1,0 @@
-<h2><%=l 'Hit times' %></h2>
-<%= include 'main/_times', time_data => $hit_times, count => $hit_times_count; %>

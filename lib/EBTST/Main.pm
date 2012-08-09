@@ -731,7 +731,7 @@ sub top_days {
     );
 }
 
-sub time_analysis {
+sub time_analysis_bingo {
     my ($self) = @_;
 
     my $count   = $self->ebt->get_count;
@@ -742,6 +742,7 @@ sub time_analysis {
         ta       => $ta_data,
     );
 }
+sub time_analysis_detail { goto &time_analysis_bingo; }
 
 sub combs_bingo {
     my ($self) = @_;
@@ -859,7 +860,7 @@ sub hit_list {
     );
 }
 
-sub hit_times {
+sub hit_times_bingo {
     my ($self) = @_;
 
     my $whoami   = $self->ebt->whoami;
@@ -871,6 +872,7 @@ sub hit_times {
         hit_times       => $ht,
     );
 }
+sub hit_times_detail { goto &hit_times_bingo; }
 
 sub hit_analysis {
     my ($self) = @_;
@@ -1048,8 +1050,9 @@ sub gen_output {
     my ($self) = @_;
     my @params = qw/
         information value countries locations printers huge_table short_codes nice_serials
-        coords_bingo notes_per_year notes_per_month top_days time_analysis combs_bingo combs_detail
-        plate_bingo bad_notes hit_list hit_times hit_analysis hit_summary
+        coords_bingo notes_per_year notes_per_month top_days time_analysis_bingo time_analysis_detail
+        combs_bingo combs_detail plate_bingo bad_notes hit_list hit_times_bingo hit_times_detail
+        hit_analysis hit_summary
     /;
 
     my @req_params = grep { $self->param ($_) } @params;

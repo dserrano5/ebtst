@@ -113,6 +113,7 @@ Day = Día
 ## time analysis
 Colors = Colores
 Calendar = Calendario
+Days = Días
 Hours = Horas
 Minutes = Minutos
 Seconds = Segundos
@@ -150,7 +151,6 @@ Hit date = Fecha
 Val = Val
 Hit note = Billete
 Kms = Kms
-Days = Días
 Partner(s) = Usuario(s)
 Note number = Billete número
 Old hit ratio = Hit ratio anterior

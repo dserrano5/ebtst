@@ -1,0 +1,2 @@
+<h2><%=l 'Time analysis' %></h2>
+<%= include 'main/_times', mode => 'bingo', time_data => $ta, count => $ta_count; %>

@@ -49,8 +49,11 @@
                     <td><input type="checkbox" name="top_days" <%= $checked_boxes->{'top_days'} ? 'checked=""' : '' %>></td>
                     <td><a class="section_link" id="top_days"        href="top_days"><%=l 'Top days' %></a></td>
                 </tr><tr>
-                    <td><input type="checkbox" name="time_analysis" <%= $checked_boxes->{'time_analysis'} ? 'checked=""' : '' %>></td>
-                    <td><a class="section_link" id="time_analysis"   href="time_analysis"><%=l 'Time analysis' %></a></td>
+                    <td><input type="checkbox" name="time_analysis_bingo" <%= $checked_boxes->{'time_analysis_bingo'} ? 'checked=""' : '' %>></td>
+                    <td><a class="section_link" id="time_analysis_bingo"   href="time_analysis_bingo"><%=l 'Time analysis (bingo)' %></a></td>
+                </tr><tr>
+                    <td><input type="checkbox" name="time_analysis_detail" <%= $checked_boxes->{'time_analysis_detail'} ? 'checked=""' : '' %>></td>
+                    <td><a class="section_link" id="time_analysis_detail"   href="time_analysis_detail"><%=l 'Time analysis (detail)' %></a></td>
                 </tr>
                 <!-- comments -->
                 <tr>
@@ -77,8 +80,11 @@
                     <td><input type="checkbox" name="hit_list" <%= $checked_boxes->{'hit_list'} ? 'checked=""' : '' %>></td>
                     <td><a class="section_link" id="hit_list"     href="hit_list"><%=l 'Hit list' %></a></td>
                 </tr><tr>
-                    <td><input type="checkbox" name="hit_times" <%= $checked_boxes->{'hit_times'} ? 'checked=""' : '' %>></td>
-                    <td><a class="section_link" id="hit_times" href="hit_times"><%=l 'Hit times' %></a></td>
+                    <td><input type="checkbox" name="hit_times_bingo" <%= $checked_boxes->{'hit_times_bingo'} ? 'checked=""' : '' %>></td>
+                    <td><a class="section_link" id="hit_times_bingo" href="hit_times_bingo"><%=l 'Hit times (bingo)' %></a></td>
+                </tr><tr>
+                    <td><input type="checkbox" name="hit_times_detail" <%= $checked_boxes->{'hit_times_detail'} ? 'checked=""' : '' %>></td>
+                    <td><a class="section_link" id="hit_times_detail" href="hit_times_detail"><%=l 'Hit times (detail)' %></a></td>
                 </tr><tr>
                     <td><input type="checkbox" name="hit_analysis" <%= $checked_boxes->{'hit_analysis'} ? 'checked=""' : '' %>></td>
                     <td><a class="section_link" id="hit_analysis" href="hit_analysis"><%=l 'Hit analysis' %></a></td>

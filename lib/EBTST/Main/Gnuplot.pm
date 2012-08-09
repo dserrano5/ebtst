@@ -93,6 +93,9 @@ sub bar_chart {
             color  => 'grey',
             xlines => 'off',
         },
+        xtics => {
+            labels => \@labels,
+        },
         legend => {
             position => 'rmargin top',
             align    => 'right',

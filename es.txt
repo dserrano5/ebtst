@@ -3,6 +3,7 @@ Information = Información
 Value = Valor
 Countries = Países
 Locations = Localidades
+Travel stats = Viajes
 Printers = Imprentas
 Huge table = Tabla tocha
 Short codes = Códigos cortos
@@ -77,6 +78,13 @@ Countries with notes entered = Países en los que se han introducido billetes
 Number of notes by location = Número de billetes por localidad
 Alphabets of locations by country = Alfabetos de localidades por país
 First notes by printer code = Primer billete por código de imprenta
+
+## travel_stats
+Location = Localidad
+Visits = Visitas
+Number of locations = Localidades
+Number of different yearly visits = Visitas anuales
+Number of one time visit locations = Visitadas sólo un año
 
 ## printers
 Number of notes by printer code = Número de billetes por código de imprenta

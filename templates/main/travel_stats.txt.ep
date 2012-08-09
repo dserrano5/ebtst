@@ -1,0 +1,4 @@
+[b]<%=l 'Travel stats' %>[/b]
+Number of locations: [b]<%= $num_locs %>[/b]
+Number of different yearly visits: [b]<%= $yearly_visits %>[/b]
+Number of one time visit locations: [b]<%= $one_time_visits %>[/b] (<%= sprintf '%.2f', 100*$one_time_visits/$num_locs %>%)

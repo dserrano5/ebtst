@@ -26,7 +26,7 @@ my %users;
 
 my %section_titles;
 foreach my $section (qw/
-    index information value countries locations printers huge_table short_codes nice_serials
+    index information value countries locations travel_stats printers huge_table short_codes nice_serials
     top_days plate_bingo bad_notes hit_list hit_analysis hit_summary
 /) {
     my $title = ucfirst $section;
@@ -481,6 +481,59 @@ sub locations {
         num_locs  => $distinct_cities,
         c_data    => $c_data,
         ab        => $ab,
+    );
+}
+
+sub travel_stats {
+    my ($self) = @_;
+
+    my $travel_stats = $self->ebt->get_travel_stats;
+    my $notes_dates = $self->ebt->get_notes_dates;          ## for the chart
+    my $elem_by_city = $self->ebt->get_elem_notes_by_city;  ## for the chart
+
+    my %unique_years;
+    my ($num_locs, $yearly_visits, $one_time_visits);
+    foreach my $location (keys %$travel_stats) {
+        my @years = keys %{ $travel_stats->{$location}{'visits'} };
+        $unique_years{$_} = undef for @years;
+
+        $num_locs++;
+        $yearly_visits += @years;
+        $one_time_visits++ if 1 == @years;
+    }
+
+    ## chart
+    my @_8best = (reverse sort { $travel_stats->{$a}{'total'} <=> $travel_stats->{$b}{'total'}} keys %$travel_stats)[0..7];
+    my %dpoints;
+    foreach my $elem (split ',', $elem_by_city) {
+        push @{ $dpoints{$_} }, ($dpoints{$_}[-1]//0) for @_8best;
+        next unless grep { $_ eq $elem } @_8best;
+        $dpoints{$elem}[-1]++;
+    }
+
+    my $dest_img = File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'travel_stats.png');
+    -e $dest_img and EBTST::Main::Gnuplot::line_chart
+        output => $dest_img,
+        xdata => $notes_dates,
+        logscale => 'y',
+        dsets => [
+            { title => (encode 'UTF-8', $_8best[0]), color => 'red',     points => $dpoints{ $_8best[0] } },
+            { title => (encode 'UTF-8', $_8best[1]), color => 'blue',    points => $dpoints{ $_8best[1] } },
+            { title => (encode 'UTF-8', $_8best[2]), color => '#FFCF00', points => $dpoints{ $_8best[2] } },
+            { title => (encode 'UTF-8', $_8best[3]), color => 'green',   points => $dpoints{ $_8best[3] } },
+            { title => (encode 'UTF-8', $_8best[4]), color => 'magenta', points => $dpoints{ $_8best[4] } },
+            { title => (encode 'UTF-8', $_8best[5]), color => '#808000', points => $dpoints{ $_8best[5] } },
+            { title => (encode 'UTF-8', $_8best[6]), color => '#000080', points => $dpoints{ $_8best[6] } },
+            { title => (encode 'UTF-8', $_8best[7]), color => '#008080', points => $dpoints{ $_8best[7] } },
+        ];
+
+    $self->stash (
+        title           => $section_titles{'travel_stats'},
+        years           => [ sort keys %unique_years ],
+        travel_stats    => $travel_stats,
+        num_locs        => $num_locs,
+        yearly_visits   => $yearly_visits,
+        one_time_visits => $one_time_visits,
     );
 }
 
@@ -1096,7 +1149,7 @@ sub _trim_html_sections {
 sub gen_output {
     my ($self) = @_;
     my @params = qw/
-        information value countries locations printers huge_table short_codes nice_serials
+        information value countries locations travel_stats printers huge_table short_codes nice_serials
         coords_bingo notes_per_year notes_per_month top_days time_analysis_bingo time_analysis_detail
         combs_bingo combs_detail plate_bingo bad_notes hit_list hit_times_bingo hit_times_detail
         hit_analysis hit_summary

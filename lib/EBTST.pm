@@ -193,6 +193,7 @@ sub startup {
     $u->get ('/value')->to ('main#value');
     $u->get ('/countries')->to ('main#countries');
     $u->get ('/locations')->to ('main#locations');
+    $u->get ('/travel_stats')->to ('main#travel_stats');
     $u->get ('/printers')->to ('main#printers');
     $u->get ('/huge_table')->to ('main#huge_table');
     $u->get ('/short_codes')->to ('main#short_codes');

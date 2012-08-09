@@ -1,0 +1,33 @@
+<h2><%=l 'Travel stats' %></h2>
+
+<table>
+    <tr>
+        <th>#</th>
+        <th><%=l 'Location' %></th>
+        <% foreach my $y (@$years) { =%>
+            <th><%= $y %></th>
+        <% } =%>
+        <th>Visits</th>
+    </tr>
+    <% my $idx = 1; %>
+    <% foreach my $loc (reverse sort { =%>
+    <%     keys %{ $travel_stats->{$a}{'visits'} } cmp keys %{ $travel_stats->{$b}{'visits'} } || =%>
+    <%     $travel_stats->{$a}{'total'} <=> $travel_stats->{$b}{'total'} || =%>
+    <%     $b cmp $a =%>
+    <% } keys %{ $travel_stats }) { =%>
+        <tr>
+            <td><%= $idx++ %></td>
+            <td><img src="images/<%= $travel_stats->{$loc}{'country'} %>.gif"> <%= $loc %></td>
+            <% foreach my $y (@$years) { =%>
+                <td><%= $travel_stats->{$loc}{'visits'}{$y} // '-' %></td>
+            <% } =%>
+            <td><%= scalar keys %{ $travel_stats->{$loc}{'visits'} } %></td>
+        </tr>
+    <% } =%>
+</table>
+<br>
+Number of locations: <b><%= $num_locs %></b><br>
+Number of different yearly visits: <b><%= $yearly_visits %></b><br>
+Number of one time visit locations: <b><%= $one_time_visits %></b> (<%= sprintf '%.2f', 100*$one_time_visits/$num_locs %>%)<br>
+<br>
+<img src="images/<%= $user %>/travel_stats.png">

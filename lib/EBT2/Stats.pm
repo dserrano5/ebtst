@@ -14,7 +14,7 @@ use EBT2::NoteValidator;
 use EBT2::Constants ':all';
 
 ## whenever there are changes in any stats format, this has to be increased in order to detect users with old stats formats
-our $STATS_VERSION = '20120808-01';
+our $STATS_VERSION = '20120809-01';
 
 sub mean { return sum(@_)/@_; }
 
@@ -188,7 +188,10 @@ sub notes_by_value {
 
     my $iter = $data->note_getter;
     foreach my $hr (@$iter) {
+        ## notes_by_value
         $ret{'notes_by_value'}{ $hr->[VALUE] }++;
+
+        ## elem_notes_by_value
         $ret{'elem_notes_by_value'} .= $hr->[VALUE] . ',';
     }
     chop $ret{'elem_notes_by_value'};
@@ -255,6 +258,9 @@ sub bundle_locations {
         $ret{'notes_by_city'}{ $hr->[COUNTRY] }{ $hr->[CITY] }{'total'}++;
         $ret{'notes_by_city'}{ $hr->[COUNTRY] }{ $hr->[CITY] }{ $hr->[VALUE] }++;
 
+        ## elem_notes_by_city
+        $ret{'elem_notes_by_city'} .= $hr->[CITY] . ',';
+
         ## alphabets
         my $city = $hr->[CITY];
 
@@ -269,13 +275,21 @@ sub bundle_locations {
         $initial =~ tr/ÁÉÍÓÚÀÈÌÒÙÄËÏÖÜ/AEIOUAEIOUAEIOU/;
 
         $ret{'alphabets'}{ $hr->[COUNTRY] }{$initial}++;
+
+        ## travel_stats
+        my $y = substr $hr->[DATE_ENTERED], 0, 4;
+        $ret{'travel_stats'}{ $hr->[CITY] }{'total'}++;
+        $ret{'travel_stats'}{ $hr->[CITY] }{'visits'}{$y}++;
+        $ret{'travel_stats'}{ $hr->[CITY] }{'country'} ||= $hr->[COUNTRY];
     }
 
     return \%ret;
 }
-sub notes_by_country { goto &bundle_locations; }
-sub notes_by_city    { goto &bundle_locations; }
-sub alphabets        { goto &bundle_locations; }
+sub notes_by_country   { goto &bundle_locations; }
+sub notes_by_city      { goto &bundle_locations; }
+sub elem_notes_by_city { goto &bundle_locations; }
+sub alphabets          { goto &bundle_locations; }
+sub travel_stats       { goto &bundle_locations; }
 
 =pod
 

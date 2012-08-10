@@ -359,7 +359,10 @@ sub load_hits {
         $n = join ';', @arr;
     }
     $self->{'has_hits'} = 0;
-    delete $self->{'whoami'};
+
+    foreach my $k ('whoami', grep /^hit/, keys %$self) {
+        delete $self->{$k};
+    }
 
     my $second_pass = 0;
     my %hits;

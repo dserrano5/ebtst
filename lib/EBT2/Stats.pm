@@ -974,10 +974,9 @@ sub hit_analysis {
     ) {
         my ($key1, $key2) = @$what;
         $ret{'hit_analysis'}{$key1} = [
-            reverse
             grep defined,
             (
-                sort { $a->{$key2} <=> $b->{$key2} }
+                reverse sort { $a->{$key2} <=> $b->{$key2} }
                 grep { !$_->{'moderated'} }
                 @$hit_list
             )[0..9]

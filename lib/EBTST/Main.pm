@@ -35,6 +35,7 @@ foreach my $section (qw/
 }
 %section_titles = (
     %section_titles,
+    configure            => 'Configuration',
     notes_per_year       => 'Notes/year',
     notes_per_month      => 'Notes/month',
     coords_bingo         => 'Coordinates bingo',
@@ -1021,6 +1022,14 @@ sub hit_summary {
     $self->stash (
         title => $section_titles{'hit_summary'},
         hs    => $hs,
+    );
+}
+
+sub configure {
+    my ($self) = @_;
+
+    $self->stash (
+        title => $section_titles{'configure'},
     );
 }
 

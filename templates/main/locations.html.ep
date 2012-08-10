@@ -59,6 +59,7 @@
         <% } %>
     <% } %>
 </table>
+<br>
 
 <h2><%=l 'Alphabets of locations by country' %></h2>
 <table>

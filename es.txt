@@ -185,6 +185,7 @@ Most days = Más antiguos
 Hits = Hits
 national = nacionales
 international = internacionales
+plus = más
 moderated = moderados
 Normal hits = Hits normales
 Triples = Triples

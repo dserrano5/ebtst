@@ -809,7 +809,7 @@ sub top_days {
     my $dest_img = File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'week_days.png');
     -e $dest_img or EBTST::Main::Gnuplot::bar_chart
         output     => $dest_img,
-        labels     => [ qw/Monday Tuesday Wednesday Thursday Friday Saturday Sunday/ ],
+        labels     => [ map { encode 'UTF-8', $self->l ($_) } qw/Monday Tuesday Wednesday Thursday Friday Saturday Sunday/ ],
         bar_border => 1,
         dsets => [
             { title =>     '5', color => 'grey',    points => $dpoints{'5'}   },

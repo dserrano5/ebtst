@@ -15,7 +15,7 @@ use EBT2::NoteValidator;
 use EBT2::Constants ':all';
 
 ## whenever there are changes in the data format, this has to be increased in order to detect users with old data formats
-my $DATA_VERSION = '20120808-03';
+my $DATA_VERSION = '20120810-01';
 
 #use Inline C => <<'EOC';
 #void my_split (char *str, int nfields) {
@@ -126,7 +126,7 @@ sub _guess_signature {
         my ($num) = $serial =~ /^(.{$max_len})/;
         next if $num < $min or $num > $max;
 
-        return "$result shared";
+        return $result;
     }
 
     return;
@@ -140,14 +140,12 @@ sub _find_out_signature {
     my $sig = $EBT2::config{'sigs'}{$value}{$cc}{$plate};
     if (!defined $sig) {
         #warn "No signature found (unknown combination?) for note ($value) ($cc) ($plate)\n";
-        $sig = '(unknown)';
+        $sig = '_UNK';
     } else {
         if ($sig =~ /,/) {
             if (!defined ($sig = _guess_signature $short, $serial, $sig)) {
                 warn "Couldn't guess signature for note ($value) ($cc) ($plate) ($short) ($serial)\n";
             }
-        } else {
-            $sig = sprintf '%s only', $sig;
         }
     }
 

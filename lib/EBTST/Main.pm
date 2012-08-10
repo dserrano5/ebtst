@@ -138,10 +138,10 @@ sub information {
     my $elem_by_pres = $self->ebt->get_elem_notes_by_president;
 
     my $avg_value   = $total_value / $count;
-    my $wd          = ($sigs->{'WD only'}//0)  + ($sigs->{'WD shared'}//0);
-    my $jct         = ($sigs->{'JCT only'}//0) + ($sigs->{'JCT shared'}//0);
-    my $md          = ($sigs->{'MD only'}//0)  + ($sigs->{'MD shared'}//0);
-    my $unk         = ($sigs->{'(unknown)'}//0);
+    my $wd          = $sigs->{'WD'}   // 0;
+    my $jct         = $sigs->{'JCT'}  // 0;
+    my $md          = $sigs->{'MD'}   // 0;
+    my $unk         = $sigs->{'_UNK'} // 0;
     my $today       = DateTime->now->set_time_zone ('Europe/Madrid')->strftime ('%Y-%m-%d %H:%M:%S');
     my $avg_per_day = $count / $full_days;
 
@@ -152,7 +152,7 @@ sub information {
         foreach my $elem (map { (split ' ')[0] } split ',', $elem_by_pres) {
             push @{ $dpoints{$_} }, ($dpoints{$_}[-1]//0) for 'Total', @initials_pres;
             $dpoints{'Total'}[-1]++;
-            $dpoints{$elem}[-1]++ if '(unknown)' ne $elem;
+            $dpoints{$elem}[-1]++ if '_UNK' ne $elem;
         }
 
         my $dest_img = File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'pct_by_pres.png');
@@ -219,7 +219,7 @@ sub value {
         };
     }
 
-    ## chart
+    ## charts
     my $dest_img1 = File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'acum_by_val.png');
     my $dest_img2 = File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'pct_by_val.png');
     my $dest_img3 = File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'dev_of_mean.png');

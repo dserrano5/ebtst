@@ -344,7 +344,7 @@ sub load_hits {
     my ($self, $hits_file) = @_;
     my $fd;
     my @hits_column_names1 = qw/
-        value serial short_code year id date_entered times_entered
+        value serial short_code year id hit_date times_entered
         moderated tot_km tot_days lats longs
     /;
     my @hits_column_names2 = qw/
@@ -359,6 +359,7 @@ sub load_hits {
         $n = join ';', @arr;
     }
     $self->{'has_hits'} = 0;
+    delete $self->{'whoami'};
 
     my $second_pass = 0;
     my %hits;
@@ -394,10 +395,10 @@ sub load_hits {
         my $p = $hits{$serial}{'parts'};
 
         if (!defined $self->{'whoami'}) {
-            my $d1 = $hits{$serial}{'date_entered'};
+            my $id1 = $hits{$serial}{'id'};
             foreach my $part (@$p) {
-                my $d2 = $part->{'date_entered'};
-                if ($d1 eq $d2) {
+                my $id2 = $part->{'id'};
+                if ($id1 eq $id2) {
                     $self->{'whoami'}{'id'}   = $part->{'user_id'};
                     $self->{'whoami'}{'name'} = $part->{'user_name'};
                     last;
@@ -405,9 +406,9 @@ sub load_hits {
             }
         }
 
-        my $idx = (grep { $self->{'whoami'} == $p->[$_]{'user_id'} } 0 .. $#$p)[0];  ## where I appear in the hit
-        $idx ||= 1;                                                       ## can't be zero, a hit occurs at the second part
-        $hits{$serial}{'hit_date'} = $p->[$idx]{'date_entered'};
+        #my $idx = (grep { $self->{'whoami'} == $p->[$_]{'user_id'} } 0 .. $#$p)[0];  ## where I appear in the hit
+        #$idx ||= 1;                                                                  ## can't be zero, a hit occurs at the second part
+        #$hits{$serial}{'hit_date'} = $p->[$idx]{'date_entered'};
 
         my ($y, $m, $d) = (split /[-: ]/, $hits{$serial}{'hit_date'})[0,1,2];
         my $dow = dayofweek $d, $m, $y; $dow = 1 + ($dow-1) % 7;

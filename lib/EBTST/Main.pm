@@ -161,9 +161,9 @@ sub information {
             xdata => $notes_dates,
             percent => 1,
             dsets => [
-                { title =>    'WD', color => 'grey',   points => $dpoints{'WD'}  },
-                { title =>   'JCT', color => 'red',    points => $dpoints{'JCT'} },
-                { title =>    'MD', color => 'blue',   points => $dpoints{'MD'}  },
+                { title =>    'WD', color => '#FF4040', points => $dpoints{'WD'}  },
+                { title =>   'JCT', color => '#4040FF', points => $dpoints{'JCT'} },
+                { title =>    'MD', color => '#40FF40', points => $dpoints{'MD'}  },
             ];
     }
 
@@ -258,13 +258,13 @@ sub value {
             xdata => $notes_dates,
             percent => 1,
             dsets => [
-                { title =>     '5', color => 'grey',   points => $dpoints{'5'}   },
-                { title =>    '10', color => 'red',    points => $dpoints{'10'}  },
-                { title =>    '20', color => 'blue',   points => $dpoints{'20'}  },
-                { title =>    '50', color => 'orange', points => $dpoints{'50'}  },
-                { title =>   '100', color => 'green',  points => $dpoints{'100'} },
-                { title =>   '200', color => 'yellow', points => $dpoints{'200'} },
-                { title =>   '500', color => 'purple', points => $dpoints{'500'} },
+                { title =>     '5', color => 'grey',    points => $dpoints{'5'}   },
+                { title =>    '10', color => '#FF4040', points => $dpoints{'10'}  },
+                { title =>    '20', color => '#4040FF', points => $dpoints{'20'}  },
+                { title =>    '50', color => '#FFC040', points => $dpoints{'50'}  },
+                { title =>   '100', color => '#40FF40', points => $dpoints{'100'} },
+                { title =>   '200', color => '#FFFF40', points => $dpoints{'200'} },
+                { title =>   '500', color => '#FF40FF', points => $dpoints{'500'} },
             ];
 
         -e $dest_img3 or EBTST::Main::Gnuplot::line_chart
@@ -812,13 +812,13 @@ sub top_days {
         labels     => [ qw/Monday Tuesday Wednesday Thursday Friday Saturday Sunday/ ],
         bar_border => 1,
         dsets => [
-            { title =>     '5', color => 'grey',   points => $dpoints{'5'}   },
-            { title =>    '10', color => 'red',    points => $dpoints{'10'}  },
-            { title =>    '20', color => 'blue',   points => $dpoints{'20'}  },
-            { title =>    '50', color => 'orange', points => $dpoints{'50'}  },
-            { title =>   '100', color => 'green',  points => $dpoints{'100'} },
-            { title =>   '200', color => 'yellow', points => $dpoints{'200'} },
-            { title =>   '500', color => 'purple', points => $dpoints{'500'} },
+            { title =>     '5', color => 'grey',    points => $dpoints{'5'}   },
+            { title =>    '10', color => '#FF4040', points => $dpoints{'10'}  },
+            { title =>    '20', color => '#4040FF', points => $dpoints{'20'}  },
+            { title =>    '50', color => '#FFC040', points => $dpoints{'50'}  },
+            { title =>   '100', color => '#40FF40', points => $dpoints{'100'} },
+            { title =>   '200', color => '#FFFF40', points => $dpoints{'200'} },
+            { title =>   '500', color => '#FF40FF', points => $dpoints{'500'} },
         ];
 
     $self->stash (

@@ -39,8 +39,12 @@ body {
 }
 h2 {
     font-size: 15px;
-    text-decoration: underline;
-    /* TODO: que el underline sea más grueso y llegue hasta la derecha de todo */
+    /* text-decoration: underline; */
+    border-bottom: 2px solid;
+}
+h3 {
+    margin-top: 20px;
+    margin-bottom: 10px;
 }
 .section_link {
     color: #4040e0;

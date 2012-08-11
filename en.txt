@@ -1,0 +1,14 @@
+## help
+_help_main_usage_1 = After uploading your CSV files (see section "Configure"), check the desired checkboxes at the left and click on "BBCode/HTML" to generate the public statistics. A new tab or window will appear containing the BBCode and a link to the HTML stats.
+_help_colors_1 = Some sections display colored numbers. The key to colors is:
+_help_colors_2 = Colored stars that appear in several places denote how recent notes are:
+_configure_1 = EBTST accepts compressed CSV files. Compression algorithms supported are zip and gzip. Using compressed files helps reducing the upload time.
+_configure_2 = A copy of the notes CSV will be kept in the following format:
+_configure_3 = 5;2002;V00000000xxx;M001A1;2010-01-01 00:00:00;Madrid;Spain
+_countries_1 = The percent numbers that appear in the "Detail" table denote the percent of notes of each country among the totality of notes for that value. Thus, when added vertically, the result is 100%.
+_printers_1 = Just like in "Countries", the percent numbers that appear in the "Detail" table denote the percent of notes of each printer among the totality of notes for that value. Thus, when added vertically, the result is 100%.
+_huge_table_1 = To avoid useless entries in the table, notes known to have errors are ignored.
+_nice_serials_1 = The algorithm for scoring serial numbers is as follows: first, the serial with the least number of runs of equal digits wins. Thus, *1111122233 (3 runs) wins over *1112111211 (5 runs). In the usual case of a tie, then the serial with the longest run wins. These are the main criteria for scoring, but there are a couple more.
+_coords_bingo_1 = Just like in "Huge table", notes known to have errors are ignored.
+_combinations_1 = Again, notes known to have errors are ignored. As in "Countries" and "Printers", the percent numbers add up to 100% vertically.
+_plate_bingo_1 = Notes known to have errors are ignored. The rare plates that share different signatures of the ECB president (namely: <img src="images/10.gif"> K007, <img src="images/10.gif"> P005, <img src="images/20.gif"> F002 and <img src="images/100.gif"> F002) aren't treated specially.

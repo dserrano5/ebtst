@@ -17,7 +17,7 @@ my $html_dir           = $config{'html_dir'}    // File::Spec->catfile ($ENV{'BA
 my $statics_dir        = $config{'statics_dir'} // File::Spec->catfile ($ENV{'BASE_DIR'}, 'public');
 my $images_dir         = File::Spec->catfile ($config{'statics_dir'} ? $config{'statics_dir'} : ($ENV{'BASE_DIR'}, 'public'), 'images');
 my $session_expire     = $config{'session_expire'} // 30;
-my $base_href          = $config{'base_href'}; $base_href =~ s{/*$}{};
+my $base_href          = $config{'base_href'};
 our @graphs_colors     = $config{'graphs_colors'} ? (split /[\s,]+/, $config{'graphs_colors'}) : ('blue', 'green', '#FFBF00', 'red', 'black');
 my $hypnotoad_listen   = $config{'hypnotoad_listen'} // 'http://localhost:3000'; $hypnotoad_listen = [ $hypnotoad_listen ] if 'ARRAY' ne ref $hypnotoad_listen;
 my $hypnotoad_is_proxy = $config{'hypnotoad_is_proxy'} // 0;
@@ -145,7 +145,8 @@ sub startup {
             if (-e File::Spec->catfile ($html_dir, $user, 'index.html')) {
                 my $url;
                 if ($base_href) {
-                    $url = sprintf '%s/%s', $base_href, $user;
+                    $base_href =~ m{(.*)/*$};
+                    $url = sprintf '%s/%s', $1, $user;
                 } else {
                     $url = sprintf 'stats/%s/%s', $user, 'index.html';
                 }

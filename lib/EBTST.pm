@@ -145,8 +145,8 @@ sub startup {
             if (-e File::Spec->catfile ($html_dir, $user, 'index.html')) {
                 my $url;
                 if ($base_href) {
-                    $base_href =~ m{(.*)/*$};
-                    $url = sprintf '%s/%s', $1, $user;
+                    my $stripped = $base_href; $stripped =~ s{/*$}{};
+                    $url = sprintf '%s/stats/%s', $stripped, $user;
                 } else {
                     $url = sprintf 'stats/%s/%s', $user, 'index.html';
                 }

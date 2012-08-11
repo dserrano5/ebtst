@@ -11,18 +11,18 @@
             <% if (defined $user) { %>
             <div id="sections">
                 <form action="gen_output" method="POST" target="_new">
-                <table>
-                    <% if ($has_notes) { %>
+                <table width="100%">
                     <tr>
                         <td colspan="2" align="center">
                             <b><%= $user %></b>
                             <% if ($public_stats) { =%>
-                                <span style="font-size: 9px"><a href="<%= $public_stats %>">(<%=l 'Public stats' %>)</a></span>
+                                <span style="font-size: 9px"> <a href="<%= $public_stats %>">(<%=l 'Public stats' %>)</a></span>
                             <% } =%>
                             <br>
                             <hr>
                         </td>
                     </tr>
+                    <% if ($has_notes) { %>
                     <tr>
                         <td><input type="checkbox" name="information" <%= $checked_boxes->{'information'} ? 'checked=""' : '' %>></td>
                         <td><a class="section_link" id="information"     href="information"><%=l 'Information' %></a></td>

@@ -14,7 +14,7 @@ use EBT2::NoteValidator;
 use EBT2::Constants ':all';
 
 ## whenever there are changes in any stats format, this has to be increased in order to detect users with old stats formats
-our $STATS_VERSION = '20120809-01';
+our $STATS_VERSION = '20120812-01';
 
 sub mean { return sum(@_)/@_; }
 
@@ -278,6 +278,7 @@ sub bundle_locations {
 
         ## travel_stats
         my $y = substr $hr->[DATE_ENTERED], 0, 4;
+        $ret{'travel_stats'}{ $hr->[CITY] }{'first_seen'} ||= $hr->[DATE_ENTERED];
         $ret{'travel_stats'}{ $hr->[CITY] }{'total'}++;
         $ret{'travel_stats'}{ $hr->[CITY] }{'visits'}{$y}++;
         $ret{'travel_stats'}{ $hr->[CITY] }{'country'} ||= $hr->[COUNTRY];

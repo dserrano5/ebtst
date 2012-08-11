@@ -7,23 +7,46 @@
         <% foreach my $y (@$years) { =%>
             <th><%= $y %></th>
         <% } =%>
+        <th><%=l 'Total' %></th>
         <th><%=l 'Visits' %></th>
     </tr>
-    <% my $idx = 1; %>
-    <% foreach my $loc (reverse sort { =%>
-    <%     keys %{ $travel_stats->{$a}{'visits'} } cmp keys %{ $travel_stats->{$b}{'visits'} } || =%>
-    <%     $travel_stats->{$a}{'total'} <=> $travel_stats->{$b}{'total'} || =%>
-    <%     $b cmp $a =%>
+    <% my $idx = 1; my %visits_per_year; %>
+    <% foreach my $loc (sort { =%>
+    <%#     keys %{ $travel_stats->{$a}{'visits'} } cmp keys %{ $travel_stats->{$b}{'visits'} } || =%>
+    <%#     $travel_stats->{$a}{'total'} <=> $travel_stats->{$b}{'total'} || =%>
+    <%#     $b cmp $a =%>
+    <%     $travel_stats->{$a}{'first_seen'} cmp $travel_stats->{$b}{'first_seen'}
     <% } keys %{ $travel_stats }) { =%>
         <tr>
+            <% my $city_total; =%>
             <td><%= $idx++ %></td>
             <td><img src="images/<%= $travel_stats->{$loc}{'country'} %>.gif"> <%= $loc %></td>
             <% foreach my $y (@$years) { =%>
-                <td><%= $travel_stats->{$loc}{'visits'}{$y} // '-' %></td>
+                <% my $notes = $travel_stats->{$loc}{'visits'}{$y} // 0; =%>
+                <% if ($notes) { =%>
+                    <% $city_total += $notes; =%>
+                    <% $visits_per_year{$y}++; =%>
+                <% } =%>
+                <td><%= $notes || '-' %></td>
             <% } =%>
-            <td><%= scalar keys %{ $travel_stats->{$loc}{'visits'} } %></td>
+            <td><%= $city_total %></td>
+            <% my $num_visits = keys %{ $travel_stats->{$loc}{'visits'} }; =%>
+            <% if ($num_visits == @$years) { =%>
+                <td><b><%= $num_visits %></b></td>
+            <% } else { =%>
+                <td><%= $num_visits %></td>
+            <% } =%>
         </tr>
     <% } =%>
+    <tr>
+        <td></td>
+        <td align="right"><%=l 'Total yearly visits' %>:</td>
+        <% foreach my $y (@$years) { =%>
+            <th><%= $visits_per_year{$y} %></th>
+        <% } =%>
+        <td></td>
+        <td></td>
+    </tr>
 </table>
 <br>
 Number of locations: <b><%= $num_locs %></b><br>

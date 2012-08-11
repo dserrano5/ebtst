@@ -83,6 +83,7 @@ First notes by printer code = Primer billete por código de imprenta
 ## travel_stats
 Location = Localidad
 Visits = Visitas
+Total yearly visits = Total anual de visitas
 Number of locations = Localidades
 Number of different yearly visits = Visitas anuales
 Number of one time visit locations = Visitadas sólo un año

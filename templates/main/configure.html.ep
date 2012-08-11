@@ -22,9 +22,5 @@
         </tr>
     </table>
     <br>
-    <p style="font-size: 9px;">
-        <%=l 'A copy of the notes CSV will be kept in the following format' %>:<br>
-        <font face="monospace">5;2002;V00000000xxx;M001A1;2010-01-01 00:00:00;Madrid;Spain</font>
-    </p>
     <%= submit_button l 'Submit' %>
 <% end %>

@@ -227,8 +227,24 @@ Link = Enlace
 #Language = Idioma
 Notes CSV file = Archivo CSV de billetes
 Hits CSV file = Archivo CSV de hits
-A copy of the notes CSV will be kept in the following format = Se almacenará una copia del archivo de billetes, con el siguiente formato
 Submit = Enviar
+
+## help
+_help_main_usage_1 = Después de subir tus archivos CSV (ver sección "Configure"), marcar las casillas deseadas de la izquierda y pinchar en "BBCode/HTML" para generar las estadísticas públicas. Se abrirá una nueva ventana o tab con el BBCode y un enlace al HTML.
+_help_colors_1 = Algunas secciones muestran números pintados de diferentes colores. Los colores son:
+_help_colors_2 = Los asteriscos coloreados que aparecen en varios sitios muestran lo recientes que son los billetes:
+note has been entered up to 1 year ago = billete introducido hace 1 año o menos
+note has been entered up to 3 months ago = billete introducido hace 3 meses o menos
+note has been entered up to 1 week ago = billete introducido hace 1 semana o menos
+_configure_1 = EBTST accepta archivos CSV comprimidos, en formato zip o gzip. El usar archivos comprimidos hace que el tiempo necesario para cargar los archivos sea menor.
+_configure_2 = Se almacenará una copia del archivo de billetes, con el siguiente formato:
+_countries_1 = Los datos porcentuales que aparecen en la tabla "Detalle" muestran el porcentaje de billetes de cada país con respecto a la totalidad de billetes para ese valor. Por tanto, cuando se suman verticalmente, el resultado es 100%.
+_printers_1 = Igual que en "Países", los datos porcentuales que aparecen en la tabla "Detalle" muestran el porcentaje de billetes de cada imprenta con respecto a la totalidad de billetes para ese valor. Por tanto, cuando se suman verticalmente, el resultado es 100%.
+_huge_table_1 = Para evitar entradas inútiles en la tabla, se ignoran los billetes con errores.
+_nice_serials_1 = El algoritmo para puntuar los números de serie es como sigue: primero, el serie con el menor número de secuencias de dígitos iguales gana. Por tanto, *1111122233 (3 secuencias) gana sobre *1112111211 (5 secuencias). En el habitual caso de que haya empate, entonces el serie con la secuencia más larga gana. Estos son los criterios principales de puntuación, pero hay un par de ellos más.
+_coords_bingo_1 = Igual que en "Tabla tocha", se ignoran los billetes con errores.
+_combinations_1 = De nuevo, se ignoran los billetes con errores. Igual que en "Países" e "Imprentas", los porcentajes suman 100% en vertical.
+_plate_bingo_1 = Se ignoran los billetes con errores. No se da tratamiento especial a los raros casos de planchas que comparten distintas firmas del presidente del BCE (concretamente: <img src="images/10.gif"> K007, <img src="images/10.gif"> P005, <img src="images/20.gif"> F002 and <img src="images/100.gif"> F002).
 
 ## days of week
 Monday = Lunes

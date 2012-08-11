@@ -8,7 +8,7 @@
     </tr>
     <% foreach my $elem (@$nicest) { =%>
         <tr>
-            <td><%= $elem->{'serial'} %></td>
+            <td><!--<%= $elem->{'score'} %>--><%= $elem->{'serial'} %></td>
             <td><img src="images/<%= $elem->{'value'} %>.gif"></td>
             <td><%= $elem->{'date'} %><span class="recent_<%= $elem->{'recent'} %>"></span></td>
             <td><%= $elem->{'city'} %> <img src="images/<%= $elem->{'imgname'} %>.gif"></td>

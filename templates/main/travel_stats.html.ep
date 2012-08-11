@@ -7,7 +7,7 @@
         <% foreach my $y (@$years) { =%>
             <th><%= $y %></th>
         <% } =%>
-        <th>Visits</th>
+        <th><%=l 'Visits' %></th>
     </tr>
     <% my $idx = 1; %>
     <% foreach my $loc (reverse sort { =%>

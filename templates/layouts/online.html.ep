@@ -120,10 +120,10 @@
                         <td></td>
                         <td><a class="section_link" id="configure"       href="configure"><%=l 'Configuration' %></a></td>
                     </tr>
-                    <!--<tr>
+                    <tr>
                         <td></td>
                         <td><a class="section_link" id="help"            href="help"><%=l 'Help' %></a></td>
-                    </tr>-->
+                    </tr>
                     <tr>
                         <td></td>
                         <td><a class="section_link" id="logout"          href="logout"><%=l 'Logout' %></a></td>

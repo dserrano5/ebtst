@@ -1,0 +1,49 @@
+<h2><%=l 'Help' %></h2>
+
+<h3><%=l 'Main usage' =%></h3>
+<p><%=l '_help_main_usage_1' %></p>
+
+<h3><%=l 'Colors' =%></h3>
+<p><%=l '_help_colors_1' %></p>
+<ul>
+    <li><span style="color: <%= color 0 %>"><%=l 'grey' %></span>: 0 <%=l 'notes' %></li>
+    <li><span style="color: <%= color 1 %>"><%=l 'blue' %></span>: 1-49 <%=l 'notes' %></li>
+    <li><span style="color: <%= color 50 %>"><%=l 'green' %></span>: 50-99 <%=l 'notes' %></li>
+    <li><span style="color: <%= color 100 %>"><%=l 'yellow' %></span>: 100-499 <%=l 'notes' %></li>
+    <li><span style="color: <%= color 500 %>"><%=l 'red' %></span>: 500-999 <%=l 'notes' %></li>
+    <li><span style="color: <%= color 1000 %>"><%=l 'black' %></span>: <%=l 'more than' %> 1000 <%=l 'notes' %></li>
+</ul>
+<p><%=l '_help_colors_2' %></p>
+<ul>
+    <li><span class="recent_1"></span>: <%=l 'note has been entered up to 1 year ago' %></li>
+    <li><span class="recent_2"></span>: <%=l 'note has been entered up to 3 months ago' %></li>
+    <li><span class="recent_3"></span>: <%=l 'note has been entered up to 1 week ago' %></li>
+</ul>
+
+<!--<h3><%=l 'Register' =%></h3>-->
+<!--<p>long user names with spaces and utf8, since the site accepts long passwords with spaces, it's recommended to take advantage of that</p>-->
+
+<h3><%=l 'Configure' =%></h3>
+<p><%=l '_configure_1' %></p>
+<p><%=l '_configure_2' %> <span style="font-family: monospace; font-size: 0.8em;"><%=l '_configure_3' %></span>.</p>
+
+<h3><%=l 'Countries' =%></h3>
+<p><%=l '_countries_1' %></p>
+
+<h3><%=l 'Printers' =%></h3>
+<p><%=l '_printers_1' %></p>
+
+<h3><%=l 'Huge table' =%></h3>
+<p><%=l '_huge_table_1' %></p>
+
+<h3><%=l 'Nice serials' =%></h3>
+<p><%=l '_nice_serials_1' %></p>
+
+<h3><%=l 'Coords bingo' =%></h3>
+<p><%=l '_coords_bingo_1' %></p>
+
+<h3><%=l 'Combinations' =%></h3>
+<p><%=l '_combinations_1' %></p>
+
+<h3><%=l 'Plate bingo' =%></h3>
+<p><%==l '_plate_bingo_1' %></p>

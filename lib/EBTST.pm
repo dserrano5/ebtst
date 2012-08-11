@@ -11,16 +11,17 @@ my $cfg_file = File::Spec->catfile ($work_dir, 'ebtst.cfg');
 -r $cfg_file or die "Can't find configuration file '$cfg_file'\n";
 our %config = Config::General->new (-ConfigFile => $cfg_file, -IncludeRelative => 1, -UTF8 => 1)->getall;
 
-my $sess_dir           = $config{'session_dir'}       // die "'session_dir' isn't configured";
-my $user_data_basedir  = $config{'user_data_basedir'} // die "'user_data_basedir' isn't configured";
-my $html_dir           = $config{'html_dir'}    // File::Spec->catfile ($ENV{'BASE_DIR'}, 'public', 'stats');
-my $statics_dir        = $config{'statics_dir'} // File::Spec->catfile ($ENV{'BASE_DIR'}, 'public');
-my $images_dir         = File::Spec->catfile ($config{'statics_dir'} ? $config{'statics_dir'} : ($ENV{'BASE_DIR'}, 'public'), 'images');
-my $session_expire     = $config{'session_expire'} // 30;
-my $base_href          = $config{'base_href'};
-our @graphs_colors     = $config{'graphs_colors'} ? (split /[\s,]+/, $config{'graphs_colors'}) : ('blue', 'green', '#FFBF00', 'red', 'black');
-my $hypnotoad_listen   = $config{'hypnotoad_listen'} // 'http://localhost:3000'; $hypnotoad_listen = [ $hypnotoad_listen ] if 'ARRAY' ne ref $hypnotoad_listen;
-my $hypnotoad_is_proxy = $config{'hypnotoad_is_proxy'} // 0;
+my $sess_dir                    = $config{'session_dir'}       // die "'session_dir' isn't configured";
+my $user_data_basedir           = $config{'user_data_basedir'} // die "'user_data_basedir' isn't configured";
+my $html_dir                    = $config{'html_dir'}    // File::Spec->catfile ($ENV{'BASE_DIR'}, 'public', 'stats');
+my $statics_dir                 = $config{'statics_dir'} // File::Spec->catfile ($ENV{'BASE_DIR'}, 'public');
+my $images_dir                  = File::Spec->catfile ($config{'statics_dir'} ? $config{'statics_dir'} : ($ENV{'BASE_DIR'}, 'public'), 'images');
+my $session_expire              = $config{'session_expire'} // 30;
+my $base_href                   = $config{'base_href'};
+our @graphs_colors              = $config{'graphs_colors'} ? (split /[\s,]+/, $config{'graphs_colors'}) : ('blue', 'green', '#FFBF00', 'red', 'black');
+my $hypnotoad_listen            = $config{'hypnotoad_listen'} // 'http://localhost:3000'; $hypnotoad_listen = [ $hypnotoad_listen ] if 'ARRAY' ne ref $hypnotoad_listen;
+my $hypnotoad_is_proxy          = $config{'hypnotoad_is_proxy'} // 0;
+my $hypnotoad_heartbeat_timeout = $config{'hypnotoad_heartbeat_timeout'} // 60;
 my $base_parts = @{ Mojo::URL->new ($base_href)->path->parts };
 
 sub startup {

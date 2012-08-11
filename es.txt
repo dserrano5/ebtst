@@ -1,4 +1,5 @@
 ## layout
+Public stats = Datos públicos
 Information = Información
 Value = Valor
 Countries = Países
@@ -214,6 +215,10 @@ Frequent hit partner = Compañer@ de hit frecuente
 % of all hits = % de todos los hits
 Hits with same kilometers and days = Hits con el mismo número de kilómetros y de días
 None = Ninguno
+
+## gen_output
+Public stats have been generated = Se han generado las estadísticas públicas
+Link = Enlace
 
 ## configuration
 #Name = Nombre

@@ -14,6 +14,16 @@
                 <table>
                     <% if ($has_notes) { %>
                     <tr>
+                        <td colspan="2" align="center">
+                            <b><%= $user %></b>
+                            <% if ($public_stats) { =%>
+                                <span style="font-size: 9px"><a href="<%= $public_stats %>">(<%=l 'Public stats' %>)</a></span>
+                            <% } =%>
+                            <br>
+                            <hr>
+                        </td>
+                    </tr>
+                    <tr>
                         <td><input type="checkbox" name="information" <%= $checked_boxes->{'information'} ? 'checked=""' : '' %>></td>
                         <td><a class="section_link" id="information"     href="information"><%=l 'Information' %></a></td>
                     </tr><tr>
@@ -104,7 +114,9 @@
                     <!--<tr>
                         <td></td>
                         <td><a class="section_link" id="charts"          href="charts"><%=l 'Charts' %></a></td>
-                    </tr>--><tr>
+                    </tr>-->
+                    <% } %>
+                    <tr>
                         <td></td>
                         <td><a class="section_link" id="configure"       href="configure"><%=l 'Configuration' %></a></td>
                     </tr>
@@ -112,7 +124,6 @@
                         <td></td>
                         <td><a class="section_link" id="help"            href="help"><%=l 'Help' %></a></td>
                     </tr>-->
-                    <% } %>
                     <tr>
                         <td></td>
                         <td><a class="section_link" id="logout"          href="logout"><%=l 'Logout' %></a></td>

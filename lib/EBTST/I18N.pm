@@ -1,22 +1,19 @@
 package EBTST::I18N;
 
 use Mojo::Base -base;
-#use File::Spec;
-#use FindBin;
+use File::Spec;
 
 has setup_lex => sub { sub {
     my ($lang, $lex) = @_;
 
     warn "*** loading lexicon '$lang'\n";
 
-    my $file = File::Spec->catfile ($FindBin::Bin, '..', "$lang.txt");     ## linux ($Bin ends in 'script/')
-    -r $file or $file = File::Spec->catfile ($FindBin::Bin, "$lang.txt");  ## windows ($Bin points to the dir of the .exe file)
+    my $file = File::Spec->catfile ($ENV{'BASE_DIR'}, "$lang.txt");
     warn "*** file ($file)\n";
     if (!-r $file) {
         warn "*** file is not readable\n";
         return;
     }
-    #warn "*** file is readable\n";
 
     open my $fd, '<:encoding(UTF-8)', $file or die "open: '$file': $!";
     local $_;

@@ -17,7 +17,7 @@ my $html_dir           = $config{'html_dir'}    // File::Spec->catfile ($ENV{'BA
 my $statics_dir        = $config{'statics_dir'} // File::Spec->catfile ($ENV{'BASE_DIR'}, 'public');
 my $images_dir         = File::Spec->catfile ($config{'statics_dir'} ? $config{'statics_dir'} : ($ENV{'BASE_DIR'}, 'public'), 'images');
 my $session_expire     = $config{'session_expire'} // 30;
-my $base_href          = $config{'base_href'};
+my $base_href          = $config{'base_href'}; $base_href =~ s{/*$}{};
 our @graphs_colors     = $config{'graphs_colors'} ? (split /[\s,]+/, $config{'graphs_colors'}) : ('blue', 'green', '#FFBF00', 'red', 'black');
 my $hypnotoad_listen   = $config{'hypnotoad_listen'} // 'http://localhost:3000'; $hypnotoad_listen = [ $hypnotoad_listen ] if 'ARRAY' ne ref $hypnotoad_listen;
 my $hypnotoad_is_proxy = $config{'hypnotoad_is_proxy'} // 0;
@@ -41,6 +41,7 @@ sub startup {
         my $al = $self->tx->req->content->headers->accept_language // ''; $ENV{'LANG'} = substr $al, 0, 2;  ## could be improved...
         $self->stash (base_href     => $base_href);
         $self->stash (checked_boxes => {});
+        $self->stash (public_stats  => undef);
         $self->stash (has_notes     => undef);
         $self->stash (has_hits      => undef);
         $self->stash (has_bad_notes => undef);
@@ -141,6 +142,16 @@ sub startup {
             }
             $self->stash ('sess')->extend_expires;
 
+            if (-e File::Spec->catfile ($html_dir, $user, 'index.html')) {
+                my $url;
+                if ($base_href) {
+                    $url = sprintf '%s/%s', $base_href, $user;
+                } else {
+                    $url = sprintf 'stats/%s/%s', $user, 'index.html';
+                }
+                $self->stash (public_stats => $url);
+            }
+
             my $cbs = $self->ebt->get_checked_boxes // [];
             my %cbs; @cbs{@$cbs} = (1) x @$cbs;
             $self->stash (checked_boxes => \%cbs);
@@ -176,6 +187,7 @@ sub startup {
     });
     $r_user->get ('/configure')->to ('main#configure');
     $r_user->post ('/upload')->to ('main#upload');
+    $r_user->get ('/help')->to ('main#help');
     $r_user->get ('/logout')->to ('main#logout');
 
     my $u = $r_user->under (sub {
@@ -188,7 +200,6 @@ sub startup {
 
         return 1;
     });
-    #$u->get ('/help')->to ('main#help');
     $u->get ('/information')->to ('main#information');
     $u->get ('/value')->to ('main#value');
     $u->get ('/countries')->to ('main#countries');

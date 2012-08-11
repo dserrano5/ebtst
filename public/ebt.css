@@ -32,6 +32,11 @@ body {
     /*width: 800px;*/
     overflow: auto;
 }
+#bbcode {
+    margin: 0px 20px 20px;
+    width: 700px;
+    height: 400px;
+}
 h2 {
     font-size: 15px;
     text-decoration: underline;

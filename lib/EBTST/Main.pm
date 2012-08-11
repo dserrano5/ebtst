@@ -27,7 +27,7 @@ my %users;
 my %section_titles;
 foreach my $section (qw/
     index information value countries locations travel_stats printers huge_table short_codes nice_serials
-    top_days plate_bingo bad_notes hit_list hit_analysis hit_summary
+    top_days plate_bingo bad_notes hit_list hit_analysis hit_summary help
 /) {
     my $title = ucfirst $section;
     $title =~ s/_/ /g;
@@ -35,7 +35,6 @@ foreach my $section (qw/
 }
 %section_titles = (
     %section_titles,
-    configure            => 'Configuration',
     notes_per_year       => 'Notes/year',
     notes_per_month      => 'Notes/month',
     coords_bingo         => 'Coordinates bingo',
@@ -45,6 +44,8 @@ foreach my $section (qw/
     combs_detail         => 'Combinations (detail)',
     hit_times_bingo      => 'Hit times (bingo)',
     hit_times_detail     => 'Hit times (detail)',
+    configure            => 'Configuration',
+    bbcode               => 'BBCode',
 );
 
 sub _log {
@@ -1033,6 +1034,14 @@ sub configure {
     );
 }
 
+sub help {
+    my ($self) = @_;
+
+    $self->stash (
+        title => $section_titles{'help'},
+    );
+}
+
 ## both gunzip and unzip appear to accept already uncompressed data, which makes things easier: just blindly uncompress everything
 sub _decompress {
     my ($self, $file) = @_;
@@ -1188,18 +1197,19 @@ sub gen_output {
 
     my @rendered_bbcode;
     foreach my $param (@req_params) {
-        ## bbcode: store in memory for later output
         ## missing templates yield an undef result
-        my $r = encode 'UTF-8', $self->render_partial (template => "main/$param", format => 'txt');
+        my $r = $self->render_partial (template => "main/$param", format => 'txt');
         push @rendered_bbcode, $r;
 
     }
 
-    ## now output stored bbcode
-    my $body = join "\n\n", grep defined, @rendered_bbcode;
-    $self->res->headers->content_type ('text/plain; charset=utf-8');
-    $self->res->body ($body);
-    $self->rendered (200);
+    $self->stash (
+        format => 'html',
+        title  => $section_titles{'bbcode'},
+        user   => undef,
+        bbcode => (join "\n\n", grep defined, @rendered_bbcode),
+        url    => $self->stash ('public_stats'),
+    );
 }
 
 1;

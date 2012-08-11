@@ -50,7 +50,10 @@
             <tr>
                 <th><%= $num %></th>
                 <% my $color = color $time_data->{'hh'}{$num}; $color_counts{$color}++; %>
-                <td><span style="color: <%= $color %>"><%= $time_data->{'hh'}{$num}//0 %></span> (<%= sprintf '%.2f', 100 * ($time_data->{'hh'}{$num}//0) / $count %>%)</td>
+                <td>
+                    <span style="color: <%= $color %>"><%= $time_data->{'hh'}{$num}//0 %></span>
+                    (<%= sprintf '%.2f', 100 * ($time_data->{'hh'}{$num}//0) / $count %>%)
+                </td>
             </tr>
         <% } %>
     </table>
@@ -248,47 +251,30 @@
 <% %color_counts = (); =%>
 <b><%=l 'Days of week and hours' %></b><br>
 <% my $dowh_count = 0; =%>
-<% if ('detail' eq $mode) { =%>
-    <table>
-        <tr>
-            <th></th>
-            <% foreach my $dow (1 .. 7) { %>
-                <th class="small_cell"><%=l $EBTST::Main::dows{$dow} %></th>
-            <% } %>
-        </tr>
-        <% foreach my $h (map { sprintf '%02d', $_ } 0 .. 23) { %>
-            <tr>
-                <th><%= $h %></th>
-                <% foreach my $dow (1 .. 7) { %>
-                    <% my $color = color $time_data->{'dowhh'}{$dow}{$h}; $color_counts{$color}++; %>
-                    <td>
-                        <span style="color: <%= $color %>"><%= $time_data->{'dowhh'}{$dow}{$h}//0 %></span>
-                        (<%= sprintf '%.2f', 100 * ($time_data->{'dowhh'}{$dow}{$h}//0) / $count %>%)
-                    </td>
-                <% } %>
-            </tr>
-        <% } %>
-    </table>
-<% } else { %>
-    <table>
+<table>
+    <% if ('bingo' eq $mode) { =%>
         <tr>
             <th></th>
             <% foreach my $h (map { sprintf '%02d', $_ } 1 .. 23) { =%>
                 <th class="small_cell"><%= $h %></th>
             <% } =%>
-            <% foreach my $dow (1 .. 7) { =%>
-                <tr>
-                    <th><%=l $EBTST::Main::dows{$dow} %></th>
-                    <% foreach my $h (map { sprintf '%02d', $_ } 1 .. 23) { =%>
-                        <% my $class = 'bingo_' . (0 + !!$time_data->{'dowhh'}{$dow}{$h}); $dowh_count++ if 'bingo_1' eq $class; %>
-                        <td class="small_cell"><span class="<%= $class %>"></span></td>
-                    <% } =%>
-                </tr>
-            <% } =%>
         </tr>
-    </table>
-    <b><%=l 'Hours' %></b>: <%= $dowh_count %>/168<br>
-<% } %>
+    <% } =%>
+   <% foreach my $dow (1 .. 7) { =%>
+       <tr>
+           <th><%=l $EBTST::Main::dows{$dow} %></th>
+           <% foreach my $h (map { sprintf '%02d', $_ } 1 .. 23) { =%>
+               <% my $color = color $time_data->{'dowhh'}{$dow}{$h}; $color_counts{$color}++; %>
+               <% my $class = 'bingo_' . (0 + !!$time_data->{'dowhh'}{$dow}{$h}); $dowh_count++ if 'bingo_1' eq $class; %>
+               <% if ('detail' eq $mode) { =%>
+                   <td class="small_cell"><span style="color: <%= $color %>"><%= $h %></span></td>
+               <% } else { %>
+                   <td class="small_cell"><span class="<%= $class %>"></span></td>
+               <% } %>
+           <% } =%>
+       </tr>
+   <% } =%>
+</table>
 <% if ('detail' eq $mode) { =%>
     <b><%=l 'Colors' %></b>:
     <span style="color: <%= color    1 %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-5..-1] %>/168</span>,
@@ -296,6 +282,8 @@
     <span style="color: <%= color  101 %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-3..-1] %>/168</span>,
     <span style="color: <%= color  501 %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-2..-1] %>/168</span>,
     <span style="color: <%= color 1001 %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-1..-1] %>/168</span><br>
+<% } else { =%>
+    <b><%=l 'Hours' %></b>: <%= $dowh_count %>/168<br>
 <% } =%>
 <br><br>
 

@@ -19,7 +19,7 @@
         <td><img src="images/<%= $elem->{'value'} %>.gif"> <b><%= $elem->{'value'} %></b></td>
         <td class="numeric"><%= $elem->{'count'} %></td>
         <td class="numeric"><div style="<%= $style %>">&nbsp;</div><%= $elem->{'pct'} %>%</td>
-        <td class="numeric"><%= $elem->{'amount'} %> €</td>
+        <td class="numeric"><%= $elem->{'amount'} %> EUR</td>
     </tr>
 <% } %>
 </table>

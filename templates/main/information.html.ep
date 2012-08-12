@@ -21,7 +21,7 @@
 <% } %>
 <br>
 <%=l 'Total number of notes' %>: <b><%= $count %></b><br>
-<%=l 'Total value of all notes' %>: <b><%= $total_value %></b> €<br>
+<%=l 'Total value of all notes' %>: <b><%= $total_value %></b> EUR<br>
 <br>
 <%=l 'Signatures' %>:
   <b>Duisenberg <%= $sigs_wd %></b> (<%= $sigs_wd_pct %>%)

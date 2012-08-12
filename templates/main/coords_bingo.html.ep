@@ -1,7 +1,15 @@
 <h2><%=l 'Coordinates bingo' %></h2>
 <% foreach my $v ('all', @{ EBT2->values }) { =%>
-    <% next unless defined $cbingo->{$v}; =%>
-    <% my ($max_letter, $max_number) = qw/H 5/; =%>
+    <% my ($max_letter, $max_number); =%>
+    <% if ('all' eq $v or 5 == $v) { =%>
+    <%     ($max_letter, $max_number) = qw/J 6/; =%>
+    <% } elsif (10 == $v) { =%>
+    <%     ($max_letter, $max_number) = qw/J 6/; =%>
+    <% } elsif (20 == $v) { =%>
+    <%     ($max_letter, $max_number) = qw/I 6/; =%>
+    <% } else { =%>
+    <%     ($max_letter, $max_number) = qw/H 5/; =%>
+    <% } =%>
     <%# obtain lower right corner: max letter and max number =%>
     <% for my $coord (keys %{ $cbingo->{$v} }) { =%>
         <% my ($letter, $number) = $coord =~ /^(.)(.)$/; =%>

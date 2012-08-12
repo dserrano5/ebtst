@@ -39,4 +39,4 @@
 <%=l 'Average entering rate' %>: <b><%= $avg_per_day %></b> <%=l 'notes/day' %>
 <br>
 <br>
-<img src="images/<%= $user %>/pct_by_pres.png">
+<img src="images/<%= $user %>/pct_by_pres.svg">

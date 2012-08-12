@@ -25,11 +25,11 @@
 </table>
 <br>
 <br>
-<img src="images/<%= $user %>/acum_by_val.png">
+<img src="images/<%= $user %>/acum_by_val.svg">
 <br>
-<img src="images/<%= $user %>/pct_by_val.png">
+<img src="images/<%= $user %>/pct_by_val.svg">
 <br>
-<img src="images/<%= $user %>/dev_of_mean.png">
+<img src="images/<%= $user %>/dev_of_mean.svg">
 <br>
 <br>
 

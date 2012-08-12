@@ -26,6 +26,7 @@ sub line_chart {
 
     my $gp = Chart::Gnuplot->new (
         encoding  => 'utf8',
+        terminal  => 'svg fsize 9',
         #imagesize => '8, 6',   ## default: '10, 7' for some reason
         output    => $args{'output'},
         #title     => 'Title',
@@ -47,6 +48,7 @@ sub line_chart {
         },
         legend => {
             position => 'bmargin left',
+            width    => 1,
             align    => 'right',
             order    => 'horizontal',
             border   => { width => 1 },
@@ -85,6 +87,7 @@ sub bar_chart {
 
     my $gp = Chart::Gnuplot->new (
         encoding     => 'utf8',
+        terminal     => 'svg fsize 9',
         output       => $args{'output'},
         boxwidth     => '0.75 absolute',
         'style fill' => ($args{'bar_border'} ? 'solid 1 border lt -1' : 'solid 1'),
@@ -100,6 +103,7 @@ sub bar_chart {
         },
         legend => {
             position => 'rmargin top',
+            width    => 1,
             align    => 'right',
             order    => 'vertical invert',  ## 'invert' doesn't seem to work with 'horizontal', and we need it since we plot the datasets in reverse order
             border => {
@@ -165,6 +169,7 @@ sub bartime_chart {
     }
     my $gp = Chart::Gnuplot->new (
         encoding     => 'utf8',
+        terminal     => 'svg fsize 9',
         output       => $args{'output'},
         timeaxis  => 'x',
         #boxwidth     => '0.75 absolute',
@@ -183,6 +188,7 @@ sub bartime_chart {
         },
         legend => {
             position => 'rmargin top',
+            width    => 1,
             align    => 'right',
             order    => 'vertical invert',  ## 'invert' doesn't seem to work with 'horizontal', and we need it since we plot the datasets in reverse order
             border => {

@@ -146,7 +146,7 @@ sub information {
     my $today       = DateTime->now->set_time_zone ('Europe/Madrid')->strftime ('%Y-%m-%d %H:%M:%S');
     my $avg_per_day = $count / $full_days;
 
-    my $dest_img = File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'pct_by_pres.png');
+    my $dest_img = File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'pct_by_pres.svg');
     if (!-e $dest_img) {
         my @initials_pres = map { (split /:/)[0] } @{ EBT2->presidents };
         my %dpoints;
@@ -156,7 +156,7 @@ sub information {
             $dpoints{$elem}[-1]++ if '_UNK' ne $elem;
         }
 
-        my $dest_img = File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'pct_by_pres.png');
+        my $dest_img = File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'pct_by_pres.svg');
         EBTST::Main::Gnuplot::bartime_chart
             output => $dest_img,
             xdata => $notes_dates,
@@ -221,9 +221,9 @@ sub value {
     }
 
     ## charts
-    my $dest_img1 = File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'acum_by_val.png');
-    my $dest_img2 = File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'pct_by_val.png');
-    my $dest_img3 = File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'dev_of_mean.png');
+    my $dest_img1 = File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'acum_by_val.svg');
+    my $dest_img2 = File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'pct_by_val.svg');
+    my $dest_img3 = File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'dev_of_mean.svg');
     if (!-e $dest_img1 or !-e $dest_img2 or !-e $dest_img3) {
         my %dpoints;
         my ($avg_sum, $avg_count);
@@ -510,7 +510,7 @@ sub travel_stats {
     }
 
     ## chart
-    my $dest_img = File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'travel_stats.png');
+    my $dest_img = File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'travel_stats.svg');
     if (!-e $dest_img) {
         my @_8best = (reverse sort { $travel_stats->{$a}{'total'} <=> $travel_stats->{$b}{'total'}} keys %$travel_stats)[0..7];
         my %dpoints;
@@ -807,7 +807,7 @@ sub top_days {
         };
     }
 
-    my $dest_img = File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'week_days.png');
+    my $dest_img = File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'week_days.svg');
     -e $dest_img or EBTST::Main::Gnuplot::bar_chart
         output     => $dest_img,
         labels     => [ map { encode 'UTF-8', $self->l ($_) } qw/Monday Tuesday Wednesday Thursday Friday Saturday Sunday/ ],

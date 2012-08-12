@@ -113,12 +113,10 @@ sub bar_chart {
 ## the datasets must be in order, nearest to the zero line first
 sub bartime_chart {
     my (%args) = @_;
-    my $xdata;
     my $boxes_limit = 500;      ## showing a lot of boxes is slow
 
     my @xdata;
     my $idx_last_point = $#{ $args{'dsets'}[0]{'points'} };
-
     my $nata = int @{ $args{'xdata'} } / $boxes_limit; $nata ||= 1;
 
     my $xdata_done = 0;
@@ -126,7 +124,7 @@ sub bartime_chart {
     foreach my $dset (@{ $args{'dsets'} }) {
         my @points;
         foreach my $idx (0..$idx_last_point) {
-            next if 0 != $idx % $nata;
+            next if 0 != ($idx+1) % $nata;
             push @points, $dset->{'points'}[$idx];
             $xdata_done or push @xdata, $args{'xdata'}[$idx];
         }
@@ -134,7 +132,6 @@ sub bartime_chart {
         if ($args{'percent'}) { map { $totals[$_] += $points[$_] } 0..$#points; }
         $xdata_done = 1;
     }
-    $xdata = \@xdata;
 
     ## transform into percent
     if ($args{'percent'}) {
@@ -147,7 +144,7 @@ sub bartime_chart {
     }
 
     my %gp_dset_args = (
-        xdata    => $xdata,
+        xdata    => \@xdata,
         style    => 'boxes',
         linetype => 'solid',
         timefmt  => '%Y-%m-%d %H:%M:%S',

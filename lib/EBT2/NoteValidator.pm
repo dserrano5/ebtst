@@ -6,14 +6,6 @@ use List::Util qw/sum/;
 use List::MoreUtils qw/uniq/;
 use MIME::Base64;
 
-my @existing_plates;
-for my $v (keys %{ $EBT2::config{'sigs'} }) {
-    for my $cc (keys %{ $EBT2::config{'sigs'}{$v} }) {
-        push @existing_plates, keys %{ $EBT2::config{'sigs'}{$v}{$cc} };
-    }
-}
-@existing_plates = uniq @existing_plates;
-
 sub note_serial_cksum {
     my ($s) = map uc, @_;
 
@@ -30,6 +22,7 @@ sub validate_note {
     my ($hr) = @_;
     my @errors;
     my $v = $hr->{'value'};
+    my $pc = substr $hr->{'short_code'}, 0, 1;
     my $cc = substr $hr->{'serial'}, 0, 1;
     my $plate = substr $hr->{'short_code'}, 0, 4;
     my $position = substr $hr->{'short_code'}, 4, 2;
@@ -43,15 +36,26 @@ sub validate_note {
     #push @errors, "Bad city '$hr->{'city'}'" unless length $hr->{'city'};
     #push @errors, "Bad country '$hr->{'country'}'" unless length $hr->{'country'};
     #push @errors, "Bad zip '$hr->{'zip'}'" unless length $hr->{'zip'};  ## irish notes haven't a zip code
-    push @errors, "Bad short code position '$position'" if $position !~ /^[A-J][0-6]$/;
-    push @errors, "Plate '$plate' doesn't exist for $v/$cc" unless grep { $_ eq $plate } @{ $EBT2::all_plates{$cc}{$v} };
+
+    if (5 == $v or 10 == $v) {
+        push @errors, "Bad short code position '$position'" if $position !~ /^[A-J][0-6]$/;
+    } elsif (20 == $v) {
+        push @errors, "Bad short code position '$position'" if $position !~ /^[A-I][0-6]$/;
+    } else {
+        push @errors, "Bad short code position '$position'" if $position !~ /^[A-H][0-5]$/;
+    }
+
+    if (!grep { $_ eq $plate } @{ $EBT2::all_plates{$cc}{$v} }) {
+        ## if the previous plate exists, let's assume this one has just appeared, and don't choke on it
+        my $prev_plate = sprintf '%s%03d', $pc, ((substr $plate, 1) - 1);
+        if (!grep { $_ eq $prev_plate } @{ $EBT2::all_plates{$cc}{$v} }) {
+            push @errors, "Plate '$plate' doesn't exist for $v/$cc";
+        }
+    }
+
     push @errors, "Bad id '$hr->{'id'}'" if $hr->{'id'} !~ /^\d+$/;
     push @errors, "Bad latitude '$hr->{'lat'}'"  if length $hr->{'lat'}  and $hr->{'lat'}  !~ /^ -? \d+ (?: \. \d+ )? $/x;
     push @errors, "Bad longitude '$hr->{'long'}'" if length $hr->{'long'} and $hr->{'long'} !~ /^ -? \d+ (?: \. \d+ )? $/x;
-
-    my $k_pcv         = sprintf '%s%s%03d', (substr $hr->{'short_code'}, 0, 1), (substr $hr->{'serial'}, 0, 1), $v;
-    my $visible_k_pcv = sprintf '%s/%s %d', (substr $hr->{'short_code'}, 0, 1), (substr $hr->{'serial'}, 0, 1), $v;
-    push @errors, "Bad combination '$visible_k_pcv'" if !exists $EBT2::combs_pc_cc_val{$k_pcv};
 
     return encode_base64 +(join ';', @errors), '';
 }

@@ -2,6 +2,8 @@ package EBTST::Main::Gnuplot;
 
 use warnings;
 use strict;
+use DateTime;
+use List::MoreUtils qw/zip/;
 use Chart::Gnuplot;
 
 sub line_chart {
@@ -27,7 +29,7 @@ sub line_chart {
     my $gp = Chart::Gnuplot->new (
         encoding  => 'utf8',
         terminal  => 'svg fsize 9',
-        #imagesize => '8, 6',   ## default: '10, 7' for some reason
+        #imagesize => '800, 600',
         output    => $args{'output'},
         #title     => 'Title',
         #xlabel    => 'Time',
@@ -88,6 +90,7 @@ sub bar_chart {
     my $gp = Chart::Gnuplot->new (
         encoding     => 'utf8',
         terminal     => 'svg fsize 9',
+        #imagesize   => '800, 600',
         output       => $args{'output'},
         boxwidth     => '0.75 absolute',
         'style fill' => ($args{'bar_border'} ? 'solid 1 border lt -1' : 'solid 1'),
@@ -119,19 +122,45 @@ sub bartime_chart {
     my (%args) = @_;
     my $boxes_limit = 500;      ## showing a lot of boxes is slow
 
+    ## we draw a bar every X amount of time. @intervals contains the latest date for notes to be in a given bar
+    ## ie the first bar represents the note at (or just before) $intervals[0]
+
+    my $first_dt = DateTime->new (zip @{[ qw/year month day hour minute second/ ]}, @{[ split /[ :-]/, $args{'xdata'}[0]  ]})->epoch;
+    my $last_dt  = DateTime->new (zip @{[ qw/year month day hour minute second/ ]}, @{[ split /[ :-]/, $args{'xdata'}[-1] ]})->epoch;
+    my $interval_duration = ($last_dt - $first_dt) / $boxes_limit;
+    my @intervals = map {
+        DateTime->from_epoch (epoch => $first_dt + $interval_duration * $_)->strftime ('%Y-%m-%d %H:%M:%S')
+    } 1 .. $boxes_limit;
+
     my @xdata;
     my $idx_last_point = $#{ $args{'dsets'}[0]{'points'} };
-    my $nata = int @{ $args{'xdata'} } / $boxes_limit; $nata ||= 1;
-
     my $xdata_done = 0;
     my @totals;
     foreach my $dset (@{ $args{'dsets'} }) {
         my @points;
+        my $interval_idx = 0;
+
         foreach my $idx (0..$idx_last_point) {
-            next if 0 != ($idx+1) % $nata;
-            push @points, $dset->{'points'}[$idx];
-            $xdata_done or push @xdata, $args{'xdata'}[$idx];
+            my $cmp = $args{'xdata'}[$idx] cmp $intervals[$interval_idx];
+            next if -1 == $cmp;
+
+            ## found a note entered at (or later than) the current interval
+            ## plot it (or the one before)
+            if (0 == $cmp) {        ## this happens at the last iteration (if floating point precision doesn't meddle)
+                push @points, $dset->{'points'}[$idx];
+                $xdata_done or push @xdata, $args{'xdata'}[$idx];
+            } elsif (1 == $cmp) {
+                push @points, $dset->{'points'}[$idx-1];
+                $xdata_done or push @xdata, $args{'xdata'}[$idx-1];
+            }
+
+            ## now set the next interval
+            ## if there's a lot of time between two notes, we may have to increase $interval_idx more than once
+            do {
+                $interval_idx++;
+            } while $interval_idx < $#intervals and -1 != ($args{'xdata'}[$idx] cmp $intervals[$interval_idx]);
         }
+
         $dset->{'points'} = \@points;
         if ($args{'percent'}) { map { $totals[$_] += $points[$_] } 0..$#points; }
         $xdata_done = 1;
@@ -167,9 +196,11 @@ sub bartime_chart {
             linetype => 'solid',
         );
     }
+
     my $gp = Chart::Gnuplot->new (
         encoding     => 'utf8',
         terminal     => 'svg fsize 9',
+        #imagesize   => '800, 600',
         output       => $args{'output'},
         timeaxis  => 'x',
         #boxwidth     => '0.75 absolute',

@@ -14,7 +14,7 @@ use EBT2::NoteValidator;
 use EBT2::Constants ':all';
 
 ## whenever there are changes in any stats format, this has to be increased in order to detect users with old stats formats
-our $STATS_VERSION = '20120812-01';
+our $STATS_VERSION = '20120812-03';
 
 sub mean { return sum(@_)/@_; }
 
@@ -358,6 +358,7 @@ sub huge_table {
 
     my $iter = $data->note_getter;
     foreach my $hr (@$iter) {
+        next if $hr->[ERRORS];
         my $plate = substr $hr->[SHORT_CODE], 0, 4;
         my $serial = EBT2::Data::serial_remove_meaningless_figures2 $hr->[SHORT_CODE], $hr->[SERIAL];
         my $num_stars = $serial =~ tr/*/*/;
@@ -530,6 +531,7 @@ sub coords_bingo {
 
     my $iter = $data->note_getter;
     foreach my $hr (@$iter) {
+        next if $hr->[ERRORS];
         my $coords = substr $hr->[SHORT_CODE], 4, 2;
         $ret{'coords_bingo'}{ $hr->[VALUE] }{$coords}++;
         $ret{'coords_bingo'}{ 'all' }{$coords}++;

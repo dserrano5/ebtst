@@ -1012,10 +1012,37 @@ sub hit_summary {
     my $count        = $self->ebt->get_count;
     my $hit_list     = $self->ebt->get_hit_list ($whoami);
     my $hs           = $self->ebt->get_hit_summary ($whoami, $activity, $count, $hit_list);
+    my $notes_dates  = $self->ebt->get_notes_dates;         ## for the chart
+    my $hits_dates   = $self->ebt->get_hits_dates;          ## for the chart
 
     foreach my $combo (keys %{ $hs->{'hits_by_combo'} }) {
         $hs->{'hits_by_combo'}{$combo}{'pcflag'} = EBT2->flag (EBT2->printers  ($hs->{'hits_by_combo'}{$combo}{'pc'})),
         $hs->{'hits_by_combo'}{$combo}{'ccflag'} = EBT2->flag (EBT2->countries ($hs->{'hits_by_combo'}{$combo}{'cc'})),
+    }
+
+    ## chart
+    my $dest_img1 = File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'hits_ratio.svg');
+    if (!-e $dest_img1) {
+        my %dpoints;
+        my $hits_dates_idx = 0;
+        my ($count_notes, $count_hits);
+        foreach my $elem (@$notes_dates) {
+            $count_notes++;
+            if (defined $hits_dates->[$hits_dates_idx]) {
+                my $cmp = $elem cmp $hits_dates->[$hits_dates_idx];
+                if (-1 != $cmp) {
+                    $count_hits++;
+                    $hits_dates_idx++;
+                }
+            }
+            push @{ $dpoints{'hit_ratio'} }, $count_hits ? $count_notes/$count_hits : undef;
+        }
+        -e $dest_img1 or EBTST::Main::Gnuplot::line_chart
+            output => $dest_img1,
+            xdata => $notes_dates,
+            dsets => [
+                { title => 'Hit ratio', color => 'black',  points => $dpoints{'hit_ratio'} },
+            ];
     }
 
     $self->stash (

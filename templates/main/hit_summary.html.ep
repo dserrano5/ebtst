@@ -25,6 +25,9 @@
     </tr>
 </table>
 <br>
+<img src="images/<%= $user %>/hits_ratio.svg">
+<br>
+<br>
 <%=l 'Hit finder/maker - giver/getter ratio' %>: <%= $hs->{'active'} %> - <%= $hs->{'passive'} %> \
 (<b><%= sprintf '%.1f', 100 * $hs->{'active'} / $hs->{'total'} %>%</b> - <b><%= sprintf '%.1f', 100 * $hs->{'passive'} / $hs->{'total'} %>%</b>)</br>
 <br>

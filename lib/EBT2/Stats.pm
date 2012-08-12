@@ -936,12 +936,16 @@ sub hit_list {
             $prev_hit_dt = DateTime->new (
                 zip @{[qw/year month day hour minute second/]}, @{[ split /[\s:-]/, $hit->{'hit_date'} ]}
             );
+
+            ## hits_dates
+            push @{ $ret{'hits_dates'} }, $hit->{'hit_date'};
         }
         push @{ $ret{'hit_list'} }, $entry;
     }
 
     return \%ret;
 }
+sub hits_dates { goto &hit_list; }
 
 sub hit_times {
     my ($self, $data, $hit_list) = @_;

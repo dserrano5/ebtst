@@ -512,7 +512,7 @@ sub travel_stats {
     ## chart
     my $dest_img = File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'travel_stats.svg');
     if (!-e $dest_img) {
-        my @_8best = (reverse sort { $travel_stats->{$a}{'total'} <=> $travel_stats->{$b}{'total'}} keys %$travel_stats)[0..7];
+        my @_8best = grep defined, (reverse sort { $travel_stats->{$a}{'total'} <=> $travel_stats->{$b}{'total'}} keys %$travel_stats)[0..7];
         my %dpoints;
         foreach my $elem (split ',', $elem_by_city) {
             push @{ $dpoints{$_} }, ($dpoints{$_}[-1]//0) for @_8best;
@@ -520,20 +520,18 @@ sub travel_stats {
             $dpoints{$elem}[-1]++;
         }
 
+        my @colors = ('red', 'blue', '#FFCF00', 'green', 'magenta', '#808000', '#000080', '#008080');
+        my @dsets = map {
+            defined $_8best[$_] ?
+                { title => (encode 'UTF-8', $_8best[$_]), color => $colors[$_], points => $dpoints{ $_8best[$_] } } :
+                ()
+        } 0..7;
+
         EBTST::Main::Gnuplot::line_chart
             output => $dest_img,
             xdata => $notes_dates,
             logscale => 'y',
-            dsets => [
-                { title => (encode 'UTF-8', $_8best[0]), color => 'red',     points => $dpoints{ $_8best[0] } },
-                { title => (encode 'UTF-8', $_8best[1]), color => 'blue',    points => $dpoints{ $_8best[1] } },
-                { title => (encode 'UTF-8', $_8best[2]), color => '#FFCF00', points => $dpoints{ $_8best[2] } },
-                { title => (encode 'UTF-8', $_8best[3]), color => 'green',   points => $dpoints{ $_8best[3] } },
-                { title => (encode 'UTF-8', $_8best[4]), color => 'magenta', points => $dpoints{ $_8best[4] } },
-                { title => (encode 'UTF-8', $_8best[5]), color => '#808000', points => $dpoints{ $_8best[5] } },
-                { title => (encode 'UTF-8', $_8best[6]), color => '#000080', points => $dpoints{ $_8best[6] } },
-                { title => (encode 'UTF-8', $_8best[7]), color => '#008080', points => $dpoints{ $_8best[7] } },
-            ];
+            dsets => \@dsets;
     }
 
     $self->stash (

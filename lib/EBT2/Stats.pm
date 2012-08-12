@@ -10,7 +10,6 @@ use List::MoreUtils qw/uniq zip/;
 use Storable qw/thaw/;
 use MIME::Base64;
 use EBT2::Data;
-use EBT2::NoteValidator;
 use EBT2::Constants ':all';
 
 ## whenever there are changes in any stats format, this has to be increased in order to detect users with old stats formats
@@ -786,6 +785,7 @@ sub notes_by_combination {
 
     my $iter = $data->note_getter;
     foreach my $hr (@$iter) {
+        next if $hr->[ERRORS];
         my $comb1 = sprintf '%s%s',   (substr $hr->[SHORT_CODE], 0, 1), (substr $hr->[SERIAL], 0, 1);
         my $comb2 = sprintf '%s%s%s', (substr $hr->[SHORT_CODE], 0, 1), (substr $hr->[SERIAL], 0, 1), $hr->[VALUE];
         my ($sig) = $hr->[SIGNATURE] =~ /^(\w+)/ or next;

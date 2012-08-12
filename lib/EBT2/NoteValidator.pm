@@ -29,10 +29,12 @@ sub note_serial_cksum {
 sub validate_note {
     my ($hr) = @_;
     my @errors;
+    my $v = $hr->{'value'};
+    my $cc = substr $hr->{'serial'}, 0, 1;
     my $plate = substr $hr->{'short_code'}, 0, 4;
     my $position = substr $hr->{'short_code'}, 4, 2;
 
-    push @errors, "Bad value '$hr->{'value'}'" unless grep { $_ eq $hr->{'value'} } @{ EBT2->values };
+    push @errors, "Bad value '$v'" unless grep { $_ eq $v } @{ EBT2->values };
     push @errors, "Bad year '$hr->{'year'}'" if '2002' ne $hr->{'year'};
     push @errors, "Invalid checksum for serial number '$hr->{'serial'}'" unless note_serial_cksum $hr->{'serial'};
     push @errors, "Bad date '$hr->{'date_entered'}'" if
@@ -42,13 +44,13 @@ sub validate_note {
     #push @errors, "Bad country '$hr->{'country'}'" unless length $hr->{'country'};
     #push @errors, "Bad zip '$hr->{'zip'}'" unless length $hr->{'zip'};  ## irish notes haven't a zip code
     push @errors, "Bad short code position '$position'" if $position !~ /^[A-J][0-6]$/;
-    push @errors, "Non-existing plate '$plate'" unless grep { $_ eq $plate } @existing_plates;
+    push @errors, "Plate '$plate' doesn't exist for $v/$cc" unless grep { $_ eq $plate } @{ $EBT2::all_plates{$cc}{$v} };
     push @errors, "Bad id '$hr->{'id'}'" if $hr->{'id'} !~ /^\d+$/;
     push @errors, "Bad latitude '$hr->{'lat'}'"  if length $hr->{'lat'}  and $hr->{'lat'}  !~ /^ -? \d+ (?: \. \d+ )? $/x;
     push @errors, "Bad longitude '$hr->{'long'}'" if length $hr->{'long'} and $hr->{'long'} !~ /^ -? \d+ (?: \. \d+ )? $/x;
 
-    my $k_pcv         = sprintf '%s%s%03d', (substr $hr->{'short_code'}, 0, 1), (substr $hr->{'serial'}, 0, 1), $hr->{'value'};
-    my $visible_k_pcv = sprintf '%s/%s %d', (substr $hr->{'short_code'}, 0, 1), (substr $hr->{'serial'}, 0, 1), $hr->{'value'};
+    my $k_pcv         = sprintf '%s%s%03d', (substr $hr->{'short_code'}, 0, 1), (substr $hr->{'serial'}, 0, 1), $v;
+    my $visible_k_pcv = sprintf '%s/%s %d', (substr $hr->{'short_code'}, 0, 1), (substr $hr->{'serial'}, 0, 1), $v;
     push @errors, "Bad combination '$visible_k_pcv'" if !exists $EBT2::combs_pc_cc_val{$k_pcv};
 
     return encode_base64 +(join ';', @errors), '';

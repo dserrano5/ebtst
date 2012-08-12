@@ -1014,6 +1014,8 @@ sub hit_summary {
     my $hs           = $self->ebt->get_hit_summary ($whoami, $activity, $count, $hit_list);
     my $notes_dates  = $self->ebt->get_notes_dates;         ## for the chart
     my $hits_dates   = $self->ebt->get_hits_dates;          ## for the chart
+    my $elem_travel_days = $self->ebt->get_elem_travel_days;
+    my $elem_travel_km   = $self->ebt->get_elem_travel_km;
 
     foreach my $combo (keys %{ $hs->{'hits_by_combo'} }) {
         $hs->{'hits_by_combo'}{$combo}{'pcflag'} = EBT2->flag (EBT2->printers  ($hs->{'hits_by_combo'}{$combo}{'pc'})),
@@ -1022,8 +1024,11 @@ sub hit_summary {
 
     ## chart
     my $dest_img1 = File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'hits_ratio.svg');
-    if (!-e $dest_img1) {
+    my $dest_img2 = File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'hits_travel_days.svg');
+    my $dest_img3 = File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'hits_travel_km.svg');
+    if (!-e $dest_img1 or !-e $dest_img2 or !-e $dest_img3) {
         my %dpoints;
+
         my $hits_dates_idx = 0;
         my ($count_notes, $count_hits);
         foreach my $elem (@$notes_dates) {
@@ -1037,11 +1042,38 @@ sub hit_summary {
             }
             push @{ $dpoints{'hit_ratio'} }, $count_hits ? $count_notes/$count_hits : undef;
         }
+
+        my ($days_sum, $days_count);
+        foreach my $elem (split ',', $elem_travel_days) {
+            $days_sum += $elem;
+            push @{ $dpoints{'travel_days'} }, $days_sum/++$days_count;
+        }
+
+        my ($km_sum, $km_count);
+        foreach my $elem (split ',', $elem_travel_km) {
+            $km_sum += $elem;
+            push @{ $dpoints{'travel_km'} }, $km_sum/++$km_count;
+        }
+
         -e $dest_img1 or EBTST::Main::Gnuplot::line_chart
             output => $dest_img1,
             xdata => $notes_dates,
             dsets => [
-                { title => 'Hit ratio', color => 'black',  points => $dpoints{'hit_ratio'} },
+                { title => 'Hit ratio', color => 'black', points => $dpoints{'hit_ratio'} },
+            ];
+
+        -e $dest_img2 or EBTST::Main::Gnuplot::line_chart
+            output => $dest_img2,
+            xdata => $hits_dates,
+            dsets => [
+                { title => 'Travel days', color => 'black', points => $dpoints{'travel_days'} },
+            ];
+
+        -e $dest_img3 or EBTST::Main::Gnuplot::line_chart
+            output => $dest_img3,
+            xdata => $hits_dates,
+            dsets => [
+                { title => 'Travel km', color => 'black', points => $dpoints{'travel_km'} },
             ];
     }
 

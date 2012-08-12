@@ -939,13 +939,23 @@ sub hit_list {
 
             ## hits_dates
             push @{ $ret{'hits_dates'} }, $hit->{'hit_date'};
+
+            ## elem_travel_days
+            $ret{'elem_travel_days'} .= $hit->{'tot_days'} . ',';
+
+            ## elem_travel_km
+            $ret{'elem_travel_km'} .= $hit->{'tot_km'} . ',';
         }
         push @{ $ret{'hit_list'} }, $entry;
     }
+    chop $ret{'elem_travel_days'};
+    chop $ret{'elem_travel_km'};
 
     return \%ret;
 }
-sub hits_dates { goto &hit_list; }
+sub hits_dates       { goto &hit_list; }
+sub elem_travel_days { goto &hit_list; }
+sub elem_travel_km { goto &hit_list; }
 
 sub hit_times {
     my ($self, $data, $hit_list) = @_;

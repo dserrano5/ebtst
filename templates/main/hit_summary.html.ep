@@ -78,6 +78,11 @@
     </tr>
 </table>
 <br>
+<img src="images/<%= $user %>/hits_travel_days.svg">
+<br>
+<img src="images/<%= $user %>/hits_travel_km.svg">
+<br>
+<br>
 <%=l 'Hit/hitless days' %>: <b><%= $hs->{'hit_days'}{'total'} %></b> - <b><%= $hs->{'hitless_days'}{'total'} %></b> (<%= sprintf '%.2f', 100 * $hs->{'hit_days'}{'total'} / $hs->{'total_days'} %>% - <%= sprintf '%.2f', 100 * $hs->{'hitless_days'}{'total'} / $hs->{'total_days'} %>%)<br>
 <%=l 'Longest period of consecutive hit days' %>: <b><%= $hs->{'hit_dates'}{'consecutive'}{'longest'}{'len'} %> <%=l 'days' %></b> (<%= $hs->{'hit_dates'}{'consecutive'}{'longest'}{'start'} %> - <%= $hs->{'hit_dates'}{'consecutive'}{'longest'}{'end'} %>)<br>
 <%=l 'Current consecutive hit days' %>: <b><%= $hs->{'hit_dates'}{'consecutive'}{'hist'}[-1]{'len'} %> <%=l 'days' %></b>\

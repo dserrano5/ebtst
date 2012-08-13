@@ -8,13 +8,13 @@
     <table>
         <tr>
             <th></th>
-            <th><img src="images/5.gif"></th>
-            <th><img src="images/10.gif"></th>
-            <th><img src="images/20.gif"></th>
-            <th><img src="images/50.gif"></th>
-            <th><img src="images/100.gif"></th>
-            <th><img src="images/200.gif"></th>
-            <th><img src="images/500.gif"></th>
+            <th><img src="images/values/5.gif"></th>
+            <th><img src="images/values/10.gif"></th>
+            <th><img src="images/values/20.gif"></th>
+            <th><img src="images/values/50.gif"></th>
+            <th><img src="images/values/100.gif"></th>
+            <th><img src="images/values/200.gif"></th>
+            <th><img src="images/values/500.gif"></th>
             <th><%=l 'bingo' eq $mode ? 'any' : 'Total' %></th>
         </tr>
         <% my @rows; my %val_totals; %>
@@ -101,19 +101,19 @@
 <% if ('bingo' eq $mode) { =%>
     <h2><%=l 'Still missing combinations' %></h2>
     <% foreach my $elem (map { $missing->{$_} } sort keys %$missing) { =%>
-        <img src="images/<%= $elem->{'pname'} %>.gif"> <img src="images/<%= $elem->{'cname'} %>.gif">
+        <img src="images/countries/<%= $elem->{'pname'} %>.gif"> <img src="images/countries/<%= $elem->{'cname'} %>.gif">
         <%= $elem->{'pletter'} %>/<%= $elem->{'cletter'} %>:
         <% foreach my $d (@{ $elem->{'values'} }) { =%>
-            <img src="images/<%= $d %>.gif">
+            <img src="images/values/<%= $d %>.gif">
         <% } =%>
         <br>
     <% } =%>
 
     <h2><%=l 'History' %></h2>
     <% foreach my $h (@$history) { =%>
-        <%= $h->{'index'} %>.) <img src="images/<%= $h->{'pname'} %>.gif"> <img src="images/<%= $h->{'cname'} %>.gif">
+        <%= $h->{'index'} %>.) <img src="images/countries/<%= $h->{'pname'} %>.gif"> <img src="images/countries/<%= $h->{'cname'} %>.gif">
         <%= $h->{'pc'} %>/<%= $h->{'cc'} %>
-        <img src="images/<%= $h->{'value'} %>.gif"> (<%=l 'note' %> <%= $h->{'num'} %>, <%=l 'entered on' %> <%= $h->{'date'} %> <%=l 'in' %> <%= $h->{'city'} %> <img src="images/<%= $h->{'country'} %>.gif">)<br>
+        <img src="images/values/<%= $h->{'value'} %>.gif"> (<%=l 'note' %> <%= $h->{'num'} %>, <%=l 'entered on' %> <%= $h->{'date'} %> <%=l 'in' %> <%= $h->{'city'} %> <img src="images/countries/<%= $h->{'country'} %>.gif">)<br>
     <% } =%>
 
     <small><%=l 'History text format inspired by' %> <a href="https://en.eurobilltracker.com/profile/?user=112566">Dioniz</a>.</small>

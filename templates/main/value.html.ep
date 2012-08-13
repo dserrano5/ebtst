@@ -16,7 +16,7 @@
     % }
     % my $style = sprintf 'width: %s%%; float: left; %s background-color: %s', $elem->{'pct'}, $border, $color;
     <tr>
-        <td><img src="images/<%= $elem->{'value'} %>.gif"> <b><%= $elem->{'value'} %></b></td>
+        <td><img src="images/values/<%= $elem->{'value'} %>.gif"> <b><%= $elem->{'value'} %></b></td>
         <td class="numeric"><%= $elem->{'count'} %></td>
         <td class="numeric"><div style="<%= $style %>">&nbsp;</div><%= $elem->{'pct'} %>%</td>
         <td class="numeric"><%= $elem->{'amount'} %> EUR</td>
@@ -35,6 +35,6 @@
 
 <h2><%=l 'First notes by value' %></h2>
 <% for my $elem (@$fbval) { %>
-    <%=l 'Note' %> <%= $elem->{'at'} %> <%=l 'was the first' %> <img src="images/<%= $elem->{'value'} %>.gif">
-    (<%=l 'entered on' %> <%= $elem->{'on'} %> <%=l 'in' %> <%= $elem->{'city'} %> <img src="images/<%= $elem->{'imgname2'} %>.gif">)<br>
+    <%=l 'Note' %> <%= $elem->{'at'} %> <%=l 'was the first' %> <img src="images/values/<%= $elem->{'value'} %>.gif">
+    (<%=l 'entered on' %> <%= $elem->{'on'} %> <%=l 'in' %> <%= $elem->{'city'} %> <img src="images/countries/<%= $elem->{'imgname2'} %>.gif">)<br>
 <% } %>

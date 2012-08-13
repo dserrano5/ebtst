@@ -20,7 +20,7 @@
         <tr>
             <% my $city_total; =%>
             <td><%= $idx++ %></td>
-            <td><img src="images/<%= $travel_stats->{$loc}{'country'} %>.gif"> <%= $loc %></td>
+            <td><img src="images/countries/<%= $travel_stats->{$loc}{'country'} %>.gif"> <%= $loc %></td>
             <% foreach my $y (@$years) { =%>
                 <% my $notes = $travel_stats->{$loc}{'visits'}{$y} // 0; =%>
                 <% if ($notes) { =%>

@@ -3,17 +3,17 @@
     <tr>
         <th><%=l 'Country' %></th>
         <th><%=l 'Notes' %></th>
-        <th><img src="images/5.gif"></th>
-        <th><img src="images/10.gif"></th>
-        <th><img src="images/20.gif"></th>
-        <th><img src="images/50.gif"></th>
-        <th><img src="images/100.gif"></th>
-        <th><img src="images/200.gif"></th>
-        <th><img src="images/500.gif"></th>
+        <th><img src="images/values/5.gif"></th>
+        <th><img src="images/values/10.gif"></th>
+        <th><img src="images/values/20.gif"></th>
+        <th><img src="images/values/50.gif"></th>
+        <th><img src="images/values/100.gif"></th>
+        <th><img src="images/values/200.gif"></th>
+        <th><img src="images/values/500.gif"></th>
     </tr>
     <% foreach my $elem (@$countries) { %>
         <tr>
-            <td><img src="images/<%= $elem->{'imgname'} %>.gif"> <%= $elem->{'cname'} %></td>
+            <td><img src="images/countries/<%= $elem->{'imgname'} %>.gif"> <%= $elem->{'cname'} %></td>
             <td><%= $elem->{'count'} %> (<%= $elem->{'pct'} %>%)</td>
             <% foreach my $d (@{ $elem->{'detail'} }) { %>
                 <% if ($d->{'count'}) { %>
@@ -36,17 +36,17 @@
         <tr>
             <th></th>
             <th></th>
-            <th><img src="images/5.gif"></th>
-            <th><img src="images/10.gif"></th>
-            <th><img src="images/20.gif"></th>
-            <th><img src="images/50.gif"></th>
-            <th><img src="images/100.gif"></th>
-            <th><img src="images/200.gif"></th>
-            <th><img src="images/500.gif"></th>
+            <th><img src="images/values/5.gif"></th>
+            <th><img src="images/values/10.gif"></th>
+            <th><img src="images/values/20.gif"></th>
+            <th><img src="images/values/50.gif"></th>
+            <th><img src="images/values/100.gif"></th>
+            <th><img src="images/values/200.gif"></th>
+            <th><img src="images/values/500.gif"></th>
         </tr>
         <% foreach my $loc (@{ $elem->{'loc_data'} }) { %>
             <tr>
-                <td><img src="images/<%= $elem->{'imgname'} %>.gif"> <%= $loc->{'loc_name'} %></td>
+                <td><img src="images/countries/<%= $elem->{'imgname'} %>.gif"> <%= $loc->{'loc_name'} %></td>
                 <td><%= $loc->{'count'} %> (<%= $loc->{'pct'} %>%)</td>
                 <% foreach my $d (@{ $loc->{'detail'} }) { %>
                     <% if ($d->{'count'}) { %>
@@ -65,7 +65,7 @@
 <table>
     <% foreach my $c (@$ab) { %>
         <tr>
-            <th class="small_cell"><img src="images/<%= $c->{'imgname'} %>.gif"> <%= $c->{'cname'} %></th>
+            <th class="small_cell"><img src="images/countries/<%= $c->{'imgname'} %>.gif"> <%= $c->{'cname'} %></th>
             <% foreach my $l ('A'..'Z') { %>
                 <td class="small_cell"><span style='color: <%= color $c->{'letters'}{$l} %>'><%= $l %></span></td>
             <% } %>

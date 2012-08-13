@@ -3,13 +3,13 @@
     <tr>
         <th><%=l 'Month' %></th>
         <th><%=l 'Notes' %></th>
-        <th><img src="images/5.gif"></th>
-        <th><img src="images/10.gif"></th>
-        <th><img src="images/20.gif"></th>
-        <th><img src="images/50.gif"></th>
-        <th><img src="images/100.gif"></th>
-        <th><img src="images/200.gif"></th>
-        <th><img src="images/500.gif"></th>
+        <th><img src="images/values/5.gif"></th>
+        <th><img src="images/values/10.gif"></th>
+        <th><img src="images/values/20.gif"></th>
+        <th><img src="images/values/50.gif"></th>
+        <th><img src="images/values/100.gif"></th>
+        <th><img src="images/values/200.gif"></th>
+        <th><img src="images/values/500.gif"></th>
     </tr>
     <% foreach my $elem (@$nbm) { %>
         <tr>

@@ -255,7 +255,7 @@
     <% if ('bingo' eq $mode) { =%>
         <tr>
             <th></th>
-            <% foreach my $h (map { sprintf '%02d', $_ } 1 .. 23) { =%>
+            <% foreach my $h (map { sprintf '%02d', $_ } 0 .. 23) { =%>
                 <th class="small_cell"><%= $h %></th>
             <% } =%>
         </tr>
@@ -263,7 +263,7 @@
    <% foreach my $dow (1 .. 7) { =%>
        <tr>
            <th><%=l $EBTST::Main::dows{$dow} %></th>
-           <% foreach my $h (map { sprintf '%02d', $_ } 1 .. 23) { =%>
+           <% foreach my $h (map { sprintf '%02d', $_ } 0 .. 23) { =%>
                <% my $color = color $time_data->{'dowhh'}{$dow}{$h}; $color_counts{$color}++; %>
                <% my $class = 'bingo_' . (0 + !!$time_data->{'dowhh'}{$dow}{$h}); $dowh_count++ if 'bingo_1' eq $class; %>
                <% if ('detail' eq $mode) { =%>

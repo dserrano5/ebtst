@@ -396,6 +396,30 @@ sub countries {
     );
 }
 
+sub printers {
+    my ($self) = @_;
+
+    my $data      = $self->ebt->get_notes_by_pc;
+    my $data_first = $self->ebt->get_first_by_pc;
+    my ($method1, $method2) = qw/printers countries/;
+    my $notes_by_key = 'pc';
+
+    my ($notes_by, $count_by_value, $first_by) = $self->_num_detail_1st (
+        data         => $data,
+        data_first   => $data_first,
+        method1      => 'printers',
+        method2      => 'countries',
+        notes_by_key => 'pc',
+    );
+
+    $self->stash (
+        title     => $section_titles{'printers'},
+        nbprinter => $notes_by,
+        tot_p_bv  => [ map { $count_by_value->{$_}//0 } @{ EBT2->values } ],
+        fbpc      => $first_by,
+    );
+}
+
 sub locations {
     my ($self) = @_;
 
@@ -541,30 +565,6 @@ sub travel_stats {
         num_locs        => $num_locs,
         yearly_visits   => $yearly_visits,
         one_time_visits => $one_time_visits,
-    );
-}
-
-sub printers {
-    my ($self) = @_;
-
-    my $data      = $self->ebt->get_notes_by_pc;
-    my $data_first = $self->ebt->get_first_by_pc;
-    my ($method1, $method2) = qw/printers countries/;
-    my $notes_by_key = 'pc';
-
-    my ($notes_by, $count_by_value, $first_by) = $self->_num_detail_1st (
-        data         => $data,
-        data_first   => $data_first,
-        method1      => 'printers',
-        method2      => 'countries',
-        notes_by_key => 'pc',
-    );
-
-    $self->stash (
-        title     => $section_titles{'printers'},
-        nbprinter => $notes_by,
-        tot_p_bv  => [ map { $count_by_value->{$_}//0 } @{ EBT2->values } ],
-        fbpc      => $first_by,
     );
 }
 
@@ -1233,7 +1233,7 @@ sub _trim_html_sections {
 sub gen_output {
     my ($self) = @_;
     my @params = qw/
-        information value countries locations travel_stats printers huge_table short_codes nice_serials
+        information value countries printers locations travel_stats huge_table short_codes nice_serials
         coords_bingo notes_per_year notes_per_month top_days time_analysis_bingo time_analysis_detail
         combs_bingo combs_detail plate_bingo bad_notes hit_list hit_times_bingo hit_times_detail
         hit_analysis hit_summary

@@ -17,11 +17,11 @@
                     </tr><tr>
                         <td><a class="section_link" id="countries"       href="countries.html"><%=l 'Countries' %></a></td>
                     </tr><tr>
+                        <td><a class="section_link" id="printers"        href="printers.html"><%=l 'Printers' %></a></td>
+                    </tr><tr>
                         <td><a class="section_link" id="locations"       href="locations.html"><%=l 'Locations' %></a></td>
                     </tr><tr>
                         <td><a class="section_link" id="travel_stats"    href="travel_stats.html"><%=l 'Travel stats' %></a></td>
-                    </tr><!-- !travel_stats --><tr>
-                        <td><a class="section_link" id="printers"        href="printers.html"><%=l 'Printers' %></a></td>
                     </tr><tr>
                         <td><a class="section_link" id="huge_table"      href="huge_table.html"><%=l 'Huge table' %></a></td>
                     </tr><tr>

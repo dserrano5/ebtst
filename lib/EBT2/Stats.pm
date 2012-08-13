@@ -243,6 +243,36 @@ sub first_by_cc {
     return \%ret;
 }
 
+sub notes_by_pc {
+    my ($self, $data) = @_;
+    my %ret;
+
+    my $iter = $data->note_getter;
+    foreach my $hr (@$iter) {
+        my $pc = substr $hr->[SHORT_CODE], 0, 1;
+        $ret{'notes_by_pc'}{$pc}{'total'}++;
+        $ret{'notes_by_pc'}{$pc}{ $hr->[VALUE] }++;
+    }
+
+    return \%ret;
+}
+
+sub first_by_pc {
+    my ($self, $data) = @_;
+    my $at = 0;
+    my %ret;
+
+    my $iter = $data->note_getter;
+    foreach my $hr (@$iter) {
+        $at++;
+        my %hr2 = zip @{[ COL_NAMES ]}, @$hr;
+        my $pc = substr $hr->[SHORT_CODE], 0, 1;
+        $ret{'first_by_pc'}{$pc} ||= { %hr2, at => $at };
+    }
+
+    return \%ret;
+}
+
 sub bundle_locations {
     my ($self, $data) = @_;
     my %ret;
@@ -320,36 +350,6 @@ sub notes_by_city {
 }
 
 =cut
-
-sub notes_by_pc {
-    my ($self, $data) = @_;
-    my %ret;
-
-    my $iter = $data->note_getter;
-    foreach my $hr (@$iter) {
-        my $pc = substr $hr->[SHORT_CODE], 0, 1;
-        $ret{'notes_by_pc'}{$pc}{'total'}++;
-        $ret{'notes_by_pc'}{$pc}{ $hr->[VALUE] }++;
-    }
-
-    return \%ret;
-}
-
-sub first_by_pc {
-    my ($self, $data) = @_;
-    my $at = 0;
-    my %ret;
-
-    my $iter = $data->note_getter;
-    foreach my $hr (@$iter) {
-        $at++;
-        my %hr2 = zip @{[ COL_NAMES ]}, @$hr;
-        my $pc = substr $hr->[SHORT_CODE], 0, 1;
-        $ret{'first_by_pc'}{$pc} ||= { %hr2, at => $at };
-    }
-
-    return \%ret;
-}
 
 sub huge_table {
     my ($self, $data) = @_;

@@ -33,14 +33,14 @@
                         <td><input type="checkbox" name="countries" <%== $checked_boxes->{'countries'} ? 'checked=""' : '' %>></td>
                         <td><a class="section_link" id="countries"       href="countries"><%=l 'Countries' %></a></td>
                     </tr><tr>
+                        <td><input type="checkbox" name="printers" <%== $checked_boxes->{'printers'} ? 'checked=""' : '' %>></td>
+                        <td><a class="section_link" id="printers"        href="printers"><%=l 'Printers' %></a></td>
+                    </tr><tr>
                         <td><input type="checkbox" name="locations" <%== $checked_boxes->{'locations'} ? 'checked=""' : '' %>></td>
                         <td><a class="section_link" id="locations"       href="locations"><%=l 'Locations' %></a></td>
                     </tr><tr>
                         <td><input type="checkbox" name="travel_stats" <%== $checked_boxes->{'travel_stats'} ? 'checked=""' : '' %>></td>
                         <td><a class="section_link" id="travel_stats"       href="travel_stats"><%=l 'Travel stats' %></a></td>
-                    </tr><!-- !travel_stats --><tr>
-                        <td><input type="checkbox" name="printers" <%== $checked_boxes->{'printers'} ? 'checked=""' : '' %>></td>
-                        <td><a class="section_link" id="printers"        href="printers"><%=l 'Printers' %></a></td>
                     </tr><tr>
                         <td><input type="checkbox" name="huge_table" <%== $checked_boxes->{'huge_table'} ? 'checked=""' : '' %>></td>
                         <td><a class="section_link" id="huge_table"      href="huge_table"><%=l 'Huge table' %></a></td>

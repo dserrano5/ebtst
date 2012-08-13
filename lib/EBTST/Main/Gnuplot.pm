@@ -37,7 +37,7 @@ sub line_chart {
         timeaxis  => 'x',
         #bg        => 'white',
         ($args{'logscale'} ? (logscale => $args{'logscale'}) : ()),
-        #yrange    => [ 0, '*' ],
+        ($args{'yrange'} ? (yrange => $args{'yrange'}) : ()),
         grid => {
             type  => 'dot',
             width => 1,
@@ -205,7 +205,7 @@ sub bartime_chart {
         timeaxis  => 'x',
         #boxwidth     => '0.75 absolute',
         'style fill' => ($args{'bar_border'} ? 'solid 1 border lt -1' : 'solid 1'),
-        #yrange       => [ 0, '*' ],
+        ($args{'yrange'} ? (yrange => $args{'yrange'}) : $args{'percent'} ? (yrange => [ 0, 100 ]) : ()),
         grid => {
             type   => 'dot',
             width  => 1,

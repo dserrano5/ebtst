@@ -96,16 +96,34 @@ sub serial_remove_meaningless_figures2 {
 
     my $pc = substr $short, 0, 1;
     my $cc = substr $serial, 0, 1;
+
     if ('M' eq $cc or 'T' eq $cc) {
         $serial = $cc . '*' . substr $serial, 2;
-    } elsif ('H' eq $cc or 'N' eq $cc or 'U' eq $cc) {
+
+    } elsif ('N' eq $cc) {
+        if ('G' ne $pc) {
+            $serial = $cc . '**' . substr $serial, 3;
+        }
+
+    } elsif ('H' eq $cc) {
+        if ('G' ne $pc) {
+            $serial = $cc . '**' . substr $serial, 3;
+        }
+
+    } elsif ('U' eq $cc) {
         $serial = $cc . '**' . substr $serial, 3;
-    } elsif ('P' eq $cc and 'F' eq $pc) {
-        $serial = $cc . (substr $serial, 1, 2) . '**' . substr $serial, 5;
+
+    } elsif ('P' eq $cc) {
+        if ('F' eq $pc) {
+            $serial = $cc . '**' . substr $serial, 3;
+        }
+
     } elsif ('Z' eq $cc) {
         $serial = $cc . '***' . substr $serial, 4;
+
     } else {
         $serial = substr $serial, 0;
+
     }
 
     return $serial;
@@ -252,7 +270,6 @@ sub load_notes {
         _3months => DateTime->now->subtract (months => 3)->strftime ('%Y%m%d'),
         _1week   => DateTime->now->subtract (weeks  => 1)->strftime ('%Y%m%d'),
     );
-
 
     ## maybe keep known hits (if any)
     my %save_hits;

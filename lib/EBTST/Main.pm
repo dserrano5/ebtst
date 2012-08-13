@@ -1221,6 +1221,7 @@ sub _trim_html_sections {
     my $dom = Mojo::DOM->new ($html);
     my $sections = $dom->at ('#sections');
     foreach my $tr ($sections->find ('tr')->each) {
+        next unless $tr->td->can ('a');  ## ignore cell containing the username
         my $id = $tr->td->a->{'id'};
         unless (grep { $_ eq $id } @req_params) {
             $tr->replace ('');

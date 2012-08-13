@@ -7,8 +7,10 @@
     <body id="mainbody">
         <table style="padding: 15px"><tr style="vertical-align: top"><td style="padding: 0px 15px 0px 0px; margin: 0px; background-color: #c0c0ff">
             <div id="sections">
-                <table>
+                <table width="100%">
                     <tr>
+                        <td colspan="2" align="center"><b><%= $user %></b><hr></td>
+                    </tr><tr>
                         <td><a class="section_link" id="information"     href="information.html"><%=l 'Information' %></a></td>
                     </tr><tr>
                         <td><a class="section_link" id="value"           href="value.html"><%=l 'Value' %></a></td>

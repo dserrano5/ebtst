@@ -759,6 +759,7 @@ sub top_days {
     my ($self) = @_;
 
     my $t10d_data = $self->ebt->get_top10days;
+    my $t10m_data = $self->ebt->get_top10months;
     my $nbdow_data = $self->ebt->get_notes_by_dow;
     my $count = $self->ebt->get_count;
 
@@ -805,6 +806,29 @@ sub top_days {
         };
     }
 
+    my $t10m;
+    foreach my $m (
+        sort {
+            $t10m_data->{$b}{'total'} <=> $t10m_data->{$a}{'total'} or
+            $a cmp $b
+        } keys %$t10m_data
+    ) {
+        my $detail;
+        foreach my $v (@{ EBT2->values }) {
+            push @$detail, {
+                value => $v,
+                count => $t10m_data->{$m}{$v},
+            };
+        }
+        my $tot = $t10m_data->{$m}{'total'};
+        push @$t10m, {
+            date   => $m,
+            count  => $tot,
+            pct    => (sprintf '%.2f', 100 * $tot / $count),
+            detail => $detail,
+        };
+    }
+
     my $dest_img = File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'week_days.svg');
     -e $dest_img or EBTST::Main::Gnuplot::bar_chart
         output     => $dest_img,
@@ -824,6 +848,7 @@ sub top_days {
         title => $section_titles{'top_days'},
         nbdow => $nbdow,
         t10d  => $t10d,
+        t10m  => $t10m,
     );
 }
 

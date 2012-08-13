@@ -31,3 +31,20 @@
     [/tr]\
 <% } =%>
 [/table]
+
+[b]<%=l 'Top 10 months' %>[/b]
+[table]\
+[tr][td]<%=l 'Month' %>[/td][td] ❘ <%=l 'Notes'  %>[/td][td] ❘ :note-5:[/td][td] ❘ :note-10:[/td][td] ❘ :note-20:[/td][td] ❘ :note-50:[/td][td] ❘ :note-100:[/td][td] ❘ :note-200:[/td][td] ❘ :note-500:[/td][/tr]\
+<% foreach my $elem (@$t10m) { =%>
+    [tr]\
+    [td][b]<%= $elem->{'date'} %>[/b][/td][td] ❘ <%= $elem->{'count'} %> (<%= $elem->{'pct'} %>%)[/td]\
+    <% foreach my $m (@{ $elem->{'detail'} }) { =%>
+        <% if ($m->{'count'}) { =%>
+            [td] ❘ <%= $m->{'count'} %>[/td]\
+        <% } else { =%>
+            [td] ❘ [/td]\
+        <% } =%>
+    <% } =%>
+    [/tr]\
+<% } =%>
+[/table]

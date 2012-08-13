@@ -561,6 +561,10 @@ sub bundle_time {
         $ret{'top10days'}{$ymd}{'total'}++;
         $ret{'top10days'}{$ymd}{ $hr->[VALUE] }++;
 
+        ## top10months
+        $ret{'top10months'}{$ym}{'total'}++;
+        $ret{'top10months'}{$ym}{ $hr->[VALUE] }++;
+
         ## time_analysis
         #my ($y, $m, $d, $H, $M, $S) = map { sprintf '%02d', $_ } split /[\s:-]/, $hr->[DATE_ENTERED];
         my $dow = $hr->[DOW];
@@ -589,11 +593,19 @@ sub bundle_time {
     } keys %{ $ret{'top10days'} };
     delete @{ $ret{'top10days'}  }{ @sorted_days[10..$#sorted_days] };
 
+    ## postfix: top10months (keep the 10 highest and delete the other ones)
+    my @sorted_months = sort {
+        $ret{'top10months'}{$b}{'total'} <=> $ret{'top10months'}{$a}{'total'} ||
+        $b cmp $a
+    } keys %{ $ret{'top10months'} };
+    delete @{ $ret{'top10months'}  }{ @sorted_months[10..$#sorted_months] };
+
     return \%ret;
 }
 sub notes_per_year  { goto &bundle_time; }
 sub notes_per_month { goto &bundle_time; }
 sub top10days       { goto &bundle_time; }
+sub top10months     { goto &bundle_time; }
 sub time_analysis   { goto &bundle_time; }
 sub notes_by_dow    { goto &bundle_time; }
 

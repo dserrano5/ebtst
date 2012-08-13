@@ -56,3 +56,32 @@
         </tr>
     <% } %>
 </table>
+<br>
+
+<h2><%=l 'Top 10 months' %></h2>
+<table>
+    <tr>
+        <th><%=l 'Month' %></th>
+        <th><%=l 'Notes' %></th>
+        <th><img src="images/5.gif"></th>
+        <th><img src="images/10.gif"></th>
+        <th><img src="images/20.gif"></th>
+        <th><img src="images/50.gif"></th>
+        <th><img src="images/100.gif"></th>
+        <th><img src="images/200.gif"></th>
+        <th><img src="images/500.gif"></th>
+    </tr>
+    <% foreach my $elem (@$t10m) { %>
+        <tr>
+            <td><b><%= $elem->{'date'} %></b></td>
+            <td><%= $elem->{'count'} %> (<%= $elem->{'pct'} %>%)</td>
+            <% foreach my $m (@{ $elem->{'detail'} }) { %>
+                <% if ($m->{'count'}) { %>
+                    <td><%= $m->{'count'} %></td>
+                <% } else { %>
+                    <td></td>
+                <% } %>
+            <% } %>
+        </tr>
+    <% } %>
+</table>

@@ -17,7 +17,7 @@
 [b]<%=l 'Number of notes by location' %> (<%= $num_locs %>)[/b]
 [table]\
 <% foreach my $elem (@$c_data) { =%>
-    [tr][td][i]<%= $elem->{'cname'} %>[/i][/td][/tr]\
+    [tr][td][i]<%= $elem->{'cname'} %> (<%= scalar @{ $elem->{'loc_data'} } %>)[/i][/td][/tr]\
     [tr][td][/td][td][/td][td] ❘ :note-5:[/td][td] ❘ :note-10:[/td][td] ❘ :note-20:[/td][td] ❘ :note-50:[/td][td] ❘ :note-100:[/td][td] ❘ :note-200:[/td][td] ❘ :note-500:[/td][/tr]\
     <% foreach my $loc (@{ $elem->{'loc_data'} }) { =%>
         [tr][td] <%= $elem->{'bbflag'} %> <%= $loc->{'loc_name'} %>[/td][td] ❘ <%= $loc->{'count'} %> (<%= $loc->{'pct'} %>%)[/td]\

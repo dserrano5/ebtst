@@ -31,7 +31,7 @@
 <table>
     <% foreach my $elem (@$c_data) { %>
         <tr>
-            <td colspan="9"><h3><%= $elem->{'cname'} %></h3></td>
+            <td colspan="9"><h3><%= $elem->{'cname'} %> (<%= scalar @{ $elem->{'loc_data'} } %>)</h3></td>
         </tr>
         <tr>
             <th></th>

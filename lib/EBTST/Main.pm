@@ -1348,8 +1348,8 @@ sub _trim_html_sections {
     my $dom = Mojo::DOM->new ($html);
     my $sections = $dom->at ('#sections');
     foreach my $tr ($sections->find ('tr')->each) {
-        next unless $tr->td->can ('a');  ## ignore cell containing the username
-        my $id = $tr->td->a->{'id'};
+        my $id = eval { $tr->td->a->{'id'}; };
+        $@ and next;    ## this happens in the cell containing the username. Ignore the error
         unless (grep { $_ eq $id } @req_params) {
             $tr->replace ('');
         }

@@ -29,8 +29,9 @@ sub startup {
 
     $self->app->config ({
         hypnotoad => {
-            listen => $hypnotoad_listen,
-            proxy  => $hypnotoad_is_proxy,
+            listen            => $hypnotoad_listen,
+            proxy             => $hypnotoad_is_proxy,
+            heartbeat_timeout => $hypnotoad_heartbeat_timeout,
         }
     });
 

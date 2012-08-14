@@ -1047,9 +1047,12 @@ sub bad_notes {
         $bn->{'short_code'} = substr $bn->{'short_code'}, 0, 4;
         push @cooked, {
             %$bn,
-            idx    => ++$idx,
-            pc_img => EBT2->printers ($pc),
-            cc_img => EBT2->countries ($cc),
+            idx        => ++$idx,
+            pc_img     => EBT2->printers ($pc),
+            cc_img     => EBT2->countries ($cc),
+            bbflag_pc  => EBT2->flag (EBT2->printers ($pc)),
+            bbflag_cc  => EBT2->flag (EBT2->countries ($cc)),
+            bbflag_got => EBT2->flag ($bn->{'country'}),
         };
     }
     $self->_log (debug => report 'bad_notes cook', $t0, $count);

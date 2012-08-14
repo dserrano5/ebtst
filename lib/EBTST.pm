@@ -123,9 +123,12 @@ sub startup {
             $self->app->log->debug ("user: '$user'");
 
             my $gnuplot_img_dir = File::Spec->catfile ($images_dir, $user);
-            if (!mkdir $gnuplot_img_dir) {
-                if (17 != $!) {   ## "File exists"
+            if (!-d $gnuplot_img_dir) {
+                if (!mkdir $gnuplot_img_dir) {
                     die "Couldn't create directory: '$gnuplot_img_dir': $!\n";
+                }
+                if (!mkdir "$gnuplot_img_dir/static") {
+                    die "Couldn't create directory: '$gnuplot_img_dir/static': $!\n";
                 }
             }
 

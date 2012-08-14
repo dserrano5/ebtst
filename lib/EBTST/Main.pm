@@ -10,6 +10,7 @@ use List::MoreUtils qw/uniq/;
 use IO::Uncompress::Gunzip qw/gunzip $GunzipError/;
 use IO::Uncompress::Unzip  qw/unzip  $UnzipError/;
 use File::Temp qw/tempfile/;
+use File::Copy;
 use Locale::Country;
 use EBTST::Main::Gnuplot;
 
@@ -1260,7 +1261,7 @@ sub upload {
         $self->_log (info => "will store a censored copy at '$outfile'");
         $self->ebt->load_notes ($local_notes_file, $outfile);
         unlink $local_notes_file or $self->_log (warn => "upload: unlink: '$local_notes_file': $!\n");
-        foreach my $img (glob File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), '*')) {
+        foreach my $img (glob File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), '*.svg')) {
             unlink $img or $self->_log (warn => "upload: unlink: '$img': $!\n");
         }
     }
@@ -1270,7 +1271,7 @@ sub upload {
         $self->_decompress ($local_hits_file);
         $self->ebt->load_hits ($local_hits_file);
         unlink $local_hits_file  or $self->_log (warn => "upload: unlink: '$local_hits_file': $!\n");
-        foreach my $img (glob File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'hits_*')) {
+        foreach my $img (glob File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'hits_*.svg')) {
             unlink $img or $self->_log (warn => "upload: unlink: '$img': $!\n");
         }
     }
@@ -1281,30 +1282,32 @@ sub upload {
 sub _prepare_html_dir {
     my ($self, $statics_dir, $dest_dir) = @_;
 
-    if (!defined unlink glob "$dest_dir/*") {
-        if (2 != $!) {
-            die "unlink: $!";
-        }
-    }
-
-    if (!rmdir $dest_dir) {
-        if (2 != $!) {
-            die "rmdir: '$dest_dir': $!";
-        }
+    system "rm -rf $dest_dir";
+    if (-1 == $?) {
+        die "system: $!";
+    } elsif (my $sig = $? & 127) {
+        die sprintf "system: child died with signal $sig";
+    } elsif (my $rc = $? >> 8) {
+        die "system: child exited with value $rc";
     }
 
     if (!mkdir $dest_dir) {
-        if (17 != $!) {   ## "File exists"
-            die "Couldn't create directory: '$dest_dir': $!\n";
-        }
+        die "Couldn't create directory: '$dest_dir': $!\n";
     }
 
-    my $src_img_dir  = File::Spec->catfile ($statics_dir,  'images');
-    my $src_css      = File::Spec->catfile ($statics_dir,  'ebt.css');
-    my $dest_img_dir = File::Spec->catfile ($dest_dir, 'images');
-    my $dest_css     = File::Spec->catfile ($dest_dir, 'ebt.css');
-    symlink $src_img_dir, $dest_img_dir or $self->_log (warn => "_prepare_html_dir: symlink: '$src_img_dir' to '$dest_img_dir': $!");
-    symlink $src_css, $dest_css         or $self->_log (warn => "_prepare_html_dir: symlink: '$src_css' to '$dest_css': $!");
+    if (!mkdir "$dest_dir/images") {
+        die "Couldn't create directory: '$dest_dir/images': $!\n";
+    }
+
+    foreach my $file (qw{ebt.css images/values images/countries images/blue_arrow.gif images/red_arrow.gif}) {
+        my $src  = File::Spec->catfile ($statics_dir, $file);
+        my $dest = File::Spec->catfile ($dest_dir,    $file);
+        symlink $src, $dest or $self->_log (warn => "_prepare_html_dir: symlink: '$src' to '$dest': $!");
+    }
+
+    my $src  = File::Spec->catfile ($statics_dir, sprintf 'images/%s/static', $self->stash ('user'));
+    my $dest = File::Spec->catfile ($dest_dir,    sprintf 'images/%s',        $self->stash ('user'));
+    symlink $src, $dest or $self->_log (warn => "_prepare_html_dir: symlink: '$src' to '$dest': $!");
 
     return;
 }
@@ -1379,6 +1382,12 @@ sub gen_output {
 
     $t0 = [gettimeofday];
     $self->_save_html ($html_dir, $html_output, @req_params);
+
+    my $src = File::Spec->catfile ($self->stash ('statics_dir'), sprintf 'images/%s', $self->stash ('user'));
+    unlink glob "$src/static/*" or $self->_log (warn => "unlink: $!");
+    foreach my $svg (glob "$src/*.svg") {
+        copy $svg, "$src/static" or $self->_log (warn => "copy: '$svg' to '$src/static': $!");
+    }
 
     my @rendered_bbcode;
     foreach my $param (@req_params) {

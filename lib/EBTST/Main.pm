@@ -14,9 +14,9 @@ use File::Copy;
 use Locale::Country;
 use EBTST::Main::Gnuplot;
 
-use Time::HiRes qw/tv_interval gettimeofday/; my $t0;
+use Time::HiRes qw/tv_interval gettimeofday/;
 sub report {
-    my ($str, $n) = @_;
+    my ($str, $t0, $n) = @_;
     my $t = tv_interval $t0;
     $n ||= 0;  ## no warnings uninit
     return sprintf +($n ? '%s: %.3fs (%s, %.0fK/s)' : '%s: %.3fs'), $str, $t, $n, $n/$t/1000;
@@ -139,7 +139,7 @@ sub logout {
 sub information {
     my ($self) = @_;
 
-    $t0 = [gettimeofday];
+    my $t0 = [gettimeofday];
     my $ac          = $self->ebt->get_activity;
     my $count       = $self->ebt->get_count;
     my $total_value = $self->ebt->get_total_value;
@@ -147,7 +147,7 @@ sub information {
     my $full_days   = $self->ebt->get_days_elapsed;
     my $notes_dates = $self->ebt->get_notes_dates;
     my $elem_by_pres = $self->ebt->get_elem_notes_by_president;
-    $self->_log (debug => report 'information get', $count);
+    $self->_log (debug => report 'information get', $t0, $count);
 
     $t0 = [gettimeofday];
     my $avg_value   = $total_value / $count;
@@ -180,7 +180,7 @@ sub information {
             ];
     }
 
-    $self->_log (debug => report 'information cook', $count);
+    $self->_log (debug => report 'information cook', $t0, $count);
     $self->stash (
         title        => $section_titles{'information'},
         ac           => $ac,
@@ -205,13 +205,13 @@ sub information {
 sub value {
     my ($self) = @_;
 
-    $t0 = [gettimeofday];
+    my $t0 = [gettimeofday];
     my $data = $self->ebt->get_notes_by_value;
     my $data_first = $self->ebt->get_first_by_value;
     my $notes_dates = $self->ebt->get_notes_dates;          ## for the chart
     my $elem_by_val = $self->ebt->get_elem_notes_by_value;  ## for the chart
     my $count = $self->ebt->get_count;
-    $self->_log (debug => report 'value get', $count);
+    $self->_log (debug => report 'value get', $t0, $count);
 
     $t0 = [gettimeofday];
     my $notes_by_val;
@@ -235,7 +235,7 @@ sub value {
             bbflag2  => EBT2->flag ($data_first->{$value}{'country'}),
         };
     }
-    $self->_log (debug => report 'value cook', $count);
+    $self->_log (debug => report 'value cook', $t0, $count);
 
     ## charts
     $t0 = [gettimeofday];
@@ -293,7 +293,7 @@ sub value {
                 { title => 'Average value', color => 'black', points => $dpoints{'Mean'} },
             ];
     }
-    $self->_log (debug => report 'value chart', $count);
+    $self->_log (debug => report 'value chart', $t0, $count);
 
     $self->stash (
         title => $section_titles{'value'},
@@ -394,12 +394,13 @@ sub _num_detail_1st {
 sub countries {
     my ($self) = @_;
 
-    $t0 = [gettimeofday];
+    my $t0 = [gettimeofday];
+    my $count   = $self->ebt->get_count;   ## just for 'report'
     my $data       = $self->ebt->get_notes_by_cc;
     my $data_first = $self->ebt->get_first_by_cc;
     my ($method1, $method2) = qw/countries printers/;
     my $notes_by_key = 'cc';
-    $self->_log (debug => report 'countries get');
+    $self->_log (debug => report 'countries get', $t0, $count);
 
     $t0 = [gettimeofday];
     my ($notes_by, $count_by_value, $first_by) = $self->_num_detail_1st (
@@ -409,7 +410,7 @@ sub countries {
         method2      => 'printers',
         notes_by_key => 'cc',
     );
-    $self->_log (debug => report 'countries cook');
+    $self->_log (debug => report 'countries cook', $t0, $count);
 
     $self->stash (
         title     => $section_titles{'countries'},
@@ -422,12 +423,13 @@ sub countries {
 sub printers {
     my ($self) = @_;
 
-    $t0 = [gettimeofday];
+    my $t0 = [gettimeofday];
+    my $count   = $self->ebt->get_count;   ## just for 'report'
     my $data       = $self->ebt->get_notes_by_pc;
     my $data_first = $self->ebt->get_first_by_pc;
     my ($method1, $method2) = qw/printers countries/;
     my $notes_by_key = 'pc';
-    $self->_log (debug => report 'printers get');
+    $self->_log (debug => report 'printers get', $t0, $count);
 
     $t0 = [gettimeofday];
     my ($notes_by, $count_by_value, $first_by) = $self->_num_detail_1st (
@@ -437,7 +439,7 @@ sub printers {
         method2      => 'countries',
         notes_by_key => 'pc',
     );
-    $self->_log (debug => report 'printers cook');
+    $self->_log (debug => report 'printers cook', $t0, $count);
 
     $self->stash (
         title     => $section_titles{'printers'},
@@ -450,12 +452,12 @@ sub printers {
 sub locations {
     my ($self) = @_;
 
-    $t0 = [gettimeofday];
+    my $t0 = [gettimeofday];
     my $nbco    = $self->ebt->get_notes_by_country;
     my $nbci    = $self->ebt->get_notes_by_city;
     my $count   = $self->ebt->get_count;
     my $ab_data = $self->ebt->get_alphabets;
-    $self->_log (debug => report 'locations get', $count);
+    $self->_log (debug => report 'locations get', $t0, $count);
 
     $t0 = [gettimeofday];
     my $countries;
@@ -534,7 +536,7 @@ sub locations {
             letters => $letters,
         };
     }
-    $self->_log (debug => report 'locations cook', $count);
+    $self->_log (debug => report 'locations cook', $t0, $count);
 
     $self->stash (
         title     => $section_titles{'locations'},
@@ -549,11 +551,12 @@ sub locations {
 sub travel_stats {
     my ($self) = @_;
 
-    $t0 = [gettimeofday];
+    my $t0 = [gettimeofday];
+    my $count   = $self->ebt->get_count;   ## just for 'report'
     my $travel_stats = $self->ebt->get_travel_stats;
     my $notes_dates = $self->ebt->get_notes_dates;          ## for the chart
     my $elem_by_city = $self->ebt->get_elem_notes_by_city;  ## for the chart
-    $self->_log (debug => report 'travel_stats get');
+    $self->_log (debug => report 'travel_stats get', $t0, $count);
 
     $t0 = [gettimeofday];
     my %unique_years;
@@ -566,7 +569,7 @@ sub travel_stats {
         $yearly_visits += @years;
         $one_time_visits++ if 1 == @years;
     }
-    $self->_log (debug => report 'travel_stats cook');
+    $self->_log (debug => report 'travel_stats cook', $t0, $count);
 
     ## chart
     $t0 = [gettimeofday];
@@ -593,7 +596,7 @@ sub travel_stats {
             logscale => 'y',
             dsets => \@dsets;
     }
-    $self->_log (debug => report 'travel_stats chart');
+    $self->_log (debug => report 'travel_stats chart', $t0, $count);
 
     $self->stash (
         title           => $section_titles{'travel_stats'},
@@ -608,9 +611,10 @@ sub travel_stats {
 sub huge_table {
     my ($self) = @_;
 
-    $t0 = [gettimeofday];
+    my $t0 = [gettimeofday];
+    my $count   = $self->ebt->get_count;   ## just for 'report'
     my $ht_data = $self->ebt->get_huge_table;
-    $self->_log (debug => report 'huge_table get');
+    $self->_log (debug => report 'huge_table get', $t0, $count);
 
     $t0 = [gettimeofday];
     my $ht;
@@ -623,7 +627,7 @@ sub huge_table {
         }
         $ht->{$plate}{'plate_flag'} = EBT2->printers (substr $plate, 0, 1);
     }
-    $self->_log (debug => report 'huge_table cook');
+    $self->_log (debug => report 'huge_table cook', $t0, $count);
 
     $self->stash (
         title => $section_titles{'huge_table'},
@@ -639,11 +643,12 @@ sub short_codes {
         return $str =~ /^(.{6})(.*)/;
     };
 
-    $t0 = [gettimeofday];
+    my $t0 = [gettimeofday];
+    my $count   = $self->ebt->get_count;   ## just for 'report'
     my $lo = $self->ebt->get_lowest_short_codes;
     my $hi = $self->ebt->get_highest_short_codes;
     my @pcs = uniq keys %$lo, keys %$hi;
-    $self->_log (debug => report 'short_codes get');
+    $self->_log (debug => report 'short_codes get', $t0, $count);
 
     $t0 = [gettimeofday];
     my $sc;
@@ -678,7 +683,7 @@ sub short_codes {
             #}
         }
     }
-    $self->_log (debug => report 'short_codes cook');
+    $self->_log (debug => report 'short_codes cook', $t0, $count);
 
     $self->stash (
         title => $section_titles{'short_codes'},
@@ -689,11 +694,11 @@ sub short_codes {
 sub nice_serials {
     my ($self) = @_;
 
-    $t0 = [gettimeofday];
+    my $t0 = [gettimeofday];
     my $nice_data = $self->ebt->get_nice_serials;
     my $numbers_in_a_row = $self->ebt->get_numbers_in_a_row;
     my $count = $self->ebt->get_count;
-    $self->_log (debug => report 'nice_serials get', $count);
+    $self->_log (debug => report 'nice_serials get', $t0, $count);
 
     $t0 = [gettimeofday];
     my $nice_notes;
@@ -716,7 +721,7 @@ sub nice_serials {
         my $pct = $num * 100 / $count;
         $niar->{$length} = { count => $num, pct => sprintf '%.2f', $pct };
     }
-    $self->_log (debug => report 'nice_serials cook', $count);
+    $self->_log (debug => report 'nice_serials cook', $t0, $count);
 
     $self->stash (
         title            => $section_titles{'nice_serials'},
@@ -731,16 +736,17 @@ sub nice_serials {
 sub coords_bingo {
     my ($self) = @_;
 
-    $t0 = [gettimeofday];
+    my $t0 = [gettimeofday];
+    my $count   = $self->ebt->get_count;   ## just for 'report'
     my $cbingo_data = $self->ebt->get_coords_bingo;
-    $self->_log (debug => report 'coords_bingo get');
+    $self->_log (debug => report 'coords_bingo get', $t0, $count);
 
     $t0 = [gettimeofday];
     my $cbingo = $cbingo_data;
     #foreach my $v ('all', @{ EBT2->values }) {
     #    next unless defined $cbingo_data->{$v};
     #}
-    $self->_log (debug => report 'coords_bingo cook');
+    $self->_log (debug => report 'coords_bingo cook', $t0, $count);
 
     $self->stash (
         title  => $section_titles{'coords_bingo'},
@@ -751,10 +757,10 @@ sub coords_bingo {
 sub notes_per_year {
     my ($self) = @_;
 
-    $t0 = [gettimeofday];
+    my $t0 = [gettimeofday];
     my $nby_data = $self->ebt->get_notes_per_year;
     my $count = $self->ebt->get_count;
-    $self->_log (debug => report 'notes_per_year get', $count);
+    $self->_log (debug => report 'notes_per_year get', $t0, $count);
 
     $t0 = [gettimeofday];
     my $nby;
@@ -774,7 +780,7 @@ sub notes_per_year {
             detail => $detail,
         };
     }
-    $self->_log (debug => report 'notes_per_year cook', $count);
+    $self->_log (debug => report 'notes_per_year cook', $t0, $count);
 
     $self->stash (
         title => $section_titles{'notes_per_year'},
@@ -785,10 +791,10 @@ sub notes_per_year {
 sub notes_per_month {
     my ($self) = @_;
 
-    $t0 = [gettimeofday];
+    my $t0 = [gettimeofday];
     my $nbm_data = $self->ebt->get_notes_per_month;
     my $count = $self->ebt->get_count;
-    $self->_log (debug => report 'notes_per_month get', $count);
+    $self->_log (debug => report 'notes_per_month get', $t0, $count);
 
     $t0 = [gettimeofday];
     my $nbm;
@@ -808,7 +814,7 @@ sub notes_per_month {
             detail => $detail,
         };
     }
-    $self->_log (debug => report 'notes_per_month cook', $count);
+    $self->_log (debug => report 'notes_per_month cook', $t0, $count);
 
     $self->stash (
         title => $section_titles{'notes_per_month'},
@@ -819,12 +825,12 @@ sub notes_per_month {
 sub top_days {
     my ($self) = @_;
 
-    $t0 = [gettimeofday];
+    my $t0 = [gettimeofday];
     my $t10d_data = $self->ebt->get_top10days;
     my $t10m_data = $self->ebt->get_top10months;
     my $nbdow_data = $self->ebt->get_notes_by_dow;
     my $count = $self->ebt->get_count;
-    $self->_log (debug => report 'top_days get', $count);
+    $self->_log (debug => report 'top_days get', $t0, $count);
 
     $t0 = [gettimeofday];
     my $nbdow;
@@ -892,7 +898,7 @@ sub top_days {
             detail => $detail,
         };
     }
-    $self->_log (debug => report 'top_days cook', $count);
+    $self->_log (debug => report 'top_days cook', $t0, $count);
 
     ## chart
     $t0 = [gettimeofday];
@@ -910,7 +916,7 @@ sub top_days {
             { title =>   '200', color => '#FFFF40', points => $dpoints{'200'} },
             { title =>   '500', color => '#FF40FF', points => $dpoints{'500'} },
         ];
-    $self->_log (debug => report 'top_days chart', $count);
+    $self->_log (debug => report 'top_days chart', $t0, $count);
 
     $self->stash (
         title => $section_titles{'top_days'},
@@ -923,10 +929,10 @@ sub top_days {
 sub time_analysis_bingo {
     my ($self, $detail) = @_;
 
-    $t0 = [gettimeofday];
+    my $t0 = [gettimeofday];
     my $count   = $self->ebt->get_count;
     my $ta_data = $self->ebt->get_time_analysis;
-    $self->_log (debug => report 'time_analysis get', $count);
+    $self->_log (debug => report 'time_analysis get', $t0, $count);
 
     $self->stash (
         title    => ($detail ? $section_titles{'time_analysis_detail'} : $section_titles{'time_analysis_bingo'}),
@@ -939,7 +945,7 @@ sub time_analysis_detail { push @_, 1; goto &time_analysis_bingo; }
 sub combs_bingo {
     my ($self, $detail) = @_;
 
-    $t0 = [gettimeofday];
+    my $t0 = [gettimeofday];
     my $nbcombo    = $self->ebt->get_notes_by_combination;
     #my $sbp        = $self->ebt->sigs_by_president;
     my $comb_data  = $self->ebt->get_missing_combs_and_history;
@@ -947,7 +953,7 @@ sub combs_bingo {
     my $presidents = [
         map { [ split /:/ ] } 'any:Any signature', @{ $self->ebt->presidents }
     ];
-    $self->_log (debug => report 'combs_bingo get', $count);
+    $self->_log (debug => report 'combs_bingo get', $t0, $count);
 
     $t0 = [gettimeofday];
     my $missing;
@@ -967,7 +973,7 @@ sub combs_bingo {
             push @{ $missing->{"$p$c"}{'values'} }, $v;
         }
     }
-    $self->_log (debug => report 'combs_bingo cook', $count);
+    $self->_log (debug => report 'combs_bingo cook', $t0, $count);
 
     $self->stash (
         title      => ($detail ? $section_titles{'combs_detail'} : $section_titles{'combs_bingo'}),
@@ -983,9 +989,10 @@ sub combs_detail { push @_, 1; goto &combs_bingo; }
 sub plate_bingo {
     my ($self) = @_;
 
-    $t0 = [gettimeofday];
+    my $t0 = [gettimeofday];
+    my $count   = $self->ebt->get_count;   ## just for 'report'
     my $plate_data = $self->ebt->get_plate_bingo;
-    $self->_log (debug => report 'plate_bingo get');
+    $self->_log (debug => report 'plate_bingo get', $t0, $count);
 
     $t0 = [gettimeofday];
     my $cooked;
@@ -1014,7 +1021,7 @@ sub plate_bingo {
             highest  => $highest,
         };
     }
-    $self->_log (debug => report 'plate_bingo cook');
+    $self->_log (debug => report 'plate_bingo cook', $t0, $count);
 
     $self->stash (
         title       => $section_titles{'plate_bingo'},
@@ -1025,9 +1032,10 @@ sub plate_bingo {
 sub bad_notes {
     my ($self) = @_;
 
-    $t0 = [gettimeofday];
+    my $t0 = [gettimeofday];
+    my $count   = $self->ebt->get_count;   ## just for 'report'
     my $bad_notes = $self->ebt->get_bad_notes;
-    $self->_log (debug => report 'bad_notes get');
+    $self->_log (debug => report 'bad_notes get', $t0, $count);
 
     $t0 = [gettimeofday];
     my @cooked;
@@ -1044,7 +1052,7 @@ sub bad_notes {
             cc_img => EBT2->countries ($cc),
         };
     }
-    $self->_log (debug => report 'bad_notes cook');
+    $self->_log (debug => report 'bad_notes cook', $t0, $count);
 
     $self->stash (
         title     => $section_titles{'bad_notes'},
@@ -1055,10 +1063,11 @@ sub bad_notes {
 sub hit_list {
     my ($self) = @_;
 
-    $t0 = [gettimeofday];
+    my $t0 = [gettimeofday];
+    my $count   = $self->ebt->get_count;   ## just for 'report'
     my $whoami = $self->ebt->whoami;
     my $hit_data = $self->ebt->get_hit_list ($whoami);
-    $self->_log (debug => report 'hit_list get');
+    $self->_log (debug => report 'hit_list get', $t0, $count);
 
     $t0 = [gettimeofday];
     my $cooked;
@@ -1067,7 +1076,7 @@ sub hit_list {
         $hit->{'serial'} =~ s/^([A-Z])....(....)...$/$1xxxx$2xxx/;
         push @$cooked, $hit;
     }
-    $self->_log (debug => report 'hit_list cook');
+    $self->_log (debug => report 'hit_list cook', $t0, $count);
 
     $self->stash (
         title    => $section_titles{'hit_list'},
@@ -1079,11 +1088,12 @@ sub hit_list {
 sub hit_times_bingo {
     my ($self, $detail) = @_;
 
-    $t0 = [gettimeofday];
+    my $t0 = [gettimeofday];
+    my $count   = $self->ebt->get_count;   ## just for 'report'
     my $whoami   = $self->ebt->whoami;
     my $hit_list = $self->ebt->get_hit_list ($whoami);
     my $ht       = $self->ebt->get_hit_times ($hit_list);
-    $self->_log (debug => report 'hit_times get');
+    $self->_log (debug => report 'hit_times get', $t0, $count);
 
     $self->stash (
         title           => ($detail ? $section_titles{'hit_times_detail'} : $section_titles{'hit_times_bingo'}),
@@ -1096,11 +1106,12 @@ sub hit_times_detail { push @_, 1; goto &hit_times_bingo; }
 sub hit_analysis {
     my ($self) = @_;
 
-    $t0 = [gettimeofday];
+    my $t0 = [gettimeofday];
+    my $count   = $self->ebt->get_count;   ## just for 'report'
     my $whoami   = $self->ebt->whoami;
     my $hit_list = $self->ebt->get_hit_list ($whoami);
     my $ha       = $self->ebt->get_hit_analysis ($hit_list);
-    $self->_log (debug => report 'hit_analysis get');
+    $self->_log (debug => report 'hit_analysis get', $t0, $count);
 
     $t0 = [gettimeofday];
     my $longest;
@@ -1113,7 +1124,7 @@ sub hit_analysis {
         $hit->{'serial'} =~ s/^([A-Z])....(....)...$/$1xxxx$2xxx/;
         push @$oldest, $hit;
     }
-    $self->_log (debug => report 'hit_analysis cook');
+    $self->_log (debug => report 'hit_analysis cook', $t0, $count);
 
     $self->stash (
         title   => $section_titles{'hit_analysis'},
@@ -1126,7 +1137,7 @@ sub hit_analysis {
 sub hit_summary {
     my ($self) = @_;
 
-    $t0 = [gettimeofday];
+    my $t0 = [gettimeofday];
     my $whoami       = $self->ebt->whoami;
     my $activity     = $self->ebt->get_activity;
     my $count        = $self->ebt->get_count;
@@ -1136,14 +1147,14 @@ sub hit_summary {
     my $hits_dates   = $self->ebt->get_hits_dates;          ## for the chart
     my $elem_travel_days = $self->ebt->get_elem_travel_days;
     my $elem_travel_km   = $self->ebt->get_elem_travel_km;
-    $self->_log (debug => report 'hit_summary get', $count);
+    $self->_log (debug => report 'hit_summary get', $t0, $count);
 
     $t0 = [gettimeofday];
     foreach my $combo (keys %{ $hs->{'hits_by_combo'} }) {
         $hs->{'hits_by_combo'}{$combo}{'pcflag'} = EBT2->flag (EBT2->printers  ($hs->{'hits_by_combo'}{$combo}{'pc'})),
         $hs->{'hits_by_combo'}{$combo}{'ccflag'} = EBT2->flag (EBT2->countries ($hs->{'hits_by_combo'}{$combo}{'cc'})),
     }
-    $self->_log (debug => report 'hit_summary cook', $count);
+    $self->_log (debug => report 'hit_summary cook', $t0, $count);
 
     ## chart
     $t0 = [gettimeofday];
@@ -1200,7 +1211,7 @@ sub hit_summary {
                 { title => 'Travel km', color => 'black', points => $dpoints{'travel_km'} },
             ];
     }
-    $self->_log (debug => report 'hit_summary chart', $count);
+    $self->_log (debug => report 'hit_summary chart', $t0, $count);
 
     $self->stash (
         title => $section_titles{'hit_summary'},
@@ -1376,9 +1387,9 @@ sub gen_output {
     my $html_output = encode 'UTF-8', $self->render_partial (template => 'layouts/offline', format => 'html');
     $html_output = $self->_trim_html_sections ($html_output, @req_params);
 
-    $t0 = [gettimeofday];
+    my $t0 = [gettimeofday];
     $self->$_ for @req_params;
-    $self->_log (debug => report 'gen_output compute');
+    $self->_log (debug => report 'gen_output compute', $t0);
 
     $t0 = [gettimeofday];
     $self->_save_html ($html_dir, $html_output, @req_params);
@@ -1396,7 +1407,7 @@ sub gen_output {
         push @rendered_bbcode, $r;
 
     }
-    $self->_log (debug => report 'gen_output render');
+    $self->_log (debug => report 'gen_output render', $t0);
 
     $self->stash (
         format => 'html',

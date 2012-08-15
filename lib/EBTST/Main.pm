@@ -1269,7 +1269,8 @@ sub upload {
     my $hits_csv  = $self->req->upload ('hits_csv_file');
     if ($notes_csv and $notes_csv->size) {
         my $local_notes_file = File::Spec->catfile ($ENV{'TMP'}//$ENV{'TEMP'}//'/tmp', 'notes_uploaded.csv');
-        my $outfile = File::Spec->catfile ($EBTST::config{'csvs_dir'}, int rand 1e7);
+        my $outfile = File::Spec->catfile ($EBTST::config{'csvs_dir'}, substr +(sha512_hex $self->stash ('user')), 0, 8);
+        unlink $outfile or $self->_log (warn => "upload: unlink: '$outfile': $!\n");
         $notes_csv->move_to ($local_notes_file);
         $self->_decompress ($local_notes_file);
         $self->_log (info => "will store a censored copy at '$outfile'");

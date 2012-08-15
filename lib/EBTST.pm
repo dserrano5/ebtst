@@ -48,6 +48,7 @@ sub startup {
         $self->stash (has_hits      => undef);
         $self->stash (has_bad_notes => undef);
         $self->stash (user          => undef);
+        $self->stash (title         => undef);
     });
 
     if ($self->mode eq 'production') {

@@ -3,13 +3,13 @@
     <tr>
         <th><%=l 'Year' %></th>
         <th><%=l 'Notes' %></th>
-        <th><img src="images/values/5.gif"></th>
-        <th><img src="images/values/10.gif"></th>
-        <th><img src="images/values/20.gif"></th>
-        <th><img src="images/values/50.gif"></th>
-        <th><img src="images/values/100.gif"></th>
-        <th><img src="images/values/200.gif"></th>
-        <th><img src="images/values/500.gif"></th>
+        <th>5</th>
+        <th>10</th>
+        <th>20</th>
+        <th>50</th>
+        <th>100</th>
+        <th>200</th>
+        <th>500</th>
     </tr>
     <% foreach my $elem (@$nby) { %>
         <tr>

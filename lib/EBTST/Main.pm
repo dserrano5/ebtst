@@ -1270,14 +1270,14 @@ sub upload {
     if ($notes_csv and $notes_csv->size) {
         my $local_notes_file = File::Spec->catfile ($ENV{'TMP'}//$ENV{'TEMP'}//'/tmp', 'notes_uploaded.csv');
         my $outfile = File::Spec->catfile ($EBTST::config{'csvs_dir'}, substr +(sha512_hex $self->stash ('user')), 0, 8);
-        unlink $outfile or $self->_log (warn => "upload: unlink: '$outfile': $!\n");
+        unlink $outfile or $self->_log (warn => "upload: unlink: '$outfile': $!");
         $notes_csv->move_to ($local_notes_file);
         $self->_decompress ($local_notes_file);
         $self->_log (info => "will store a censored copy at '$outfile'");
         $self->ebt->load_notes ($local_notes_file, $outfile);
         unlink $local_notes_file or $self->_log (warn => "upload: unlink: '$local_notes_file': $!\n");
         foreach my $img (glob File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), '*.svg')) {
-            unlink $img or $self->_log (warn => "upload: unlink: '$img': $!\n");
+            unlink $img or $self->_log (warn => "upload: unlink: '$img': $!");
         }
     }
     if ($hits_csv and $hits_csv->size) {
@@ -1285,9 +1285,9 @@ sub upload {
         $hits_csv->move_to ($local_hits_file);
         $self->_decompress ($local_hits_file);
         $self->ebt->load_hits ($local_hits_file);
-        unlink $local_hits_file  or $self->_log (warn => "upload: unlink: '$local_hits_file': $!\n");
+        unlink $local_hits_file  or $self->_log (warn => "upload: unlink: '$local_hits_file': $!");
         foreach my $img (glob File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'hits_*.svg')) {
-            unlink $img or $self->_log (warn => "upload: unlink: '$img': $!\n");
+            unlink $img or $self->_log (warn => "upload: unlink: '$img': $!");
         }
     }
 
@@ -1378,7 +1378,7 @@ sub gen_output {
         information value countries printers locations travel_stats huge_table short_codes nice_serials
         coords_bingo notes_per_year notes_per_month top_days time_analysis_bingo time_analysis_detail
         combs_bingo combs_detail plate_bingo bad_notes hit_list hit_times_bingo hit_times_detail
-        hit_analysis hit_summary
+        hit_analysis hit_summary calendar
     /;
 
     my @req_params = grep { $self->param ($_) } @params;
@@ -1399,7 +1399,7 @@ sub gen_output {
     $self->_save_html ($html_dir, $html_output, @req_params);
 
     my $src = File::Spec->catfile ($self->stash ('statics_dir'), sprintf 'images/%s', $self->stash ('user'));
-    unlink glob "$src/static/*" or $self->_log (warn => "unlink: $!");
+    defined unlink glob "$src/static/*" or $self->_log (warn => "unlink: $!");
     foreach my $svg (glob "$src/*.svg") {
         copy $svg, "$src/static" or $self->_log (warn => "copy: '$svg' to '$src/static': $!");
     }

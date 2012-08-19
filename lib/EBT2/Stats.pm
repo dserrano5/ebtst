@@ -7,7 +7,7 @@ use DateTime;
 use Date::DayOfWeek;
 use List::Util qw/sum reduce/;
 use List::MoreUtils qw/uniq zip/;
-use Storable qw/thaw/;
+use Storable qw/thaw dclone/;
 use MIME::Base64;
 use EBT2::Data;
 use EBT2::Constants ':all';
@@ -44,7 +44,7 @@ sub bundle_information {
             $date_entered =~ /^(\d{4})-(\d{2})-(\d{2})$/;
             $cursor = DateTime->new (year => $1, month => $2, day => $3);
             $ret{'activity'}{'first_note'} = {
-                date    => $cursor->strftime ('%Y-%m-%d'),
+                date    => $date_entered,
                 value   => $hr->[VALUE],
                 city    => $hr->[CITY],
                 country => $hr->[COUNTRY],
@@ -1182,6 +1182,124 @@ sub hit_summary {
         };
     }
     delete $ret{'hit_summary'}{'partners'};
+
+    return \%ret;
+}
+
+sub calendar {
+    my ($self, $data) = @_;
+    my %ret;
+    my %calendar_data;
+    my %total_notes;
+    my $total_amount; my $total_amount_target = 10e3;
+    my @hits;
+
+    my $cursor;
+    my $iter = $data->note_getter;
+    foreach my $hr (@$iter) {
+        my $date_entered = (split ' ', $hr->[DATE_ENTERED])[0];
+
+        $calendar_data{$date_entered}{'num_notes'}++;
+        $calendar_data{$date_entered}{'amount'} += $hr->[VALUE];
+        push @{ $calendar_data{$date_entered}{'countries'} }, $hr->[COUNTRY];
+
+        $total_notes{'all'}++;
+        $total_notes{ $hr->[VALUE] }++;
+        foreach my $value ('all', $hr->[VALUE]) {
+            if (
+                0 == $total_notes{$value} % 1000 or
+                ($total_notes{$value} < 1000 and 0 == $total_notes{$value} % 100)
+            ) {
+                ## if the 1000th and 2000th note is entered on the same day, let the 2000th overwrite the 1000th
+                $calendar_data{$date_entered}{'events'}{'notes'}{$value} = { total => $total_notes{$value}, id => $hr->[ID] };
+            }
+        }
+
+        $total_amount += $hr->[VALUE];
+        if ($total_amount >= $total_amount_target) {
+            $calendar_data{$date_entered}{'events'}{'amount'} = { total => $total_amount_target, id => $hr->[ID] };
+            if ($total_amount_target < 100e3) {
+                $total_amount_target += 10e3;
+            } else {
+                $total_amount_target += 100e3;
+            }
+        }
+
+        if (my $hit = $hr->[HIT] ? thaw decode_base64 $hr->[HIT] : undef) {
+            if (!$hit->{'moderated'}) {
+                my $date = (split ' ', $hit->{'hit_date'})[0];
+                $calendar_data{$date}{'num_hits'}++;
+                push @hits, {
+                    date => $date,
+                    id => $hr->[ID],
+                };
+            }
+        }
+
+        if (!$cursor) {
+            $date_entered =~ /^(\d{4})-(\d{2})-(\d{2})$/;
+            $cursor ||= DateTime->new (year => $1, month => $2, day => $3);
+            $calendar_data{$date_entered}{'events'}{'first_day'} = 1;
+        }
+    }
+
+    my $total_hits;
+    foreach my $hit (sort { $a->{'date'} cmp $b->{'date'} } @hits) {
+        $total_hits++;
+        if (0 == $total_hits % 10 or $total_hits < 10) {
+            $calendar_data{ $hit->{'date'} }{'events'}{'hits'} = { total => $total_hits, id => $hit->{'id'} };
+        }
+    }
+
+    my $cursor_copy = dclone $cursor;
+    $cursor->set_day (1);
+    my $end = DateTime->now->add (months => 3)->set_day (1)->subtract (days => 1)->strftime ('%Y-%m-%d');
+    while (1) {
+        my $cursor_fmt = $cursor->strftime ('%Y-%m-%d');
+        my ($y, $m, $d) = split '-', $cursor_fmt;
+        my $cursor_dow = dayofweek $d, $m, $y; $cursor_dow = 1 + ($cursor_dow-1) % 7;
+
+        if (exists $calendar_data{$cursor_fmt}) {
+            my $cd = $calendar_data{"$y-$m-$d"};
+            $ret{'calendar'}{$y}{$m}{'days'}{$d} = {
+                countries => [ uniq @{ $cd->{'countries'} } ],
+                num_notes => $cd->{'num_notes'},
+                amount    => $cd->{'amount'},
+                num_hits  => $cd->{'num_hits'},
+                events    => $cd->{'events'},
+            };
+        }
+        $ret{'calendar'}{$y}{$m}{'days'}{$d}{'dow'} = $cursor_dow;
+
+        last if $end eq $cursor_fmt;
+        $cursor->add (days => 1);
+    }
+
+    $cursor = (dclone $cursor_copy)->subtract (days => 1);
+    my $days_added;
+    while (1) {
+        $cursor->add (days => 100);
+        $days_added += 100;
+
+        my $cursor_fmt = $cursor->strftime ('%Y-%m-%d');
+        my ($y, $m, $d) = split '-', $cursor_fmt;
+
+        last if !exists $ret{'calendar'}{$y} or !exists $ret{'calendar'}{$y}{$m};
+        $ret{'calendar'}{$y}{$m}{'days'}{$d}{'events'}{'100th_days'} = { days => $days_added };
+    }
+
+    $cursor = (dclone $cursor_copy)->subtract (days => 1);
+    my $years_added;
+    while (1) {
+        $cursor->add (years => 1);
+        $years_added++;
+
+        my $cursor_fmt = $cursor->strftime ('%Y-%m-%d');
+        my ($y, $m, $d) = split '-', $cursor_fmt;
+
+        last if !exists $ret{'calendar'}{$y} or !exists $ret{'calendar'}{$y}{$m};
+        $ret{'calendar'}{$y}{$m}{'days'}{$d}{'events'}{'anniversary'} = { years => $years_added };
+    }
 
     return \%ret;
 }

@@ -91,6 +91,48 @@ table tr .tiny_cell {
 a img {
     border-style: none;
 }
+
+.cal_day_cell {
+    padding: 6px;
+}
+.cal_day_container {
+    position: relative;
+    height: 80px;
+    width: 100px
+}
+.cal_day_date {
+    position: absolute;
+    right: 3px;
+    top: -4px;   /* compensate the extra spacing caused by the big font in .cal_day_date_text */
+    z-index: 1;
+}
+.cal_day_date_text {
+    margin: 0px;
+    font-size: 30px;
+    font-family: "Times New Roman";
+}
+.cal_day_top {
+    position: absolute;
+    z-index: 1;
+}
+.cal_day_top_text {
+    margin: 0px;
+    font-size: 9px;
+}
+.cal_day_bottom {
+    position: absolute;
+    height: 80px;
+    width: 100px;
+    z-index: 0;
+}
+.cal_day_bottom_text {
+    position: absolute;
+    bottom: 0px;
+    margin: 0px;
+    font-size: 9px;
+    color: red;
+}
+
 .bingo_0:after {
     /*color: #b0b0ff;*/  /* same as in 'th' */
     color: #c00000;

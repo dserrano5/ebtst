@@ -2,7 +2,7 @@
 
 <%=l 'Hits' %>: <%= $hs->{'total'} %> (\
     <%=''=%><%= $hs->{'national'}      // 0 %> <%=l 'national' %> and\
-    <%= $hs->{'international'} // 0 %> <%=l 'international' %>), plus\
+    <%= $hs->{'international'} // 0 %> <%=l 'international' %>), <%=l 'plus' %>\
     <%= $hs->{'moderated'}     // 0 %> <%=l 'moderated' %>
 
 <%=l 'Normal hits' %>: [b]<%= $hs->{'2way'} // 0 %>[/b]

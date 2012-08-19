@@ -25,6 +25,7 @@ Hit times (bingo) = Análisis de tiempo (hits, bingo)
 Hit times (detail) = Análisis de tiempo (hits, detalle)
 Hit analysis = Análisis de hits
 Hit summary = Resumen de hits
+Calendar = Calendario
 #Charts = Gráficas
 Configuration = Configuración
 Logout = Salir
@@ -120,9 +121,11 @@ Month = Mes
 ## top_days
 Number of notes per day of the week = Número de billetes por día de la semana
 Top 10 days = Los 10 mejores días
+Top 10 months = Los 10 mejores meses
 Day = Día
 
 ## time analysis
+Time analysis = Análisis de tiempo
 Colors = Colores
 Calendar = Calendario
 Days = Días
@@ -137,7 +140,7 @@ Days of week, hours and minutes = Días de la semana, horas y minutos
 
 ## combs detail
 Any signature = Cualquier firma
-any = todos
+any = cualquiera
 Result = Resultado
 Total = Total
 Total for = Total de
@@ -216,6 +219,13 @@ Frequent hit partner = Compañer@ de hit frecuente
 % of all hits = % de todos los hits
 Hits with same kilometers and days = Hits con el mismo número de kilómetros y de días
 None = Ninguno
+
+## calendar
+First day! = ¡Primer día!
+Anniversary = Aniversario
+EBT day = Día
+hit = hit
+hits = hits
 
 ## gen_output
 Public stats have been generated = Se han generado las estadísticas públicas

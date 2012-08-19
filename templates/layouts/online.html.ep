@@ -105,6 +105,9 @@
                     </tr><tr>
                         <td><input type="checkbox" name="hit_summary" <%== $checked_boxes->{'hit_summary'} ? 'checked=""' : '' %>></td>
                         <td><a class="section_link" id="hit_summary" href="hit_summary"><%=l 'Hit summary' %></a></td>
+                    </tr><tr>
+                        <td><input type="checkbox" name="calendar" <%== $checked_boxes->{'calendar'} ? 'checked=""' : '' %>></td>
+                        <td><a class="section_link" id="calendar" href="calendar"><%=l 'Calendar' %></a></td>
                     </tr>
                     <% } %>
                     <tr>

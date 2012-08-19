@@ -36,7 +36,7 @@ my %users;
 my %section_titles;
 foreach my $section (qw/
     index information value countries locations travel_stats printers huge_table short_codes nice_serials
-    top_days plate_bingo bad_notes hit_list hit_analysis hit_summary help
+    top_days plate_bingo bad_notes hit_list hit_analysis hit_summary calendar help
 /) {
     my $title = ucfirst $section;
     $title =~ s/_/ /g;
@@ -1219,6 +1219,34 @@ sub hit_summary {
     $self->stash (
         title => $section_titles{'hit_summary'},
         hs    => $hs,
+    );
+}
+
+sub calendar {
+    my ($self) = @_;
+
+    my $cal_data = $self->ebt->get_calendar;
+
+    foreach my $y (sort keys %$cal_data) {
+        foreach my $m (sort keys %{ $cal_data->{$y} }) {
+            my $first_day = '01';
+            my $first_dow = $cal_data->{$y}{$m}{'days'}{$first_day}{'dow'};
+            my $days_before = $first_dow - 1;
+
+            my $last_day = (sort keys %{ $cal_data->{$y}{$m}{'days'} })[-1];
+            my $last_dow = $cal_data->{$y}{$m}{'days'}{$last_day}{'dow'};
+            my $days_after = 7 - $last_dow;
+
+            $cal_data->{$y}{$m}{'days_before'} = $days_before;
+            $cal_data->{$y}{$m}{'days_after'}  = $days_after;
+            $cal_data->{$y}{$m}{'first_day'}   = $first_day;
+            $cal_data->{$y}{$m}{'last_day'}    = $last_day;
+        }
+    }
+
+    $self->stash (
+        title    => $section_titles{'calendar'},
+        cal_data => $cal_data,
     );
 }
 

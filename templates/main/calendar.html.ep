@@ -1,0 +1,104 @@
+<h2><%=l 'Calendar' %></h2>
+
+<table>
+    <tr>
+    <% foreach my $y (sort keys %$cal_data) { =%>
+        <th><%= $y %></th>
+    <% } =%>
+    </tr>
+    <tr>
+    <% my $first_cell = 1; foreach my $y (sort keys %$cal_data) { =%>
+        <% my $va = $first_cell ? 'bottom' : 'top'; $first_cell = 0; =%>
+        <td style="vertical-align: <%= $va %>; font-size: 9px">
+            <%== join '<br>', map { sprintf '<a href="#%s%s">%s</a>', $y, $_, l $EBTST::Main::months{0+$_} } sort keys %{ $cal_data->{$y} } %>
+        </td>
+    <% } =%>
+    </tr>
+</table>
+<br>
+
+<% foreach my $y (sort keys %$cal_data) { =%>
+    <% foreach my $m (sort keys %{ $cal_data->{$y} }) { =%>
+        <table style="padding-top: 20px">
+            <tr>
+                <a name="<%= "$y$m" %>"></a>
+                <th colspan="7" style="text-align: center; padding: 5px 0px 5px 0px"><%= join ' ', (l $EBTST::Main::months{0+$m}), $y %></th>
+            </tr>
+            <tr>
+            <% foreach my $dow (1..7) { =%>
+                <th style="text-align: center"><%=l $EBTST::Main::dows{$dow} %></th>
+            <% } =%>
+            </tr>
+            <tr>
+                <%# days before %>
+                <% foreach my $before (1 .. $cal_data->{$y}{$m}{'days_before'}) { =%>
+                    <td class="cal_day_cell">
+                        <div class="cal_day_container">
+                        </div>
+                    </td>
+                <% } =%>
+
+                <% foreach my $day (map { sprintf '%02d', $_ } $cal_data->{$y}{$m}{'first_day'} .. $cal_data->{$y}{$m}{'last_day'}) { =%>
+                    <% my $entry = $cal_data->{$y}{$m}{'days'}{$day}; =%>
+                    <% my $dow = $entry->{'dow'}; =%>
+                    <td class="cal_day_cell">
+                        <div class="cal_day_container">
+                            <div class="cal_day_date"><p class="cal_day_date_text"><%= 0+$day %></p></div>
+                            <% if ($entry->{'num_notes'} or $entry->{'num_hits'}) { =%>
+                                <div class="cal_day_top"><p class="cal_day_top_text">
+                                    <% if ($entry->{'num_notes'}) { =%>
+                                        <% my $plural = $entry->{'num_notes'} > 1 ? (l 'notes') : (l 'note'); =%>
+                                        <%= $entry->{'num_notes'} %> <%= $plural %><br>
+                                        <%= $entry->{'amount'} %>€<br>
+                                    <% } =%>
+                                    <% if ($entry->{'num_hits'}) { =%>
+                                        <% my $plural = $entry->{'num_hits'} > 1 ? (l 'hits') : (l 'hit'); =%>
+                                        <%= $entry->{'num_hits'} %> <%= $plural %>
+                                    <% } =%>
+                                </p></div>
+                            <% } =%>
+                            <% my @txt_bottom; =%>
+                            <% if ($entry->{'events'}) { =%>
+                                <% if ($entry->{'events'}{'first_day'}) {
+                                    <% push @txt_bottom, l 'First day!' =%>
+                                <% } =%>
+                                <% foreach my $value ('all', @{ EBT2->values }) { =%>
+                                    <% if ($entry->{'events'}{'notes'}{$value}) {
+                                        <% push @txt_bottom, sprintf '%s<a href="https://eurobilltracker.com/notes/?id=%s">%s %d</a>', =%>
+                                        <%     ('all' eq $value ? '' : sprintf '<img src="images/values/%s.gif">: ', $value), =%>
+                                        <%     $entry->{'events'}{'notes'}{$value}{'id'}, (ucfirst l 'note'), $entry->{'events'}{'notes'}{$value}{'total'}; =%>
+                                    <% } =%>
+                                <% } =%>
+                                <% if ($entry->{'events'}{'amount'}) {
+                                    <% push @txt_bottom, sprintf '<a href="https://eurobilltracker.com/notes/?id=%s">%d€</a>', =%>
+                                    <%     $entry->{'events'}{'amount'}{'id'}, $entry->{'events'}{'amount'}{'total'}; =%>
+                                <% } =%>
+                                <% if ($entry->{'events'}{'100th_days'}) {
+                                    <% push @txt_bottom, sprintf '%s: %d', (l 'EBT day'), $entry->{'events'}{'100th_days'}{'days'}; =%>
+                                <% } =%>
+                                <% if ($entry->{'events'}{'hits'}) {
+                                    <% push @txt_bottom, sprintf '<a href="https://eurobilltracker.com/notes/?id=%s">Hit %d</a>', =%>
+                                    <%     $entry->{'events'}{'hits'}{'id'}, $entry->{'events'}{'hits'}{'total'}; =%>
+                                <% } =%>
+                                <% if ($entry->{'events'}{'anniversary'}) {
+                                    <% my $an = $entry->{'events'}{'anniversary'}{'years'}; =%>
+                                    <% push @txt_bottom, sprintf '%s: %s', (l 'Anniversary'), $an; =%>
+                                <% } =%>
+                            <% } =%>
+                            <div class="cal_day_bottom"><p class="cal_day_bottom_text"><%== join '<br>', @txt_bottom %></p></div>
+                        </div>
+                    </td>
+                    <%== '</tr><tr>' if 7 == $cal_data->{$y}{$m}{'days'}{$day}{'dow'}; =%>
+                <% } =%>
+
+                <%# days after %>
+                <% foreach my $before (1 .. $cal_data->{$y}{$m}{'days_after'}) { =%>
+                    <td class="cal_day_cell">
+                        <div class="cal_day_container">
+                        </div>
+                    </td>
+                <% } =%>
+            </tr>
+        </table>
+    <% } =%>
+<% } =%>

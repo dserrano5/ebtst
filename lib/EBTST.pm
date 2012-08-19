@@ -232,6 +232,7 @@ sub startup {
     $u->get ('/hit_times_detail')->to ('main#hit_times_detail');
     $u->get ('/hit_analysis')->to ('main#hit_analysis');
     $u->get ('/hit_summary')->to ('main#hit_summary');
+    $u->get ('/calendar')->to ('main#calendar');
     $u->post ('/gen_output')->to ('main#gen_output');
     #$u->get ('/charts')->to ('main#charts');
 }

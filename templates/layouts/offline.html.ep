@@ -11,61 +11,61 @@
                     <tr>
                         <td colspan="2" align="center"><b><%= $user %></b><hr></td>
                     </tr><tr>
-                        <td><a class="section_link" id="information"     href="information.html"><%=l 'Information' %></a></td>
+                        <td><a class="section_link" id="information"          href="information.html"><%=l 'Information' %></a></td>
                     </tr><tr>
-                        <td><a class="section_link" id="value"           href="value.html"><%=l 'Value' %></a></td>
+                        <td><a class="section_link" id="value"                href="value.html"><%=l 'Value' %></a></td>
                     </tr><tr>
-                        <td><a class="section_link" id="countries"       href="countries.html"><%=l 'Countries' %></a></td>
+                        <td><a class="section_link" id="countries"            href="countries.html"><%=l 'Countries' %></a></td>
                     </tr><tr>
-                        <td><a class="section_link" id="printers"        href="printers.html"><%=l 'Printers' %></a></td>
+                        <td><a class="section_link" id="printers"             href="printers.html"><%=l 'Printers' %></a></td>
                     </tr><tr>
-                        <td><a class="section_link" id="locations"       href="locations.html"><%=l 'Locations' %></a></td>
+                        <td><a class="section_link" id="locations"            href="locations.html"><%=l 'Locations' %></a></td>
                     </tr><tr>
-                        <td><a class="section_link" id="travel_stats"    href="travel_stats.html"><%=l 'Travel stats' %></a></td>
+                        <td><a class="section_link" id="travel_stats"         href="travel_stats.html"><%=l 'Travel stats' %></a></td>
                     </tr><tr>
-                        <td><a class="section_link" id="huge_table"      href="huge_table.html"><%=l 'Huge table' %></a></td>
+                        <td><a class="section_link" id="huge_table"           href="huge_table.html"><%=l 'Huge table' %></a></td>
                     </tr><tr>
-                        <td><a class="section_link" id="short_codes"     href="short_codes.html"><%=l 'Short codes' %></a></td>
+                        <td><a class="section_link" id="short_codes"          href="short_codes.html"><%=l 'Short codes' %></a></td>
                     </tr><tr>
-                        <td><a class="section_link" id="nice_serials"    href="nice_serials.html"><%=l 'Nice serials' %></a></td>
+                        <td><a class="section_link" id="nice_serials"         href="nice_serials.html"><%=l 'Nice serials' %></a></td>
                     </tr><tr>
-                        <td><a class="section_link" id="coords_bingo"    href="coords_bingo.html"><%=l 'Coordinates bingo' %></a></td>
+                        <td><a class="section_link" id="coords_bingo"         href="coords_bingo.html"><%=l 'Coordinates bingo' %></a></td>
                     </tr><!-- note_analysis --><tr>
-                        <td><a class="section_link" id="notes_per_year"  href="notes_per_year.html"><%=l 'Notes/year' %></a></td>
+                        <td><a class="section_link" id="notes_per_year"       href="notes_per_year.html"><%=l 'Notes/year' %></a></td>
                     </tr><tr>
-                        <td><a class="section_link" id="notes_per_month" href="notes_per_month.html"><%=l 'Notes/month' %></a></td>
+                        <td><a class="section_link" id="notes_per_month"      href="notes_per_month.html"><%=l 'Notes/month' %></a></td>
                     </tr><tr>
-                        <td><a class="section_link" id="top_days"        href="top_days.html"><%=l 'Top days' %></a></td>
+                        <td><a class="section_link" id="top_days"             href="top_days.html"><%=l 'Top days' %></a></td>
                     </tr><tr>
-                        <td><a class="section_link" id="time_analysis_bingo"   href="time_analysis_bingo.html"><%=l 'Time analysis (bingo)' %></a></td>
+                        <td><a class="section_link" id="time_analysis_bingo"  href="time_analysis_bingo.html"><%=l 'Time analysis (bingo)' %></a></td>
                     </tr><tr>
-                        <td><a class="section_link" id="time_analysis_detail"   href="time_analysis_detail.html"><%=l 'Time analysis (detail)' %></a></td>
+                        <td><a class="section_link" id="time_analysis_detail" href="time_analysis_detail.html"><%=l 'Time analysis (detail)' %></a></td>
                     </tr>
                     <!-- comments -->
                     <tr>
-                        <td><a class="section_link" id="combs_bingo"     href="combs_bingo.html"><%=l 'Combinations (bingo)' %></a></td>
+                        <td><a class="section_link" id="combs_bingo"          href="combs_bingo.html"><%=l 'Combinations (bingo)' %></a></td>
                     </tr><tr>
-                        <td><a class="section_link" id="combs_detail"    href="combs_detail.html"><%=l 'Combinations (detail)' %></a></td>
+                        <td><a class="section_link" id="combs_detail"         href="combs_detail.html"><%=l 'Combinations (detail)' %></a></td>
                     </tr><!--<tr>
-                        <td><a class="section_link" id="evolution"       href="evolution.html"><%=l 'Note evolution' %></a></td>
+                        <td><a class="section_link" id="evolution"            href="evolution.html"><%=l 'Note evolution' %></a></td>
                     </tr>--><tr>
-                        <td><a class="section_link" id="plate_bingo"     href="plate_bingo.html"><%=l 'Plate bingo' %></a></td>
+                        <td><a class="section_link" id="plate_bingo"          href="plate_bingo.html"><%=l 'Plate bingo' %></a></td>
                     </tr><tr>
-                        <td><a class="section_link" id="bad_notes"       href="bad_notes.html"><%=l 'Bad notes' %></a></td>
+                        <td><a class="section_link" id="bad_notes"            href="bad_notes.html"><%=l 'Bad notes' %></a></td>
                     </tr><tr>
-                        <td><a class="section_link" id="hit_list"        href="hit_list.html"><%=l 'Hit list' %></a></td>
+                        <td><a class="section_link" id="hit_list"             href="hit_list.html"><%=l 'Hit list' %></a></td>
                     </tr><tr>
-                        <td><a class="section_link" id="hit_times_bingo"       href="hit_times_bingo.html"><%=l 'Hit times (bingo)' %></a></td>
+                        <td><a class="section_link" id="hit_times_bingo"      href="hit_times_bingo.html"><%=l 'Hit times (bingo)' %></a></td>
                     </tr><tr>
-                        <td><a class="section_link" id="hit_times_detail"       href="hit_times_detail.html"><%=l 'Hit times (detail)' %></a></td>
+                        <td><a class="section_link" id="hit_times_detail"     href="hit_times_detail.html"><%=l 'Hit times (detail)' %></a></td>
                     </tr><tr>
-                        <td><a class="section_link" id="hit_analysis"    href="hit_analysis.html"><%=l 'Hit analysis' %></a></td>
+                        <td><a class="section_link" id="hit_analysis"         href="hit_analysis.html"><%=l 'Hit analysis' %></a></td>
                     </tr><tr>
-                        <td><a class="section_link" id="hit_summary"     href="hit_summary.html"><%=l 'Hit summary' %></a></td>
+                        <td><a class="section_link" id="hit_summary"          href="hit_summary.html"><%=l 'Hit summary' %></a></td>
                     </tr><tr>
-                        <td><a class="section_link" id="calendar"        href="calendar.html"><%=l 'Calendar' %></a></td>
+                        <td><a class="section_link" id="calendar"             href="calendar.html"><%=l 'Calendar' %></a></td>
                     </tr><!--<tr>
-                        <td><a class="section_link" id="charts"          href="charts.html"><%=l 'Charts' %></a></td>
+                        <td><a class="section_link" id="charts"               href="charts.html"><%=l 'Charts' %></a></td>
                     </tr>-->
                 </table>
             </div>

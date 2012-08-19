@@ -130,6 +130,20 @@ sub startup {
 
         return $color;
     });
+    ## only used from templates/main/help.html.ep, which uses a different mechanism for translations
+    $self->helper (l2 => sub {
+        my ($self, $txt) = @_;
+
+        my $ret = $self->l ($txt);
+        return $ret if '_' ne substr $ret, 0, 1;
+
+        my @save_langs = $self->stash->{i18n}->languages;
+        $self->stash->{i18n}->languages ('en');
+        $ret = $self->l ($txt);
+        $self->stash->{i18n}->languages (@save_langs);
+
+        return $ret;
+    });
     $self->secret ('[12:36:04] gnome-screensaver-dialog: gkr-pam: unlocked login keyring');   ## :P
     $self->defaults (layout => 'online');
     $self->plugin ('I18N');

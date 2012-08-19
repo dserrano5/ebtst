@@ -48,6 +48,63 @@ sub _inc {
     return \$contents;
 }
 
+sub bd_set_initial_stash {
+    my $self = shift;
+
+    my $al = $self->tx->req->content->headers->accept_language // ''; $ENV{'LANG'} = substr $al, 0, 2;  ## could be improved...
+    $self->stash (base_href     => $base_href);
+    $self->stash (checked_boxes => {});
+    $self->stash (public_stats  => undef);
+    $self->stash (has_notes     => undef);
+    $self->stash (has_hits      => undef);
+    $self->stash (has_bad_notes => undef);
+    $self->stash (user          => undef);
+    $self->stash (title         => undef);
+}
+
+sub helper_ebt {
+    my ($self) = @_;
+
+    if (ref $self->stash ('ebt')) {
+        my $ret = $self->stash ('ebt');
+        return $ret;
+    } else {
+        die "Oops, this shouldn't happen";
+    }
+}
+
+sub helper_color {
+    my ($self, $num) = @_;
+    my $color;
+
+    if (!$num)                             { $color = '#B0B0B0';
+    } elsif ($num >=    1 and $num <=  49) { $color = $graphs_colors[0];
+    } elsif ($num >=   50 and $num <=  99) { $color = $graphs_colors[1];
+    } elsif ($num >=  100 and $num <= 499) { $color = $graphs_colors[2];
+    } elsif ($num >=  500 and $num <= 999) { $color = $graphs_colors[3];
+    } elsif ($num >= 1000)                 { $color = $graphs_colors[4];
+    } else {
+        die "Should not happen, num ($num)";
+    }
+
+    return $color;
+}
+
+## only used from templates/main/help.html.ep, which uses a different mechanism for translations
+sub helper_l2 {
+    my ($self, $txt) = @_;
+
+    my $ret = $self->l ($txt);
+    return $ret if '_' ne substr $ret, 0, 1;
+
+    my @save_langs = $self->stash->{i18n}->languages;
+    $self->stash->{i18n}->languages ('en');
+    $ret = $self->l ($txt);
+    $self->stash->{i18n}->languages (@save_langs);
+
+    return $ret;
+}
+
 sub startup {
     my ($self) = @_;
 
@@ -63,19 +120,7 @@ sub startup {
 
     ## In case of CSRF token mismatch, Mojolicious::Plugin::CSRFDefender calls render without specifying a layout,
     ## then our layout 'online' is rendered and Mojo croaks on non-declared variables. Work that around.
-    $self->hook (before_dispatch => sub {
-        my $self = shift;
-
-        my $al = $self->tx->req->content->headers->accept_language // ''; $ENV{'LANG'} = substr $al, 0, 2;  ## could be improved...
-        $self->stash (base_href     => $base_href);
-        $self->stash (checked_boxes => {});
-        $self->stash (public_stats  => undef);
-        $self->stash (has_notes     => undef);
-        $self->stash (has_hits      => undef);
-        $self->stash (has_bad_notes => undef);
-        $self->stash (user          => undef);
-        $self->stash (title         => undef);
-    });
+    $self->hook (before_dispatch => \&bd_set_initial_stash);
 
     if ($self->mode eq 'production') {
         $self->hook (before_dispatch => sub {
@@ -104,46 +149,9 @@ sub startup {
         #PrintError       => 1,
     }) or die $DBI::errstr;
 
-    $self->helper (ebt => sub {
-        my ($self) = @_;
-
-        if (ref $self->stash ('ebt')) {
-            my $ret = $self->stash ('ebt');
-            return $ret;
-        } else {
-            die "Oops, this shouldn't happen";
-        }
-    });
-    $self->helper (color => sub {
-        my ($self, $num) = @_;
-        my $color;
-
-        if (!$num)                             { $color = '#B0B0B0';
-        } elsif ($num >=    1 and $num <=  49) { $color = $graphs_colors[0];
-        } elsif ($num >=   50 and $num <=  99) { $color = $graphs_colors[1];
-        } elsif ($num >=  100 and $num <= 499) { $color = $graphs_colors[2];
-        } elsif ($num >=  500 and $num <= 999) { $color = $graphs_colors[3];
-        } elsif ($num >= 1000)                 { $color = $graphs_colors[4];
-        } else {
-            die "Should not happen, num ($num)";
-        }
-
-        return $color;
-    });
-    ## only used from templates/main/help.html.ep, which uses a different mechanism for translations
-    $self->helper (l2 => sub {
-        my ($self, $txt) = @_;
-
-        my $ret = $self->l ($txt);
-        return $ret if '_' ne substr $ret, 0, 1;
-
-        my @save_langs = $self->stash->{i18n}->languages;
-        $self->stash->{i18n}->languages ('en');
-        $ret = $self->l ($txt);
-        $self->stash->{i18n}->languages (@save_langs);
-
-        return $ret;
-    });
+    $self->helper (ebt => \&helper_ebt);
+    $self->helper (color => \&helper_color);
+    $self->helper (l2 => \&helper_l2);
     $self->secret ('[12:36:04] gnome-screensaver-dialog: gkr-pam: unlocked login keyring');   ## :P
     $self->defaults (layout => 'online');
     $self->plugin ('I18N');
@@ -221,9 +229,7 @@ sub startup {
     my $r_user = $r_has_notes_hits->under (sub {
         my ($self) = @_;
 
-        if (ref $self->stash ('sess') and $self->stash ('sess')->sid) {
-            return 1;
-        }
+        return 1 if ref $self->stash ('sess') and $self->stash ('sess')->sid;
 
         my $requested_url = $self->req->url->path->leading_slash (0)->to_string;
         $requested_url = '' if grep { $_ eq $requested_url } qw/logout index gen_output/;

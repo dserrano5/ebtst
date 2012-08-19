@@ -3,7 +3,7 @@ package EBTST::I18N;
 use Mojo::Base -base;
 use File::Spec;
 
-has setup_lex => sub { sub {
+sub setup_lex {
     my ($lang, $lex) = @_;
 
     warn "*** loading lexicon '$lang'\n";
@@ -31,6 +31,6 @@ has setup_lex => sub { sub {
     close $fd;
 
     warn "*** lexicon '$lang' loaded\n";
-};};
+}
 
 1;

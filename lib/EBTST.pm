@@ -24,8 +24,34 @@ my $hypnotoad_is_proxy          = $config{'hypnotoad_is_proxy'} // 0;
 my $hypnotoad_heartbeat_timeout = $config{'hypnotoad_heartbeat_timeout'} // 60;
 my $base_parts = @{ Mojo::URL->new ($base_href)->path->parts };
 
+sub _inc {
+    my ($coderef, $filename) = @_;
+
+    return if $filename !~ m{EBTST/I18N/..\.pm};
+
+    my $class = $filename;
+    $class =~ s{/}{::}g;
+    $class =~ s/\.pm$//;
+
+    my $contents = q{
+        package _CLASS;
+
+        use Mojo::Base 'EBTST::I18N';
+        use EBTST::I18N;
+
+        EBTST::I18N::setup_lex +(split '::', __PACKAGE__)[-1], \our %Lexicon;
+
+        1;
+    };
+    $contents =~ s/_CLASS/$class/;
+
+    return \$contents;
+}
+
 sub startup {
     my ($self) = @_;
+
+    push @INC, \&_inc;
 
     $self->app->config ({
         hypnotoad => {

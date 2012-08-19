@@ -266,14 +266,14 @@ sub value {
             output => $dest_img1,
             xdata => $notes_dates,
             dsets => [
-                { title => 'Total', color => 'black',  points => $dpoints{'Total'} },
-                { title =>     '5', color => 'grey',   points => $dpoints{'5'}   },
-                { title =>    '10', color => 'red',    points => $dpoints{'10'}  },
-                { title =>    '20', color => 'blue',   points => $dpoints{'20'}  },
-                { title =>    '50', color => 'orange', points => $dpoints{'50'}  },
-                { title =>   '100', color => 'green',  points => $dpoints{'100'} },
-                { title =>   '200', color => 'yellow', points => $dpoints{'200'} },
-                { title =>   '500', color => 'purple', points => $dpoints{'500'} },
+                { title => (encode 'UTF-8', $self->l ('Total')), color => 'black',  points => $dpoints{'Total'} },
+                { title =>                                  '5', color => 'grey',   points => $dpoints{'5'}   },
+                { title =>                                 '10', color => 'red',    points => $dpoints{'10'}  },
+                { title =>                                 '20', color => 'blue',   points => $dpoints{'20'}  },
+                { title =>                                 '50', color => 'orange', points => $dpoints{'50'}  },
+                { title =>                                '100', color => 'green',  points => $dpoints{'100'} },
+                { title =>                                '200', color => 'yellow', points => $dpoints{'200'} },
+                { title =>                                '500', color => 'purple', points => $dpoints{'500'} },
             ];
 
         -e $dest_img2 or EBTST::Main::Gnuplot::bartime_chart
@@ -294,7 +294,7 @@ sub value {
             output => $dest_img3,
             xdata => $notes_dates,
             dsets => [
-                { title => 'Average value', color => 'black', points => $dpoints{'Mean'} },
+                { title => (encode 'UTF-8', $self->l ('Average value')), color => 'black', points => $dpoints{'Mean'} },
             ];
     }
     $self->_log (debug => report 'value chart', $t0, $count);
@@ -1201,21 +1201,21 @@ sub hit_summary {
             output => $dest_img1,
             xdata => $notes_dates,
             dsets => [
-                { title => 'Hit ratio', color => 'black', points => $dpoints{'hit_ratio'} },
+                { title => (encode 'UTF-8', $self->l ('Hit ratio')), color => 'black', points => $dpoints{'hit_ratio'} },
             ];
 
         -e $dest_img2 or EBTST::Main::Gnuplot::line_chart
             output => $dest_img2,
             xdata => $hits_dates,
             dsets => [
-                { title => 'Travel days', color => 'black', points => $dpoints{'travel_days'} },
+                { title => (encode 'UTF-8', $self->l ('Travel days')), color => 'black', points => $dpoints{'travel_days'} },
             ];
 
         -e $dest_img3 or EBTST::Main::Gnuplot::line_chart
             output => $dest_img3,
             xdata => $hits_dates,
             dsets => [
-                { title => 'Travel km', color => 'black', points => $dpoints{'travel_km'} },
+                { title => (encode 'UTF-8', $self->l ('Travel km')), color => 'black', points => $dpoints{'travel_km'} },
             ];
     }
     $self->_log (debug => report 'hit_summary chart', $t0, $count);

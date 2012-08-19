@@ -63,6 +63,8 @@ Number of notes by value = Número de billetes por valor
 Notes = Billetes
 Percent = Porcentaje
 Amount = Cantidad
+Average value = Valor medio
+First notes by value = Primer billete por valor
 was the first = fue el primer
 
 ## countries
@@ -201,6 +203,7 @@ Best = Mejor
 Average = Media
 Worst = Peor
 Current = Actual
+Hit ratio = Ratio
 Hit ratios = Ratios
 Hit finder/maker - giver/getter ratio = Ratio activos/pasivos
 Next hit should occur on average on = El siguiente hit debería ocurrir, en promedio, el
@@ -208,6 +211,7 @@ or it's a dry spell = o es una mala racha
 Minimum = Mínimo
 Maximum = Máximo
 Travel days = Días de viaje
+Travel km = Km de viaje
 Travel kilometers = Kilómetros de viaje
 Hit/hitless days = Días con/sin hits
 Longest period of consecutive hit days = Período más largo de días con hit consecutivos

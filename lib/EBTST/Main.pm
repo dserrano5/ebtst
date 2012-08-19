@@ -72,11 +72,15 @@ sub _country_names {
         return '';
     }
 
+    my $ret;
     my $lang = substr +($ENV{'EBT_LANG'} || $ENV{'LANG'} || $ENV{'LANGUAGE'} || 'en'), 0, 2;
-    if ('en' eq $lang) {
-        return exists $country_names{$what} ? $country_names{$what} : code2country $what;
+
+    $ret = $self->l ("iso3166_$what");
+    if ('en' eq $lang or $ret =~ /^iso3166_/) {
+        $ret = exists $country_names{$what} ? $country_names{$what} : code2country $what;
     }
-    return $self->l ("iso3166_$what");
+
+    return $ret;
 }
 
 sub load_users {

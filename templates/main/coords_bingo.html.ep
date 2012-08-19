@@ -14,7 +14,7 @@
         <% $max_letter = $letter if ord $letter > ord $max_letter; =%>
         <% $max_number = $number if     $number >     $max_number; =%>
     <% } =%>
-    <h3><%= $v %></h3>
+    <h3><%= 'all' eq $v ? (ucfirst l $v) : $v %></h3>
     <table>
     <% for my $l ('A' .. $max_letter) { =%>
         <tr>

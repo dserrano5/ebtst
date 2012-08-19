@@ -1,6 +1,6 @@
 <h2><%=l 'Plate bingo' %></h2>
 <% foreach my $elem (@$plate_bingo) { %>
-    <h3><%= $elem->{'value'} %></h3>
+    <h3><%= 'all' eq $elem->{'value'} ? (ucfirst l $elem->{'value'}) : $elem->{'value'} %></h3>
     <table>
         <% my %seen; my %total; %>
         <% foreach my $printer (@{ $elem->{'printers'} }) { %>

@@ -140,9 +140,23 @@ sub bartime_chart {
         my @points;
         my $interval_idx = 0;
 
+        my $last_xdata = '';
         foreach my $idx (0..$idx_last_point) {
+            ## there may be more than one note in the same second. If that happens at the end of the data,
+            ## $cmp will be 0, and this code will end the bar there; then $interval_idx will be out of bounds
+            if ($interval_idx > $#intervals) {
+                if ($args{'xdata'}[$idx] eq $last_xdata) {
+                    pop @points;
+                    $xdata_done or pop @xdata;
+                    $interval_idx--;
+                } else {
+                    die sprintf "shouldn't happen, interval_idx (%s) intervals (%s)", $interval_idx, $#intervals;
+                }
+            }
             my $cmp = $args{'xdata'}[$idx] cmp $intervals[$interval_idx];
             next if -1 == $cmp;
+
+            $last_xdata = $args{'xdata'}[$idx];
 
             ## found a note entered at (or later than) the current interval
             ## plot it (or the one before)

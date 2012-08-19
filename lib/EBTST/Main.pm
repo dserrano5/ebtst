@@ -1346,14 +1346,21 @@ sub _prepare_html_dir {
         die "Couldn't create directory: '$dest_dir/images': $!\n";
     }
 
-    foreach my $file (qw{ebt.css images/values images/countries images/blue_arrow.gif images/red_arrow.gif}) {
+    foreach my $file (qw{images/values images/countries images/blue_arrow.gif images/red_arrow.gif}) {
         my $src  = File::Spec->catfile ($statics_dir, $file);
         my $dest = File::Spec->catfile ($dest_dir,    $file);
         symlink $src, $dest or $self->_log (warn => "_prepare_html_dir: symlink: '$src' to '$dest': $!");
     }
 
-    my $src  = File::Spec->catfile ($statics_dir, sprintf 'images/%s/static', $self->stash ('user'));
-    my $dest = File::Spec->catfile ($dest_dir,    sprintf 'images/%s',        $self->stash ('user'));
+    my ($src, $dest);
+
+    ## don't link but copy ebt.css, so generated stats don't break when the CSS is changed
+    $src  = File::Spec->catfile ($statics_dir, 'ebt.css');
+    $dest = File::Spec->catfile ($dest_dir,    'ebt.css');
+    copy $src, $dest or $self->_log (warn => "copy: '$src' to '$dest': $!");
+
+    $src  = File::Spec->catfile ($statics_dir, sprintf 'images/%s/static', $self->stash ('user'));
+    $dest = File::Spec->catfile ($dest_dir,    sprintf 'images/%s',        $self->stash ('user'));
     symlink $src, $dest or $self->_log (warn => "_prepare_html_dir: symlink: '$src' to '$dest': $!");
 
     return;

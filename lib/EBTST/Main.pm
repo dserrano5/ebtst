@@ -701,6 +701,7 @@ sub nice_serials {
     my $t0 = [gettimeofday];
     my $nice_data = $self->ebt->get_nice_serials;
     my $numbers_in_a_row = $self->ebt->get_numbers_in_a_row;
+    my $different_digits = $self->ebt->get_different_digits;
     my $count = $self->ebt->get_count;
     $self->_log (debug => report 'nice_serials get', $t0, $count);
 
@@ -723,7 +724,14 @@ sub nice_serials {
     foreach my $length (keys %$numbers_in_a_row) {
         my $num = $numbers_in_a_row->{$length};
         my $pct = $num * 100 / $count;
-        $niar->{$length} = { count => $num, pct => sprintf '%.2f', $pct };
+        $niar->{$length} = { count => $num, pct => $pct };
+    }
+
+    my $dd;
+    foreach my $digit (keys %$different_digits) {
+        my $num = $different_digits->{$digit};
+        my $pct = $num * 100 / $count;
+        $dd->{$digit} = { count => $num, pct => $pct };
     }
     $self->_log (debug => report 'nice_serials cook', $t0, $count);
 
@@ -731,6 +739,7 @@ sub nice_serials {
         title            => $section_titles{'nice_serials'},
         nicest           => $nice_notes,
         numbers_in_a_row => $niar,
+        different_digits => $dd,
         primes           => 'bar',
         squares          => 'baz',
         palindromes      => 'qux',

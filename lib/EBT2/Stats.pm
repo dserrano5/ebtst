@@ -491,7 +491,7 @@ sub _serial_niceness {
     }
     $visible_serial =~ s/[0-9]/*/g;
 
-    return $niceness, $longest, $visible_serial;
+    return $niceness, $longest, $different_digits, $visible_serial;
 }
 
 sub nice_serials {
@@ -503,7 +503,7 @@ sub nice_serials {
     my $iter = $data->note_getter;
     foreach my $hr (@$iter) {
         my %hr2 = zip @{[ COL_NAMES ]}, @$hr;
-        my ($score, $longest, $visible_serial) = _serial_niceness substr $hr->[SERIAL], 1;
+        my ($score, $longest, $different_digits, $visible_serial) = _serial_niceness substr $hr->[SERIAL], 1;
         if (@nicest < $num_elems or $score > $nicest[-1]{'score'}) {
             ## this is a quicksort on an almost sorted list, I read
             ## quicksort coughs on that so let's see how this performs
@@ -517,12 +517,14 @@ sub nice_serials {
             @nicest >= $num_elems and splice @nicest, $num_elems;
         }
         $longest > 1 and $ret{'numbers_in_a_row'}{$longest}++;
+        $ret{'different_digits'}{$different_digits}++;
     }
     $ret{'nice_serials'} = \@nicest;
 
     return \%ret;
 }
 sub numbers_in_a_row { goto &nice_serials; }
+sub different_digits { goto &nice_serials; }
 
 sub coords_bingo {
     my ($self, $data) = @_;

@@ -17,7 +17,15 @@
 </table>
 <br>
 
+<h3><%= ucfirst l 'numbers in a row' %></h3>
 <% foreach my $length (sort { $a <=> $b } keys %$numbers_in_a_row) { %>
-    <%= $numbers_in_a_row->{$length}{'count'} %> <%=l 'note(s)' %> (<%= $numbers_in_a_row->{$length}{'pct'} %>% <%=l 'of total' %>) <%=l 'have' %> <%= $length %> <%=l 'numbers in a row' %>.
+    <%= $numbers_in_a_row->{$length}{'count'} %> <%=l 'note(s)' %> (<%= sprintf '%.2f', $numbers_in_a_row->{$length}{'pct'} %>% <%=l 'of total' %>) <%=l 'have' %> <%= $length %> <%=l 'numbers in a row' %>.
+    <br>
+<% } %>
+<br>
+
+<h3><%= ucfirst l 'different digits' %></h3>
+<% foreach my $digit (sort { $a <=> $b } keys %$different_digits) { %>
+    <%= $different_digits->{$digit}{'count'} %> <%=l 'note(s)' %> (<%= sprintf '%.2f', $different_digits->{$digit}{'pct'} %>% <%=l 'of total' %>) <%=l 'contain' %> <%= $digit %> <%=l 'different digits' %>.
     <br>
 <% } %>

@@ -112,6 +112,8 @@ note(s) = billete(s)
 of total = del total
 have = tienen
 numbers in a row = cifras seguidas
+contain = contienen
+different digits = dígitos diferentes
 
 ## notes_per_year
 Number of notes per year = Número de billetes por año

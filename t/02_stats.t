@@ -35,10 +35,10 @@ is $res->{'notes_by_value'}{'20'}, 4, 'Four 20€ notes';
 is $res->{'notes_by_value'}{'50'}, 1, 'One 50€ note';
 is $res->{'notes_by_value'}{'500'}, 1, 'One 500€ note';
 
-$res = $st->lowest_short_codes ($data_obj);
-is ref $res, 'HASH', 'fooest_short_codes';
-is ref $res->{'lowest_short_codes'}, 'HASH', 'lowest_short_codes';
-is $res->{'lowest_short_codes'}{'F'}{'500'}{'sort_key'}, 'F001B4P42**0', 'F/P is ok (500€)';
-is $res->{'lowest_short_codes'}{'F'}{'all'}{'sort_key'}, 'F001B4P42**0', 'F/P is ok (all values)';
+#$res = $st->lowest_short_codes ($data_obj);
+#is ref $res, 'HASH', 'fooest_short_codes';
+#is ref $res->{'lowest_short_codes'}, 'HASH', 'lowest_short_codes';
+#is $res->{'lowest_short_codes'}{'F'}{'500'}{'sort_key'}, 'F001B4P42**0', 'F/P is ok (500€)';
+#is $res->{'lowest_short_codes'}{'F'}{'all'}{'sort_key'}, 'F001B4P42**0', 'F/P is ok (all values)';
 
-done_testing 21;
+done_testing 17;

@@ -869,39 +869,22 @@ sub bad_notes {
     return \%ret;
 }
 
-sub _sort_hits {
-    if ($a->[HIT] and $b->[HIT]) {
-        my $a_hit = thaw decode_base64 $a->[HIT];
-        my $b_hit = thaw decode_base64 $b->[HIT];
-        return $a_hit->{'hit_date'} cmp $b_hit->{'hit_date'};
-    }
-    if ($a->[HIT] and !$b->[HIT]) {
-        my $a_hit = thaw decode_base64 $a->[HIT];
-        return $a_hit->{'hit_date'} cmp $b->[DATE_ENTERED];
-    }
-    if (!$a->[HIT] and $b->[HIT]) {
-        my $b_hit = thaw decode_base64 $b->[HIT];
-        return $a->[DATE_ENTERED] cmp $b_hit->{'hit_date'};
-    }
-    if (!$a->[HIT] and !$b->[HIT]) {
-        return $a->[DATE_ENTERED] cmp $b->[DATE_ENTERED];
-    }
-    die 'kk while sorting';
-}
-
 sub hit_list {
     my ($self, $data, $whoami) = @_;
     my %ret;
+
+    my %hit_list;
+    my %passive_pending;    ## passive hits info is filled later. We save them here in the meanwhile
 
     my $note_no = 0;
     my $notes_elapsed = 0;
     my $hit_no = 0;   ## only interesting
     my $hit_no2 = 0;  ## including moderated
-    my $notes_between = 0;
+    my $notes_between = -1;
     my $prev_hit_dt;
 
     my $iter = $data->note_getter;
-    foreach my $hr (sort _sort_hits @$iter) {
+    foreach my $hr (@$iter) {
         $notes_between++;
         $notes_elapsed++;
         my $hit = $hr->[HIT] ? thaw decode_base64 $hr->[HIT] : undef;
@@ -911,13 +894,50 @@ sub hit_list {
                 zip @{[qw/year month day hour minute second/]}, @{[ split /[\s:-]/, $base_date ]}
             );
         }
+
+        ## if current note is more recent than any pending passive hits, then they have just occurred. Fill their data in
+        if (%passive_pending) {
+            my @done;
+            foreach my $pas_hit (sort { $a->{'hit_date'} cmp $b->{'hit_date'} } values %passive_pending) {
+                next if 1 != ($hr->[DATE_ENTERED] cmp $pas_hit->{'hit_date'});
+                $pas_hit->{'notes'} = $notes_elapsed-1;
+                push @done, $pas_hit->{'serial'};
+
+                $pas_hit->{'moderated'} or $hit_no++;
+                $hit_no2++;
+
+                $pas_hit->{'hit_no'} = $hit_no;
+                $pas_hit->{'hit_no2'} = $hit_no2;
+                $pas_hit->{'old_hit_ratio'} = ($hit_no > 1 ? ($notes_elapsed-1)/($hit_no-1) : undef);
+                $pas_hit->{'new_hit_ratio'} = ($notes_elapsed-1)/$hit_no;
+                $pas_hit->{'notes_between'} = $notes_between;
+                $pas_hit->{'days_between'}  = DateTime->new (
+                    zip @{[qw/year month day hour minute second/]}, @{[ split /[\s:-]/, $pas_hit->{'hit_date'} ]}
+                )->delta_days ($prev_hit_dt)->delta_days;
+                $pas_hit->{'days_between'}-- if $pas_hit->{'days_between'};
+                $prev_hit_dt = DateTime->new (
+                    zip @{[qw/year month day hour minute second/]}, @{[ split /[\s:-]/, $pas_hit->{'hit_date'} ]}
+                );
+
+                push @{ $ret{'hits_dates'} }, $pas_hit->{'hit_date'};
+                $ret{'elem_travel_days'} .= $pas_hit->{'days'} . ',';
+                $ret{'elem_travel_km'} .= $pas_hit->{'km'} . ',';
+            }
+            if (@done) {
+                $notes_between = 0;    ## 0 because it would be -1 plus 1 for having already started another loop iteration
+                delete @passive_pending{@done};
+            }
+        }
+
         next unless $hit;
 
-        ## passive hit? then we shouldn't have increased notes_elapsed and notes_between, decrease them here
-        $notes_elapsed--, $notes_between-- if $whoami->{'id'} eq $hit->{'parts'}[0]{'user_id'};
+        my $passive = $whoami->{'id'} eq $hit->{'parts'}[0]{'user_id'};
+        my $active = !$passive;
 
-        $hit->{'moderated'} or $hit_no++;
-        $hit_no2++;
+        if ($active) {
+            $hit->{'moderated'} or $hit_no++;
+            $hit_no2++;
+        }
         my $entry = {
             hit_no        => $hit_no,
             hit_no2       => $hit_no2,
@@ -933,18 +953,21 @@ sub hit_list {
             days          => $hit->{'tot_days'},
             hit_partners  => [ map { $_->{'user_name'} } @{ $hit->{'parts'} } ],
             note_no       => $hr->[NOTE_NO],
-            notes         => $notes_elapsed,
             moderated     => $hit->{'moderated'},
         };
-        if (!$hit->{'moderated'}) {
+        if (!$hit->{'moderated'} and $active) {
+            $entry->{'notes'} = $notes_elapsed;
+
             $entry->{'old_hit_ratio'} = ($hit_no > 1 ? ($notes_elapsed-1)/($hit_no-1) : undef);
             $entry->{'new_hit_ratio'} = $notes_elapsed/$hit_no;
+
             $entry->{'notes_between'} = $notes_between;
+            $notes_between = -1;
+
             $entry->{'days_between'}  = DateTime->new (
                 zip @{[qw/year month day hour minute second/]}, @{[ split /[\s:-]/, $hit->{'hit_date'} ]}
             )->delta_days ($prev_hit_dt)->delta_days;
-
-            $notes_between = 0;
+            $entry->{'days_between'}-- if $entry->{'days_between'};
             $prev_hit_dt = DateTime->new (
                 zip @{[qw/year month day hour minute second/]}, @{[ split /[\s:-]/, $hit->{'hit_date'} ]}
             );
@@ -953,12 +976,19 @@ sub hit_list {
             push @{ $ret{'hits_dates'} }, $hit->{'hit_date'};
 
             ## elem_travel_days
-            $ret{'elem_travel_days'} .= $hit->{'tot_days'} . ',';
+            $ret{'elem_travel_days'} .= $entry->{'days'} . ',';
 
             ## elem_travel_km
-            $ret{'elem_travel_km'} .= $hit->{'tot_km'} . ',';
+            $ret{'elem_travel_km'} .= $entry->{'km'} . ',';
         }
-        push @{ $ret{'hit_list'} }, $entry;
+        push @{ $hit_list{ $hit->{'hit_date'} } }, $entry;
+        if ($passive) {
+            $passive_pending{ $hr->[SERIAL] } = $hit_list{ $hit->{'hit_date'} }[-1];
+        }
+    }
+
+    foreach my $date (sort keys %hit_list) {
+        push @{ $ret{'hit_list'} }, @{ $hit_list{$date} };
     }
     chop $ret{'elem_travel_days'};
     chop $ret{'elem_travel_km'};
@@ -967,7 +997,7 @@ sub hit_list {
 }
 sub hits_dates       { goto &hit_list; }
 sub elem_travel_days { goto &hit_list; }
-sub elem_travel_km { goto &hit_list; }
+sub elem_travel_km   { goto &hit_list; }
 
 sub hit_times {
     my ($self, $data, $hit_list) = @_;

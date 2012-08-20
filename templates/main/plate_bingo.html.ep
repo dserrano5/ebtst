@@ -18,10 +18,10 @@
                             <% if ('err' eq $elem->{'plates'}{$plate}) { %><%# shouldn't happen since this code doesn't receive bad notes %>
                                 <td class="small_cell"><div class="bingo_err"></div></td>
                             <% } else { %>
-                                <td class="small_cell"><span style="color: <%= color $elem->{'plates'}{$plate} %>"><%= $plate %></span></td>
+                                <td class="small_cell"><span style="color: <%= color $elem->{'plates'}{$plate}, 'notes' %>"><%= $plate %></span></td>
                             <% } %>
                         <% } else { %>
-                            <td class="small_cell"><span style="color: <%= color 0 %>"><%= $plate %></span></td>
+                            <td class="small_cell"><span style="color: <%= color 0, 'notes' %>"><%= $plate %></span></td>
                         <% } %>
                     <% } else { %>
                         <td class="small_cell"><div class="bingo_na"></div></td>

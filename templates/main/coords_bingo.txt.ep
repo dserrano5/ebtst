@@ -19,7 +19,7 @@
     <% for my $l ('A' .. $max_letter) { =%>
         [tr]\
         <% for my $n (1 .. $max_number) { =%>
-            [td]<%= sprintf '[color=%s]%s[/color] ', (color $cbingo->{$v}{"$l$n"}), $l.$n; =%>[/td]\
+            [td]<%= sprintf '[color=%s]%s[/color] ', (color $cbingo->{$v}{"$l$n"}, 'notes'), $l.$n; =%>[/td]\
         <% } =%>
         [/tr]\
     <% } =%>

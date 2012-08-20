@@ -74,17 +74,31 @@ sub helper_ebt {
 }
 
 sub helper_color {
-    my ($self, $num) = @_;
+    my ($self, $num, $what) = @_;
     my $color;
 
-    if (!$num)                             { $color = '#B0B0B0';
-    } elsif ($num >=    1 and $num <=  49) { $color = $graphs_colors[0];
-    } elsif ($num >=   50 and $num <=  99) { $color = $graphs_colors[1];
-    } elsif ($num >=  100 and $num <= 499) { $color = $graphs_colors[2];
-    } elsif ($num >=  500 and $num <= 999) { $color = $graphs_colors[3];
-    } elsif ($num >= 1000)                 { $color = $graphs_colors[4];
+    if ('notes' eq $what) {
+        if (!$num)                             { $color = '#B0B0B0';
+        } elsif ($num >=    1 and $num <=  49) { $color = $graphs_colors[0];
+        } elsif ($num >=   50 and $num <=  99) { $color = $graphs_colors[1];
+        } elsif ($num >=  100 and $num <= 499) { $color = $graphs_colors[2];
+        } elsif ($num >=  500 and $num <= 999) { $color = $graphs_colors[3];
+        } elsif ($num >= 1000)                 { $color = $graphs_colors[4];
+        } else {
+            die "Should not happen, num ($num) what ($what)";
+        }
+    } elsif ('hits' eq $what) {
+        if (!$num)                         { $color = '#B0B0B0';
+        } elsif ($num ==  1)               { $color = $graphs_colors[0];
+        } elsif ($num ==  2)               { $color = $graphs_colors[1];
+        } elsif ($num >=  3 and $num <= 4) { $color = $graphs_colors[2];
+        } elsif ($num >=  5 and $num <= 9) { $color = $graphs_colors[3];
+        } elsif ($num >= 10)               { $color = $graphs_colors[4];
+        } else {
+            die "Should not happen, num ($num) what ($what)";
+        }
     } else {
-        die "Should not happen, num ($num)";
+        die "Don't know what to color";
     }
 
     return $color;

@@ -33,13 +33,13 @@
                                 <% $seen{$v}++; $row_sum += $nbcombo->{$sig}{$k}{$v}; =%>
                                 <% $val_totals{$v} += $nbcombo->{$sig}{$k}{$v}; =%>
                             <% } =%>
-                            <% push @cols, { color => (color $nbcombo->{$sig}{$k}{$v}), v => $v, num => $nbcombo->{$sig}{$k}{$v}//0 }; =%>
+                            <% push @cols, { color => (color $nbcombo->{$sig}{$k}{$v}, 'notes'), v => $v, num => $nbcombo->{$sig}{$k}{$v}//0 }; =%>
                         <% } else { =%>
                             <% push @cols, undef; =%><%# shouldn't happen since this code doesn't receive bad notes %>
                         <% } =%>
                     <% } =%>
                     <% $total{'any'}++; %>
-                    <% push @cols, { color => (color $row_sum), num => $row_sum, pct => 100*$row_sum/$count }; =%>
+                    <% push @cols, { color => (color $row_sum, 'notes'), num => $row_sum, pct => 100*$row_sum/$count }; =%>
                 <% } =%>
                 <% if (@cols) { push @rows, \@cols; } =%>
             <% } =%>

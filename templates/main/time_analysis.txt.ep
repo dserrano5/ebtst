@@ -6,7 +6,7 @@
 <% foreach my $m (map { sprintf '%02d', $_ } 1 .. 12) { =%>
     [tr][td]\
     <% foreach my $d (map { sprintf '%02d', $_ } 1 .. $last_days{$m}) { =%>
-        <% my $color = color $ta->{'cal'}{$m}{$d}; =%>
+        <% my $color = color $ta->{'cal'}{$m}{$d}, 'notes'; =%>
         <%=''=%>[color=<%= $color %>] <%= $d %>[/color]\
     <% } =%>
     [/td][td] ❘ <%=l $EBTST::Main::months{0+$m} %>[/td][/tr]\
@@ -15,7 +15,7 @@
 
 [b]<%=l 'Hours' %>[/b]: <%= scalar keys %{ $ta->{'hh'} } %>/24
 <% foreach my $h (map { sprintf '%02d', $_ } 0 .. 23) { =%>
-    <% my $color = color $ta->{'hh'}{$h}; =%>
+    <% my $color = color $ta->{'hh'}{$h}, 'notes'; =%>
     <%=''=%>[color=<%= $color %>] <%= $h %>[/color]\
 <% } =%>
 
@@ -51,7 +51,7 @@
 <% } =%><%= sprintf ' %d/%d', $cnt, 7*24 %>
 <% foreach my $dow (1 .. 7) { =%>
     <% foreach my $h (map { sprintf '%02d', $_ } 0 .. 23) { =%>
-        <% my $color = color $ta->{'dowhh'}{$dow}{$h}; =%>
+        <% my $color = color $ta->{'dowhh'}{$dow}{$h}, 'notes'; =%>
         <%=''=%>[color=<%= $color %>] <%= $h %>[/color]\
     <% } =%>
     <%= ' ❘ ' . l $EBTST::Main::dows{$dow} %>

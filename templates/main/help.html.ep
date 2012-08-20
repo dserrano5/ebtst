@@ -6,12 +6,12 @@
 <h3><%=l 'Colors' =%></h3>
 <p><%=l2 '_help_colors_1' %></p>
 <ul>
-    <li><span style="color: <%= color 0 %>"><%=l 'grey' %></span>: 0 <%=l 'notes' %></li>
-    <li><span style="color: <%= color 1 %>"><%=l 'blue' %></span>: 1-49 <%=l 'notes' %></li>
-    <li><span style="color: <%= color 50 %>"><%=l 'green' %></span>: 50-99 <%=l 'notes' %></li>
-    <li><span style="color: <%= color 100 %>"><%=l 'yellow' %></span>: 100-499 <%=l 'notes' %></li>
-    <li><span style="color: <%= color 500 %>"><%=l 'red' %></span>: 500-999 <%=l 'notes' %></li>
-    <li><span style="color: <%= color 1000 %>"><%=l 'black' %></span>: <%=l 'more than' %> 1000 <%=l 'notes' %></li>
+    <li><span style="color: <%= color    0, 'notes' %>"><%=l 'grey' %></span>: 0 <%=l 'notes' %> / 0 <%=l 'hits' %></li>
+    <li><span style="color: <%= color    1, 'notes' %>"><%=l 'blue' %></span>: 1-49 <%=l 'notes' %> / 1 <%=l 'hit' %></li>
+    <li><span style="color: <%= color   50, 'notes' %>"><%=l 'green' %></span>: 50-99 <%=l 'notes' %> / 2 <%=l 'hits' %></li>
+    <li><span style="color: <%= color  100, 'notes' %>"><%=l 'yellow' %></span>: 100-499 <%=l 'notes' %> / 3-4 <%=l 'hits' %></li>
+    <li><span style="color: <%= color  500, 'notes' %>"><%=l 'red' %></span>: 500-999 <%=l 'notes' %> / 5-9 <%=l 'hits' %></li>
+    <li><span style="color: <%= color 1000, 'notes' %>"><%=l 'black' %></span>: <%=l 'more than' %> 1000 <%=l 'notes' %> / 10 <%=l 'hits' %></li>
 </ul>
 <p><%=l2 '_help_colors_2' %></p>
 <ul>

@@ -67,7 +67,7 @@
         <tr>
             <th class="small_cell"><img src="images/countries/<%= $c->{'imgname'} %>.gif"> <%= $c->{'cname'} %></th>
             <% foreach my $l ('A'..'Z') { %>
-                <td class="small_cell"><span style='color: <%= color $c->{'letters'}{$l} %>'><%= $l %></span></td>
+                <td class="small_cell"><span style='color: <%= color $c->{'letters'}{$l}, 'notes' %>'><%= $l %></span></td>
             <% } %>
             <th class="numeric small_cell"><%= $c->{'tot'} %></th>
         </tr>

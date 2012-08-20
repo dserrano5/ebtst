@@ -19,7 +19,7 @@
     <% for my $l ('A' .. $max_letter) { =%>
         <tr>
         <% for my $n (1 .. $max_number) { =%>
-            <td><span style='color: <%= color $cbingo->{$v}{"$l$n"} %>;'><%= $l.$n =%></span></td>
+            <td><span style='color: <%= color $cbingo->{$v}{"$l$n"}, 'notes' %>;'><%= $l.$n =%></span></td>
         <% } =%>
         </tr>
     <% } =%>

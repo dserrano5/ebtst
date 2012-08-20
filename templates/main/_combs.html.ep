@@ -15,7 +15,10 @@
             <th>100</th>
             <th>200</th>
             <th>500</th>
-            <th><%=l 'bingo' eq $mode ? 'any' : 'Total' %></th>
+            <th><%=l 'bingo' eq $mode ? 'Any' : 'Total' %></th>
+            <% if ('bingo' eq $mode) { =%>
+                <th><%=l 'Combinations' =%></th>
+            <% } =%>
         </tr>
         <% my @rows; my %val_totals; %>
         <% foreach my $pc (sort keys %{ EBT2->printers }) { =%>
@@ -23,15 +26,17 @@
                 <% my @cols; =%>
                 <% my $k = $pc.$cc; =%>
                 <% if (grep { $_ eq $k } keys %{ $EBT2::combs_pc_cc_sig{$sig} }) { =%>
-                    <% my $row_sum = 0; =%>
+                    <% my $row_sum = 0; my $seen_values_in_comb; my $total_values_in_comb; =%>
                     <% push @cols, "$pc/$cc"; =%>
                     <% foreach my $v (@{ EBT2->values }) { =%>
                         <% my $k_pcv = sprintf '%s%s%03d', $pc, $cc, $v; =%>
                         <% if (exists $EBT2::combs_pc_cc_val_sig{$sig} and exists $EBT2::combs_pc_cc_val_sig{$sig}{$k_pcv}) { =%>
                             <% $total{$v}++; =%>
+                            <% $total_values_in_comb++; =%>
                             <% if (exists $nbcombo->{$sig}{$k} and exists $nbcombo->{$sig}{$k}{$v}) { =%>
                                 <% $seen{$v}++; $row_sum += $nbcombo->{$sig}{$k}{$v}; =%>
                                 <% $val_totals{$v} += $nbcombo->{$sig}{$k}{$v}; =%>
+                                <% $seen_values_in_comb++; =%>
                             <% } =%>
                             <% push @cols, { color => (color $nbcombo->{$sig}{$k}{$v}, 'notes'), v => $v, num => $nbcombo->{$sig}{$k}{$v}//0 }; =%>
                         <% } else { =%>
@@ -39,7 +44,7 @@
                         <% } =%>
                     <% } =%>
                     <% $total{'any'}++; %>
-                    <% push @cols, { color => (color $row_sum, 'notes'), num => $row_sum, pct => 100*$row_sum/$count }; =%>
+                    <% push @cols, { color => (color $row_sum, 'notes'), num => $row_sum, pct => 100*$row_sum/$count, seen_values_in_comb => $seen_values_in_comb, total_values_in_comb => $total_values_in_comb }; =%>
                 <% } =%>
                 <% if (@cols) { push @rows, \@cols; } =%>
             <% } =%>
@@ -73,6 +78,11 @@
                     <% } else { %>
                         <td><div class="bingo_0"></div></td>
                     <% } =%>
+                    <td>
+                        <%== '<b>' if ($last->{'seen_values_in_comb'}//0) == $last->{'total_values_in_comb'} =%>
+                        <%= $last->{'seen_values_in_comb'}//0 %>/<%= $last->{'total_values_in_comb'} %>
+                        <%== '</b>' if ($last->{'seen_values_in_comb'}//0) == $last->{'total_values_in_comb'} =%>
+                    </td>
                 <% } else { =%>
                     <td><b><span style="color: <%= $last->{'color'} %>"><%= $last->{'num'} %></span></b> (<%= sprintf '%.2f', $last->{'pct'} %>%)</td>
                 <% } =%>
@@ -86,16 +96,14 @@
                 <% } %>
                 <% my $seen_pct = 100 * ($seen{'any'}//0) / $total{'any'}; =%>
                 <td class="small_cell"><%= $seen{'any'}//0 %>/<%= $total{'any'} %> (<%= sprintf '%.2f', $seen_pct %>%)</td>
+                <% delete $seen{'any'}; delete $total{'any'}; %>
+                <% my $all_seen = 0;  $all_seen  += $_ for values %seen; %>
+                <% my $all_total = 0; $all_total += $_ for values %total; %>
+                <% my $all_pct = sprintf '%.2f', $all_total ? ($all_seen * 100 / $all_total) : 0;  ## $all_total is zero when a president is defined in the config, but no plates are assigned to them %>
+                <td><b><%= $all_seen; %>/<%= $all_total; %></b> (<%= $all_pct %>%)</td>
             </tr>
         <% } =%>
     </table>
-    <% if ('bingo' eq $mode) { =%>
-        <% delete $seen{'any'}; delete $total{'any'}; %>
-        <% my $all_seen = 0;  $all_seen  += $_ for values %seen; %>
-        <% my $all_total = 0; $all_total += $_ for values %total; %>
-        <% my $all_pct = sprintf '%.2f', $all_total ? ($all_seen * 100 / $all_total) : 0;  ## $all_total is zero when a president is defined in the config, but no plates are assigned to them %>
-        <p><%=l 'Total for ' %><%= $sig_visible %>: <b><%= $all_seen; %>/<%= $all_total; %></b> (<%= $all_pct %>%)</p>
-    <% } =%>
 <% } %>
 
 <% if ('bingo' eq $mode) { =%>

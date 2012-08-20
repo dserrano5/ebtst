@@ -85,6 +85,7 @@ First notes by printer code = Primer billete por código de imprenta
 
 ## travel_stats
 Location = Localidad
+Total = Total
 Visits = Visitas
 Total yearly visits = Total anual de visitas
 Number of locations = Localidades
@@ -145,10 +146,8 @@ Days of week, hours and minutes = Días de la semana, horas y minutos
 
 ## combs detail
 Any signature = Cualquier firma
-any = cualquiera
-Result = Resultado
-Total = Total
-Total for = Total de
+Any = Cualquiera
+Combinations = Combinaciones
 Combinations bingo = Bingo de combinaciones
 Still missing combinations = Combinaciones que faltan
 Unknown combinations = Combinaciones desconocidas
@@ -163,6 +162,7 @@ Show only = Mostrar sólo
 Output = Salida
 
 ## plate bingo
+Total for = Total de
 
 ## bad notes
 

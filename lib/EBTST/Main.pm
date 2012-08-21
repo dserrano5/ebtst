@@ -1140,13 +1140,22 @@ sub hit_analysis {
         $hit->{'serial'} =~ s/^([A-Z])....(....)...$/$1xxxx$2xxx/;
         push @$oldest, $hit;
     }
+    foreach my $hit (
+        map { @{ $_->{'hits'} } }
+        @{ $ha->{'lucky_bundles'} }
+    ) {
+        $hit->{'hit_date'} = (split ' ', $hit->{'hit_date'})[0];
+        $hit->{'serial'} =~ s/^([A-Z])....(....)...$/$1xxxx$2xxx/;
+    }
     $self->_log (debug => report 'hit_analysis cook', $t0, $count);
 
     $self->stash (
-        title   => $section_titles{'hit_analysis'},
-        longest => $longest,
-        oldest  => $oldest,
-        whoami  => $whoami,
+        title               => $section_titles{'hit_analysis'},
+        whoami              => $whoami,
+        longest             => $longest,
+        oldest              => $oldest,
+        lucky_bundles       => $ha->{'lucky_bundles'},
+        other_hit_potential => $ha->{'other_hit_potential'},
     );
 }
 

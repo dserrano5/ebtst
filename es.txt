@@ -190,6 +190,8 @@ Insert month = Mes de registro
 Hit top-10 = Top-10
 Most kilometers = Más largos
 Most days = Más antiguos
+Lucky bundles = Días afortunados
+Other hit potential = Días potenciales
 
 ## hit summary
 Hits = Hits

@@ -5,7 +5,7 @@ use strict;
 use utf8;
 use DateTime;
 use Date::DayOfWeek;
-use List::Util qw/sum reduce/;
+use List::Util qw/first sum reduce/;
 use List::MoreUtils qw/uniq zip/;
 use Storable qw/thaw dclone/;
 use MIME::Base64;
@@ -13,7 +13,7 @@ use EBT2::Data;
 use EBT2::Constants ':all';
 
 ## whenever there are changes in any stats format, this has to be increased in order to detect users with old stats formats
-our $STATS_VERSION = '20120812-03';
+our $STATS_VERSION = '20120821-01';
 
 sub mean { return sum(@_)/@_; }
 
@@ -1029,6 +1029,52 @@ sub hit_analysis {
     my ($self, $data, $hit_list) = @_;
     my %ret;
 
+    my %notes_per_day;
+    my $iter = $data->note_getter;
+    foreach my $hr (@$iter) {
+        my $date = (split ' ', $hr->[DATE_ENTERED])[0];
+        my $hit = $hr->[HIT] ? thaw decode_base64 $hr->[HIT] : undef;
+        if (defined $hit) {
+            if ($hit->{'moderated'}) {
+                undef $hit;
+            } else {
+                $hit = first { $_->{'serial'} eq $hit->{'serial'} } @$hit_list;   ## grep within a loop, expensive?
+            }
+        }
+        push @{ $notes_per_day{$date}{'notes'} }, $hit;
+    }
+
+    ## post process %notes_per_day
+    foreach my $date (keys %notes_per_day) {
+        $notes_per_day{$date}{'date'} = $date;
+        $notes_per_day{$date}{'num_notes'} = scalar @{ $notes_per_day{$date}{'notes'} };
+        $notes_per_day{$date}{'hits'} = [ grep defined, @{ $notes_per_day{$date}{'notes'} } ];
+        $notes_per_day{$date}{'num_hits'} = scalar @{ $notes_per_day{$date}{'hits'} };
+        $notes_per_day{$date}{'ratio'} = $notes_per_day{$date}{'num_hits'} ? $notes_per_day{$date}{'num_notes'} / $notes_per_day{$date}{'num_hits'} : 0;
+        delete $notes_per_day{$date}{'notes'};
+    }
+
+    ## build lucky_bundles and other_hit_potential
+    foreach my $date (keys %notes_per_day) {
+        my $num_hits = $notes_per_day{$date}{'num_hits'};
+        next unless $num_hits;
+
+        push @{ $ret{'hit_analysis'}{'other_hit_potential'} }, $notes_per_day{$date};
+        if ($num_hits >= 2) {
+            push @{ $ret{'hit_analysis'}{'lucky_bundles'} }, $notes_per_day{$date};
+        }
+    }
+
+    ## sort lucky_bundles and other_hit_potential
+    $ret{'hit_analysis'}{'lucky_bundles'} = [ reverse sort {
+        #$a->{'num_hits'}  <=> $b->{'num_hits'} or $a->{'num_notes'} <=> $b->{'num_notes'}
+        $a->{'ratio'} <=> $b->{'ratio'}
+    } @{ $ret{'hit_analysis'}{'lucky_bundles'} } ];
+    $ret{'hit_analysis'}{'other_hit_potential'} = [ reverse sort {
+        $a->{'ratio'} <=> $b->{'ratio'}
+    } @{ $ret{'hit_analysis'}{'other_hit_potential'} } ];
+
+    ## longest km/days
     foreach my $what (
         [ qw/longest km/ ],
         [ qw/oldest days/ ],

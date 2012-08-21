@@ -23,6 +23,7 @@ Bad notes = Billetes erróneos
 Hit list = Lista de hits
 Hit times (bingo) = Análisis de tiempo (hits, bingo)
 Hit times (detail) = Análisis de tiempo (hits, detalle)
+Hit locations = Localidades de hits
 Hit analysis = Análisis de hits
 Hit summary = Resumen de hits
 Calendar = Calendario
@@ -185,6 +186,13 @@ Natural month = Mes natural
 Insert month = Mes de registro
 
 ## hit times
+
+## hit locations
+My city = Mi ciudad
+Frequent Locations (Hit Partners') = Localidades habituales (de los compañeros de hit)
+Frequent Directions = Direcciones habituales
+Local Hits = Hits locales
+Both ways hits = Hits en ambos sentidos
 
 ## hit analysis
 Hit top-10 = Top-10

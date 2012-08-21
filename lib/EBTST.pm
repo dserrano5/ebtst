@@ -290,6 +290,7 @@ sub startup {
     $u->get ('/hit_list')->to ('main#hit_list');
     $u->get ('/hit_times_bingo')->to ('main#hit_times_bingo');
     $u->get ('/hit_times_detail')->to ('main#hit_times_detail');
+    $u->get ('/hit_locations')->to ('main#hit_locations');
     $u->get ('/hit_analysis')->to ('main#hit_analysis');
     $u->get ('/hit_summary')->to ('main#hit_summary');
     $u->get ('/calendar')->to ('main#calendar');

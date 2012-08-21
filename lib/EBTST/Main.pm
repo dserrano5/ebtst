@@ -36,7 +36,7 @@ my %users;
 my %section_titles;
 foreach my $section (qw/
     index information value countries locations travel_stats printers huge_table short_codes nice_serials
-    top_days plate_bingo bad_notes hit_list hit_analysis hit_summary calendar help
+    top_days plate_bingo bad_notes hit_list hit_locations hit_analysis hit_summary calendar help
 /) {
     my $title = ucfirst $section;
     $title =~ s/_/ /g;
@@ -1119,11 +1119,113 @@ sub hit_times_bingo {
 }
 sub hit_times_detail { push @_, 1; goto &hit_times_bingo; }
 
+sub hit_locations {
+    my ($self) = @_;
+
+    my $t0 = [gettimeofday];
+    my $count    = $self->ebt->get_count;
+    my $nbci     = $self->ebt->get_notes_by_city;
+    my $whoami   = $self->ebt->whoami;
+    my $hit_list = $self->ebt->get_hit_list ($whoami);
+    $self->_log (debug => report 'hit_locations get', $t0, $count);
+
+    $t0 = [gettimeofday];
+    my (%hit_count_by_my_loc, %hit_count_by_their_loc);
+    my %arrows;
+    foreach my $hit (@$hit_list) {
+        next if $hit->{'moderated'};
+
+        my $idx = 0;
+        foreach my $user (@{ $hit->{'hit_partners'} }) {
+            last if $user eq $whoami->{'name'};
+            $idx++;
+        }
+
+        my $my_k = join ',', $hit->{'countries'}[$idx], $hit->{'cities'}[$idx];
+        $hit_count_by_my_loc{$my_k}++;
+
+        my $num_parts = @{ $hit->{'countries'} };
+        foreach my $their_idx (0 .. $num_parts - 1) {
+            next if $their_idx == $idx;
+            my $their_k = join ',', $hit->{'countries'}[$their_idx], $hit->{'cities'}[$their_idx];
+            $hit_count_by_their_loc{$their_k}++;
+
+            if (1 == abs $their_idx - $idx) {   ## only arrows in adjacent hit parts, this is relevant in >= triple hits
+                my $arrow_key = sprintf '%s|%s', $their_idx < $idx ? ($their_k, $my_k) : ($my_k, $their_k);
+                $arrows{$arrow_key}++;
+            }
+        }
+    }
+
+    my @my_locs;
+    foreach my $my_loc (keys %hit_count_by_my_loc) {
+        my ($country, $city) = split /,/, $my_loc, 2;
+        push @my_locs, {
+            country   => $country,
+            bbflag    => EBT2->flag ($country),
+            city      => $city,
+            notes     => $nbci->{$country}{$city}{'total'},
+            notes_pct => 100 * $nbci->{$country}{$city}{'total'} / $count,
+            hits      => $hit_count_by_my_loc{$my_loc},
+            hits_pct  => 100 * $hit_count_by_my_loc{$my_loc} / (sum values %hit_count_by_my_loc),
+            ratio     => $nbci->{$country}{$city}{'total'} / $hit_count_by_my_loc{$my_loc},
+        };
+    }
+    @my_locs = reverse sort { $a->{'notes'} <=> $b->{'notes'} } @my_locs;
+
+    my @their_locs;
+    foreach my $their_loc (keys %hit_count_by_their_loc) {
+        next if $hit_count_by_their_loc{$their_loc} < 2;
+        my ($country, $city) = split /,/, $their_loc, 2;
+        push @their_locs, {
+            country  => $country,
+            city     => $city,
+            hits     => $hit_count_by_their_loc{$their_loc},
+            hits_pct => 100 * $hit_count_by_their_loc{$their_loc} / (sum values %hit_count_by_their_loc),
+        };
+    }
+    @their_locs = reverse sort { $a->{'notes'} <=> $b->{'notes'} } @their_locs;
+
+    my @arrows;
+    foreach my $k (keys %arrows) {
+        next if $arrows{$k} < 2;
+        push @arrows, {
+            fromto => $k,
+            num    => $arrows{$k},
+            pct    => 100 * $arrows{$k} / (sum values %arrows),
+        };
+    }
+
+    my %local_hits;
+    my %both_ways;
+    foreach my $k (keys %arrows) {
+        my ($from, $to) = split /\|/, $k, 2;
+        if ($from eq $to) {
+            $local_hits{$from}++;
+        }
+        my $reverse_k = sprintf '%s|%s', $to, $from;
+        if (exists $arrows{$reverse_k}) {
+            my $sorted_k = sprintf '%s|%s', sort $from, $to;
+            $both_ways{$sorted_k}++;
+        }
+    }
+    $self->_log (debug => report 'hit_locations cook', $t0, $count);
+
+    $self->stash (
+        title      => $section_titles{'hit_locations'},
+        my_locs    => \@my_locs,
+        their_locs => \@their_locs,
+        arrows     => \@arrows,
+        local_hits => \%local_hits,
+        both_ways  => \%both_ways,
+    );
+}
+
 sub hit_analysis {
     my ($self) = @_;
 
     my $t0 = [gettimeofday];
-    my $count   = $self->ebt->get_count;   ## just for 'report'
+    my $count    = $self->ebt->get_count;   ## just for 'report'
     my $whoami   = $self->ebt->whoami;
     my $hit_list = $self->ebt->get_hit_list ($whoami);
     my $ha       = $self->ebt->get_hit_analysis ($hit_list);
@@ -1435,7 +1537,7 @@ sub gen_output {
         information value countries printers locations travel_stats huge_table short_codes nice_serials
         coords_bingo notes_per_year notes_per_month top_days time_analysis_bingo time_analysis_detail
         combs_bingo combs_detail plate_bingo bad_notes hit_list hit_times_bingo hit_times_detail
-        hit_analysis hit_summary calendar
+        hit_locations hit_analysis hit_summary calendar
     /;
 
     my @req_params = grep { $self->param ($_) } @params;

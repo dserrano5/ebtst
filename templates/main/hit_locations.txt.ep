@@ -1,0 +1,12 @@
+[b]<%=l 'Hit locations' %>[/b]
+[table]\
+    [tr][td]<%=l 'My city' %>[/td][td] ❘ <%=l 'Notes' %>[/td][td] ❘ <%=l 'Hits' %>[/td][td] ❘ <%=l 'Hit ratio' %>[/td][/tr]\
+    <% foreach my $my_loc (@$my_locs) { =%>
+        [tr]\
+            [td] <%= $my_loc->{'bbflag'} %> <%= $my_loc->{'city'} %>[/td]\
+            [td] ❘ <%= $my_loc->{'notes'} %> (<%= sprintf '%.2f', $my_loc->{'notes_pct'} %>%)[/td]\
+            [td] ❘ <%= $my_loc->{'hits'} %> (<%= sprintf '%.2f', $my_loc->{'hits_pct'} %>%)[/td]\
+            [td] ❘ <%= sprintf '%.2f', $my_loc->{'ratio'} %>[/td]\
+        [/tr]\
+    <% } =%>
+[/table]

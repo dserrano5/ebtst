@@ -100,6 +100,9 @@
                         <td><input type="checkbox" name="hit_times_detail"     <%== $checked_boxes->{'hit_times_detail'} ? 'checked=""' : '' %>></td>
                         <td><a class="section_link" id="hit_times_detail"      href="hit_times_detail"><%=l 'Hit times (detail)' %></a></td>
                     </tr><tr>
+                        <td><input type="checkbox" name="hit_locations"        <%== $checked_boxes->{'hit_locations'} ? 'checked=""' : '' %>></td>
+                        <td><a class="section_link" id="hit_locations"         href="hit_locations"><%=l 'Hit locations' %></a></td>
+                    </tr><tr>
                         <td><input type="checkbox" name="hit_analysis"         <%== $checked_boxes->{'hit_analysis'} ? 'checked=""' : '' %>></td>
                         <td><a class="section_link" id="hit_analysis"          href="hit_analysis"><%=l 'Hit analysis' %></a></td>
                     </tr><tr>

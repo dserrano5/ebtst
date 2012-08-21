@@ -1,0 +1,101 @@
+<h2><%=l 'Hit locations' %></h2>
+
+<table>
+    <tr>
+        <th><%=l 'My city' %></th>
+        <th><%=l 'Notes' %></th>
+        <th><%=l 'Hits' %></th>
+        <th><%=l 'Hit ratio' %></th>
+    </tr>
+    <% foreach my $my_loc (@$my_locs) { =%>
+        <tr>
+            <td><img src="images/countries/<%= $my_loc->{'country'} %>.gif"> <%= $my_loc->{'city'} %></td>
+            <td><%= $my_loc->{'notes'} %> (<%= sprintf '%.2f', $my_loc->{'notes_pct'} %>%)</td>
+            <td><%= $my_loc->{'hits'} %> (<%= sprintf '%.2f', $my_loc->{'hits_pct'} %>%)</td>
+            <td><%= sprintf '%.2f', $my_loc->{'ratio'} %></td>
+        </tr>
+    <% } =%>
+</table>
+<br>
+
+<h3><%=l q{Frequent Locations (Hit Partners')} %></h3>
+<% if (@$their_locs) { =%>
+    <table>
+        <tr>
+            <th><%=l 'Location' %></th>
+            <th><%=l 'Hits' %></th>
+            <th><%=l 'Percent' %></th>
+        </tr>
+        <% foreach my $their_loc (@$their_locs) { =%>
+            <tr>
+                <td><img src="images/countries/<%=$their_loc->{'country'} %>"> $their_loc->{'city'}</td>
+                <td><%= $their_loc->{'hits'} %></td>
+                <td><%= sprintf '%.2f', $their_loc->{'hits_pct'} %>%</td>
+            </tr>
+        <% } =%>
+    </table>
+    (<%=l 'Altogether hit partners in' %> <%= scalar @$their_locs %> <%=l 'different places' %>)
+<% } else { =%>
+    (<%=l 'None' %>)
+<% } =%>
+<br>
+
+<h3><%=l 'Frequent Directions' %></h3>
+<% if (@$arrows) { =%>
+    <table>
+        <tr>
+            <th><%=l 'Locations' %></th>
+            <th><%=l 'Hits' %></th>
+            <th><%=l 'Percent' %></th>
+        </tr>
+        <% foreach my $arrow (@$arrows) { =%>
+            <tr>
+                <% my ($from, $to) = split /\|/, $arrow->{'fromto'}, 2; =%>
+                <% my ($from_country, $from_city) = split /,/, $from, 2; =%>
+                <% my ($to_country, $to_city) = split /,/, $to, 2; =%>
+                <td><img src="images/countries/<%= $from_country %>"> <%= $from_city %> → <img src="images/countries/<%= $to_country %>"> <%= $to_city %></td>
+                <td><%= $arrow->{'num'} %></td>
+                <td><%= sprintf '%.2f', $arrow->{'pct'} %></td>
+            </tr>
+        <% } =%>
+    </table>
+<% } else { =%>
+    (<%=l 'None' %>)
+<% } =%>
+<br>
+
+<h3><%=l 'Local Hits' %></h3>
+<% if (%$local_hits) { =%>
+    <table>
+        <tr>
+            <th><%=l 'Location<' %>/th>
+            <th><%=l 'Hits' %></th>
+        </tr>
+        <% foreach my $place (reverse sort { $local_hits->{$a} <=> $local_hits->{$b} } keys %$local_hits) { =%>
+            <tr>
+                <td><%= $place %></td>
+                <td><%= $local_hits->{$place} %></td>
+            </tr>
+        <% } =%>
+    </table>
+<% } else { =%>
+    (<%=l 'None' %>)
+<% } =%>
+<br>
+
+<h3><%=l 'Both ways hits' %></h3>
+<% if (%$both_ways) { =%>
+    <table>
+        <tr>
+            <th><%=l 'Location<' %>/th>
+            <th><%=l 'Hits' %></th>
+        </tr>
+        <% foreach my $bw (reverse sort { $both_ways->{$a} <=> $both_ways->{$b} } keys %$both_ways) { =%>
+            <% $bw =~ s/\|/ \x{2194} /;   ## that's U+2194 LEFT RIGHT ARROW =%>
+            <td><%= $bw %> </td>
+            <td><%= $both_ways->{$bw} %></td>
+        <% } =%>
+    </table>
+<% } else { =%>
+    (<%=l 'None' %>)
+<% } =%>

@@ -1273,10 +1273,10 @@ sub hit_summary {
     my $count        = $self->ebt->get_count;
     my $hit_list     = $self->ebt->get_hit_list ($whoami);
     my $hs           = $self->ebt->get_hit_summary ($whoami, $activity, $count, $hit_list);
-    my $notes_dates  = $self->ebt->get_notes_dates;         ## for the chart
-    my $hits_dates   = $self->ebt->get_hits_dates;          ## for the chart
-    my $elem_travel_days = $self->ebt->get_elem_travel_days;
-    my $elem_travel_km   = $self->ebt->get_elem_travel_km;
+    my $notes_dates  = $self->ebt->get_notes_dates;                     ## for the chart
+    my $hits_dates   = $self->ebt->get_hits_dates ($whoami);            ## for the chart
+    my $elem_travel_days = $self->ebt->get_elem_travel_days ($whoami);  ## for the chart
+    my $elem_travel_km   = $self->ebt->get_elem_travel_km ($whoami);    ## for the chart
     $self->_log (debug => report 'hit_summary get', $t0, $count);
 
     $t0 = [gettimeofday];

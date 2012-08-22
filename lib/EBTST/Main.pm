@@ -1368,9 +1368,12 @@ sub calendar {
         }
     }
 
+    my $url = $self->url_for;
+    $url = '' if $url =~ /gen_output$/;
     $self->stash (
         title    => $section_titles{'calendar'},
         cal_data => $cal_data,
+        url      => $url,
     );
 }
 

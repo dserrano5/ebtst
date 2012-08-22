@@ -10,7 +10,7 @@
     <% my $first_cell = 1; foreach my $y (sort keys %$cal_data) { =%>
         <% my $va = $first_cell ? 'bottom' : 'top'; $first_cell = 0; =%>
         <td style="vertical-align: <%= $va %>; font-size: 9px">
-            <%== join '<br>', map { sprintf '<a href="#%s%s">%s</a>', $y, $_, l $EBTST::Main::months{0+$_} } sort keys %{ $cal_data->{$y} } %>
+            <%== join '<br>', map { sprintf '<a href="%s#%s%s">%s</a>', $url, $y, $_, l $EBTST::Main::months{0+$_} } sort keys %{ $cal_data->{$y} } %>
         </td>
     <% } =%>
     </tr>

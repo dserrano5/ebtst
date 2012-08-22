@@ -238,6 +238,7 @@ Hits with same kilometers and days = Hits con el mismo número de kilómetros y 
 None = Ninguno
 
 ## calendar
+Top = Arriba
 First day! = ¡Primer día!
 Anniversary = Aniversario
 EBT day = Día

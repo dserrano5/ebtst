@@ -1,5 +1,6 @@
 <h2><%=l 'Calendar' %></h2>
 
+<a name="top"></a>
 <table>
     <tr>
     <% foreach my $y (sort keys %$cal_data) { =%>
@@ -22,7 +23,10 @@
         <table style="padding-top: 20px">
             <tr>
                 <a name="<%= "$y$m" %>"></a>
-                <th colspan="7" style="text-align: center; padding: 5px 0px 5px 0px"><%= join ' ', (l $EBTST::Main::months{0+$m}), $y %></th>
+                <th colspan="7" style="text-align: center; padding: 5px 0px 5px 0px">
+                    <%= join ' ', (l $EBTST::Main::months{0+$m}), $y %>
+                    <div style="float: right; padding-right: 15px"><a href="<%= $url %>#top"><%=l 'Top' %></a></div>
+                </th>
             </tr>
             <tr>
             <% foreach my $dow (1..7) { =%>

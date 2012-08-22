@@ -28,7 +28,7 @@
         </tr>
         <% foreach my $their_loc (@$their_locs) { =%>
             <tr>
-                <td><img src="images/countries/<%=$their_loc->{'country'} %>"> $their_loc->{'city'}</td>
+                <td><img src="images/countries/<%= $their_loc->{'country'} %>.gif"> $their_loc->{'city'}</td>
                 <td><%= $their_loc->{'hits'} %></td>
                 <td><%= sprintf '%.2f', $their_loc->{'hits_pct'} %>%</td>
             </tr>
@@ -53,7 +53,7 @@
                 <% my ($from, $to) = split /\|/, $arrow->{'fromto'}, 2; =%>
                 <% my ($from_country, $from_city) = split /,/, $from, 2; =%>
                 <% my ($to_country, $to_city) = split /,/, $to, 2; =%>
-                <td><img src="images/countries/<%= $from_country %>"> <%= $from_city %> → <img src="images/countries/<%= $to_country %>"> <%= $to_city %></td>
+                <td><img src="images/countries/<%= $from_country %>.gif"> <%= $from_city %> → <img src="images/countries/<%= $to_country %>.gif"> <%= $to_city %></td>
                 <td><%= $arrow->{'num'} %></td>
                 <td><%= sprintf '%.2f', $arrow->{'pct'} %></td>
             </tr>

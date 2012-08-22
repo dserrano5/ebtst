@@ -902,28 +902,30 @@ sub hit_list {
             my @done;
             foreach my $pas_hit (sort { $a->{'hit_date'} cmp $b->{'hit_date'} } values %passive_pending) {
                 next if 1 != ($hr->[DATE_ENTERED] cmp $pas_hit->{'hit_date'});
-                $pas_hit->{'notes'} = $notes_elapsed-1;
                 push @done, $pas_hit->{'serial'};
 
                 $pas_hit->{'moderated'} or $hit_no++;
                 $hit_no2++;
 
-                $pas_hit->{'hit_no'} = $hit_no;
-                $pas_hit->{'hit_no2'} = $hit_no2;
-                $pas_hit->{'old_hit_ratio'} = ($hit_no > 1 ? ($notes_elapsed-1)/($hit_no-1) : undef);
-                $pas_hit->{'new_hit_ratio'} = ($notes_elapsed-1)/$hit_no;
-                $pas_hit->{'notes_between'} = $notes_between;
-                $pas_hit->{'days_between'}  = DateTime->new (
-                    zip @{[qw/year month day hour minute second/]}, @{[ split /[\s:-]/, $pas_hit->{'hit_date'} ]}
-                )->delta_days ($prev_hit_dt)->delta_days;
-                $pas_hit->{'days_between'}-- if $pas_hit->{'days_between'};
-                $prev_hit_dt = DateTime->new (
-                    zip @{[qw/year month day hour minute second/]}, @{[ split /[\s:-]/, $pas_hit->{'hit_date'} ]}
-                );
+                if (!$pas_hit->{'moderated'}) {
+                    $pas_hit->{'hit_no'} = $hit_no;
+                    $pas_hit->{'hit_no2'} = $hit_no2;
+                    $pas_hit->{'notes'} = $notes_elapsed-1;
+                    $pas_hit->{'old_hit_ratio'} = ($hit_no > 1 ? ($notes_elapsed-1)/($hit_no-1) : undef);
+                    $pas_hit->{'new_hit_ratio'} = ($notes_elapsed-1)/$hit_no;
+                    $pas_hit->{'notes_between'} = $notes_between;
+                    $pas_hit->{'days_between'}  = DateTime->new (
+                        zip @{[qw/year month day hour minute second/]}, @{[ split /[\s:-]/, $pas_hit->{'hit_date'} ]}
+                    )->delta_days ($prev_hit_dt)->delta_days;
+                    $pas_hit->{'days_between'}-- if $pas_hit->{'days_between'};
+                    $prev_hit_dt = DateTime->new (
+                        zip @{[qw/year month day hour minute second/]}, @{[ split /[\s:-]/, $pas_hit->{'hit_date'} ]}
+                    );
 
-                push @{ $ret{'hits_dates'} }, $pas_hit->{'hit_date'};
-                $ret{'elem_travel_days'} .= $pas_hit->{'days'} . ',';
-                $ret{'elem_travel_km'} .= $pas_hit->{'km'} . ',';
+                    push @{ $ret{'hits_dates'} }, $pas_hit->{'hit_date'};
+                    $ret{'elem_travel_days'} .= $pas_hit->{'days'} . ',';
+                    $ret{'elem_travel_km'} .= $pas_hit->{'km'} . ',';
+                }
             }
             if (@done) {
                 $notes_between = 0;    ## 0 because it would be -1 plus 1 for having already started another loop iteration
@@ -941,7 +943,7 @@ sub hit_list {
             $hit_no2++;
         }
         my $entry = {
-            hit_no        => $hit_no,
+            hit_no        => ($hit->{'moderated'} ? undef : $hit_no),
             hit_no2       => $hit_no2,
             dates         => [ map { $_->{'date_entered'} } @{ $hit->{'parts'} } ],
             hit_date      => $hit->{'hit_date'},

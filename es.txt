@@ -190,6 +190,8 @@ Insert month = Mes de registro
 ## hit locations
 My city = Mi ciudad
 Frequent Locations (Hit Partners') = Localidades habituales (de los compañeros de hit)
+Altogether hit partners in = En total hay compañeros de hit en
+different locations = localidades distintas
 Frequent Directions = Direcciones habituales
 Local Hits = Hits locales
 Both ways hits = Hits en ambos sentidos

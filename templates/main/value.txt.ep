@@ -10,7 +10,7 @@
 [tr][td]<%=l 'Note' %>[/td][td] ❘ <%=l 'was the first' %>[/td][td] ❘ <%=l 'entered on' %>[/td][td] ❘ <%=l 'in' %>[/td][/tr]\
 <% for my $elem (@$fbval) { =%>
     [tr]\
-        [td]<%= $elem->{'at'} %>[/td]\
+        [td][url=https://eurobilltracker.com/notes/?id=<%= $elem->{'id'} %>]<%= $elem->{'at'} %>[/url][/td]\
         [td] ❘ :note-<%= $elem->{'value'} %>:[/td]\
         [td] ❘ <%= $elem->{'on'} %>[/td]\
         [td] ❘ <%= $elem->{'city'} %> <%= $elem->{'bbflag2'} %>[/td]\

@@ -55,7 +55,7 @@
     </tr>
 </table>
 <br>
-<%=l 'Next hit should occur on average on' %> <b><%= $hs->{'days_forecast'} %></b> (<%==l "or it's a dry spell" %> <img src="http://forum.eurobilltracker.com/images/smilies/icon_wink.gif">)<br>
+<%=l 'Next hit should occur on average on' %> <b><%= $hs->{'days_forecast'} %></b> (<%==l "or it's a dry spell" %> <img src="https://forum.eurobilltracker.com/images/smilies/icon_wink.gif">)<br>
 <br>
 <table>
     <tr>

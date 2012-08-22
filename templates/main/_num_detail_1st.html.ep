@@ -59,6 +59,6 @@
 
 <h2><%= $first_title %></h2>
 <% for my $elem (@$first_by) { %>
-    <%=l 'Note' %> <%= $elem->{'at'} %> <%=l 'was the first from' %> <img src="images/countries/<%= $elem->{'imgname'} %>.gif"> <b><%= $elem->{$first_from} %></b>
+    <a href="https://eurobilltracker.com/notes/?id=<%= $elem->{'id'} %>"><%=l 'Note' %> <%= $elem->{'at'} %></a> <%=l 'was the first from' %> <img src="images/countries/<%= $elem->{'imgname'} %>.gif"> <b><%= $elem->{$first_from} %></b>
     (<img src="images/values/<%= $elem->{'value'} %>.gif"> <%=l 'entered on' %> <%= $elem->{'on'} %> <%=l 'in' %> <%= $elem->{'city'} %> <img src="images/countries/<%= $elem->{'imgname2'} %>.gif">)<br>
 <% } %>

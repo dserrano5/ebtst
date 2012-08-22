@@ -231,7 +231,8 @@ sub value {
     my $first_by;
     foreach my $value (sort { $data_first->{$a}{'at'} <=> $data_first->{$b}{'at'} } keys %$data_first) {
         push @$first_by, {
-            value => $value,
+            value    => $value,
+            id       => $data_first->{$value}{'id'},
             at       => $data_first->{$value}{'at'},
             on       => (split ' ', $data_first->{$value}{'date_entered'})[0],
             city     => $data_first->{$value}{'city'},
@@ -382,6 +383,7 @@ sub _num_detail_1st {
                 (pc => $code1)
             ),
             at       => $data_first->{$code1}{'at'},
+            id       => $data_first->{$code1}{'id'},
             imgname  => EBT2->$method1 ($code1),
             bbflag   => EBT2->flag (EBT2->$method1 ($code1)),
             value    => $data_first->{$code1}{'value'},
@@ -675,6 +677,7 @@ sub short_codes {
                     cc_flag => EBT2->flag (EBT2->countries ($cc)),
                     pc_str  => $pc_str,
                     cc_str  => $cc_str,
+                    id      => $records->{$what}{'id'},
                     value   => $records->{$what}{'value'},
                     date    => (split ' ', $records->{$what}{'date_entered'})[0],
                     recent  => $records->{$what}{'recent'},

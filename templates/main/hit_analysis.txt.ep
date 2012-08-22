@@ -27,7 +27,7 @@
             [td][b]<%= $hit->{'hit_no'} %>.[/b][/td]\
             [td] ❘ <%= ((split ' ', $hit->{'hit_date'})[0]) %>[/td]\
             [td] ❘ :note-<%= $hit->{'value'} %>:[/td]\
-            [td] ❘ <%= $hit->{'serial'} %>[/td]\
+            [td] ❘ [url=https://eurobilltracker.com/notes/?id=<%= $hit->{'id'} %>]<%= $hit->{'serial'} %>[/url][/td]\
             [td] ❘ <%= $flags %>[/td]\
             [td] ❘ <%= $cities %>[/td]\
             [td] ❘ <%= $hit->{'km'} %>[/td]\

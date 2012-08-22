@@ -13,7 +13,7 @@ use EBT2::Data;
 use EBT2::Constants ':all';
 
 ## whenever there are changes in any stats format, this has to be increased in order to detect users with old stats formats
-our $STATS_VERSION = '20120822-01';
+our $STATS_VERSION = '20120822-02';
 
 sub mean { return sum(@_)/@_; }
 
@@ -48,6 +48,7 @@ sub bundle_information {
                 value   => $hr->[VALUE],
                 city    => $hr->[CITY],
                 country => $hr->[COUNTRY],
+                id      => $hr->[ID],
             };
         }
         $active_days{$date_entered}++;  ## number of notes
@@ -365,6 +366,7 @@ sub huge_table {
 
         $ret{'huge_table'}{$plate}{ $hr->[VALUE] }{$serial}{'count'}++;
         $ret{'huge_table'}{$plate}{ $hr->[VALUE] }{$serial}{'recent'} = $hr->[RECENT];  ## since @$iter is ordered, we'll get the latest value
+        #$ret{'huge_table'}{$plate}{ $hr->[VALUE] }{$serial}{'last_id'} = $hr->[ID];
     }
 
     return \%ret;
@@ -801,17 +803,18 @@ sub notes_by_combination {
     foreach my $hr (@$iter) {
         next if $hr->[ERRORS];
         my $comb1 = sprintf '%s%s',   (substr $hr->[SHORT_CODE], 0, 1), (substr $hr->[SERIAL], 0, 1);
-        my $comb2 = sprintf '%s%s%s', (substr $hr->[SHORT_CODE], 0, 1), (substr $hr->[SERIAL], 0, 1), $hr->[VALUE];
+        #my $comb2 = sprintf '%s%s%s', (substr $hr->[SHORT_CODE], 0, 1), (substr $hr->[SERIAL], 0, 1), $hr->[VALUE];
         my ($sig) = $hr->[SIGNATURE] =~ /^(\w+)/ or next;
 
         $ret{'notes_by_combination'}{'any'}{$comb1}{'total'}++;
-        $ret{'notes_by_combination'}{'any'}{$comb1}{ $hr->[VALUE] }++;
-        #$ret{'notes_by_combination_with_value'}{'any'}{$comb2}{'total'}++;   ## 20110406: a ver si comentar esto no rompe nada
-        $ret{'notes_by_combination_with_value'}{'any'}{$comb2}{ $hr->[VALUE] }++;
+        $ret{'notes_by_combination'}{'any'}{$comb1}{ $hr->[VALUE] }{'count'}++;
+        $ret{'notes_by_combination'}{'any'}{$comb1}{ $hr->[VALUE] }{'last_id'} = $hr->[ID];
+        #$ret{'notes_by_combination_with_value'}{'any'}{$comb2}{ $hr->[VALUE] }++;
 
         $ret{'notes_by_combination'}{$sig}{$comb1}{'total'}++;
-        $ret{'notes_by_combination'}{$sig}{$comb1}{ $hr->[VALUE] }++;
-        $ret{'notes_by_combination_with_value'}{$sig}{$comb2}{ $hr->[VALUE] }++;
+        $ret{'notes_by_combination'}{$sig}{$comb1}{ $hr->[VALUE] }{'count'}++;
+        $ret{'notes_by_combination'}{$sig}{$comb1}{ $hr->[VALUE] }{'last_id'} = $hr->[ID];
+        #$ret{'notes_by_combination_with_value'}{$sig}{$comb2}{ $hr->[VALUE] }++;
     }
 
     return \%ret;
@@ -826,8 +829,8 @@ sub plate_bingo {
     for my $v (keys %{ $EBT2::config{'sigs'} }) {
         for my $cc (keys %{ $EBT2::config{'sigs'}{$v} }) { 
             for my $plate (keys %{ $EBT2::config{'sigs'}{$v}{$cc} }) { 
-                $ret{'plate_bingo'}{$v}{$plate} = 0; 
-                $ret{'plate_bingo'}{'all'}{$plate} = 0; 
+                $ret{'plate_bingo'}{$v}{$plate}{'count'} = 0;
+                $ret{'plate_bingo'}{'all'}{$plate}{'count'} = 0;
             }    
         }    
     }
@@ -836,18 +839,10 @@ sub plate_bingo {
     foreach my $hr (@$iter) {
         next if $hr->[ERRORS];
         my $plate = substr $hr->[SHORT_CODE], 0, 4;
-        #if (
-        #    !exists $ret{'plate_bingo'}{ $hr->[VALUE] }{$plate} or
-        #    'err' eq $ret{'plate_bingo'}{ $hr->[VALUE] }{$plate}
-        #) {
-        #    ## unreached
-        #    warn sprintf "invalid note: plate '%s' doesn't exist for value '%s' and country '%s'\n",
-        #        $plate, $hr->[VALUE], substr $hr->[SERIAL], 0, 1;
-        #    $ret{'plate_bingo'}{ $hr->[VALUE] }{$plate} = 'err';
-        #} else {
-            $ret{'plate_bingo'}{ $hr->[VALUE] }{$plate}++;
-            $ret{'plate_bingo'}{ 'all' }{$plate}++;
-        #}
+        $ret{'plate_bingo'}{ $hr->[VALUE] }{$plate}{'count'}++;
+        $ret{'plate_bingo'}{ $hr->[VALUE] }{$plate}{'last_id'} = $hr->[ID];
+        $ret{'plate_bingo'}{ 'all' }{$plate}{'count'}++;
+        $ret{'plate_bingo'}{ 'all' }{$plate}{'last_id'} = $hr->[ID];
     }
 
     return \%ret;
@@ -951,6 +946,7 @@ sub hit_list {
             value         => $hr->[VALUE],
             serial        => $hr->[SERIAL],
             short_code    => $hr->[SHORT_CODE],
+            id            => $hr->[ID],
             countries     => [ map { $_->{'country'} } @{ $hit->{'parts'} } ],
             cities        => [ map { $_->{'city'} } @{ $hit->{'parts'} } ],
             km            => $hit->{'tot_km'},

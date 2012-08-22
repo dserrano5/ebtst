@@ -14,12 +14,12 @@
     <% foreach my $elem (@{ $sc->{'all'} }) { %>
     <tr>
         <td><img src="images/countries/<%= $elem->{'lo'}{'pc_img'} %>.gif"> <%= $elem->{'lo'}{'pc_str'} %></td>
-        <td><img src="images/countries/<%= $elem->{'lo'}{'cc_img'} %>.gif"> <%= $elem->{'lo'}{'cc_str'} %></td>
+        <td><img src="images/countries/<%= $elem->{'lo'}{'cc_img'} %>.gif"> <a href="https://eurobilltracker.com/notes/?id=<%= $elem->{'lo'}{'id'} %>"><%= $elem->{'lo'}{'cc_str'} %></a></td>
         <td><img src="images/values/<%= $elem->{'lo'}{'value'} %>.gif"></td>
         <td><%= $elem->{'lo'}{'date'} %><span class="recent_<%= $elem->{'lo'}{'recent'} %>"></span></td>
         <td class="invisible_cell small_cell"></td>
         <td><img src="images/countries/<%= $elem->{'hi'}{'pc_img'} %>.gif"> <%= $elem->{'hi'}{'pc_str'} %></td>
-        <td><img src="images/countries/<%= $elem->{'hi'}{'cc_img'} %>.gif"> <%= $elem->{'hi'}{'cc_str'} %></td>
+        <td><img src="images/countries/<%= $elem->{'hi'}{'cc_img'} %>.gif"> <a href="https://eurobilltracker.com/notes/?id=<%= $elem->{'hi'}{'id'} %>"><%= $elem->{'hi'}{'cc_str'} %></a></td>
         <td><img src="images/values/<%= $elem->{'hi'}{'value'} %>.gif"></td>
         <td><%= $elem->{'hi'}{'date'} %><span class="recent_<%= $elem->{'hi'}{'recent'} %>"></span></td>
     </tr>
@@ -43,11 +43,11 @@
             <% if (defined $elem) { %>
             <tr>
                 <td><img src="images/countries/<%= $elem->{'lo'}{'pc_img'} %>.gif"> <%= $elem->{'lo'}{'pc_str'} %></td>
-                <td><img src="images/countries/<%= $elem->{'lo'}{'cc_img'} %>.gif"> <%= $elem->{'lo'}{'cc_str'} %></td>
+                <td><img src="images/countries/<%= $elem->{'lo'}{'cc_img'} %>.gif"> <a href="https://eurobilltracker.com/notes/?id=<%= $elem->{'lo'}{'id'} %>"><%= $elem->{'lo'}{'cc_str'} %></a></td>
                 <td><%= $elem->{'lo'}{'date'} %><span class="recent_<%= $elem->{'lo'}{'recent'} %>"></span></td>
                 <td class="invisible_cell small_cell"></td>
                 <td><img src="images/countries/<%= $elem->{'hi'}{'pc_img'} %>.gif"> <%= $elem->{'hi'}{'pc_str'} %></td>
-                <td><img src="images/countries/<%= $elem->{'hi'}{'cc_img'} %>.gif"> <%= $elem->{'hi'}{'cc_str'} %></td>
+                <td><img src="images/countries/<%= $elem->{'hi'}{'cc_img'} %>.gif"> <a href="https://eurobilltracker.com/notes/?id=<%= $elem->{'hi'}{'id'} %>"><%= $elem->{'hi'}{'cc_str'} %></a></td>
                 <td><%= $elem->{'hi'}{'date'} %><span class="recent_<%= $elem->{'hi'}{'recent'} %>"></span></td>
             </tr>
             <% } %>

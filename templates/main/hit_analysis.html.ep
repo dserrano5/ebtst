@@ -34,7 +34,7 @@
             <td class="small_cell"><%= $hit->{'hit_no'} %></td>
             <td class="small_cell"><%= ((split ' ', $hit->{'hit_date'})[0]) %><%# syntax error without additional parens... %></td>
             <td class="small_cell"><img src="images/values/<%= $hit->{'value'} %>.gif"></td>
-            <td class="small_cell"><%= $hit->{'serial'} %></td>
+            <td class="small_cell"><a href="https://eurobilltracker.com/notes/?id=<%= $hit->{'id'} %>"><%= $hit->{'serial'} %></a></td>
             <td class="small_cell"><%== join ' ', map { qq[<img src="images/countries/$_.gif">] } @{ $hit->{'countries'} } %></td>
             <td class="small_cell"><%== join ',<br>', @{ $hit->{'cities'} } %></td>
             <td class="small_cell"><%= $hit->{'km'} %></td>
@@ -82,7 +82,7 @@
                 <tr>
                     <td class="small_cell"><%= $hit->{'hit_date'} %></td>
                     <td class="small_cell"><img src="images/values/<%= $hit->{'value'} %>.gif"></td>
-                    <td class="small_cell"><%= $hit->{'serial'} %></td>
+                    <td class="small_cell"><a href="https://eurobilltracker.com/notes/?id=<%= $hit->{'id'} %>"><%= $hit->{'serial'} %></a></td>
                     <td class="small_cell"><%== join ' ', map { qq[<img src="images/countries/$_.gif">] } @{ $hit->{'countries'} } %></td>
                     <td class="small_cell"><%== join ',<br>', @{ $hit->{'cities'} } %></td>
                     <td class="small_cell"><%= $hit->{'km'} %></td>

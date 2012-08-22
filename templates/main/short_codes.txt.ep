@@ -2,7 +2,7 @@
 [table]\
 [tr][td]<%=l 'Short code' %>[/td][td] ❘ <%=l 'Country' %>[/td][td] ❘ <%=l 'Value' %>[/td][td] ❘ <%=l 'entered on' %>[/td][/tr]\
 <% foreach my $elem (@{ $sc->{'all'} }) { =%>
-    [tr][td] <%= $elem->{'hi'}{'pc_flag'} %> <%= $elem->{'hi'}{'pc_str'} %>[/td][td] ❘ <%= $elem->{'hi'}{'cc_flag'} %> <%= $elem->{'hi'}{'cc_str'} %>[/td][td] ❘ :note-<%= $elem->{'hi'}{'value'} %>:[/td][td] ❘ <%= $elem->{'hi'}{'date'} %>[/td][/tr]\
+    [tr][td] <%= $elem->{'hi'}{'pc_flag'} %> <%= $elem->{'hi'}{'pc_str'} %>[/td][td] ❘ <%= $elem->{'hi'}{'cc_flag'} %> [url=https://eurobilltracker.com/notes/?id=<%= $elem->{'hi'}{'id'} %>]<%= $elem->{'hi'}{'cc_str'} %>[/url][/td][td] ❘ :note-<%= $elem->{'hi'}{'value'} %>:[/td][td] ❘ <%= $elem->{'hi'}{'date'} %>[/td][/tr]\
 <% } =%>
 [/table]
 
@@ -13,7 +13,7 @@
     [tr][td]<%=l 'Short code' %>[/td][td] ❘ <%=l 'Country' %>[/td][td] ❘ <%=l 'entered on' %>[/td][/tr]\
     <% foreach my $elem (@{ $sc->{$v} }) { =%>
         <% if (defined $elem) { =%>
-            [tr][td] <%= $elem->{'hi'}{'pc_flag'} %> <%= $elem->{'hi'}{'pc_str'} %>[/td][td] ❘ <%= $elem->{'hi'}{'cc_flag'} %> <%= $elem->{'hi'}{'cc_str'} %>[/td][td] ❘ <%= $elem->{'hi'}{'date'} %>[/td][/tr]\
+            [tr][td] <%= $elem->{'hi'}{'pc_flag'} %> <%= $elem->{'hi'}{'pc_str'} %>[/td][td] ❘ <%= $elem->{'hi'}{'cc_flag'} %> [url=https://eurobilltracker.com/notes/?id=<%= $elem->{'hi'}{'id'} %>]<%= $elem->{'hi'}{'cc_str'} %>[/url][/td][td] ❘ <%= $elem->{'hi'}{'date'} %>[/td][/tr]\
         <% } =%>
     <% } =%>
     <% if ($v != ${ EBT2->values }[-1]) { %>[tr][td]<%= ".\xa0" %>[/td][/tr][tr][td]<%= ".\xa0" %>[/td][/tr]<% } =%>

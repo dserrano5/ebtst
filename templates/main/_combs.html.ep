@@ -34,11 +34,11 @@
                             <% $total{$v}++; =%>
                             <% $total_values_in_comb++; =%>
                             <% if (exists $nbcombo->{$sig}{$k} and exists $nbcombo->{$sig}{$k}{$v}) { =%>
-                                <% $seen{$v}++; $row_sum += $nbcombo->{$sig}{$k}{$v}; =%>
-                                <% $val_totals{$v} += $nbcombo->{$sig}{$k}{$v}; =%>
+                                <% $seen{$v}++; $row_sum += $nbcombo->{$sig}{$k}{$v}{'count'}; =%>
+                                <% $val_totals{$v} += $nbcombo->{$sig}{$k}{$v}{'count'}; =%>
                                 <% $seen_values_in_comb++; =%>
                             <% } =%>
-                            <% push @cols, { color => (color $nbcombo->{$sig}{$k}{$v}, 'notes'), v => $v, num => $nbcombo->{$sig}{$k}{$v}//0 }; =%>
+                            <% push @cols, { color => (color $nbcombo->{$sig}{$k}{$v}{'count'}, 'notes'), v => $v, num => $nbcombo->{$sig}{$k}{$v}{'count'}//0, id => $nbcombo->{$sig}{$k}{$v}{'last_id'} }; =%>
                         <% } else { =%>
                             <% push @cols, undef; =%><%# shouldn't happen since this code doesn't receive bad notes %>
                         <% } =%>
@@ -65,7 +65,11 @@
                             <% } =%>
                         <% } else { =%>
                             <% my $pct = sprintf '%.2f', $val_totals{ $col->{'v'} } ? (100 * $col->{'num'} / $val_totals{ $col->{'v'} }) : 0; =%>
-                            <td><span style="color: <%= $col->{'color'} %>"><%= $pct %>%</span></td>
+                            <% if (1 == $col->{'num'}) { =%>
+                                <td><a href="https://eurobilltracker.com/notes/?id=<%= $col->{'id'} %>"><span style="color: <%= $col->{'color'} %>"><%= $pct %>%</span></a></td>
+                            <% } else { =%>
+                                <td><span style="color: <%= $col->{'color'} %>"><%= $pct %>%</span></td>
+                            <% } =%>
                         <% } =%>
                     <% } else { =%>
                         <td><div class="bingo_na"></div></td>

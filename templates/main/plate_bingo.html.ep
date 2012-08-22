@@ -13,12 +13,16 @@
                     <% my $color; %>
                     <% if (exists $elem->{'plates'}{$plate}) { %>
                         <% $total{$printer}++; %>
-                        <% if ($elem->{'plates'}{$plate}) { %>
+                        <% if ($elem->{'plates'}{$plate}{'count'}) { %>
                             <% $seen{$printer}++; %>
-                            <% if ('err' eq $elem->{'plates'}{$plate}) { %><%# shouldn't happen since this code doesn't receive bad notes %>
+                            <% if ('err' eq $elem->{'plates'}{$plate}{'count'}) { %><%# shouldn't happen since this code doesn't receive bad notes %>
                                 <td class="small_cell"><div class="bingo_err"></div></td>
                             <% } else { %>
-                                <td class="small_cell"><span style="color: <%= color $elem->{'plates'}{$plate}, 'notes' %>"><%= $plate %></span></td>
+                                <% if (1 == $elem->{'plates'}{$plate}{'count'}) { =%>
+                                    <td class="small_cell"><a href="https://eurobilltracker.com/notes/?id=<%= $elem->{'plates'}{$plate}{'last_id'} %>"><span style="color: <%= color $elem->{'plates'}{$plate}{'count'}, 'notes' %>"><%= $plate %></span></a></td>
+                                <% } else { =%>
+                                    <td class="small_cell"><span style="color: <%= color $elem->{'plates'}{$plate}{'count'}, 'notes' %>"><%= $plate %></span></td>
+                                <% } =%>
                             <% } %>
                         <% } else { %>
                             <td class="small_cell"><span style="color: <%= color 0, 'notes' %>"><%= $plate %></span></td>

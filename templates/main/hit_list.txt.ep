@@ -4,18 +4,7 @@
 <% foreach my $hit (@$hit_list) { =%>
 <% my $flags = join ' ', map { EBT2->flag ($_) } @{ $hit->{'countries'} }; =%>
 <% my $cities = join ' :arrow: ', map { "[b]${_}[/b]" } @{ $hit->{'cities'} };=%>
-<% my $before = 1; my @hit_partners; =%>
-<% foreach my $p (@{ $hit->{'hit_partners'} }) { =%>
-<%     if ($p eq $whoami->{'name'}) { $before = 0; next; } =%>
-<%     my ($hit_color, $hit_direction); =%>
-<%     if ($before) { =%>
-<%         ($hit_color, $hit_direction) = ('darkred', l 'from'); =%>
-<%     } else { =%>
-<%         ($hit_color, $hit_direction) = ('darkblue', l 'to'); =%>
-<%     } =%>
-<%     push @hit_partners, "[color=$hit_color]${hit_direction}[/color]", $p; =%>
-<% } =%>
-<% my $hit_partners = join ' ', @hit_partners; =%>
+<% my $hit_partners = $self->hit_partners ('txt', $whoami->{'id'}, $hit->{'hit_partners'}, $hit->{'hit_partner_ids'}); =%>
 [tr]\
     [td][b]<%= $hit->{'hit_no'} %>.[/b][/td]\
     [td] ❘ <%= ((split ' ', $hit->{'hit_date'})[0]) %>[/td]\

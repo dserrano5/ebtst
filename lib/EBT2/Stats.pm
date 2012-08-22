@@ -13,7 +13,7 @@ use EBT2::Data;
 use EBT2::Constants ':all';
 
 ## whenever there are changes in any stats format, this has to be increased in order to detect users with old stats formats
-our $STATS_VERSION = '20120822-02';
+our $STATS_VERSION = '20120822-03';
 
 sub mean { return sum(@_)/@_; }
 
@@ -938,22 +938,23 @@ sub hit_list {
             $hit_no2++;
         }
         my $entry = {
-            hit_no        => ($hit->{'moderated'} ? undef : $hit_no),
-            hit_no2       => $hit_no2,
-            dates         => [ map { $_->{'date_entered'} } @{ $hit->{'parts'} } ],
-            hit_date      => $hit->{'hit_date'},
-            dow           => $hit->{'dow'},
-            value         => $hr->[VALUE],
-            serial        => $hr->[SERIAL],
-            short_code    => $hr->[SHORT_CODE],
-            id            => $hr->[ID],
-            countries     => [ map { $_->{'country'} } @{ $hit->{'parts'} } ],
-            cities        => [ map { $_->{'city'} } @{ $hit->{'parts'} } ],
-            km            => $hit->{'tot_km'},
-            days          => $hit->{'tot_days'},
-            hit_partners  => [ map { $_->{'user_name'} } @{ $hit->{'parts'} } ],
-            note_no       => $hr->[NOTE_NO],
-            moderated     => $hit->{'moderated'},
+            hit_no          => ($hit->{'moderated'} ? undef : $hit_no),
+            hit_no2         => $hit_no2,
+            dates           => [ map { $_->{'date_entered'} } @{ $hit->{'parts'} } ],
+            hit_date        => $hit->{'hit_date'},
+            dow             => $hit->{'dow'},
+            value           => $hr->[VALUE],
+            serial          => $hr->[SERIAL],
+            short_code      => $hr->[SHORT_CODE],
+            id              => $hr->[ID],
+            countries       => [ map { $_->{'country'} } @{ $hit->{'parts'} } ],
+            cities          => [ map { $_->{'city'} } @{ $hit->{'parts'} } ],
+            km              => $hit->{'tot_km'},
+            days            => $hit->{'tot_days'},
+            hit_partners    => [ map { $_->{'user_name'} } @{ $hit->{'parts'} } ],
+            hit_partner_ids => [ map { $_->{'user_id'} } @{ $hit->{'parts'} } ],
+            note_no         => $hr->[NOTE_NO],
+            moderated       => $hit->{'moderated'},
         };
         if (!$hit->{'moderated'} and $active) {
             $entry->{'notes'} = $notes_elapsed;

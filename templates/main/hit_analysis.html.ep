@@ -20,16 +20,7 @@
         <th><%=l 'Note number' %></th>
     </tr>
     <% foreach my $hit (@{ $table->{'array'} }) { %>
-    <% my $before = 1; my @hit_partners; =%>
-    <% foreach my $p (@{ $hit->{'hit_partners'} }) { =%>
-    <%     if ($p eq $whoami->{'name'}) { $before = 0; next; } =%>
-    <%     if ($before) { =%>
-    <%         push @hit_partners, $p, '<img src="images/red_arrow.gif">'; =%>
-    <%     } else { =%>
-    <%         push @hit_partners, '<img src="images/blue_arrow.gif">', $p; =%>
-    <%     } =%>
-    <% } =%>
-    <% my $hit_partners = join ' ', @hit_partners; =%>
+        <% my $hit_partners = $self->hit_partners ('html', $whoami->{'id'}, $hit->{'hit_partners'}, $hit->{'hit_partner_ids'}); =%>
         <tr>
             <td class="small_cell"><%= $hit->{'hit_no'} %></td>
             <td class="small_cell"><%= ((split ' ', $hit->{'hit_date'})[0]) %><%# syntax error without additional parens... %></td>
@@ -69,16 +60,7 @@
                 <%= lc l 'Hit ratio' %>: <%= sprintf '%.2f', $lb->{'ratio'} %>
             </td>
             <% foreach my $hit (@{ $lb->{'hits'} }) { =%>
-            <% my $before = 1; my @hit_partners; =%>
-            <% foreach my $p (@{ $hit->{'hit_partners'} }) { =%>
-            <%     if ($p eq $whoami->{'name'}) { $before = 0; next; } =%>
-            <%     if ($before) { =%>
-            <%         push @hit_partners, $p, '<img src="images/red_arrow.gif">'; =%>
-            <%     } else { =%>
-            <%         push @hit_partners, '<img src="images/blue_arrow.gif">', $p; =%>
-            <%     } =%>
-            <% } =%>
-            <% my $hit_partners = join ' ', @hit_partners; =%>
+                <% my $hit_partners = $self->hit_partners ('html', $whoami->{'id'}, $hit->{'hit_partners'}, $hit->{'hit_partner_ids'}); =%>
                 <tr>
                     <td class="small_cell"><%= $hit->{'hit_date'} %></td>
                     <td class="small_cell"><img src="images/values/<%= $hit->{'value'} %>.gif"></td>

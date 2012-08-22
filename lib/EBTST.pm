@@ -119,6 +119,37 @@ sub helper_l2 {
     return $ret;
 }
 
+## for the hit templates
+sub helper_hit_partners {
+    my ($self, $mode, $my_id, $partners, $partner_ids) = @_;
+
+    my $before = 1;
+    my @visible;
+    foreach my $idx (0 .. $#$partners) {
+        my $name = $partners->[$idx];
+        my $id   = $partner_ids->[$idx];
+        if ($id eq $my_id) { $before = 0; next; }
+        if ($before) {
+            if ('html' eq $mode) {
+                push @visible,
+                    (sprintf '<a href="https://en.eurobilltracker.com/profile/?user=%s">%s</a>', $id, $name),
+                    '<img src="images/red_arrow.gif">';
+            } elsif ('txt' eq $mode) {
+                push @visible, sprintf "[color=darkred]%s[/color] [url=https://en.eurobilltracker.com/profile/?user=%s]%s[/url]", ($self->l ('from')), $id, $name;
+            }
+        } else {
+            if ('html' eq $mode) {
+                push @visible,
+                    '<img src="images/blue_arrow.gif">',
+                    (sprintf '<a href="https://en.eurobilltracker.com/profile/?user=%s">%s</a>', $id, $name);
+            } elsif ('txt' eq $mode) {
+                push @visible, sprintf "[color=darkblue]%s[/color] [url=https://en.eurobilltracker.com/profile/?user=%s]%s[/url]", ($self->l ('to')), $id, $name;
+            }
+        }
+    }
+    return join ' ', @visible;
+}
+
 sub startup {
     my ($self) = @_;
 
@@ -166,6 +197,7 @@ sub startup {
     $self->helper (ebt => \&helper_ebt);
     $self->helper (color => \&helper_color);
     $self->helper (l2 => \&helper_l2);
+    $self->helper (hit_partners => \&helper_hit_partners);
     $self->secret ('[12:36:04] gnome-screensaver-dialog: gkr-pam: unlocked login keyring');   ## :P
     $self->defaults (layout => 'online');
     $self->plugin ('I18N');

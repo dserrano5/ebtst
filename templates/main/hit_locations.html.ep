@@ -74,7 +74,7 @@
         <% foreach my $place (reverse sort { $local_hits->{$a} <=> $local_hits->{$b} } keys %$local_hits) { =%>
             <% my ($country, $city) = split /,/, $place, 2; =%>
             <tr>
-                <td><img src="images/countries/<%= $country %>.gif"><%= $city %></td>
+                <td><img src="images/countries/<%= $country %>.gif"> <%= $city %></td>
                 <td><%= $local_hits->{$place} %></td>
             </tr>
         <% } =%>
@@ -88,18 +88,18 @@
 <% if (%$both_ways) { =%>
     <table>
         <tr>
-            <th><%=l 'Location<' %>/th>
+            <th><%=l 'Location' %></th>
             <th><%=l 'Hits' %></th>
         </tr>
         <% foreach my $bw (reverse sort { $both_ways->{$a} <=> $both_ways->{$b} } keys %$both_ways) { =%>
-            <% my ($from, $to) = split /\|/, $both_ways->{$bw}, 2; =%>
+            <% my ($from, $to) = split /\|/, $bw, 2; =%>
             <% my ($from_country, $from_city) = split /,/, $from, 2; =%>
             <% my ($to_country, $to_city) = split /,/, $to, 2; =%>
             <tr>
                 <td>
-                    <img src="images/countries/<%= $from_country %>.gif"><%= $from_city =%>
+                    <img src="images/countries/<%= $from_country %>.gif"> <%= $from_city =%>
                     &#x2194;   <!-- that's U+2194 LEFT RIGHT ARROW -->
-                    <img src="images/countries/<%= $to_country %>.gif"><%= $to_city =%>
+                    <img src="images/countries/<%= $to_country %>.gif"> <%= $to_city =%>
                 </td>
                 <td><%= $both_ways->{$bw} %></td>
             </tr>

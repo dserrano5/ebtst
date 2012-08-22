@@ -1066,6 +1066,8 @@ sub hit_analysis {
             push @{ $ret{'hit_analysis'}{'lucky_bundles'} }, $notes_per_day{$date};
         }
     }
+    $ret{'hit_analysis'}{'lucky_bundles'} ||= [];
+    $ret{'hit_analysis'}{'other_hit_potential'} ||= [];
 
     ## sort lucky_bundles and other_hit_potential
     $ret{'hit_analysis'}{'lucky_bundles'} = [ reverse sort {

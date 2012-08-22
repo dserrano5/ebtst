@@ -61,7 +61,7 @@
         <th><%=l 'Partner(s)' %></th>
         <th><%=l 'Note number' %></th>
     </tr>
-    <% if ($lucky_bundles) { foreach my $lb (@$lucky_bundles) { =%>
+    <% if (@$lucky_bundles) { foreach my $lb (@$lucky_bundles) { =%>
         <tr>
             <td colspan="9" style="padding: 15px 15px 6px 10px">
                 <b><%= $lb->{'date'} %> - <%= $lb->{'num_hits'} %> <%=l 'hits' %></b> -
@@ -98,7 +98,7 @@
 
 <h3><%=l 'Other hit potential' %></h3>
 <% my $shown; =%>
-<% if ($other_hit_potential) { foreach my $ohp (@$other_hit_potential) { =%>
+<% if (@$other_hit_potential) { foreach my $ohp (@$other_hit_potential) { =%>
     <% $shown++; =%>
     <% my $plural_hits = $ohp->{'num_hits'} > 1 ? (l 'hits') : (l 'hit'); =%>
     <b><%= $ohp->{'date'} %></b> -

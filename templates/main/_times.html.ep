@@ -1,6 +1,6 @@
 <% no warnings 'qw'; use List::Util qw/sum/; =%>
 <% my %last_days = qw/01 31   02 29   03 31   04 30   05 31   06 30   07 31   08 31   09 30   10 31   11 30   12 31/; =%>
-<% my @legend_colors = 'notes' eq $what ? qw/1 50 100 500 1000/ : qw/1 2 3 5 10/; =%>
+<% my @legend_colors = 'notes' eq $color_what ? qw/1 50 100 500 1000/ : qw/1 2 3 5 10/; =%>
 <% my %color_counts; =%>
 
 <b><%=l 'Calendar' %></b><br>

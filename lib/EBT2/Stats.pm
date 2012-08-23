@@ -13,7 +13,7 @@ use EBT2::Data;
 use EBT2::Constants ':all';
 
 ## whenever there are changes in any stats format, this has to be increased in order to detect users with old stats formats
-our $STATS_VERSION = '20120822-03';
+our $STATS_VERSION = '20120823-01';
 
 sub mean { return sum(@_)/@_; }
 

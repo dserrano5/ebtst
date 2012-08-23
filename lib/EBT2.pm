@@ -115,6 +115,17 @@ sub get_checked_boxes { my ($self)        = @_; return $self->{'data'}->get_chec
 sub values            { return $config{'values'};     }
 sub presidents        { return $config{'presidents'}; }
 
+sub _warn {
+    my ($self, $msg) = @_;
+
+    if (open my $fd, '>>', '/tmp/EBT2.log') {   ## TODO: file lock
+        $msg =~ s/\n*$//;
+        my $user = (split m{/}, $self->{'data'}{'db'})[-2];   ## TODO: would need $self->{'user'} instead of this hack
+        printf $fd "%s: %s: %s\n", scalar localtime, ($user//'<no user>'), $msg;
+        close $fd;
+    }
+}
+
 our $AUTOLOAD;
 sub AUTOLOAD {
     my ($self, @args) = @_;
@@ -124,7 +135,7 @@ sub AUTOLOAD {
     return if $field eq 'DESTROY';
     if ($field =~ s/^get_//) {
         if (!$self->{'data'}{'notes'}) {
-            warn "'$field' was queried but there's no data\n";
+            $self->_warn ("'$field' was queried but there's no data");
             return undef;
         }
 
@@ -136,9 +147,9 @@ sub AUTOLOAD {
                 ## we have precomputed data and its version is ok: return it
                 return ref $self->{'data'}{$field} ? dclone $self->{'data'}{$field} : $self->{'data'}{$field};
             }
-        } else {
-            warn sprintf "version of stats '%s' is less than \$STATS_VERSION '$EBT2::Stats::STATS_VERSION', recalculating field '$field'\n",
-                ($self->{'data'}{'stats_version'} // '<undef>');
+        } elsif (defined $self->{'data'}{'stats_version'}) {
+            $self->_warn (sprintf q{version of stats '%s' is less than $STATS_VERSION '%s', recalculating field '%s'},
+                $EBT2::Stats::STATS_VERSION, $self->{'data'}{'stats_version'}, $field);
         }
 
         if ($self->{'stats'}->can ($field)) {    ## if we can JIT compute the value, do it

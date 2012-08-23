@@ -124,7 +124,7 @@
         <tr>
             <td><%= $hs->{'freq_partners'}{$p}{'partner'} %></td>
             <td><%= $hs->{'freq_partners'}{$p}{'hits'} %></td>
-            <td><%= sprintf '%.2f', 100 * $hs->{'freq_partners'}{$p}{'hits'} / $hs->{'total'} %></td>
+            <td><%= sprintf '%.2f', 100 * $hs->{'freq_partners'}{$p}{'hits'} / $hs->{'total'} %>%</td>
         </tr>
         <% last if ++$done >= 10; =%>
     <% } =%>

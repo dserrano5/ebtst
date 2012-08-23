@@ -1,5 +1,6 @@
 <% no warnings 'qw'; use List::Util qw/sum/; =%>
 <% my %last_days = qw/01 31   02 29   03 31   04 30   05 31   06 30   07 31   08 31   09 30   10 31   11 30   12 31/; =%>
+<% my @legend_colors = 'notes' eq $what ? qw/1 50 100 500 1000/ : qw/1 2 3 5 10/; =%>
 <% my %color_counts; =%>
 
 <b><%=l 'Calendar' %></b><br>
@@ -29,11 +30,11 @@
 </table>
 <% if ('detail' eq $mode) { =%>
     <b><%=l 'Colors' %></b>:
-    <span style="color: <%= color    1, $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-5..-1] %>/366</span>,
-    <span style="color: <%= color   51, $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-4..-1] %>/366</span>,
-    <span style="color: <%= color  101, $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-3..-1] %>/366</span>,
-    <span style="color: <%= color  501, $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-2..-1] %>/366</span>,
-    <span style="color: <%= color 1001, $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-1..-1] %>/366</span><br>
+    <span style="color: <%= color $legend_colors[0], $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-5..-1] %>/366</span>,
+    <span style="color: <%= color $legend_colors[1], $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-4..-1] %>/366</span>,
+    <span style="color: <%= color $legend_colors[2], $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-3..-1] %>/366</span>,
+    <span style="color: <%= color $legend_colors[3], $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-2..-1] %>/366</span>,
+    <span style="color: <%= color $legend_colors[4], $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-1..-1] %>/366</span><br>
 <% } else { =%>
     <b><%=l 'Days' %></b>: <%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-5..-1] %>/366<br>
 <% } =%>
@@ -58,11 +59,11 @@
         <% } %>
     </table>
     <b><%=l 'Colors' %></b>:
-    <span style="color: <%= color    1, $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-5..-1] %>/24</span>,
-    <span style="color: <%= color   51, $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-4..-1] %>/24</span>,
-    <span style="color: <%= color  101, $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-3..-1] %>/24</span>,
-    <span style="color: <%= color  501, $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-2..-1] %>/24</span>,
-    <span style="color: <%= color 1001, $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-1..-1] %>/24</span><br>
+    <span style="color: <%= color $legend_colors[0], $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-5..-1] %>/24</span>,
+    <span style="color: <%= color $legend_colors[1], $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-4..-1] %>/24</span>,
+    <span style="color: <%= color $legend_colors[2], $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-3..-1] %>/24</span>,
+    <span style="color: <%= color $legend_colors[3], $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-2..-1] %>/24</span>,
+    <span style="color: <%= color $legend_colors[4], $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-1..-1] %>/24</span><br>
 <% } else { =%>
     <b><%=l 'Hours' %></b><br>
     <% my $hour_count = 0; =%>
@@ -107,11 +108,11 @@
 </table>
 <% if ('detail' eq $mode) { =%>
     <b><%=l 'Colors' %></b>:
-    <span style="color: <%= color    1, $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-5..-1] %>/60</span>,
-    <span style="color: <%= color   51, $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-4..-1] %>/60</span>,
-    <span style="color: <%= color  101, $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-3..-1] %>/60</span>,
-    <span style="color: <%= color  501, $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-2..-1] %>/60</span>,
-    <span style="color: <%= color 1001, $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-1..-1] %>/60</span><br>
+    <span style="color: <%= color $legend_colors[0], $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-5..-1] %>/60</span>,
+    <span style="color: <%= color $legend_colors[1], $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-4..-1] %>/60</span>,
+    <span style="color: <%= color $legend_colors[2], $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-3..-1] %>/60</span>,
+    <span style="color: <%= color $legend_colors[3], $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-2..-1] %>/60</span>,
+    <span style="color: <%= color $legend_colors[4], $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-1..-1] %>/60</span><br>
 <% } else { =%>
     <b><%=l 'Minutes' %></b>: <%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-5..-1] %>/60<br>
 <% } =%>
@@ -141,11 +142,11 @@
 </table>
 <% if ('detail' eq $mode) { =%>
     <b><%=l 'Colors' %></b>:
-    <span style="color: <%= color    1, $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-5..-1] %>/60</span>,
-    <span style="color: <%= color   51, $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-4..-1] %>/60</span>,
-    <span style="color: <%= color  101, $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-3..-1] %>/60</span>,
-    <span style="color: <%= color  501, $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-2..-1] %>/60</span>,
-    <span style="color: <%= color 1001, $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-1..-1] %>/60</span><br>
+    <span style="color: <%= color $legend_colors[0], $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-5..-1] %>/60</span>,
+    <span style="color: <%= color $legend_colors[1], $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-4..-1] %>/60</span>,
+    <span style="color: <%= color $legend_colors[2], $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-3..-1] %>/60</span>,
+    <span style="color: <%= color $legend_colors[3], $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-2..-1] %>/60</span>,
+    <span style="color: <%= color $legend_colors[4], $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-1..-1] %>/60</span><br>
 <% } else { =%>
     <b><%=l 'Seconds' %></b>: <%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-5..-1] %>/60<br>
 <% } =%>
@@ -179,11 +180,11 @@
 </table>
 <% if ('detail' eq $mode) { =%>
     <b><%=l 'Colors' %></b>:
-    <span style="color: <%= color    1, $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-5..-1] %>/1440</span>,
-    <span style="color: <%= color   51, $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-4..-1] %>/1440</span>,
-    <span style="color: <%= color  101, $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-3..-1] %>/1440</span>,
-    <span style="color: <%= color  501, $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-2..-1] %>/1440</span>,
-    <span style="color: <%= color 1001, $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-1..-1] %>/1440</span><br>
+    <span style="color: <%= color $legend_colors[0], $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-5..-1] %>/1440</span>,
+    <span style="color: <%= color $legend_colors[1], $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-4..-1] %>/1440</span>,
+    <span style="color: <%= color $legend_colors[2], $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-3..-1] %>/1440</span>,
+    <span style="color: <%= color $legend_colors[3], $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-2..-1] %>/1440</span>,
+    <span style="color: <%= color $legend_colors[4], $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-1..-1] %>/1440</span><br>
 <% } else { =%>
     <b><%=l 'Minutes' %></b>: <%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-5..-1] %>/1440<br>
 <% } =%>
@@ -217,11 +218,11 @@
 </table>
 <% if ('detail' eq $mode) { =%>
     <b><%=l 'Colors' %></b>:
-    <span style="color: <%= color    1, $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-5..-1] %>/3660</span>,
-    <span style="color: <%= color   51, $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-4..-1] %>/3660</span>,
-    <span style="color: <%= color  101, $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-3..-1] %>/3660</span>,
-    <span style="color: <%= color  501, $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-2..-1] %>/3660</span>,
-    <span style="color: <%= color 1001, $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-1..-1] %>/3660</span><br>
+    <span style="color: <%= color $legend_colors[0], $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-5..-1] %>/3660</span>,
+    <span style="color: <%= color $legend_colors[1], $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-4..-1] %>/3660</span>,
+    <span style="color: <%= color $legend_colors[2], $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-3..-1] %>/3660</span>,
+    <span style="color: <%= color $legend_colors[3], $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-2..-1] %>/3660</span>,
+    <span style="color: <%= color $legend_colors[4], $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-1..-1] %>/3660</span><br>
 <% } else { =%>
     <b><%=l 'Seconds' %></b>: <%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-5..-1] %>/3600<br>
 <% } =%>
@@ -238,11 +239,11 @@
 <% } %>
 <% if ('detail' eq $mode) { =%>
     <b><%=l 'Colors' %></b>:
-    <span style="color: <%= color    1, $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-5..-1] %>/86400</span>,
-    <span style="color: <%= color   51, $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-4..-1] %>/86400</span>,
-    <span style="color: <%= color  101, $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-3..-1] %>/86400</span>,
-    <span style="color: <%= color  501, $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-2..-1] %>/86400</span>,
-    <span style="color: <%= color 1001, $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-1..-1] %>/86400</span><br>
+    <span style="color: <%= color $legend_colors[0], $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-5..-1] %>/86400</span>,
+    <span style="color: <%= color $legend_colors[1], $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-4..-1] %>/86400</span>,
+    <span style="color: <%= color $legend_colors[2], $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-3..-1] %>/86400</span>,
+    <span style="color: <%= color $legend_colors[3], $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-2..-1] %>/86400</span>,
+    <span style="color: <%= color $legend_colors[4], $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-1..-1] %>/86400</span><br>
 <% } else { =%>
     <b><%=l 'Seconds' %></b>: <%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-5..-1] %>/86400<br>
 <% } =%>
@@ -277,11 +278,11 @@
 </table>
 <% if ('detail' eq $mode) { =%>
     <b><%=l 'Colors' %></b>:
-    <span style="color: <%= color    1, $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-5..-1] %>/168</span>,
-    <span style="color: <%= color   51, $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-4..-1] %>/168</span>,
-    <span style="color: <%= color  101, $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-3..-1] %>/168</span>,
-    <span style="color: <%= color  501, $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-2..-1] %>/168</span>,
-    <span style="color: <%= color 1001, $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-1..-1] %>/168</span><br>
+    <span style="color: <%= color $legend_colors[0], $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-5..-1] %>/168</span>,
+    <span style="color: <%= color $legend_colors[1], $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-4..-1] %>/168</span>,
+    <span style="color: <%= color $legend_colors[2], $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-3..-1] %>/168</span>,
+    <span style="color: <%= color $legend_colors[3], $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-2..-1] %>/168</span>,
+    <span style="color: <%= color $legend_colors[4], $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-1..-1] %>/168</span><br>
 <% } else { =%>
     <b><%=l 'Hours' %></b>: <%= $dowh_count %>/168<br>
 <% } =%>
@@ -298,11 +299,11 @@
 <% } %>
 <% if ('detail' eq $mode) { =%>
     <b><%=l 'Colors' %></b>:
-    <span style="color: <%= color    1, $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-5..-1] %>/10080</span>,
-    <span style="color: <%= color   51, $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-4..-1] %>/10080</span>,
-    <span style="color: <%= color  101, $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-3..-1] %>/10080</span>,
-    <span style="color: <%= color  501, $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-2..-1] %>/10080</span>,
-    <span style="color: <%= color 1001, $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-1..-1] %>/10080</span><br>
+    <span style="color: <%= color $legend_colors[0], $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-5..-1] %>/10080</span>,
+    <span style="color: <%= color $legend_colors[1], $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-4..-1] %>/10080</span>,
+    <span style="color: <%= color $legend_colors[2], $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-3..-1] %>/10080</span>,
+    <span style="color: <%= color $legend_colors[3], $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-2..-1] %>/10080</span>,
+    <span style="color: <%= color $legend_colors[4], $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-1..-1] %>/10080</span><br>
 <% } else { =%>
     <b><%=l 'Minutes' %></b>: <%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-5..-1] %>/10080<br>
 <% } =%>

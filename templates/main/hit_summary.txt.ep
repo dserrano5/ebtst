@@ -57,7 +57,7 @@
     [tr][td]<%=l 'Frequent hit partner' %>[/td][td] ❘ <%=l 'Hits' %>[/td][td] ❘ <%=l '% of all hits' %>[/td][/tr]\
     <% my $done = 0; =%>
     <% foreach my $p (reverse sort { $hs->{'freq_partners'}{$a}{'hits'} <=> $hs->{'freq_partners'}{$b}{'hits'} } keys %{ $hs->{'freq_partners'} }) { =%>
-        [tr][td]<%= $hs->{'freq_partners'}{$p}{'partner'} %>[/td][td] ❘ <%= $hs->{'freq_partners'}{$p}{'hits'} %>[/td][td] ❘ <%= sprintf '%.2f', 100 * $hs->{'freq_partners'}{$p}{'hits'} / $hs->{'total'} %>[/td][/tr]\
+        [tr][td]<%= $hs->{'freq_partners'}{$p}{'partner'} %>[/td][td] ❘ <%= $hs->{'freq_partners'}{$p}{'hits'} %>[/td][td] ❘ <%= sprintf '%.2f', 100 * $hs->{'freq_partners'}{$p}{'hits'} / $hs->{'total'} %>%[/td][/tr]\
         <% last if ++$done >= 10; =%>
     <% } =%>
 [/table]\

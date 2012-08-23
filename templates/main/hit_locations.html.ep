@@ -55,7 +55,7 @@
                 <% my ($to_country, $to_city) = split /,/, $to, 2; =%>
                 <td><img src="images/countries/<%= $from_country %>.gif"> <%= $from_city %> → <img src="images/countries/<%= $to_country %>.gif"> <%= $to_city %></td>
                 <td><%= $arrow->{'num'} %></td>
-                <td><%= sprintf '%.2f', $arrow->{'pct'} %></td>
+                <td><%= sprintf '%.2f', $arrow->{'pct'} %>%</td>
             </tr>
         <% } =%>
     </table>

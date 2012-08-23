@@ -206,6 +206,7 @@ Other hit potential = Días potenciales
 ## hit summary
 Hits = Hits
 national = nacionales
+and = y
 international = internacionales
 plus = más
 moderated = moderados

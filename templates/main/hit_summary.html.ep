@@ -1,7 +1,7 @@
 <h2><%=l 'Hit summary' %></h2>
 
 <b><%=l 'Hits' %>: <%= $hs->{'total'} %></b> (\
-    <%=''=%><%= $hs->{'national'}      // 0 %> <%=l 'national' %> and\
+    <%=''=%><%= $hs->{'national'}      // 0 %> <%=l 'national' %> <%=l 'and' %>\
     <%= $hs->{'international'} // 0 %> <%=l 'international' %>), <%=l 'plus' %>\
     <%= $hs->{'moderated'}     // 0 %> <%=l 'moderated' %><br>
 <br>

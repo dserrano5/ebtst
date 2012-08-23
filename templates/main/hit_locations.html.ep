@@ -97,9 +97,9 @@
             <% my ($to_country, $to_city) = split /,/, $to, 2; =%>
             <tr>
                 <td>
-                    <img src="images/countries/<%= $from_country %>.gif"> <%= $from_city =%>
+                    <img src="images/countries/<%= $from_country %>.gif"> <%= $from_city %>
                     &#x2194;   <!-- that's U+2194 LEFT RIGHT ARROW -->
-                    <img src="images/countries/<%= $to_country %>.gif"> <%= $to_city =%>
+                    <img src="images/countries/<%= $to_country %>.gif"> <%= $to_city %>
                 </td>
                 <td><%= $both_ways->{$bw} %></td>
             </tr>

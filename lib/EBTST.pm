@@ -156,7 +156,7 @@ sub log_sizes {
 
     my %sizes = (
         ebt2 => (total_size $ebt),
-        (map { $_ => total_size $d->{$_} } keys %{ $ebt->{'data'} }),
+        (map { $_ => total_size $ebt->{'data'}{$_} } keys %{ $ebt->{'data'} }),
     );
 
     foreach my $k (

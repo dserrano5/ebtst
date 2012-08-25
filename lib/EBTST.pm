@@ -3,6 +3,7 @@ package EBTST;
 use Mojo::Base 'Mojolicious';
 use File::Spec;
 use Config::General;
+use Devel::Size qw/total_size/;
 use DBI;
 use EBT2;
 
@@ -150,6 +151,24 @@ sub helper_hit_partners {
     return join ' ', @visible;
 }
 
+sub log_sizes {
+    my ($log, $ebt) = @_;
+
+    my %sizes = (
+        ebt2 => (total_size $ebt),
+        (map { $_ => total_size $d->{$_} } keys %{ $ebt->{'data'} }),
+    );
+
+    foreach my $k (
+        reverse
+        sort { ($sizes{$a}) <=> ($sizes{$b}) }
+        grep { $sizes{$_} > $sizes{'ebt2'}*0.01 }
+        keys %sizes
+    ) {
+        $log->debug (sprintf '%20s: %6.0f Kb', $k, ($sizes{$k})/1024);
+    }
+}
+
 sub startup {
     my ($self) = @_;
 
@@ -213,7 +232,10 @@ sub startup {
     my $r_has_notes_hits = $r->under (sub {
         my ($self) = @_;
 
-        if (ref $self->stash ('sess') and $self->stash ('sess')->load) {
+        ## TODO: reorganize routes
+        #if (ref sess) { sess->load }
+
+        if (ref $self->stash ('sess') and $self->stash ('sess')->load) {  ## s/load/sid/, index y $r_user pueden asumir que hay sess
             my $user = $self->stash ('sess')->data ('user');
             my $sid = $self->stash ('sess')->sid;
             $self->app->log->debug ("user: '$user'");
@@ -241,6 +263,7 @@ sub startup {
                 $self->app->log->warn ("loading db: '$@'. Going on anyway.\n");
             }
             $self->stash ('sess')->extend_expires;
+            log_sizes $self->app->log, $self->ebt;
 
             if (-e File::Spec->catfile ($html_dir, $user, 'index.html')) {
                 my $url;
@@ -281,6 +304,7 @@ sub startup {
         $requested_url = '' if grep { $_ eq $requested_url } qw/logout index gen_output/;
         $requested_url = 'configure' if 'upload' eq $requested_url;
         $self->flash (requested_url => $requested_url);
+        $self->app->log->debug ("no session, redirecting to index, requested_url ($requested_url)");
         $self->redirect_to ('index');
         return 0;
     });
@@ -293,6 +317,7 @@ sub startup {
         my ($self) = @_;
 
         if (!$self->stash ('has_notes')) {
+            $self->app->log->debug ('has no notes, redirecting to configure');
             $self->redirect_to ('configure');
             return 0;
         }

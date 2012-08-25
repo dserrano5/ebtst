@@ -31,13 +31,18 @@ sub new {
 }
 
 sub bundle_information {
-    my ($self, $data) = @_;
+    my ($self, $progress, $data) = @_;
     my %ret;
+    my $idx = 0;
 
     my %active_days;
     my $cursor;
     my $iter = $data->note_getter;
     foreach my $hr (@$iter) {
+        $idx++;
+        $progress and select undef, undef, undef, 0.0005;   ## temporary simulation of slowness
+        if ($progress and 0 == $idx % $EBT2::progress_every) { $progress->set ($idx); }
+
         ## activity
         my $date_entered = (split ' ', $hr->[DATE_ENTERED])[0];
         if (!$ret{'activity'}{'first_note'}) {
@@ -182,12 +187,18 @@ sub days_elapsed {
 
 =cut
 
+use Devel::Size qw/total_size/;
 sub notes_by_value {
-    my ($self, $data) = @_;
+    my ($self, $progress, $data) = @_;
     my %ret;
+    my $idx = 0;
 
     my $iter = $data->note_getter;
     foreach my $hr (@$iter) {
+        $idx++;
+        $progress and select undef, undef, undef, 0.0005;   ## temporary simulation of slowness
+        if ($progress and 0 == $idx % $EBT2::progress_every) { $progress->set ($idx); }
+
         ## notes_by_value
         $ret{'notes_by_value'}{ $hr->[VALUE] }++;
 
@@ -201,13 +212,16 @@ sub notes_by_value {
 sub elem_notes_by_value { goto &notes_by_value; }
 
 sub first_by_value {
-    my ($self, $data) = @_;
+    my ($self, $progress, $data) = @_;
     my $at = 0;
     my %ret;
 
     my $iter = $data->note_getter;
     foreach my $hr (@$iter) {
         $at++;
+        $progress and select undef, undef, undef, 0.0005;   ## temporary simulation of slowness
+        if ($progress and 0 == $at % $EBT2::progress_every) { $progress->set ($at); }
+
         my %hr2 = zip @{[ COL_NAMES ]}, @$hr;
         $ret{'first_by_value'}{ $hr->[VALUE] } ||= { %hr2, at => $at };
     }
@@ -216,7 +230,7 @@ sub first_by_value {
 }
 
 sub notes_by_cc {
-    my ($self, $data) = @_;
+    my ($self, $progress, $data) = @_;
     my %ret;
 
     my $iter = $data->note_getter;
@@ -229,7 +243,7 @@ sub notes_by_cc {
 }
 
 sub first_by_cc {
-    my ($self, $data) = @_;
+    my ($self, $progress, $data) = @_;
     my %ret;
     my $at = 0;
 
@@ -245,7 +259,7 @@ sub first_by_cc {
 }
 
 sub notes_by_pc {
-    my ($self, $data) = @_;
+    my ($self, $progress, $data) = @_;
     my %ret;
 
     my $iter = $data->note_getter;
@@ -259,7 +273,7 @@ sub notes_by_pc {
 }
 
 sub first_by_pc {
-    my ($self, $data) = @_;
+    my ($self, $progress, $data) = @_;
     my $at = 0;
     my %ret;
 
@@ -275,7 +289,7 @@ sub first_by_pc {
 }
 
 sub bundle_locations {
-    my ($self, $data) = @_;
+    my ($self, $progress, $data) = @_;
     my %ret;
 
     my $iter = $data->note_getter;
@@ -353,7 +367,7 @@ sub notes_by_city {
 =cut
 
 sub huge_table {
-    my ($self, $data) = @_;
+    my ($self, $progress, $data) = @_;
     my %ret;
 
     my $iter = $data->note_getter;
@@ -401,7 +415,7 @@ sub alphabets {
 =cut
 
 sub fooest_short_codes {
-    my ($self, $data) = @_;
+    my ($self, $progress, $data) = @_;
     my %ret;
 
     my $iter = $data->note_getter;
@@ -497,13 +511,18 @@ sub _serial_niceness {
 }
 
 sub nice_serials {
-    my ($self, $data) = @_;
+    my ($self, $progress, $data) = @_;
     my %ret;
+    my $idx;
     my $num_elems = 10;
     my @nicest;
 
     my $iter = $data->note_getter;
     foreach my $hr (@$iter) {
+        $idx++;
+        $progress and select undef, undef, undef, 0.0005;   ## temporary simulation of slowness
+        if ($progress and 0 == $idx % $EBT2::progress_every) { $progress->set ($idx); }
+
         my %hr2 = zip @{[ COL_NAMES ]}, @$hr;
         my ($score, $longest, $different_digits, $visible_serial) = _serial_niceness substr $hr->[SERIAL], 1;
         if (@nicest < $num_elems or $score > $nicest[-1]{'score'}) {
@@ -529,7 +548,7 @@ sub numbers_in_a_row { goto &nice_serials; }
 sub different_digits { goto &nice_serials; }
 
 sub coords_bingo {
-    my ($self, $data) = @_;
+    my ($self, $progress, $data) = @_;
     my %ret;
 
     my $iter = $data->note_getter;
@@ -544,7 +563,7 @@ sub coords_bingo {
 }
 
 sub bundle_time {
-    my ($self, $data) = @_;
+    my ($self, $progress, $data) = @_;
     my %ret;
 
     my $iter = $data->note_getter;
@@ -728,7 +747,7 @@ sub notes_by_dow {
 ## module should calculate combs at the finest granularity (value*cc*plate*sig), it is up to the app to aggregate the pieces
 ## 20120406: no, that should be here, to prevent different apps from performing the same work
 sub missing_combs_and_history {
-    my ($self, $data) = @_;
+    my ($self, $progress, $data) = @_;
     my %ret;
 
     my $num_note = 0;
@@ -740,6 +759,9 @@ sub missing_combs_and_history {
     my $iter = $data->note_getter;
     foreach my $hr (@$iter) {
         $num_note++;
+        $progress and select undef, undef, undef, 0.0005;   ## temporary simulation of slowness
+        if ($progress and 0 == $num_note % $EBT2::progress_every) { $progress->set ($num_note); }
+
         next if $hr->[ERRORS];
 
         my $p = substr $hr->[SHORT_CODE], 0, 1;
@@ -796,11 +818,16 @@ sub missing_combs_and_history {
 }
 
 sub notes_by_combination {
-    my ($self, $data) = @_;
+    my ($self, $progress, $data) = @_;
     my %ret;
+    my $idx;
 
     my $iter = $data->note_getter;
     foreach my $hr (@$iter) {
+        $idx++;
+        $progress and select undef, undef, undef, 0.0005;   ## temporary simulation of slowness
+        if ($progress and 0 == $idx % $EBT2::progress_every) { $progress->set ($idx); }
+
         next if $hr->[ERRORS];
         my $comb1 = sprintf '%s%s',   (substr $hr->[SHORT_CODE], 0, 1), (substr $hr->[SERIAL], 0, 1);
         #my $comb2 = sprintf '%s%s%s', (substr $hr->[SHORT_CODE], 0, 1), (substr $hr->[SERIAL], 0, 1), $hr->[VALUE];
@@ -822,7 +849,7 @@ sub notes_by_combination {
 #sub notes_by_combination_with_value { goto &notes_by_combination; }
 
 sub plate_bingo {
-    my ($self, $data) = @_;
+    my ($self, $progress, $data) = @_;
     my %ret;
 
     ## prepare
@@ -849,7 +876,7 @@ sub plate_bingo {
 }
 
 sub bad_notes {
-    my ($self, $data) = @_;
+    my ($self, $progress, $data) = @_;
     my %ret;
 
     my $iter = $data->note_getter;
@@ -867,7 +894,7 @@ sub bad_notes {
 }
 
 sub hit_list {
-    my ($self, $data, $whoami) = @_;
+    my ($self, $progress, $data, $whoami) = @_;
     my %ret;
 
     my %hit_list;
@@ -1001,7 +1028,7 @@ sub elem_travel_days { goto &hit_list; }
 sub elem_travel_km   { goto &hit_list; }
 
 sub hit_times {
-    my ($self, $data, $hit_list) = @_;
+    my ($self, $progress, $data, $hit_list) = @_;
     my %ret;
 
     foreach my $hit (@$hit_list) {
@@ -1025,7 +1052,7 @@ sub hit_times {
 }
 
 sub hit_analysis {
-    my ($self, $data, $hit_list) = @_;
+    my ($self, $progress, $data, $hit_list) = @_;
     my %ret;
 
     my %notes_per_day;
@@ -1095,7 +1122,7 @@ sub hit_analysis {
 }
 
 sub hit_summary {
-    my ($self, $data, $whoami, $activity, $count, $hit_list) = @_;
+    my ($self, $progress, $data, $whoami, $activity, $count, $hit_list) = @_;
     my %ret;
 
     $ret{'hit_summary'}{'active'} = 0;
@@ -1266,7 +1293,7 @@ sub hit_summary {
 }
 
 sub calendar {
-    my ($self, $data) = @_;
+    my ($self, $progress, $data) = @_;
     my %ret;
     my %calendar_data;
     my %total_notes;

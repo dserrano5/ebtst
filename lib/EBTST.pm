@@ -21,6 +21,8 @@ my $session_expire              = $config{'session_expire'} // 30;
 my $base_href                   = $config{'base_href'};
 our @graphs_colors              = $config{'graphs_colors'} ? (split /[\s,]+/, $config{'graphs_colors'}) : ('blue', 'green', '#FFBF00', 'red', 'black');
 my $hypnotoad_listen            = $config{'hypnotoad_listen'} // 'http://localhost:3000'; $hypnotoad_listen = [ $hypnotoad_listen ] if 'ARRAY' ne ref $hypnotoad_listen;
+my $hypnotoad_accepts           = $config{'hypnotoad_accepts'} // 1000;             ## Mojo::Server::Hypnotoad default
+my $hypnotoad_keep_alive_requests = $config{'hypnotoad_keep_alive_requests'} // 25; ## Mojo::Server::Hypnotoad default
 my $hypnotoad_is_proxy          = $config{'hypnotoad_is_proxy'} // 0;
 my $hypnotoad_heartbeat_timeout = $config{'hypnotoad_heartbeat_timeout'} // 60;
 my $base_parts = @{ Mojo::URL->new ($base_href)->path->parts };
@@ -151,6 +153,7 @@ sub helper_hit_partners {
     return join ' ', @visible;
 }
 
+## would put this into an after_dispatch hook, but $self->stash('ebt') doesn't seem to be available there
 sub log_sizes {
     my ($log, $ebt) = @_;
 
@@ -162,10 +165,10 @@ sub log_sizes {
     foreach my $k (
         reverse
         sort { ($sizes{$a}) <=> ($sizes{$b}) }
-        grep { $sizes{$_} > $sizes{'ebt2'}*0.01 }
+        grep { $sizes{$_} > $sizes{'ebt2'}/100 and $sizes{$_} > 512*1024 }
         keys %sizes
     ) {
-        $log->debug (sprintf '%20s: %6.0f Kb', $k, ($sizes{$k})/1024);
+        $log->debug (sprintf '%35s: %6.0f Kb', $k, ($sizes{$k})/1024);
     }
 }
 
@@ -176,6 +179,8 @@ sub startup {
 
     $self->app->config ({
         hypnotoad => {
+            accepts           => $hypnotoad_accepts,
+            keep_alive_requests => $hypnotoad_keep_alive_requests,
             listen            => $hypnotoad_listen,
             proxy             => $hypnotoad_is_proxy,
             heartbeat_timeout => $hypnotoad_heartbeat_timeout,
@@ -263,7 +268,7 @@ sub startup {
                 $self->app->log->warn ("loading db: '$@'. Going on anyway.\n");
             }
             $self->stash ('sess')->extend_expires;
-            log_sizes $self->app->log, $self->ebt;
+            #$self->req->is_xhr or log_sizes $self->app->log, $self->ebt;
 
             if (-e File::Spec->catfile ($html_dir, $user, 'index.html')) {
                 my $url;
@@ -312,6 +317,7 @@ sub startup {
     $r_user->post ('/upload')->to ('main#upload');
     $r_user->get ('/help')->to ('main#help');
     $r_user->get ('/logout')->to ('main#logout');
+    $r_user->get ('/progress')->to ('main#progress');
 
     my $u = $r_user->under (sub {
         my ($self) = @_;

@@ -13,6 +13,7 @@ use File::Temp qw/tempfile/;
 use File::Copy;
 use Locale::Country;
 use EBTST::Main::Gnuplot;
+use EBTST::Main::Progress;
 
 use Time::HiRes qw/tv_interval gettimeofday/;
 sub report {
@@ -83,6 +84,25 @@ sub _country_names {
     return $ret;
 }
 
+sub _init_progress {
+    my ($self, $count) = @_;
+
+#warn sprintf "%s: initializing progress, count ($count)\n", scalar localtime;
+    $self->ebt->set_progress_obj (
+        $self->{'progress'} = EBTST::Main::Progress->new (sess => $self->stash ('sess'), tot => $count)
+    );
+    return;
+}
+
+sub _end_progress {
+    my ($self) = @_;
+
+    $self->ebt->del_progress_obj;
+    $self->_log (debug => 'is xhr, rendering text');
+    $self->render (layout => undef, text => 'ok');
+    return;
+}
+
 sub load_users {
     my ($self) = @_;
 
@@ -96,6 +116,7 @@ sub load_users {
 
     $self->_log (debug => sprintf "load_users: loaded %d users", scalar keys %users);
 }
+
 
 sub index {
     my ($self) = @_;
@@ -138,6 +159,15 @@ sub logout {
     $self->_log (info => 'logging out');
     $self->stash ('sess')->expire;
     $self->redirect_to ('index');
+}
+
+sub progress {
+    my ($self) = @_;
+
+    #warn ( sprintf "%s: progress called\n", scalar localtime);
+    my ($p, $t) = split m{/}, $self->stash ('sess')->data ('progress') // '0/1';
+    warn ( "p ($p) t ($t)\n");   ## logging activo para cazar los NaNs
+    $self->render (layout => undef, json => { cur => $p, total => $t });
 }
 
 sub information {
@@ -208,13 +238,14 @@ sub information {
 
 sub value {
     my ($self) = @_;
+    my $xhr = $self->req->is_xhr;
 
     my $t0 = [gettimeofday];
-    my $data = $self->ebt->get_notes_by_value;
-    my $data_first = $self->ebt->get_first_by_value;
-    my $notes_dates = $self->ebt->get_notes_dates;          ## for the chart
-    my $elem_by_val = $self->ebt->get_elem_notes_by_value;  ## for the chart
-    my $count = $self->ebt->get_count;
+    my $count       = $self->ebt->get_count;                $xhr and $self->_init_progress ($count*2.6);    ## graphs generation is relatively quick, hence that 0.6
+    my $data        = $self->ebt->get_notes_by_value;       $xhr and $self->{'progress'}->base ($count*1);
+    my $data_first  = $self->ebt->get_first_by_value;       $xhr and $self->{'progress'}->base ($count*2);
+    my $notes_dates = $self->ebt->get_notes_dates;          ## for the chart  (don't set progress, this has been already calculated and cached)
+    my $elem_by_val = $self->ebt->get_elem_notes_by_value;  ## for the chart  (don't set progress, this has been already calculated and cached)
     $self->_log (debug => report 'value get', $t0, $count);
 
     $t0 = [gettimeofday];
@@ -276,6 +307,7 @@ sub value {
                 { title =>                                '200', color => 'yellow', points => $dpoints{'200'} },
                 { title =>                                '500', color => 'purple', points => $dpoints{'500'} },
             ];
+        $xhr and $self->{'progress'}->base ($count*2.2);
 
         -e $dest_img2 or EBTST::Main::Gnuplot::bartime_chart
             output => $dest_img2,
@@ -290,6 +322,7 @@ sub value {
                 { title =>   '200', color => '#FFFF40', points => $dpoints{'200'} },
                 { title =>   '500', color => '#FF40FF', points => $dpoints{'500'} },
             ];
+        $xhr and $self->{'progress'}->base ($count*2.4);
 
         -e $dest_img3 or EBTST::Main::Gnuplot::line_chart
             output => $dest_img3,
@@ -299,6 +332,8 @@ sub value {
             ];
     }
     $self->_log (debug => report 'value chart', $t0, $count);
+
+    $xhr and return $self->_end_progress;
 
     $self->stash (
         title => $section_titles{'value'},
@@ -700,13 +735,18 @@ sub short_codes {
 
 sub nice_serials {
     my ($self) = @_;
+    my $xhr = $self->req->is_xhr;
 
     my $t0 = [gettimeofday];
+    my $count = $self->ebt->get_count;               $xhr and $self->_init_progress ($count*1);
     my $nice_data = $self->ebt->get_nice_serials;
     my $numbers_in_a_row = $self->ebt->get_numbers_in_a_row;
     my $different_digits = $self->ebt->get_different_digits;
-    my $count = $self->ebt->get_count;
     $self->_log (debug => report 'nice_serials get', $t0, $count);
+
+    ## we could do this just after $self->ebt->get_nice_serials
+    ## but then we'd lose the $self->_log (debug => report) call
+    $xhr and return $self->_end_progress;
 
     $t0 = [gettimeofday];
     my $nice_notes;
@@ -960,16 +1000,18 @@ sub time_analysis_detail { push @_, 1; goto &time_analysis_bingo; }
 
 sub combs_bingo {
     my ($self, $detail) = @_;
+    my $xhr = $self->req->is_xhr;
 
     my $t0 = [gettimeofday];
-    my $nbcombo    = $self->ebt->get_notes_by_combination;
-    #my $sbp        = $self->ebt->sigs_by_president;
+    my $count      = $self->ebt->get_count;                     $xhr and $self->_init_progress ($count*2);
+    my $nbcombo    = $self->ebt->get_notes_by_combination;      $xhr and $self->{'progress'}->base ($count*1);
     my $comb_data  = $self->ebt->get_missing_combs_and_history;
-    my $count      = $self->ebt->get_count;
     my $presidents = [
         map { [ split /:/ ] } 'any:Any signature', @{ $self->ebt->presidents }
     ];
     $self->_log (debug => report 'combs_bingo get', $t0, $count);
+
+    $xhr and return $self->_end_progress;
 
     $t0 = [gettimeofday];
     my $missing;
@@ -1108,7 +1150,7 @@ sub hit_times_bingo {
     my ($self, $detail) = @_;
 
     my $t0 = [gettimeofday];
-    my $count   = $self->ebt->get_count;   ## just for 'report'
+    my $count    = $self->ebt->get_count;   ## just for 'report'
     my $whoami   = $self->ebt->whoami;
     my $hit_list = $self->ebt->get_hit_list ($whoami);
     my $ht       = $self->ebt->get_hit_times ($hit_list);

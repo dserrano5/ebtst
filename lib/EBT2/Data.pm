@@ -482,14 +482,15 @@ sub load_db {
 
     $self->_clean_object;
 
-    my $r = retrieve $self->{'db'};
+    my $r = retrieve $self->{'db'};      ## FIXME: race condition: another process may be in write_db's store at this moment
     $self->{$_} = $r->{$_} for keys %$r;
 
     if (
         !exists $self->{'version'} or
         -1 == ($self->{'version'} cmp $DATA_VERSION)
     ) {
-        warn sprintf "version of data '%s' is less than \$DATA_VERSION '$DATA_VERSION', cleaning object\n", ($self->{'version'} // '<undef>');
+        warn sprintf "%s: version of data '%s' is less than \$DATA_VERSION '%s', cleaning object\n",
+            scalar localtime, ($self->{'version'} // '<undef>'), $DATA_VERSION;
         $self->_clean_object;   ## wipe everything, the upload of a new CSV is required to rebuild the database
     }
 

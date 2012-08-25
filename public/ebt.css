@@ -32,6 +32,24 @@ body {
     /*width: 800px;*/
     overflow: auto;
 }
+#progress {
+    background-color: #c0c0c0;
+    text-align: center;
+    width: 200px;
+    /*height: 100px;*/
+    opacity: 0.9;
+    padding: 30px;
+    display: none;
+}
+#progress_bar {
+    background-color: orange;
+    height: 20px;
+}
+#error_msg {
+    text-align: center;
+    font-weight: bold;
+    color: red;
+}
 #bbcode {
     margin: 0px 20px 20px;
     width: 700px;

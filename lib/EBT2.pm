@@ -31,6 +31,7 @@ BEGIN {
 use EBT2::Data;
 use EBT2::Stats;
 
+our $progress_every = 5000;
 ## build empty hashes with all possible combinations
 #our %combs_pc_cc;
 our %combs_pc_cc_val;
@@ -112,6 +113,8 @@ sub has_bad_notes     { my ($self)        = @_; $self->{'data'}->has_bad_notes; 
 sub whoami            { my ($self)        = @_; $self->{'data'}->whoami; }
 sub set_checked_boxes { my ($self, @cbs)  = @_; $self->{'data'}->set_checked_boxes (@cbs); }
 sub get_checked_boxes { my ($self)        = @_; return $self->{'data'}->get_checked_boxes; }
+sub set_progress_obj  { my ($self, $obj)  = @_; $self->{'progress'} = $obj; }
+sub del_progress_obj  { my ($self, $obj)  = @_; delete $self->{'progress'}; }
 sub values            { return $config{'values'};     }
 sub presidents        { return $config{'presidents'}; }
 
@@ -153,7 +156,7 @@ sub AUTOLOAD {
         }
 
         if ($self->{'stats'}->can ($field)) {    ## if we can JIT compute the value, do it
-            my $ret = $self->{'stats'}->$field ($self->{'data'}, @args);
+            my $ret = $self->{'stats'}->$field ($self->{'progress'}, $self->{'data'}, @args);
             @{ $self->{'data'} }{keys %$ret} = @$ret{keys %$ret};
             $self->{'data'}{'stats_version'} = $EBT2::Stats::STATS_VERSION;
             $self->{'data'}->write_db;

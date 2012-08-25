@@ -5,8 +5,14 @@
         <base href="<%= $base_href %>">
         <% } =%>
         <link rel="stylesheet" type="text/css" media="screen" href="ebt.css">
+        <script type="text/javascript" src="jquery-1.8.0.min.js"></script>
+        <script type="text/javascript" src="progress.js"></script>
     </head>
     <body id="mainbody">
+        <div id="progress">
+            <div id="progress_text"></div><br>
+            <div style="border: 1px solid black; height: 20px"><div id="progress_bar"></div></div>
+        </div>
         <table style="padding: 15px"><tr style="vertical-align: top"><td style="padding: 0px 15px 0px 0px; margin: 0px; background-color: #c0c0ff">
             <% if (defined $user) { %>
             <div id="sections">
@@ -28,7 +34,7 @@
                         <td><a class="section_link" id="information"           href="information"><%=l 'Information' %></a></td>
                     </tr><tr>
                         <td><input type="checkbox" name="value"                <%== $checked_boxes->{'value'} ? 'checked=""' : '' %>></td>
-                        <td><a class="section_link" id="value"                 href="value"><%=l 'Value' %></a></td>
+                        <td><a class="section_link" id="value"                 href="value"><%=l 'Value' %></a> <a href="javascript:go('/value')">(2)</a></td>
                     </tr><tr>
                         <td><input type="checkbox" name="countries"            <%== $checked_boxes->{'countries'} ? 'checked=""' : '' %>></td>
                         <td><a class="section_link" id="countries"             href="countries"><%=l 'Countries' %></a></td>
@@ -49,7 +55,7 @@
                         <td><a class="section_link" id="short_codes"           href="short_codes"><%=l 'Short codes' %></a></td>
                     </tr><tr>
                         <td><input type="checkbox" name="nice_serials"         <%== $checked_boxes->{'nice_serials'} ? 'checked=""' : '' %>></td>
-                        <td><a class="section_link" id="nice_serials"          href="nice_serials"><%=l 'Nice serials' %></a></td>
+                        <td><a class="section_link" id="nice_serials"          href="nice_serials"><%=l 'Nice serials' %></a> <a href="javascript:go('/nice_serials')">(2)</a></td>
                     </tr><tr>
                         <td><input type="checkbox" name="coords_bingo"         <%== $checked_boxes->{'coords_bingo'} ? 'checked=""' : '' %>></td>
                         <td><a class="section_link" id="coords_bingo"          href="coords_bingo"><%=l 'Coordinates bingo' %></a></td>
@@ -72,7 +78,7 @@
                     <!-- comments -->
                     <tr>
                         <td><input type="checkbox" name="combs_bingo"          <%== $checked_boxes->{'combs_bingo'} ? 'checked=""' : '' %>></td>
-                        <td><a class="section_link" id="combs_bingo"           href="combs_bingo"><%=l 'Combinations (bingo)' %></a></td>
+                        <td><a class="section_link" id="combs_bingo"           href="combs_bingo"><%=l 'Combinations (bingo)' %></a> <a href="javascript:go('/combs_bingo')">(2)</a></td>
                     </tr><tr>
                         <td><input type="checkbox" name="combs_detail"         <%== $checked_boxes->{'combs_detail'} ? 'checked=""' : '' %>></td>
                         <td><a class="section_link" id="combs_detail"          href="combs_detail"><%=l 'Combinations (detail)' %></a></td>
@@ -143,6 +149,7 @@
             <% } %>
         </td><td style="padding: 0px; margin: 0px; background-color: #c0c0ff">
             <div id="repl">
+                <div id="error_msg"></div>
                 <%= content %>
             </div>
         </td></tr></table>

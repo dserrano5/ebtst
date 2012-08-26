@@ -58,12 +58,16 @@ Unknown = Desconocida
 Average value per note = Valor medio de los billetes
 Average entering rate = Media de billetes al día
 notes/day = billetes/día
+Historic percent notes by president = Porcentaje histórico de billetes por presidente
 
 ## value
 Number of notes by value = Número de billetes por valor
 Notes = Billetes
 Percent = Porcentaje
 Amount = Cantidad
+Accumulated notes by value = Billetes acumulados por valor
+Historic percent notes by value = Porcentaje histórico de billetes por valor
+Historic mean value = Valor medio histórico
 Average value = Valor medio
 First notes by value = Primer billete por valor
 was the first = fue el primer
@@ -92,6 +96,7 @@ Total yearly visits = Total anual de visitas
 Number of locations = Localidades
 Number of different yearly visits = Visitas anuales
 Number of one time visit locations = Visitadas sólo un año
+Cities with most notes = Ciudades con más billetes
 
 ## printers
 Number of notes by printer code = Número de billetes por código de imprenta
@@ -127,6 +132,7 @@ Month = Mes
 
 ## top_days
 Number of notes per day of the week = Número de billetes por día de la semana
+Accumulated notes by day of the week = Billetes acumulados por día de la semana
 Top 10 days = Los 10 mejores días
 Top 10 months = Los 10 mejores meses
 Day = Día
@@ -218,6 +224,7 @@ Best = Mejor
 Average = Media
 Worst = Peor
 Current = Actual
+Historic hit ratio = Ratio histórico de billetes/hit
 Hit ratio = Ratio
 Hit ratios = Ratios
 Hit finder/maker - giver/getter ratio = Ratio activos/pasivos
@@ -228,6 +235,8 @@ Maximum = Máximo
 Travel days = Días de viaje
 Travel km = Km de viaje
 Travel kilometers = Kilómetros de viaje
+Historic hit travel days = Promedio histórico de días de viaje
+Historic hit travel km = Promedio histórico de kilómetros de viaje
 Hit/hitless days = Días con/sin hits
 Longest period of consecutive hit days = Período más largo de días con hit consecutivos
 Current consecutive hit days = Días con hit consecutivos ahora mismo

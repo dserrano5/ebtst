@@ -206,6 +206,7 @@ sub information {
         EBTST::Main::Gnuplot::bartime_chart
             output => $dest_img,
             xdata => $notes_dates,
+            title => (encode 'UTF-8', $self->l ('Historic percent notes by president')),
             percent => 1,
             dsets => [
                 { title =>    'WD', color => '#FF4040', points => $dpoints{'WD'}  },
@@ -297,6 +298,7 @@ sub value {
         -e $dest_img1 or EBTST::Main::Gnuplot::line_chart
             output => $dest_img1,
             xdata => $notes_dates,
+            title => (encode 'UTF-8', $self->l ('Accumulated notes by value')),
             dsets => [
                 { title => (encode 'UTF-8', $self->l ('Total')), color => 'black',  points => $dpoints{'Total'} },
                 { title =>                                  '5', color => 'grey',   points => $dpoints{'5'}   },
@@ -312,6 +314,7 @@ sub value {
         -e $dest_img2 or EBTST::Main::Gnuplot::bartime_chart
             output => $dest_img2,
             xdata => $notes_dates,
+            title => (encode 'UTF-8', $self->l ('Historic percent notes by value')),
             percent => 1,
             dsets => [
                 { title =>     '5', color => 'grey',    points => $dpoints{'5'}   },
@@ -327,6 +330,7 @@ sub value {
         -e $dest_img3 or EBTST::Main::Gnuplot::line_chart
             output => $dest_img3,
             xdata => $notes_dates,
+            title => (encode 'UTF-8', $self->l ('Historic mean value')),
             dsets => [
                 { title => (encode 'UTF-8', $self->l ('Average value')), color => 'black', points => $dpoints{'Mean'} },
             ];
@@ -634,6 +638,7 @@ sub travel_stats {
         EBTST::Main::Gnuplot::line_chart
             output => $dest_img,
             xdata => $notes_dates,
+            title => (encode 'UTF-8', $self->l ('Cities with most notes')),
             logscale => 'y',
             dsets => \@dsets;
     }
@@ -974,6 +979,7 @@ sub top_days {
     -e $dest_img or EBTST::Main::Gnuplot::bar_chart
         output     => $dest_img,
         labels     => [ map { encode 'UTF-8', $self->l ($_) } qw/Monday Tuesday Wednesday Thursday Friday Saturday Sunday/ ],
+        title => (encode 'UTF-8', $self->l ('Accumulated notes by day of the week')),
         bar_border => 1,
         dsets => [
             { title =>     '5', color => 'grey',    points => $dpoints{'5'}   },
@@ -1377,6 +1383,7 @@ sub hit_summary {
         -e $dest_img1 or EBTST::Main::Gnuplot::line_chart
             output => $dest_img1,
             xdata => $notes_dates,
+            title => (encode 'UTF-8', $self->l ('Historic hit ratio')),
             dsets => [
                 { title => (encode 'UTF-8', $self->l ('Hit ratio')), color => 'black', points => $dpoints{'hit_ratio'} },
             ];
@@ -1384,6 +1391,7 @@ sub hit_summary {
         -e $dest_img2 or EBTST::Main::Gnuplot::line_chart
             output => $dest_img2,
             xdata => $hits_dates,
+            title => (encode 'UTF-8', $self->l ('Historic hit travel days')),
             dsets => [
                 { title => (encode 'UTF-8', $self->l ('Travel days')), color => 'black', points => $dpoints{'travel_days'} },
             ];
@@ -1391,6 +1399,7 @@ sub hit_summary {
         -e $dest_img3 or EBTST::Main::Gnuplot::line_chart
             output => $dest_img3,
             xdata => $hits_dates,
+            title => (encode 'UTF-8', $self->l ('Historic hit travel km')),
             dsets => [
                 { title => (encode 'UTF-8', $self->l ('Travel km')), color => 'black', points => $dpoints{'travel_km'} },
             ];

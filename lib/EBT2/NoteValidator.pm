@@ -46,11 +46,7 @@ sub validate_note {
     }
 
     if (!grep { $_ eq $plate } @{ $EBT2::all_plates{$cc}{$v} }) {
-        ## if the previous plate exists, let's assume this one has just appeared, and don't choke on it
-        my $prev_plate = sprintf '%s%03d', $pc, ((substr $plate, 1) - 1);
-        if (!grep { $_ eq $prev_plate } @{ $EBT2::all_plates{$cc}{$v} }) {
-            push @errors, "Plate '$plate' doesn't exist for $v/$cc";
-        }
+        push @errors, "Plate '$plate' doesn't exist for $v/$cc";
     }
 
     push @errors, "Bad id '$hr->{'id'}'" if $hr->{'id'} !~ /^\d+$/;

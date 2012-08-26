@@ -115,7 +115,7 @@ a img {
 }
 .cal_day_container {
     position: relative;
-    height: 80px;
+    height: 90px;
     width: 100px
 }
 .cal_day_date {
@@ -139,7 +139,7 @@ a img {
 }
 .cal_day_bottom {
     position: absolute;
-    height: 80px;
+    height: 90px;
     width: 100px;
     z-index: 0;
 }

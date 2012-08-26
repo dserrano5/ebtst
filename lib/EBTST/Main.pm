@@ -820,21 +820,27 @@ sub notes_per_year {
 
     $t0 = [gettimeofday];
     my $nby;
-    foreach my $y (sort keys %$nby_data) {
+    my ($y) = (sort keys %$nby_data)[0];
+    my $cursor = DateTime->new (year => $y);
+    my $now = DateTime->now;
+    while (1) {
+        my $y = $cursor->strftime ('%Y');
         my $detail;
         foreach my $v (@{ EBT2->values }) {
             push @$detail, {
                 value => $v,
-                count => $nby_data->{$y}{$v},
+                count => $nby_data->{$y}{$v}//0,
             };
         }
-        my $tot = $nby_data->{$y}{'total'};
+        my $tot = $nby_data->{$y}{'total'}//0;
         push @$nby, {
             year   => $y,
             count  => $tot,
-            pct    => (sprintf '%.2f', 100 * $tot / $count),
+            pct    => $count ? (sprintf '%.2f', 100 * $tot / $count) : 0,
             detail => $detail,
         };
+        $cursor->add (years => 1);
+        last if $cursor > $now;
     }
     $self->_log (debug => report 'notes_per_year cook', $t0, $count);
 
@@ -854,21 +860,27 @@ sub notes_per_month {
 
     $t0 = [gettimeofday];
     my $nbm;
-    foreach my $m (sort keys %$nbm_data) {
+    my ($y, $m) = split /-/, (sort keys %$nbm_data)[0];
+    my $cursor = DateTime->new (year => $y, month => $m);
+    my $now = DateTime->now;
+    while (1) {
+        my $m = $cursor->strftime ('%Y-%m');
         my $detail;
         foreach my $v (@{ EBT2->values }) {
             push @$detail, {
                 value => $v,
-                count => $nbm_data->{$m}{$v},
+                count => $nbm_data->{$m}{$v}//0,
             };
         }
-        my $tot = $nbm_data->{$m}{'total'};
+        my $tot = $nbm_data->{$m}{'total'}//0;
         push @$nbm, {
             month  => $m,
             count  => $tot,
-            pct    => (sprintf '%.2f', 100 * $tot / $count),
+            pct    => $count ? (sprintf '%.2f', 100 * $tot / $count) : 0,
             detail => $detail,
         };
+        $cursor->add (months => 1);
+        last if $cursor > $now;
     }
     $self->_log (debug => report 'notes_per_month cook', $t0, $count);
 

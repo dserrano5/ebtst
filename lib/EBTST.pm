@@ -267,6 +267,7 @@ sub startup {
             if ($@ and $@ !~ /No such file or directory/) {
                 $self->app->log->warn ("loading db: '$@'. Going on anyway.\n");
             }
+            $self->ebt->set_logger ($self->app->log);
             $self->stash ('sess')->extend_expires;
             #$self->req->is_xhr or log_sizes $self->app->log, $self->ebt;
 

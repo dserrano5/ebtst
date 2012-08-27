@@ -115,18 +115,15 @@ sub set_checked_boxes { my ($self, @cbs)  = @_; $self->{'data'}->set_checked_box
 sub get_checked_boxes { my ($self)        = @_; return $self->{'data'}->get_checked_boxes; }
 sub set_progress_obj  { my ($self, $obj)  = @_; $self->{'progress'} = $obj; }
 sub del_progress_obj  { my ($self, $obj)  = @_; delete $self->{'progress'}; }
+sub set_logger        { my ($self, $log)  = @_; $self->{'log'} = $log; }
 sub values            { return $config{'values'};     }
 sub presidents        { return $config{'presidents'}; }
 
-sub _warn {
-    my ($self, $msg) = @_;
+sub _log {
+    my ($self, $prio, $msg) = @_;
 
-    if (open my $fd, '>>', '/tmp/EBT2.log') {   ## TODO: file lock
-        $msg =~ s/\n*$//;
-        my $user = (split m{/}, $self->{'data'}{'db'})[-2];   ## TODO: would need $self->{'user'} instead of this hack
-        printf $fd "%s: %s: %s\n", scalar localtime, ($user//'<no user>'), $msg;
-        close $fd;
-    }
+    my $user = (split m{/}, $self->{'data'}{'db'})[-2];   ## TODO: would need $self->{'user'} instead of this hack
+    $self->{'log'}->$prio (sprintf '%s: %s', ($user // '<no user>'), $msg);
 }
 
 our $AUTOLOAD;
@@ -138,7 +135,7 @@ sub AUTOLOAD {
     return if $field eq 'DESTROY';
     if ($field =~ s/^get_//) {
         if (!$self->{'data'}{'notes'}) {
-            $self->_warn ("'$field' was queried but there's no data");
+            $self->_log (warn => "'$field' was queried but there's no data");
             return undef;
         }
 
@@ -151,7 +148,7 @@ sub AUTOLOAD {
                 return ref $self->{'data'}{$field} ? dclone $self->{'data'}{$field} : $self->{'data'}{$field};
             }
         } elsif (defined $self->{'data'}{'stats_version'}) {
-            $self->_warn (sprintf q{version of stats '%s' is less than $STATS_VERSION '%s', recalculating field '%s'},
+            $self->_log (info => sprintf q{version of stats '%s' is less than $STATS_VERSION '%s', recalculating field '%s'},
                 $EBT2::Stats::STATS_VERSION, $self->{'data'}{'stats_version'}, $field);
         }
 

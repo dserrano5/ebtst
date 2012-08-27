@@ -1456,8 +1456,12 @@ sub hit_summary {
 sub calendar {
     my ($self) = @_;
 
+    my $t0 = [gettimeofday];
+    my $count    = $self->ebt->get_count;
     my $cal_data = $self->ebt->get_calendar;
+    $self->_log (debug => report 'calendar get', $t0, $count);
 
+    my $t0 = [gettimeofday];
     foreach my $y (sort keys %$cal_data) {
         foreach my $m (sort keys %{ $cal_data->{$y} }) {
             my $first_day = '01';
@@ -1474,6 +1478,7 @@ sub calendar {
             $cal_data->{$y}{$m}{'last_day'}    = $last_day;
         }
     }
+    $self->_log (debug => report 'calendar cook', $t0, $count);
 
     my $url = $self->url_for;
     $url = '' if $url =~ /gen_output$/;

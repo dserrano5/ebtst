@@ -1288,7 +1288,7 @@ sub hit_locations {
             hits_pct => 100 * $hit_count_by_their_loc{$their_loc} / (sum values %hit_count_by_their_loc),
         };
     }
-    @their_locs = reverse sort { $a->{'notes'} <=> $b->{'notes'} } @their_locs;
+    @their_locs = reverse sort { $a->{'hits'} <=> $b->{'hits'} } @their_locs;
 
     my @arrows;
     foreach my $k (keys %arrows) {
@@ -1461,7 +1461,7 @@ sub calendar {
     my $cal_data = $self->ebt->get_calendar;
     $self->_log (debug => report 'calendar get', $t0, $count);
 
-    my $t0 = [gettimeofday];
+    $t0 = [gettimeofday];
     foreach my $y (sort keys %$cal_data) {
         foreach my $m (sort keys %{ $cal_data->{$y} }) {
             my $first_day = '01';

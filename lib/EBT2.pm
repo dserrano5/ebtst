@@ -139,28 +139,60 @@ sub AUTOLOAD {
             return undef;
         }
 
-        if (
-            $self->{'data'}{'stats_version'} and
-            -1 != ($self->{'data'}{'stats_version'} cmp $EBT2::Stats::STATS_VERSION)
-        ) {
-            if (exists $self->{'data'}{$field}) {
-                ## we have precomputed data and its version is ok: return it
-                return ref $self->{'data'}{$field} ? dclone $self->{'data'}{$field} : $self->{'data'}{$field};
+        ## temporary code for existing databases
+        delete $self->{'data'}{'stats_version'};
+        if (exists $self->{'data'}{$field}) {
+            if ('HASH' ne ref $self->{'data'}{$field}) {
+                $self->_log (debug => "existing field ($field) is not a hashref: delete");
+                delete $self->{'data'}{$field};
+            } else {
+                if (!exists $self->{'data'}{$field}{'version'}) {
+                    $self->_log (debug => "existing field ($field) is a versionless hashref: delete");
+                    delete $self->{'data'}{$field};
+                }
             }
-        } elsif (defined $self->{'data'}{'stats_version'}) {
-            $self->_log (info => sprintf q{version of stats '%s' is less than $STATS_VERSION '%s', recalculating field '%s'},
-                $EBT2::Stats::STATS_VERSION, $self->{'data'}{'stats_version'}, $field);
         }
 
-        if ($self->{'stats'}->can ($field)) {    ## if we can JIT compute the value, do it
-            my $ret = $self->{'stats'}->$field ($self->{'progress'}, $self->{'data'}, @args);
-            @{ $self->{'data'} }{keys %$ret} = @$ret{keys %$ret};
-            $self->{'data'}{'stats_version'} = $EBT2::Stats::STATS_VERSION;
-            $self->{'data'}->write_db;
-            return ref $self->{'data'}{$field} ? dclone $self->{'data'}{$field} : $self->{'data'}{$field} if exists $self->{'data'}{$field};
+        if (exists $self->{'data'}{$field}) {
+            if ($self->{'data'}{$field}{'version'}) {
+                if (-1 != ($self->{'data'}{$field}{'version'} cmp $EBT2::Stats::STATS_VERSION)) {
+                    $self->_log (debug => "version of field ($field) ok, returning cached");
+                    return ref $self->{'data'}{$field}{'data'} ? dclone $self->{'data'}{$field}{'data'} : $self->{'data'}{$field}{'data'};
+                }
+                $self->_log (info => sprintf q{version '%s' of field '%s' is less than $STATS_VERSION '%s', recalculating},
+                    $self->{'data'}{$field}{'version'}, $field, $EBT2::Stats::STATS_VERSION);
+            } else {
+                $self->_log (debug => "unversioned field ($field) exists, assume it is outdated");
+            }
+        } else {
+            if (!$self->{'stats'}->can ($field)) {
+                $self->_log (warn => "Method 'get_$field' called but field '$field' is unknown");
+                return undef;
+            }
+            $self->_log (debug => "field ($field) doesn't exist, let's go for it");
         }
+        my $ret = $self->{'stats'}->$field ($self->{'progress'}, $self->{'data'}, @args);
+        if (!keys %$ret) {
+            $self->_log (warn => "Method 'get_$field' returned nothing");
+            return undef;
+        }
+        foreach my $f (keys %$ret) {
+            ## temporary code for existing databases
+            if (exists $self->{'data'}{$f}) {
+                if ('HASH' ne ref $self->{'data'}{$f}) {
+                    delete $self->{'data'}{$f};
+                } else {
+                    if (!exists $self->{'data'}{$f}{'version'}) {
+                        delete $self->{'data'}{$f};
+                    }
+                }
+            }
 
-        die "Method 'get_$field' called but field '$field' is unknown\n";
+            $self->{'data'}{$f}{'data'} = $ret->{$f};
+            $self->{'data'}{$f}{'version'} = $EBT2::Stats::STATS_VERSION;
+        }
+        $self->{'data'}->write_db;
+        return ref $self->{'data'}{$field}{'data'} ? dclone $self->{'data'}{$field}{'data'} : $self->{'data'}{$field}{'data'} if exists $self->{'data'}{$field};
 
     } elsif ($field =~ /^(countries|printers)$/) {
         ## close over %config - the quoted eval doesn't do it, resulting in 'Variable "%config" is not available'

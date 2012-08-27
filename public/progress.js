@@ -13,6 +13,7 @@ function _center_on_screen(elem) {
     elem.css ("left", Math.max (0, ($(window).width()  - elem.outerWidth() )/2 + $(window).scrollLeft()) + "px");
 }
 var interval_id;
+var running = 0;
 function _gp() {
     $.ajax({
         url: base_href+'/progress',
@@ -32,6 +33,8 @@ function _gp() {
     });
 }
 function go(dest) {
+    if (running) { return; }
+    running = 1;
     _center_on_screen ($("#progress"));
     _set_progress (0);
     var timeout_id = setTimeout (function(){
@@ -44,6 +47,7 @@ function go(dest) {
         base_href+dest,
         function(data) {
             console.log ('ok, clearing interval, hiding progress, moving forward');
+            running = 0;
             clearInterval (interval_id);
             $("#progress").hide ('slow');
             window.location.href = base_href+dest;
@@ -51,6 +55,7 @@ function go(dest) {
     ).error (
         function(jqXHR, textStatus, errorThrown) {
             console.log ('ouch, error');
+            running = 0;
             clearTimeout (timeout_id);
             clearInterval (interval_id);
             $("#progress").hide ('slow');

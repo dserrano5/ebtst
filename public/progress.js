@@ -46,11 +46,20 @@ function go(dest) {
     $.get (
         base_href+dest,
         function(data) {
-            //console.log ('ok, clearing interval, hiding progress, moving forward');
-            running = 0;
-            clearInterval (interval_id);
-            $("#progress").hide ('slow');
-            window.location.href = base_href+dest;
+            //if ('ok' == data) {
+                //console.log ('ok, clearing interval, hiding progress, moving forward');
+                running = 0;
+                clearInterval (interval_id);
+                $("#progress").hide ('slow');
+                window.location.href = base_href+dest;
+            //} else {
+            //    console.log ('ko');
+            //    running = 0;
+            //    clearTimeout (timeout_id);
+            //    clearInterval (interval_id);
+            //    $("#progress").hide ('slow');
+            //    $("#error_msg").html ('<br>' + 'ko' + '<br>');
+            //}
         }
     ).error (
         function(jqXHR, textStatus, errorThrown) {

@@ -84,10 +84,42 @@ sub _country_names {
     return $ret;
 }
 
+#sub _in_progress {
+#    my ($self) = @_;
+#    return $self->stash ('sess')->data ('_xhr_working');
+#}
+
+#sub _check_in_progress {
+#    my ($self) = @_;
+#    my $task;
+#
+#    $self->_log (debug => "in _check_in_progress");
+#    return unless $task = $self->_in_progress;
+#
+#    if ($self->req->is_xhr) {
+#        $self->_log (debug => "is xhr, task '$task' is running, ignoring request");
+#        return $task;
+#    }
+#
+#    $self->_log (debug => "is not xhr, task '$task' is running, waiting for completion");
+#    while (1) {
+#        sleep 5;
+#        my $task2 = $self->_in_progress;
+#        last if !$task2 or $task2 ne $task;
+#        $self->_log (debug => "'$task' still running, waiting for completion");
+#    }
+#
+#    $self->_log (debug => "'$task' completed, going on");
+#    return;
+#}
+
 sub _init_progress {
     my ($self, $count) = @_;
 
-#warn sprintf "%s: initializing progress, count ($count)\n", scalar localtime;
+    my $from = (split /::/, (caller 1)[3])[-1];
+#warn sprintf "%s: initializing progress for '$from', count ($count)\n", scalar localtime, $from;
+    #$self->stash ('sess')->data (_xhr_working => $from);
+    #$self->stash ('sess')->flush;
     $self->ebt->set_progress_obj (
         $self->{'progress'} = EBTST::Main::Progress->new (sess => $self->stash ('sess'), tot => $count)
     );
@@ -98,6 +130,8 @@ sub _end_progress {
     my ($self) = @_;
 
     $self->ebt->del_progress_obj;
+    #$self->stash ('sess')->clear ('_xhr_working');
+    #$self->stash ('sess')->flush;
     $self->_log (debug => 'is xhr, rendering text');
     $self->render (layout => undef, text => 'ok');
     return;
@@ -240,6 +274,13 @@ sub information {
 sub value {
     my ($self) = @_;
     my $xhr = $self->req->is_xhr;
+
+    #if ($self->_check_in_progress) {
+    #    $self->_log (debug => 'value: oops me piro');
+    #    $self->render (layout => undef, text => 'ko');
+    #    return;
+    #}
+    #$self->_log (debug => 'value: _check_in_progress nos deja seguir');
 
     my $t0 = [gettimeofday];
     my $count       = $self->ebt->get_count;                $xhr and $self->_init_progress ($count*2.6);    ## graphs generation is relatively quick, hence that 0.6

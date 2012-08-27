@@ -663,7 +663,7 @@ sub travel_stats {
     if (!-e $dest_img) {
         my @_8best = grep defined, (reverse sort { $travel_stats->{$a}{'total'} <=> $travel_stats->{$b}{'total'}} keys %$travel_stats)[0..7];
         my %dpoints;
-        foreach my $elem (split ',', $elem_by_city) {
+        foreach my $elem (split '#', $elem_by_city) {
             push @{ $dpoints{$_} }, ($dpoints{$_}[-1]//0) for @_8best;
             next unless grep { $_ eq $elem } @_8best;
             $dpoints{$elem}[-1]++;

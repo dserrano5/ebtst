@@ -13,7 +13,7 @@ use EBT2::Data;
 use EBT2::Constants ':all';
 
 ## whenever there are changes in any stats format, this has to be increased in order to detect users with old stats formats
-our $STATS_VERSION = '20120823-01';
+our $STATS_VERSION = '20120827-01';
 
 sub mean { return sum(@_)/@_; }
 
@@ -303,7 +303,7 @@ sub bundle_locations {
         $ret{'notes_by_city'}{ $hr->[COUNTRY] }{ $hr->[CITY] }{ $hr->[VALUE] }++;
 
         ## elem_notes_by_city
-        $ret{'elem_notes_by_city'} .= $hr->[CITY] . ',';
+        $ret{'elem_notes_by_city'} .= $hr->[CITY] . '#';
 
         ## alphabets
         my $city = $hr->[CITY];

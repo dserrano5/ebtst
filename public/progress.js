@@ -21,7 +21,7 @@ function _gp() {
             var cur = data['cur'];
             var total = data['total'];
             var pct = 100*cur/total;
-            console.log ('progress: cur ('+cur+') total ('+total+') pct ('+pct+')');
+            //console.log ('progress: cur ('+cur+') total ('+total+') pct ('+pct+')');
             _set_progress (Math.floor (pct));
             //if (cur < total) {   ## apparently 20000 isn't less than 166000
             //if (pct < 100) {
@@ -38,7 +38,7 @@ function go(dest) {
     _center_on_screen ($("#progress"));
     _set_progress (0);
     var timeout_id = setTimeout (function(){
-        console.log ('timeout! calling and setting interval');
+        //console.log ('timeout! calling and setting interval');
         $("#progress").show ('slow');
         _gp();
         interval_id = setInterval (function(){_gp()}, 5000);
@@ -46,7 +46,7 @@ function go(dest) {
     $.get (
         base_href+dest,
         function(data) {
-            console.log ('ok, clearing interval, hiding progress, moving forward');
+            //console.log ('ok, clearing interval, hiding progress, moving forward');
             running = 0;
             clearInterval (interval_id);
             $("#progress").hide ('slow');
@@ -54,7 +54,7 @@ function go(dest) {
         }
     ).error (
         function(jqXHR, textStatus, errorThrown) {
-            console.log ('ouch, error');
+            //console.log ('ouch, error');
             running = 0;
             clearTimeout (timeout_id);
             clearInterval (interval_id);

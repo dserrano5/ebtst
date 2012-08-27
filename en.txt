@@ -8,6 +8,7 @@ _configure_3 = 5;2002;V00000000xxx;M001A1;2010-01-01 00:00:00;Madrid;Spain
 _countries_1 = The percent numbers that appear in the "Detail" table denote the percent of notes of each country among the totality of notes for that value. Thus, when added vertically, the result is 100%.
 _printers_1 = Just like in "Countries", the percent numbers that appear in the "Detail" table denote the percent of notes of each printer among the totality of notes for that value. Thus, when added vertically, the result is 100%.
 _huge_table_1 = To avoid useless entries in the table, notes known to have errors are ignored.
+_short_codes_1 = Errors are ignored here too.
 _nice_serials_1 = The algorithm for scoring serial numbers is as follows: first, the serial with the least number of runs of equal digits wins. Thus, *1111122233 (3 runs) wins over *1112111211 (5 runs). In the usual case of a tie, then the serial with the longest run wins. These are the main criteria for scoring, but there are a couple more.
 _coords_bingo_1 = Just like in "Huge table", notes known to have errors are ignored.
 _combinations_1 = Again, notes known to have errors are ignored. As in "Countries" and "Printers", the percent numbers add up to 100% vertically.

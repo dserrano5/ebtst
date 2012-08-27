@@ -36,6 +36,9 @@
 <h3><%=l 'Huge table' =%></h3>
 <p><%=l2 '_huge_table_1' %></p>
 
+<h3><%=l 'Short codes' =%></h3>
+<p><%=l2 '_short_codes_1' %></p>
+
 <h3><%=l 'Nice serials' =%></h3>
 <p><%=l2 '_nice_serials_1' %></p>
 

@@ -420,6 +420,7 @@ sub fooest_short_codes {
 
     my $iter = $data->note_getter;
     foreach my $hr (@$iter) {
+        next if $hr->[ERRORS];
         my %hr2 = zip @{[ COL_NAMES ]}, @$hr;
         my $pc = substr $hr->[SHORT_CODE], 0, 1;
         my $serial = EBT2::Data::serial_remove_meaningless_figures2 $hr->[SHORT_CODE], $hr->[SERIAL];

@@ -282,6 +282,7 @@ _configure_2 = Se almacenará una copia del archivo de billetes, con el siguient
 _countries_1 = Los datos porcentuales que aparecen en la tabla "Detalle" muestran el porcentaje de billetes de cada país con respecto a la totalidad de billetes para ese valor. Por tanto, cuando se suman verticalmente, el resultado es 100%.
 _printers_1 = Igual que en "Países", los datos porcentuales que aparecen en la tabla "Detalle" muestran el porcentaje de billetes de cada imprenta con respecto a la totalidad de billetes para ese valor. Por tanto, cuando se suman verticalmente, el resultado es 100%.
 _huge_table_1 = Para evitar entradas inútiles en la tabla, se ignoran los billetes con errores.
+_short_codes_1 = Aquí también se ignoran los billetes con errores.
 _nice_serials_1 = El algoritmo para puntuar los números de serie es como sigue: primero, el serie con el menor número de secuencias de dígitos iguales gana. Por tanto, *1111122233 (3 secuencias) gana sobre *1112111211 (5 secuencias). En el habitual caso de que haya empate, entonces el serie con la secuencia más larga gana. Estos son los criterios principales de puntuación, pero hay un par de ellos más.
 _coords_bingo_1 = Igual que en "Tabla tocha", se ignoran los billetes con errores.
 _combinations_1 = De nuevo, se ignoran los billetes con errores. Igual que en "Países" e "Imprentas", los porcentajes suman 100% en vertical.

@@ -15,7 +15,7 @@ function _center_on_screen(elem) {
 var interval_id;
 function _gp() {
     $.ajax({
-        url: '/progress',
+        url: base_href+'/progress',
         success: function(data) {
             var cur = data['cur'];
             var total = data['total'];
@@ -35,17 +35,18 @@ function go(dest) {
     _center_on_screen ($("#progress"));
     _set_progress (0);
     var timeout_id = setTimeout (function(){
-        console.log ('timeout! setting interval');
+        console.log ('timeout! calling and setting interval');
         $("#progress").show ('slow');
+        _gp();
         interval_id = setInterval (function(){_gp()}, 5000);
-    }, 1000);
+    }, 2000);
     $.get (
-        dest,
+        base_href+dest,
         function(data) {
             console.log ('ok, clearing interval, hiding progress, moving forward');
             clearInterval (interval_id);
             $("#progress").hide ('slow');
-            window.location.href = dest;
+            window.location.href = base_href+dest;
         }
     ).error (
         function(jqXHR, textStatus, errorThrown) {

@@ -7,6 +7,12 @@
         <link rel="stylesheet" type="text/css" media="screen" href="ebt.css">
         <script type="text/javascript" src="jquery-1.8.0.min.js"></script>
         <script type="text/javascript" src="progress.js"></script>
+        <% my $bh; if ($production and $base_href) { =%>
+            <% $bh = $base_href; $bh =~ s{^https?://[^/]*(/.*)}{$1}; $bh =~ s{/$}{}g; =%>
+        <% } else { =%>
+            <% $bh = ''; =%>
+        <% } =%>
+        <script>var base_href = '<%= $bh %>';</script>
     </head>
     <body id="mainbody">
         <div id="progress">

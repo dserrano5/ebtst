@@ -122,6 +122,7 @@ sub presidents        { return $config{'presidents'}; }
 sub _log {
     my ($self, $prio, $msg) = @_;
 
+    return unless $self->{'log'};
     my $user = (split m{/}, $self->{'data'}{'db'})[-2];   ## TODO: would need $self->{'user'} instead of this hack
     $self->{'log'}->$prio (sprintf '%s: %s', ($user // '<no user>'), $msg);
 }

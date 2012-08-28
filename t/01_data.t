@@ -50,39 +50,40 @@ $obj->load_notes ('t/notes2.csv');
 ok defined $obj->{'notes'}, 'There are notes after loading CSV';
 is scalar @{ $obj->{'notes'} }, 7, 'Correct number of notes';
 
-SKIP: {
-    skip 'Pay attention to note_getter with params before testing it', 14;
+my $c;
 
-    my ($c, $iter);
+$c = 0; while (my $notes = $obj->note_getter) {
+    $c++;
+    is scalar @$notes, 1, 'One note in chunk';
+}
+is $c, 7, 'One by one: did 7 iterations';
 
-    is ref ($iter = $obj->note_getter), 'CODE', 'Iterator returned';
-    $c = 0; while (my $notes = $iter->()) { $c++; }
-    is $c, 7, 'One by one: did 7 iterations';
+$c = 0; while (my $notes = $obj->note_getter (interval => '3n')) {
+    $c++;
+    ok @$notes >= 1 && @$notes <= 3, 'From 1 to 3 notes in chunk';
+}
+is $c, 3, 'Three by three: did 3 iterations';
 
-    is ref ($iter = $obj->note_getter (interval => '3n')), 'CODE', 'Iterator returned';
-    $c = 0; while (my $notes = $iter->()) { $c++; }
-    is $c, 3, 'Three by three: did 3 iterations';
+$c = 0; while (my $notes = $obj->note_getter (interval => '1d')) { $c++; }
+is $c, 366, 'Daily: did 366 iterations';
 
-    is ref ($iter = $obj->note_getter (interval => '1d')), 'CODE', 'Iterator returned';
-    $c = 0; while (my $notes = $iter->()) { $c++; }
-    is $c, 366, 'Daily: did 366 iterations';
+$c = 0; while (my $notes = $obj->note_getter (interval => '1w')) { $c++; }
+is $c, 53, 'Weekly: did 53 iterations';
 
-    is ref ($iter = $obj->note_getter (interval => '1w')), 'CODE', 'Iterator returned';
-    $c = 0; while (my $notes = $iter->()) { $c++; }
-    is $c, 53, 'Weekly: did 53 iterations';
+$c = 0; while (my $notes = $obj->note_getter (interval => '1m')) { $c++; }
+is $c, 13, 'Monthly: did 13 iterations';
 
-    is ref ($iter = $obj->note_getter (interval => '1m')), 'CODE', 'Iterator returned';
-    $c = 0; while (my $notes = $iter->()) { $c++; }
-    is $c, 13, 'Monthly: did 13 iterations';
+$c = 0; while (my $notes = $obj->note_getter (interval => '1y')) { $c++; }
+is $c, 2, 'Yearly: did 2 iterations';
 
-    is ref ($iter = $obj->note_getter (interval => '1y')), 'CODE', 'Iterator returned';
-    $c = 0; while (my $notes = $iter->()) { $c++; }
-    is $c, 2, 'Yearly: did 2 iterations';
+$c = 0;
+while (my $notes = $obj->note_getter (interval => 'all')) {
+    $c++;
+    is scalar @$notes, 7, '7 notes in chunk';
+    is $notes->[ 0][DATE_ENTERED], '2010-02-11 11:25:32', 'Correct date of first note';
+    is $notes->[-1][DATE_ENTERED], '2011-02-11 09:08:07', 'Correct date of last note';
+}
+is $c, 1, 'All: did 1 iteration';
 
-    is ref ($iter = $obj->note_getter (interval => 'all')), 'CODE', 'Iterator returned';
-    $c = 0; while (my $notes = $iter->()) { $c++; }
-    is $c, 1, 'All: did 1 iteration';
-};
-
-done_testing 38;
+done_testing 44;
 #unlink '/tmp/ebt2-storable' or warn "unlink: '/tmp/ebt2-storable': $!";

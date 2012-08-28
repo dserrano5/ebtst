@@ -270,6 +270,7 @@ sub startup {
             $self->ebt->set_logger ($self->app->log);
             $self->stash ('sess')->extend_expires;
             #$self->req->is_xhr or log_sizes $self->app->log, $self->ebt;
+            $self->req->is_xhr and $self->req->headers->connection ('close');
 
             if (-e File::Spec->catfile ($html_dir, $user, 'index.html')) {
                 my $url;

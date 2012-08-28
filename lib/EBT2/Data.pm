@@ -504,22 +504,18 @@ sub write_db {
     return $self;
 }
 
-my $eof = 0;  ## set to 1 in get_chunk, reset to 0 here
 sub rewind {
     my ($self) = @_;
 
     $self->{'notes_pos'} = 0;
-    $eof = 0;
+    $self->{'eof'} = 0;   ## set to 1 in get_chunk, reset to 0 here
     return $self;
 }
 
 sub next_note {
     my ($self) = @_;
 
-    ## untested, since this code path isn't used in EBTST
-    my $n = $self->{'notes'}[ $self->{'notes_pos'}++ ];
-    my %h = zip @{[ COL_NAMES ]}, @{[ split ';', $n, NCOLS ]};
-    return \%h;
+    return $self->{'notes'}[ $self->{'notes_pos'}++ ];
 }
 
 my ($last_read, $chunk_start, $chunk_end);
@@ -527,17 +523,14 @@ sub get_chunk {
     my ($self, $interval) = @_;
     my @chunk;
 
-    return if $eof;
+    return if $self->{'eof'};
 
     if ('all' eq lc $interval) {
-        while (my $hr = $self->next_note) {
-            push @chunk, $hr;
-        }
-        $eof = 1;
+        $self->{'eof'} = 1;
         return {
-            start_date => (split ' ', $chunk[ 0]{'date_entered'})[0],
-            end_date   => (split ' ', $chunk[-1]{'date_entered'})[0],
-            notes      => [ @chunk ],
+            start_date => (split ' ', (split /;/, $self->{'notes'}[ 0], NCOLS)[DATE_ENTERED])[0],
+            end_date   => (split ' ', (split /;/, $self->{'notes'}[-1], NCOLS)[DATE_ENTERED])[0],
+            notes      => [ @{ $self->{'notes'} } ],
         };
     }
 
@@ -545,13 +538,16 @@ sub get_chunk {
 
     if ('n' eq $what) {
         while (1) {
-            my $hr = $self->next_note;
-            if (!$hr) {
-                $eof = 1;
+
+            ## we could slice $self->{'notes'} instead of going through $self->next_note
+
+            my $n = $self->next_note;
+            if (!$n) {
+                $self->{'eof'} = 1;
                 if (@chunk) {
                     return {
-                        start_date => (split ' ', $chunk[ 0]{'date_entered'})[0],
-                        end_date   => (split ' ', $chunk[-1]{'date_entered'})[0],
+                        start_date => (split ' ', (split /;/, $chunk[ 0], NCOLS)[DATE_ENTERED])[0],
+                        end_date   => (split ' ', (split /;/, $chunk[-1], NCOLS)[DATE_ENTERED])[0],
                         notes      => [ @chunk ],
                     };
                 } else {
@@ -560,11 +556,11 @@ sub get_chunk {
                     return;
                 }
             }
-            push @chunk, $hr;
+            push @chunk, $n;
             if (@chunk == $num) {
                 return {
-                    start_date => (split ' ', $chunk[ 0]{'date_entered'})[0],
-                    end_date   => (split ' ', $chunk[-1]{'date_entered'})[0],
+                    start_date => (split ' ', (split /;/, $chunk[ 0], NCOLS)[DATE_ENTERED])[0],
+                    end_date   => (split ' ', (split /;/, $chunk[-1], NCOLS)[DATE_ENTERED])[0],
                     notes      => [ @chunk ],
                 };
             }
@@ -576,9 +572,9 @@ sub get_chunk {
         ## first chunk
 
         ## - read first note
-        my $hr = $self->next_note;
-        if (!defined $hr) {
-            $eof = 1;
+        my $n = $self->next_note;
+        if (!defined $n) {
+            $self->{'eof'} = 1;
             if (@chunk) {
                 ## is this ever reached?
                 return { start_date => "ever reached?", end_date => "ever reached?", notes => [ @chunk ] };
@@ -589,16 +585,16 @@ sub get_chunk {
         }
 
         ## - determine chunk start and end (note is always in this range, so push it)
-        ($chunk_start, $chunk_end) = _chunk_start_end1 $num, $what, $hr->{'date_entered'};
-        push @chunk, $hr;
+        ($chunk_start, $chunk_end) = _chunk_start_end1 $num, $what, (split /;/, $n, NCOLS)[DATE_ENTERED];
+        push @chunk, $n;
 
         ## - read more notes until an invalid is found
         ## - this invalid one ends up in $last_read, for the next call to this function
         ## - return chunk
         while (1) {
-            $hr = $self->next_note;
-            if (!defined $hr) {
-                $eof = 1;
+            $n = $self->next_note;
+            if (!defined $n) {
+                $self->{'eof'} = 1;
                 if (@chunk) {
                     return { start_date => $chunk_start, end_date => $chunk_end, notes => [ @chunk ] };
                 } else {
@@ -607,12 +603,12 @@ sub get_chunk {
                 }
             }
 
-            my $note_date = $hr->{'date_entered'};
+            my $note_date = (split /;/, $n, NCOLS)[DATE_ENTERED];
             $note_date = (split ' ', $note_date)[0];
             if (_date_inside_range $note_date, $chunk_start, $chunk_end) {
-                push @chunk, $hr;
+                push @chunk, $n;
             } else {
-                $last_read = $hr;
+                $last_read = $n;
                 return { start_date => $chunk_start, end_date => $chunk_end, notes => [ @chunk ] };
             }
         }
@@ -624,7 +620,7 @@ sub get_chunk {
         ## - if note in $last_read is in this range:
         ##   - push
         ##   - while read valid notes, push; when invalid, store in $last read and return chunk (just like in the other 'if' branch)
-        my $note_date = $last_read->{'date_entered'};
+        my $note_date = (split /;/, $last_read, NCOLS)[DATE_ENTERED];
         $note_date = (split ' ', $note_date)[0];
         if (_date_inside_range $note_date, $chunk_start, $chunk_end) {
             push @chunk, $last_read;
@@ -632,9 +628,9 @@ sub get_chunk {
 
             ## this is repeated code
             while (1) {
-                my $hr = $self->next_note;
-                if (!defined $hr) {
-                    $eof = 1;
+                my $n = $self->next_note;
+                if (!defined $n) {
+                    $self->{'eof'} = 1;
                     if (@chunk) {
                         return { start_date => $chunk_start, end_date => $chunk_end, notes => [ @chunk ] };
                     } else {
@@ -643,12 +639,12 @@ sub get_chunk {
                     }
                 }
 
-                $note_date = $hr->{'date_entered'};
+                $note_date = (split /;/, $n, NCOLS)[DATE_ENTERED];
                 $note_date = (split ' ', $note_date)[0];
                 if (_date_inside_range $note_date, $chunk_start, $chunk_end) {
-                    push @chunk, $hr;
+                    push @chunk, $n;
                 } else {
-                    $last_read = $hr;
+                    $last_read = $n;
                     return { start_date => $chunk_start, end_date => $chunk_end, notes => [ @chunk ] };
                 }
             }
@@ -674,13 +670,10 @@ print "unreached\n";
            country => 'Greece',
        },
        interval => '1n',
-       one_result_aref      => '0',
-       one_result_full_data => '0',
+       full_data => '0',
     );
 
-one_result_aref specifies whether to return an aref of notes if only one note is to be returned
-
-one_result_full_data specifies whether to return dates along with notes or not
+full_data specifies whether to return dates along with notes or not
 
 =cut
 sub note_getter {
@@ -688,7 +681,7 @@ sub note_getter {
 
     ## shortcut: skip the iterator and the multiple fetchrows
     ## to use the getter as before, just feed a bogus argument, e.g. $self->note_getter (foo => 'bar');
-    if (!%args) {
+    if (0 and !%args) {
         ## HASH, ARRAY
         #return $self->{'notes'};
 
@@ -729,64 +722,45 @@ sub note_getter {
 
     die "filter must be a hashref\n" if $args{'filter'} and 'HASH' ne ref $args{'filter'};
 
-    $args{'interval'}             = '1n' unless defined $args{'interval'};
-    $args{'one_result_aref'}      = '0'  unless defined $args{'one_result_aref'};
-    $args{'one_result_full_data'} = '0'  unless defined $args{'one_result_full_data'};
+    $args{'interval'}  //= '1n';
+    $args{'full_data'} //= '0';
 
     if ($args{'interval'} !~ /^\d+[ndwmy]$/ and 'all' ne lc $args{'interval'}) {
         die "invalid interval '$args{'interval'}'\n";
     }
 
-    ## group by interval
-    $self->rewind;
-    my @complex;
-    while (my $chunk = $self->get_chunk ($args{'interval'})) {
-        push @complex, $chunk;
+    my $chunk = $self->get_chunk ($args{'interval'});
+
+    if (!$chunk) {
+        $self->rewind;
+        return;
     }
+
+    ## doing this with a map{} seems to use more memory
+    my @new_chunk;
+    foreach my $note (@{ $chunk->{'notes'} }) {
+        push @new_chunk, [ split ';', $note, NCOLS ];
+    }
+    $chunk->{'notes'} = \@new_chunk;
 
     ## filter
     if ($args{'filter'}) {
-        foreach my $chunk (@complex) {
-            my $new_notes = [];
-            NOTE: foreach my $hr (@{ $chunk->{'notes'} }) {
-                foreach my $cond (keys %{ $args{'filter'} }) {
-                    ## TODO: --timestamp(lt,gt) --date(lt,gt) --time(lt,gt) --latitude(lt,gt) --longitude(lt,gt)
-                    if ('value' eq $cond) {
-                        next NOTE if $hr->{$cond} != $args{'filter'}{$cond};
-                    } else {
-                        next NOTE if $hr->{$cond} !~ $args{'filter'}{$cond};
-                    }
+        my $new_notes = [];
+        NOTE: foreach my $hr (@{ $chunk->{'notes'} }) {
+            foreach my $cond (keys %{ $args{'filter'} }) {
+                ## TODO: --timestamp(lt,gt) --date(lt,gt) --time(lt,gt) --latitude(lt,gt) --longitude(lt,gt)
+                if ('value' eq $cond) {
+                    next NOTE if $hr->{$cond} != $args{'filter'}{$cond};
+                } else {
+                    next NOTE if $hr->{$cond} !~ $args{'filter'}{$cond};
                 }
-                push @$new_notes, $hr;
             }
-            $chunk->{'notes'} = $new_notes;
+            push @$new_notes, $hr;
         }
+        $chunk->{'notes'} = $new_notes;
     }
 
-    ## return iterator
-    return sub {
-        my $ret = shift @complex;
-
-        return if !defined $ret;
-        #if !@$ret, there are no filtered notes in that interval, which is ok (say "no Maltese notes in January 2010")
-
-        ## si hay un billete y no queremos ni aref ni full_data, devolver únicamente el billete (un hashref) sin más
-        if (!$args{'one_result_aref'} and !$args{'one_result_full_data'} and 1 == @{ $ret->{'notes'} }) {
-            return $ret->{'notes'}[0];
-        }
-
-        ## si hay un billete y no queremos aref (pero sí full_data, se entiende), quitar la aref
-        if (!$args{'one_result_aref'} and 1 == @{ $ret->{'notes'} }) {
-            $ret->{'notes'} = $ret->{'notes'}[0];
-        }
-
-        ## si no queremos full data, devolver sólo los billetes (aref) sin rangos de fechas
-        if (!$args{'one_result_full_data'}) {
-            $ret = $ret->{'notes'};
-        }
-
-        return $ret;
-    };
+    return $args{'full_data'} ? $chunk : $chunk->{'notes'};
 }
 
 1;

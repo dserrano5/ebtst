@@ -16,19 +16,20 @@ is scalar @{ $data_obj->{'notes'} }, 7, 'Correct number of notes';
 my $st = new_ok 'EBT2::Stats';
 
 my $res;
-$res = $st->activity ($data_obj);
+$res = $st->activity (undef, $data_obj);
 is ref $res, 'HASH', 'activity';
 is $res->{'activity'}{'first_note'}{'date'}, '2010-02-11', 'First note date';
-is $res->{'activity'}{'longest_active_period_notes'}, 4, 'Longest active period, given in notes';
+## there are two periods of 1 day of duration in notes2.csv. EBT2 takes the first of them, which has 3 notes
+is $res->{'activity'}{'longest_active_period_notes'}, 3, 'Longest active period, given in notes';
 is $res->{'activity'}{'active_days_count'}, 2, 'Active days count';
 
-$res = $st->count ($data_obj);
+$res = $st->count (undef, $data_obj);
 is ref $res, 'HASH', 'count';
 is $res->{'count'}, 7, 'Note count';
 is $res->{'total_value'}, 640, 'Total value';
 is ref $res->{'signatures'}, 'HASH', 'Signatures';
 
-$res = $st->notes_by_value ($data_obj);
+$res = $st->notes_by_value (undef, $data_obj);
 is ref $res, 'HASH', 'notes_by_value';
 is $res->{'notes_by_value'}{'10'}, 1, 'One 10€ note';
 is $res->{'notes_by_value'}{'20'}, 4, 'Four 20€ notes';
@@ -67,7 +68,7 @@ hits              nnum  elapsed   old_hr    new_hr      n_betw  d_betw
  5;V****6564***    7      10      10/5=2    10/6=1.6      0      2        ;2011-11-14 22:12:29;2;0;1624;248
 20;S****2090***    11     11      10/6=1.6  11/7=1.5      0      78       ;2012-02-01 09:25:51;2;0;1637;857
 EOF
-$res = $st->hit_list ($data_obj, $data_obj->whoami);
+$res = $st->hit_list (undef, $data_obj, $data_obj->whoami);
 
 for (0..6) { is $res->{'hit_list'}[$_]{'hit_no'}, $_+1, sprintf 'Correct hit %d number', $_ + 1; }
 
@@ -109,7 +110,7 @@ for (0..6) { is $res->{'hit_list'}[$_]{'days_between'}, $hit_days_between[$_], s
 note 'hit_list again, now with some moderated hits';
 $data_obj->load_notes ('t/notes5.csv');
 $data_obj->load_hits ('t/hits5.csv');
-$res = $st->hit_list ($data_obj, $data_obj->whoami);
+$res = $st->hit_list (undef, $data_obj, $data_obj->whoami);
 
 is $res->{'hit_list'}[0]{'hit_no'}, undef, sprintf 'Correct hit 1 (moderated) number';
 is $res->{'hit_list'}[1]{'hit_no'}, 1,     sprintf 'Correct hit 2 number';
@@ -184,7 +185,7 @@ for (0..8) { is $res->{'hit_list'}[$_]{'days_between'}, $all_hit_days_between[$_
 note 'first hit is passive and moderated';
 $data_obj->load_notes ('t/notes6.csv');
 $data_obj->load_hits ('t/hits6.csv');
-$res = $st->hit_list ($data_obj, $data_obj->whoami);
+$res = $st->hit_list (undef, $data_obj, $data_obj->whoami);
 #use Data::Dumper; warn sprintf "%s:%s: %s\n", __FILE__, __LINE__, Data::Dumper->Dump (sub{\@_}->(\$res), ['res']);
 is $res->{'hit_list'}[0]{'moderated'}, 1, 'First hit is moderated';
 is $res->{'hit_list'}[1]{'moderated'}, 0, 'Second hit is not moderated';

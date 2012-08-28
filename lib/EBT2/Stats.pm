@@ -39,45 +39,46 @@ sub bundle_information {
     my %active_days;
     my $cursor;
     while (my $chunk = $data->note_getter (interval => $chunk_size)) {
-    foreach my $hr (@$chunk) {
-        $idx++;
-        $progress and select undef, undef, undef, 0.0005;   ## temporary simulation of slowness
-        if ($progress and 0 == $idx % $EBT2::progress_every) { $progress->set ($idx); }
+        foreach my $hr (@$chunk) {
+            $idx++;
+            $progress and select undef, undef, undef, 0.0005;   ## temporary simulation of slowness
+            if ($progress and 0 == $idx % $EBT2::progress_every) { $progress->set ($idx); }
 
-        ## activity
-        my $date_entered = (split ' ', $hr->[DATE_ENTERED])[0];
-        if (!$ret{'activity'}{'first_note'}) {
-            $date_entered =~ /^(\d{4})-(\d{2})-(\d{2})$/;
-            $cursor = DateTime->new (year => $1, month => $2, day => $3);
-            $ret{'activity'}{'first_note'} = {
-                date    => $date_entered,
-                value   => $hr->[VALUE],
-                city    => $hr->[CITY],
-                country => $hr->[COUNTRY],
-                id      => $hr->[ID],
-            };
+            ## activity
+            my $date_entered = (split ' ', $hr->[DATE_ENTERED])[0];
+            if (!$ret{'activity'}{'first_note'}) {
+                $date_entered =~ /^(\d{4})-(\d{2})-(\d{2})$/;
+                $cursor = DateTime->new (year => $1, month => $2, day => $3);
+                $ret{'activity'}{'first_note'} = {
+                    date    => $date_entered,
+                    value   => $hr->[VALUE],
+                    city    => $hr->[CITY],
+                    country => $hr->[COUNTRY],
+                    id      => $hr->[ID],
+                };
+            }
+            $active_days{$date_entered}++;  ## number of notes
+
+            ## count (total_value, signatures)
+            $ret{'count'}++;
+            $ret{'total_value'} += $hr->[VALUE];
+            $ret{'signatures'}{ $hr->[SIGNATURE] }++;
+
+            ## days_elapsed
+            if (!exists $ret{'days_elapsed'}) {
+                my $dt0 = DateTime->new (
+                    zip @{[qw/year month day hour minute second/]}, @{[ split /[\s:-]/, $hr->[DATE_ENTERED] ]}
+                );
+                $ret{'days_elapsed'} = DateTime->now->delta_days ($dt0)->delta_days;
+            }
+
+            ## notes_dates
+            push @{ $ret{'notes_dates'} }, $hr->[DATE_ENTERED];
+
+            ## elem_notes_by_president
+            $ret{'elem_notes_by_president'} .= $hr->[SIGNATURE] . ',';
         }
-        $active_days{$date_entered}++;  ## number of notes
-
-        ## count (total_value, signatures)
-        $ret{'count'}++;
-        $ret{'total_value'} += $hr->[VALUE];
-        $ret{'signatures'}{ $hr->[SIGNATURE] }++;
-
-        ## days_elapsed
-        if (!exists $ret{'days_elapsed'}) {
-            my $dt0 = DateTime->new (
-                zip @{[qw/year month day hour minute second/]}, @{[ split /[\s:-]/, $hr->[DATE_ENTERED] ]}
-            );
-            $ret{'days_elapsed'} = DateTime->now->delta_days ($dt0)->delta_days;
-        }
-
-        ## notes_dates
-        push @{ $ret{'notes_dates'} }, $hr->[DATE_ENTERED];
-
-        ## elem_notes_by_president
-        $ret{'elem_notes_by_president'} .= $hr->[SIGNATURE] . ',';
-    }}
+    }
     chop $ret{'elem_notes_by_president'};
 
     my $today = DateTime->now->strftime ('%Y-%m-%d');
@@ -194,17 +195,18 @@ sub notes_by_value {
     my $idx = 0;
 
     while (my $chunk = $data->note_getter (interval => $chunk_size)) {
-    foreach my $hr (@$chunk) {
-        $idx++;
-        $progress and select undef, undef, undef, 0.0005;   ## temporary simulation of slowness
-        if ($progress and 0 == $idx % $EBT2::progress_every) { $progress->set ($idx); }
+        foreach my $hr (@$chunk) {
+            $idx++;
+            $progress and select undef, undef, undef, 0.0005;   ## temporary simulation of slowness
+            if ($progress and 0 == $idx % $EBT2::progress_every) { $progress->set ($idx); }
 
-        ## notes_by_value
-        $ret{'notes_by_value'}{ $hr->[VALUE] }++;
+            ## notes_by_value
+            $ret{'notes_by_value'}{ $hr->[VALUE] }++;
 
-        ## elem_notes_by_value
-        $ret{'elem_notes_by_value'} .= $hr->[VALUE] . ',';
-    }}
+            ## elem_notes_by_value
+            $ret{'elem_notes_by_value'} .= $hr->[VALUE] . ',';
+        }
+    }
     chop $ret{'elem_notes_by_value'};
 
     return \%ret;
@@ -217,14 +219,15 @@ sub first_by_value {
     my %ret;
 
     while (my $chunk = $data->note_getter (interval => $chunk_size)) {
-    foreach my $hr (@$chunk) {
-        $at++;
-        $progress and select undef, undef, undef, 0.0005;   ## temporary simulation of slowness
-        if ($progress and 0 == $at % $EBT2::progress_every) { $progress->set ($at); }
+        foreach my $hr (@$chunk) {
+            $at++;
+            $progress and select undef, undef, undef, 0.0005;   ## temporary simulation of slowness
+            if ($progress and 0 == $at % $EBT2::progress_every) { $progress->set ($at); }
 
-        my %hr2 = zip @{[ COL_NAMES ]}, @$hr;
-        $ret{'first_by_value'}{ $hr->[VALUE] } ||= { %hr2, at => $at };
-    }}
+            my %hr2 = zip @{[ COL_NAMES ]}, @$hr;
+            $ret{'first_by_value'}{ $hr->[VALUE] } ||= { %hr2, at => $at };
+        }
+    }
 
     return \%ret;
 }
@@ -234,11 +237,12 @@ sub notes_by_cc {
     my %ret;
 
     while (my $chunk = $data->note_getter (interval => $chunk_size)) {
-    foreach my $hr (@$chunk) {
-        my $cc = substr $hr->[SERIAL], 0, 1;
-        $ret{'notes_by_cc'}{$cc}{'total'}++;
-        $ret{'notes_by_cc'}{$cc}{ $hr->[VALUE] }++;
-    }}
+        foreach my $hr (@$chunk) {
+            my $cc = substr $hr->[SERIAL], 0, 1;
+            $ret{'notes_by_cc'}{$cc}{'total'}++;
+            $ret{'notes_by_cc'}{$cc}{ $hr->[VALUE] }++;
+        }
+    }
 
     return \%ret;
 }
@@ -249,12 +253,13 @@ sub first_by_cc {
     my $at = 0;
 
     while (my $chunk = $data->note_getter (interval => $chunk_size)) {
-    foreach my $hr (@$chunk) {
-        $at++;
-        my %hr2 = zip @{[ COL_NAMES ]}, @$hr;
-        my $cc = substr $hr2{'serial'}, 0, 1;
-        $ret{'first_by_cc'}{$cc} ||= { %hr2, at => $at };
-    }}
+        foreach my $hr (@$chunk) {
+            $at++;
+            my %hr2 = zip @{[ COL_NAMES ]}, @$hr;
+            my $cc = substr $hr2{'serial'}, 0, 1;
+            $ret{'first_by_cc'}{$cc} ||= { %hr2, at => $at };
+        }
+    }
 
     return \%ret;
 }
@@ -264,11 +269,12 @@ sub notes_by_pc {
     my %ret;
 
     while (my $chunk = $data->note_getter (interval => $chunk_size)) {
-    foreach my $hr (@$chunk) {
-        my $pc = substr $hr->[SHORT_CODE], 0, 1;
-        $ret{'notes_by_pc'}{$pc}{'total'}++;
-        $ret{'notes_by_pc'}{$pc}{ $hr->[VALUE] }++;
-    }}
+        foreach my $hr (@$chunk) {
+            my $pc = substr $hr->[SHORT_CODE], 0, 1;
+            $ret{'notes_by_pc'}{$pc}{'total'}++;
+            $ret{'notes_by_pc'}{$pc}{ $hr->[VALUE] }++;
+        }
+    }
 
     return \%ret;
 }
@@ -279,12 +285,13 @@ sub first_by_pc {
     my %ret;
 
     while (my $chunk = $data->note_getter (interval => $chunk_size)) {
-    foreach my $hr (@$chunk) {
-        $at++;
-        my %hr2 = zip @{[ COL_NAMES ]}, @$hr;
-        my $pc = substr $hr->[SHORT_CODE], 0, 1;
-        $ret{'first_by_pc'}{$pc} ||= { %hr2, at => $at };
-    }}
+        foreach my $hr (@$chunk) {
+            $at++;
+            my %hr2 = zip @{[ COL_NAMES ]}, @$hr;
+            my $pc = substr $hr->[SHORT_CODE], 0, 1;
+            $ret{'first_by_pc'}{$pc} ||= { %hr2, at => $at };
+        }
+    }
 
     return \%ret;
 }
@@ -294,40 +301,41 @@ sub bundle_locations {
     my %ret;
 
     while (my $chunk = $data->note_getter (interval => $chunk_size)) {
-    foreach my $hr (@$chunk) {
-        ## notes_by_country
-        $ret{'notes_by_country'}{ $hr->[COUNTRY] }{'total'}++;
-        $ret{'notes_by_country'}{ $hr->[COUNTRY] }{ $hr->[VALUE] }++;
+        foreach my $hr (@$chunk) {
+            ## notes_by_country
+            $ret{'notes_by_country'}{ $hr->[COUNTRY] }{'total'}++;
+            $ret{'notes_by_country'}{ $hr->[COUNTRY] }{ $hr->[VALUE] }++;
 
-        ## notes_by_city
-        $ret{'notes_by_city'}{ $hr->[COUNTRY] }{ $hr->[CITY] }{'total'}++;
-        $ret{'notes_by_city'}{ $hr->[COUNTRY] }{ $hr->[CITY] }{ $hr->[VALUE] }++;
+            ## notes_by_city
+            $ret{'notes_by_city'}{ $hr->[COUNTRY] }{ $hr->[CITY] }{'total'}++;
+            $ret{'notes_by_city'}{ $hr->[COUNTRY] }{ $hr->[CITY] }{ $hr->[VALUE] }++;
 
-        ## elem_notes_by_city
-        $ret{'elem_notes_by_city'} .= $hr->[CITY] . '#';
+            ## elem_notes_by_city
+            $ret{'elem_notes_by_city'} .= $hr->[CITY] . '#';
 
-        ## alphabets
-        my $city = $hr->[CITY];
+            ## alphabets
+            my $city = $hr->[CITY];
 
-        ## some Dutch cities have an abbreviated article at the beginning, ignore it
-        if ($city =~ /^'s[- ](.*)/) {
-            $city = $1;
+            ## some Dutch cities have an abbreviated article at the beginning, ignore it
+            if ($city =~ /^'s[- ](.*)/) {
+                $city = $1;
+            }
+            ## ...probably more similar cases to be handled here...
+
+            my $initial = uc substr $city, 0, 1;
+            ## removing diacritics is a hard task; let's follow the KISS principle here
+            $initial =~ tr/ÁÉÍÓÚÀÈÌÒÙÄËÏÖÜ/AEIOUAEIOUAEIOU/;
+
+            $ret{'alphabets'}{ $hr->[COUNTRY] }{$initial}++;
+
+            ## travel_stats
+            my $y = substr $hr->[DATE_ENTERED], 0, 4;
+            $ret{'travel_stats'}{ $hr->[CITY] }{'first_seen'} ||= $hr->[DATE_ENTERED];
+            $ret{'travel_stats'}{ $hr->[CITY] }{'total'}++;
+            $ret{'travel_stats'}{ $hr->[CITY] }{'visits'}{$y}++;
+            $ret{'travel_stats'}{ $hr->[CITY] }{'country'} ||= $hr->[COUNTRY];
         }
-        ## ...probably more similar cases to be handled here...
-
-        my $initial = uc substr $city, 0, 1;
-        ## removing diacritics is a hard task; let's follow the KISS principle here
-        $initial =~ tr/ÁÉÍÓÚÀÈÌÒÙÄËÏÖÜ/AEIOUAEIOUAEIOU/;
-
-        $ret{'alphabets'}{ $hr->[COUNTRY] }{$initial}++;
-
-        ## travel_stats
-        my $y = substr $hr->[DATE_ENTERED], 0, 4;
-        $ret{'travel_stats'}{ $hr->[CITY] }{'first_seen'} ||= $hr->[DATE_ENTERED];
-        $ret{'travel_stats'}{ $hr->[CITY] }{'total'}++;
-        $ret{'travel_stats'}{ $hr->[CITY] }{'visits'}{$y}++;
-        $ret{'travel_stats'}{ $hr->[CITY] }{'country'} ||= $hr->[COUNTRY];
-    }}
+    }
 
     return \%ret;
 }
@@ -372,17 +380,18 @@ sub huge_table {
     my %ret;
 
     while (my $chunk = $data->note_getter (interval => $chunk_size)) {
-    foreach my $hr (@$chunk) {
-        next if $hr->[ERRORS];
-        my $plate = substr $hr->[SHORT_CODE], 0, 4;
-        my $serial = EBT2::Data::serial_remove_meaningless_figures2 $hr->[SHORT_CODE], $hr->[SERIAL];
-        my $num_stars = $serial =~ tr/*/*/;
-        $serial = substr $serial, 0, 4+$num_stars;
+        foreach my $hr (@$chunk) {
+            next if $hr->[ERRORS];
+            my $plate = substr $hr->[SHORT_CODE], 0, 4;
+            my $serial = EBT2::Data::serial_remove_meaningless_figures2 $hr->[SHORT_CODE], $hr->[SERIAL];
+            my $num_stars = $serial =~ tr/*/*/;
+            $serial = substr $serial, 0, 4+$num_stars;
 
-        $ret{'huge_table'}{$plate}{ $hr->[VALUE] }{$serial}{'count'}++;
-        $ret{'huge_table'}{$plate}{ $hr->[VALUE] }{$serial}{'recent'} = $hr->[RECENT];  ## since @$chunk is ordered, we'll get the latest value
-        #$ret{'huge_table'}{$plate}{ $hr->[VALUE] }{$serial}{'last_id'} = $hr->[ID];
-    }}
+            $ret{'huge_table'}{$plate}{ $hr->[VALUE] }{$serial}{'count'}++;
+            $ret{'huge_table'}{$plate}{ $hr->[VALUE] }{$serial}{'recent'} = $hr->[RECENT];  ## since @$chunk is ordered, we'll get the latest value
+            #$ret{'huge_table'}{$plate}{ $hr->[VALUE] }{$serial}{'last_id'} = $hr->[ID];
+        }
+    }
 
     return \%ret;
 }
@@ -420,31 +429,32 @@ sub fooest_short_codes {
     my %ret;
 
     while (my $chunk = $data->note_getter (interval => $chunk_size)) {
-    foreach my $hr (@$chunk) {
-        next if $hr->[ERRORS];
-        my %hr2 = zip @{[ COL_NAMES ]}, @$hr;
-        my $pc = substr $hr->[SHORT_CODE], 0, 1;
-        my $serial = EBT2::Data::serial_remove_meaningless_figures2 $hr->[SHORT_CODE], $hr->[SERIAL];
-        $serial =~ s/^([A-Z]\**\d{3}).*$/$1/;
-        $serial =~ s/^([A-Z]\d{2}\**\d).*$/$1/;  ## 500 F/P
-        my $sort_key = sprintf '%s%s', $hr->[SHORT_CODE], $serial;
+        foreach my $hr (@$chunk) {
+            next if $hr->[ERRORS];
+            my %hr2 = zip @{[ COL_NAMES ]}, @$hr;
+            my $pc = substr $hr->[SHORT_CODE], 0, 1;
+            my $serial = EBT2::Data::serial_remove_meaningless_figures2 $hr->[SHORT_CODE], $hr->[SERIAL];
+            $serial =~ s/^([A-Z]\**\d{3}).*$/$1/;
+            $serial =~ s/^([A-Z]\d{2}\**\d).*$/$1/;  ## 500 F/P
+            my $sort_key = sprintf '%s%s', $hr->[SHORT_CODE], $serial;
 
-        for my $value ('all', $hr->[VALUE]) {
-            for my $param (
-                [ -1, 'lowest_short_codes' ],
-                [ 1, 'highest_short_codes' ],
-            ) {
-                my ($cmp_key, $hash_key) = @$param;
-                if (!exists $ret{$hash_key}{$pc}{$value}) {
-                    $ret{$hash_key}{$pc}{$value} = { %hr2, sort_key => $sort_key };
-                } else {
-                    if ($cmp_key == ($sort_key cmp $ret{$hash_key}{$pc}{$value}{'sort_key'})) {
+            for my $value ('all', $hr->[VALUE]) {
+                for my $param (
+                    [ -1, 'lowest_short_codes' ],
+                    [ 1, 'highest_short_codes' ],
+                ) {
+                    my ($cmp_key, $hash_key) = @$param;
+                    if (!exists $ret{$hash_key}{$pc}{$value}) {
                         $ret{$hash_key}{$pc}{$value} = { %hr2, sort_key => $sort_key };
+                    } else {
+                        if ($cmp_key == ($sort_key cmp $ret{$hash_key}{$pc}{$value}{'sort_key'})) {
+                            $ret{$hash_key}{$pc}{$value} = { %hr2, sort_key => $sort_key };
+                        }
                     }
                 }
             }
         }
-    }}
+    }
 
     return \%ret;
 }
@@ -520,28 +530,29 @@ sub nice_serials {
     my @nicest;
 
     while (my $chunk = $data->note_getter (interval => $chunk_size)) {
-    foreach my $hr (@$chunk) {
-        $idx++;
-        $progress and select undef, undef, undef, 0.0005;   ## temporary simulation of slowness
-        if ($progress and 0 == $idx % $EBT2::progress_every) { $progress->set ($idx); }
+        foreach my $hr (@$chunk) {
+            $idx++;
+            $progress and select undef, undef, undef, 0.0005;   ## temporary simulation of slowness
+            if ($progress and 0 == $idx % $EBT2::progress_every) { $progress->set ($idx); }
 
-        my %hr2 = zip @{[ COL_NAMES ]}, @$hr;
-        my ($score, $longest, $different_digits, $visible_serial) = _serial_niceness substr $hr->[SERIAL], 1;
-        if (@nicest < $num_elems or $score > $nicest[-1]{'score'}) {
-            ## this is a quicksort on an almost sorted list, I read
-            ## quicksort coughs on that so let's see how this performs
-            @nicest = reverse sort {
-                $a->{'score'} <=> $b->{'score'}
-            } @nicest, {
-                %hr2,
-                score          => $score,
-                visible_serial => "*$visible_serial",
-            };
-            @nicest >= $num_elems and splice @nicest, $num_elems;
+            my %hr2 = zip @{[ COL_NAMES ]}, @$hr;
+            my ($score, $longest, $different_digits, $visible_serial) = _serial_niceness substr $hr->[SERIAL], 1;
+            if (@nicest < $num_elems or $score > $nicest[-1]{'score'}) {
+                ## this is a quicksort on an almost sorted list, I read
+                ## quicksort coughs on that so let's see how this performs
+                @nicest = reverse sort {
+                    $a->{'score'} <=> $b->{'score'}
+                } @nicest, {
+                    %hr2,
+                    score          => $score,
+                    visible_serial => "*$visible_serial",
+                };
+                @nicest >= $num_elems and splice @nicest, $num_elems;
+            }
+            $longest > 1 and $ret{'numbers_in_a_row'}{$longest}++;
+            $ret{'different_digits'}{$different_digits}++;
         }
-        $longest > 1 and $ret{'numbers_in_a_row'}{$longest}++;
-        $ret{'different_digits'}{$different_digits}++;
-    }}
+    }
     $ret{'nice_serials'} = \@nicest;
 
     return \%ret;
@@ -554,12 +565,13 @@ sub coords_bingo {
     my %ret;
 
     while (my $chunk = $data->note_getter (interval => $chunk_size)) {
-    foreach my $hr (@$chunk) {
-        next if $hr->[ERRORS];
-        my $coords = substr $hr->[SHORT_CODE], 4, 2;
-        $ret{'coords_bingo'}{ $hr->[VALUE] }{$coords}++;
-        $ret{'coords_bingo'}{ 'all' }{$coords}++;
-    }}
+        foreach my $hr (@$chunk) {
+            next if $hr->[ERRORS];
+            my $coords = substr $hr->[SHORT_CODE], 4, 2;
+            $ret{'coords_bingo'}{ $hr->[VALUE] }{$coords}++;
+            $ret{'coords_bingo'}{ 'all' }{$coords}++;
+        }
+    }
 
     return \%ret;
 }
@@ -569,47 +581,48 @@ sub bundle_time {
     my %ret;
 
     while (my $chunk = $data->note_getter (interval => $chunk_size)) {
-    foreach my $hr (@$chunk) {
-        my ($y, $m, $d, $H, $M, $S) = map { sprintf '%02d', $_ } split /[\s:-]/, $hr->[DATE_ENTERED];
-        ## notes_per_year
-        #my $y = substr $hr->[DATE_ENTERED], 0, 4;
-        $ret{'notes_per_year'}{$y}{'total'}++;
-        $ret{'notes_per_year'}{$y}{ $hr->[VALUE] }++;
+        foreach my $hr (@$chunk) {
+            my ($y, $m, $d, $H, $M, $S) = map { sprintf '%02d', $_ } split /[\s:-]/, $hr->[DATE_ENTERED];
+            ## notes_per_year
+            #my $y = substr $hr->[DATE_ENTERED], 0, 4;
+            $ret{'notes_per_year'}{$y}{'total'}++;
+            $ret{'notes_per_year'}{$y}{ $hr->[VALUE] }++;
 
-        ## notes_per_month
-        my $ym = substr $hr->[DATE_ENTERED], 0, 7;
-        $ret{'notes_per_month'}{$ym}{'total'}++;
-        $ret{'notes_per_month'}{$ym}{ $hr->[VALUE] }++;
+            ## notes_per_month
+            my $ym = substr $hr->[DATE_ENTERED], 0, 7;
+            $ret{'notes_per_month'}{$ym}{'total'}++;
+            $ret{'notes_per_month'}{$ym}{ $hr->[VALUE] }++;
 
-        ## top10days
-        my $ymd = substr $hr->[DATE_ENTERED], 0, 10;
-        $ret{'top10days'}{$ymd}{'total'}++;
-        $ret{'top10days'}{$ymd}{ $hr->[VALUE] }++;
+            ## top10days
+            my $ymd = substr $hr->[DATE_ENTERED], 0, 10;
+            $ret{'top10days'}{$ymd}{'total'}++;
+            $ret{'top10days'}{$ymd}{ $hr->[VALUE] }++;
 
-        ## top10months
-        $ret{'top10months'}{$ym}{'total'}++;
-        $ret{'top10months'}{$ym}{ $hr->[VALUE] }++;
+            ## top10months
+            $ret{'top10months'}{$ym}{'total'}++;
+            $ret{'top10months'}{$ym}{ $hr->[VALUE] }++;
 
-        ## time_analysis
-        #my ($y, $m, $d, $H, $M, $S) = map { sprintf '%02d', $_ } split /[\s:-]/, $hr->[DATE_ENTERED];
-        my $dow = $hr->[DOW];
-        $ret{'time_analysis'}{'cal'}{$m}{$d}++;
-        $ret{'time_analysis'}{'hh'}{$H}++;
-        $ret{'time_analysis'}{'mm'}{$M}++;
-        $ret{'time_analysis'}{'ss'}{$S}++;
-        $ret{'time_analysis'}{'hhmm'}{$H}{$M}++;
-        $ret{'time_analysis'}{'mmss'}{$M}{$S}++;
-        $ret{'time_analysis'}{'hhmmss'}{$H}{$M}{$S}++;
-        $ret{'time_analysis'}{'dow'}{$dow}++;    ## XXX: this partially replaces notes_by_dow below
-        $ret{'time_analysis'}{'dowhh'}{$dow}{$H}++;
-        $ret{'time_analysis'}{'dowhhmm'}{$dow}{$H}{$M}++;
+            ## time_analysis
+            #my ($y, $m, $d, $H, $M, $S) = map { sprintf '%02d', $_ } split /[\s:-]/, $hr->[DATE_ENTERED];
+            my $dow = $hr->[DOW];
+            $ret{'time_analysis'}{'cal'}{$m}{$d}++;
+            $ret{'time_analysis'}{'hh'}{$H}++;
+            $ret{'time_analysis'}{'mm'}{$M}++;
+            $ret{'time_analysis'}{'ss'}{$S}++;
+            $ret{'time_analysis'}{'hhmm'}{$H}{$M}++;
+            $ret{'time_analysis'}{'mmss'}{$M}{$S}++;
+            $ret{'time_analysis'}{'hhmmss'}{$H}{$M}{$S}++;
+            $ret{'time_analysis'}{'dow'}{$dow}++;    ## XXX: this partially replaces notes_by_dow below
+            $ret{'time_analysis'}{'dowhh'}{$dow}{$H}++;
+            $ret{'time_analysis'}{'dowhhmm'}{$dow}{$H}{$M}++;
 
-        ## notes_by_dow
-        #my ($Y, $m, $d) = (split /[\s:-]/, $hr->[DATE_ENTERED])[0..2];
-        #my $dow = 1 + dayofweek $d, $m, $Y;
-        $ret{'notes_by_dow'}{$dow}{'total'}++;
-        $ret{'notes_by_dow'}{$dow}{ $hr->[VALUE] }++;
-    }}
+            ## notes_by_dow
+            #my ($Y, $m, $d) = (split /[\s:-]/, $hr->[DATE_ENTERED])[0..2];
+            #my $dow = 1 + dayofweek $d, $m, $Y;
+            $ret{'notes_by_dow'}{$dow}{'total'}++;
+            $ret{'notes_by_dow'}{$dow}{ $hr->[VALUE] }++;
+        }
+    }
 
     ## postfix: top10days (keep the 10 highest and delete the other ones)
     my @sorted_days = sort {
@@ -759,36 +772,37 @@ sub missing_combs_and_history {
     my %sigs;
 
     while (my $chunk = $data->note_getter (interval => $chunk_size)) {
-    foreach my $hr (@$chunk) {
-        $num_note++;
-        $progress and select undef, undef, undef, 0.0005;   ## temporary simulation of slowness
-        if ($progress and 0 == $num_note % $EBT2::progress_every) { $progress->set ($num_note); }
+        foreach my $hr (@$chunk) {
+            $num_note++;
+            $progress and select undef, undef, undef, 0.0005;   ## temporary simulation of slowness
+            if ($progress and 0 == $num_note % $EBT2::progress_every) { $progress->set ($num_note); }
 
-        next if $hr->[ERRORS];
+            next if $hr->[ERRORS];
 
-        my $p = substr $hr->[SHORT_CODE], 0, 1;
-        my $c = substr $hr->[SERIAL], 0, 1;
-        my $v = $hr->[VALUE];
-        my $s = (split ' ', $hr->[SIGNATURE])[0];
+            my $p = substr $hr->[SHORT_CODE], 0, 1;
+            my $c = substr $hr->[SERIAL], 0, 1;
+            my $v = $hr->[VALUE];
+            my $s = (split ' ', $hr->[SIGNATURE])[0];
 
-        my $k = sprintf '%s%s%03d', $p, $c, $v;
-        if (!$combs{$k}) {
-            push @history, {
-                index   => ++$hist_idx,
-                pname   => EBT2->printers ($p),
-                cname   => EBT2->countries ($c),
-                pc      => $p,
-                cc      => $c,
-                value   => $hr->[VALUE],
-                num     => $num_note,
-                date    => (split ' ', $hr->[DATE_ENTERED])[0],
-                city    => $hr->[CITY],
-                country => $hr->[COUNTRY],
-            };
+            my $k = sprintf '%s%s%03d', $p, $c, $v;
+            if (!$combs{$k}) {
+                push @history, {
+                    index   => ++$hist_idx,
+                    pname   => EBT2->printers ($p),
+                    cname   => EBT2->countries ($c),
+                    pc      => $p,
+                    cc      => $c,
+                    value   => $hr->[VALUE],
+                    num     => $num_note,
+                    date    => (split ' ', $hr->[DATE_ENTERED])[0],
+                    city    => $hr->[CITY],
+                    country => $hr->[COUNTRY],
+                };
+            }
+            $combs{$k}++;
+            $sigs{$s}{$k}++;
         }
-        $combs{$k}++;
-        $sigs{$s}{$k}++;
-    }}
+    }
 
     ## gather missing combinations
     my %missing_pcv;
@@ -825,26 +839,27 @@ sub notes_by_combination {
     my $idx;
 
     while (my $chunk = $data->note_getter (interval => $chunk_size)) {
-    foreach my $hr (@$chunk) {
-        $idx++;
-        $progress and select undef, undef, undef, 0.0005;   ## temporary simulation of slowness
-        if ($progress and 0 == $idx % $EBT2::progress_every) { $progress->set ($idx); }
+        foreach my $hr (@$chunk) {
+            $idx++;
+            $progress and select undef, undef, undef, 0.0005;   ## temporary simulation of slowness
+            if ($progress and 0 == $idx % $EBT2::progress_every) { $progress->set ($idx); }
 
-        next if $hr->[ERRORS];
-        my $comb1 = sprintf '%s%s',   (substr $hr->[SHORT_CODE], 0, 1), (substr $hr->[SERIAL], 0, 1);
-        #my $comb2 = sprintf '%s%s%s', (substr $hr->[SHORT_CODE], 0, 1), (substr $hr->[SERIAL], 0, 1), $hr->[VALUE];
-        my ($sig) = $hr->[SIGNATURE] =~ /^(\w+)/ or next;
+            next if $hr->[ERRORS];
+            my $comb1 = sprintf '%s%s',   (substr $hr->[SHORT_CODE], 0, 1), (substr $hr->[SERIAL], 0, 1);
+            #my $comb2 = sprintf '%s%s%s', (substr $hr->[SHORT_CODE], 0, 1), (substr $hr->[SERIAL], 0, 1), $hr->[VALUE];
+            my ($sig) = $hr->[SIGNATURE] =~ /^(\w+)/ or next;
 
-        $ret{'notes_by_combination'}{'any'}{$comb1}{'total'}++;
-        $ret{'notes_by_combination'}{'any'}{$comb1}{ $hr->[VALUE] }{'count'}++;
-        $ret{'notes_by_combination'}{'any'}{$comb1}{ $hr->[VALUE] }{'last_id'} = $hr->[ID];
-        #$ret{'notes_by_combination_with_value'}{'any'}{$comb2}{ $hr->[VALUE] }++;
+            $ret{'notes_by_combination'}{'any'}{$comb1}{'total'}++;
+            $ret{'notes_by_combination'}{'any'}{$comb1}{ $hr->[VALUE] }{'count'}++;
+            $ret{'notes_by_combination'}{'any'}{$comb1}{ $hr->[VALUE] }{'last_id'} = $hr->[ID];
+            #$ret{'notes_by_combination_with_value'}{'any'}{$comb2}{ $hr->[VALUE] }++;
 
-        $ret{'notes_by_combination'}{$sig}{$comb1}{'total'}++;
-        $ret{'notes_by_combination'}{$sig}{$comb1}{ $hr->[VALUE] }{'count'}++;
-        $ret{'notes_by_combination'}{$sig}{$comb1}{ $hr->[VALUE] }{'last_id'} = $hr->[ID];
-        #$ret{'notes_by_combination_with_value'}{$sig}{$comb2}{ $hr->[VALUE] }++;
-    }}
+            $ret{'notes_by_combination'}{$sig}{$comb1}{'total'}++;
+            $ret{'notes_by_combination'}{$sig}{$comb1}{ $hr->[VALUE] }{'count'}++;
+            $ret{'notes_by_combination'}{$sig}{$comb1}{ $hr->[VALUE] }{'last_id'} = $hr->[ID];
+            #$ret{'notes_by_combination_with_value'}{$sig}{$comb2}{ $hr->[VALUE] }++;
+        }
+    }
 
     return \%ret;
 }
@@ -865,14 +880,15 @@ sub plate_bingo {
     }
 
     while (my $chunk = $data->note_getter (interval => $chunk_size)) {
-    foreach my $hr (@$chunk) {
-        next if $hr->[ERRORS];
-        my $plate = substr $hr->[SHORT_CODE], 0, 4;
-        $ret{'plate_bingo'}{ $hr->[VALUE] }{$plate}{'count'}++;
-        $ret{'plate_bingo'}{ $hr->[VALUE] }{$plate}{'last_id'} = $hr->[ID];
-        $ret{'plate_bingo'}{ 'all' }{$plate}{'count'}++;
-        $ret{'plate_bingo'}{ 'all' }{$plate}{'last_id'} = $hr->[ID];
-    }}
+        foreach my $hr (@$chunk) {
+            next if $hr->[ERRORS];
+            my $plate = substr $hr->[SHORT_CODE], 0, 4;
+            $ret{'plate_bingo'}{ $hr->[VALUE] }{$plate}{'count'}++;
+            $ret{'plate_bingo'}{ $hr->[VALUE] }{$plate}{'last_id'} = $hr->[ID];
+            $ret{'plate_bingo'}{ 'all' }{$plate}{'count'}++;
+            $ret{'plate_bingo'}{ 'all' }{$plate}{'last_id'} = $hr->[ID];
+        }
+    }
 
     return \%ret;
 }
@@ -882,15 +898,16 @@ sub bad_notes {
     my %ret;
 
     while (my $chunk = $data->note_getter (interval => $chunk_size)) {
-    foreach my $hr (@$chunk) {
-        if ($hr->[ERRORS]) {
-            my %hr2 = zip @{[ COL_NAMES ]}, @$hr;
-            push @{ $ret{'bad_notes'} }, {
-                %hr2,
-                errors => [ split ';', decode_base64 $hr->[ERRORS] ],
-            };
+        foreach my $hr (@$chunk) {
+            if ($hr->[ERRORS]) {
+                my %hr2 = zip @{[ COL_NAMES ]}, @$hr;
+                push @{ $ret{'bad_notes'} }, {
+                    %hr2,
+                    errors => [ split ';', decode_base64 $hr->[ERRORS] ],
+                };
+            }
         }
-    }}
+    }
 
     return \%ret;
 }
@@ -910,112 +927,113 @@ sub hit_list {
     my $prev_hit_dt;
 
     while (my $chunk = $data->note_getter (interval => $chunk_size)) {
-    foreach my $hr (@$chunk) {
-        $notes_between++;
-        $notes_elapsed++;
-        my $hit = $hr->[HIT] ? thaw decode_base64 $hr->[HIT] : undef;
-        if (1 == $hr->[NOTE_NO]) {
-            my $base_date = $hit ? $hit->{'hit_date'} : $hr->[DATE_ENTERED];
-            $prev_hit_dt = DateTime->new (
-                zip @{[qw/year month day hour minute second/]}, @{[ split /[\s:-]/, $base_date ]}
-            );
-        }
+        foreach my $hr (@$chunk) {
+            $notes_between++;
+            $notes_elapsed++;
+            my $hit = $hr->[HIT] ? thaw decode_base64 $hr->[HIT] : undef;
+            if (1 == $hr->[NOTE_NO]) {
+                my $base_date = $hit ? $hit->{'hit_date'} : $hr->[DATE_ENTERED];
+                $prev_hit_dt = DateTime->new (
+                    zip @{[qw/year month day hour minute second/]}, @{[ split /[\s:-]/, $base_date ]}
+                );
+            }
 
-        ## if current note is more recent than any pending passive hits, then they have just occurred. Fill their data in
-        if (%passive_pending) {
-            my @done;
-            foreach my $pas_hit (sort { $a->{'hit_date'} cmp $b->{'hit_date'} } values %passive_pending) {
-                next if 1 != ($hr->[DATE_ENTERED] cmp $pas_hit->{'hit_date'});
-                push @done, $pas_hit->{'serial'};
+            ## if current note is more recent than any pending passive hits, then they have just occurred. Fill their data in
+            if (%passive_pending) {
+                my @done;
+                foreach my $pas_hit (sort { $a->{'hit_date'} cmp $b->{'hit_date'} } values %passive_pending) {
+                    next if 1 != ($hr->[DATE_ENTERED] cmp $pas_hit->{'hit_date'});
+                    push @done, $pas_hit->{'serial'};
 
-                $pas_hit->{'moderated'} or $hit_no++;
-                $hit_no2++;
+                    $pas_hit->{'moderated'} or $hit_no++;
+                    $hit_no2++;
 
-                if (!$pas_hit->{'moderated'}) {
-                    $pas_hit->{'hit_no'} = $hit_no;
-                    $pas_hit->{'hit_no2'} = $hit_no2;
-                    $pas_hit->{'notes'} = $notes_elapsed-1;
-                    $pas_hit->{'old_hit_ratio'} = ($hit_no > 1 ? ($notes_elapsed-1)/($hit_no-1) : undef);
-                    $pas_hit->{'new_hit_ratio'} = ($notes_elapsed-1)/$hit_no;
-                    $pas_hit->{'notes_between'} = $notes_between;
-                    $pas_hit->{'days_between'}  = DateTime->new (
-                        zip @{[qw/year month day hour minute second/]}, @{[ split /[\s:-]/, $pas_hit->{'hit_date'} ]}
-                    )->delta_days ($prev_hit_dt)->delta_days;
-                    $pas_hit->{'days_between'}-- if $pas_hit->{'days_between'};
-                    $prev_hit_dt = DateTime->new (
-                        zip @{[qw/year month day hour minute second/]}, @{[ split /[\s:-]/, $pas_hit->{'hit_date'} ]}
-                    );
+                    if (!$pas_hit->{'moderated'}) {
+                        $pas_hit->{'hit_no'} = $hit_no;
+                        $pas_hit->{'hit_no2'} = $hit_no2;
+                        $pas_hit->{'notes'} = $notes_elapsed-1;
+                        $pas_hit->{'old_hit_ratio'} = ($hit_no > 1 ? ($notes_elapsed-1)/($hit_no-1) : undef);
+                        $pas_hit->{'new_hit_ratio'} = ($notes_elapsed-1)/$hit_no;
+                        $pas_hit->{'notes_between'} = $notes_between;
+                        $pas_hit->{'days_between'}  = DateTime->new (
+                            zip @{[qw/year month day hour minute second/]}, @{[ split /[\s:-]/, $pas_hit->{'hit_date'} ]}
+                        )->delta_days ($prev_hit_dt)->delta_days;
+                        $pas_hit->{'days_between'}-- if $pas_hit->{'days_between'};
+                        $prev_hit_dt = DateTime->new (
+                            zip @{[qw/year month day hour minute second/]}, @{[ split /[\s:-]/, $pas_hit->{'hit_date'} ]}
+                        );
 
-                    push @{ $ret{'hits_dates'} }, $pas_hit->{'hit_date'};
-                    $ret{'elem_travel_days'} .= $pas_hit->{'days'} . ',';
-                    $ret{'elem_travel_km'} .= $pas_hit->{'km'} . ',';
+                        push @{ $ret{'hits_dates'} }, $pas_hit->{'hit_date'};
+                        $ret{'elem_travel_days'} .= $pas_hit->{'days'} . ',';
+                        $ret{'elem_travel_km'} .= $pas_hit->{'km'} . ',';
+                    }
+                }
+                if (@done) {
+                    $notes_between = 0;    ## 0 because it would be -1 plus 1 for having already started another loop iteration
+                    delete @passive_pending{@done};
                 }
             }
-            if (@done) {
-                $notes_between = 0;    ## 0 because it would be -1 plus 1 for having already started another loop iteration
-                delete @passive_pending{@done};
+
+            next unless $hit;
+
+            my $passive = $whoami->{'id'} eq $hit->{'parts'}[0]{'user_id'};
+            my $active = !$passive;
+
+            if ($active) {
+                $hit->{'moderated'} or $hit_no++;
+                $hit_no2++;
+            }
+            my $entry = {
+                hit_no          => ($hit->{'moderated'} ? undef : $hit_no),
+                hit_no2         => $hit_no2,
+                dates           => [ map { $_->{'date_entered'} } @{ $hit->{'parts'} } ],
+                hit_date        => $hit->{'hit_date'},
+                dow             => $hit->{'dow'},
+                value           => $hr->[VALUE],
+                serial          => $hr->[SERIAL],
+                short_code      => $hr->[SHORT_CODE],
+                id              => $hr->[ID],
+                countries       => [ map { $_->{'country'} } @{ $hit->{'parts'} } ],
+                cities          => [ map { $_->{'city'} } @{ $hit->{'parts'} } ],
+                km              => $hit->{'tot_km'},
+                days            => $hit->{'tot_days'},
+                hit_partners    => [ map { $_->{'user_name'} } @{ $hit->{'parts'} } ],
+                hit_partner_ids => [ map { $_->{'user_id'} } @{ $hit->{'parts'} } ],
+                note_no         => $hr->[NOTE_NO],
+                moderated       => $hit->{'moderated'},
+            };
+            if (!$hit->{'moderated'} and $active) {
+                $entry->{'notes'} = $notes_elapsed;
+
+                $entry->{'old_hit_ratio'} = ($hit_no > 1 ? ($notes_elapsed-1)/($hit_no-1) : undef);
+                $entry->{'new_hit_ratio'} = $notes_elapsed/$hit_no;
+
+                $entry->{'notes_between'} = $notes_between;
+                $notes_between = -1;
+
+                $entry->{'days_between'}  = DateTime->new (
+                    zip @{[qw/year month day hour minute second/]}, @{[ split /[\s:-]/, $hit->{'hit_date'} ]}
+                )->delta_days ($prev_hit_dt)->delta_days;
+                $entry->{'days_between'}-- if $entry->{'days_between'};
+                $prev_hit_dt = DateTime->new (
+                    zip @{[qw/year month day hour minute second/]}, @{[ split /[\s:-]/, $hit->{'hit_date'} ]}
+                );
+
+                ## hits_dates
+                push @{ $ret{'hits_dates'} }, $hit->{'hit_date'};
+
+                ## elem_travel_days
+                $ret{'elem_travel_days'} .= $entry->{'days'} . ',';
+
+                ## elem_travel_km
+                $ret{'elem_travel_km'} .= $entry->{'km'} . ',';
+            }
+            push @{ $hit_list{ $hit->{'hit_date'} } }, $entry;
+            if ($passive) {
+                $passive_pending{ $hr->[SERIAL] } = $hit_list{ $hit->{'hit_date'} }[-1];
             }
         }
-
-        next unless $hit;
-
-        my $passive = $whoami->{'id'} eq $hit->{'parts'}[0]{'user_id'};
-        my $active = !$passive;
-
-        if ($active) {
-            $hit->{'moderated'} or $hit_no++;
-            $hit_no2++;
-        }
-        my $entry = {
-            hit_no          => ($hit->{'moderated'} ? undef : $hit_no),
-            hit_no2         => $hit_no2,
-            dates           => [ map { $_->{'date_entered'} } @{ $hit->{'parts'} } ],
-            hit_date        => $hit->{'hit_date'},
-            dow             => $hit->{'dow'},
-            value           => $hr->[VALUE],
-            serial          => $hr->[SERIAL],
-            short_code      => $hr->[SHORT_CODE],
-            id              => $hr->[ID],
-            countries       => [ map { $_->{'country'} } @{ $hit->{'parts'} } ],
-            cities          => [ map { $_->{'city'} } @{ $hit->{'parts'} } ],
-            km              => $hit->{'tot_km'},
-            days            => $hit->{'tot_days'},
-            hit_partners    => [ map { $_->{'user_name'} } @{ $hit->{'parts'} } ],
-            hit_partner_ids => [ map { $_->{'user_id'} } @{ $hit->{'parts'} } ],
-            note_no         => $hr->[NOTE_NO],
-            moderated       => $hit->{'moderated'},
-        };
-        if (!$hit->{'moderated'} and $active) {
-            $entry->{'notes'} = $notes_elapsed;
-
-            $entry->{'old_hit_ratio'} = ($hit_no > 1 ? ($notes_elapsed-1)/($hit_no-1) : undef);
-            $entry->{'new_hit_ratio'} = $notes_elapsed/$hit_no;
-
-            $entry->{'notes_between'} = $notes_between;
-            $notes_between = -1;
-
-            $entry->{'days_between'}  = DateTime->new (
-                zip @{[qw/year month day hour minute second/]}, @{[ split /[\s:-]/, $hit->{'hit_date'} ]}
-            )->delta_days ($prev_hit_dt)->delta_days;
-            $entry->{'days_between'}-- if $entry->{'days_between'};
-            $prev_hit_dt = DateTime->new (
-                zip @{[qw/year month day hour minute second/]}, @{[ split /[\s:-]/, $hit->{'hit_date'} ]}
-            );
-
-            ## hits_dates
-            push @{ $ret{'hits_dates'} }, $hit->{'hit_date'};
-
-            ## elem_travel_days
-            $ret{'elem_travel_days'} .= $entry->{'days'} . ',';
-
-            ## elem_travel_km
-            $ret{'elem_travel_km'} .= $entry->{'km'} . ',';
-        }
-        push @{ $hit_list{ $hit->{'hit_date'} } }, $entry;
-        if ($passive) {
-            $passive_pending{ $hr->[SERIAL] } = $hit_list{ $hit->{'hit_date'} }[-1];
-        }
-    }}
+    }
 
     foreach my $date (sort keys %hit_list) {
         push @{ $ret{'hit_list'} }, @{ $hit_list{$date} };
@@ -1061,18 +1079,19 @@ sub hit_analysis {
 
     my %notes_per_day;
     while (my $chunk = $data->note_getter (interval => $chunk_size)) {
-    foreach my $hr (@$chunk) {
-        my $date = (split ' ', $hr->[DATE_ENTERED])[0];
-        my $hit = $hr->[HIT] ? thaw decode_base64 $hr->[HIT] : undef;
-        if (defined $hit) {
-            if ($hit->{'moderated'}) {
-                undef $hit;
-            } else {
-                $hit = first { $_->{'serial'} eq $hit->{'serial'} } @$hit_list;   ## grep within a loop, expensive?
+        foreach my $hr (@$chunk) {
+            my $date = (split ' ', $hr->[DATE_ENTERED])[0];
+            my $hit = $hr->[HIT] ? thaw decode_base64 $hr->[HIT] : undef;
+            if (defined $hit) {
+                if ($hit->{'moderated'}) {
+                    undef $hit;
+                } else {
+                    $hit = first { $_->{'serial'} eq $hit->{'serial'} } @$hit_list;   ## grep within a loop, expensive?
+                }
             }
+            push @{ $notes_per_day{$date}{'notes'} }, $hit;
         }
-        push @{ $notes_per_day{$date}{'notes'} }, $hit;
-    }}
+    }
 
     ## post process %notes_per_day
     foreach my $date (keys %notes_per_day) {
@@ -1306,52 +1325,53 @@ sub calendar {
 
     my $cursor;
     while (my $chunk = $data->note_getter (interval => $chunk_size)) {
-    foreach my $hr (@$chunk) {
-        my $date_entered = (split ' ', $hr->[DATE_ENTERED])[0];
+        foreach my $hr (@$chunk) {
+            my $date_entered = (split ' ', $hr->[DATE_ENTERED])[0];
 
-        $calendar_data{$date_entered}{'num_notes'}++;
-        $calendar_data{$date_entered}{'amount'} += $hr->[VALUE];
-        push @{ $calendar_data{$date_entered}{'countries'} }, $hr->[COUNTRY];
+            $calendar_data{$date_entered}{'num_notes'}++;
+            $calendar_data{$date_entered}{'amount'} += $hr->[VALUE];
+            push @{ $calendar_data{$date_entered}{'countries'} }, $hr->[COUNTRY];
 
-        $total_notes{'all'}++;
-        $total_notes{ $hr->[VALUE] }++;
-        foreach my $value ('all', $hr->[VALUE]) {
-            if (
-                0 == $total_notes{$value} % 1000 or
-                ($total_notes{$value} < 1000 and 0 == $total_notes{$value} % 100)
-            ) {
-                ## if the 1000th and 2000th note is entered on the same day, let the 2000th overwrite the 1000th
-                $calendar_data{$date_entered}{'events'}{'notes'}{$value} = { total => $total_notes{$value}, id => $hr->[ID] };
+            $total_notes{'all'}++;
+            $total_notes{ $hr->[VALUE] }++;
+            foreach my $value ('all', $hr->[VALUE]) {
+                if (
+                    0 == $total_notes{$value} % 1000 or
+                    ($total_notes{$value} < 1000 and 0 == $total_notes{$value} % 100)
+                ) {
+                    ## if the 1000th and 2000th note is entered on the same day, let the 2000th overwrite the 1000th
+                    $calendar_data{$date_entered}{'events'}{'notes'}{$value} = { total => $total_notes{$value}, id => $hr->[ID] };
+                }
+            }
+
+            $total_amount += $hr->[VALUE];
+            if ($total_amount >= $total_amount_target) {
+                $calendar_data{$date_entered}{'events'}{'amount'} = { total => $total_amount_target, id => $hr->[ID] };
+                if ($total_amount_target < 100e3) {
+                    $total_amount_target += 10e3;
+                } else {
+                    $total_amount_target += 100e3;
+                }
+            }
+
+            if (my $hit = $hr->[HIT] ? thaw decode_base64 $hr->[HIT] : undef) {
+                if (!$hit->{'moderated'}) {
+                    my $date = (split ' ', $hit->{'hit_date'})[0];
+                    $calendar_data{$date}{'num_hits'}++;
+                    push @hits, {
+                        date => $date,
+                        id => $hr->[ID],
+                    };
+                }
+            }
+
+            if (!$cursor) {
+                $date_entered =~ /^(\d{4})-(\d{2})-(\d{2})$/;
+                $cursor ||= DateTime->new (year => $1, month => $2, day => $3);
+                $calendar_data{$date_entered}{'events'}{'first_day'} = 1;
             }
         }
-
-        $total_amount += $hr->[VALUE];
-        if ($total_amount >= $total_amount_target) {
-            $calendar_data{$date_entered}{'events'}{'amount'} = { total => $total_amount_target, id => $hr->[ID] };
-            if ($total_amount_target < 100e3) {
-                $total_amount_target += 10e3;
-            } else {
-                $total_amount_target += 100e3;
-            }
-        }
-
-        if (my $hit = $hr->[HIT] ? thaw decode_base64 $hr->[HIT] : undef) {
-            if (!$hit->{'moderated'}) {
-                my $date = (split ' ', $hit->{'hit_date'})[0];
-                $calendar_data{$date}{'num_hits'}++;
-                push @hits, {
-                    date => $date,
-                    id => $hr->[ID],
-                };
-            }
-        }
-
-        if (!$cursor) {
-            $date_entered =~ /^(\d{4})-(\d{2})-(\d{2})$/;
-            $cursor ||= DateTime->new (year => $1, month => $2, day => $3);
-            $calendar_data{$date_entered}{'events'}{'first_day'} = 1;
-        }
-    }}
+    }
 
     my $total_hits;
     foreach my $hit (sort { $a->{'date'} cmp $b->{'date'} } @hits) {

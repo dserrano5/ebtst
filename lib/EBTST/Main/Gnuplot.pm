@@ -83,7 +83,7 @@ sub bar_chart {
         );
     }
     my @labels;
-    for my $idx (0..$#{ $args{'labels'} }) {
+    foreach my $idx (0..$#{ $args{'labels'} }) {
         push @labels, sprintf '"%s" %d', $args{'labels'}[$idx], $idx;
     }
 

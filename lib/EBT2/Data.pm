@@ -274,7 +274,7 @@ sub load_notes {
     ## maybe keep known hits (if any)
     my %save_hits;
     if ($do_keep_hits) {
-        for my $n (@{ $self->{'notes'} }) {
+        foreach my $n (@{ $self->{'notes'} }) {
             next unless exists $n->{'hit'};
             $save_hits{ $n->{'serial'} } = $n->{'hit'};
         }
@@ -341,7 +341,7 @@ sub load_notes {
     close $outfd if $store_path;
 
     if (%save_hits) {
-        for my $n (@{ $self->{'notes'} }) {
+        foreach my $n (@{ $self->{'notes'} }) {
             next unless $save_hits{ $n->{'serial'} };
             $n->{'hit'} = $save_hits{ $n->{'serial'} };
         }

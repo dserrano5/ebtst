@@ -292,7 +292,7 @@ sub value {
 
     $t0 = [gettimeofday];
     my $notes_by_val;
-    for my $value (@{ EBT2->values }) {
+    foreach my $value (@{ EBT2->values }) {
         push @$notes_by_val, {
             value  => $value,
             count  => ($data->{$value}//0),
@@ -395,11 +395,11 @@ sub _num_detail_1st {
     my $count = $self->ebt->get_count;
     my $count_by_value;
 
-    for my $code1 (sort {
+    foreach my $code1 (sort {
         ($data->{$b}{'total'}//0) <=> ($data->{$a}{'total'}//0) ||
         $a cmp $b
     } keys %$data) {
-        for my $v (grep { /^\d+$/ } keys %{ $data->{$code1} }) {
+        foreach my $v (grep { /^\d+$/ } keys %{ $data->{$code1} }) {
             $count_by_value->{$v} += $data->{$code1}{$v};
         }
     }
@@ -410,7 +410,7 @@ sub _num_detail_1st {
         $a cmp $b
     } keys %{ EBT2->$method1 }) {
         my $detail;
-        for my $v (@{ EBT2->values }) {
+        foreach my $v (@{ EBT2->values }) {
             my $exists = 0;
             foreach my $code2 (keys %{ EBT2->$method2 }) {
                 my $k;
@@ -554,7 +554,7 @@ sub locations {
         } keys %$nbco
     ) {
         my $detail;
-        for my $v (@{ EBT2->values }) {
+        foreach my $v (@{ EBT2->values }) {
             push @$detail, {
                 value => $v,
                 count => $nbco->{$iso3166}{$v},
@@ -586,7 +586,7 @@ sub locations {
             } keys %{ $nbci->{$country} }
         ) {
             my $detail;
-            for my $v (@{ EBT2->values }) {
+            foreach my $v (@{ EBT2->values }) {
                 push @$detail, {
                     value => $v,
                     count => $nbci->{$country}{$loc}{$v},
@@ -611,7 +611,7 @@ sub locations {
     foreach my $c (sort keys %$ab_data) {
         my $letters;
             
-        for my $letter ('A'..'Z') {
+        foreach my $letter ('A'..'Z') {
             $letters->{$letter} = $ab_data->{$c}{$letter};
         }
 

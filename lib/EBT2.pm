@@ -41,7 +41,7 @@ our %combs_pc_cc_val_sig;
 our %all_plates;
 foreach my $v (keys %{ $config{'sigs'} }) {
     foreach my $cc (keys %{ $config{'sigs'}{$v} }) {
-        for my $plate (keys %{ $config{'sigs'}{$v}{$cc} }) {
+        foreach my $plate (keys %{ $config{'sigs'}{$v}{$cc} }) {
             my $pc = substr $plate, 0, 1;
 
             #$combs_pc_cc{"$pc$cc"} = undef;

@@ -20,12 +20,28 @@ my $images_dir                  = File::Spec->catfile ($config{'statics_dir'} ? 
 my $session_expire              = $config{'session_expire'} // 30;
 my $base_href                   = $config{'base_href'};
 our @graphs_colors              = $config{'graphs_colors'} ? (split /[\s,]+/, $config{'graphs_colors'}) : ('blue', 'green', '#FFBF00', 'red', 'black');
+my $max_rss_size                = $config{'max_rss_size'} // 150e3;
 my $hypnotoad_listen            = $config{'hypnotoad_listen'} // 'http://localhost:3000'; $hypnotoad_listen = [ $hypnotoad_listen ] if 'ARRAY' ne ref $hypnotoad_listen;
 my $hypnotoad_accepts           = $config{'hypnotoad_accepts'} // 1000;             ## Mojo::Server::Hypnotoad default
 my $hypnotoad_keep_alive_requests = $config{'hypnotoad_keep_alive_requests'} // 25; ## Mojo::Server::Hypnotoad default
 my $hypnotoad_is_proxy          = $config{'hypnotoad_is_proxy'} // 0;
 my $hypnotoad_heartbeat_timeout = $config{'hypnotoad_heartbeat_timeout'} // 60;
 my $base_parts = @{ Mojo::URL->new ($base_href)->path->parts };
+
+sub helper_rss_process {
+    my ($self) = @_;
+
+    local $_;
+    if (open my $fd, '<', "/proc/$$/status") {
+        while (<$fd>) {
+            next unless /^VmRSS:\s*(\d+)\s*kB/;
+            close $fd;
+            return $1;
+        }
+    } else {
+        $self->app->log->warn ("helper_rss_process: open: '/proc/$$/status': $!");
+    }
+}
 
 sub _inc {
     my ($coderef, $filename) = @_;
@@ -153,6 +169,18 @@ sub helper_hit_partners {
     return join ' ', @visible;
 }
 
+sub ad_rss_sigquit {
+    my ($self) = @_;
+
+    my $rss = $self->rss_process or return;
+    if ($rss > $max_rss_size) {
+        $self->app->log->debug ("process RSS is $rss Kb, sending SIGQUIT to ourselves ($$) and closing connection");
+        $self->res->headers->connection ('close');
+        kill QUIT => $$;    ## hypnotoad-specific, breaks morbo
+    }
+    return;
+}
+
 ## would put this into an after_dispatch hook, but $self->stash('ebt') doesn't seem to be available there
 sub log_sizes {
     my ($log, $ebt) = @_;
@@ -190,6 +218,7 @@ sub startup {
     ## In case of CSRF token mismatch, Mojolicious::Plugin::CSRFDefender calls render without specifying a layout,
     ## then our layout 'online' is rendered and Mojo croaks on non-declared variables. Work that around.
     $self->hook (before_dispatch => \&bd_set_initial_stash);
+    $self->hook (after_dispatch  => \&ad_rss_sigquit);
 
     if ($self->mode eq 'production') {
         $self->hook (before_dispatch => sub {
@@ -222,10 +251,17 @@ sub startup {
     $self->helper (color => \&helper_color);
     $self->helper (l2 => \&helper_l2);
     $self->helper (hit_partners => \&helper_hit_partners);
+    $self->helper (rss_process => \&helper_rss_process);
     $self->secret ('[12:36:04] gnome-screensaver-dialog: gkr-pam: unlocked login keyring');   ## :P
     $self->defaults (layout => 'online');
     $self->plugin ('I18N');
-    $self->plugin ('Mojolicious::Plugin::CSRFDefender');
+
+    ## - load /index
+    ## - wait some minutes/hours
+    ## - try to log in
+    ## - boom
+    #$self->plugin ('Mojolicious::Plugin::CSRFDefender');
+
     $self->plugin (session => {
         stash_key     => 'sess',
         store         => [ dbi => { dbh => $dbh } ],
@@ -270,7 +306,6 @@ sub startup {
             $self->ebt->set_logger ($self->app->log);
             $self->stash ('sess')->extend_expires;
             #$self->req->is_xhr or log_sizes $self->app->log, $self->ebt;
-            $self->req->is_xhr and $self->req->headers->connection ('close');
 
             if (-e File::Spec->catfile ($html_dir, $user, 'index.html')) {
                 my $url;

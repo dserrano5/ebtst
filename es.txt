@@ -286,7 +286,7 @@ _short_codes_1 = Aquí también se ignoran los billetes con errores.
 _nice_serials_1 = El algoritmo para puntuar los números de serie es como sigue: primero, el serie con el menor número de secuencias de dígitos iguales gana. Por tanto, *1111122233 (3 secuencias) gana sobre *1112111211 (5 secuencias). En el habitual caso de que haya empate, entonces el serie con la secuencia más larga gana. Estos son los criterios principales de puntuación, pero hay un par de ellos más.
 _coords_bingo_1 = Igual que en "Tabla tocha", se ignoran los billetes con errores.
 _combinations_1 = De nuevo, se ignoran los billetes con errores. Igual que en "Países" e "Imprentas", los porcentajes suman 100% en vertical.
-_plate_bingo_1 = Se ignoran los billetes con errores. No se da tratamiento especial a los raros casos de planchas que comparten distintas firmas del presidente del BCE (concretamente: <img src="images/10.gif"> K007, <img src="images/10.gif"> P005, <img src="images/20.gif"> F002 and <img src="images/100.gif"> F002).
+_plate_bingo_1 = Se ignoran los billetes con errores. No se da tratamiento especial a los raros casos de planchas que comparten distintas firmas del presidente del BCE (concretamente: <img src="images/values/10.gif"> K007, <img src="images/values/10.gif"> P005, <img src="images/values/20.gif"> F002 and <img src="images/values/100.gif"> F002).
 
 ## days of week
 Monday = Lunes

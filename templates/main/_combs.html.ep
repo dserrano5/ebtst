@@ -37,8 +37,10 @@
                                 <% $seen{$v}++; $row_sum += $nbcombo->{$sig}{$k}{$v}{'count'}; =%>
                                 <% $val_totals{$v} += $nbcombo->{$sig}{$k}{$v}{'count'}; =%>
                                 <% $seen_values_in_comb++; =%>
+                                <% push @cols, { color => (color $nbcombo->{$sig}{$k}{$v}{'count'}, 'notes'), v => $v, num => $nbcombo->{$sig}{$k}{$v}{'count'}//0, id => $nbcombo->{$sig}{$k}{$v}{'last_id'} }; =%>
+                            <% } else { =%>
+                                <% push @cols, { color => (color 0, 'notes'), v => 0, num => 0 }; =%>
                             <% } =%>
-                            <% push @cols, { color => (color $nbcombo->{$sig}{$k}{$v}{'count'}, 'notes'), v => $v, num => $nbcombo->{$sig}{$k}{$v}{'count'}//0, id => $nbcombo->{$sig}{$k}{$v}{'last_id'} }; =%>
                         <% } else { =%>
                             <% push @cols, undef; =%><%# shouldn't happen since this code doesn't receive bad notes %>
                         <% } =%>

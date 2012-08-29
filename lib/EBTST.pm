@@ -73,12 +73,14 @@ sub bd_set_initial_stash {
     my $al = $self->tx->req->content->headers->accept_language // ''; $ENV{'LANG'} = substr $al, 0, 2;  ## could be improved...
     $self->stash (base_href     => $base_href);
     $self->stash (checked_boxes => {});
+    $self->stash (html_hrefs    => {});
     $self->stash (public_stats  => undef);
     $self->stash (has_notes     => undef);
     $self->stash (has_hits      => undef);
     $self->stash (has_bad_notes => undef);
     $self->stash (user          => undef);
     $self->stash (title         => undef);
+    $self->stash (requested_url => $self->req->url->path->leading_slash (0)->to_string);
 }
 
 sub helper_ebt {
@@ -200,6 +202,43 @@ sub log_sizes {
     }
 }
 
+## TODO: I don't think this is the right place for this code
+sub helper_html_hrefs {
+    my ($self) = @_;
+
+    my %done_data;
+    undef @done_data{ $self->ebt->done_data };
+
+    my %html_hrefs;
+    $html_hrefs{'information'}          = undef if exists $done_data{'activity'};
+    $html_hrefs{'value'}                = undef if exists $done_data{'notes_by_value'};
+    $html_hrefs{'countries'}            = undef if exists $done_data{'notes_by_cc'};
+    $html_hrefs{'printers'}             = undef if exists $done_data{'notes_by_pc'};
+    $html_hrefs{'locations'}            = undef if exists $done_data{'notes_by_city'};
+    $html_hrefs{'travel_stats'}         = undef if exists $done_data{'travel_stats'};
+    $html_hrefs{'huge_table'}           = undef if exists $done_data{'huge_table'};
+    $html_hrefs{'short_codes'}          = undef if exists $done_data{'highest_short_codes'};
+    $html_hrefs{'nice_serials'}         = undef if exists $done_data{'nice_serials'};
+    $html_hrefs{'coords_bingo'}         = undef if exists $done_data{'coords_bingo'};
+    $html_hrefs{'notes_per_year'}       = undef if exists $done_data{'notes_per_year'};
+    $html_hrefs{'notes_per_month'}      = undef if exists $done_data{'notes_per_month'};
+    $html_hrefs{'top_days'}             = undef if exists $done_data{'top10days'};
+    $html_hrefs{'time_analysis_bingo'}  = undef if exists $done_data{'time_analysis'};
+    $html_hrefs{'time_analysis_detail'} = undef if exists $done_data{'time_analysis'};
+    $html_hrefs{'combs_bingo'}          = undef if exists $done_data{'notes_by_combination'};
+    $html_hrefs{'combs_detail'}         = undef if exists $done_data{'notes_by_combination'};
+    $html_hrefs{'plate_bingo'}          = undef if exists $done_data{'plate_bingo'};
+    $html_hrefs{'hit_list'}             = undef if exists $done_data{'hit_list'};
+    $html_hrefs{'hit_times_bingo'}      = undef if exists $done_data{'hit_times'};
+    $html_hrefs{'hit_times_detail'}     = undef if exists $done_data{'hit_times'};
+    $html_hrefs{'hit_locations'}        = undef if exists $done_data{'notes_by_city'} and exists $done_data{'hit_list'};
+    $html_hrefs{'hit_analysis'}         = undef if exists $done_data{'hit_analysis'};
+    $html_hrefs{'hit_summary'}          = undef if exists $done_data{'hit_summary'};
+    $html_hrefs{'calendar'}             = undef if exists $done_data{'calendar'};
+
+    return %html_hrefs;
+}
+
 sub startup {
     my ($self) = @_;
 
@@ -252,6 +291,7 @@ sub startup {
     $self->helper (l2 => \&helper_l2);
     $self->helper (hit_partners => \&helper_hit_partners);
     $self->helper (rss_process => \&helper_rss_process);
+    $self->helper (html_hrefs => \&helper_html_hrefs);
     $self->secret ('[12:36:04] gnome-screensaver-dialog: gkr-pam: unlocked login keyring');   ## :P
     $self->defaults (layout => 'online');
     $self->plugin ('I18N');
@@ -320,7 +360,12 @@ sub startup {
 
             my $cbs = $self->ebt->get_checked_boxes // [];
             my %cbs; @cbs{@$cbs} = (1) x @$cbs;
+
+            my %html_hrefs = $self->html_hrefs;
+            $html_hrefs{ $self->stash ('requested_url') } = undef;  ## we are going to work on this right now, so set it as done in the template
+
             $self->stash (checked_boxes => \%cbs);
+            $self->stash (html_hrefs    => \%html_hrefs);
             $self->stash (has_notes     => $self->ebt->has_notes);
             $self->stash (has_hits      => $self->ebt->has_hits);
             $self->stash (has_bad_notes => $self->ebt->has_bad_notes);
@@ -342,7 +387,8 @@ sub startup {
 
         return 1 if ref $self->stash ('sess') and $self->stash ('sess')->sid;
 
-        my $requested_url = $self->req->url->path->leading_slash (0)->to_string;
+        my $requested_url = $self->stash ('requested_url');
+        $self->app->log->debug (sprintf 'set flash: requested_url (before tampering) is (%s)', $requested_url);
         $requested_url = '' if grep { $_ eq $requested_url } qw/logout index gen_output/;
         $requested_url = 'configure' if 'upload' eq $requested_url;
         $self->flash (requested_url => $requested_url);

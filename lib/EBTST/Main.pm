@@ -1609,6 +1609,9 @@ sub _save_html {
     my $index_symlink_done = 0;
     foreach my $param (@req_params) {
         my $partial_html = encode 'UTF-8', $self->render_partial (template => "main/$param", format => 'html');
+        if (my $rss = $self->rss_process) {
+            $self->app->log->debug ("gen_output: process RSS is $rss Kb");
+        }
         my $title = encode 'UTF-8', $self->l ($section_titles{$param});
         my $html_copy = $html_text;
         $html_copy =~ s/<!-- content -->/$partial_html/;
@@ -1658,8 +1661,8 @@ sub gen_output {
     /;
 
     my @req_params = grep { $self->param ($_) } @params;
-    @req_params = 'information' unless @req_params;
     $self->ebt->set_checked_boxes (@req_params);
+    @req_params = 'information' unless @req_params;
 
     my $html_dir = File::Spec->catfile ($self->stash ('html_dir'), $self->stash ('user'));
     $self->_log (debug => "gen_output: req_params '@req_params', html_dir '$html_dir'");

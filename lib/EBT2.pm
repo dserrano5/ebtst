@@ -127,6 +127,15 @@ sub _log {
     $self->{'log'}->$prio (sprintf '%s: %s', ($user // '<no user>'), $msg);
 }
 
+sub done_data {
+    my ($self) = @_;
+
+    my %done = map { $_ => undef } keys %{ $self->{'data'} };
+    delete @done{qw/db whoami version eof has_hits has_notes has_bad_notes checked_boxes notes_pos/};
+    my @done = keys %done;
+    return @done;
+}
+
 our $AUTOLOAD;
 sub AUTOLOAD {
     my ($self, @args) = @_;
@@ -144,11 +153,11 @@ sub AUTOLOAD {
         delete $self->{'data'}{'stats_version'};
         if (exists $self->{'data'}{$field}) {
             if ('HASH' ne ref $self->{'data'}{$field}) {
-                $self->_log (debug => "existing field ($field) is not a hashref: delete");
+                #$self->_log (debug => "existing field ($field) is not a hashref: delete");
                 delete $self->{'data'}{$field};
             } else {
                 if (!exists $self->{'data'}{$field}{'version'}) {
-                    $self->_log (debug => "existing field ($field) is a versionless hashref: delete");
+                    #$self->_log (debug => "existing field ($field) is a versionless hashref: delete");
                     delete $self->{'data'}{$field};
                 }
             }
@@ -157,12 +166,13 @@ sub AUTOLOAD {
         if (exists $self->{'data'}{$field}) {
             if ($self->{'data'}{$field}{'version'}) {
                 if (-1 != ($self->{'data'}{$field}{'version'} cmp $EBT2::Stats::STATS_VERSION)) {
-                    $self->_log (debug => "version of field ($field) ok, returning cached");
+                    #$self->_log (debug => "version of field ($field) ok, returning cached");
                     return ref $self->{'data'}{$field}{'data'} ? dclone $self->{'data'}{$field}{'data'} : $self->{'data'}{$field}{'data'};
                 }
-                $self->_log (info => sprintf q{version '%s' of field '%s' is less than $STATS_VERSION '%s', recalculating},
-                    $self->{'data'}{$field}{'version'}, $field, $EBT2::Stats::STATS_VERSION);
+                #$self->_log (info => sprintf q{version '%s' of field '%s' is less than $STATS_VERSION '%s', recalculating},
+                #    $self->{'data'}{$field}{'version'}, $field, $EBT2::Stats::STATS_VERSION);
             } else {
+                ## shouldn't happen, since the temporary code above deletes these entries
                 $self->_log (debug => "unversioned field ($field) exists, assume it is outdated");
             }
         } else {
@@ -170,7 +180,7 @@ sub AUTOLOAD {
                 $self->_log (warn => "Method 'get_$field' called but field '$field' is unknown");
                 return undef;
             }
-            $self->_log (debug => "field ($field) doesn't exist, let's go for it");
+            #$self->_log (debug => "field ($field) doesn't exist, let's go for it");
         }
         my $ret = $self->{'stats'}->$field ($self->{'progress'}, $self->{'data'}, @args);
         if (!keys %$ret) {

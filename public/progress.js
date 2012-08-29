@@ -16,7 +16,7 @@ var interval_id;
 var running = 0;
 function _gp() {
     $.ajax({
-        url: base_href+'/progress',
+        url: base_href+'progress',
         success: function(data) {
             var cur = data['cur'];
             var total = data['total'];

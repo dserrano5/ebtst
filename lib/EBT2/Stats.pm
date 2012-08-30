@@ -41,7 +41,6 @@ sub bundle_information {
     while (my $chunk = $data->note_getter (interval => $chunk_size)) {
         foreach my $note (@$chunk) {
             $idx++;
-            $progress and select undef, undef, undef, 0.0005;   ## temporary simulation of slowness
             if ($progress and 0 == $idx % $EBT2::progress_every) { $progress->set ($idx); }
 
             ## activity
@@ -163,7 +162,6 @@ sub notes_by_value {
     while (my $chunk = $data->note_getter (interval => $chunk_size)) {
         foreach my $note (@$chunk) {
             $idx++;
-            $progress and select undef, undef, undef, 0.0005;   ## temporary simulation of slowness
             if ($progress and 0 == $idx % $EBT2::progress_every) { $progress->set ($idx); }
 
             ## notes_by_value
@@ -187,7 +185,6 @@ sub first_by_value {
     while (my $chunk = $data->note_getter (interval => $chunk_size)) {
         foreach my $note (@$chunk) {
             $at++;
-            $progress and select undef, undef, undef, 0.0005;   ## temporary simulation of slowness
             if ($progress and 0 == $at % $EBT2::progress_every) { $progress->set ($at); }
 
             my %hr2 = zip @{[ COL_NAMES ]}, @$note;
@@ -201,9 +198,12 @@ sub first_by_value {
 sub notes_by_cc {
     my ($self, $progress, $data) = @_;
     my %ret;
+    my $idx = 0;
 
     while (my $chunk = $data->note_getter (interval => $chunk_size)) {
         foreach my $note (@$chunk) {
+            $idx++;
+            if ($progress and 0 == $idx % $EBT2::progress_every) { $progress->set ($idx); }
             my $cc = substr $note->[SERIAL], 0, 1;
             $ret{'notes_by_cc'}{$cc}{'total'}++;
             $ret{'notes_by_cc'}{$cc}{ $note->[VALUE] }++;
@@ -221,6 +221,7 @@ sub first_by_cc {
     while (my $chunk = $data->note_getter (interval => $chunk_size)) {
         foreach my $note (@$chunk) {
             $at++;
+            if ($progress and 0 == $at % $EBT2::progress_every) { $progress->set ($at); }
             my %hr2 = zip @{[ COL_NAMES ]}, @$note;
             my $cc = substr $hr2{'serial'}, 0, 1;
             $ret{'first_by_cc'}{$cc} ||= { %hr2, at => $at };
@@ -233,9 +234,12 @@ sub first_by_cc {
 sub notes_by_pc {
     my ($self, $progress, $data) = @_;
     my %ret;
+    my $idx = 0;
 
     while (my $chunk = $data->note_getter (interval => $chunk_size)) {
         foreach my $note (@$chunk) {
+            $idx++;
+            if ($progress and 0 == $idx % $EBT2::progress_every) { $progress->set ($idx); }
             my $pc = substr $note->[SHORT_CODE], 0, 1;
             $ret{'notes_by_pc'}{$pc}{'total'}++;
             $ret{'notes_by_pc'}{$pc}{ $note->[VALUE] }++;
@@ -253,6 +257,7 @@ sub first_by_pc {
     while (my $chunk = $data->note_getter (interval => $chunk_size)) {
         foreach my $note (@$chunk) {
             $at++;
+            if ($progress and 0 == $at % $EBT2::progress_every) { $progress->set ($at); }
             my %hr2 = zip @{[ COL_NAMES ]}, @$note;
             my $pc = substr $note->[SHORT_CODE], 0, 1;
             $ret{'first_by_pc'}{$pc} ||= { %hr2, at => $at };
@@ -265,9 +270,12 @@ sub first_by_pc {
 sub bundle_locations {
     my ($self, $progress, $data) = @_;
     my %ret;
+    my $idx = 0;
 
     while (my $chunk = $data->note_getter (interval => $chunk_size)) {
         foreach my $note (@$chunk) {
+            $idx++;
+            if ($progress and 0 == $idx % $EBT2::progress_every) { $progress->set ($idx); }
             ## notes_by_country
             $ret{'notes_by_country'}{ $note->[COUNTRY] }{'total'}++;
             $ret{'notes_by_country'}{ $note->[COUNTRY] }{ $note->[VALUE] }++;
@@ -314,9 +322,12 @@ sub travel_stats       { goto &bundle_locations; }
 sub huge_table {
     my ($self, $progress, $data) = @_;
     my %ret;
+    my $idx = 0;
 
     while (my $chunk = $data->note_getter (interval => $chunk_size)) {
         foreach my $note (@$chunk) {
+            $idx++;
+            if ($progress and 0 == $idx % $EBT2::progress_every) { $progress->set ($idx); }
             next if $note->[ERRORS];
             my $plate = substr $note->[SHORT_CODE], 0, 4;
             my $serial = EBT2::Data::serial_remove_meaningless_figures2 $note->[SHORT_CODE], $note->[SERIAL];
@@ -335,9 +346,12 @@ sub huge_table {
 sub fooest_short_codes {
     my ($self, $progress, $data) = @_;
     my %ret;
+    my $idx = 0;
 
     while (my $chunk = $data->note_getter (interval => $chunk_size)) {
         foreach my $note (@$chunk) {
+            $idx++;
+            if ($progress and 0 == $idx % $EBT2::progress_every) { $progress->set ($idx); }
             next if $note->[ERRORS];
             my %hr2 = zip @{[ COL_NAMES ]}, @$note;
             my $pc = substr $note->[SHORT_CODE], 0, 1;
@@ -424,7 +438,6 @@ sub nice_serials {
     while (my $chunk = $data->note_getter (interval => $chunk_size)) {
         foreach my $note (@$chunk) {
             $idx++;
-            $progress and select undef, undef, undef, 0.0005;   ## temporary simulation of slowness
             if ($progress and 0 == $idx % $EBT2::progress_every) { $progress->set ($idx); }
 
             my %hr2 = zip @{[ COL_NAMES ]}, @$note;
@@ -455,9 +468,12 @@ sub different_digits { goto &nice_serials; }
 sub coords_bingo {
     my ($self, $progress, $data) = @_;
     my %ret;
+    my $idx = 0;
 
     while (my $chunk = $data->note_getter (interval => $chunk_size)) {
         foreach my $note (@$chunk) {
+            $idx++;
+            if ($progress and 0 == $idx % $EBT2::progress_every) { $progress->set ($idx); }
             next if $note->[ERRORS];
             my $coords = substr $note->[SHORT_CODE], 4, 2;
             $ret{'coords_bingo'}{ $note->[VALUE] }{$coords}++;
@@ -471,9 +487,13 @@ sub coords_bingo {
 sub bundle_time {
     my ($self, $progress, $data) = @_;
     my %ret;
+    my $idx = 0;
 
     while (my $chunk = $data->note_getter (interval => $chunk_size)) {
         foreach my $note (@$chunk) {
+            $idx++;
+            if ($progress and 0 == $idx % $EBT2::progress_every) { $progress->set ($idx); }
+
             my ($y, $m, $d, $H, $M, $S) = map { sprintf '%02d', $_ } split /[\s:-]/, $note->[DATE_ENTERED];
             ## notes_per_year
             #my $y = substr $note->[DATE_ENTERED], 0, 4;
@@ -554,7 +574,6 @@ sub missing_combs_and_history {
     while (my $chunk = $data->note_getter (interval => $chunk_size)) {
         foreach my $note (@$chunk) {
             $num_note++;
-            $progress and select undef, undef, undef, 0.0005;   ## temporary simulation of slowness
             if ($progress and 0 == $num_note % $EBT2::progress_every) { $progress->set ($num_note); }
 
             next if $note->[ERRORS];
@@ -621,7 +640,6 @@ sub notes_by_combination {
     while (my $chunk = $data->note_getter (interval => $chunk_size)) {
         foreach my $note (@$chunk) {
             $idx++;
-            $progress and select undef, undef, undef, 0.0005;   ## temporary simulation of slowness
             if ($progress and 0 == $idx % $EBT2::progress_every) { $progress->set ($idx); }
 
             next if $note->[ERRORS];
@@ -648,6 +666,7 @@ sub notes_by_combination {
 sub plate_bingo {
     my ($self, $progress, $data) = @_;
     my %ret;
+    my $idx = 0;
 
     ## prepare
     foreach my $v (keys %{ $EBT2::config{'sigs'} }) {
@@ -661,6 +680,9 @@ sub plate_bingo {
 
     while (my $chunk = $data->note_getter (interval => $chunk_size)) {
         foreach my $note (@$chunk) {
+            $idx++;
+            if ($progress and 0 == $idx % $EBT2::progress_every) { $progress->set ($idx); }
+
             next if $note->[ERRORS];
             my $plate = substr $note->[SHORT_CODE], 0, 4;
             $ret{'plate_bingo'}{ $note->[VALUE] }{$plate}{'count'}++;
@@ -676,9 +698,13 @@ sub plate_bingo {
 sub bad_notes {
     my ($self, $progress, $data) = @_;
     my %ret;
+    my $idx = 0;
 
     while (my $chunk = $data->note_getter (interval => $chunk_size)) {
         foreach my $note (@$chunk) {
+            $idx++;
+            if ($progress and 0 == $idx % $EBT2::progress_every) { $progress->set ($idx); }
+
             if ($note->[ERRORS]) {
                 my %hr2 = zip @{[ COL_NAMES ]}, @$note;
                 push @{ $ret{'bad_notes'} }, {
@@ -695,6 +721,7 @@ sub bad_notes {
 sub hit_list {
     my ($self, $progress, $data, $whoami) = @_;
     my %ret;
+    my $idx = 0;
 
     my %hit_list;
     my %passive_pending;    ## passive hits info is filled later. We save them here in the meanwhile
@@ -708,6 +735,9 @@ sub hit_list {
 
     while (my $chunk = $data->note_getter (interval => $chunk_size)) {
         foreach my $note (@$chunk) {
+            $idx++;
+            if ($progress and 0 == $idx % $EBT2::progress_every) { $progress->set ($idx); }
+
             $notes_between++;
             $notes_elapsed++;
             my $hit = $note->[HIT] ? thaw decode_base64 $note->[HIT] : undef;
@@ -856,10 +886,14 @@ sub hit_times {
 sub hit_analysis {
     my ($self, $progress, $data, $hit_list) = @_;
     my %ret;
+    my $idx = 0;
 
     my %notes_per_day;
     while (my $chunk = $data->note_getter (interval => $chunk_size)) {
         foreach my $note (@$chunk) {
+            $idx++;
+            if ($progress and 0 == $idx % $EBT2::progress_every) { $progress->set ($idx); }
+
             my $date = (split ' ', $note->[DATE_ENTERED])[0];
             my $hit = $note->[HIT] ? thaw decode_base64 $note->[HIT] : undef;
             if (defined $hit) {
@@ -1102,10 +1136,13 @@ sub calendar {
     my %total_notes;
     my $total_amount; my $total_amount_target = 10e3;
     my @hits;
+    my $idx = 0;
 
     my $cursor;
     while (my $chunk = $data->note_getter (interval => $chunk_size)) {
         foreach my $note (@$chunk) {
+            $idx++;
+            if ($progress and 0 == $idx % $EBT2::progress_every) { $progress->set ($idx); }
             my $date_entered = (split ' ', $note->[DATE_ENTERED])[0];
 
             $calendar_data{$date_entered}{'num_notes'}++;

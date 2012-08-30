@@ -286,8 +286,8 @@ sub value {
     my $count       = $self->ebt->get_count;                $xhr and $self->_init_progress ($count*2.6);    ## graphs generation is relatively quick, hence that 0.6
     my $data        = $self->ebt->get_notes_by_value;       $xhr and $self->{'progress'}->base ($count*1);
     my $data_first  = $self->ebt->get_first_by_value;       $xhr and $self->{'progress'}->base ($count*2);
-    my $notes_dates = $self->ebt->get_notes_dates;          ## for the chart  (don't set progress, this has been already calculated and cached)
-    my $elem_by_val = $self->ebt->get_elem_notes_by_value;  ## for the chart  (don't set progress, this has been already calculated and cached)
+    my $notes_dates = $self->ebt->get_notes_dates;          ## (don't set progress, this has been already calculated and cached)
+    my $elem_by_val = $self->ebt->get_elem_notes_by_value;
     $self->_log (debug => report 'value get', $t0, $count);
 
     $t0 = [gettimeofday];
@@ -479,15 +479,20 @@ sub _num_detail_1st {
 
 sub countries {
     my ($self) = @_;
+    my $xhr = $self->req->is_xhr;
 
     my $t0 = [gettimeofday];
-    my $count   = $self->ebt->get_count;   ## just for 'report'
-    my $data       = $self->ebt->get_notes_by_cc;
+    my $count      = $self->ebt->get_count;        $xhr and $self->_init_progress ($count*2);
+    my $data       = $self->ebt->get_notes_by_cc;  $xhr and $self->{'progress'}->base ($count*1);
     my $data_first = $self->ebt->get_first_by_cc;
-    my ($method1, $method2) = qw/countries printers/;
-    my $notes_by_key = 'cc';
     $self->_log (debug => report 'countries get', $t0, $count);
 
+    ## we could do this just after $self->ebt->get_first_by_cc
+    ## but then we'd lose the $self->_log (debug => report) call
+    $xhr and return $self->_end_progress;
+
+    my ($method1, $method2) = qw/countries printers/;
+    my $notes_by_key = 'cc';
     $t0 = [gettimeofday];
     my ($notes_by, $count_by_value, $first_by) = $self->_num_detail_1st (
         data         => $data,
@@ -508,15 +513,17 @@ sub countries {
 
 sub printers {
     my ($self) = @_;
+    my $xhr = $self->req->is_xhr;
 
     my $t0 = [gettimeofday];
-    my $count   = $self->ebt->get_count;   ## just for 'report'
-    my $data       = $self->ebt->get_notes_by_pc;
+    my $count      = $self->ebt->get_count;        $xhr and $self->_init_progress ($count*2);
+    my $data       = $self->ebt->get_notes_by_pc;  $xhr and $self->{'progress'}->base ($count*1);
     my $data_first = $self->ebt->get_first_by_pc;
+    $self->_log (debug => report 'printers get', $t0, $count);
+    $xhr and return $self->_end_progress;
+
     my ($method1, $method2) = qw/printers countries/;
     my $notes_by_key = 'pc';
-    $self->_log (debug => report 'printers get', $t0, $count);
-
     $t0 = [gettimeofday];
     my ($notes_by, $count_by_value, $first_by) = $self->_num_detail_1st (
         data         => $data,
@@ -537,13 +544,15 @@ sub printers {
 
 sub locations {
     my ($self) = @_;
+    my $xhr = $self->req->is_xhr;
 
     my $t0 = [gettimeofday];
-    my $nbco    = $self->ebt->get_notes_by_country;
-    my $nbci    = $self->ebt->get_notes_by_city;
-    my $count   = $self->ebt->get_count;
-    my $ab_data = $self->ebt->get_alphabets;
+    my $count   = $self->ebt->get_count;             $xhr and $self->_init_progress ($count*1);
+    my $nbco    = $self->ebt->get_notes_by_country;  ## already cached
+    my $nbci    = $self->ebt->get_notes_by_city;     ## already cached
+    my $ab_data = $self->ebt->get_alphabets;         ## already cached
     $self->_log (debug => report 'locations get', $t0, $count);
+    $xhr and return $self->_end_progress;
 
     $t0 = [gettimeofday];
     my $countries;
@@ -636,12 +645,13 @@ sub locations {
 
 sub travel_stats {
     my ($self) = @_;
+    my $xhr = $self->req->is_xhr;
 
     my $t0 = [gettimeofday];
-    my $count   = $self->ebt->get_count;   ## just for 'report'
-    my $travel_stats = $self->ebt->get_travel_stats;
-    my $notes_dates = $self->ebt->get_notes_dates;          ## for the chart
-    my $elem_by_city = $self->ebt->get_elem_notes_by_city;  ## for the chart
+    my $count        = $self->ebt->get_count;               $xhr and $self->_init_progress ($count*1.2);
+    my $travel_stats = $self->ebt->get_travel_stats;        $xhr and $self->{'progress'}->base ($count*1);
+    my $notes_dates  = $self->ebt->get_notes_dates;         ## already cached (as part of 'information')
+    my $elem_by_city = $self->ebt->get_elem_notes_by_city;  ## already cached
     $self->_log (debug => report 'travel_stats get', $t0, $count);
 
     $t0 = [gettimeofday];
@@ -684,6 +694,7 @@ sub travel_stats {
             dsets => \@dsets;
     }
     $self->_log (debug => report 'travel_stats chart', $t0, $count);
+    $xhr and return $self->_end_progress;
 
     $self->stash (
         title           => $section_titles{'travel_stats'},
@@ -697,11 +708,13 @@ sub travel_stats {
 
 sub huge_table {
     my ($self) = @_;
+    my $xhr = $self->req->is_xhr;
 
     my $t0 = [gettimeofday];
-    my $count   = $self->ebt->get_count;   ## just for 'report'
+    my $count   = $self->ebt->get_count;       $xhr and $self->_init_progress ($count*1);
     my $ht_data = $self->ebt->get_huge_table;
     $self->_log (debug => report 'huge_table get', $t0, $count);
+    $xhr and return $self->_end_progress;
 
     $t0 = [gettimeofday];
     my $ht;
@@ -724,6 +737,7 @@ sub huge_table {
 
 sub short_codes {
     my ($self) = @_;
+    my $xhr = $self->req->is_xhr;
 
     my $split = sub {
         my ($str) = @_;
@@ -731,12 +745,13 @@ sub short_codes {
     };
 
     my $t0 = [gettimeofday];
-    my $count   = $self->ebt->get_count;   ## just for 'report'
-    my $lo = $self->ebt->get_lowest_short_codes;
-    my $hi = $self->ebt->get_highest_short_codes;
-    my @pcs = uniq keys %$lo, keys %$hi;
+    my $count   = $self->ebt->get_count;                $xhr and $self->_init_progress ($count*1);
+    my $lo      = $self->ebt->get_lowest_short_codes;
+    my $hi      = $self->ebt->get_highest_short_codes;  ## already cached
     $self->_log (debug => report 'short_codes get', $t0, $count);
+    $xhr and return $self->_end_progress;
 
+    my @pcs = uniq keys %$lo, keys %$hi;
     $t0 = [gettimeofday];
     my $sc;
     foreach my $pc (sort @pcs) {
@@ -784,14 +799,11 @@ sub nice_serials {
     my $xhr = $self->req->is_xhr;
 
     my $t0 = [gettimeofday];
-    my $count = $self->ebt->get_count;               $xhr and $self->_init_progress ($count*1);
+    my $count = $self->ebt->get_count;                        $xhr and $self->_init_progress ($count*1);
     my $nice_data = $self->ebt->get_nice_serials;
-    my $numbers_in_a_row = $self->ebt->get_numbers_in_a_row;
-    my $different_digits = $self->ebt->get_different_digits;
+    my $numbers_in_a_row = $self->ebt->get_numbers_in_a_row;  ## already cached
+    my $different_digits = $self->ebt->get_different_digits;  ## already cached
     $self->_log (debug => report 'nice_serials get', $t0, $count);
-
-    ## we could do this just after $self->ebt->get_nice_serials
-    ## but then we'd lose the $self->_log (debug => report) call
     $xhr and return $self->_end_progress;
 
     $t0 = [gettimeofday];
@@ -837,11 +849,13 @@ sub nice_serials {
 
 sub coords_bingo {
     my ($self) = @_;
+    my $xhr = $self->req->is_xhr;
 
     my $t0 = [gettimeofday];
-    my $count   = $self->ebt->get_count;   ## just for 'report'
+    my $count       = $self->ebt->get_count;         $xhr and $self->_init_progress ($count*1);
     my $cbingo_data = $self->ebt->get_coords_bingo;
     $self->_log (debug => report 'coords_bingo get', $t0, $count);
+    $xhr and return $self->_end_progress;
 
     $t0 = [gettimeofday];
     my $cbingo = $cbingo_data;
@@ -858,11 +872,13 @@ sub coords_bingo {
 
 sub notes_per_year {
     my ($self) = @_;
+    my $xhr = $self->req->is_xhr;
 
     my $t0 = [gettimeofday];
+    my $count    = $self->ebt->get_count;           $xhr and $self->_init_progress ($count*1);
     my $nby_data = $self->ebt->get_notes_per_year;
-    my $count = $self->ebt->get_count;
     $self->_log (debug => report 'notes_per_year get', $t0, $count);
+    $xhr and return $self->_end_progress;
 
     $t0 = [gettimeofday];
     my $nby;
@@ -898,11 +914,13 @@ sub notes_per_year {
 
 sub notes_per_month {
     my ($self) = @_;
+    my $xhr = $self->req->is_xhr;
 
     my $t0 = [gettimeofday];
+    my $count    = $self->ebt->get_count;            $xhr and $self->_init_progress ($count*1);
     my $nbm_data = $self->ebt->get_notes_per_month;
-    my $count = $self->ebt->get_count;
     $self->_log (debug => report 'notes_per_month get', $t0, $count);
+    $xhr and return $self->_end_progress;
 
     $t0 = [gettimeofday];
     my $nbm;
@@ -938,13 +956,15 @@ sub notes_per_month {
 
 sub top_days {
     my ($self) = @_;
+    my $xhr = $self->req->is_xhr;
 
     my $t0 = [gettimeofday];
-    my $t10d_data = $self->ebt->get_top10days;
-    my $t10m_data = $self->ebt->get_top10months;
-    my $nbdow_data = $self->ebt->get_notes_by_dow;
-    my $count = $self->ebt->get_count;
+    my $count      = $self->ebt->get_count;         $xhr and $self->_init_progress ($count*1);
+    my $t10d_data  = $self->ebt->get_top10days;
+    my $t10m_data  = $self->ebt->get_top10months;   ## already cached
+    my $nbdow_data = $self->ebt->get_notes_by_dow;  ## already cached
     $self->_log (debug => report 'top_days get', $t0, $count);
+    $xhr and return $self->_end_progress;
 
     $t0 = [gettimeofday];
     my $nbdow;
@@ -1043,11 +1063,13 @@ sub top_days {
 
 sub time_analysis_bingo {
     my ($self, $detail) = @_;
+    my $xhr = $self->req->is_xhr;
 
     my $t0 = [gettimeofday];
-    my $count   = $self->ebt->get_count;
+    my $count   = $self->ebt->get_count;          $xhr and $self->_init_progress ($count*1);
     my $ta_data = $self->ebt->get_time_analysis;
     $self->_log (debug => report 'time_analysis get', $t0, $count);
+    $xhr and return $self->_end_progress;
 
     $self->stash (
         title    => ($detail ? $section_titles{'time_analysis_detail'} : $section_titles{'time_analysis_bingo'}),
@@ -1065,11 +1087,7 @@ sub combs_bingo {
     my $count      = $self->ebt->get_count;                     $xhr and $self->_init_progress ($count*2);
     my $nbcombo    = $self->ebt->get_notes_by_combination;      $xhr and $self->{'progress'}->base ($count*1);
     my $comb_data  = $self->ebt->get_missing_combs_and_history;
-    my $presidents = [
-        map { [ split /:/ ] } 'any:Any signature', @{ $self->ebt->presidents }
-    ];
     $self->_log (debug => report 'combs_bingo get', $t0, $count);
-
     $xhr and return $self->_end_progress;
 
     $t0 = [gettimeofday];
@@ -1092,6 +1110,9 @@ sub combs_bingo {
     }
     $self->_log (debug => report 'combs_bingo cook', $t0, $count);
 
+    my $presidents = [
+        map { [ split /:/ ] } 'any:Any signature', @{ $self->ebt->presidents }
+    ];
     $self->stash (
         title      => ($detail ? $section_titles{'combs_detail'} : $section_titles{'combs_bingo'}),
         nbcombo    => $nbcombo,
@@ -1105,11 +1126,13 @@ sub combs_detail { push @_, 1; goto &combs_bingo; }
 
 sub plate_bingo {
     my ($self) = @_;
+    my $xhr = $self->req->is_xhr;
 
     my $t0 = [gettimeofday];
-    my $count   = $self->ebt->get_count;   ## just for 'report'
+    my $count      = $self->ebt->get_count;        $xhr and $self->_init_progress ($count*1);
     my $plate_data = $self->ebt->get_plate_bingo;
     $self->_log (debug => report 'plate_bingo get', $t0, $count);
+    $xhr and return $self->_end_progress;
 
     $t0 = [gettimeofday];
     my $cooked;
@@ -1148,11 +1171,13 @@ sub plate_bingo {
 
 sub bad_notes {
     my ($self) = @_;
+    my $xhr = $self->req->is_xhr;
 
     my $t0 = [gettimeofday];
-    my $count   = $self->ebt->get_count;   ## just for 'report'
+    my $count     = $self->ebt->get_count;      $xhr and $self->_init_progress ($count*1);
     my $bad_notes = $self->ebt->get_bad_notes;
     $self->_log (debug => report 'bad_notes get', $t0, $count);
+    $xhr and return $self->_end_progress;
 
     $t0 = [gettimeofday];
     my @cooked;
@@ -1182,12 +1207,14 @@ sub bad_notes {
 
 sub hit_list {
     my ($self) = @_;
+    my $xhr = $self->req->is_xhr;
 
     my $t0 = [gettimeofday];
-    my $count   = $self->ebt->get_count;   ## just for 'report'
-    my $whoami = $self->ebt->whoami;
+    my $count    = $self->ebt->get_count;               $xhr and $self->_init_progress ($count*1);
+    my $whoami   = $self->ebt->whoami;
     my $hit_data = $self->ebt->get_hit_list ($whoami);
     $self->_log (debug => report 'hit_list get', $t0, $count);
+    $xhr and return $self->_end_progress;
 
     $t0 = [gettimeofday];
     my $cooked;
@@ -1207,13 +1234,15 @@ sub hit_list {
 
 sub hit_times_bingo {
     my ($self, $detail) = @_;
+    my $xhr = $self->req->is_xhr;
 
     my $t0 = [gettimeofday];
-    my $count    = $self->ebt->get_count;   ## just for 'report'
+    my $count    = $self->ebt->get_count;                   $xhr and $self->_init_progress ($count*1);
     my $whoami   = $self->ebt->whoami;
     my $hit_list = $self->ebt->get_hit_list ($whoami);
-    my $ht       = $self->ebt->get_hit_times ($hit_list);
+    my $ht       = $self->ebt->get_hit_times ($hit_list);   ## don't include in the progress, it iterates through hits, not notes
     $self->_log (debug => report 'hit_times get', $t0, $count);
+    $xhr and return $self->_end_progress;
 
     $self->stash (
         title           => ($detail ? $section_titles{'hit_times_detail'} : $section_titles{'hit_times_bingo'}),
@@ -1225,13 +1254,15 @@ sub hit_times_detail { push @_, 1; goto &hit_times_bingo; }
 
 sub hit_locations {
     my ($self) = @_;
+    my $xhr = $self->req->is_xhr;
 
     my $t0 = [gettimeofday];
-    my $count    = $self->ebt->get_count;
-    my $nbci     = $self->ebt->get_notes_by_city;
+    my $count    = $self->ebt->get_count;                $xhr and $self->_init_progress ($count*2);
+    my $nbci     = $self->ebt->get_notes_by_city;        $xhr and $self->{'progress'}->base ($count*1);
     my $whoami   = $self->ebt->whoami;
     my $hit_list = $self->ebt->get_hit_list ($whoami);
     $self->_log (debug => report 'hit_locations get', $t0, $count);
+    $xhr and return $self->_end_progress;
 
     $t0 = [gettimeofday];
     my (%hit_count_by_my_loc, %hit_count_by_their_loc);
@@ -1327,13 +1358,15 @@ sub hit_locations {
 
 sub hit_analysis {
     my ($self) = @_;
+    my $xhr = $self->req->is_xhr;
 
     my $t0 = [gettimeofday];
-    my $count    = $self->ebt->get_count;   ## just for 'report'
+    my $count    = $self->ebt->get_count;                      $xhr and $self->_init_progress ($count*1);
     my $whoami   = $self->ebt->whoami;
     my $hit_list = $self->ebt->get_hit_list ($whoami);
     my $ha       = $self->ebt->get_hit_analysis ($hit_list);
     $self->_log (debug => report 'hit_analysis get', $t0, $count);
+    $xhr and return $self->_end_progress;
 
     $t0 = [gettimeofday];
     my $longest;
@@ -1367,17 +1400,18 @@ sub hit_analysis {
 
 sub hit_summary {
     my ($self) = @_;
+    my $xhr = $self->req->is_xhr;
 
     my $t0 = [gettimeofday];
+    my $count        = $self->ebt->get_count;                  $xhr and $self->_init_progress ($count*1.6);
+    my $activity     = $self->ebt->get_activity;               ## already cached (as part of 'information')
     my $whoami       = $self->ebt->whoami;
-    my $activity     = $self->ebt->get_activity;
-    my $count        = $self->ebt->get_count;
-    my $hit_list     = $self->ebt->get_hit_list ($whoami);
+    my $hit_list     = $self->ebt->get_hit_list ($whoami);     $xhr and $self->{'progress'}->base ($count*1);
     my $hs           = $self->ebt->get_hit_summary ($whoami, $activity, $count, $hit_list);
-    my $notes_dates  = $self->ebt->get_notes_dates;                     ## for the chart
-    my $hits_dates   = $self->ebt->get_hits_dates ($whoami);            ## for the chart
-    my $elem_travel_days = $self->ebt->get_elem_travel_days ($whoami);  ## for the chart
-    my $elem_travel_km   = $self->ebt->get_elem_travel_km ($whoami);    ## for the chart
+    my $notes_dates  = $self->ebt->get_notes_dates;
+    my $hits_dates   = $self->ebt->get_hits_dates ($whoami);
+    my $elem_travel_days = $self->ebt->get_elem_travel_days ($whoami);
+    my $elem_travel_km   = $self->ebt->get_elem_travel_km ($whoami);
     $self->_log (debug => report 'hit_summary get', $t0, $count);
 
     $t0 = [gettimeofday];
@@ -1428,6 +1462,7 @@ sub hit_summary {
             dsets => [
                 { title => (encode 'UTF-8', $self->l ('Hit ratio')), color => 'black', points => $dpoints{'hit_ratio'} },
             ];
+        $xhr and $self->{'progress'}->base ($count*1.2);
 
         -e $dest_img2 or EBTST::Main::Gnuplot::line_chart
             output => $dest_img2,
@@ -1436,6 +1471,7 @@ sub hit_summary {
             dsets => [
                 { title => (encode 'UTF-8', $self->l ('Travel days')), color => 'black', points => $dpoints{'travel_days'} },
             ];
+        $xhr and $self->{'progress'}->base ($count*1.4);
 
         -e $dest_img3 or EBTST::Main::Gnuplot::line_chart
             output => $dest_img3,
@@ -1446,6 +1482,7 @@ sub hit_summary {
             ];
     }
     $self->_log (debug => report 'hit_summary chart', $t0, $count);
+    $xhr and return $self->_end_progress;
 
     $self->stash (
         title => $section_titles{'hit_summary'},
@@ -1455,11 +1492,13 @@ sub hit_summary {
 
 sub calendar {
     my ($self) = @_;
+    my $xhr = $self->req->is_xhr;
 
     my $t0 = [gettimeofday];
-    my $count    = $self->ebt->get_count;
+    my $count    = $self->ebt->get_count;     $xhr and $self->_init_progress ($count*1);
     my $cal_data = $self->ebt->get_calendar;
     $self->_log (debug => report 'calendar get', $t0, $count);
+    $xhr and return $self->_end_progress;
 
     $t0 = [gettimeofday];
     foreach my $y (sort keys %$cal_data) {

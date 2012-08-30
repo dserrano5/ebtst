@@ -176,10 +176,10 @@ sub ad_rss_sigquit {
 
     my $rss = $self->rss_process or return;
     if ($rss > $max_rss_size) {
-        $self->app->log->debug ("process RSS is $rss Kb, sending SIGQUIT to ourselves ($$) and closing connection");
+        $self->app->log->debug ("process $$ RSS is $rss Kb, sending SIGQUIT and closing connection");
         $self->res->headers->connection ('close');
         kill QUIT => $$;    ## hypnotoad-specific, breaks morbo
-    }
+    } else { $self->app->log->debug ("process $$ RSS is $rss Kb"); }
     return;
 }
 
@@ -363,6 +363,7 @@ sub startup {
 
             my %html_hrefs = $self->html_hrefs;
             $html_hrefs{ $self->stash ('requested_url') } = undef;  ## we are going to work on this right now, so set it as done in the template
+            ## TODO: if users requests e.g. notes_per_year, then we should set as done all sections in EBT2's time bundle
 
             $self->stash (checked_boxes => \%cbs);
             $self->stash (html_hrefs    => \%html_hrefs);
@@ -430,7 +431,6 @@ sub startup {
     $u->get ('/time_analysis_detail')->to ('main#time_analysis_detail');
     $u->get ('/combs_bingo')->to ('main#combs_bingo');
     $u->get ('/combs_detail')->to ('main#combs_detail');
-    #$u->any ([qw/get post/], '/evolution')->to ('main#evolution');
     $u->get ('/plate_bingo')->to ('main#plate_bingo');
     $u->get ('/bad_notes')->to ('main#bad_notes');
     $u->get ('/hit_list')->to ('main#hit_list');

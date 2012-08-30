@@ -322,18 +322,12 @@ sub startup {
             $self->app->log->debug ("user: '$user'");
 
             my $gnuplot_img_dir = File::Spec->catfile ($images_dir, $user);
+            my $user_data_dir   = File::Spec->catfile ($user_data_basedir, $user);
+            my $db              = File::Spec->catfile ($user_data_dir, 'db');
             if (!-d $gnuplot_img_dir) {
-                if (!mkdir $gnuplot_img_dir) {
-                    die "Couldn't create directory: '$gnuplot_img_dir': $!\n";
-                }
-                if (!mkdir "$gnuplot_img_dir/static") {
-                    die "Couldn't create directory: '$gnuplot_img_dir/static': $!\n";
-                }
+                mkdir $gnuplot_img_dir          or die "mkdir: '$gnuplot_img_dir': $!\n";
+                mkdir "$gnuplot_img_dir/static" or die "mkdir: '$gnuplot_img_dir/static': $!\n";
             }
-
-            my $user_data_dir = File::Spec->catfile ($user_data_basedir, $user);
-            my $db            = File::Spec->catfile ($user_data_dir, 'db');
-
             if (!-d $user_data_dir) { mkdir $user_data_dir or die "mkdir: '$user_data_dir': $!"; }
             if (!-d $html_dir)      { mkdir $html_dir      or die "mkdir: '$html_dir': $!"; }
 

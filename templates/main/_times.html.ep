@@ -4,6 +4,28 @@
 <% my %color_counts; =%>
 
 <b><%=l 'Calendar' %></b><br>
+
+<% if ('detail' eq $mode) { =%>
+    <% if ('notes' eq $color_what) { =%>
+        <p class="colors_legend">
+            <span style="color: <%= color    0, 'notes' %>">0 <%=l 'notes' %></span>,
+            <span style="color: <%= color    1, 'notes' %>">1-49 <%=l 'notes' %></span>,
+            <span style="color: <%= color   50, 'notes' %>">50-99 <%=l 'notes' %></span>,
+            <span style="color: <%= color  100, 'notes' %>">100-499 <%=l 'notes' %></span>,
+            <span style="color: <%= color  500, 'notes' %>">500-999 <%=l 'notes' %></span>,
+            <span style="color: <%= color 1000, 'notes' %>"><%=l 'more than' %> 1000 <%=l 'notes' %></span>.
+        </p>
+    <% } else { =%>
+        <p class="colors_legend">
+            <span style="color: <%= color  0, 'hits' %>">0 <%=l 'hits' %></span>,
+            <span style="color: <%= color  1, 'hits' %>">1 <%=l 'hit' %></span>,
+            <span style="color: <%= color  2, 'hits' %>">2 <%=l 'hits' %></span>,
+            <span style="color: <%= color  3, 'hits' %>">3-4 <%=l 'hits' %></span>,
+            <span style="color: <%= color  5, 'hits' %>">5-9 <%=l 'hits' %></span>,
+            <span style="color: <%= color 10, 'hits' %>"><%=l 'more than' %> 10 <%=l 'hits' %></span>.
+        </p>
+    <% } =%>
+<% } =%>
 <table>
     <% if ('bingo' eq $mode) { =%>
         <tr>

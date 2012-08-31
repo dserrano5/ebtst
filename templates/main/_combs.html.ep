@@ -5,6 +5,16 @@
     <% my $sig_visible = $presidents->[$idx][1]; %>
     <h3><%=l $sig_visible %></h3>
     <% my %seen; my %total; %>
+    <% if ($sig eq $presidents->[0][0] and 'detail' eq $mode) { =%>
+        <p class="colors_legend">
+            <span style="color: <%= color    0, 'notes' %>">0 <%=l 'notes' %></span>,
+            <span style="color: <%= color    1, 'notes' %>">1-49 <%=l 'notes' %></span>,
+            <span style="color: <%= color   50, 'notes' %>">50-99 <%=l 'notes' %></span>,
+            <span style="color: <%= color  100, 'notes' %>">100-499 <%=l 'notes' %></span>,
+            <span style="color: <%= color  500, 'notes' %>">500-999 <%=l 'notes' %></span>,
+            <span style="color: <%= color 1000, 'notes' %>"><%=l 'more than' %> 1000 <%=l 'notes' %></span>.
+        </p>
+    <% } =%>
     <table>
         <tr>
             <th></th>

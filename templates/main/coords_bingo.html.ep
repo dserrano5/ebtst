@@ -15,6 +15,16 @@
         <% $max_number = $number if     $number >     $max_number; =%>
     <% } =%>
     <h3><%= 'all' eq $v ? (ucfirst l $v) : $v %></h3>
+    <% if ('all' eq $v) { =%>
+        <p class="colors_legend">
+            <span style="color: <%= color    0, 'notes' %>">0 <%=l 'notes' %></span>,
+            <span style="color: <%= color    1, 'notes' %>">1-49 <%=l 'notes' %></span>,
+            <span style="color: <%= color   50, 'notes' %>">50-99 <%=l 'notes' %></span>,
+            <span style="color: <%= color  100, 'notes' %>">100-499 <%=l 'notes' %></span>,
+            <span style="color: <%= color  500, 'notes' %>">500-999 <%=l 'notes' %></span>,
+            <span style="color: <%= color 1000, 'notes' %>"><%=l 'more than' %> 1000 <%=l 'notes' %></span>.
+        </p>
+    <% } =%>
     <table>
     <% for my $l ('A' .. $max_letter) { =%>
         <tr>

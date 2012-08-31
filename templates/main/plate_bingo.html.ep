@@ -1,6 +1,16 @@
 <h2><%=l 'Plate bingo' %></h2>
 <% foreach my $elem (@$plate_bingo) { %>
     <h3><%= 'all' eq $elem->{'value'} ? (ucfirst l $elem->{'value'}) : $elem->{'value'} %></h3>
+    <% if ('all' eq $elem->{'value'}) { =%>
+        <p class="colors_legend">
+            <span style="color: <%= color    0, 'notes' %>">0 <%=l 'notes' %></span>,
+            <span style="color: <%= color    1, 'notes' %>">1-49 <%=l 'notes' %></span>,
+            <span style="color: <%= color   50, 'notes' %>">50-99 <%=l 'notes' %></span>,
+            <span style="color: <%= color  100, 'notes' %>">100-499 <%=l 'notes' %></span>,
+            <span style="color: <%= color  500, 'notes' %>">500-999 <%=l 'notes' %></span>,
+            <span style="color: <%= color 1000, 'notes' %>"><%=l 'more than' %> 1000 <%=l 'notes' %></span>.
+        </p>
+    <% } =%>
     <table>
         <% my %seen; my %total; %>
         <% foreach my $printer (@{ $elem->{'printers'} }) { %>

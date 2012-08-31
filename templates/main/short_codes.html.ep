@@ -1,4 +1,6 @@
 <h2><%=l 'Absolute lowest and highest short codes' %></h2>
+
+<p class="colors_legend"><%=l 'Notes have been entered up to' %>: <span class="recent_1"></span> <%=l '1 year ago' %>, <span class="recent_2"></span> <%=l '3 months ago' %>, <span class="recent_3"></span> <%=l '1 week ago' %>.</p>
 <table>
     <tr>
         <th><%=l 'Short code' %></th>

@@ -104,6 +104,12 @@ Printer = Imprenta
 Printer name = Nombre de la imprenta
 Detail of notes per value and printer code = Detalle de billetes por valor y código de imprenta
 
+## huge_table
+Notes have been entered up to = Billetes introducidos hasta
+1 year ago = hace 1 año
+3 months ago = hace 3 meses
+1 week ago = hace 1 semana
+
 ## short codes
 Absolute lowest and highest short codes = Códigos cortos más bajos y altos, absolutos
 Lowest and highest short codes per value = Códigos cortos más bajos y altos, por valor
@@ -141,6 +147,7 @@ Day = Día
 Time analysis = Análisis de tiempo
 Colors = Colores
 Calendar = Calendario
+or more = o más
 Days = Días
 Hours = Horas
 Minutes = Minutos

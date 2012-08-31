@@ -13,7 +13,7 @@
             <span style="color: <%= color   50, 'notes' %>">50-99 <%=l 'notes' %></span>,
             <span style="color: <%= color  100, 'notes' %>">100-499 <%=l 'notes' %></span>,
             <span style="color: <%= color  500, 'notes' %>">500-999 <%=l 'notes' %></span>,
-            <span style="color: <%= color 1000, 'notes' %>"><%=l 'more than' %> 1000 <%=l 'notes' %></span>.
+            <span style="color: <%= color 1000, 'notes' %>">1000 <%=l 'or more' %> <%=l 'notes' %></span>.
         </p>
     <% } else { =%>
         <p class="colors_legend">
@@ -22,7 +22,7 @@
             <span style="color: <%= color  2, 'hits' %>">2 <%=l 'hits' %></span>,
             <span style="color: <%= color  3, 'hits' %>">3-4 <%=l 'hits' %></span>,
             <span style="color: <%= color  5, 'hits' %>">5-9 <%=l 'hits' %></span>,
-            <span style="color: <%= color 10, 'hits' %>"><%=l 'more than' %> 10 <%=l 'hits' %></span>.
+            <span style="color: <%= color 10, 'hits' %>">10 <%=l 'or more' %> <%=l 'hits' %></span>.
         </p>
     <% } =%>
 <% } =%>

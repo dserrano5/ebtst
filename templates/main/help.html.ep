@@ -11,7 +11,7 @@
     <li><span style="color: <%= color   50, 'notes' %>"><%=l 'green' %></span>: 50-99 <%=l 'notes' %> / 2 <%=l 'hits' %></li>
     <li><span style="color: <%= color  100, 'notes' %>"><%=l 'yellow' %></span>: 100-499 <%=l 'notes' %> / 3-4 <%=l 'hits' %></li>
     <li><span style="color: <%= color  500, 'notes' %>"><%=l 'red' %></span>: 500-999 <%=l 'notes' %> / 5-9 <%=l 'hits' %></li>
-    <li><span style="color: <%= color 1000, 'notes' %>"><%=l 'black' %></span>: <%=l 'more than' %> 1000 <%=l 'notes' %> / 10 <%=l 'hits' %></li>
+    <li><span style="color: <%= color 1000, 'notes' %>"><%=l 'black' %></span>: 1000 <%=l 'or more' %> <%=l 'notes' %> / 10 <%=l 'hits' %></li>
 </ul>
 <p><%=l2 '_help_colors_2' %></p>
 <ul>

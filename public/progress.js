@@ -16,7 +16,7 @@ var interval_id;
 var running = 0;
 function _gp() {
     $.ajax({
-        url: base_href+'progress',
+        url: 'progress',
         success: function(data) {
             var cur = data['cur'];
             var total = data['total'];
@@ -44,14 +44,14 @@ function go(dest) {
         interval_id = setInterval (function(){_gp()}, 5000);
     }, 2000);
     $.get (
-        base_href+dest,
+        dest,
         function(data) {
             //if ('ok' == data) {
                 //console.log ('ok, clearing interval, hiding progress, moving forward');
                 running = 0;
                 clearInterval (interval_id);
                 $("#progress").hide ('slow');
-                window.location.href = base_href+dest;
+                window.location.href = dest;
             //} else {
             //    console.log ('ko');
             //    running = 0;

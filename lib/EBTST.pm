@@ -80,7 +80,6 @@ sub bd_set_initial_stash {
     $self->stash (has_bad_notes => undef);
     $self->stash (user          => undef);
     $self->stash (title         => undef);
-    $self->stash (requested_url => $self->req->url->path->leading_slash (0)->to_string);
 }
 
 sub helper_ebt {
@@ -313,6 +312,8 @@ sub startup {
     my $r_has_notes_hits = $r->under (sub {
         my ($self) = @_;
 
+        $self->stash (requested_url => $self->req->url->path->leading_slash (0)->to_string);   ## $self->current_route ?
+
         ## TODO: reorganize routes
         #if (ref sess) { sess->load }
 
@@ -358,6 +359,7 @@ sub startup {
             my %html_hrefs = $self->html_hrefs;
             $html_hrefs{ $self->stash ('requested_url') } = undef;  ## we are going to work on this right now, so set it as done in the template
             ## TODO: if users requests e.g. notes_per_year, then we should set as done all sections in EBT2's time bundle
+            ## err, it's already working... O_o
 
             $self->stash (checked_boxes => \%cbs);
             $self->stash (html_hrefs    => \%html_hrefs);

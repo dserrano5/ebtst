@@ -395,6 +395,7 @@ sub startup {
     });
     $r_user->get ('/configure')->to ('main#configure');
     $r_user->post ('/upload')->to ('main#upload');
+    $r_user->route ('/import/:sha', sha => qr/[0-9a-fA-F]{8}/)->name ('import')->to ('main#import');
     $r_user->get ('/help')->to ('main#help');
     $r_user->get ('/logout')->to ('main#logout');
     $r_user->get ('/progress')->to ('main#progress');

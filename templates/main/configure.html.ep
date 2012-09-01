@@ -1,5 +1,5 @@
 <h2><%=l 'Configuration' %></h2>
-<%= form_for upload => (id => 'upload', method => 'post', enctype => 'multipart/form-data') => begin %>
+<form id="config_form" action="javascript:config_submit_button()" method="post" enctype="multipart/form-data">
     <table>
         <!--<tr>
             <td><%=l 'Name' %>:</td>
@@ -15,12 +15,12 @@
             <td><%= text_field 'lang' %></td>
         </tr>--><tr>
             <td><%=l 'Notes CSV file' %>:</td>
-            <td><%= file_field 'notes_csv_file' %></td>
+            <td><input id="notes_csv" name="notes_csv_file" type="file"></td>
         </tr><tr>
             <td><%=l 'Hits CSV file' %>:</td>
-            <td><%= file_field 'hits_csv_file' %></td>
+            <td><input id="hits_csv" name="hits_csv_file" type="file"></td>
         </tr>
     </table>
     <br>
-    <%= submit_button l 'Submit' %>
-<% end %>
+    <input type="submit" id="config_submit_button" value="<%=l 'Submit' %>">
+</form>

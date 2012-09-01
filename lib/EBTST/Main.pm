@@ -127,13 +127,14 @@ sub _init_progress {
 }
 
 sub _end_progress {
-    my ($self) = @_;
+    my ($self, $text) = @_;
 
+    $text //= 'ok';
     $self->ebt->del_progress_obj;
     #$self->stash ('sess')->clear ('_xhr_working');
     #$self->stash ('sess')->flush;
-    $self->_log (debug => 'is xhr, rendering text');
-    $self->render (layout => undef, text => 'ok');
+    $self->_log (debug => "_end_progress: rendering text ($text)");
+    $self->render (layout => undef, text => $text);
     return;
 }
 
@@ -206,15 +207,16 @@ sub progress {
 
 sub information {
     my ($self) = @_;
+    my $xhr = $self->req->is_xhr;
 
     my $t0 = [gettimeofday];
-    my $ac          = $self->ebt->get_activity;
-    my $count       = $self->ebt->get_count;
-    my $total_value = $self->ebt->get_total_value;
-    my $sigs        = $self->ebt->get_signatures;
-    my $full_days   = $self->ebt->get_days_elapsed;
-    my $notes_dates = $self->ebt->get_notes_dates;
-    my $elem_by_pres = $self->ebt->get_elem_notes_by_president;
+    my $count       = $self->ebt->get_count;                      $xhr and $self->_init_progress ($count*1.1);    ## graphs generation is relatively quick, hence that 0.1
+    my $ac          = $self->ebt->get_activity;                   ## (don't set progress, this has been already calculated and cached)
+    my $total_value = $self->ebt->get_total_value;                ## already cached
+    my $sigs        = $self->ebt->get_signatures;                 ## already cached
+    my $full_days   = $self->ebt->get_days_elapsed;               ## already cached
+    my $notes_dates = $self->ebt->get_notes_dates;                ## already cached
+    my $elem_by_pres = $self->ebt->get_elem_notes_by_president;   ## already cached
     $self->_log (debug => report 'information get', $t0, $count);
 
     $t0 = [gettimeofday];
@@ -225,7 +227,9 @@ sub information {
     my $unk         = $sigs->{'_UNK'} // 0;
     my $today       = DateTime->now->set_time_zone ('Europe/Madrid')->strftime ('%Y-%m-%d %H:%M:%S');
     my $avg_per_day = $count / $full_days;
+    $self->_log (debug => report 'information cook', $t0, $count);
 
+    $t0 = [gettimeofday];
     my $dest_img = File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'pct_by_pres.svg');
     if (!-e $dest_img) {
         my @initials_pres = map { (split /:/)[0] } @{ EBT2->presidents };
@@ -248,8 +252,9 @@ sub information {
                 { title =>    'MD', color => '#40FF40', points => $dpoints{'MD'}  },
             ];
     }
+    $self->_log (debug => report 'information chart', $t0, $count);
+    $xhr and return $self->_end_progress;
 
-    $self->_log (debug => report 'information cook', $t0, $count);
     $self->stash (
         title        => $section_titles{'information'},
         ac           => $ac,
@@ -283,10 +288,10 @@ sub value {
     #$self->_log (debug => 'value: _check_in_progress nos deja seguir');
 
     my $t0 = [gettimeofday];
-    my $count       = $self->ebt->get_count;                $xhr and $self->_init_progress ($count*2.6);    ## graphs generation is relatively quick, hence that 0.6
+    my $count       = $self->ebt->get_count;                $xhr and $self->_init_progress ($count*2.6);
     my $data        = $self->ebt->get_notes_by_value;       $xhr and $self->{'progress'}->base ($count*1);
     my $data_first  = $self->ebt->get_first_by_value;       $xhr and $self->{'progress'}->base ($count*2);
-    my $notes_dates = $self->ebt->get_notes_dates;          ## (don't set progress, this has been already calculated and cached)
+    my $notes_dates = $self->ebt->get_notes_dates;
     my $elem_by_val = $self->ebt->get_elem_notes_by_value;
     $self->_log (debug => report 'value get', $t0, $count);
 
@@ -377,7 +382,6 @@ sub value {
             ];
     }
     $self->_log (debug => report 'value chart', $t0, $count);
-
     $xhr and return $self->_end_progress;
 
     $self->stash (
@@ -1573,33 +1577,61 @@ sub upload {
 
     my $notes_csv = $self->req->upload ('notes_csv_file');
     my $hits_csv  = $self->req->upload ('hits_csv_file');
+    my $sha = substr +(sha512_hex $self->stash ('user')), 0, 8;
+    $self->app->log->debug ("sha ($sha)");
     if ($notes_csv and $notes_csv->size) {
-        my $local_notes_file = File::Spec->catfile ($ENV{'TMP'}//$ENV{'TEMP'}//'/tmp', 'notes_uploaded.csv');
-        my $outfile = File::Spec->catfile ($EBTST::config{'csvs_dir'}, substr +(sha512_hex $self->stash ('user')), 0, 8);
+        my $local_notes_file = File::Spec->catfile ($ENV{'TMP'}//$ENV{'TEMP'}//'/tmp', "$sha-notes.csv");
+        $notes_csv->move_to ($local_notes_file);
+    }
+    if ($hits_csv and $hits_csv->size) {
+        my $local_hits_file = File::Spec->catfile ($ENV{'TMP'}//$ENV{'TEMP'}//'/tmp', "$sha-hits.csv");
+        $hits_csv->move_to ($local_hits_file);
+    }
+
+    $self->render (layout => undef, text => $sha);
+}
+
+sub import {
+    my ($self) = @_;
+    my $done = 0;
+
+    return $self->render_not_found unless $self->req->is_xhr;
+
+    my $sha = $self->stash ('sha');
+    my $local_notes_file = File::Spec->catfile ($ENV{'TMP'}//$ENV{'TEMP'}//'/tmp', "$sha-notes.csv");
+    my $local_hits_file  = File::Spec->catfile ($ENV{'TMP'}//$ENV{'TEMP'}//'/tmp', "$sha-hits.csv");
+
+    if (-e $local_notes_file) {
+        my $outfile = File::Spec->catfile ($EBTST::config{'csvs_dir'}, $sha);
+        $self->_log (info => "will store a censored copy at '$outfile'");
         if (!unlink $outfile and 'No such file or directory' ne $!) {
             $self->_log (warn => "upload: unlink: '$outfile': $!");
         }
-        $notes_csv->move_to ($local_notes_file);
         $self->_decompress ($local_notes_file);
-        $self->_log (info => "will store a censored copy at '$outfile'");
+
+        my $count = 0; if (open my $fd, '<', $local_notes_file) { $count =()= <$fd>; close $fd; }
+        $self->_init_progress ($count);
         $self->ebt->load_notes ($local_notes_file, $outfile);
+        $done = 1;
+
         unlink $local_notes_file or $self->_log (warn => "upload: unlink: '$local_notes_file': $!\n");
         foreach my $img (glob File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), '*.svg')) {
             unlink $img or $self->_log (warn => "upload: unlink: '$img': $!");
         }
     }
-    if ($hits_csv and $hits_csv->size) {
-        my $local_hits_file = File::Spec->catfile ($ENV{'TMP'}//$ENV{'TEMP'}//'/tmp', 'hits_uploaded.csv');
-        $hits_csv->move_to ($local_hits_file);
+    if (-e $local_hits_file) {
         $self->_decompress ($local_hits_file);
         $self->ebt->load_hits ($local_hits_file);
+        $done = 1;
         unlink $local_hits_file  or $self->_log (warn => "upload: unlink: '$local_hits_file': $!");
         foreach my $img (glob File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'hits_*.svg')) {
             unlink $img or $self->_log (warn => "upload: unlink: '$img': $!");
         }
     }
 
-    $self->redirect_to ('information');
+    return $self->_end_progress ('information');
+    #$self->render (layout => undef, text => 'information');
+    #$self->redirect_to ('information');
 }
 
 sub _prepare_html_dir {
@@ -1654,7 +1686,7 @@ sub _save_html {
         my $title = encode 'UTF-8', $self->l ($section_titles{$param});
         my $html_copy = $html_text;
         $html_copy =~ s/<!-- content -->/$partial_html/;
-        $html_copy =~ s/<!-- title -->/$title/;
+        $html_copy =~ s/<!-- __TITLE__ -->/$title/;
 
         my $file = File::Spec->catfile ($html_dir, "$param.html");
         if (open my $fd, '>', $file) {

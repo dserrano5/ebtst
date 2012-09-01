@@ -258,9 +258,9 @@ sub _date_inside_range {
 
 my $do_keep_hits = 0;   ## not sure whether to make this configurable or not...
 sub load_notes {
-    my ($self, $notes_file, $store_path) = @_;
+    my ($self, $progress, $notes_file, $store_path) = @_;
     my $fd;
-    my $note_no;
+    my $note_no = 0;
     my @notes_column_names = qw/
         value year serial desc date_entered city country
         zip short_code id times_entered moderated_hit lat long
@@ -294,6 +294,7 @@ sub load_notes {
     my $notes_csv = Text::CSV->new ({ sep_char => ';', binary => 1 });
     $notes_csv->column_names (@notes_column_names);
     while (my $hr = $notes_csv->getline_hr ($fd)) {
+        if ($progress and 0 == $note_no % $EBT2::progress_every) { $progress->set ($note_no); }
         if ($hr->{'date_entered'} =~ m{^(\d{2})/(\d{2})/(\d{2}) (\d{2}):(\d{2})$}) {
             $hr->{'date_entered'} = sprintf "%s-%s-%s %s:%s:00", (2000+$3), $2, $1, $4, $5;
         }

@@ -23,6 +23,7 @@ sub report {
     return sprintf +($n ? '%s: %.3fs (%s, %.0fK/s)' : '%s: %.3fs'), $str, $t, $n, $n/$t/1000;
 }
 
+my $tmpdir = $ENV{'TMP'} // $ENV{'TEMP'} // '/tmp';
 our %dows = qw/1 Monday 2 Tuesday 3 Wednesday 4 Thursday 5 Friday 6 Saturday 7 Sunday/;
 our %months = qw/1 January 2 February 3 March 4 April 5 May 6 June 7 July 8 August 9 September 10 October 11 November 12 December/;
 ## no need to list all english country names, we take them from Locale::Country
@@ -1553,7 +1554,7 @@ sub _decompress {
     my ($self, $file) = @_;
     my ($fd, $tmpfile);
 
-    ($fd, $tmpfile) = tempfile 'ebtst-uncompress.XXXXXX', DIR => $ENV{'TMP'}//$ENV{'TEMP'}//'/tmp';
+    ($fd, $tmpfile) = tempfile 'ebtst-uncompress.XXXXXX', DIR => $tmpdir;
     if (!gunzip $file, $fd, AutoClose => 1) {
         $self->_log (warn => "_decompress: gunzip: $GunzipError");
         unlink $tmpfile or $self->_log (warn => "_decompress: unlink: '$tmpfile': $!");
@@ -1561,7 +1562,7 @@ sub _decompress {
         rename $tmpfile, $file or $self->_log (warn => "_decompress: rename: '$tmpfile' to '$file': $!");
     }
 
-    ($fd, $tmpfile) = tempfile 'ebtst-uncompress.XXXXXX', DIR => $ENV{'TMP'}//$ENV{'TEMP'}//'/tmp';
+    ($fd, $tmpfile) = tempfile 'ebtst-uncompress.XXXXXX', DIR => $tmpdir;
     if (!unzip $file, $fd, AutoClose => 1) {
         $self->_log (warn => "_decompress: unzip: $UnzipError");
         unlink $tmpfile or $self->_log (warn => "_decompress: unlink: '$tmpfile': $!");
@@ -1580,11 +1581,11 @@ sub upload {
     my $sha = substr +(sha512_hex $self->stash ('user')), 0, 8;
     $self->app->log->debug ("sha ($sha)");
     if ($notes_csv and $notes_csv->size) {
-        my $local_notes_file = File::Spec->catfile ($ENV{'TMP'}//$ENV{'TEMP'}//'/tmp', "$sha-notes.csv");
+        my $local_notes_file = File::Spec->catfile ($tmpdir, "$sha-notes.csv");
         $notes_csv->move_to ($local_notes_file);
     }
     if ($hits_csv and $hits_csv->size) {
-        my $local_hits_file = File::Spec->catfile ($ENV{'TMP'}//$ENV{'TEMP'}//'/tmp', "$sha-hits.csv");
+        my $local_hits_file = File::Spec->catfile ($tmpdir, "$sha-hits.csv");
         $hits_csv->move_to ($local_hits_file);
     }
 
@@ -1598,8 +1599,8 @@ sub import {
     return $self->render_not_found unless $self->req->is_xhr;
 
     my $sha = $self->stash ('sha');
-    my $local_notes_file = File::Spec->catfile ($ENV{'TMP'}//$ENV{'TEMP'}//'/tmp', "$sha-notes.csv");
-    my $local_hits_file  = File::Spec->catfile ($ENV{'TMP'}//$ENV{'TEMP'}//'/tmp', "$sha-hits.csv");
+    my $local_notes_file = File::Spec->catfile ($tmpdir, "$sha-notes.csv");
+    my $local_hits_file  = File::Spec->catfile ($tmpdir, "$sha-hits.csv");
 
     if (-e $local_notes_file) {
         my $outfile = File::Spec->catfile ($EBTST::config{'csvs_dir'}, $sha);

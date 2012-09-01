@@ -87,8 +87,11 @@ var t0;
 function up_progress(e) {
     var t = new Date();
     if (t - t0 < 3000) { return; }
+    t0 = t;
 
     if (e.lengthComputable) {
+        _center_on_screen ($("#progress"));
+        _set_progress (0);
         $("#progress").show ('slow');
 
         var cur = e.loaded;

@@ -386,11 +386,19 @@ sub startup {
 
         my $requested_url = $self->stash ('requested_url');
         $self->app->log->debug (sprintf 'set flash: requested_url (before tampering) is (%s)', $requested_url);
+        $self->render_not_found if 'progress' eq $requested_url;
         $requested_url = '' if grep { $_ eq $requested_url } qw/logout index gen_output/;
         $requested_url = 'configure' if 'upload' eq $requested_url;
         $self->flash (requested_url => $requested_url);
-        $self->app->log->debug ("no session, redirecting to index, requested_url ($requested_url)");
-        $self->redirect_to ('index');
+
+        if ($self->req->is_xhr) {
+            $self->app->log->debug ("no session, is_xhr, redirecting to index, requested_url ($requested_url)");
+            $self->render (layout => undef, text => 'index');
+        } else {
+            $self->app->log->debug ("no session, redirecting to index, requested_url ($requested_url)");
+            $self->redirect_to ('index');
+        }
+
         return 0;
     });
     $r_user->get ('/configure')->to ('main#configure');

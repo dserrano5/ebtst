@@ -157,9 +157,15 @@ sub load_users {
 sub index {
     my ($self) = @_;
 
-    $self->redirect_to ('information') if ref $self->stash ('sess') and $self->stash ('sess')->load;
     $self->flash (requested_url => $self->flash ('requested_url'));
     $self->stash (title => $section_titles{'index'});
+
+    if ($self->req->is_xhr) {
+        $self->render (layout => undef, text => 'ok');
+    } else {
+        $self->redirect_to ('information') if ref $self->stash ('sess') and $self->stash ('sess')->load;
+    }
+    return;
 }
 
 sub login {
@@ -1631,8 +1637,6 @@ sub import {
     }
 
     return $self->_end_progress ('information');
-    #$self->render (layout => undef, text => 'information');
-    #$self->redirect_to ('information');
 }
 
 sub _prepare_html_dir {

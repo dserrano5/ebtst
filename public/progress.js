@@ -30,6 +30,17 @@ function _gp(label) {
             //} else {
             //    console.log ('progress: cur ('+cur+') !< total ('+total+'), hiding div');
             //}
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            running = 0;
+            clearTimeout (timeout_id);
+            clearInterval (interval_id);
+            $("#progress").hide ('slow');
+            if (errorThrown) {
+                $("#error_msg").html ('<br>' + errorThrown + '<br>');
+            } else {
+                $("#error_msg").html ('<br>' + textStatus + '<br>');
+            }
         }
     });
 }

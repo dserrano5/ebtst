@@ -1,5 +1,6 @@
-function _set_progress(p) {
-    $("#progress_text").html(p + '%');
+function _set_progress(p, label) {
+    if (label) { label += ': '; }
+    $("#progress_text").html(label + p + '%');
     $("#progress_bar").css({
         width: p + '%',
         float: "left",
@@ -14,7 +15,7 @@ function _center_on_screen(elem) {
 }
 var interval_id;
 var running = 0;
-function _gp() {
+function _gp(label) {
     $.ajax({
         url: 'progress',
         success: function(data) {
@@ -22,7 +23,7 @@ function _gp() {
             var total = data['total'];
             var pct = total ? 100*cur/total : 0;
             //console.log ('progress: cur ('+cur+') total ('+total+') pct ('+pct+')');
-            _set_progress (Math.floor (pct));
+            _set_progress (Math.floor (pct), label);
             //if (cur < total) {   ## apparently 20000 isn't less than 166000
             //if (pct < 100) {
             //    $("#progress").show ('slow');
@@ -35,13 +36,14 @@ function _gp() {
 function go(dest) {
     if (running) { return; }
     running = 1;
+    var label = dest.split ('/')[0];
     _center_on_screen ($("#progress"));
-    _set_progress (0);
+    _set_progress (0, label);
     var timeout_id = setTimeout (function(){
         //console.log ('timeout! calling and setting interval');
         $("#progress").show ('slow');
-        _gp();
-        interval_id = setInterval (function(){_gp()}, 5000);
+        _gp(label);
+        interval_id = setInterval (function(){_gp(label)}, 5000);
     }, 2000);
     $.get (
         dest,
@@ -91,14 +93,14 @@ function up_progress(e) {
 
     if (e.lengthComputable) {
         _center_on_screen ($("#progress"));
-        _set_progress (0);
+        _set_progress (0, 'upload');
         $("#progress").show ('slow');
 
         var cur = e.loaded;
         var total = e.total;
         var pct = total ? 100*cur/total : 0;
         //console.log ('loaded ('+e.loaded+') total ('+e.total+'), progress: cur ('+cur+') total ('+total+') pct ('+pct+')');
-        _set_progress (Math.floor (pct));
+        _set_progress (Math.floor (pct), 'upload');
     } else {
         //console.log ('!e.lengthComputable');
     }

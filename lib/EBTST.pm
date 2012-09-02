@@ -206,7 +206,8 @@ sub helper_html_hrefs {
     my ($self) = @_;
 
     my %done_data;
-    undef @done_data{ $self->ebt->done_data };
+    my @keys = $self->ebt->done_data;
+    @keys and undef @done_data{@keys};
 
     my %html_hrefs;
     $html_hrefs{'information'}          = undef if exists $done_data{'activity'};

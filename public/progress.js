@@ -49,9 +49,9 @@ function go(dest) {
     running = 1;
     var label = dest.split ('/')[0];
     _center_on_screen ($("#progress"));
-    _set_progress (0, label);
     var timeout_id = setTimeout (function(){
-        //console.log ('timeout! calling and setting interval');
+        console.log ('timeout! progress(0), calling and setting interval');
+        _set_progress (0, label);
         $("#progress").show ('slow');
         _gp(label);
         interval_id = setInterval (function(){_gp(label)}, 5000);
@@ -104,7 +104,6 @@ function up_progress(e) {
 
     if (e.lengthComputable) {
         _center_on_screen ($("#progress"));
-        _set_progress (0, 'upload');
         $("#progress").show ('slow');
 
         var cur = e.loaded;

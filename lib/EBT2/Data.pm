@@ -528,6 +528,7 @@ sub get_chunk {
 
     if ('all' eq lc $interval) {
         $self->{'eof'} = 1;
+        $self->rewind;
         return {
             start_date => (split ' ', (split /;/, $self->{'notes'}[ 0], NCOLS)[DATE_ENTERED])[0],
             end_date   => (split ' ', (split /;/, $self->{'notes'}[-1], NCOLS)[DATE_ENTERED])[0],

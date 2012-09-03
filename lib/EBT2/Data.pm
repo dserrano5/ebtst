@@ -460,6 +460,11 @@ sub _clean_object {
     return $self;
 }
 
+sub note_count {
+    my ($self) = @_;
+    return scalar @{ $self->{'notes'} };
+}
+
 sub has_notes {
     my ($self) = @_;
 

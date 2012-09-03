@@ -218,8 +218,8 @@ sub information {
 
     my $t0 = [gettimeofday];
     my $count       = $self->ebt->get_count;                      $xhr and $self->_init_progress ($count*1.1);    ## graphs generation is relatively quick, hence that 0.1
-    my $ac          = $self->ebt->get_activity;                   ## (don't set progress, this has been already calculated and cached)
-    my $total_value = $self->ebt->get_total_value;                ## already cached
+    my $ac          = $self->ebt->get_activity;                   $xhr and $self->{'progress'}->base ($count*1);
+    my $total_value = $self->ebt->get_total_value;                ## (don't set progress, this has been already calculated and cached)
     my $sigs        = $self->ebt->get_signatures;                 ## already cached
     my $full_days   = $self->ebt->get_days_elapsed;               ## already cached
     my $notes_dates = $self->ebt->get_notes_dates;                ## already cached

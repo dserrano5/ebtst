@@ -31,6 +31,15 @@ sub new {
     bless {}, $class;
 }
 
+sub count {
+    my ($self, $progress, $data) = @_;
+    my %ret;
+
+    $ret{'count'} = $data->note_count;
+
+    return \%ret;
+}
+
 sub bundle_information {
     my ($self, $progress, $data) = @_;
     my %ret;
@@ -58,9 +67,10 @@ sub bundle_information {
             }
             $active_days{$date_entered}++;  ## number of notes
 
-            ## count (total_value, signatures)
-            $ret{'count'}++;
+            ## total_value
             $ret{'total_value'} += $note->[VALUE];
+
+            ## signatures
             $ret{'signatures'}{ $note->[SIGNATURE] }++;
 
             ## days_elapsed
@@ -147,7 +157,6 @@ sub bundle_information {
     return \%ret;
 }
 sub activity     { goto &bundle_information; }
-sub count        { goto &bundle_information; }
 sub total_value  { goto &bundle_information; }
 sub signatures   { goto &bundle_information; }
 sub days_elapsed { goto &bundle_information; }

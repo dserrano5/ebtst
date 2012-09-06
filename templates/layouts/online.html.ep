@@ -22,7 +22,7 @@
         <table style="padding: 15px"><tr style="vertical-align: top"><td style="padding: 0px 15px 0px 0px; margin: 0px; background-color: #c0c0ff">
             <% if (defined $user) { %>
             <div id="sections">
-                <form action="gen_output" method="POST" target="_new">
+                <form id="calc_sections" action="calc_sections" method="POST" target="_new">
                 <table width="100%">
                     <tr>
                         <td colspan="2" align="center">
@@ -64,7 +64,7 @@
                     %     [ hit_analysis         => 'Hit analysis' ],
                     %     [ hit_summary          => 'Hit summary' ],
                     %     [ calendar             => 'Calendar' ],
-                    %     [ gen_output           => 'BBCode/HTML' ],   ## title currently unused
+                    %     [ calc_sections        => 'BBCode/HTML' ],
                     %     #[ charts               => 'Charts' ],
                     % ) {
                     %     my ($section, $title) = @$elem;
@@ -73,9 +73,9 @@
                     %
                     %     next if !$has_bad_notes and 'bad_notes' eq $section;
                     %     next if !$has_hits and $section =~ /^hit_/;
-                    %     if ('gen_output' eq $section) {
+                    %     if ('calc_sections' eq $section) {
                     %         my $td1 = '<td></td>';
-                    %         my $td2 = '<td><input type="submit" class="section_link gen_output_button" id="gen_output" value="BBCode/HTML"></td>';
+                    %         my $td2 = sprintf '<td><a class="section_link" id="%s" href="javascript:gen_output()">%s</a></td>', $section, $title;
                     %==       '<tr>'.$td1.$td2.'</tr>'
                     %         next;
                     %     }

@@ -388,7 +388,7 @@ sub startup {
         my $requested_url = $self->stash ('requested_url');
         $self->app->log->debug (sprintf 'set flash: requested_url (before tampering) is (%s)', $requested_url);
         $self->render_not_found if 'progress' eq $requested_url;
-        $requested_url = '' if grep { $_ eq $requested_url } qw/logout index gen_output/;
+        $requested_url = '' if grep { $_ eq $requested_url } qw/logout index calc_sections/;
         $requested_url = 'configure' if 'upload' eq $requested_url;
         $self->flash (requested_url => $requested_url);
 
@@ -404,7 +404,7 @@ sub startup {
     });
     $r_user->get ('/configure')->to ('main#configure');
     $r_user->post ('/upload')->to ('main#upload');
-    $r_user->route ('/import/:sha', sha => qr/[0-9a-fA-F]{8}/)->name ('import')->to ('main#import');
+    $r_user->route ('/import/:sha', sha => qr/[0-9a-f]{8}/)->name ('import')->to ('main#import');
     $r_user->get ('/help')->to ('main#help');
     $r_user->get ('/logout')->to ('main#logout');
     $r_user->get ('/progress')->to ('main#progress');
@@ -446,7 +446,8 @@ sub startup {
     $u->get ('/hit_analysis')->to ('main#hit_analysis');
     $u->get ('/hit_summary')->to ('main#hit_summary');
     $u->get ('/calendar')->to ('main#calendar');
-    $u->post ('/gen_output')->to ('main#gen_output');
+    $u->post ('/calc_sections')->to ('main#calc_sections');
+    $r_user->route ('/gen_output_:filename', filename => qr/[0-9a-f]{8}/)->name ('gen_output')->to ('main#gen_output');
     #$u->get ('/charts')->to ('main#charts');
 }
 

@@ -50,7 +50,7 @@ function go(dest) {
     var label = dest.split ('/')[0];
     _center_on_screen ($("#progress"));
     var timeout_id = setTimeout (function(){
-        console.log ('timeout! progress(0), calling and setting interval');
+        //console.log ('timeout! progress(0), calling and setting interval');
         _set_progress (0, label);
         $("#progress").show ('slow');
         _gp(label);
@@ -62,6 +62,7 @@ function go(dest) {
             if ('ok' == data) {
                 //console.log ('ok, clearing interval, hiding progress, moving forward');
                 running = 0;
+                clearTimeout (timeout_id);
                 clearInterval (interval_id);
                 $("#progress").hide ('slow');
                 window.location.href = dest;
@@ -153,6 +154,54 @@ function config_submit_button() {
         },
         data: formData,
         //Options to tell JQuery not to process data or worry about content-type
+        cache: false,
+        contentType: false,
+        processData: false
+    });
+}
+function gen_output() {
+    var formData = new FormData($('#calc_sections')[0]);
+    if (running) { return; }
+    running = 1;
+    var label = 'BBCode/HTML';
+    _center_on_screen ($("#progress"));
+    var timeout_id = setTimeout (function(){
+        //console.log ('gen_output timeout! progress(0), calling and setting interval');
+        _set_progress (0, label);
+        $("#progress").show ('slow');
+        _gp(label);
+        interval_id = setInterval (function(){_gp(label)}, 5000);
+    }, 2000);
+    $.ajax ({
+        url: 'calc_sections',
+        type: 'POST',
+        success: function(data) {
+            running = 0;
+            clearTimeout (timeout_id);
+            clearInterval (interval_id);
+            $("#progress").hide ('slow');
+            if ('ko' == data) {
+                //console.log ('gen_output: ko');
+            } else if ('index' == data) {
+                go (data);
+            } else {
+                //console.log ('gen_output: ok, data ('+data+')');
+                var url = 'gen_output_' + data;
+                window.open (url);
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            running = 0;
+            clearTimeout (timeout_id);
+            clearInterval (interval_id);
+            $("#progress").hide ('slow');
+            if (errorThrown) {
+                $("#error_msg").html ('<br>' + errorThrown + '<br>');
+            } else {
+                $("#error_msg").html ('<br>' + textStatus + '<br>');
+            }
+        },
+        data: formData,
         cache: false,
         contentType: false,
         processData: false

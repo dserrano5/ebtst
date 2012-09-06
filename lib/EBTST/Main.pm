@@ -219,7 +219,7 @@ sub information {
 
     my $t0 = [gettimeofday];
     my $count       = $self->ebt->get_count;                      $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress ($count*1.1);    ## graphs generation is relatively quick, hence that 0.1
-    my $ac          = $self->ebt->get_activity;                   $xhr and $self->{'progress'}->base ($count*1);
+    my $ac          = $self->ebt->get_activity;                   $xhr and $self->{'progress'}->base_add ($count);
     my $total_value = $self->ebt->get_total_value;                ## (don't set progress, this has been already calculated and cached)
     my $sigs        = $self->ebt->get_signatures;                 ## already cached
     my $full_days   = $self->ebt->get_days_elapsed;               ## already cached
@@ -297,8 +297,8 @@ sub value {
 
     my $t0 = [gettimeofday];
     my $count       = $self->ebt->get_count;                $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress ($count*2.6);
-    my $data        = $self->ebt->get_notes_by_value;       $xhr and $self->{'progress'}->base ($count*1);
-    my $data_first  = $self->ebt->get_first_by_value;       $xhr and $self->{'progress'}->base ($count*2);
+    my $data        = $self->ebt->get_notes_by_value;       $xhr and $self->{'progress'}->base_add ($count);
+    my $data_first  = $self->ebt->get_first_by_value;       $xhr and $self->{'progress'}->base_add ($count);
     my $notes_dates = $self->ebt->get_notes_dates;
     my $elem_by_val = $self->ebt->get_elem_notes_by_value;
     $self->_log (debug => report 'value get', $t0, $count);
@@ -363,7 +363,7 @@ sub value {
                 { title =>                                '200', color => 'yellow', points => $dpoints{'200'} },
                 { title =>                                '500', color => 'purple', points => $dpoints{'500'} },
             ];
-        $xhr and $self->{'progress'}->base ($count*2.2);
+        $xhr and $self->{'progress'}->base_add ($count*0.2);
 
         -e $dest_img2 or EBTST::Main::Gnuplot::bartime_chart
             output => $dest_img2,
@@ -379,7 +379,7 @@ sub value {
                 { title =>   '200', color => '#FFFF40', points => $dpoints{'200'} },
                 { title =>   '500', color => '#FF40FF', points => $dpoints{'500'} },
             ];
-        $xhr and $self->{'progress'}->base ($count*2.4);
+        $xhr and $self->{'progress'}->base_add ($count*0.2);
 
         -e $dest_img3 or EBTST::Main::Gnuplot::line_chart
             output => $dest_img3,
@@ -495,7 +495,7 @@ sub countries {
 
     my $t0 = [gettimeofday];
     my $count      = $self->ebt->get_count;        $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress ($count*2);
-    my $data       = $self->ebt->get_notes_by_cc;  $xhr and $self->{'progress'}->base ($count*1);
+    my $data       = $self->ebt->get_notes_by_cc;  $xhr and $self->{'progress'}->base_add ($count);
     my $data_first = $self->ebt->get_first_by_cc;
     $self->_log (debug => report 'countries get', $t0, $count);
 
@@ -529,7 +529,7 @@ sub printers {
 
     my $t0 = [gettimeofday];
     my $count      = $self->ebt->get_count;        $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress ($count*2);
-    my $data       = $self->ebt->get_notes_by_pc;  $xhr and $self->{'progress'}->base ($count*1);
+    my $data       = $self->ebt->get_notes_by_pc;  $xhr and $self->{'progress'}->base_add ($count);
     my $data_first = $self->ebt->get_first_by_pc;
     $self->_log (debug => report 'printers get', $t0, $count);
     $xhr and !$ENV{'_CALC_SECTIONS'} and return $self->_end_progress;
@@ -661,7 +661,7 @@ sub travel_stats {
 
     my $t0 = [gettimeofday];
     my $count        = $self->ebt->get_count;               $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress ($count*1.2);
-    my $travel_stats = $self->ebt->get_travel_stats;        $xhr and $self->{'progress'}->base ($count*1);
+    my $travel_stats = $self->ebt->get_travel_stats;        $xhr and $self->{'progress'}->base_add ($count);
     my $notes_dates  = $self->ebt->get_notes_dates;         ## already cached (as part of 'information')
     my $elem_by_city = $self->ebt->get_elem_notes_by_city;  ## already cached
     $self->_log (debug => report 'travel_stats get', $t0, $count);
@@ -1097,7 +1097,7 @@ sub combs_bingo {
 
     my $t0 = [gettimeofday];
     my $count      = $self->ebt->get_count;                     $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress ($count*2);
-    my $nbcombo    = $self->ebt->get_notes_by_combination;      $xhr and $self->{'progress'}->base ($count*1);
+    my $nbcombo    = $self->ebt->get_notes_by_combination;      $xhr and $self->{'progress'}->base_add ($count);
     my $comb_data  = $self->ebt->get_missing_combs_and_history;
     $self->_log (debug => report 'combs_bingo get', $t0, $count);
     $xhr and !$ENV{'_CALC_SECTIONS'} and return $self->_end_progress;
@@ -1270,7 +1270,7 @@ sub hit_locations {
 
     my $t0 = [gettimeofday];
     my $count    = $self->ebt->get_count;                $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress ($count*2);
-    my $nbci     = $self->ebt->get_notes_by_city;        $xhr and $self->{'progress'}->base ($count*1);
+    my $nbci     = $self->ebt->get_notes_by_city;        $xhr and $self->{'progress'}->base_add ($count);
     my $whoami   = $self->ebt->whoami;
     my $hit_list = $self->ebt->get_hit_list ($whoami);
     $self->_log (debug => report 'hit_locations get', $t0, $count);
@@ -1418,7 +1418,7 @@ sub hit_summary {
     my $count        = $self->ebt->get_count;                  $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress ($count*1.6);
     my $activity     = $self->ebt->get_activity;               ## already cached (as part of 'information')
     my $whoami       = $self->ebt->whoami;
-    my $hit_list     = $self->ebt->get_hit_list ($whoami);     $xhr and $self->{'progress'}->base ($count*1);
+    my $hit_list     = $self->ebt->get_hit_list ($whoami);     $xhr and $self->{'progress'}->base_add ($count);
     my $hs           = $self->ebt->get_hit_summary ($whoami, $activity, $count, $hit_list);
     my $notes_dates  = $self->ebt->get_notes_dates;
     my $hits_dates   = $self->ebt->get_hits_dates ($whoami);
@@ -1474,7 +1474,7 @@ sub hit_summary {
             dsets => [
                 { title => (encode 'UTF-8', $self->l ('Hit ratio')), color => 'black', points => $dpoints{'hit_ratio'} },
             ];
-        $xhr and $self->{'progress'}->base ($count*1.2);
+        $xhr and $self->{'progress'}->base_add ($count*0.2);
 
         -e $dest_img2 or EBTST::Main::Gnuplot::line_chart
             output => $dest_img2,
@@ -1483,7 +1483,7 @@ sub hit_summary {
             dsets => [
                 { title => (encode 'UTF-8', $self->l ('Travel days')), color => 'black', points => $dpoints{'travel_days'} },
             ];
-        $xhr and $self->{'progress'}->base ($count*1.4);
+        $xhr and $self->{'progress'}->base_add ($count*0.2);
 
         -e $dest_img3 or EBTST::Main::Gnuplot::line_chart
             output => $dest_img3,

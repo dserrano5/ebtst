@@ -115,15 +115,30 @@ sub _country_names {
 #    return;
 #}
 
-sub _init_progress {
-    my ($self, $count) = @_;
+my %mults = (
+    information   => 1.1,    ## graphs generation is relatively quick, hence that 0.1
+    value         => 2.6,
+    countries     => 2,
+    printers      => 2,
+    travel_stats  => 1.2,
+    combs_bingo   => 2,
+    hit_locations => 2,
+    hit_summary   => 1.6,
+);
+$mults{'calc_sections'} = sum values %mults;
 
+sub _init_progress {
+    my ($self) = @_;
+
+    my $count = $self->ebt->get_count;
     my $from = (split /::/, (caller 1)[3])[-1];
-#warn sprintf "%s: initializing progress for '$from', count ($count)\n", scalar localtime, $from;
+    $mult = $mults{$from} // 1;
+    #warn sprintf "%s: initializing progress for '$from', mult ($mult)\n", scalar localtime, $from;
+
     #$self->stash ('sess')->data (_xhr_working => $from);
     #$self->stash ('sess')->flush;
     $self->ebt->set_progress_obj (
-        $self->{'progress'} = EBTST::Main::Progress->new (sess => $self->stash ('sess'), tot => $count)
+        $self->{'progress'} = EBTST::Main::Progress->new (sess => $self->stash ('sess'), tot => $count*$mult)
     );
     return;
 }
@@ -218,7 +233,7 @@ sub information {
     my $xhr = $self->req->is_xhr;
 
     my $t0 = [gettimeofday];
-    my $count       = $self->ebt->get_count;                      $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress ($count*1.1);    ## graphs generation is relatively quick, hence that 0.1
+    my $count       = $self->ebt->get_count;                      $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress;
     my $ac          = $self->ebt->get_activity;                   $xhr and $self->{'progress'}->base_add ($count);
     my $total_value = $self->ebt->get_total_value;                ## (don't set progress, this has been already calculated and cached)
     my $sigs        = $self->ebt->get_signatures;                 ## already cached
@@ -296,7 +311,7 @@ sub value {
     #$self->_log (debug => 'value: _check_in_progress nos deja seguir');
 
     my $t0 = [gettimeofday];
-    my $count       = $self->ebt->get_count;                $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress ($count*2.6);
+    my $count       = $self->ebt->get_count;                $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress;
     my $data        = $self->ebt->get_notes_by_value;       $xhr and $self->{'progress'}->base_add ($count);
     my $data_first  = $self->ebt->get_first_by_value;       $xhr and $self->{'progress'}->base_add ($count);
     my $notes_dates = $self->ebt->get_notes_dates;
@@ -494,7 +509,7 @@ sub countries {
     my $xhr = $self->req->is_xhr;
 
     my $t0 = [gettimeofday];
-    my $count      = $self->ebt->get_count;        $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress ($count*2);
+    my $count      = $self->ebt->get_count;        $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress;
     my $data       = $self->ebt->get_notes_by_cc;  $xhr and $self->{'progress'}->base_add ($count);
     my $data_first = $self->ebt->get_first_by_cc;
     $self->_log (debug => report 'countries get', $t0, $count);
@@ -528,7 +543,7 @@ sub printers {
     my $xhr = $self->req->is_xhr;
 
     my $t0 = [gettimeofday];
-    my $count      = $self->ebt->get_count;        $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress ($count*2);
+    my $count      = $self->ebt->get_count;        $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress;
     my $data       = $self->ebt->get_notes_by_pc;  $xhr and $self->{'progress'}->base_add ($count);
     my $data_first = $self->ebt->get_first_by_pc;
     $self->_log (debug => report 'printers get', $t0, $count);
@@ -559,7 +574,7 @@ sub locations {
     my $xhr = $self->req->is_xhr;
 
     my $t0 = [gettimeofday];
-    my $count   = $self->ebt->get_count;             $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress ($count*1);
+    my $count   = $self->ebt->get_count;             $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress;
     my $nbco    = $self->ebt->get_notes_by_country;  ## already cached
     my $nbci    = $self->ebt->get_notes_by_city;     ## already cached
     my $ab_data = $self->ebt->get_alphabets;         ## already cached
@@ -660,7 +675,7 @@ sub travel_stats {
     my $xhr = $self->req->is_xhr;
 
     my $t0 = [gettimeofday];
-    my $count        = $self->ebt->get_count;               $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress ($count*1.2);
+    my $count        = $self->ebt->get_count;               $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress;
     my $travel_stats = $self->ebt->get_travel_stats;        $xhr and $self->{'progress'}->base_add ($count);
     my $notes_dates  = $self->ebt->get_notes_dates;         ## already cached (as part of 'information')
     my $elem_by_city = $self->ebt->get_elem_notes_by_city;  ## already cached
@@ -723,7 +738,7 @@ sub huge_table {
     my $xhr = $self->req->is_xhr;
 
     my $t0 = [gettimeofday];
-    my $count   = $self->ebt->get_count;       $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress ($count*1);
+    my $count   = $self->ebt->get_count;       $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress;
     my $ht_data = $self->ebt->get_huge_table;
     $self->_log (debug => report 'huge_table get', $t0, $count);
     $xhr and !$ENV{'_CALC_SECTIONS'} and return $self->_end_progress;
@@ -757,7 +772,7 @@ sub short_codes {
     };
 
     my $t0 = [gettimeofday];
-    my $count   = $self->ebt->get_count;                $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress ($count*1);
+    my $count   = $self->ebt->get_count;                $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress;
     my $lo      = $self->ebt->get_lowest_short_codes;
     my $hi      = $self->ebt->get_highest_short_codes;  ## already cached
     $self->_log (debug => report 'short_codes get', $t0, $count);
@@ -811,7 +826,7 @@ sub nice_serials {
     my $xhr = $self->req->is_xhr;
 
     my $t0 = [gettimeofday];
-    my $count = $self->ebt->get_count;                        $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress ($count*1);
+    my $count = $self->ebt->get_count;                        $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress;
     my $nice_data = $self->ebt->get_nice_serials;
     my $numbers_in_a_row = $self->ebt->get_numbers_in_a_row;  ## already cached
     my $different_digits = $self->ebt->get_different_digits;  ## already cached
@@ -864,7 +879,7 @@ sub coords_bingo {
     my $xhr = $self->req->is_xhr;
 
     my $t0 = [gettimeofday];
-    my $count       = $self->ebt->get_count;         $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress ($count*1);
+    my $count       = $self->ebt->get_count;         $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress;
     my $cbingo_data = $self->ebt->get_coords_bingo;
     $self->_log (debug => report 'coords_bingo get', $t0, $count);
     $xhr and !$ENV{'_CALC_SECTIONS'} and return $self->_end_progress;
@@ -887,7 +902,7 @@ sub notes_per_year {
     my $xhr = $self->req->is_xhr;
 
     my $t0 = [gettimeofday];
-    my $count    = $self->ebt->get_count;           $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress ($count*1);
+    my $count    = $self->ebt->get_count;           $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress;
     my $nby_data = $self->ebt->get_notes_per_year;
     $self->_log (debug => report 'notes_per_year get', $t0, $count);
     $xhr and !$ENV{'_CALC_SECTIONS'} and return $self->_end_progress;
@@ -929,7 +944,7 @@ sub notes_per_month {
     my $xhr = $self->req->is_xhr;
 
     my $t0 = [gettimeofday];
-    my $count    = $self->ebt->get_count;            $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress ($count*1);
+    my $count    = $self->ebt->get_count;            $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress;
     my $nbm_data = $self->ebt->get_notes_per_month;
     $self->_log (debug => report 'notes_per_month get', $t0, $count);
     $xhr and !$ENV{'_CALC_SECTIONS'} and return $self->_end_progress;
@@ -971,7 +986,7 @@ sub top_days {
     my $xhr = $self->req->is_xhr;
 
     my $t0 = [gettimeofday];
-    my $count      = $self->ebt->get_count;         $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress ($count*1);
+    my $count      = $self->ebt->get_count;         $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress;
     my $t10d_data  = $self->ebt->get_top10days;
     my $t10m_data  = $self->ebt->get_top10months;   ## already cached
     my $nbdow_data = $self->ebt->get_notes_by_dow;  ## already cached
@@ -1078,7 +1093,7 @@ sub time_analysis_bingo {
     my $xhr = $self->req->is_xhr;
 
     my $t0 = [gettimeofday];
-    my $count   = $self->ebt->get_count;          $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress ($count*1);
+    my $count   = $self->ebt->get_count;          $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress;
     my $ta_data = $self->ebt->get_time_analysis;
     $self->_log (debug => report 'time_analysis get', $t0, $count);
     $xhr and !$ENV{'_CALC_SECTIONS'} and return $self->_end_progress;
@@ -1096,7 +1111,7 @@ sub combs_bingo {
     my $xhr = $self->req->is_xhr;
 
     my $t0 = [gettimeofday];
-    my $count      = $self->ebt->get_count;                     $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress ($count*2);
+    my $count      = $self->ebt->get_count;                     $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress;
     my $nbcombo    = $self->ebt->get_notes_by_combination;      $xhr and $self->{'progress'}->base_add ($count);
     my $comb_data  = $self->ebt->get_missing_combs_and_history;
     $self->_log (debug => report 'combs_bingo get', $t0, $count);
@@ -1141,7 +1156,7 @@ sub plate_bingo {
     my $xhr = $self->req->is_xhr;
 
     my $t0 = [gettimeofday];
-    my $count      = $self->ebt->get_count;        $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress ($count*1);
+    my $count      = $self->ebt->get_count;        $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress;
     my $plate_data = $self->ebt->get_plate_bingo;
     $self->_log (debug => report 'plate_bingo get', $t0, $count);
     $xhr and !$ENV{'_CALC_SECTIONS'} and return $self->_end_progress;
@@ -1186,7 +1201,7 @@ sub bad_notes {
     my $xhr = $self->req->is_xhr;
 
     my $t0 = [gettimeofday];
-    my $count     = $self->ebt->get_count;      $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress ($count*1);
+    my $count     = $self->ebt->get_count;      $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress;
     my $bad_notes = $self->ebt->get_bad_notes;
     $self->_log (debug => report 'bad_notes get', $t0, $count);
     $xhr and !$ENV{'_CALC_SECTIONS'} and return $self->_end_progress;
@@ -1222,7 +1237,7 @@ sub hit_list {
     my $xhr = $self->req->is_xhr;
 
     my $t0 = [gettimeofday];
-    my $count    = $self->ebt->get_count;               $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress ($count*1);
+    my $count    = $self->ebt->get_count;               $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress;
     my $whoami   = $self->ebt->whoami;
     my $hit_data = $self->ebt->get_hit_list ($whoami);
     $self->_log (debug => report 'hit_list get', $t0, $count);
@@ -1249,7 +1264,7 @@ sub hit_times_bingo {
     my $xhr = $self->req->is_xhr;
 
     my $t0 = [gettimeofday];
-    my $count    = $self->ebt->get_count;                   $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress ($count*1);
+    my $count    = $self->ebt->get_count;                   $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress;
     my $whoami   = $self->ebt->whoami;
     my $hit_list = $self->ebt->get_hit_list ($whoami);
     my $ht       = $self->ebt->get_hit_times ($hit_list);   ## don't include in the progress, it iterates through hits, not notes
@@ -1269,7 +1284,7 @@ sub hit_locations {
     my $xhr = $self->req->is_xhr;
 
     my $t0 = [gettimeofday];
-    my $count    = $self->ebt->get_count;                $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress ($count*2);
+    my $count    = $self->ebt->get_count;                $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress;
     my $nbci     = $self->ebt->get_notes_by_city;        $xhr and $self->{'progress'}->base_add ($count);
     my $whoami   = $self->ebt->whoami;
     my $hit_list = $self->ebt->get_hit_list ($whoami);
@@ -1373,7 +1388,7 @@ sub hit_analysis {
     my $xhr = $self->req->is_xhr;
 
     my $t0 = [gettimeofday];
-    my $count    = $self->ebt->get_count;                      $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress ($count*1);
+    my $count    = $self->ebt->get_count;                      $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress;
     my $whoami   = $self->ebt->whoami;
     my $hit_list = $self->ebt->get_hit_list ($whoami);
     my $ha       = $self->ebt->get_hit_analysis ($hit_list);
@@ -1415,7 +1430,7 @@ sub hit_summary {
     my $xhr = $self->req->is_xhr;
 
     my $t0 = [gettimeofday];
-    my $count        = $self->ebt->get_count;                  $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress ($count*1.6);
+    my $count        = $self->ebt->get_count;                  $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress;
     my $activity     = $self->ebt->get_activity;               ## already cached (as part of 'information')
     my $whoami       = $self->ebt->whoami;
     my $hit_list     = $self->ebt->get_hit_list ($whoami);     $xhr and $self->{'progress'}->base_add ($count);
@@ -1507,7 +1522,7 @@ sub calendar {
     my $xhr = $self->req->is_xhr;
 
     my $t0 = [gettimeofday];
-    my $count    = $self->ebt->get_count;     $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress ($count*1);
+    my $count    = $self->ebt->get_count;     $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress;
     my $cal_data = $self->ebt->get_calendar;
     $self->_log (debug => report 'calendar get', $t0, $count);
     $xhr and !$ENV{'_CALC_SECTIONS'} and return $self->_end_progress;
@@ -1618,7 +1633,7 @@ sub import {
         $self->_decompress ($local_notes_file);
 
         my $count = 0; if (open my $fd, '<', $local_notes_file) { $count =()= <$fd>; close $fd; }
-        $self->_init_progress ($count);
+        $self->_init_progress;
         $self->ebt->load_notes ($local_notes_file, $outfile);
         $done = 1;
 
@@ -1746,7 +1761,7 @@ sub calc_sections {
 
     foreach my $sk (keys %{ $self->{'stash'} }) { $stash_keys{$sk}++; }
     my $t0 = [gettimeofday];
-    $self->_init_progress (500000);    ## FIXME
+    $self->_init_progress;
     $ENV{'_CALC_SECTIONS'} = 1; $self->$_ for @req_params; delete $ENV{'_CALC_SECTIONS'};
     $self->_log (debug => report 'calc_sections', $t0);
     foreach my $sk (keys %{ $self->{'stash'} }) { $stash_keys{$sk}++; }

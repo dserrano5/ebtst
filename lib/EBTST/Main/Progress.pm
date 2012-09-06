@@ -44,4 +44,10 @@ sub base {
     return $self->set (0);
 }
 
+sub base_add {
+    my ($self, $base) = @_;
+    $self->{'base'} += $base;
+    return $self->set (0);
+}
+
 1;

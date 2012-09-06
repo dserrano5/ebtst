@@ -50,7 +50,13 @@ my $sess = Sess->new;
 
     is $obj->set (1200), $obj, 'set to 1000+1200';
     is $sess->data ('progress'), '2200/2200', 'tot changes when setting a higher value';
-}
-is $sess->data ('progress'), '2200/2200', 'session still alive when object is destroyed';
 
-done_testing 14;
+    is $obj->base (3000), $obj, 'change base';
+    is $sess->data ('progress'), '3000/3000', 'value and tot change after changing base';
+
+    is $obj->base_add (500), $obj, 'increase base';
+    is $sess->data ('progress'), '3500/3500', 'value and tot change when increasing base';
+}
+is $sess->data ('progress'), '3500/3500', 'session still alive when object is destroyed';
+
+done_testing 18;

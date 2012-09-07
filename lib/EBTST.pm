@@ -316,6 +316,7 @@ sub startup {
         $self->stash (requested_url => $self->req->url->path->leading_slash (0)->to_string);   ## $self->current_route ?
 
         ## TODO: reorganize routes
+        ## - progress doesn't need $self->ebt, it only needs a session. Working around ebt saves us from a Storable retrieve
         #if (ref sess) { sess->load }
 
         if (ref $self->stash ('sess') and $self->stash ('sess')->load) {  ## s/load/sid/, index y $r_user pueden asumir que hay sess
@@ -337,7 +338,7 @@ sub startup {
             $@ and die "Initializing model: '$@'\n";   ## TODO: this isn's working
             eval { $self->ebt->load_db; };
             if ($@ and $@ !~ /No such file or directory/) {
-                $self->app->log->warn ("loading db: '$@'. Going on anyway.\n");
+                $self->app->log->warn (sprintf "%s: loading db: '%s'. Going on anyway.", $self->stash ('requested_url'), $@);
             }
             $self->ebt->set_logger ($self->app->log);
             $self->stash ('sess')->extend_expires;

@@ -97,10 +97,12 @@ function go(dest) {
     );
 }
 
+var up_progress_interval = 3000;
+var first_progress_interval = 1000;
 var t0;
 function up_progress(e) {
     var t = new Date();
-    if (t - t0 < 3000) { return; }
+    if (t - t0 < up_progress_interval) { return; }
     t0 = t;
 
     if (e.lengthComputable) {
@@ -120,6 +122,7 @@ function up_progress(e) {
 function config_submit_button() {
     var formData = new FormData($('#config_form')[0]);
     t0 = new Date();
+    t0 -= (up_progress_interval - first_progress_interval);  // so the first progress update doesn't take long
     $.ajax ({
         url: 'upload',
         type: 'POST',

@@ -52,6 +52,6 @@
     <% my $all_seen;  $all_seen  += $_ for values %seen; %>
     <% my $all_total; $all_total += $_ for values %total; %>
     <% my $all_pct = sprintf '%.2f', $all_seen * 100 / $all_total; %>
-    <p><%=l 'Total for' %> <%= $elem->{'value'} %>: <b><%= $all_seen; %>/<%= $all_total; %></b> (<%= $all_pct %>%)</p>
+    <p><%=l 'Total for' %> <%=l $elem->{'value'} %>: <b><%= $all_seen; %>/<%= $all_total; %></b> (<%= $all_pct %>%)</p>
     <% if ('all' eq $elem->{'value'} or 500 != $elem->{'value'}) { %><hr><% } %>
 <% } %>

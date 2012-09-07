@@ -129,17 +129,16 @@ my %mults = (
 $mults{'calc_sections'} = sum values %mults;
 
 sub _init_progress {
-    my ($self, $mult) = @_;
-
-    my $count = $self->ebt->get_count;
+    my ($self, $count) = @_;
     my $from = (split /::/, (caller 1)[3])[-1];
-    $mult //= $mults{$from} // 1;
-    $self->_log (debug => sprintf "%s: initializing progress for '$from', mult ($mult)", scalar localtime, $from);
+
+    my $tot = $count // ($self->ebt->get_count * $mults{$from} // 1);
+    $self->_log (debug => "initializing progress for '$from', tot ($tot)");
 
     #$self->stash ('sess')->data (_xhr_working => $from);
     #$self->stash ('sess')->flush;
     $self->ebt->set_progress_obj (
-        $self->{'progress'} = EBTST::Main::Progress->new (sess => $self->stash ('sess'), tot => $count*$mult)
+        $self->{'progress'} = EBTST::Main::Progress->new (sess => $self->stash ('sess'), tot => $tot)
     );
     return;
 }
@@ -1654,10 +1653,13 @@ sub import {
         if (!unlink $outfile and 'No such file or directory' ne $!) {
             $self->_log (warn => "upload: unlink: '$outfile': $!");
         }
+        ## we may get the first request for /progress before ->_decompress finishes
+        ## initialize progress now, even with a bogus total (progress will be 0 anyway)
+        $self->_init_progress (1);
         $self->_decompress ($local_notes_file);
 
-        my $count = 0; if (open my $fd, '<', $local_notes_file) { $count =()= <$fd>; close $fd; }
-        $self->_init_progress;
+        my $count = 0; if (open my $fd, '<', $local_notes_file) { <$fd>; $count =()= <$fd>; close $fd; }
+        $self->_init_progress ($count);
         $self->ebt->load_notes ($local_notes_file, $outfile);
         $done = 1;
 
@@ -1787,7 +1789,7 @@ sub calc_sections {
 
     foreach my $sk (keys %{ $self->{'stash'} }) { $stash_keys{$sk}++; }
     my $t0 = [gettimeofday];
-    $self->_init_progress ($mult);
+    $self->_init_progress ($mult * $self->ebt->get_count);
     $ENV{'_CALC_SECTIONS'} = 1; $self->$_ for @req_params; delete $ENV{'_CALC_SECTIONS'};
     $self->_log (debug => report 'calc_sections', $t0);
     foreach my $sk (keys %{ $self->{'stash'} }) { $stash_keys{$sk}++; }

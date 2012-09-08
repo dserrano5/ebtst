@@ -13,6 +13,9 @@ use IO::Uncompress::Unzip  qw/unzip  $UnzipError/;
 use File::Temp qw/tempfile/;
 use File::Copy;
 use Locale::Country;
+use Mojo::Cookie::Response;
+use Mojo::CookieJar;
+use Mojo::UserAgent;
 use EBTST::Main::Gnuplot;
 use EBTST::Main::Progress;
 
@@ -129,16 +132,16 @@ my %mults = (
 $mults{'calc_sections'} = sum values %mults;
 
 sub _init_progress {
-    my ($self, $count) = @_;
+    my ($self, %args) = @_;
     my $from = (split /::/, (caller 1)[3])[-1];
 
-    my $tot = $count // ($self->ebt->get_count * $mults{$from} // 1);
-    $self->_log (debug => "initializing progress for '$from', tot ($tot)");
+    my $tot = $args{'tot'} // ($self->ebt->get_count * ($mults{$from}//1));
+    $self->_log (debug => sprintf "initializing progress for '$from', tot ($tot) base (%s)", $args{'base'}//'<undef>');
 
     #$self->stash ('sess')->data (_xhr_working => $from);
     #$self->stash ('sess')->flush;
     $self->ebt->set_progress_obj (
-        $self->{'progress'} = EBTST::Main::Progress->new (sess => $self->stash ('sess'), tot => $tot)
+        $self->{'progress'} = EBTST::Main::Progress->new (sess => $self->stash ('sess'), tot => $tot, base => $args{'base'})
     );
     return;
 }
@@ -231,9 +234,10 @@ sub progress {
 sub information {
     my ($self) = @_;
     my $xhr = $self->req->is_xhr;
+    my ($pbase, $ptot) = split m{/}, $self->req->headers->header ('X-Calc-Sections-Progress') // '';
 
     my $t0 = [gettimeofday];
-    my $count       = $self->ebt->get_count;                      $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress;
+    my $count       = $self->ebt->get_count;                      $xhr and $self->_init_progress (base => $pbase, tot => $ptot);
     my $ac          = $self->ebt->get_activity;                   $xhr and $self->{'progress'}->base_add ($count);
     my $total_value = $self->ebt->get_total_value;                ## (don't set progress, this has been already calculated and cached)
     my $sigs        = $self->ebt->get_signatures;                 ## already cached
@@ -277,7 +281,7 @@ sub information {
     }
     $self->_log (debug => report 'information chart', $t0, $count);
     $xhr and $self->{'progress'}->base_add ($count*0.1);
-    $xhr and !$ENV{'_CALC_SECTIONS'} and return $self->_end_progress;
+    $xhr and return $self->_end_progress;
 
     $self->stash (
         title        => $section_titles{'information'},
@@ -303,6 +307,7 @@ sub information {
 sub value {
     my ($self) = @_;
     my $xhr = $self->req->is_xhr;
+    my ($pbase, $ptot) = split m{/}, $self->req->headers->header ('X-Calc-Sections-Progress') // '';
 
     #if ($self->_check_in_progress) {
     #    $self->_log (debug => 'value: oops me piro');
@@ -312,7 +317,7 @@ sub value {
     #$self->_log (debug => 'value: _check_in_progress nos deja seguir');
 
     my $t0 = [gettimeofday];
-    my $count       = $self->ebt->get_count;                $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress;
+    my $count       = $self->ebt->get_count;                $xhr and $self->_init_progress (base => $pbase, tot => $ptot);
     my $data        = $self->ebt->get_notes_by_value;       $xhr and $self->{'progress'}->base_add ($count);
     my $data_first  = $self->ebt->get_first_by_value;       $xhr and $self->{'progress'}->base_add ($count);
     my $notes_dates = $self->ebt->get_notes_dates;
@@ -407,7 +412,7 @@ sub value {
     }
     $self->_log (debug => report 'value chart', $t0, $count);
     $xhr and $self->{'progress'}->base_add ($count*0.2);
-    $xhr and !$ENV{'_CALC_SECTIONS'} and return $self->_end_progress;
+    $xhr and return $self->_end_progress;
 
     $self->stash (
         title => $section_titles{'value'},
@@ -509,9 +514,10 @@ sub _num_detail_1st {
 sub countries {
     my ($self) = @_;
     my $xhr = $self->req->is_xhr;
+    my ($pbase, $ptot) = split m{/}, $self->req->headers->header ('X-Calc-Sections-Progress') // '';
 
     my $t0 = [gettimeofday];
-    my $count      = $self->ebt->get_count;        $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress;
+    my $count      = $self->ebt->get_count;        $xhr and $self->_init_progress (base => $pbase, tot => $ptot);
     my $data       = $self->ebt->get_notes_by_cc;  $xhr and $self->{'progress'}->base_add ($count);
     my $data_first = $self->ebt->get_first_by_cc;
     $self->_log (debug => report 'countries get', $t0, $count);
@@ -519,7 +525,7 @@ sub countries {
     ## we could do this just after $self->ebt->get_first_by_cc
     ## but then we'd lose the $self->_log (debug => report) call
     $xhr and $self->{'progress'}->base_add ($count);
-    $xhr and !$ENV{'_CALC_SECTIONS'} and return $self->_end_progress;
+    $xhr and return $self->_end_progress;
 
     my ($method1, $method2) = qw/countries printers/;
     my $notes_by_key = 'cc';
@@ -544,14 +550,15 @@ sub countries {
 sub printers {
     my ($self) = @_;
     my $xhr = $self->req->is_xhr;
+    my ($pbase, $ptot) = split m{/}, $self->req->headers->header ('X-Calc-Sections-Progress') // '';
 
     my $t0 = [gettimeofday];
-    my $count      = $self->ebt->get_count;        $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress;
+    my $count      = $self->ebt->get_count;        $xhr and $self->_init_progress (base => $pbase, tot => $ptot);
     my $data       = $self->ebt->get_notes_by_pc;  $xhr and $self->{'progress'}->base_add ($count);
     my $data_first = $self->ebt->get_first_by_pc;
     $self->_log (debug => report 'printers get', $t0, $count);
     $xhr and $self->{'progress'}->base_add ($count);
-    $xhr and !$ENV{'_CALC_SECTIONS'} and return $self->_end_progress;
+    $xhr and return $self->_end_progress;
 
     my ($method1, $method2) = qw/printers countries/;
     my $notes_by_key = 'pc';
@@ -576,15 +583,16 @@ sub printers {
 sub locations {
     my ($self) = @_;
     my $xhr = $self->req->is_xhr;
+    my ($pbase, $ptot) = split m{/}, $self->req->headers->header ('X-Calc-Sections-Progress') // '';
 
     my $t0 = [gettimeofday];
-    my $count   = $self->ebt->get_count;             $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress;
+    my $count   = $self->ebt->get_count;             $xhr and $self->_init_progress (base => $pbase, tot => $ptot);
     my $nbco    = $self->ebt->get_notes_by_country;  ## already cached
     my $nbci    = $self->ebt->get_notes_by_city;     ## already cached
     my $ab_data = $self->ebt->get_alphabets;         ## already cached
     $self->_log (debug => report 'locations get', $t0, $count);
     $xhr and $self->{'progress'}->base_add ($count);
-    $xhr and !$ENV{'_CALC_SECTIONS'} and return $self->_end_progress;
+    $xhr and return $self->_end_progress;
 
     $t0 = [gettimeofday];
     my $countries;
@@ -678,9 +686,10 @@ sub locations {
 sub travel_stats {
     my ($self) = @_;
     my $xhr = $self->req->is_xhr;
+    my ($pbase, $ptot) = split m{/}, $self->req->headers->header ('X-Calc-Sections-Progress') // '';
 
     my $t0 = [gettimeofday];
-    my $count        = $self->ebt->get_count;               $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress;
+    my $count        = $self->ebt->get_count;               $xhr and $self->_init_progress (base => $pbase, tot => $ptot);
     my $travel_stats = $self->ebt->get_travel_stats;        $xhr and $self->{'progress'}->base_add ($count);
     my $notes_dates  = $self->ebt->get_notes_dates;         ## already cached (as part of 'information')
     my $elem_by_city = $self->ebt->get_elem_notes_by_city;  ## already cached
@@ -727,7 +736,7 @@ sub travel_stats {
     }
     $self->_log (debug => report 'travel_stats chart', $t0, $count);
     $xhr and $self->{'progress'}->base_add ($count*0.2);
-    $xhr and !$ENV{'_CALC_SECTIONS'} and return $self->_end_progress;
+    $xhr and return $self->_end_progress;
 
     $self->stash (
         title           => $section_titles{'travel_stats'},
@@ -742,13 +751,14 @@ sub travel_stats {
 sub huge_table {
     my ($self) = @_;
     my $xhr = $self->req->is_xhr;
+    my ($pbase, $ptot) = split m{/}, $self->req->headers->header ('X-Calc-Sections-Progress') // '';
 
     my $t0 = [gettimeofday];
-    my $count   = $self->ebt->get_count;       $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress;
+    my $count   = $self->ebt->get_count;       $xhr and $self->_init_progress (base => $pbase, tot => $ptot);
     my $ht_data = $self->ebt->get_huge_table;
     $self->_log (debug => report 'huge_table get', $t0, $count);
     $xhr and $self->{'progress'}->base_add ($count);
-    $xhr and !$ENV{'_CALC_SECTIONS'} and return $self->_end_progress;
+    $xhr and return $self->_end_progress;
 
     $t0 = [gettimeofday];
     my $ht;
@@ -772,6 +782,7 @@ sub huge_table {
 sub short_codes {
     my ($self) = @_;
     my $xhr = $self->req->is_xhr;
+    my ($pbase, $ptot) = split m{/}, $self->req->headers->header ('X-Calc-Sections-Progress') // '';
 
     my $split = sub {
         my ($str) = @_;
@@ -779,12 +790,12 @@ sub short_codes {
     };
 
     my $t0 = [gettimeofday];
-    my $count   = $self->ebt->get_count;                $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress;
+    my $count   = $self->ebt->get_count;                $xhr and $self->_init_progress (base => $pbase, tot => $ptot);
     my $lo      = $self->ebt->get_lowest_short_codes;
     my $hi      = $self->ebt->get_highest_short_codes;  ## already cached
     $self->_log (debug => report 'short_codes get', $t0, $count);
     $xhr and $self->{'progress'}->base_add ($count);
-    $xhr and !$ENV{'_CALC_SECTIONS'} and return $self->_end_progress;
+    $xhr and return $self->_end_progress;
 
     my @pcs = uniq keys %$lo, keys %$hi;
     $t0 = [gettimeofday];
@@ -832,15 +843,16 @@ sub short_codes {
 sub nice_serials {
     my ($self) = @_;
     my $xhr = $self->req->is_xhr;
+    my ($pbase, $ptot) = split m{/}, $self->req->headers->header ('X-Calc-Sections-Progress') // '';
 
     my $t0 = [gettimeofday];
-    my $count = $self->ebt->get_count;                        $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress;
+    my $count = $self->ebt->get_count;                        $xhr and $self->_init_progress (base => $pbase, tot => $ptot);
     my $nice_data = $self->ebt->get_nice_serials;
     my $numbers_in_a_row = $self->ebt->get_numbers_in_a_row;  ## already cached
     my $different_digits = $self->ebt->get_different_digits;  ## already cached
     $self->_log (debug => report 'nice_serials get', $t0, $count);
     $xhr and $self->{'progress'}->base_add ($count);
-    $xhr and !$ENV{'_CALC_SECTIONS'} and return $self->_end_progress;
+    $xhr and return $self->_end_progress;
 
     $t0 = [gettimeofday];
     my $nice_notes;
@@ -886,13 +898,14 @@ sub nice_serials {
 sub coords_bingo {
     my ($self) = @_;
     my $xhr = $self->req->is_xhr;
+    my ($pbase, $ptot) = split m{/}, $self->req->headers->header ('X-Calc-Sections-Progress') // '';
 
     my $t0 = [gettimeofday];
-    my $count       = $self->ebt->get_count;         $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress;
+    my $count       = $self->ebt->get_count;         $xhr and $self->_init_progress (base => $pbase, tot => $ptot);
     my $cbingo_data = $self->ebt->get_coords_bingo;
     $self->_log (debug => report 'coords_bingo get', $t0, $count);
     $xhr and $self->{'progress'}->base_add ($count);
-    $xhr and !$ENV{'_CALC_SECTIONS'} and return $self->_end_progress;
+    $xhr and return $self->_end_progress;
 
     $t0 = [gettimeofday];
     my $cbingo = $cbingo_data;
@@ -910,13 +923,14 @@ sub coords_bingo {
 sub notes_per_year {
     my ($self) = @_;
     my $xhr = $self->req->is_xhr;
+    my ($pbase, $ptot) = split m{/}, $self->req->headers->header ('X-Calc-Sections-Progress') // '';
 
     my $t0 = [gettimeofday];
-    my $count    = $self->ebt->get_count;           $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress;
+    my $count    = $self->ebt->get_count;           $xhr and $self->_init_progress (base => $pbase, tot => $ptot);
     my $nby_data = $self->ebt->get_notes_per_year;
     $self->_log (debug => report 'notes_per_year get', $t0, $count);
     $xhr and $self->{'progress'}->base_add ($count);
-    $xhr and !$ENV{'_CALC_SECTIONS'} and return $self->_end_progress;
+    $xhr and return $self->_end_progress;
 
     $t0 = [gettimeofday];
     my $nby;
@@ -953,13 +967,14 @@ sub notes_per_year {
 sub notes_per_month {
     my ($self) = @_;
     my $xhr = $self->req->is_xhr;
+    my ($pbase, $ptot) = split m{/}, $self->req->headers->header ('X-Calc-Sections-Progress') // '';
 
     my $t0 = [gettimeofday];
-    my $count    = $self->ebt->get_count;            $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress;
+    my $count    = $self->ebt->get_count;            $xhr and $self->_init_progress (base => $pbase, tot => $ptot);
     my $nbm_data = $self->ebt->get_notes_per_month;
     $self->_log (debug => report 'notes_per_month get', $t0, $count);
     $xhr and $self->{'progress'}->base_add ($count);
-    $xhr and !$ENV{'_CALC_SECTIONS'} and return $self->_end_progress;
+    $xhr and return $self->_end_progress;
 
     $t0 = [gettimeofday];
     my $nbm;
@@ -996,15 +1011,16 @@ sub notes_per_month {
 sub top_days {
     my ($self) = @_;
     my $xhr = $self->req->is_xhr;
+    my ($pbase, $ptot) = split m{/}, $self->req->headers->header ('X-Calc-Sections-Progress') // '';
 
     my $t0 = [gettimeofday];
-    my $count      = $self->ebt->get_count;         $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress;
+    my $count      = $self->ebt->get_count;         $xhr and $self->_init_progress (base => $pbase, tot => $ptot);
     my $t10d_data  = $self->ebt->get_top10days;
     my $t10m_data  = $self->ebt->get_top10months;   ## already cached
     my $nbdow_data = $self->ebt->get_notes_by_dow;  ## already cached
     $self->_log (debug => report 'top_days get', $t0, $count);
     $xhr and $self->{'progress'}->base_add ($count);
-    $xhr and !$ENV{'_CALC_SECTIONS'} and return $self->_end_progress;
+    $xhr and return $self->_end_progress;
 
     $t0 = [gettimeofday];
     my $nbdow;
@@ -1104,13 +1120,14 @@ sub top_days {
 sub time_analysis_bingo {
     my ($self, $detail) = @_;
     my $xhr = $self->req->is_xhr;
+    my ($pbase, $ptot) = split m{/}, $self->req->headers->header ('X-Calc-Sections-Progress') // '';
 
     my $t0 = [gettimeofday];
-    my $count   = $self->ebt->get_count;          $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress;
+    my $count   = $self->ebt->get_count;          $xhr and $self->_init_progress (base => $pbase, tot => $ptot);
     my $ta_data = $self->ebt->get_time_analysis;
     $self->_log (debug => report 'time_analysis get', $t0, $count);
     $xhr and $self->{'progress'}->base_add ($count);
-    $xhr and !$ENV{'_CALC_SECTIONS'} and return $self->_end_progress;
+    $xhr and return $self->_end_progress;
 
     $self->stash (
         title    => ($detail ? $section_titles{'time_analysis_detail'} : $section_titles{'time_analysis_bingo'}),
@@ -1123,14 +1140,15 @@ sub time_analysis_detail { push @_, 1; goto &time_analysis_bingo; }
 sub combs_bingo {
     my ($self, $detail) = @_;
     my $xhr = $self->req->is_xhr;
+    my ($pbase, $ptot) = split m{/}, $self->req->headers->header ('X-Calc-Sections-Progress') // '';
 
     my $t0 = [gettimeofday];
-    my $count      = $self->ebt->get_count;                     $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress;
+    my $count      = $self->ebt->get_count;                     $xhr and $self->_init_progress (base => $pbase, tot => $ptot);
     my $nbcombo    = $self->ebt->get_notes_by_combination;      $xhr and $self->{'progress'}->base_add ($count);
     my $comb_data  = $self->ebt->get_missing_combs_and_history;
     $self->_log (debug => report 'combs_bingo get', $t0, $count);
     $xhr and $self->{'progress'}->base_add ($count);
-    $xhr and !$ENV{'_CALC_SECTIONS'} and return $self->_end_progress;
+    $xhr and return $self->_end_progress;
 
     $t0 = [gettimeofday];
     my $missing;
@@ -1169,13 +1187,14 @@ sub combs_detail { push @_, 1; goto &combs_bingo; }
 sub plate_bingo {
     my ($self) = @_;
     my $xhr = $self->req->is_xhr;
+    my ($pbase, $ptot) = split m{/}, $self->req->headers->header ('X-Calc-Sections-Progress') // '';
 
     my $t0 = [gettimeofday];
-    my $count      = $self->ebt->get_count;        $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress;
+    my $count      = $self->ebt->get_count;        $xhr and $self->_init_progress (base => $pbase, tot => $ptot);
     my $plate_data = $self->ebt->get_plate_bingo;
     $self->_log (debug => report 'plate_bingo get', $t0, $count);
     $xhr and $self->{'progress'}->base_add ($count);
-    $xhr and !$ENV{'_CALC_SECTIONS'} and return $self->_end_progress;
+    $xhr and return $self->_end_progress;
 
     $t0 = [gettimeofday];
     my $cooked;
@@ -1215,13 +1234,14 @@ sub plate_bingo {
 sub bad_notes {
     my ($self) = @_;
     my $xhr = $self->req->is_xhr;
+    my ($pbase, $ptot) = split m{/}, $self->req->headers->header ('X-Calc-Sections-Progress') // '';
 
     my $t0 = [gettimeofday];
-    my $count     = $self->ebt->get_count;      $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress;
+    my $count     = $self->ebt->get_count;      $xhr and $self->_init_progress (base => $pbase, tot => $ptot);
     my $bad_notes = $self->ebt->get_bad_notes;
     $self->_log (debug => report 'bad_notes get', $t0, $count);
     $xhr and $self->{'progress'}->base_add ($count);
-    $xhr and !$ENV{'_CALC_SECTIONS'} and return $self->_end_progress;
+    $xhr and return $self->_end_progress;
 
     $t0 = [gettimeofday];
     my @cooked;
@@ -1252,14 +1272,15 @@ sub bad_notes {
 sub hit_list {
     my ($self) = @_;
     my $xhr = $self->req->is_xhr;
+    my ($pbase, $ptot) = split m{/}, $self->req->headers->header ('X-Calc-Sections-Progress') // '';
 
     my $t0 = [gettimeofday];
-    my $count    = $self->ebt->get_count;               $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress;
+    my $count    = $self->ebt->get_count;               $xhr and $self->_init_progress (base => $pbase, tot => $ptot);
     my $whoami   = $self->ebt->whoami;
     my $hit_data = $self->ebt->get_hit_list ($whoami);
     $self->_log (debug => report 'hit_list get', $t0, $count);
     $xhr and $self->{'progress'}->base_add ($count);
-    $xhr and !$ENV{'_CALC_SECTIONS'} and return $self->_end_progress;
+    $xhr and return $self->_end_progress;
 
     $t0 = [gettimeofday];
     my $cooked;
@@ -1280,15 +1301,16 @@ sub hit_list {
 sub hit_times_bingo {
     my ($self, $detail) = @_;
     my $xhr = $self->req->is_xhr;
+    my ($pbase, $ptot) = split m{/}, $self->req->headers->header ('X-Calc-Sections-Progress') // '';
 
     my $t0 = [gettimeofday];
-    my $count    = $self->ebt->get_count;                   $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress;
+    my $count    = $self->ebt->get_count;                   $xhr and $self->_init_progress (base => $pbase, tot => $ptot);
     my $whoami   = $self->ebt->whoami;
     my $hit_list = $self->ebt->get_hit_list ($whoami);
     my $ht       = $self->ebt->get_hit_times ($hit_list);   ## don't include in the progress, it iterates through hits, not notes
     $self->_log (debug => report 'hit_times get', $t0, $count);
     $xhr and $self->{'progress'}->base_add ($count);
-    $xhr and !$ENV{'_CALC_SECTIONS'} and return $self->_end_progress;
+    $xhr and return $self->_end_progress;
 
     $self->stash (
         title           => ($detail ? $section_titles{'hit_times_detail'} : $section_titles{'hit_times_bingo'}),
@@ -1301,15 +1323,16 @@ sub hit_times_detail { push @_, 1; goto &hit_times_bingo; }
 sub hit_locations {
     my ($self) = @_;
     my $xhr = $self->req->is_xhr;
+    my ($pbase, $ptot) = split m{/}, $self->req->headers->header ('X-Calc-Sections-Progress') // '';
 
     my $t0 = [gettimeofday];
-    my $count    = $self->ebt->get_count;                $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress;
+    my $count    = $self->ebt->get_count;                $xhr and $self->_init_progress (base => $pbase, tot => $ptot);
     my $nbci     = $self->ebt->get_notes_by_city;        $xhr and $self->{'progress'}->base_add ($count);
     my $whoami   = $self->ebt->whoami;
     my $hit_list = $self->ebt->get_hit_list ($whoami);
     $self->_log (debug => report 'hit_locations get', $t0, $count);
     $xhr and $self->{'progress'}->base_add ($count);
-    $xhr and !$ENV{'_CALC_SECTIONS'} and return $self->_end_progress;
+    $xhr and return $self->_end_progress;
 
     $t0 = [gettimeofday];
     my (%hit_count_by_my_loc, %hit_count_by_their_loc);
@@ -1406,15 +1429,16 @@ sub hit_locations {
 sub hit_analysis {
     my ($self) = @_;
     my $xhr = $self->req->is_xhr;
+    my ($pbase, $ptot) = split m{/}, $self->req->headers->header ('X-Calc-Sections-Progress') // '';
 
     my $t0 = [gettimeofday];
-    my $count    = $self->ebt->get_count;                      $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress;
+    my $count    = $self->ebt->get_count;                      $xhr and $self->_init_progress (base => $pbase, tot => $ptot);
     my $whoami   = $self->ebt->whoami;
     my $hit_list = $self->ebt->get_hit_list ($whoami);
     my $ha       = $self->ebt->get_hit_analysis ($hit_list);
     $self->_log (debug => report 'hit_analysis get', $t0, $count);
     $xhr and $self->{'progress'}->base_add ($count);
-    $xhr and !$ENV{'_CALC_SECTIONS'} and return $self->_end_progress;
+    $xhr and return $self->_end_progress;
 
     $t0 = [gettimeofday];
     my $longest;
@@ -1449,9 +1473,10 @@ sub hit_analysis {
 sub hit_summary {
     my ($self) = @_;
     my $xhr = $self->req->is_xhr;
+    my ($pbase, $ptot) = split m{/}, $self->req->headers->header ('X-Calc-Sections-Progress') // '';
 
     my $t0 = [gettimeofday];
-    my $count        = $self->ebt->get_count;                  $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress;
+    my $count        = $self->ebt->get_count;                  $xhr and $self->_init_progress (base => $pbase, tot => $ptot);
     my $activity     = $self->ebt->get_activity;               ## already cached (as part of 'information')
     my $whoami       = $self->ebt->whoami;
     my $hit_list     = $self->ebt->get_hit_list ($whoami);     $xhr and $self->{'progress'}->base_add ($count);
@@ -1531,7 +1556,7 @@ sub hit_summary {
     }
     $self->_log (debug => report 'hit_summary chart', $t0, $count);
     $xhr and $self->{'progress'}->base_add ($count*0.2);
-    $xhr and !$ENV{'_CALC_SECTIONS'} and return $self->_end_progress;
+    $xhr and return $self->_end_progress;
 
     $self->stash (
         title => $section_titles{'hit_summary'},
@@ -1542,13 +1567,14 @@ sub hit_summary {
 sub calendar {
     my ($self) = @_;
     my $xhr = $self->req->is_xhr;
+    my ($pbase, $ptot) = split m{/}, $self->req->headers->header ('X-Calc-Sections-Progress') // '';
 
     my $t0 = [gettimeofday];
-    my $count    = $self->ebt->get_count;     $xhr and !$ENV{'_CALC_SECTIONS'} and $self->_init_progress;
+    my $count    = $self->ebt->get_count;     $xhr and $self->_init_progress (base => $pbase, tot => $ptot);
     my $cal_data = $self->ebt->get_calendar;
     $self->_log (debug => report 'calendar get', $t0, $count);
     $xhr and $self->{'progress'}->base_add ($count);
-    $xhr and !$ENV{'_CALC_SECTIONS'} and return $self->_end_progress;
+    $xhr and return $self->_end_progress;
 
     $t0 = [gettimeofday];
     foreach my $y (sort keys %$cal_data) {
@@ -1655,11 +1681,11 @@ sub import {
         }
         ## we may get the first request for /progress before ->_decompress finishes
         ## initialize progress now, even with a bogus total (progress will be 0 anyway)
-        $self->_init_progress (1);
+        $self->_init_progress (tot => 1);
         $self->_decompress ($local_notes_file);
 
         my $count = 0; if (open my $fd, '<', $local_notes_file) { <$fd>; $count =()= <$fd>; close $fd; }
-        $self->_init_progress ($count);
+        $self->_init_progress (tot => $count);
         $self->ebt->load_notes ($local_notes_file, $outfile);
         $done = 1;
 
@@ -1769,9 +1795,43 @@ sub _trim_html_sections {
     return $dom->to_xml;
 }
 
+sub _ua_get {
+    my ($self, $tot, @req_params) = @_;
+    my $pbase = 0;
+    my $count = $self->ebt->get_count;
+
+    my $c = Mojo::Cookie::Response->new->
+        name ('sid')->
+        value ($self->stash ('sess')->sid)->
+        domain ('localhost')->
+        path ('/');
+
+    my $cj = Mojo::CookieJar->new->add ($c);
+
+    my $ua = Mojo::UserAgent->new->cookie_jar ($cj)->inactivity_timeout (150);
+    $ua->on (start => sub {
+        my ($ua, $tx) = @_;
+        $self->_log (debug => sprintf 'ua on start: setting header "X-Calc-Sections-Progress: %s"', "$pbase/$tot");
+        $tx->req->headers->header ('X-Requested-With', 'XMLHttpRequest');        ## so the methods update their progress
+        $tx->req->headers->header ('X-Calc-Sections-Progress', "$pbase/$tot");   ## so they init the progress object with the given base
+    });
+
+    for my $rp (@req_params) {
+        my $tx = $ua->get (sprintf 'http://localhost:%d/%s', $self->tx->local_port, $rp);   ## $self->app->config->{'hypnotoad'}{'listen'}[0] could be useful too
+        if (!$tx->success) {
+            my ($msg, $err) = $tx->error;
+            $msg //= '<undef>';
+            $err //= '<undef>';
+            $self->_log (warn => "ua: msg ($msg) err ($err)");
+        }
+        $pbase += ($mults{$rp}//1) * $count;
+    }
+    #if (my $rss = $self->rss_process) { $self->app->log->debug ("calc_sections after multiple ua->get's: process RSS is $rss Kb"); }
+    return;
+}
+
 sub calc_sections {
     my ($self) = @_;
-    my %stash_keys;
     my @params = qw/
         information value countries printers locations travel_stats huge_table short_codes nice_serials
         coords_bingo notes_per_year notes_per_month top_days time_analysis_bingo time_analysis_detail
@@ -1787,25 +1847,15 @@ sub calc_sections {
 
     my $mult; foreach my $rp (@req_params) { $mult += $mults{$rp} // 1; }
 
-    foreach my $sk (keys %{ $self->{'stash'} }) { $stash_keys{$sk}++; }
     my $t0 = [gettimeofday];
-    $self->_init_progress ($mult * $self->ebt->get_count);
-    $ENV{'_CALC_SECTIONS'} = 1; $self->$_ for @req_params; delete $ENV{'_CALC_SECTIONS'};
+    $self->_init_progress (tot => $mult * $self->ebt->get_count);
+    $self->_ua_get ($mult * $self->ebt->get_count, @req_params);
     $self->_log (debug => report 'calc_sections', $t0);
-    foreach my $sk (keys %{ $self->{'stash'} }) { $stash_keys{$sk}++; }
-
-    my %save_stash;
-    foreach my $sk (keys %stash_keys) {
-        next if 2 == $stash_keys{$sk};
-        $save_stash{$sk} = $self->stash ($sk);
-    }
-    $save_stash{'_req_params'} = \@req_params;
-    $self->_log (debug => "save_stash keys: (@{[ sort keys %save_stash ]})");
 
     my $filename = substr +(sha512_hex rand), 0, 8;
     my $tmpfile = File::Spec->catfile ($tmpdir, "out-$filename");
-    $self->_log (debug => "storing stash in '$tmpfile'");
-    store \%save_stash, $tmpfile;
+    $self->_log (debug => "storing req_params in '$tmpfile'");
+    store \@req_params, $tmpfile;
 
     $self->_end_progress ($filename);
 
@@ -1817,19 +1867,12 @@ sub gen_output {
 
     my $tmpfile = File::Spec->catfile ($tmpdir, 'out-' . $self->stash ('filename'));
     return $self->render_not_found unless -e $tmpfile;
-    $self->_log (debug => "retrieving from file '$tmpfile'");
-    my %loaded_stash = %{ retrieve $tmpfile };
-    $self->_log (debug => "loaded keys (@{[ sort keys %loaded_stash ]})");
+    $self->_log (debug => "retrieving req_params from file '$tmpfile'");
+    my @req_params = @{ retrieve $tmpfile };
+    $self->_log (debug => "loaded req_params (@{[ sort @req_params ]})");
     unlink $tmpfile or $self->_log (warn => "unlink: '$tmpfile': $!");
-    foreach my $lk (keys %loaded_stash) {
-        next if '_' eq substr $lk, 0, 1;
-        if ($self->stash ($lk)) {
-            $self->_log (warn "oops, key '$lk' already exists in stash. Overwriting");
-        }
-        $self->stash ($lk => $loaded_stash{$lk});
-    }
-    my @req_params = @{ $loaded_stash{'_req_params'} };
-    $self->_log (debug => 'stash merged');
+
+    $self->$_ for @req_params;
 
     my $html_dir = File::Spec->catfile ($self->stash ('html_dir'), $self->stash ('user'));
     $self->_log (debug => "gen_output: req_params '@req_params', html_dir '$html_dir'");

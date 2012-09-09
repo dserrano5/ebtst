@@ -1817,6 +1817,15 @@ sub _ua_get {
     });
 
     for my $rp (@req_params) {
+        my $url;
+        my $parts = $self->req->url->base->path->parts;
+        if ($parts and @$parts) {
+            $self->_log (debug => "base path parts (@$parts)");
+            $url = sprintf 'http://localhost:%d/%s/%s', $self->tx->local_port, (join '/', @$parts), $rp;
+        } else {
+            $url = sprintf 'http://localhost:%d/%s', $self->tx->local_port, $rp;
+        }
+        $self->_log (debug => "getting url ($url)");
         my $tx = $ua->get (sprintf 'http://localhost:%d/%s', $self->tx->local_port, $rp);   ## $self->app->config->{'hypnotoad'}{'listen'}[0] could be useful too
         if (!$tx->success) {
             my ($msg, $err) = $tx->error;
@@ -1844,6 +1853,7 @@ sub calc_sections {
     my @req_params = grep { $self->param ($_) } @params;
     $self->ebt->set_checked_boxes (@req_params);
     @req_params = 'information' unless @req_params;
+    $self->_log (debug => "calc_sections: req_params (@{[ sort @req_params ]})");
 
     my $mult; foreach my $rp (@req_params) { $mult += $mults{$rp} // 1; }
 
@@ -1875,7 +1885,7 @@ sub gen_output {
     $self->$_ for @req_params;
 
     my $html_dir = File::Spec->catfile ($self->stash ('html_dir'), $self->stash ('user'));
-    $self->_log (debug => "gen_output: req_params '@req_params', html_dir '$html_dir'");
+    $self->_log (debug => "gen_output: html_dir '$html_dir'");
     $self->_prepare_html_dir ($self->stash ('statics_dir'), $html_dir);
     my $html_output = encode 'UTF-8', $self->render_partial (template => 'layouts/offline', format => 'html');
     $html_output = $self->_trim_html_sections ($html_output, @req_params);

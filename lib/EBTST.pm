@@ -26,6 +26,7 @@ my $hypnotoad_accepts           = $config{'hypnotoad_accepts'} // 1000;         
 my $hypnotoad_keep_alive_requests = $config{'hypnotoad_keep_alive_requests'} // 25; ## Mojo::Server::Hypnotoad default
 my $hypnotoad_is_proxy          = $config{'hypnotoad_is_proxy'} // 0;
 my $hypnotoad_heartbeat_timeout = $config{'hypnotoad_heartbeat_timeout'} // 60;
+my $hypnotoad_workers           = $config{'hypnotoad_workers'} // 4;                ## Mojo::Server::Hypnotoad default
 my $base_parts = @{ Mojo::URL->new ($base_href)->path->parts };
 
 sub helper_rss_process {
@@ -251,6 +252,7 @@ sub startup {
             listen            => $hypnotoad_listen,
             proxy             => $hypnotoad_is_proxy,
             heartbeat_timeout => $hypnotoad_heartbeat_timeout,
+            workers           => $hypnotoad_workers,
         }
     });
 

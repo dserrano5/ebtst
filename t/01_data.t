@@ -14,7 +14,7 @@ ok $obj->{'db'};
 ok !$obj->has_notes, 'Object reports having no notes';
 
 ## load_notes, load_db, check
-$obj->load_notes ('t/notes1.csv');
+$obj->load_notes (undef, 't/notes1.csv');
 ok $obj->has_notes, 'Object reports having some notes';
 ok defined $obj->{'notes'}, 'There are notes after loading notes CSV';
 is scalar @{ $obj->{'notes'} }, 2, 'Correct number of notes';
@@ -34,19 +34,19 @@ is ref (thaw decode_base64 +(split ';', $obj->{'notes'}[1], NCOLS)[HIT]), 'HASH'
 
 ## load new notes, check hits are still there
 $obj = new_ok 'EBT2::Data', [ db => '/tmp/ebt2-storable' ];
-$obj->load_notes ('t/notes1.csv');
+$obj->load_notes (undef, 't/notes1.csv');
 $obj->load_hits ('t/hits1.csv');
 ok defined $obj->{'notes'}, 'There are notes after loading CSV';
 is scalar @{ $obj->{'notes'} }, 2, 'Correct number of notes';
 is ref (thaw decode_base64 +(split ';', $obj->{'notes'}[1], NCOLS)[HIT]), 'HASH', 'There is a hit after loading hits CSV';
-$obj->load_notes ('t/notes1.csv');
+$obj->load_notes (undef, 't/notes1.csv');
 ok defined $obj->{'notes'}, 'There are notes after loading CSV';
 is scalar @{ $obj->{'notes'} }, 2, 'Correct number of notes';
 is +(split ';', $obj->{'notes'}[1], NCOLS)[HIT], '', 'No hits after loading new notes CSV';
 
 ## use another CSV for the following tests
 $obj = new_ok 'EBT2::Data', [ db => '/tmp/ebt2-storable' ];
-$obj->load_notes ('t/notes2.csv');
+$obj->load_notes (undef, 't/notes2.csv');
 ok defined $obj->{'notes'}, 'There are notes after loading CSV';
 is scalar @{ $obj->{'notes'} }, 7, 'Correct number of notes';
 
@@ -85,5 +85,14 @@ while (my $notes = $obj->note_getter (interval => 'all')) {
 }
 is $c, 1, 'All: did 1 iteration';
 
-done_testing 44;
+$c = 0;
+while (my $notes = $obj->note_getter (interval => 'all')) {
+    $c++;
+    is scalar @$notes, 7, '7 notes in chunk';
+    is $notes->[ 0][DATE_ENTERED], '2010-02-11 11:25:32', 'Correct date of first note';
+    is $notes->[-1][DATE_ENTERED], '2011-02-11 09:08:07', 'Correct date of last note';
+}
+is $c, 1, 'All: did 1 iteration';
+
+done_testing 48;
 #unlink '/tmp/ebt2-storable' or warn "unlink: '/tmp/ebt2-storable': $!";

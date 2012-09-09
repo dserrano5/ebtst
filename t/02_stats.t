@@ -26,6 +26,8 @@ is $res->{'activity'}{'active_days_count'}, 2, 'Active days count';
 $res = $st->count (undef, $data_obj);
 is ref $res, 'HASH', 'count';
 is $res->{'count'}, 7, 'Note count';
+
+$res = $st->total_value (undef, $data_obj);
 is $res->{'total_value'}, 640, 'Total value';
 is ref $res->{'signatures'}, 'HASH', 'Signatures';
 
@@ -38,7 +40,7 @@ is $res->{'notes_by_value'}{'500'}, 1, 'One 500€ note';
 
 
 note 'hit_list';
-$data_obj->load_notes ('t/notes4.csv');
+$data_obj->load_notes (undef, 't/notes4.csv');
 $data_obj->load_hits ('t/hits4.csv');
 my $foo = <<'EOF';
 notes:
@@ -108,7 +110,7 @@ for (0..6) { is $res->{'hit_list'}[$_]{'days_between'}, $hit_days_between[$_], s
 
 
 note 'hit_list again, now with some moderated hits';
-$data_obj->load_notes ('t/notes5.csv');
+$data_obj->load_notes (undef, 't/notes5.csv');
 $data_obj->load_hits ('t/hits5.csv');
 $res = $st->hit_list (undef, $data_obj, $data_obj->whoami);
 
@@ -183,7 +185,7 @@ for (0..8) { is $res->{'hit_list'}[$_]{'days_between'}, $all_hit_days_between[$_
 
 
 note 'first hit is passive and moderated';
-$data_obj->load_notes ('t/notes6.csv');
+$data_obj->load_notes (undef, 't/notes6.csv');
 $data_obj->load_hits ('t/hits6.csv');
 $res = $st->hit_list (undef, $data_obj, $data_obj->whoami);
 #use Data::Dumper; warn sprintf "%s:%s: %s\n", __FILE__, __LINE__, Data::Dumper->Dump (sub{\@_}->(\$res), ['res']);

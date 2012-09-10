@@ -1595,7 +1595,7 @@ sub calendar {
     $self->_log (debug => report 'calendar cook', $t0, $count);
 
     my $url = $self->url_for;
-    $url = '' if $url =~ /calc_sections$/;
+    $url = '' if $url =~ /gen_output_/;
     $self->stash (
         title    => $section_titles{'calendar'},
         cal_data => $cal_data,

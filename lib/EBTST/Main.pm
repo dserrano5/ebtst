@@ -1822,7 +1822,7 @@ sub _ua_get {
 
     foreach my $rp (@req_params) {
         my $url;
-        if ($count > 30000) {     ## needed for t/04_mojo.t to pass, doesn't harm in production
+        if ('production' eq $self->app->mode) {
             my $parts = $self->req->url->base->path->parts;
             if ($parts and @$parts) {
                 $self->_log (debug => "base path parts (@$parts)");

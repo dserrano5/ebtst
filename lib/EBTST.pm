@@ -181,7 +181,7 @@ sub ad_rss_sigquit {
         $self->app->log->debug ("process $$ RSS is $rss Kb, sending SIGQUIT and closing connection");
         $self->res->headers->connection ('close');
         kill QUIT => $$;    ## hypnotoad-specific, breaks morbo
-    } else { $self->app->log->debug ("process $$ RSS is $rss Kb"); }
+    }# else { $self->app->log->debug ("process $$ RSS is $rss Kb"); }
     return;
 }
 

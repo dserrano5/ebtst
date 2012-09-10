@@ -53,3 +53,4 @@ is $gotten->{'10'}, 1, 'One 10€ note';
 is $gotten->{'20'}, 1, 'One 20€ note';
 
 done_testing 25;
+unlink '/tmp/ebt2-storable' or warn "unlink: '/tmp/ebt2-storable': $!";

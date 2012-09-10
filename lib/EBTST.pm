@@ -2,7 +2,8 @@ package EBTST;
 
 use Mojo::Base 'Mojolicious';
 use File::Spec;
-use Carp qw/confess/;
+use Carp qw/croak confess/;
+use Fcntl ':flock';
 use Config::General;
 use Devel::Size qw/total_size/;
 use DBI;
@@ -257,6 +258,22 @@ sub startup {
         }
     });
 
+    $self->app->log->unsubscribe ('message');
+    $self->app->log->on (message => sub {
+        ## ripped from Mojo::Log
+        my ($self, $level, @messages) = @_;
+        return unless my $handle = $self->handle;
+
+        my $txt = $self->format ($level, @messages);
+        my $ip   = $ENV{'EBTST_SRC_IP'} // 'no_ip';
+        my $user = $ENV{'EBTST_USER'}   // 'no_user';
+        $txt =~ s/^(\[[^]]+\]) (\[\w+\]) /$1 [$ip] [$user] $2 /;
+
+        flock $handle, LOCK_EX;
+        croak "Can't write to log: $!" unless defined $handle->syswrite ($txt);
+        flock $handle, LOCK_UN;
+    });
+
     ## In case of CSRF token mismatch, Mojolicious::Plugin::CSRFDefender calls render without specifying a layout,
     ## then our layout 'online' is rendered and Mojo croaks on non-declared variables. Work that around.
     $self->hook (before_dispatch => \&bd_set_initial_stash);
@@ -316,7 +333,14 @@ sub startup {
 
     my $r_session_loaded = $r->under (sub {
         my ($self) = @_;
+
         ref $self->stash ('sess') and $self->stash ('sess')->load;
+        $self->stash (requested_url => $self->req->url->path->leading_slash (0)->to_string);   ## $self->current_route ?
+        $self->stash (user          => $self->stash ('sess')->data ('user'));
+
+        $ENV{'EBTST_SRC_IP'} = $self->tx->remote_address;
+        $ENV{'EBTST_USER'}   = $self->stash ('user');
+
         return 1;
     });
     $r_session_loaded->get ('/')->to ('main#index');
@@ -326,9 +350,6 @@ sub startup {
 
     my $r_session = $r_session_loaded->under (sub {
         my ($self) = @_;
-
-        $self->stash (requested_url => $self->req->url->path->leading_slash (0)->to_string);   ## $self->current_route ?
-        $self->stash (user          => $self->stash ('sess')->data ('user'));
 
         return 1 if ref $self->stash ('sess') and $self->stash ('sess')->sid;
 

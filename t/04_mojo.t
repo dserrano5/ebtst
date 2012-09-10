@@ -140,3 +140,4 @@ $t->get_ok ('/information')->status_is (302)->header_like (Location => qr/config
 $t->get_ok ('/logout')->status_is (302)->header_like (Location => qr/index/);
 
 done_testing 106;
+unlink '/tmp/ebt2-storable' or warn "unlink: '/tmp/ebt2-storable': $!";

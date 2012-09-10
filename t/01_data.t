@@ -105,4 +105,4 @@ while (my $notes = $obj->note_getter) {
 }
 
 done_testing 65;
-#unlink '/tmp/ebt2-storable' or warn "unlink: '/tmp/ebt2-storable': $!";
+unlink '/tmp/ebt2-storable' or warn "unlink: '/tmp/ebt2-storable': $!";

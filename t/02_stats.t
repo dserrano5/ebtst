@@ -9,7 +9,8 @@ use EBT2::Data;
 use EBT2::Stats;
 
 my $data_obj = new_ok 'EBT2::Data', [ db => '/tmp/ebt2-storable' ];
-$data_obj->load_db;
+$data_obj = new_ok 'EBT2::Data', [ db => '/tmp/ebt2-storable' ];
+$data_obj->load_notes (undef, 't/notes2.csv');
 ok defined $data_obj->{'notes'}, 'There are notes after loading db';
 is scalar @{ $data_obj->{'notes'} }, 7, 'Correct number of notes';
 
@@ -193,4 +194,5 @@ is $res->{'hit_list'}[0]{'moderated'}, 1, 'First hit is moderated';
 is $res->{'hit_list'}[1]{'moderated'}, 0, 'Second hit is not moderated';
 ok !exists $res->{'hit_list'}[0]{'old_hit_ratio'}, 'Key "old_hit_ratio" is not present';   ## the code doesn't set some keys for moderated hits
 
-done_testing 195;
+done_testing 196;
+unlink '/tmp/ebt2-storable' or warn "unlink: '/tmp/ebt2-storable': $!";

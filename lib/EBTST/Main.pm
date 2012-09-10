@@ -65,9 +65,7 @@ foreach my $section (qw/
 
 sub _log {
     my ($self, $prio, $msg) = @_;
-
-    my $user = $self->stash ('user');
-    $self->app->log->$prio (sprintf '%s: %s', ($user // '<no user>'), $msg);
+    $self->app->log->$prio ($msg);
 }
 
 sub _country_names {

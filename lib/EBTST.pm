@@ -379,7 +379,6 @@ sub startup {
 
         my $user = $self->stash ('user');
         my $sid = $self->stash ('sess')->sid;
-        $self->app->log->debug ("user: '$user'");
 
         my $gnuplot_img_dir = File::Spec->catfile ($images_dir, $user);
         my $user_data_dir   = File::Spec->catfile ($user_data_basedir, $user);

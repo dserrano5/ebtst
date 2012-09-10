@@ -134,7 +134,7 @@ sub _init_progress {
     my $from = (split /::/, (caller 1)[3])[-1];
 
     my $tot = $args{'tot'} // ($self->ebt->get_count * ($mults{$from}//1));
-    $self->_log (debug => sprintf "initializing progress for '$from', tot ($tot) base (%s)", $args{'base'}//'<undef>');
+    $self->_log (debug => sprintf "initializing progress for '$from', base (%s) tot ($tot)", $args{'base'}//'<undef>');
 
     #$self->stash ('sess')->data (_xhr_working => $from);
     #$self->stash ('sess')->flush;

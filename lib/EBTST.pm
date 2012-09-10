@@ -70,10 +70,15 @@ sub _inc {
     return \$contents;
 }
 
-sub bd_set_initial_stash {
+sub bd_set_env_initial_stash {
     my $self = shift;
 
     my $al = $self->tx->req->content->headers->accept_language // ''; $ENV{'LANG'} = substr $al, 0, 2;  ## could be improved...
+
+    $ENV{'EBTST_SRC_IP'} = $self->tx->remote_address;
+    $ENV{'EBTST_TID'} = join '', map { ('a'..'z','A'..'Z',0..9)[rand 62] } 1..12;
+    delete $ENV{'EBTST_USER'};
+
     $self->stash (base_href     => $base_href);
     $self->stash (checked_boxes => {});
     $self->stash (html_hrefs    => {});
@@ -267,7 +272,9 @@ sub startup {
         my $txt = $self->format ($level, @messages);
         my $ip   = $ENV{'EBTST_SRC_IP'} // 'no_ip';
         my $user = $ENV{'EBTST_USER'}   // 'no_user';
-        $txt =~ s/^(\[[^]]+\]) (\[\w+\]) /$1 [$ip] [$user] $2 /;
+        my $tid  = $ENV{'EBTST_TID'}    // 'no_tid';
+        my $pid  = $$;
+        $txt =~ s/^(\[[^]]+\]) (\[\w+\]) /$1 [$ip] [$user] [$pid] [$tid] $2 /;
 
         flock $handle, LOCK_EX;
         croak "Can't write to log: $!" unless defined $handle->syswrite ($txt);
@@ -276,7 +283,7 @@ sub startup {
 
     ## In case of CSRF token mismatch, Mojolicious::Plugin::CSRFDefender calls render without specifying a layout,
     ## then our layout 'online' is rendered and Mojo croaks on non-declared variables. Work that around.
-    $self->hook (before_dispatch => \&bd_set_initial_stash);
+    $self->hook (before_dispatch => \&bd_set_env_initial_stash);
 
     $self->hook (after_dispatch  => \&ad_rss_sigquit);
 
@@ -337,9 +344,7 @@ sub startup {
         ref $self->stash ('sess') and $self->stash ('sess')->load;
         $self->stash (requested_url => $self->req->url->path->leading_slash (0)->to_string);   ## $self->current_route ?
         $self->stash (user          => $self->stash ('sess')->data ('user'));
-
-        $ENV{'EBTST_SRC_IP'} = $self->tx->remote_address;
-        $ENV{'EBTST_USER'}   = $self->stash ('user');
+        $ENV{'EBTST_USER'} = $self->stash ('user');
 
         return 1;
     });
@@ -357,6 +362,7 @@ sub startup {
         $self->app->log->debug (sprintf 'set flash: requested_url (before tampering) is (%s)', $requested_url);
         $self->render_not_found if 'progress' eq $requested_url;
         $requested_url = '' if grep { $_ eq $requested_url } qw/logout index calc_sections/;
+        $requested_url = '' if $requested_url =~ /^gen_output_/;
         $requested_url = 'configure' if 'upload' eq $requested_url;
         $self->flash (requested_url => $requested_url);
 

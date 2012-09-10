@@ -94,5 +94,15 @@ while (my $notes = $obj->note_getter (interval => 'all')) {
 }
 is $c, 1, 'All: did 1 iteration';
 
-done_testing 48;
+## use another CSV for the following tests
+$obj = new_ok 'EBT2::Data', [ db => '/tmp/ebt2-storable' ];
+$obj->load_notes (undef, 't/notes-sigs.csv');
+my @sigs = qw/JCT JCT MD MD WD WD JCT JCT WD WD JCT JCT WD WD JCT JCT/;
+$c = 0;
+while (my $notes = $obj->note_getter) {
+    is $notes->[0][SIGNATURE], $sigs[$c], "Correct signature in shared plate, note " . ($c+1);
+    $c++;
+}
+
+done_testing 65;
 #unlink '/tmp/ebt2-storable' or warn "unlink: '/tmp/ebt2-storable': $!";

@@ -138,10 +138,6 @@ sub _guess_signature {
     foreach my $choice (split /,/, $sign) {
         my ($result, $range) = split /:/, $choice;
         my ($min, $max) = split /-/, $range;
-        if ((my $maxl = length $max) != (my $minl = length $min)) {
-            my $diffl = $maxl - $minl;
-            $min *= 10**$diffl;
-        }
 
         $serial = serial_remove_meaningless_figures2 $short, $serial;
         $serial =~ s/\D//g;

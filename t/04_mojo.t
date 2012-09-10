@@ -9,92 +9,134 @@ use Test::Mojo;
 
 my ($t, $csrftoken);
 
+sub next_is_xhr {
+    $t->ua->once (start => sub {
+        my ($ua, $tx) = @_;
+        $tx->req->headers->header ('X-Requested-With', 'XMLHttpRequest');
+    });
+}
+
 if (-f '/tmp/ebt2-storable') { unlink '/tmp/ebt2-storable' or die "unlink: '/tmp/ebt2-storable': $!"; }
+if (-f '/home/hue/.ebt/user-data/foouser/db') { unlink '/home/hue/.ebt/user-data/foouser/db' or die "unlink: '/home/hue/.ebt/user-data/foouser/db': $!"; }
+unlink glob '/home/hue/ll/lang/perl/ebt-mojo-iframes2/public/images/foouser/*svg';
 $ENV{'BASE_DIR'} = File::Spec->catfile (getcwd, (dirname __FILE__), '..');
 
 $t = Test::Mojo->new ('EBTST');
 
 ## wrong password
 $t->get_ok ('/')->status_is (200)->element_exists ('#mainbody #repl form[id="login"]');
-$csrftoken = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->html->body->div->form->input->[0]->{'value'};
+#$csrftoken = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->html->body->div->form->input->[0]->{'value'};
 
 $t->post_form_ok ('/login' => {
     user => 'foouser',
     pass => 'invalid pass',
-    csrftoken => $csrftoken,
+    #csrftoken => $csrftoken,
 })->status_is (302)->header_like (Location => qr/index/);
+
+## session needed
+$t->get_ok ('/progress')->status_is (302)->header_like (Location => qr/index/);
+$t->get_ok ('/configure')->status_is (302)->header_like (Location => qr/index/);
+
+## EBT2 object needed
+$t->get_ok ('/value')->status_is (302)->header_like (Location => qr/index/);
 
 ## correct password
 $t->get_ok ('/');
-$csrftoken = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->html->body->div->form->input->[0]->{'value'};
+#$csrftoken = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->html->body->div->form->input->[0]->{'value'};
 
 $t->post_form_ok ('/login' => {
     user => 'foouser',
     pass => 'foopass',
-    csrftoken => $csrftoken,
+    #csrftoken => $csrftoken,
 })->status_is (302)->header_like (Location => qr/information/);
 
+## with session
+$t->get_ok ('/progress')->status_is (200)->content_type_is ('application/json')->json_content_is ({ cur => 0, total => 1 });
+$t->get_ok ('/configure')->status_is (200)->element_exists ('#mainbody #repl #config_form table tr td input[name=notes_csv_file]')->content_unlike (qr/short_codes/);
+
+## EBT2 object needed
+$t->get_ok ('/value')->status_is (302)->header_like (Location => qr/configure/)->content_unlike (qr/short_codes/);
+
 ## upload notes CSV
-$t->get_ok ('/configure')->status_is (200)->element_exists ('#mainbody #repl #upload table tr td input[name=notes_csv_file]');
-$csrftoken = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->html->body->div->[1]->form->input->[0]->{'value'};
+$t->get_ok ('/configure');
+#$csrftoken = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->html->body->div->[1]->form->input->[0]->{'value'};
 
 $t->post_form_ok ('/upload', {
     notes_csv_file => { file => 't/notes1.csv' },
-    csrftoken => $csrftoken,
-})->status_is (302)->header_like (Location => qr/information/);
+    #csrftoken => $csrftoken,
+})->status_is (200)->content_type_is ('text/plain')->content_like (qr/^[0-9a-f]{8}$/);
+my $sha = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->text;
+
+$t->get_ok ("/import/$sha")->status_is (404);
+
+my $bad_sha = $sha; $bad_sha =~ tr/0-9a-f/a-f0-9/;
+next_is_xhr; $t->get_ok ("/import/$bad_sha")->status_is (404);
+next_is_xhr; $t->get_ok ("/import/$sha")->status_is (200)->content_type_is ('text/plain')->content_is ('information');
 
 ## correct data
-$t->get_ok ('/information')->status_is (200)->content_like (qr/\bSignatures:.*\bDuisenberg 0.*\bTrichet 2.*\bDraghi 0\b/s);
-$csrftoken = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->html->body->div->[0]->form->input->{'value'};
+$t->get_ok ('/information')->status_is (200)->content_like (qr/\bSignatures:.*\bDuisenberg 0.*\bTrichet 2.*\bDraghi 0\b/s)->content_like (qr/short_codes/);
+#$csrftoken = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->html->body->div->[0]->form->input->{'value'};
+
+## /configuration and /help now must show the entire menu
+$t->get_ok ('/configure')->status_is (200)->content_like (qr/short_codes/);
+$t->get_ok ('/help')->status_is (200)->content_like (qr/short_codes/);
 
 ## BBCode/HTML generation
-$t->post_form_ok ('/gen_output', {
+$t->post_form_ok ('/calc_sections', { information => 1, value => 1, })->status_is (404);
+next_is_xhr; $t->post_form_ok ('/calc_sections', {
     information => 1,
     value       => 1,
-    csrftoken   => $csrftoken,
-})->status_is (200)->content_like (qr{\[/b] notes/day\n\n\n\[b]Number of notes by value});
+    #csrftoken   => $csrftoken,
+})->status_is (200)->content_type_is ('text/plain')->content_like (qr/^[0-9a-z]{8}$/);
 
 $t->get_ok ('/information.txt')->status_is (200)->content_type_is ('text/plain')->content_like (qr/Signatures:.*\bDuisenberg 0.*\bTrichet 2.*\bDraghi 0\b/s);
 $t->get_ok ('/value.txt')->status_is (200)->content_like (qr/\b20\b.*\b1\b.*\b50\.00 %.*\b20\b/s);
 
 ## upload hits CSV
-$t->post_form_ok ('/upload', {
+next_is_xhr; $t->post_form_ok ('/upload', {
     hits_csv_file => { file => 't/hits1.csv' },
-    csrftoken => $csrftoken,
-})->status_is (302)->header_like (Location => qr/information/);
+    #csrftoken => $csrftoken,
+})->status_is (200)->content_type_is ('text/plain')->content_like (qr/^[0-9a-z]{8}$/);
+
+$sha = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->text;
+next_is_xhr; $t->get_ok ("/import/$sha")->status_is (200)->content_type_is ('text/plain')->content_is ('information');
 
 ## hit_analysis isn't broken with less than 10 hits
-$t->get_ok ('/hit_analysis')->status_is (200)->content_like (qr{<td class="small_cell">Lxxxx2379xxx</td>});
+$t->get_ok ('/hit_analysis')->status_is (200)->content_like (qr{<td class="small_cell"><a href="[^"]*">Lxxxx2379xxx</a></td>});
 
 ## upload notes and hits CSV
 $t->get_ok ('/information');
-$csrftoken = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->html->body->div->[0]->form->input->{'value'};
+#$csrftoken = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->html->body->div->[0]->form->input->{'value'};
 
-$t->post_form_ok ('/upload', {
+next_is_xhr; $t->post_form_ok ('/upload', {
     notes_csv_file => { file => 't/notes3.csv' },
     hits_csv_file => { file => 't/hits3.csv' },
-    csrftoken => $csrftoken,
-})->status_is (302)->header_like (Location => qr/information/);
+    #csrftoken => $csrftoken,
+})->status_is (200)->content_type_is ('text/plain')->content_like (qr/^[0-9a-z]{8}$/);
+
+$sha = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->text;
+next_is_xhr; $t->get_ok ("/import/$sha")->status_is (200)->content_type_is ('text/plain')->content_is ('information');
 
 ## moderated hits don't appear in hit_list
 $t->get_ok ('/hit_list')->status_is (200)->content_unlike (qr/Exxxx0534xxx/);
 
 ## but their count appears in hit_summary
-$t->get_ok ('/hit_summary')->status_is (200)->content_like (qr/plus\s+1\s+moderated/);
+$t->get_ok ('/hit_summary')->status_is (200)->content_like (qr/1\s+international\),\s+plus\s+1\s+moderated/);
 
 ## logging out
 $t->get_ok ('/logout')->status_is (302)->header_like (Location => qr/index/);
 
 ## logout with an empty database
 $t->get_ok ('/');
-$csrftoken = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->html->body->div->form->input->[0]->{'value'};
+#$csrftoken = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->html->body->div->form->input->[0]->{'value'};
 
 $t->post_form_ok ('/login' => {
     user => 'emptyuser',
     pass => 'emptypass',
-    csrftoken => $csrftoken,
+    #csrftoken => $csrftoken,
 })->status_is (302)->header_like (Location => qr/information/);
+
 $t->get_ok ('/information')->status_is (302)->header_like (Location => qr/configure/);
 $t->get_ok ('/logout')->status_is (302)->header_like (Location => qr/index/);
 
-done_testing 58;
+done_testing 106;

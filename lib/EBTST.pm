@@ -2,6 +2,7 @@ package EBTST;
 
 use Mojo::Base 'Mojolicious';
 use File::Spec;
+use Carp qw/confess/;
 use Config::General;
 use Devel::Size qw/total_size/;
 use DBI;
@@ -90,7 +91,7 @@ sub helper_ebt {
         my $ret = $self->stash ('ebt');
         return $ret;
     } else {
-        die "Oops, this shouldn't happen";
+        confess "Oops, this shouldn't happen";
     }
 }
 
@@ -259,6 +260,7 @@ sub startup {
     ## In case of CSRF token mismatch, Mojolicious::Plugin::CSRFDefender calls render without specifying a layout,
     ## then our layout 'online' is rendered and Mojo croaks on non-declared variables. Work that around.
     $self->hook (before_dispatch => \&bd_set_initial_stash);
+
     $self->hook (after_dispatch  => \&ad_rss_sigquit);
 
     if ($self->mode eq 'production') {
@@ -312,79 +314,21 @@ sub startup {
 
     my $r = $self->routes;
 
-    my $r_has_notes_hits = $r->under (sub {
+    my $r_session_loaded = $r->under (sub {
+        my ($self) = @_;
+        ref $self->stash ('sess') and $self->stash ('sess')->load;
+        return 1;
+    });
+    $r_session_loaded->get ('/')->to ('main#index');
+    $r_session_loaded->get ('//')->to ('main#index');
+    $r_session_loaded->get ('/index')->to ('main#index');
+    $r_session_loaded->post ('/login')->to ('main#login');
+
+    my $r_session = $r_session_loaded->under (sub {
         my ($self) = @_;
 
         $self->stash (requested_url => $self->req->url->path->leading_slash (0)->to_string);   ## $self->current_route ?
-
-        ## TODO: reorganize routes
-        ## - progress doesn't need $self->ebt, it only needs a session. Working around ebt saves us from a Storable retrieve
-        #if (ref sess) { sess->load }
-
-        if (ref $self->stash ('sess') and $self->stash ('sess')->load) {  ## s/load/sid/, index y $r_user pueden asumir que hay sess
-            my $user = $self->stash ('sess')->data ('user');
-            my $sid = $self->stash ('sess')->sid;
-            $self->app->log->debug ("user: '$user'");
-
-            my $gnuplot_img_dir = File::Spec->catfile ($images_dir, $user);
-            my $user_data_dir   = File::Spec->catfile ($user_data_basedir, $user);
-            my $db              = File::Spec->catfile ($user_data_dir, 'db');
-            if (!-d $gnuplot_img_dir) {
-                mkdir $gnuplot_img_dir          or die "mkdir: '$gnuplot_img_dir': $!\n";
-                mkdir "$gnuplot_img_dir/static" or die "mkdir: '$gnuplot_img_dir/static': $!\n";
-            }
-            if (!-d $user_data_dir) { mkdir $user_data_dir or die "mkdir: '$user_data_dir': $!"; }
-            if (!-d $html_dir)      { mkdir $html_dir      or die "mkdir: '$html_dir': $!"; }
-
-            eval { $self->stash (ebt => EBT2->new (db => $db)); };
-            $@ and die "Initializing model: '$@'\n";   ## TODO: this isn's working
-            eval { $self->ebt->load_db; };
-            if ($@ and $@ !~ /No such file or directory/) {
-                $self->app->log->warn (sprintf "%s: loading db: '%s'. Going on anyway.", $self->stash ('requested_url'), $@);
-            }
-            $self->ebt->set_logger ($self->app->log);
-            $self->stash ('sess')->extend_expires;
-            #$self->req->is_xhr or log_sizes $self->app->log, $self->ebt;
-
-            if (-e File::Spec->catfile ($html_dir, $user, 'index.html')) {
-                my $url;
-                if ($base_href) {
-                    my $stripped = $base_href; $stripped =~ s{/*$}{};
-                    $url = sprintf '%s/stats/%s', $stripped, $user;
-                } else {
-                    $url = sprintf 'stats/%s/%s', $user, 'index.html';
-                }
-                $self->stash (public_stats => $url);
-            }
-
-            my $cbs = $self->ebt->get_checked_boxes // [];
-            my %cbs; @cbs{@$cbs} = (1) x @$cbs;
-
-            my %html_hrefs = $self->html_hrefs;
-            $html_hrefs{ $self->stash ('requested_url') } = undef;  ## we are going to work on this right now, so set it as done in the template
-            ## TODO: if users requests e.g. notes_per_year, then we should set as done all sections in EBT2's time bundle
-            ## err, it's already working... O_o
-
-            $self->stash (checked_boxes => \%cbs);
-            $self->stash (html_hrefs    => \%html_hrefs);
-            $self->stash (has_notes     => $self->ebt->has_notes);
-            $self->stash (has_hits      => $self->ebt->has_hits);
-            $self->stash (has_bad_notes => $self->ebt->has_bad_notes);
-            $self->stash (user          => $user);
-            $self->stash (html_dir      => $html_dir);
-            $self->stash (statics_dir   => $statics_dir);
-            $self->stash (images_dir    => $images_dir);
-        }
-
-        return 1;
-    });
-    $r_has_notes_hits->get ('/')->to ('main#index');
-    $r_has_notes_hits->get ('//')->to ('main#index');
-    $r_has_notes_hits->get ('/index')->to ('main#index');
-    $r_has_notes_hits->post ('/login')->to ('main#login');
-
-    my $r_user = $r_has_notes_hits->under (sub {
-        my ($self) = @_;
+        $self->stash (user          => $self->stash ('sess')->data ('user'));
 
         return 1 if ref $self->stash ('sess') and $self->stash ('sess')->sid;
 
@@ -405,14 +349,77 @@ sub startup {
 
         return 0;
     });
-    $r_user->get ('/configure')->to ('main#configure');
-    $r_user->post ('/upload')->to ('main#upload');
-    $r_user->route ('/import/:sha', sha => qr/[0-9a-f]{8}/)->name ('import')->to ('main#import');
-    $r_user->get ('/help')->to ('main#help');
-    $r_user->get ('/logout')->to ('main#logout');
-    $r_user->get ('/progress')->to ('main#progress');
+    $r_session->get ('/progress')->to ('main#progress');
+    $r_session->get ('/logout')->to ('main#logout');
+    $r_session->post ('/upload')->to ('main#upload');
 
-    my $u = $r_user->under (sub {
+    my $r_ebt = $r_session->under (sub {
+        my ($self) = @_;
+
+        my $user = $self->stash ('user');
+        my $sid = $self->stash ('sess')->sid;
+        $self->app->log->debug ("user: '$user'");
+
+        my $gnuplot_img_dir = File::Spec->catfile ($images_dir, $user);
+        my $user_data_dir   = File::Spec->catfile ($user_data_basedir, $user);
+        my $db              = File::Spec->catfile ($user_data_dir, 'db');
+        if (!-d $gnuplot_img_dir) {
+            mkdir $gnuplot_img_dir          or die "mkdir: '$gnuplot_img_dir': $!\n";
+            mkdir "$gnuplot_img_dir/static" or die "mkdir: '$gnuplot_img_dir/static': $!\n";
+        }
+        if (!-d $user_data_dir) { mkdir $user_data_dir or die "mkdir: '$user_data_dir': $!"; }
+        if (!-d $html_dir)      { mkdir $html_dir      or die "mkdir: '$html_dir': $!"; }
+
+        eval { $self->stash (ebt => EBT2->new (db => $db)); };
+        $@ and die "Initializing model: '$@'\n";   ## TODO: this isn's working
+        eval { $self->ebt->load_db; };
+        if ($@ and $@ !~ /No such file or directory/) {
+            $self->app->log->warn (sprintf "%s: loading db: '%s'. Going on anyway.", $self->stash ('requested_url'), $@);
+        }
+        $self->ebt->set_logger ($self->app->log);
+        $self->stash ('sess')->extend_expires;
+        #$self->req->is_xhr or log_sizes $self->app->log, $self->ebt;
+
+        if (-e File::Spec->catfile ($html_dir, $user, 'index.html')) {
+            my $url;
+            if ($base_href) {
+                my $stripped = $base_href; $stripped =~ s{/*$}{};
+                $url = sprintf '%s/stats/%s', $stripped, $user;
+            } else {
+                $url = sprintf 'stats/%s/%s', $user, 'index.html';
+            }
+            $self->stash (public_stats => $url);
+        }
+
+        my $cbs = $self->ebt->get_checked_boxes // [];
+        my %cbs; @cbs{@$cbs} = (1) x @$cbs;
+
+        my %html_hrefs = $self->html_hrefs;
+        $html_hrefs{ $self->stash ('requested_url') } = undef;  ## we are going to work on this right now, so set it as done in the template
+        ## TODO: if users requests e.g. notes_per_year, then we should set as done all sections in EBT2's time bundle
+        ## err, it's already working... O_o
+
+        $self->stash (checked_boxes => \%cbs);
+        $self->stash (html_hrefs    => \%html_hrefs);
+        $self->stash (has_notes     => $self->ebt->has_notes);
+        $self->stash (has_hits      => $self->ebt->has_hits);
+        $self->stash (has_bad_notes => $self->ebt->has_bad_notes);
+        $self->stash (html_dir      => $html_dir);
+        $self->stash (statics_dir   => $statics_dir);
+        $self->stash (images_dir    => $images_dir);
+
+        return 1;
+
+    });
+
+    ## needs EBT2 object, calls ->load_notes
+    $r_ebt->route ('/import/:sha', sha => qr/[0-9a-f]{8}/)->name ('import')->to ('main#import');
+
+    ## need EBT2 object for showing the entire menu if $self->stash ('has_notes');
+    $r_ebt->get ('/configure')->to ('main#configure');
+    $r_ebt->get ('/help')->to ('main#help');
+
+    my $r_notes = $r_ebt->under (sub {
         my ($self) = @_;
 
         if (!$self->stash ('has_notes')) {
@@ -423,35 +430,35 @@ sub startup {
 
         return 1;
     });
-    $u->get ('/information')->to ('main#information');
-    $u->get ('/value')->to ('main#value');
-    $u->get ('/countries')->to ('main#countries');
-    $u->get ('/printers')->to ('main#printers');
-    $u->get ('/locations')->to ('main#locations');
-    $u->get ('/travel_stats')->to ('main#travel_stats');
-    $u->get ('/huge_table')->to ('main#huge_table');
-    $u->get ('/short_codes')->to ('main#short_codes');
-    $u->get ('/nice_serials')->to ('main#nice_serials');
-    $u->get ('/coords_bingo')->to ('main#coords_bingo');
-    $u->get ('/notes_per_year')->to ('main#notes_per_year');
-    $u->get ('/notes_per_month')->to ('main#notes_per_month');
-    $u->get ('/top_days')->to ('main#top_days');
-    $u->get ('/time_analysis_bingo')->to ('main#time_analysis_bingo');
-    $u->get ('/time_analysis_detail')->to ('main#time_analysis_detail');
-    $u->get ('/combs_bingo')->to ('main#combs_bingo');
-    $u->get ('/combs_detail')->to ('main#combs_detail');
-    $u->get ('/plate_bingo')->to ('main#plate_bingo');
-    $u->get ('/bad_notes')->to ('main#bad_notes');
-    $u->get ('/hit_list')->to ('main#hit_list');
-    $u->get ('/hit_times_bingo')->to ('main#hit_times_bingo');
-    $u->get ('/hit_times_detail')->to ('main#hit_times_detail');
-    $u->get ('/hit_locations')->to ('main#hit_locations');
-    $u->get ('/hit_analysis')->to ('main#hit_analysis');
-    $u->get ('/hit_summary')->to ('main#hit_summary');
-    $u->get ('/calendar')->to ('main#calendar');
-    $u->post ('/calc_sections')->to ('main#calc_sections');
-    $r_user->route ('/gen_output_:filename', filename => qr/[0-9a-f]{8}/)->name ('gen_output')->to ('main#gen_output');
-    #$u->get ('/charts')->to ('main#charts');
+    $r_notes->get ('/information')->to ('main#information');
+    $r_notes->get ('/value')->to ('main#value');
+    $r_notes->get ('/countries')->to ('main#countries');
+    $r_notes->get ('/printers')->to ('main#printers');
+    $r_notes->get ('/locations')->to ('main#locations');
+    $r_notes->get ('/travel_stats')->to ('main#travel_stats');
+    $r_notes->get ('/huge_table')->to ('main#huge_table');
+    $r_notes->get ('/short_codes')->to ('main#short_codes');
+    $r_notes->get ('/nice_serials')->to ('main#nice_serials');
+    $r_notes->get ('/coords_bingo')->to ('main#coords_bingo');
+    $r_notes->get ('/notes_per_year')->to ('main#notes_per_year');
+    $r_notes->get ('/notes_per_month')->to ('main#notes_per_month');
+    $r_notes->get ('/top_days')->to ('main#top_days');
+    $r_notes->get ('/time_analysis_bingo')->to ('main#time_analysis_bingo');
+    $r_notes->get ('/time_analysis_detail')->to ('main#time_analysis_detail');
+    $r_notes->get ('/combs_bingo')->to ('main#combs_bingo');
+    $r_notes->get ('/combs_detail')->to ('main#combs_detail');
+    $r_notes->get ('/plate_bingo')->to ('main#plate_bingo');
+    $r_notes->get ('/bad_notes')->to ('main#bad_notes');
+    $r_notes->get ('/hit_list')->to ('main#hit_list');
+    $r_notes->get ('/hit_times_bingo')->to ('main#hit_times_bingo');
+    $r_notes->get ('/hit_times_detail')->to ('main#hit_times_detail');
+    $r_notes->get ('/hit_locations')->to ('main#hit_locations');
+    $r_notes->get ('/hit_analysis')->to ('main#hit_analysis');
+    $r_notes->get ('/hit_summary')->to ('main#hit_summary');
+    $r_notes->get ('/calendar')->to ('main#calendar');
+    $r_notes->post ('/calc_sections')->to ('main#calc_sections');
+    $r_notes->route ('/gen_output_:filename', filename => qr/[0-9a-f]{8}/)->name ('gen_output')->to ('main#gen_output');
+    #$r_notes->get ('/charts')->to ('main#charts');
 }
 
 1;

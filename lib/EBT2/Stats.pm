@@ -854,6 +854,42 @@ sub hit_list {
         }
     }
 
+    ## codigo duplicado a mansalva, REFACTOR THIS!!!
+    if (%passive_pending) {
+        #my @done;
+        foreach my $pas_hit (sort { $a->{'hit_date'} cmp $b->{'hit_date'} } values %passive_pending) {
+            #next if 1 != ($note->[DATE_ENTERED] cmp $pas_hit->{'hit_date'});
+            #push @done, $pas_hit->{'serial'};
+
+            $pas_hit->{'moderated'} or $hit_no++;
+            $hit_no2++;
+
+            if (!$pas_hit->{'moderated'}) {
+                $pas_hit->{'hit_no'} = $hit_no;
+                $pas_hit->{'hit_no2'} = $hit_no2;
+                $pas_hit->{'notes'} = $notes_elapsed-1;
+                $pas_hit->{'old_hit_ratio'} = ($hit_no > 1 ? ($notes_elapsed-1)/($hit_no-1) : undef);
+                $pas_hit->{'new_hit_ratio'} = ($notes_elapsed-1)/$hit_no;
+                $pas_hit->{'notes_between'} = $notes_between;
+                $pas_hit->{'days_between'}  = DateTime->new (
+                    zip @{[qw/year month day hour minute second/]}, @{[ split /[\s:-]/, $pas_hit->{'hit_date'} ]}
+                )->delta_days ($prev_hit_dt)->delta_days;
+                $pas_hit->{'days_between'}-- if $pas_hit->{'days_between'};
+                $prev_hit_dt = DateTime->new (
+                    zip @{[qw/year month day hour minute second/]}, @{[ split /[\s:-]/, $pas_hit->{'hit_date'} ]}
+                );
+
+                push @{ $ret{'hits_dates'} }, $pas_hit->{'hit_date'};
+                $ret{'elem_travel_days'} .= $pas_hit->{'days'} . ',';
+                $ret{'elem_travel_km'} .= $pas_hit->{'km'} . ',';
+            }
+        }
+        #if (@done) {
+        #    $notes_between = 0;    ## 0 because it would be -1 plus 1 for having already started another loop iteration
+        #    delete @passive_pending{@done};
+        #}
+    }
+
     foreach my $date (sort keys %hit_list) {
         push @{ $ret{'hit_list'} }, @{ $hit_list{$date} };
     }

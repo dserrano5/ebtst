@@ -70,11 +70,13 @@ sub _inc {
     return \$contents;
 }
 
+my $srand;
 sub bd_set_env_initial_stash {
     my $self = shift;
 
     my $al = $self->tx->req->content->headers->accept_language // ''; $ENV{'LANG'} = substr $al, 0, 2;  ## could be improved...
 
+    $srand ||= srand;   ## suboptimal but otherwise I get repeated TIDs among different child processes
     $ENV{'EBTST_SRC_IP'} = $self->tx->remote_address;
     $ENV{'EBTST_TID'} = join '', map { ('a'..'z','A'..'Z',0..9)[rand 62] } 1..12;
     delete $ENV{'EBTST_USER'};

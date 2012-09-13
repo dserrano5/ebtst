@@ -97,7 +97,7 @@
         <th><%=l 'End' %></th>
         <th><%=l 'Days' %></th>
     </tr>
-    <% foreach my $cons (@{ $hs->{'hit_dates'}{'consecutive'}{'hist'} }) { =%>
+    <% foreach my $cons (reverse sort { $a->{'len'} <=> $b->{'len'} } @{ $hs->{'hit_dates'}{'consecutive'}{'hist'} }) { =%>
         <% next if 1 >= ($cons->{'len'} // 0); =%>
         <tr>
             <td><%= $cons->{'start'} %></td>

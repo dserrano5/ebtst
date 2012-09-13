@@ -48,7 +48,7 @@
             <th><%=l 'Hits' %></th>
             <th><%=l 'Percent' %></th>
         </tr>
-        <% foreach my $arrow (@$arrows) { =%>
+        <% foreach my $arrow (reverse sort { $a->{'num'} <=> $b->{'num'} } @$arrows) { =%>
             <tr>
                 <% my ($from, $to) = split /\|/, $arrow->{'fromto'}, 2; =%>
                 <% my ($from_country, $from_city) = split /,/, $from, 2; =%>

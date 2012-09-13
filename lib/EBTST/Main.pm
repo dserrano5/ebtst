@@ -1700,7 +1700,9 @@ sub import {
         $done = 1;
 
         unlink $local_notes_file or $self->_log (warn => "upload: unlink: '$local_notes_file': $!\n");
-        foreach my $img (glob File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), '*.svg')) {
+        my $globpat = File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), '*.svg');
+        $globpat =~ s/ /\\ /g;    ## usernames may have spaces and glob splits on them. Avoid that
+        foreach my $img (glob $globpat) {
             unlink $img or $self->_log (warn => "upload: unlink: '$img': $!");
         }
     }
@@ -1709,7 +1711,9 @@ sub import {
         $self->ebt->load_hits ($local_hits_file);
         $done = 1;
         unlink $local_hits_file  or $self->_log (warn => "upload: unlink: '$local_hits_file': $!");
-        foreach my $img (glob File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'hits_*.svg')) {
+        my $globpat = File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'hits_*.svg');
+        $globpat =~ s/ /\\ /g;
+        foreach my $img (glob $globpat) {
             unlink $img or $self->_log (warn => "upload: unlink: '$img': $!");
         }
     }
@@ -1908,8 +1912,10 @@ sub gen_output {
     $self->_save_html ($html_dir, $html_output, @req_params);
 
     my $src = File::Spec->catfile ($self->stash ('statics_dir'), sprintf 'images/%s', $self->stash ('user'));
-    defined unlink glob "$src/static/*" or $self->_log (warn => "unlink: $!");
-    foreach my $svg (glob "$src/*.svg") {
+    my $globpat = "$src/static/*"; $globpat =~ s/ /\\ /g;
+    defined unlink glob $globpat or $self->_log (warn => "unlink: $!");
+    $globpat = "$src/*.svg"; $globpat =~ s/ /\\ /g;
+    foreach my $svg (glob $globpat) {
         copy $svg, "$src/static" or $self->_log (warn => "copy: '$svg' to '$src/static': $!");
     }
 

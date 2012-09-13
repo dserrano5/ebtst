@@ -231,7 +231,6 @@ sub progress {
     my ($p, $t) = split m{/}, $self->stash ('sess')->data ('progress') // '0/1';
     $self->_log (debug => "progress: p ($p) t ($t)");
     $self->res->headers->connection ('close');
-    kill QUIT => $$;
     $self->render (layout => undef, json => { cur => $p, total => $t });
 }
 
@@ -285,7 +284,7 @@ sub information {
     }
     $self->_log (debug => report 'information chart', $t0, $count);
     $xhr and $self->{'progress'}->base_add ($count*0.1);
-    if ($xhr) { $self->res->headers->connection ('close'); kill QUIT => $$; return $self->_end_progress; }
+    if ($xhr) { $self->res->headers->connection ('close'); return $self->_end_progress; }
 
     $self->stash (
         title        => $section_titles{'information'},
@@ -416,7 +415,7 @@ sub value {
     }
     $self->_log (debug => report 'value chart', $t0, $count);
     $xhr and $self->{'progress'}->base_add ($count*0.2);
-    if ($xhr) { $self->res->headers->connection ('close'); kill QUIT => $$; return $self->_end_progress; }
+    if ($xhr) { $self->res->headers->connection ('close'); return $self->_end_progress; }
 
     $self->stash (
         title => $section_titles{'value'},
@@ -529,7 +528,7 @@ sub countries {
     ## we could do this just after $self->ebt->get_first_by_cc
     ## but then we'd lose the $self->_log (debug => report) call
     $xhr and $self->{'progress'}->base_add ($count);
-    if ($xhr) { $self->res->headers->connection ('close'); kill QUIT => $$; return $self->_end_progress; }
+    if ($xhr) { $self->res->headers->connection ('close'); return $self->_end_progress; }
 
     my ($method1, $method2) = qw/countries printers/;
     my $notes_by_key = 'cc';
@@ -562,7 +561,7 @@ sub printers {
     my $data_first = $self->ebt->get_first_by_pc;
     $self->_log (debug => report 'printers get', $t0, $count);
     $xhr and $self->{'progress'}->base_add ($count);
-    if ($xhr) { $self->res->headers->connection ('close'); kill QUIT => $$; return $self->_end_progress; }
+    if ($xhr) { $self->res->headers->connection ('close'); return $self->_end_progress; }
 
     my ($method1, $method2) = qw/printers countries/;
     my $notes_by_key = 'pc';
@@ -596,7 +595,7 @@ sub locations {
     my $ab_data = $self->ebt->get_alphabets;         ## already cached
     $self->_log (debug => report 'locations get', $t0, $count);
     $xhr and $self->{'progress'}->base_add ($count);
-    if ($xhr) { $self->res->headers->connection ('close'); kill QUIT => $$; return $self->_end_progress; }
+    if ($xhr) { $self->res->headers->connection ('close'); return $self->_end_progress; }
 
     $t0 = [gettimeofday];
     my $countries;
@@ -740,7 +739,7 @@ sub travel_stats {
     }
     $self->_log (debug => report 'travel_stats chart', $t0, $count);
     $xhr and $self->{'progress'}->base_add ($count*0.2);
-    if ($xhr) { $self->res->headers->connection ('close'); kill QUIT => $$; return $self->_end_progress; }
+    if ($xhr) { $self->res->headers->connection ('close'); return $self->_end_progress; }
 
     $self->stash (
         title           => $section_titles{'travel_stats'},
@@ -762,7 +761,7 @@ sub huge_table {
     my $ht_data = $self->ebt->get_huge_table;
     $self->_log (debug => report 'huge_table get', $t0, $count);
     $xhr and $self->{'progress'}->base_add ($count);
-    if ($xhr) { $self->res->headers->connection ('close'); kill QUIT => $$; return $self->_end_progress; }
+    if ($xhr) { $self->res->headers->connection ('close'); return $self->_end_progress; }
 
     $t0 = [gettimeofday];
     my $ht;
@@ -799,7 +798,7 @@ sub short_codes {
     my $hi      = $self->ebt->get_highest_short_codes;  ## already cached
     $self->_log (debug => report 'short_codes get', $t0, $count);
     $xhr and $self->{'progress'}->base_add ($count);
-    if ($xhr) { $self->res->headers->connection ('close'); kill QUIT => $$; return $self->_end_progress; }
+    if ($xhr) { $self->res->headers->connection ('close'); return $self->_end_progress; }
 
     my @pcs = uniq keys %$lo, keys %$hi;
     $t0 = [gettimeofday];
@@ -856,7 +855,7 @@ sub nice_serials {
     my $different_digits = $self->ebt->get_different_digits;  ## already cached
     $self->_log (debug => report 'nice_serials get', $t0, $count);
     $xhr and $self->{'progress'}->base_add ($count);
-    if ($xhr) { $self->res->headers->connection ('close'); kill QUIT => $$; return $self->_end_progress; }
+    if ($xhr) { $self->res->headers->connection ('close'); return $self->_end_progress; }
 
     $t0 = [gettimeofday];
     my $nice_notes;
@@ -909,7 +908,7 @@ sub coords_bingo {
     my $cbingo_data = $self->ebt->get_coords_bingo;
     $self->_log (debug => report 'coords_bingo get', $t0, $count);
     $xhr and $self->{'progress'}->base_add ($count);
-    if ($xhr) { $self->res->headers->connection ('close'); kill QUIT => $$; return $self->_end_progress; }
+    if ($xhr) { $self->res->headers->connection ('close'); return $self->_end_progress; }
 
     $t0 = [gettimeofday];
     my $cbingo = $cbingo_data;
@@ -934,7 +933,7 @@ sub notes_per_year {
     my $nby_data = $self->ebt->get_notes_per_year;
     $self->_log (debug => report 'notes_per_year get', $t0, $count);
     $xhr and $self->{'progress'}->base_add ($count);
-    if ($xhr) { $self->res->headers->connection ('close'); kill QUIT => $$; return $self->_end_progress; }
+    if ($xhr) { $self->res->headers->connection ('close'); return $self->_end_progress; }
 
     $t0 = [gettimeofday];
     my $nby;
@@ -978,7 +977,7 @@ sub notes_per_month {
     my $nbm_data = $self->ebt->get_notes_per_month;
     $self->_log (debug => report 'notes_per_month get', $t0, $count);
     $xhr and $self->{'progress'}->base_add ($count);
-    if ($xhr) { $self->res->headers->connection ('close'); kill QUIT => $$; return $self->_end_progress; }
+    if ($xhr) { $self->res->headers->connection ('close'); return $self->_end_progress; }
 
     $t0 = [gettimeofday];
     my $nbm;
@@ -1024,7 +1023,7 @@ sub top_days {
     my $nbdow_data = $self->ebt->get_notes_by_dow;  ## already cached
     $self->_log (debug => report 'top_days get', $t0, $count);
     $xhr and $self->{'progress'}->base_add ($count);
-    if ($xhr) { $self->res->headers->connection ('close'); kill QUIT => $$; return $self->_end_progress; }
+    if ($xhr) { $self->res->headers->connection ('close'); return $self->_end_progress; }
 
     $t0 = [gettimeofday];
     my $nbdow;
@@ -1131,7 +1130,7 @@ sub time_analysis_bingo {
     my $ta_data = $self->ebt->get_time_analysis;
     $self->_log (debug => report 'time_analysis get', $t0, $count);
     $xhr and $self->{'progress'}->base_add ($count);
-    if ($xhr) { $self->res->headers->connection ('close'); kill QUIT => $$; return $self->_end_progress; }
+    if ($xhr) { $self->res->headers->connection ('close'); return $self->_end_progress; }
 
     $self->stash (
         title    => ($detail ? $section_titles{'time_analysis_detail'} : $section_titles{'time_analysis_bingo'}),
@@ -1152,7 +1151,7 @@ sub combs_bingo {
     my $comb_data  = $self->ebt->get_missing_combs_and_history;
     $self->_log (debug => report 'combs_bingo get', $t0, $count);
     $xhr and $self->{'progress'}->base_add ($count);
-    if ($xhr) { $self->res->headers->connection ('close'); kill QUIT => $$; return $self->_end_progress; }
+    if ($xhr) { $self->res->headers->connection ('close'); return $self->_end_progress; }
 
     $t0 = [gettimeofday];
     my $missing;
@@ -1198,7 +1197,7 @@ sub plate_bingo {
     my $plate_data = $self->ebt->get_plate_bingo;
     $self->_log (debug => report 'plate_bingo get', $t0, $count);
     $xhr and $self->{'progress'}->base_add ($count);
-    if ($xhr) { $self->res->headers->connection ('close'); kill QUIT => $$; return $self->_end_progress; }
+    if ($xhr) { $self->res->headers->connection ('close'); return $self->_end_progress; }
 
     $t0 = [gettimeofday];
     my $cooked;
@@ -1245,7 +1244,7 @@ sub bad_notes {
     my $bad_notes = $self->ebt->get_bad_notes;
     $self->_log (debug => report 'bad_notes get', $t0, $count);
     $xhr and $self->{'progress'}->base_add ($count);
-    if ($xhr) { $self->res->headers->connection ('close'); kill QUIT => $$; return $self->_end_progress; }
+    if ($xhr) { $self->res->headers->connection ('close'); return $self->_end_progress; }
 
     $t0 = [gettimeofday];
     my @cooked;
@@ -1284,7 +1283,7 @@ sub hit_list {
     my $hit_data = $self->ebt->get_hit_list ($whoami);
     $self->_log (debug => report 'hit_list get', $t0, $count);
     $xhr and $self->{'progress'}->base_add ($count);
-    if ($xhr) { $self->res->headers->connection ('close'); kill QUIT => $$; return $self->_end_progress; }
+    if ($xhr) { $self->res->headers->connection ('close'); return $self->_end_progress; }
 
     $t0 = [gettimeofday];
     my $cooked;
@@ -1314,7 +1313,7 @@ sub hit_times_bingo {
     my $ht       = $self->ebt->get_hit_times ($hit_list);   ## don't include in the progress, it iterates through hits, not notes
     $self->_log (debug => report 'hit_times get', $t0, $count);
     $xhr and $self->{'progress'}->base_add ($count);
-    if ($xhr) { $self->res->headers->connection ('close'); kill QUIT => $$; return $self->_end_progress; }
+    if ($xhr) { $self->res->headers->connection ('close'); return $self->_end_progress; }
 
     $self->stash (
         title           => ($detail ? $section_titles{'hit_times_detail'} : $section_titles{'hit_times_bingo'}),
@@ -1336,7 +1335,7 @@ sub hit_locations {
     my $hit_list = $self->ebt->get_hit_list ($whoami);
     $self->_log (debug => report 'hit_locations get', $t0, $count);
     $xhr and $self->{'progress'}->base_add ($count);
-    if ($xhr) { $self->res->headers->connection ('close'); kill QUIT => $$; return $self->_end_progress; }
+    if ($xhr) { $self->res->headers->connection ('close'); return $self->_end_progress; }
 
     $t0 = [gettimeofday];
     my (%hit_count_by_my_loc, %hit_count_by_their_loc);
@@ -1445,7 +1444,7 @@ sub hit_analysis {
     my $ha       = $self->ebt->get_hit_analysis ($hit_list);
     $self->_log (debug => report 'hit_analysis get', $t0, $count);
     $xhr and $self->{'progress'}->base_add ($count);
-    if ($xhr) { $self->res->headers->connection ('close'); kill QUIT => $$; return $self->_end_progress; }
+    if ($xhr) { $self->res->headers->connection ('close'); return $self->_end_progress; }
 
     $t0 = [gettimeofday];
     my $longest;
@@ -1562,7 +1561,7 @@ sub hit_summary {
     }
     $self->_log (debug => report 'hit_summary chart', $t0, $count);
     $xhr and $self->{'progress'}->base_add ($count*0.2);
-    if ($xhr) { $self->res->headers->connection ('close'); kill QUIT => $$; return $self->_end_progress; }
+    if ($xhr) { $self->res->headers->connection ('close'); return $self->_end_progress; }
 
     $self->stash (
         title => $section_titles{'hit_summary'},
@@ -1580,7 +1579,7 @@ sub calendar {
     my $cal_data = $self->ebt->get_calendar;
     $self->_log (debug => report 'calendar get', $t0, $count);
     $xhr and $self->{'progress'}->base_add ($count);
-    if ($xhr) { $self->res->headers->connection ('close'); kill QUIT => $$; return $self->_end_progress; }
+    if ($xhr) { $self->res->headers->connection ('close'); return $self->_end_progress; }
 
     $t0 = [gettimeofday];
     foreach my $y (sort keys %$cal_data) {
@@ -1819,7 +1818,7 @@ sub _ua_get {
 
     my $cj = Mojo::CookieJar->new->add ($c);
 
-    my $ua = Mojo::UserAgent->new->cookie_jar ($cj)->inactivity_timeout (150);
+    my $ua = Mojo::UserAgent->new->cookie_jar ($cj)->inactivity_timeout (300);
     $ua->on (start => sub {
         my ($ua, $tx) = @_;
         $self->_log (debug => sprintf 'ua on start: setting header "X-Calc-Sections-Progress: %s"', "$pbase/$tot");

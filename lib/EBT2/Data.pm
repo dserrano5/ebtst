@@ -410,8 +410,15 @@ sub load_hits {
     }
     close $fd;
 
+    my %serials2idx;
+    my $idx = 0;
+    foreach my $n (@{ $self->{'notes'} }) {
+        $idx++;
+        my @arr = split ';', $n, NCOLS;
+        $serials2idx{ $arr[SERIAL] } = $idx;
+    }
+
     ## assign each entry in %hits to $self->{'notes'}[42]{'hit'}
-    ## set hit_date (date in which this note became a hit for me)
     foreach my $serial (keys %hits) {
         my $p = $hits{$serial}{'parts'};
 
@@ -427,22 +434,14 @@ sub load_hits {
             }
         }
 
-        #my $idx = (grep { $self->{'whoami'} == $p->[$_]{'user_id'} } 0 .. $#$p)[0];  ## where I appear in the hit
-        #$idx ||= 1;                                                                  ## can't be zero, a hit occurs at the second part
-        #$hits{$serial}{'hit_date'} = $p->[$idx]{'date_entered'};
-
         my ($y, $m, $d) = (split /[-: ]/, $hits{$serial}{'hit_date'})[0,1,2];
         my $dow = dayofweek $d, $m, $y; $dow = 1 + ($dow-1) % 7;
         $hits{$serial}{'dow'} = $dow;
 
-        ## this is potentially expensive, let's see if it causes some lag with a high number of hits
-        foreach my $n (@{ $self->{'notes'} }) {
-            my @arr = split ';', $n, NCOLS;
-            next if $arr[SERIAL] ne $serial;
-            $arr[HIT] = encode_base64 +(freeze $hits{$serial}), '';
-            $n = join ';', @arr;
-            last;
-        }
+        my $note_num = $serials2idx{$serial};
+        my @arr = split ';', $self->{'notes'}[$note_num], NCOLS;
+        $arr[HIT] = encode_base64 +(freeze $hits{$serial}), '';
+        $self->{'notes'}[$note_num] = join ';', @arr;
     }
 
     $self->{'has_hits'} = 1 if %hits;

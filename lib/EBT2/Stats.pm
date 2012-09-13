@@ -1251,7 +1251,7 @@ sub calendar {
         $ret{'calendar'}{$y}{$m}{'days'}{$d}{'events'}{'100th_days'} = { days => $days_added };
     }
 
-    $cursor = (dclone $cursor_copy)->subtract (days => 1);
+    $cursor = (dclone $cursor_copy);
     my $years_added;
     while (1) {
         $cursor->add (years => 1);

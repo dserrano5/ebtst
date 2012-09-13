@@ -49,8 +49,8 @@
     </tr>
 </table>
 <br>
-Number of locations: <b><%= $num_locs %></b><br>
-Number of different yearly visits: <b><%= $yearly_visits %></b><br>
-Number of one time visit locations: <b><%= $one_time_visits %></b> (<%= sprintf '%.2f', 100*$one_time_visits/$num_locs %>%)<br>
+<%=l 'Number of locations' %>: <b><%= $num_locs %></b><br>
+<%=l 'Number of different yearly visits' %>: <b><%= $yearly_visits %></b><br>
+<%=l 'Number of one time visit locations' %>: <b><%= $one_time_visits %></b> (<%= sprintf '%.2f', 100*$one_time_visits/$num_locs %>%)<br>
 <br>
 <img src="images/<%= $user %>/travel_stats.svg">

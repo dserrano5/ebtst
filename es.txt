@@ -470,6 +470,7 @@ iso3166_py = Paraguay
 iso3166_qa = Catar
 iso3166_ro = Rumanía
 iso3166_rs = Serbia
+iso3166_rskm = Kosovo
 iso3166_ru = Rusia
 iso3166_rw = Ruanda
 iso3166_sa = Arabia Saudí

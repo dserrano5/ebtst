@@ -123,6 +123,9 @@ $t->get_ok ('/hit_list')->status_is (200)->content_unlike (qr/Exxxx0534xxx/);
 ## but their count appears in hit_summary
 $t->get_ok ('/hit_summary')->status_is (200)->content_like (qr/1\s+international\),\s+plus\s+1\s+moderated/);
 
+## Kosovo
+$t->get_ok ('/locations')->status_is (200)->content_like (qr/Kosovo/);
+
 ## logging out
 $t->get_ok ('/logout')->status_is (302)->header_like (Location => qr/index/);
 
@@ -139,5 +142,5 @@ $t->post_form_ok ('/login' => {
 $t->get_ok ('/information')->status_is (302)->header_like (Location => qr/configure/);
 $t->get_ok ('/logout')->status_is (302)->header_like (Location => qr/index/);
 
-done_testing 106;
+done_testing 109;
 unlink '/tmp/ebt2-storable' or warn "unlink: '/tmp/ebt2-storable': $!";

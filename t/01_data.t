@@ -104,5 +104,9 @@ while (my $notes = $obj->note_getter) {
     $c++;
 }
 
-done_testing 65;
+while (my $notes = $obj->note_getter (interval => 'all')) {
+    is $notes->[-1][COUNTRY], 'rskm', 'Kosovo is recognized';
+}
+
+done_testing 66;
 unlink '/tmp/ebt2-storable' or warn "unlink: '/tmp/ebt2-storable': $!";

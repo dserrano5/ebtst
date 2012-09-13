@@ -51,6 +51,8 @@ my $DATA_VERSION = '20120810-01';
 #EOC
 
 Locale::Country::alias_code (uk => 'gb');
+## EBT lists Kosovo as a country, which isn't defined in ISO-3166-1 as a country. Use its ISO-3166-2 code
+Locale::Country::add_country ('rskm' => 'Kosovo');
 
 sub new {
     my ($class, %args) = @_;

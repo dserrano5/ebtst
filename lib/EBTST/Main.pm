@@ -1341,6 +1341,7 @@ sub hit_locations {
     $t0 = [gettimeofday];
     my (%hit_count_by_my_loc, %hit_count_by_their_loc);
     my %arrows;
+    my %local_hits;
     foreach my $hit (@$hit_list) {
         next if $hit->{'moderated'};
 
@@ -1363,6 +1364,12 @@ sub hit_locations {
                 my $arrow_key = sprintf '%s|%s', $their_idx < $idx ? ($their_k, $my_k) : ($my_k, $their_k);
                 $arrows{$arrow_key}++;
             }
+        }
+
+        my @cities = uniq @{ $hit->{'cities'} };
+        if (1 == @cities) {
+            my $k = join ',', $hit->{'countries'}[0], $hit->{'cities'}[0];
+            $local_hits{$k}++;
         }
     }
 
@@ -1405,13 +1412,9 @@ sub hit_locations {
         };
     }
 
-    my %local_hits;
     my %both_ways;
     foreach my $k (keys %arrows) {
         my ($from, $to) = split /\|/, $k, 2;
-        if ($from eq $to) {
-            $local_hits{$from}++;
-        }
         my $reverse_k = sprintf '%s|%s', $to, $from;
         if (exists $arrows{$reverse_k}) {
             my $sorted_k = sprintf '%s|%s', sort $from, $to;

@@ -734,6 +734,8 @@ sub hit_list {
 
     my %hit_list;
     my %passive_pending;    ## passive hits info is filled later. We save them here in the meanwhile
+    my $pp_changed;         ## if %passive_pending is unchanged, we skip a sort operation
+    my @pas_hits;           ## result of the sort, we don't touch it unless $pp_changed
 
     my $note_no = 0;
     my $notes_elapsed = 0;
@@ -745,8 +747,16 @@ sub hit_list {
     my $fill_passive_pending = sub {
         my ($note) = @_;
 
+        if ($pp_changed) {
+            @pas_hits = sort { $a->{'hit_date'} cmp $b->{'hit_date'} } values %passive_pending;
+            $pp_changed = 0;
+        }
+
+        ## this $note is earlier than the earliest hit_date in %pas_hits. Don't enter the loop as it will do nothing
+        return if $note and 1 != ($note->[DATE_ENTERED] cmp $pas_hits[0]{'hit_date'});
+
         my @done;
-        foreach my $pas_hit (sort { $a->{'hit_date'} cmp $b->{'hit_date'} } values %passive_pending) {
+        foreach my $pas_hit (@pas_hits) {
             if ($note) { next if 1 != ($note->[DATE_ENTERED] cmp $pas_hit->{'hit_date'}); }
             push @done, $pas_hit->{'serial'};
 
@@ -776,6 +786,7 @@ sub hit_list {
         if (@done) {
             $notes_between = 0;    ## 0 because it would be -1 plus 1 for having already started another loop iteration
             delete @passive_pending{@done};
+            $pp_changed = 1;
         }
     };
 
@@ -854,6 +865,7 @@ sub hit_list {
             push @{ $hit_list{ $hit->{'hit_date'} } }, $entry;
             if ($passive) {
                 $passive_pending{ $note->[SERIAL] } = $hit_list{ $hit->{'hit_date'} }[-1];
+                $pp_changed = 1;
             }
         }
     }
@@ -1039,7 +1051,7 @@ sub hit_summary {
             }
             push @{ $ret{'hit_summary'}{$what}{'elems'} }, $hit->{$what};
         }
-        my $speed = $hit->{'km'} / $hit->{'days'};
+        my $speed = $hit->{'days'} ? $hit->{'km'} / $hit->{'days'} : 0;
         if ($speed < ($ret{'hit_summary'}{'speed'}{'min'} // ~0)) {
             $ret{'hit_summary'}{'speed'}{'min'} = $speed;
         }

@@ -360,7 +360,7 @@ sub value {
     if (!-e $dest_img1 or !-e $dest_img2 or !-e $dest_img3) {
         my %dpoints;
         my ($avg_sum, $avg_count);
-        foreach my $elem (split ',', $elem_by_val) {
+        foreach my $elem (split ',', $elem_by_val) {   ## FIXME: this loop is memory-hungry
             push @{ $dpoints{$_} }, ($dpoints{$_}[-1]//0) for qw/Total Mean/, @{ EBT2->values };
             $dpoints{'Total'}[-1]++;
             $dpoints{$elem}[-1]++;
@@ -1520,6 +1520,7 @@ sub hit_summary {
             $count_hits++  if 2 == substr $elem, -1;
             push @{ $dpoints{'hit_ratio'} }, $count_hits ? $count_notes/$count_hits : undef;
         }
+        @all_dates = map { chop; $_ } @all_dates;
 
         my ($days_sum, $days_count);
         foreach my $elem (split ',', $elem_travel_days) {

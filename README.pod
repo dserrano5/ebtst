@@ -4,73 +4,35 @@
 
 NoteInfoGenerator is (apparently) dead. Here's my own attempt at it.
 
-=head2 Requirements
+=head2 Deployment under apache mod_proxy
 
 =over 4
 
-=item Perl 5.10.1 or newer.
+=item Apache configuration
 
-To figure out what version you have, just run C<perl -v> and look to the first
-line of its output.
+ Alias /ebtdev/ /some/path/
+ ProxyRequests Off
+ ProxyPreserveHost On
+ ProxyPass /ebtdev/ebtst/stats !
+ ProxyPass /ebtdev/ebtst http://localhost:1234/ebtdev/ebtst keepalive=On
+ ProxyPassReverse /ebtdev/ebtst http://localhost:1234/ebtdev/ebtst
+ ProxyTimeout 2500
 
-=over 4
+=item EBTST configuration
 
-=item Windows
-
-Strawberry Perl: L<http://strawberryperl.com/>.
-
-=item MacOS X
-
-No idea :). I'm told you already have Perl (although maybe not a recent one).
-
-=item Linux
-
-Most probably you already have it.
-
-=back
-
-=item Perl modules
-
-=over 4
-
-=item Config::General
-
-=item DateTime
-
-=item Locale::Country
-
-=item Text::CSV
-
-=item Mojolicious
+ base_href = http://example.com/ebtdev/ebtst/
+ statics_dir = /some/path/ebtst/public
+ hypnotoad_listen = http://localhost:1234
+ hypnotoad_is_proxy = 1
+ hypnotoad_heartbeat_timeout = 2500
 
 =back
-
-To install these modules, open a terminal and do the following:
-
-  > cpan
-  cpan> install Config::General
-  cpan> install DateTime
-  cpan> install Locale::Country
-  cpan> install Text::CSV
-  cpan> install Mojolicious
-
-=back
-
-=head2 Using it
-
-To start EBTST, simply run scripts/ebtst.pl, then point your web browser to
-L<http://localhost:8080/>. Feed it your CSV files using the Configuration
-section and enjoy your numbers.
-
-By ticking the checkboxes at the left and clicking on C<BBCode>, a separate
-browser tab/window is generated with the information in the selected sections
-formatted as BBCode, ready to copy and paste into the EBT forum.
 
 =head2 License
 
 EBTST itself is licensed under the GPL version 3.
 
-All images for flags and note values are intellectual property of the
+All images of flags and note values are intellectual property of the
 Association Européenne des EuroBillTrackers.
 
 =cut

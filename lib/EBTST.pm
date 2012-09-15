@@ -15,6 +15,7 @@ my $cfg_file = File::Spec->catfile ($work_dir, 'ebtst.cfg');
 our %config = Config::General->new (-ConfigFile => $cfg_file, -IncludeRelative => 1, -UTF8 => 1)->getall;
 
 defined $config{'users_db'} or die "'users_db' isn't configured\n";
+defined $config{'csvs_dir'} or die "'csvs_dir' isn't configured\n";
 my $sess_dir                    = $config{'session_dir'}       // die "'session_dir' isn't configured\n";
 my $user_data_basedir           = $config{'user_data_basedir'} // die "'user_data_basedir' isn't configured\n";
 my $html_dir                    = $config{'html_dir'}    // File::Spec->catfile ($ENV{'BASE_DIR'}, 'public', 'stats');
@@ -279,6 +280,14 @@ sub startup {
     _mkdir $html_dir;
     _mkdir $statics_dir;
     _mkdir $images_dir;
+    _mkdir $config{'csvs_dir'};
+
+    ## quickly hackly emulate the relevant CREATE TABLE
+    if (!-f "$sess_dir/session") {
+        open my $fd, '>', "$sess_dir/session" or die "open: '$sess_dir/session': $!";
+        print $fd "sid,data,expires\n";
+        close $fd;
+    }
 
     $self->app->config ({
         hypnotoad => {

@@ -48,7 +48,23 @@ DateTime
 
 =item *
 
+DBD::CSV
+
+=item *
+
 DBI
+
+=item *
+
+Mojolicious
+
+=item *
+
+Mojolicious::Plugin::I18N
+
+=item *
+
+Mojolicious::Plugin::Session
 
 =item *
 

@@ -6,71 +6,96 @@ use DateTime;
 use List::MoreUtils qw/zip/;
 use Chart::Gnuplot;
 
-sub line_chart {
-    my (%args) = @_;
-    my $points_limit = 10000;      ## showing a lot of points is both cpu- and memory-intensive
+## this function modifies the 'points' element in each dataset in @$dsets
+sub _quantize {
+    my ($limit, $xdata, $dsets) = @_;
 
     ## we draw a point every X amount of time. @intervals contains the latest date for notes to be in a given point
     ## ie the first point represents the note at (or just before) $intervals[0]
 
-    my $first_dt = DateTime->new (zip @{[ qw/year month day hour minute second/ ]}, @{[ split /[ :-]/, $args{'xdata'}[0]  ]})->epoch;
-    my $last_dt  = DateTime->new (zip @{[ qw/year month day hour minute second/ ]}, @{[ split /[ :-]/, $args{'xdata'}[-1] ]})->epoch;
-    my $interval_duration = ($last_dt - $first_dt) / $points_limit;
+    my $first_dt = DateTime->new (zip @{[ qw/year month day hour minute second/ ]}, @{[ split /[ :-]/, $xdata->[0]  ]})->epoch;
+    my $last_dt  = DateTime->new (zip @{[ qw/year month day hour minute second/ ]}, @{[ split /[ :-]/, $xdata->[-1] ]})->epoch;
+    my $interval_duration = ($last_dt - $first_dt) / $limit;
     my @intervals = map {
         DateTime->from_epoch (epoch => $first_dt + $interval_duration * $_)->strftime ('%Y-%m-%d %H:%M:%S')
-    } 1 .. $points_limit;
+    } 1 .. $limit;
 
-    my @xdata;
-    my $idx_last_point = $#{ $args{'dsets'}[0]{'points'} };
-    my $xdata_done = 0;
-    my @totals;
-    foreach my $dset (@{ $args{'dsets'} }) {
-        my @points;
-        my $interval_idx = 0;
-
-        my $last_xdata = '';
-        foreach my $idx (0..$idx_last_point) {
-            ## there may be more than one note in the same second. If that happens at the end of the data,
-            ## $cmp will be 0, and this code will end the bar there; then $interval_idx will be out of bounds
-            if ($interval_idx > $#intervals) {
-                if ($args{'xdata'}[$idx] eq $last_xdata) {
-                    pop @points;
-                    $xdata_done or pop @xdata;
-                    $interval_idx--;
-                } else {
-                    use Data::Dumper; warn sprintf "%s:%s: %s\n", __FILE__, __LINE__, Data::Dumper->Dump (sub{\@_}->(\@intervals), ['intervals']);
-                    die sprintf "shouldn't happen, idx (%s) interval_idx (%s) intervals (%s) args{xdata}[idx] (%s) last_xdata(%s)",
-                        $idx, $interval_idx, $#intervals, $args{'xdata'}[$idx], $last_xdata;
-                }
-            }
-            my $cmp = $args{'xdata'}[$idx] cmp $intervals[$interval_idx];
-            next if -1 == $cmp;
-
-            $last_xdata = $args{'xdata'}[$idx];
-
-            ## found a note entered at (or later than) the current interval
-            ## plot it (or the one before)
-            if (0 == $cmp) {        ## this happens at the last iteration (if floating point precision doesn't meddle)
-                push @points, $dset->{'points'}[$idx];
-                $xdata_done or push @xdata, $args{'xdata'}[$idx];
-            } elsif (1 == $cmp) {
-                push @points, $dset->{'points'}[$idx-1];
-                $xdata_done or push @xdata, $args{'xdata'}[$idx-1];
+    my @new_xdata;
+    my @points;
+    my $last_idx = 0;
+    OUTER:
+    foreach my $limit_date (@intervals) {
+        ## if a lot of time has passed, $cur_xdata could be greater than this $limit_date
+        ## (never true in the first iteration)
+        my $cur_xdata = $xdata->[ $last_idx ];
+        if (1 == ($cur_xdata cmp $limit_date)) {
+            ## push undefs to @new_xdata and to the datasets
+            push @new_xdata, undef;
+            foreach my $dset_idx (0 .. $#$dsets) {
+                push @{ $points[$dset_idx] }, undef;
             }
 
-            ## now set the next interval
-            ## if there's a lot of time between two notes, we may have to increase $interval_idx more than once
-            do {
-                $interval_idx++;
-            } while $interval_idx < $#intervals and -1 != ($args{'xdata'}[$idx] cmp $intervals[$interval_idx]);
+            next;
         }
 
-        $dset->{'points'} = \@points;
-        $xdata_done = 1;
+        while (1) {
+            if ($last_idx > $#$xdata) {
+                ## at this point:
+                ## - $limit_date should be eq $intervals[-1];
+                ## - $cur_xdata should be undef
+                if ($limit_date ne $intervals[-1]) {
+                    warn "about to exit loop but limit_date ($limit_date) isn't the last elem in intervals ($intervals[-1])";
+                }
+                if (defined $cur_xdata) {
+                    warn "about to exit loop but cur_xdata is defined ($cur_xdata)";
+                }
+                last OUTER;
+            }
+            if (1 == ($cur_xdata cmp $limit_date)) {
+                ## push new point to @new_xdata and to the datasets
+                push @new_xdata, $xdata->[ $last_idx-1 ];
+                foreach my $dset_idx (0 .. $#$dsets) {
+                    push @{ $points[$dset_idx] }, $dsets->[$dset_idx]{'points'}[ $last_idx-1 ];
+                }
+
+                last;
+            }
+            $last_idx++;
+            $cur_xdata = $xdata->[ $last_idx ];
+        }
+    }
+    ## at this point, $last_idx should be == 1 + $#$xdata == @$xdata
+    if ($last_idx != @$xdata) {
+        warn "premature exit from loop";
     }
 
+    ## push last point to @new_xdata and to the datasets. Update the 'points' elem in each dataset with the new values
+    push @new_xdata, $xdata->[ $last_idx-1 ];
+    foreach my $dset_idx (0 .. $#$dsets) {
+        push @{ $points[$dset_idx] }, $dsets->[$dset_idx]{'points'}[ $last_idx-1 ];
+        $dsets->[$dset_idx]{'points'} = $points[$dset_idx];
+    }
+
+    undef @points;
+
+    ## check that @new_xdata and the datasets have the same number of points
+    my $npoints = @new_xdata;
+    foreach my $dset_idx (0 .. $#$dsets) {
+        if ($npoints != @{ $dsets->[$dset_idx]{'points'} }) {
+            warn sprintf "new dataset $dset_idx has %d points instead of \@new_xdata's $npoints", scalar @{ $dsets->[$dset_idx]{'points'} };
+        }
+    }
+
+    return \@new_xdata;
+}
+
+sub line_chart {
+    my (%args) = @_;
+
+    my ($xdata) = _quantize 10000, $args{'xdata'}, $args{'dsets'};      ## showing a lot of points is both cpu- and memory-intensive
+
     my %gp_dset_args = (
-        xdata    => \@xdata,
+        xdata    => $xdata,
         style    => 'lines',
         linetype => 'solid',
         timefmt  => '%Y-%m-%d %H:%M:%S',
@@ -181,70 +206,19 @@ sub bar_chart {
 ## the datasets must be in order, nearest to the zero line first
 sub bartime_chart {
     my (%args) = @_;
-    my $boxes_limit = 500;      ## showing a lot of boxes is slow
 
-    ## we draw a bar every X amount of time. @intervals contains the latest date for notes to be in a given bar
-    ## ie the first bar represents the note at (or just before) $intervals[0]
-
-    my $first_dt = DateTime->new (zip @{[ qw/year month day hour minute second/ ]}, @{[ split /[ :-]/, $args{'xdata'}[0]  ]})->epoch;
-    my $last_dt  = DateTime->new (zip @{[ qw/year month day hour minute second/ ]}, @{[ split /[ :-]/, $args{'xdata'}[-1] ]})->epoch;
-    my $interval_duration = ($last_dt - $first_dt) / $boxes_limit;
-    my @intervals = map {
-        DateTime->from_epoch (epoch => $first_dt + $interval_duration * $_)->strftime ('%Y-%m-%d %H:%M:%S')
-    } 1 .. $boxes_limit;
-
-    my @xdata;
-    my $idx_last_point = $#{ $args{'dsets'}[0]{'points'} };
-    my $xdata_done = 0;
-    my @totals;
-    foreach my $dset (@{ $args{'dsets'} }) {
-        my @points;
-        my $interval_idx = 0;
-
-        my $last_xdata = '';
-        foreach my $idx (0..$idx_last_point) {
-            ## there may be more than one note in the same second. If that happens at the end of the data,
-            ## $cmp will be 0, and this code will end the bar there; then $interval_idx will be out of bounds
-            if ($interval_idx > $#intervals) {
-                if ($args{'xdata'}[$idx] eq $last_xdata) {
-                    pop @points;
-                    $xdata_done or pop @xdata;
-                    $interval_idx--;
-                } else {
-                    use Data::Dumper; warn sprintf "%s:%s: %s\n", __FILE__, __LINE__, Data::Dumper->Dump (sub{\@_}->(\@intervals), ['intervals']);
-                    die sprintf "shouldn't happen, idx (%s) interval_idx (%s) intervals (%s) args{xdata}[idx] (%s) last_xdata(%s)",
-                        $idx, $interval_idx, $#intervals, $args{'xdata'}[$idx], $last_xdata;
-                }
-            }
-            my $cmp = $args{'xdata'}[$idx] cmp $intervals[$interval_idx];
-            next if -1 == $cmp;
-
-            $last_xdata = $args{'xdata'}[$idx];
-
-            ## found a note entered at (or later than) the current interval
-            ## plot it (or the one before)
-            if (0 == $cmp) {        ## this happens at the last iteration (if floating point precision doesn't meddle)
-                push @points, $dset->{'points'}[$idx];
-                $xdata_done or push @xdata, $args{'xdata'}[$idx];
-            } elsif (1 == $cmp) {
-                push @points, $dset->{'points'}[$idx-1];
-                $xdata_done or push @xdata, $args{'xdata'}[$idx-1];
-            }
-
-            ## now set the next interval
-            ## if there's a lot of time between two notes, we may have to increase $interval_idx more than once
-            do {
-                $interval_idx++;
-            } while $interval_idx < $#intervals and -1 != ($args{'xdata'}[$idx] cmp $intervals[$interval_idx]);
-        }
-
-        $dset->{'points'} = \@points;
-        if ($args{'percent'}) { map { $totals[$_] += $points[$_] } 0..$#points; }
-        $xdata_done = 1;
-    }
+    my ($xdata) = _quantize 500, $args{'xdata'}, $args{'dsets'};      ## showing a lot of boxes is slow
 
     ## transform into percent
     if ($args{'percent'}) {
+        my @totals;
+        foreach my $idx (0 .. $#$xdata) {
+            foreach my $dset_idx (0 .. $#{ $args{'dsets'} }) {
+                next unless defined $args{'dsets'}[$dset_idx]{'points'}[$idx];
+                $totals[$idx] += $args{'dsets'}[$dset_idx]{'points'}[$idx];
+            }
+        }
+
         foreach my $dset (@{ $args{'dsets'} }) {
             foreach my $idx (0..$#{ $dset->{'points'} }) {
                 next unless $totals[$idx];
@@ -254,7 +228,7 @@ sub bartime_chart {
     }
 
     my %gp_dset_args = (
-        xdata    => \@xdata,
+        xdata    => $xdata,
         style    => 'boxes',
         linetype => 'solid',
         timefmt  => '%Y-%m-%d %H:%M:%S',

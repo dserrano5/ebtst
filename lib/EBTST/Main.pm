@@ -1520,7 +1520,9 @@ sub hit_summary {
             $count_hits++  if 2 == substr $elem, -1;
             push @{ $dpoints{'hit_ratio'} }, $count_hits ? $count_notes/$count_hits : undef;
         }
-        @all_dates = map { chop; $_ } @all_dates;
+        @$notes_dates = map { chop; $_ } @$notes_dates;
+        @$hits_dates  = map { chop; $_ } @$hits_dates;
+        @all_dates    = map { chop; $_ } @all_dates;
 
         my ($days_sum, $days_count);
         foreach my $elem (split ',', $elem_travel_days) {

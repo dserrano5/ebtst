@@ -413,9 +413,8 @@ sub load_hits {
     my %serials2idx;
     my $idx = 0;
     foreach my $n (@{ $self->{'notes'} }) {
-        $idx++;
         my @arr = split ';', $n, NCOLS;
-        $serials2idx{ $arr[SERIAL] } = $idx;
+        $serials2idx{ $arr[SERIAL] } = $idx++;
     }
 
     ## assign each entry in %hits to $self->{'notes'}[42]{'hit'}

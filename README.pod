@@ -26,6 +26,24 @@ NoteInfoGenerator is (apparently) dead. Here's my own attempt at it.
  hypnotoad_is_proxy = 1
  hypnotoad_heartbeat_timeout = 2500
 
+=item Dependencies
+
+=over 4
+
+=item Chart::Gnuplot (and gnuplot, of course)
+
+=item Config::General
+
+=item Date::DayOfWeek
+
+=item DateTime
+
+=item DBI
+
+=item Text::CSV
+
+=back
+
 =back
 
 =head2 License

@@ -10,6 +10,9 @@ use Chart::Gnuplot;
 sub _quantize {
     my ($limit, $xdata, $dsets) = @_;
 
+    my $graph_type = (caller 1)[3];
+    $graph_type =~ s/.*::(\w+)_chart$/$1/;
+
     ## we draw a point every X amount of time. @intervals contains the latest date for notes to be in a given point
     ## ie the first point represents the note at (or just before) $intervals[0]
 
@@ -22,6 +25,7 @@ sub _quantize {
 
     my @new_xdata;
     my @points;
+    my @last_pushed;
     my $last_idx = 0;
     OUTER:
     foreach my $limit_date (@intervals) {
@@ -29,10 +33,16 @@ sub _quantize {
         ## (never true in the first iteration)
         my $cur_xdata = $xdata->[ $last_idx ];
         if (1 == ($cur_xdata cmp $limit_date)) {
-            ## push undefs to @new_xdata and to the datasets
-            push @new_xdata, undef;
+            ## push $limit_date to @new_xdata and...
+            push @new_xdata, $limit_date;
             foreach my $dset_idx (0 .. $#$dsets) {
-                push @{ $points[$dset_idx] }, undef;
+                if ('bartime' eq $graph_type) {
+                    ## ...each last pushed value to each datasets, so the bartime graphs don't have any gaps
+                    push @{ $points[$dset_idx] }, $last_pushed[$dset_idx];
+                } else {
+                    ## ...undef to each dataset
+                    push @{ $points[$dset_idx] }, undef;
+                }
             }
 
             next;
@@ -56,6 +66,7 @@ sub _quantize {
                 push @new_xdata, $xdata->[ $last_idx-1 ];
                 foreach my $dset_idx (0 .. $#$dsets) {
                     push @{ $points[$dset_idx] }, $dsets->[$dset_idx]{'points'}[ $last_idx-1 ];
+                    $last_pushed[$dset_idx] = $dsets->[$dset_idx]{'points'}[ $last_idx-1 ];
                 }
 
                 last;

@@ -14,6 +14,7 @@ my $cfg_file = File::Spec->catfile ($work_dir, 'ebtst.cfg');
 -r $cfg_file or die "Can't find configuration file '$cfg_file'\n";
 our %config = Config::General->new (-ConfigFile => $cfg_file, -IncludeRelative => 1, -UTF8 => 1)->getall;
 
+defined $config{'users_db'} or die "Required configuration parameter missing: 'users_db'\n";
 my $sess_dir                    = $config{'session_dir'}       // die "'session_dir' isn't configured";
 my $user_data_basedir           = $config{'user_data_basedir'} // die "'user_data_basedir' isn't configured";
 my $html_dir                    = $config{'html_dir'}    // File::Spec->catfile ($ENV{'BASE_DIR'}, 'public', 'stats');
@@ -89,7 +90,7 @@ sub bd_set_env_initial_stash {
     $self->stash (has_hits      => undef);
     $self->stash (has_bad_notes => undef);
     $self->stash (user          => undef);
-    $self->stash (title         => undef);
+    $self->stash (title         => '');
 }
 
 sub helper_ebt {
@@ -262,7 +263,9 @@ sub startup {
             proxy             => $hypnotoad_is_proxy,
             heartbeat_timeout => $hypnotoad_heartbeat_timeout,
             workers           => $hypnotoad_workers,
-        }
+        },
+        users_db => $config{'users_db'},
+        ## TODO: fill this
     });
 
     $self->app->log->unsubscribe ('message');
@@ -354,6 +357,7 @@ sub startup {
     $r_session_loaded->get ('//')->to ('main#index');
     $r_session_loaded->get ('/index')->to ('main#index');
     $r_session_loaded->post ('/login')->to ('main#login');
+    $r_session_loaded->route ('/register')->via (qw/GET POST/)->to ('main#register');
 
     my $r_session = $r_session_loaded->under (sub {
         my ($self) = @_;

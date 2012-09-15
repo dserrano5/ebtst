@@ -37,6 +37,10 @@ Welcome = Bienvenido
 User = Usuario
 Passphrase = Contraseña
 Login = Entrar
+Register = Registrarse
+
+## register
+Confirm passphrase = Confirmar contraseña
 
 ## information
 General information = Información general

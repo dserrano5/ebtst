@@ -2,6 +2,7 @@
 
 use warnings;
 use strict;
+use utf8; binmode *STDOUT, ':encoding(utf8)'; binmode *STDERR, ':encoding(utf8)';
 use Cwd;
 use File::Basename 'dirname';
 use Test::More;
@@ -140,7 +141,52 @@ $t->post_form_ok ('/login' => {
 })->status_is (302)->header_like (Location => qr/information/, 'log in with empty user');
 
 $t->get_ok ('/information')->status_is (302)->header_like (Location => qr/configure/, 'redir to configure');
+$t->get_ok ('/register')->status_is (302)->header_like (Location => qr/information/, 'GET register with session');
+$t->post_form_ok ('/register' => {
+    user  => 'fo€',
+    pass1 => 'bar',
+    pass2 => 'bar2',
+})->status_is (302)->header_like (Location => qr/information/, 'POST register with session');
 $t->get_ok ('/logout')->status_is (302)->header_like (Location => qr/index/, 'logout from empty user');
 
-done_testing 109;
+$t->get_ok ('/register')->status_is (200)->content_like (qr/Confirm passphrase/, 'GET register');
+$t->post_form_ok ('/register' => {
+    user  => 'fo€',
+    pass1 => 'bar',
+    pass2 => 'bar2',
+})->status_is (200)->content_like (qr/Confirm passphrase/, 'POST register with different passwords');
+$t->post_form_ok ('/register' => {
+    user  => 'fo<€',
+    pass1 => 'bar',
+    pass2 => 'bar',
+})->status_is (200)->content_like (qr/Confirm passphrase/, 'POST register with bad username');
+$t->post_form_ok ('/register' => {
+    user  => 'fo€',
+    pass1 => 'b<ar',
+    pass2 => 'b<ar',
+})->status_is (200)->content_like (qr/Confirm passphrase/, 'POST register with bad password');
+$t->post_form_ok ('/register' => {
+    user  => 'fo€',
+    pass1 => 'bar',
+    pass2 => 'bar',
+})->status_is (302)->header_like (Location => qr/configure/, 'POST register');
+
+my $users_file = $t->ua->app->config ('users_db');
+open my $fd, '<:encoding(UTF-8)', $users_file or die "open: '$users_file': $!"; my @lines = <$fd>; close $fd;
+my $user = pop @lines; chomp $user;
+is $user, 'fo€:d82c4eb5261cb9c8aa9855edd67d1bd10482f41529858d925094d173fa662aa91ff39bc5b188615273484021dfb16fd8284cf684ccf0fc795be3aa2fc1e6c181';
+
+$t->get_ok ('/configure')->status_is (200)->element_exists ('#mainbody #repl #config_form table tr td input[name=notes_csv_file]', 'configure form')->content_unlike (qr/short_codes/, 'configure without sections');
+$t->get_ok ('/logout');
+
+$t->post_form_ok ('/register' => {
+    user  => 'fo€',
+    pass1 => 'bar42',
+    pass2 => 'bar42',
+})->status_is (200)->content_like (qr/Confirm passphrase/, 'POST register with already existing user');
+
+## restore user db
+open $fd, '>', $users_file or die "open: '$users_file': $!"; print $fd $_ for @lines; close $fd;
+
+done_testing 139;
 unlink '/tmp/ebt2-storable' or warn "unlink: '/tmp/ebt2-storable': $!";

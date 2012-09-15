@@ -12,6 +12,7 @@ use IO::Uncompress::Gunzip qw/gunzip $GunzipError/;
 use IO::Uncompress::Unzip  qw/unzip  $UnzipError/;
 use File::Temp qw/tempfile/;
 use File::Copy;
+use Fcntl qw/:flock/;
 use Locale::Country;
 use Mojo::Cookie::Response;
 use Mojo::CookieJar;
@@ -43,7 +44,7 @@ my %users;
 
 my %section_titles;
 foreach my $section (qw/
-    index information value countries locations travel_stats printers huge_table short_codes nice_serials
+    index register information value countries locations travel_stats printers huge_table short_codes nice_serials
     top_days plate_bingo bad_notes hit_list hit_locations hit_analysis hit_summary calendar help
 /) {
     my $title = ucfirst $section;
@@ -161,12 +162,16 @@ sub _end_progress {
 sub load_users {
     my ($self) = @_;
 
-    open my $fd, '<:encoding(UTF-8)', $EBTST::config{'users_db'} or die "open: '$EBTST::config{'users_db'}': $!";
+    my $users_file = $self->app->config ('users_db');
+    open my $fd, '<:encoding(UTF-8)', $users_file or die "open: '$users_file': $!";
+    flock $fd, LOCK_SH;
     while (<$fd>) {
         chomp;
+        next if /^#/ or /^$/;
         my ($u, $p) = split /:/;
         $users{$u} = $p;
     }
+    flock $fd, LOCK_UN;
     close $fd;
 
     $self->_log (debug => sprintf "load_users: loaded %d users", scalar keys %users);
@@ -190,17 +195,20 @@ sub index {
 sub login {
     my ($self) = @_;
 
-    $self->redirect_to ('information') if ref $self->stash ('sess') and $self->stash ('sess')->sid;
+    if (ref $self->stash ('sess') and $self->stash ('sess')->sid) {
+        $self->redirect_to ('information');
+        return;
+    }
 
     $self->load_users;
     my $u = $self->param ('user');
     $self->_log (debug => sprintf "login: user is '%s'", $u//'<undef>');
 
-    if (exists $users{$self->param ('user')}) {
+    if (exists $users{$u}) {
         $self->_log (info => "login attempt for existing user '$u'");
-        if ($users{$self->param ('user')} eq sha512_hex $self->param ('pass')) {
+        if ($users{$u} eq sha512_hex $self->param ('pass')) {
             $self->stash ('sess')->create;
-            $self->stash ('sess')->data (user => $self->param ('user'));
+            $self->stash ('sess')->data (user => $u);
             my $dest = $self->param ('requested_url') || 'information';
             $self->_log (info => "login successful, redirecting to '$dest'");
             $self->redirect_to ($dest);
@@ -222,6 +230,54 @@ sub logout {
     $self->_log (info => 'logging out');
     $self->stash ('sess')->expire;
     $self->redirect_to ('index');
+}
+
+sub register {
+    my ($self) = @_;
+
+    if (ref $self->stash ('sess') and $self->stash ('sess')->sid) {
+        $self->redirect_to ('information');
+        return;
+    }
+    $self->stash (title => $section_titles{'register'});
+    return if 'GET' eq $self->req->method;
+
+    my $u  = $self->param ('user');
+    my $p1 = $self->param ('pass1');
+    my $p2 = $self->param ('pass2');
+    if ($p1 ne $p2) {
+        $self->_log (info => 'passwords do not match');
+        return;
+    }
+
+    if ($u =~ /[<>&'"]/ or $p1 =~ /[<>&'"]/) {
+        $self->_log (info => 'invalid username or password');
+        return;
+    }
+
+    $self->load_users;
+    if (exists $users{$u}) {
+        $self->_log (info => "register attempt for existing user '$u'");
+        return;
+    }
+
+    my $users_file = $self->app->config ('users_db');
+    if (open my $fd, '>>:encoding(UTF-8)', $users_file) {
+        flock $fd, LOCK_EX;
+        printf $fd "%s:%s\n", $u, sha512_hex $p1;
+        flock $fd, LOCK_UN;
+        close $fd;
+        $self->_log (debug => "stored entry for user '$u'");
+    } else {
+        $self->_log (warn => "open: '$users_file': $!");
+        return;
+    }
+
+    $self->stash ('sess')->create;
+    $self->stash ('sess')->data (user => $u);
+    $self->_log (info => "new user '$u', redirecting to configure");
+    $self->redirect_to ('configure');
+    return;
 }
 
 sub progress {

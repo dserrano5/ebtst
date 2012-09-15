@@ -5,7 +5,7 @@ use File::Spec;
 use Carp qw/croak confess/;
 use Fcntl ':flock';
 use Config::General;
-use Devel::Size qw/total_size/;
+#use Devel::Size qw/total_size/;
 use DBI;
 use EBT2;
 
@@ -214,23 +214,23 @@ sub ad_rss_sigquit {
 }
 
 ## would put this into an after_dispatch hook, but $self->stash('ebt') doesn't seem to be available there
-sub log_sizes {
-    my ($log, $ebt) = @_;
-
-    my %sizes = (
-        ebt2 => (total_size $ebt),
-        (map { $_ => total_size $ebt->{'data'}{$_} } keys %{ $ebt->{'data'} }),
-    );
-
-    foreach my $k (
-        reverse
-        sort { ($sizes{$a}) <=> ($sizes{$b}) }
-        grep { $sizes{$_} > $sizes{'ebt2'}/100 and $sizes{$_} > 512*1024 }
-        keys %sizes
-    ) {
-        $log->debug (sprintf '%35s: %6.0f Kb', $k, ($sizes{$k})/1024);
-    }
-}
+#sub log_sizes {
+#    my ($log, $ebt) = @_;
+#
+#    my %sizes = (
+#        ebt2 => (total_size $ebt),
+#        (map { $_ => total_size $ebt->{'data'}{$_} } keys %{ $ebt->{'data'} }),
+#    );
+#
+#    foreach my $k (
+#        reverse
+#        sort { ($sizes{$a}) <=> ($sizes{$b}) }
+#        grep { $sizes{$_} > $sizes{'ebt2'}/100 and $sizes{$_} > 512*1024 }
+#        keys %sizes
+#    ) {
+#        $log->debug (sprintf '%35s: %6.0f Kb', $k, ($sizes{$k})/1024);
+#    }
+#}
 
 ## TODO: I don't think this is the right place for this code
 sub helper_html_hrefs {

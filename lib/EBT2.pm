@@ -91,6 +91,14 @@ sub ebt_lang {
     return substr +($ENV{'EBT_LANG'} || $ENV{'LANG'} || $ENV{'LANGUAGE'} || 'en'), 0, 2;
 }
 
+my $bbcode_flags_base_href = '';
+sub set_bbcode_flags_base_href {
+    my ($self, $href) = @_;
+
+    $href =~ s{/+$}{};
+    $bbcode_flags_base_href = $href;
+}
+
 sub flag {
     my ($self, $iso3166) = @_;
     my $flag_txt;
@@ -98,7 +106,7 @@ sub flag {
     if (grep { $_ eq $iso3166 } values %{ EBT2->countries }, values %{ EBT2->printers }) {
         $flag_txt = ":flag-$iso3166:";
     } else {
-        $flag_txt = sprintf '[img]https://dserrano5.es/ebtdev/ebtst/images/%s.gif[/img]', $iso3166;
+        $flag_txt = sprintf '[img]%s/images/%s.gif[/img]', $bbcode_flags_base_href, $iso3166;
     }
 
     return $flag_txt;

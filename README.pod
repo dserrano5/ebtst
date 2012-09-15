@@ -10,17 +10,17 @@ NoteInfoGenerator is (apparently) dead. Here's my own attempt at it.
 
 =item Apache configuration
 
- Alias /ebtdev/ /some/path/
+ Alias /ebt/ /some/path/
  ProxyRequests Off
  ProxyPreserveHost On
- ProxyPass /ebtdev/ebtst/stats !
- ProxyPass /ebtdev/ebtst http://localhost:1234/ebtdev/ebtst keepalive=On
- ProxyPassReverse /ebtdev/ebtst http://localhost:1234/ebtdev/ebtst
+ ProxyPass /ebt/ebtst/stats !
+ ProxyPass /ebt/ebtst http://localhost:1234/ebt/ebtst keepalive=On
+ ProxyPassReverse /ebt/ebtst http://localhost:1234/ebt/ebtst
  ProxyTimeout 2500
 
 =item EBTST configuration
 
- base_href = http://example.com/ebtdev/ebtst/
+ base_href = http://example.com/ebt/ebtst/
  statics_dir = /some/path/ebtst/public
  hypnotoad_listen = http://localhost:1234
  hypnotoad_is_proxy = 1
@@ -30,17 +30,29 @@ NoteInfoGenerator is (apparently) dead. Here's my own attempt at it.
 
 =over 4
 
-=item Chart::Gnuplot (and gnuplot, of course)
+=item *
 
-=item Config::General
+Chart::Gnuplot (and gnuplot, of course)
 
-=item Date::DayOfWeek
+=item *
 
-=item DateTime
+Config::General
 
-=item DBI
+=item *
 
-=item Text::CSV
+Date::DayOfWeek
+
+=item *
+
+DateTime
+
+=item *
+
+DBI
+
+=item *
+
+Text::CSV
 
 =back
 

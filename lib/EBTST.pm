@@ -404,6 +404,7 @@ sub startup {
 
         eval { $self->stash (ebt => EBT2->new (db => $db)); };
         $@ and die "Initializing model: '$@'\n";   ## TODO: this isn's working
+        $self->ebt->set_bbcode_flags_base_href ($base_href);
         eval { $self->ebt->load_db; };
         if ($@ and $@ !~ /No such file or directory/) {
             $self->app->log->warn (sprintf "%s: loading db: '%s'. Going on anyway.", $self->stash ('requested_url'), $@);

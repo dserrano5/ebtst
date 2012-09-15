@@ -14,9 +14,9 @@ my $cfg_file = File::Spec->catfile ($work_dir, 'ebtst.cfg');
 -r $cfg_file or die "Can't find configuration file '$cfg_file'\n";
 our %config = Config::General->new (-ConfigFile => $cfg_file, -IncludeRelative => 1, -UTF8 => 1)->getall;
 
-defined $config{'users_db'} or die "Required configuration parameter missing: 'users_db'\n";
-my $sess_dir                    = $config{'session_dir'}       // die "'session_dir' isn't configured";
-my $user_data_basedir           = $config{'user_data_basedir'} // die "'user_data_basedir' isn't configured";
+defined $config{'users_db'} or die "'users_db' isn't configured\n";
+my $sess_dir                    = $config{'session_dir'}       // die "'session_dir' isn't configured\n";
+my $user_data_basedir           = $config{'user_data_basedir'} // die "'user_data_basedir' isn't configured\n";
 my $html_dir                    = $config{'html_dir'}    // File::Spec->catfile ($ENV{'BASE_DIR'}, 'public', 'stats');
 my $statics_dir                 = $config{'statics_dir'} // File::Spec->catfile ($ENV{'BASE_DIR'}, 'public');
 my $images_dir                  = File::Spec->catfile ($config{'statics_dir'} ? $config{'statics_dir'} : ($ENV{'BASE_DIR'}, 'public'), 'images');
@@ -31,6 +31,26 @@ my $hypnotoad_is_proxy          = $config{'hypnotoad_is_proxy'} // 0;
 my $hypnotoad_heartbeat_timeout = $config{'hypnotoad_heartbeat_timeout'} // 60;
 my $hypnotoad_workers           = $config{'hypnotoad_workers'} // 4;                ## Mojo::Server::Hypnotoad default
 my $base_parts = @{ Mojo::URL->new ($base_href)->path->parts };
+
+sub _mkdir {
+    my ($dir) = @_;
+    my @parents;
+
+    my @parts = split m{/}, $dir;
+
+    my $is_abs = '/' eq substr $dir, 0, 1;
+    my $start = 0 + $is_abs;
+    foreach my $last ($start..$#parts) {
+        push @parents, join '/', @parts[0..$last];
+    }
+
+    foreach my $p (@parents) {
+        next if -d $p;
+        mkdir $p or die "mkdir: '$p': $!";
+    }
+
+    return;
+}
 
 sub helper_rss_process {
     my ($self) = @_;
@@ -255,6 +275,11 @@ sub startup {
 
     push @INC, \&_inc;
 
+    _mkdir $sess_dir;
+    _mkdir $html_dir;
+    _mkdir $statics_dir;
+    _mkdir $images_dir;
+
     $self->app->config ({
         hypnotoad => {
             accepts           => $hypnotoad_accepts,
@@ -395,12 +420,9 @@ sub startup {
         my $gnuplot_img_dir = File::Spec->catfile ($images_dir, $user);
         my $user_data_dir   = File::Spec->catfile ($user_data_basedir, $user);
         my $db              = File::Spec->catfile ($user_data_dir, 'db');
-        if (!-d $gnuplot_img_dir) {
-            mkdir $gnuplot_img_dir          or die "mkdir: '$gnuplot_img_dir': $!\n";
-            mkdir "$gnuplot_img_dir/static" or die "mkdir: '$gnuplot_img_dir/static': $!\n";
-        }
-        if (!-d $user_data_dir) { mkdir $user_data_dir or die "mkdir: '$user_data_dir': $!"; }
-        if (!-d $html_dir)      { mkdir $html_dir      or die "mkdir: '$html_dir': $!"; }
+        _mkdir $gnuplot_img_dir;
+        _mkdir "$gnuplot_img_dir/static";
+        _mkdir $user_data_dir;
 
         eval { $self->stash (ebt => EBT2->new (db => $db)); };
         $@ and die "Initializing model: '$@'\n";   ## TODO: this isn's working

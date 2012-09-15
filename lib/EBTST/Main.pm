@@ -15,7 +15,7 @@ use File::Copy;
 use Fcntl qw/:flock/;
 use Locale::Country;
 use Mojo::Cookie::Response;
-use Mojo::CookieJar;
+use Mojo::UserAgent::CookieJar;
 use Mojo::UserAgent;
 use EBTST::Main::Gnuplot;
 use EBTST::Main::Progress;
@@ -1879,7 +1879,7 @@ sub _ua_get {
         domain ('localhost')->
         path ('/');
 
-    my $cj = Mojo::CookieJar->new->add ($c);
+    my $cj = Mojo::UserAgent::CookieJar->new->add ($c);
 
     my $ua = Mojo::UserAgent->new->cookie_jar ($cj)->inactivity_timeout (300);
     $ua->on (start => sub {

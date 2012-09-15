@@ -1,6 +1,7 @@
 package EBTST::I18N;
 
 use Mojo::Base -base;
+use base 'Locale::Maketext';
 use File::Spec;
 
 sub setup_lex {

@@ -18,8 +18,11 @@ sub next_is_xhr {
 }
 
 if (-f '/tmp/ebt2-storable') { unlink '/tmp/ebt2-storable' or die "unlink: '/tmp/ebt2-storable': $!"; }
-if (-f '/home/hue/.ebt/user-data/foouser/db') { unlink '/home/hue/.ebt/user-data/foouser/db' or die "unlink: '/home/hue/.ebt/user-data/foouser/db': $!"; }
+if (-f '/home/hue/.ebt/ebtst-user-data/foouser/db') { unlink '/home/hue/.ebt/ebtst-user-data/foouser/db' or die "unlink: '/home/hue/.ebt/ebtst-user-data/foouser/db': $!"; }
 unlink glob '/home/hue/ll/lang/perl/ebt-mojo-iframes2/public/images/foouser/*svg';
+unlink glob '/home/hue/ll/lang/perl/ebt-mojo-iframes2/public/images/latinºchars/*svg';
+unlink glob '/home/hue/ll/lang/perl/ebt-mojo-iframes2/public/images/unicode⑤chars/*svg';
+unlink glob '/home/hue/ll/lang/perl/ebt-mojo-iframes2/public/images/latuniº⑤chars/*svg';
 $ENV{'BASE_DIR'} = File::Spec->catfile (getcwd, (dirname __FILE__), '..');
 
 $t = Test::Mojo->new ('EBTST');
@@ -186,7 +189,34 @@ $t->post_form_ok ('/register' => {
 })->status_is (200)->content_like (qr/Confirm passphrase/, 'POST register with already existing user');
 
 ## restore user db
-open $fd, '>', $users_file or die "open: '$users_file': $!"; print $fd $_ for @lines; close $fd;
+open $fd, '>:encoding(UTF-8)', $users_file or die "open: '$users_file': $!"; print $fd $_ for @lines; close $fd;
 
-done_testing 139;
+## users with latin-* characters in username
+$t->get_ok ('/logout');
+$t->post_form_ok ('/login' => {
+    user => 'latinºchars',
+    pass => 'foopass',
+    #csrftoken => $csrftoken,
+})->status_is (302)->header_like (Location => qr/information/, 'log in with latin-* chars user');
+$t->get_ok ('/information')->status_is (200);
+
+## users with unicode characters in username
+$t->get_ok ('/logout');
+$t->post_form_ok ('/login' => {
+    user => 'unicode⑤chars',
+    pass => 'foopass',
+    #csrftoken => $csrftoken,
+})->status_is (302)->header_like (Location => qr/information/, 'log in with unicode chars user');
+$t->get_ok ('/information')->status_is (200);
+
+## users with both latin-* and unicode characters in username
+$t->get_ok ('/logout');
+$t->post_form_ok ('/login' => {
+    user => 'latuniº⑤chars',
+    pass => 'foopass',
+    #csrftoken => $csrftoken,
+})->status_is (302)->header_like (Location => qr/information/, 'log in with latin-* and unicode chars user');
+$t->get_ok ('/information')->status_is (200);
+
+done_testing 157;
 unlink '/tmp/ebt2-storable' or warn "unlink: '/tmp/ebt2-storable': $!";

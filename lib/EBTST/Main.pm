@@ -326,7 +326,6 @@ sub information {
             $dpoints{$elem}[-1]++ if '_UNK' ne $elem;
         }
 
-        my $dest_img = File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'pct_by_pres.svg');
         EBTST::Main::Gnuplot::bartime_chart
             output => $dest_img,
             xdata => $notes_dates,

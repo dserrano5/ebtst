@@ -95,6 +95,7 @@ my $bbcode_flags_base_href = '';
 sub set_bbcode_flags_base_href {
     my ($self, $href) = @_;
 
+    $href //= '';
     $href =~ s{/+$}{};
     $bbcode_flags_base_href = $href;
 }

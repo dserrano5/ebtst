@@ -218,5 +218,11 @@ $t->post_form_ok ('/login' => {
 })->status_is (302)->header_like (Location => qr/information/, 'log in with latin-* and unicode chars user');
 $t->get_ok ('/information')->status_is (200);
 
-done_testing 157;
+$t->ua->once (start => sub {
+    my ($ua, $tx) = @_;
+    $tx->req->headers->header ('User-Agent', 'Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0)');
+});
+$t->get_ok ('/configure')->status_is (200)->content_like (qr/CSV upload doesn't work with Internet Explorer/);
+
+done_testing 160;
 unlink '/tmp/ebt2-storable' or warn "unlink: '/tmp/ebt2-storable': $!";

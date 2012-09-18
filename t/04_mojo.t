@@ -27,6 +27,10 @@ $ENV{'BASE_DIR'} = File::Spec->catfile (getcwd, (dirname __FILE__), '..');
 
 $t = Test::Mojo->new ('EBTST');
 
+my $users_file = $t->ua->app->config ('users_db');
+open my $fd, '<:encoding(UTF-8)', $users_file or die "open: '$users_file': $!"; my @lines = <$fd>; close $fd;
+if (5 != @lines) { die 'user database is broken'; }
+
 ## wrong password
 $t->get_ok ('/')->status_is (200)->element_exists ('#mainbody #repl form[id="login"]', 'login form')->text_is ('div#error_msg' => '', 'no error_msg');
 #$csrftoken = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->html->body->div->form->input->[0]->{'value'};
@@ -148,50 +152,79 @@ $t->get_ok ('/information')->status_is (302)->header_like (Location => qr/config
 $t->get_ok ('/register')->status_is (302)->header_like (Location => qr/information/, 'GET register with session');
 $t->post_form_ok ('/register' => {
     user  => 'fo€',
-    pass1 => 'bar',
-    pass2 => 'bar2',
+    pass1 => 'barbar',
+    pass2 => 'barbar2',
 })->status_is (302)->header_like (Location => qr/information/, 'POST register with session');
 $t->get_ok ('/logout')->status_is (302)->header_like (Location => qr/index/, 'logout from empty user');
 
 $t->get_ok ('/register')->status_is (200)->content_like (qr/Confirm passphrase/, 'GET register');
 $t->post_form_ok ('/register' => {
     user  => 'fo€',
-    pass1 => 'bar',
-    pass2 => 'bar2',
+    pass1 => 'barbar',
+    pass2 => 'barbar2',
 })->status_is (200)->content_like (qr/Confirm passphrase/, 'POST register with different passwords')->text_is ('div#error_msg' => 'Passwords do not match');
 $t->post_form_ok ('/register' => {
     user  => 'fo<€',
-    pass1 => 'bar',
-    pass2 => 'bar',
+    pass1 => 'barbar',
+    pass2 => 'barbar',
 })->status_is (200)->content_like (qr/Confirm passphrase/, 'POST register with bad username')->text_is ('div#error_msg' => 'Username contains invalid characters');
 $t->post_form_ok ('/register' => {
     user  => 'fo€',
-    pass1 => 'b<ar',
-    pass2 => 'b<ar',
+    pass1 => 'b<arbar',
+    pass2 => 'b<arbar',
 })->status_is (200)->content_like (qr/Confirm passphrase/, 'POST register with bad password')->text_is ('div#error_msg' => 'Password contains invalid characters');
 $t->post_form_ok ('/register' => {
     user  => 'fo"€',
-    pass1 => 'b>ar',
-    pass2 => 'b>ar',
+    pass1 => 'b>arbar',
+    pass2 => 'b>arbar',
 })->status_is (200)->content_like (qr/Confirm passphrase/, 'POST register with bad username and password')->text_is ('div#error_msg' => 'Username and password contain invalid characters');
 $t->post_form_ok ('/register' => {
     user  => 'fo€',
-    pass1 => 'bar',
-    pass2 => 'bar',
+    pass1 => 'barbar',
+    pass2 => 'barbar',
 })->status_is (302)->header_like (Location => qr/configure/, 'POST register');
 
-my $users_file = $t->ua->app->config ('users_db');
-open my $fd, '<:encoding(UTF-8)', $users_file or die "open: '$users_file': $!"; my @lines = <$fd>; close $fd;
+open $fd, '<:encoding(UTF-8)', $users_file or die "open: '$users_file': $!"; my @lines = <$fd>; close $fd;
 my $user = pop @lines; chomp $user;
-is $user, 'fo€:d82c4eb5261cb9c8aa9855edd67d1bd10482f41529858d925094d173fa662aa91ff39bc5b188615273484021dfb16fd8284cf684ccf0fc795be3aa2fc1e6c181';
+is $user, 'fo€:bc828d429f21f3488802914fcd262e54a99e53f80870a041c24080aa01304eb5feec4962df145e1be2cc7ef40384de59e601923d4ef34d713dd49d616844bed4';
 
 $t->get_ok ('/configure')->status_is (200)->element_exists ('#mainbody #repl #config_form table tr td input[name=notes_csv_file]', 'configure form')->content_unlike (qr/short_codes/, 'configure without sections')->text_is ('div#error_msg' => 'Registration successful');
 $t->get_ok ('/logout');
 
 $t->post_form_ok ('/register' => {
+    user  => '',
+    pass1 => 'bar42bar',
+    pass2 => 'bar42bar',
+})->status_is (200)->content_like (qr/Confirm passphrase/, 'POST register with empty user')->text_is ('div#error_msg' => 'Empty user or password');
+
+$t->post_form_ok ('/register' => {
+    user  => '  ',
+    pass1 => 'bar42bar',
+    pass2 => 'bar42bar',
+})->status_is (200)->content_like (qr/Confirm passphrase/, 'POST register with only-spaces user')->text_is ('div#error_msg' => 'Empty user or password');
+
+$t->post_form_ok ('/register' => {
     user  => 'fo€',
-    pass1 => 'bar42',
-    pass2 => 'bar42',
+    pass1 => '',
+    pass2 => '',
+})->status_is (200)->content_like (qr/Confirm passphrase/, 'POST register with empty password')->text_is ('div#error_msg' => 'Empty user or password');
+
+$t->post_form_ok ('/register' => {
+    user  => 'fo€',
+    pass1 => 'foo',
+    pass2 => 'foo',
+})->status_is (200)->content_like (qr/Confirm passphrase/, 'POST register with short password')->text_is ('div#error_msg' => 'Password is too short');
+
+$t->post_form_ok ('/register' => {
+    user  => '',
+    pass1 => '',
+    pass2 => '',
+})->status_is (200)->content_like (qr/Confirm passphrase/, 'POST register with empty user and password')->text_is ('div#error_msg' => 'Empty user or password');
+
+$t->post_form_ok ('/register' => {
+    user  => 'fo€',
+    pass1 => 'bar42bar',
+    pass2 => 'bar42bar',
 })->status_is (200)->content_like (qr/Confirm passphrase/, 'POST register with already existing user')->text_is ('div#error_msg' => 'User already exists');
 
 ## restore user db
@@ -230,4 +263,4 @@ $t->ua->once (start => sub {
 });
 $t->get_ok ('/configure')->status_is (200)->content_like (qr/CSV upload doesn't work with Internet Explorer/);
 
-done_testing 180;
+done_testing 200;

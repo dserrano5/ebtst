@@ -254,7 +254,15 @@ sub register {
         return;
     }
 
+    $u =~ s/^\s+//; $u =~ s/\s+$//;
+
     if (!length $u or !length $p1) {
+        $self->stash (msg => 'Empty user or password');
+        return;
+    }
+
+    if (6 > length $p1) {
+        $self->stash (msg => 'Password is too short');
         return;
     }
 
@@ -1027,7 +1035,7 @@ sub notes_per_year {
         push @$nby, {
             year   => $y,
             count  => $tot,
-            pct    => $count ? (sprintf '%.2f', 100 * $tot / $count) : 0,
+            pct    => (sprintf '%.2f', 100 * $tot / $count),
             detail => $detail,
         };
         $cursor->add (years => 1);
@@ -1071,7 +1079,7 @@ sub notes_per_month {
         push @$nbm, {
             month  => $m,
             count  => $tot,
-            pct    => $count ? (sprintf '%.2f', 100 * $tot / $count) : 0,
+            pct    => (sprintf '%.2f', 100 * $tot / $count),
             detail => $detail,
         };
         $cursor->add (months => 1);

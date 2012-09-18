@@ -1713,15 +1713,23 @@ sub upload {
     my $notes_csv = $self->req->upload ('notes_csv_file');
     my $hits_csv  = $self->req->upload ('hits_csv_file');
     my $sha = substr +(sha512_hex $self->stash ('user')), 0, 8;
-    $self->app->log->debug ("sha ($sha)");
+
+    my $something_done = 0;
     if ($notes_csv and $notes_csv->size) {
+        $self->_log (debug => "upload: there's notes CSV");
         my $local_notes_file = File::Spec->catfile ($tmpdir, "$sha-notes.csv");
         $notes_csv->move_to ($local_notes_file);
+        $something_done = 1;
     }
     if ($hits_csv and $hits_csv->size) {
+        $self->_log (debug => "upload: there's hits CSV");
         my $local_hits_file = File::Spec->catfile ($tmpdir, "$sha-hits.csv");
         $hits_csv->move_to ($local_hits_file);
+        $something_done = 1;
     }
+
+    if (!$something_done) { $self->_log (debug => "upload: no notes or hits given"); }
+    $self->app->log->debug ("sha ($sha)");
 
     $self->render_text ($sha, layout => undef, format => 'txt');
     return;
@@ -1738,6 +1746,7 @@ sub import {
     my $local_hits_file  = File::Spec->catfile ($tmpdir, "$sha-hits.csv");
 
     if (!-e $local_notes_file and !-e $local_hits_file) {
+        $self->_log (info => "import: no notes or hits, rendering 404");
         return $self->render_not_found;
     }
 

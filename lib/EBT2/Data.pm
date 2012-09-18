@@ -290,7 +290,7 @@ sub load_notes {
     open $fd, '<:encoding(UTF-8)', $notes_file or die "open: '$notes_file': $!\n";
     my $header = <$fd>;
     $header =~ s/[\x0d\x0a]*$//;
-    die "Unrecognized notes file\n" unless 'EBT notes v2' eq $header;
+    die "Unrecognized notes file\n" if $header !~ /^\x{feff}?EBT notes v2$/;
 
     open my $outfd, '>:encoding(UTF-8)', $store_path or die "open: '$store_path': $!" if $store_path;
     my $notes_csv = Text::CSV->new ({ sep_char => ';', binary => 1 });
@@ -388,7 +388,7 @@ sub load_hits {
     open $fd, '<:encoding(UTF-8)', $hits_file or die "open: '$hits_file': $!\n";
     my $header = <$fd>;
     $header =~ s/[\x0d\x0a]*$//;
-    die "Unrecognized hits file\n" unless 'EBT hits v4' eq $header;
+    die "Unrecognized hits file\n" if $header !~ /^\x{feff}?EBT hits v4$/;
 
     my $hits_csv = Text::CSV->new ({ sep_char => ';', binary => 1 });
     $hits_csv->column_names (@hits_column_names1);

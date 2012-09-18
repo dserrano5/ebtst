@@ -184,7 +184,7 @@ $t->post_form_ok ('/register' => {
     pass2 => 'barbar',
 })->status_is (302)->header_like (Location => qr/configure/, 'POST register');
 
-open $fd, '<:encoding(UTF-8)', $users_file or die "open: '$users_file': $!"; my @lines = <$fd>; close $fd;
+open $fd, '<:encoding(UTF-8)', $users_file or die "open: '$users_file': $!"; @lines = <$fd>; close $fd;
 my $user = pop @lines; chomp $user;
 is $user, 'fo€:bc828d429f21f3488802914fcd262e54a99e53f80870a041c24080aa01304eb5feec4962df145e1be2cc7ef40384de59e601923d4ef34d713dd49d616844bed4';
 

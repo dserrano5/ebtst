@@ -354,7 +354,7 @@ sub information {
         }
 
         EBTST::Main::Gnuplot::bartime_chart
-            output => $dest_img,
+            output => (encode 'UTF-8', $dest_img),
             xdata => $notes_dates,
             title => (encode 'UTF-8', $self->l ('Historic percent notes by president')),
             percent => 1,
@@ -456,7 +456,7 @@ sub value {
         #    }
         #}
         -e $dest_img1 or EBTST::Main::Gnuplot::line_chart
-            output => $dest_img1,
+            output => (encode 'UTF-8', $dest_img1),
             xdata => $notes_dates,
             title => (encode 'UTF-8', $self->l ('Accumulated notes by value')),
             dsets => [
@@ -472,7 +472,7 @@ sub value {
         $xhr and $self->{'progress'}->base_add ($count*0.2);
 
         -e $dest_img2 or EBTST::Main::Gnuplot::bartime_chart
-            output => $dest_img2,
+            output => (encode 'UTF-8', $dest_img2),
             xdata => $notes_dates,
             title => (encode 'UTF-8', $self->l ('Historic percent notes by value')),
             percent => 1,
@@ -488,7 +488,7 @@ sub value {
         $xhr and $self->{'progress'}->base_add ($count*0.2);
 
         -e $dest_img3 or EBTST::Main::Gnuplot::line_chart
-            output => $dest_img3,
+            output => (encode 'UTF-8',  $dest_img3),
             xdata => $notes_dates,
             title => (encode 'UTF-8', $self->l ('Historic mean value')),
             dsets => [
@@ -813,7 +813,7 @@ sub travel_stats {
         } 0..7;
 
         EBTST::Main::Gnuplot::line_chart
-            output => $dest_img,
+            output => (encode 'UTF-8', $dest_img),
             xdata => $notes_dates,
             title => (encode 'UTF-8', $self->l ('Cities with most notes')),
             logscale => 'y',
@@ -1179,7 +1179,7 @@ sub top_days {
     $t0 = [gettimeofday];
     my $dest_img = File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'week_days.svg');
     -e $dest_img or EBTST::Main::Gnuplot::bar_chart
-        output     => $dest_img,
+        output     => (encode 'UTF-8', $dest_img),
         labels     => [ map { encode 'UTF-8', $self->l ($_) } qw/Monday Tuesday Wednesday Thursday Friday Saturday Sunday/ ],
         title => (encode 'UTF-8', $self->l ('Accumulated notes by day of the week')),
         bar_border => 1,
@@ -1619,7 +1619,7 @@ sub hit_summary {
         }
 
         -e $dest_img1 or EBTST::Main::Gnuplot::line_chart
-            output => $dest_img1,
+            output => (encode 'UTF-8', $dest_img1),
             xdata => \@all_dates,
             title => (encode 'UTF-8', $self->l ('Historic hit ratio')),
             dsets => [
@@ -1628,7 +1628,7 @@ sub hit_summary {
         $xhr and $self->{'progress'}->base_add ($count*0.2);
 
         -e $dest_img2 or EBTST::Main::Gnuplot::line_chart
-            output => $dest_img2,
+            output => (encode 'UTF-8', $dest_img2),
             xdata => $hits_dates,
             title => (encode 'UTF-8', $self->l ('Historic hit travel days')),
             dsets => [
@@ -1637,7 +1637,7 @@ sub hit_summary {
         $xhr and $self->{'progress'}->base_add ($count*0.2);
 
         -e $dest_img3 or EBTST::Main::Gnuplot::line_chart
-            output => $dest_img3,
+            output => (encode 'UTF-8', $dest_img3),
             xdata => $hits_dates,
             title => (encode 'UTF-8', $self->l ('Historic hit travel km')),
             dsets => [

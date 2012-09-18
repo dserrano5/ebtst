@@ -111,6 +111,7 @@ sub bd_set_env_initial_stash {
     $self->stash (has_hits      => undef);
     $self->stash (has_bad_notes => undef);
     $self->stash (user          => undef);
+    $self->stash (msg           => '');
     $self->stash (title         => '');
 }
 

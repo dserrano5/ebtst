@@ -97,7 +97,7 @@
             <% } %>
         </td><td style="padding: 0px; margin: 0px; background-color: #c0c0ff">
             <div id="repl">
-                <div id="error_msg"></div>
+                <div id="error_msg"><%=l $msg %></div>
                 <%= content %>
             </div>
         </td></tr></table>

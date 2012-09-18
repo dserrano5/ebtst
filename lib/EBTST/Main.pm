@@ -182,6 +182,7 @@ sub index {
     my ($self) = @_;
 
     $self->flash (requested_url => $self->flash ('requested_url'));
+    $self->stash (msg => $self->flash ('msg')//'');
     $self->stash (title => $section_titles{'index'});
 
     if ($self->req->is_xhr) {
@@ -189,6 +190,7 @@ sub index {
     } else {
         $self->redirect_to ('information') if ref $self->stash ('sess') and $self->stash ('sess')->sid;
     }
+
     return;
 }
 
@@ -214,9 +216,11 @@ sub login {
             $self->redirect_to ($dest);
             return;
         } else {
+            $self->flash (msg => 'Wrong username/passphrase');
             $self->_log (info => 'login failed');
         }
     } else {
+        $self->flash (msg => 'Wrong username/passphrase');
         $self->_log (info => "login attempt for non-existing user '$u'");
     }
 
@@ -247,17 +251,28 @@ sub register {
     my $p2 = $self->param ('pass2');
     if ($p1 ne $p2) {
         $self->_log (info => 'passwords do not match');
+        $self->stash (msg => 'Passwords do not match');
         return;
     }
 
     my $invalid = 0;
-    if ($u  =~ /[<>&'"`]/) { $self->_log (info => 'invalid username'); $invalid = 1; }
-    if ($p1 =~ /[<>&'"`]/) { $self->_log (info => 'invalid password'); $invalid = 1; }
-    return if $invalid;
+    if ($u  =~ /[<>&'"`]/) { $self->_log (info => 'invalid username'); $invalid |= 1; }
+    if ($p1 =~ /[<>&'"`]/) { $self->_log (info => 'invalid password'); $invalid |= 2; }
+    if ($invalid) {
+        if (1 == $invalid) {
+            $self->stash (msg => 'Username contains invalid characters');
+        } elsif (2 == $invalid) {
+            $self->stash (msg => 'Password contains invalid characters');
+        } else {
+            $self->stash (msg => 'Username and password contain invalid characters');
+        }
+        return;
+    }
 
     $self->load_users;
     if (exists $users{$u}) {
         $self->_log (info => "register attempt for existing user '$u'");
+        $self->stash (msg => 'User already exists');
         return;
     }
 
@@ -267,14 +282,15 @@ sub register {
         printf $fd "%s:%s\n", $u, sha512_hex $p1;
         flock $fd, LOCK_UN;
         close $fd;
-        $self->_log (debug => "stored entry for user '$u'");
     } else {
         $self->_log (warn => "open: '$users_file': $!");
+        $self->flash (msg => 'Error upon registration');
         return;
     }
 
     $self->stash ('sess')->create;
     $self->stash ('sess')->data (user => $u);
+    $self->flash (msg => 'Registration successful');
     $self->_log (info => "new user '$u', redirecting to configure");
     $self->redirect_to ('configure');
     return;
@@ -1671,6 +1687,7 @@ sub configure {
     my ($self) = @_;
 
     $self->stash (
+        msg   => $self->flash ('msg')//'',
         title => $section_titles{'configure'},
         ua    => $self->req->headers->user_agent,
     );

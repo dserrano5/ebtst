@@ -28,7 +28,7 @@ $ENV{'BASE_DIR'} = File::Spec->catfile (getcwd, (dirname __FILE__), '..');
 $t = Test::Mojo->new ('EBTST');
 
 ## wrong password
-$t->get_ok ('/')->status_is (200)->element_exists ('#mainbody #repl form[id="login"]', 'login form');
+$t->get_ok ('/')->status_is (200)->element_exists ('#mainbody #repl form[id="login"]', 'login form')->text_is ('div#error_msg' => '', 'no error_msg');
 #$csrftoken = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->html->body->div->form->input->[0]->{'value'};
 
 $t->post_form_ok ('/login' => {
@@ -36,6 +36,8 @@ $t->post_form_ok ('/login' => {
     pass => 'invalid pass',
     #csrftoken => $csrftoken,
 })->status_is (302)->header_like (Location => qr/index/, 'redir to index');
+
+$t->get_ok ('/index')->status_is (200)->text_is ('div#error_msg' => 'Wrong username/passphrase', 'Wrong username/passphrase');
 
 ## session needed
 $t->get_ok ('/progress')->status_is (302)->header_like (Location => qr/index/, 'session needed');
@@ -45,7 +47,7 @@ $t->get_ok ('/configure')->status_is (302)->header_like (Location => qr/index/, 
 $t->get_ok ('/value')->status_is (302)->header_like (Location => qr/index/, 'EBT2 object needed');
 
 ## correct password
-$t->get_ok ('/');
+$t->get_ok ('/')->text_is ('div#error_msg' => '', 'no error_msg');
 #$csrftoken = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->html->body->div->form->input->[0]->{'value'};
 
 $t->post_form_ok ('/login' => {
@@ -56,13 +58,13 @@ $t->post_form_ok ('/login' => {
 
 ## with session
 $t->get_ok ('/progress')->status_is (200)->content_type_is ('application/json')->json_content_is ({ cur => 0, total => 1 }, 'default progress');
-$t->get_ok ('/configure')->status_is (200)->element_exists ('#mainbody #repl #config_form table tr td input[name=notes_csv_file]', 'configure form')->content_unlike (qr/short_codes/, 'configure without sections');
+$t->get_ok ('/configure')->status_is (200)->element_exists ('#mainbody #repl #config_form table tr td input[name=notes_csv_file]', 'configure form')->content_unlike (qr/short_codes/, 'configure without sections')->text_is ('div#error_msg' => '', 'no error_msg');
 
 ## EBT2 object needed
-$t->get_ok ('/value')->status_is (302)->header_like (Location => qr/configure/, 'EBT2 object needed')->content_unlike (qr/short_codes/, 'no sections');
+$t->get_ok ('/value')->status_is (302)->header_like (Location => qr/configure/, 'EBT2 object needed');
 
 ## upload notes CSV
-$t->get_ok ('/configure');
+$t->get_ok ('/configure')->text_is ('div#error_msg' => '', 'no error_msg');
 #$csrftoken = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->html->body->div->[1]->form->input->[0]->{'value'};
 
 $t->post_form_ok ('/upload', {
@@ -78,12 +80,12 @@ next_is_xhr; $t->get_ok ("/import/$bad_sha")->status_is (404);
 next_is_xhr; $t->get_ok ("/import/$sha")->status_is (200)->content_type_is ('text/plain')->content_is ('information', 'import');
 
 ## correct data
-$t->get_ok ('/information')->status_is (200)->content_like (qr/\bSignatures:.*\bDuisenberg 0.*\bTrichet 2.*\bDraghi 0\b/s, 'correct data')->content_like (qr/short_codes/, 'with sections');
+$t->get_ok ('/information')->status_is (200)->content_like (qr/\bSignatures:.*\bDuisenberg 0.*\bTrichet 2.*\bDraghi 0\b/s, 'correct data')->content_like (qr/short_codes/, 'with sections')->text_is ('div#error_msg' => '', 'no error_msg');
 #$csrftoken = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->html->body->div->[0]->form->input->{'value'};
 
 ## /configuration and /help now must show the entire menu
-$t->get_ok ('/configure')->status_is (200)->content_like (qr/short_codes/, 'configure has sections');
-$t->get_ok ('/help')->status_is (200)->content_like (qr/short_codes/, 'help has sections');
+$t->get_ok ('/configure')->status_is (200)->content_like (qr/short_codes/, 'configure has sections')->text_is ('div#error_msg' => '', 'no error_msg');
+$t->get_ok ('/help')->status_is (200)->content_like (qr/short_codes/, 'help has sections')->text_is ('div#error_msg' => '', 'no error_msg');
 
 ## BBCode/HTML generation
 $t->post_form_ok ('/calc_sections', { information => 1, value => 1, })->status_is (404);
@@ -133,7 +135,6 @@ $t->get_ok ('/locations')->status_is (200)->content_like (qr/Kosovo/, 'Kosovo su
 ## logging out
 $t->get_ok ('/logout')->status_is (302)->header_like (Location => qr/index/, 'log out');
 
-## logout with an empty database
 $t->get_ok ('/');
 #$csrftoken = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->html->body->div->form->input->[0]->{'value'};
 
@@ -157,17 +158,22 @@ $t->post_form_ok ('/register' => {
     user  => 'fo€',
     pass1 => 'bar',
     pass2 => 'bar2',
-})->status_is (200)->content_like (qr/Confirm passphrase/, 'POST register with different passwords');
+})->status_is (200)->content_like (qr/Confirm passphrase/, 'POST register with different passwords')->text_is ('div#error_msg' => 'Passwords do not match');
 $t->post_form_ok ('/register' => {
     user  => 'fo<€',
     pass1 => 'bar',
     pass2 => 'bar',
-})->status_is (200)->content_like (qr/Confirm passphrase/, 'POST register with bad username');
+})->status_is (200)->content_like (qr/Confirm passphrase/, 'POST register with bad username')->text_is ('div#error_msg' => 'Username contains invalid characters');
 $t->post_form_ok ('/register' => {
     user  => 'fo€',
     pass1 => 'b<ar',
     pass2 => 'b<ar',
-})->status_is (200)->content_like (qr/Confirm passphrase/, 'POST register with bad password');
+})->status_is (200)->content_like (qr/Confirm passphrase/, 'POST register with bad password')->text_is ('div#error_msg' => 'Password contains invalid characters');
+$t->post_form_ok ('/register' => {
+    user  => 'fo"€',
+    pass1 => 'b>ar',
+    pass2 => 'b>ar',
+})->status_is (200)->content_like (qr/Confirm passphrase/, 'POST register with bad username and password')->text_is ('div#error_msg' => 'Username and password contain invalid characters');
 $t->post_form_ok ('/register' => {
     user  => 'fo€',
     pass1 => 'bar',
@@ -179,14 +185,14 @@ open my $fd, '<:encoding(UTF-8)', $users_file or die "open: '$users_file': $!"; 
 my $user = pop @lines; chomp $user;
 is $user, 'fo€:d82c4eb5261cb9c8aa9855edd67d1bd10482f41529858d925094d173fa662aa91ff39bc5b188615273484021dfb16fd8284cf684ccf0fc795be3aa2fc1e6c181';
 
-$t->get_ok ('/configure')->status_is (200)->element_exists ('#mainbody #repl #config_form table tr td input[name=notes_csv_file]', 'configure form')->content_unlike (qr/short_codes/, 'configure without sections');
+$t->get_ok ('/configure')->status_is (200)->element_exists ('#mainbody #repl #config_form table tr td input[name=notes_csv_file]', 'configure form')->content_unlike (qr/short_codes/, 'configure without sections')->text_is ('div#error_msg' => 'Registration successful');
 $t->get_ok ('/logout');
 
 $t->post_form_ok ('/register' => {
     user  => 'fo€',
     pass1 => 'bar42',
     pass2 => 'bar42',
-})->status_is (200)->content_like (qr/Confirm passphrase/, 'POST register with already existing user');
+})->status_is (200)->content_like (qr/Confirm passphrase/, 'POST register with already existing user')->text_is ('div#error_msg' => 'User already exists');
 
 ## restore user db
 open $fd, '>:encoding(UTF-8)', $users_file or die "open: '$users_file': $!"; print $fd $_ for @lines; close $fd;
@@ -224,5 +230,4 @@ $t->ua->once (start => sub {
 });
 $t->get_ok ('/configure')->status_is (200)->content_like (qr/CSV upload doesn't work with Internet Explorer/);
 
-done_testing 160;
-unlink '/tmp/ebt2-storable' or warn "unlink: '/tmp/ebt2-storable': $!";
+done_testing 178;

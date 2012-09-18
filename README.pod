@@ -32,6 +32,10 @@ NoteInfoGenerator is (apparently) dead. Here's my own attempt at it.
 
 =item *
 
+Perl 5.10
+
+=item *
+
 Chart::Gnuplot (and gnuplot, of course)
 
 =item *

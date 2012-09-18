@@ -38,9 +38,17 @@ User = Utente
 Passphrase = Password
 Login = Login
 Register = Registrazione
+Wrong username/passphrase = Errore nel nome utente o nella password
 
 ## register
 Confirm passphrase = Conferma della password
+Passwords do not match = Le password non coincidono
+Username contains invalid characters = Il nome utente contiene caratteri non consentiti
+Password contains invalid characters = La password contiene caratteri non consentiti
+Username and password contain invalid characters = Nome utente e password contengono caratteri non consentiti
+User already exists = Questo nome utente è già stato scelto
+Error upon registration = Si è verificato un errore, la registrazione non è stata completata
+Registration successful = La registrazione è stata effettuata con successo
 
 ## information
 General information = Informazioni generali
@@ -68,7 +76,7 @@ Historic percent notes by president = Percentuale complessiva di banconote per o
 Number of notes by value = Numero di banconote per valore
 Notes = Banconote
 Percent = Percentuale
-Amount = Quantità
+Amount = Valore
 Accumulated notes by value = Banconote totali per valore
 Historic percent notes by value = Percentuale complessiva di banconote per valore
 Historic mean value = Media complessiva per valore
@@ -96,7 +104,7 @@ First notes by printer code = Prima banconota per codice della stamperia
 Location = Località
 Total = Totale
 Visits = Visite
-Total yearly visits = Totale anni di visita
+Total yearly visits = Totale località visitate per anno
 Number of locations = Numero di località
 Number of different yearly visits = Visite annuali
 Number of one time visit locations = Località visitate un solo anno
@@ -125,11 +133,11 @@ Date = Data
 
 ## nice_serials
 Serial number = Numero di serie
-note(s) = Banconota/e
+note(s) = banconote
 of total = sul totale
-have = ha/hanno
+have = hanno
 numbers in a row = cifre consecutive
-contain = contiene/contengono
+contain = contengono
 different digits = cifre differenti
 
 ## notes_per_year
@@ -170,7 +178,7 @@ Combinations bingo = Bingo delle combinazioni
 Still missing combinations = Combinazioni mancanti
 Unknown combinations = Combinazioni sconosciute
 History = Storia
-History text format inspired by = Formato della storia ispirato da
+History text format inspired by = Formato del testo ispirato da
 
 ## note evolution
 Interval = Intervallo
@@ -205,7 +213,7 @@ Insert month = Mese di inserimento
 ## hit times
 
 ## hit locations
-My city = La mia località
+My city = Le mia località
 Frequent Locations (Hit Partners') = Località più frequenti (dei compagni di hit)
 Altogether hit partners in = Complessivamente hai compagni di hit in
 different locations = località differenti
@@ -215,18 +223,18 @@ Both ways hits = Hit in entrambe le direzioni
 
 ## hit analysis
 Hit top-10 = Top-10 delle hit
-Most kilometers = Più spazio
-Most days = Più tempo
+Most kilometers = Le 10 hit con più spazio percorso
+Most days = Le 10 hit con più tempo trascorso
 Lucky bundles = Giorni fortunati
 Other hit potential = Altri giorni potenzialmente fortunati
 
 ## hit summary
 Hits = Hit
-national = nazionale/i
+national = nazionali
 and = e
-international = internazionale/i
+international = internazionali
 plus = più
-moderated = moderata/e
+moderated = moderate
 Normal hits = Hit normali
 Triples = Triple
 Quadruples = Quadruple
@@ -240,7 +248,7 @@ Hit ratio = Hit-ratio
 Hit ratios = Hit-ratio
 Hit finder/maker - giver/getter ratio = Rapporto hit attive / hit passive
 Next hit should occur on average on = La prossima hit arriverà, in media, il giorno
-or it's a dry spell = o sarà una sfortuna
+or it's a dry spell = o sarà un periodo di siccità
 Minimum = Minimo
 Maximum = Massimo
 Travel days = Giorni di viaggio
@@ -285,19 +293,19 @@ Submit = Invio
 _help_main_usage_1 = Dopo aver caricato i file CSV (vedere la sezione "Configurazione"), selezionare le caselle desiderate a sinistra e cliccare su "BBCode / HTML" per generare statistiche pubbliche. Si apre una nuova finestra o scheda con un collegamento a BBCode e HTML.
 _help_colors_1 = Alcune sezioni mostrano i numeri in diversi colori. I colori sono:
 _help_colors_2 = Gli asterischi colorati che appaiono in alcune pagine mostrano quanto sono recenti le note:
-note has been entered up to 1 year ago = La banconota è stata inserita da meno di un anno
+note has been entered up to 1 year ago = La banconota è stata inserita da meno di 1 anno
 note has been entered up to 3 months ago = La banconota è stata inserita da meno di 3 mesi
 note has been entered up to 1 week ago = La banconota è stata inserita da meno di 1 settimana
-_configure_1 = EBTST accetta file CSV compressi in formato zip o gzip. L'utilizzo di file compressi archivi rende minori i tempi di caricamento.
+_configure_1 = EBTST accetta file CSV compressi in formato zip o gzip. L'utilizzo di file compressi rende minori i tempi di caricamento.
 _configure_2 = Sarà conservata una copia del file delle banconote, con il seguente formato:
 _countries_1 = I dati percentuali riportati nella tabella "Dettagli" mostrano la percentuale di banconote di ogni paese in relazione a tutte le banconote stampate per quel valore. Pertanto, sommati verticalmente, danno un risultato pari a 100%.
 _printers_1 = Come in "Nazioni", i dati percentuali riportati nella tabella "Dettagli" mostrano la percentuale di banconote di ogni paese in relazione a tutte le banconote stampate per quel valore. Pertanto, sommati verticalmente, danno un risultato pari a 100%.
 _huge_table_1 = Per evitare voci inutili nella tabella, vengono ignorate le banconote con errori.
 _short_codes_1 = Anche qui vengono ignorate le banconote con errori.
-_nice_serials_1 = L'algoritmo con cui si classificano i numeri di serie sono i seguenti: in primo luogo, conta il seriale con il minor numero di sequenze di cifre uguali. Così *1111122233 (3 sequenze) batte *1112111211 (5 sequenze). Nel caso frequente di un pareggio, la serie con la sequenza più lunga vince. Questi sono i criteri principali per il punteggio, ma ce ne sono altri di miore rilevanza.
+_nice_serials_1 = I criteri in base a cui si classificano i numeri di serie sono i seguenti: in primo luogo, conta il seriale con il minor numero di sequenze di cifre uguali. Così *1111122233 (3 sequenze) batte *1112111211 (5 sequenze). Nel caso frequente di un pareggio, la serie con la sequenza più lunga vince. Questi sono i criteri principali, ma ce ne sono altri di minore rilevanza.
 _coords_bingo_1 = Per evitare voci inutili, anche qui vengono ignorate le banconote con errori.
-_combinations_1 = Anche in questo caso non sono conteggiate le banconote con errori. Sommate tra loro, le percentuali danno un totale pari al 100%.
-_plate_bingo_1 = Vengono ignorate le banconote con errori. Nessun trattamento speciale è riservato ai rari casi di lastre di stampa che condividono firme diverse di presidenti della BCE (in particolare: <img src="images/values/10.gif"> K007, <img src="images/values/10.gif"> P005, <img src="images/values/20.gif"> F002 e <img src="images/values/100.gif"> F002g).
+_combinations_1 = Anche in questo caso non sono conteggiate le banconote con errori. Sommate verticalmente tra loro, le percentuali danno un totale pari a 100%.
+_plate_bingo_1 = Vengono ignorate le banconote con errori. Nessun trattamento speciale è riservato ai casi di lastre di stampa che condividono firme diverse di presidenti della BCE (attuamente sono: <img src="images/values/10.gif"> K007, <img src="images/values/10.gif"> P005, <img src="images/values/20.gif"> F002 e <img src="images/values/100.gif"> F002).
 
 ## days of week
 Monday = Lunedì

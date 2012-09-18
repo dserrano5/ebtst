@@ -250,10 +250,10 @@ sub register {
         return;
     }
 
-    if ($u =~ /[<>&'"]/ or $p1 =~ /[<>&'"]/) {
-        $self->_log (info => 'invalid username or password');
-        return;
-    }
+    my $invalid = 0;
+    if ($u  =~ /[<>&'"`]/) { $self->_log (info => 'invalid username'); $invalid = 1; }
+    if ($p1 =~ /[<>&'"`]/) { $self->_log (info => 'invalid password'); $invalid = 1; }
+    return if $invalid;
 
     $self->load_users;
     if (exists $users{$u}) {
@@ -1792,7 +1792,7 @@ sub import {
 sub _prepare_html_dir {
     my ($self, $statics_dir, $dest_dir) = @_;
 
-    system "rm -rf $dest_dir";
+    system qq[rm -rf "$dest_dir"];
     if (-1 == $?) {
         die "system: $!";
     } elsif (my $sig = $? & 127) {

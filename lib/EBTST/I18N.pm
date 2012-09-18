@@ -7,10 +7,10 @@ use File::Spec;
 sub setup_lex {
     my ($lang, $lex) = @_;
 
-    warn "*** loading lexicon '$lang'\n";
+    #warn "*** loading lexicon '$lang'\n";
 
     my $file = File::Spec->catfile ($ENV{'BASE_DIR'}, "$lang.txt");
-    warn "*** file ($file)\n";
+    #warn "*** file ($file)\n";
     if (!-r $file) {
         warn "*** file is not readable\n";
         return;
@@ -31,7 +31,7 @@ sub setup_lex {
     }
     close $fd;
 
-    warn "*** lexicon '$lang' loaded\n";
+    #warn "*** lexicon '$lang' loaded\n";
 }
 
 1;

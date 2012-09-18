@@ -23,4 +23,7 @@
     </table>
     <br>
     <input type="submit" id="config_submit_button" value="<%=l 'Submit' %>">
+    <% if ($ua =~ /MSIE/) { =%>
+        (CSV upload doesn't work with Internet Explorer)
+    <% } =%>
 </form>

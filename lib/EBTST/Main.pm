@@ -1672,6 +1672,7 @@ sub configure {
 
     $self->stash (
         title => $section_titles{'configure'},
+        ua    => $self->req->headers->user_agent,
     );
 }
 

@@ -1,0 +1,527 @@
+## layout
+Public stats = Statistiche pubbliche
+Information = Informazioni
+Value = Valore
+Countries = Nazioni
+Locations = Località
+Travel stats = Statistiche sui viaggi
+Printers = Stamperie
+Huge table = Tabella gigante
+Short codes = Codici corti
+Nice serials = Numeri curiosi
+Coordinates bingo = Bingo delle coordinate
+Notes/year = Banconote/anno
+Notes/month = Banconote/mese
+Top days = Giorni migliori
+Time analysis (bingo) = Analisi cronologica (bingo)
+Time analysis (detail) = Analisi cronologica (dettaglio)
+Combinations (bingo) = Combinazioni (bingo)
+Combinations (detail) = Combinazioni (dettaglio)
+#Note evolution = Evoluzione cronologica
+Plate bingo = Bingo delle lastre di stampa
+Bad notes = Banconote sbagliate
+Hit list = Lista delle hit
+Hit times (bingo) = Analisi cronologica delle hit (bingo)
+Hit times (detail) = Analisi cronologica delle hit (dettaglio)
+Hit locations = Località delle hit
+Hit analysis = Analisi delle hit
+Hit summary = Sommario delle hit
+Calendar = Calendario
+#Charts = Grafici
+Configuration = Configurazione
+Logout = Uscita
+Help = Aiuto
+
+## index
+Welcome = Benvenuto
+User = Utente
+Passphrase = Password
+Login = Login
+Register = Registrazione
+
+## register
+Confirm passphrase = Conferma della password
+
+## information
+General information = Informazioni generali
+First note entered = Prima banconota inserita
+in = in
+Situation on = Situazione al
+(full) days after the first note was entered = giorni (completi) dalla prima banconota
+Active/inactive EBT days = Giorni di attività/inattività su EBT
+days = giorni
+notes = banconote
+Longest period of consecutive active days = Periodo più lungo di giorni di attività consecutivi
+Current consecutive active days = Periodo attuale di giorni di attività consecutivi
+Longest break from EBT = Periodo più lungo di giorni di inattività consecutivi
+Current break from EBT = Periodo attuale di giorni di inattività consecutivi
+Total number of notes = Numero totale di banconote
+Total value of all notes = Valore totale delle banconote
+Signatures = Firme
+Unknown = Sconosciuta
+Average value per note = Valore medio delle banconote
+Average entering rate = Quantità media di banconote al giorno
+notes/day = banconote/giorno
+Historic percent notes by president = Percentuale complessiva di banconote per ogni presidente della BCE
+
+## value
+Number of notes by value = Numero di banconote per valore
+Notes = Banconote
+Percent = Percentuale
+Amount = Quantità
+Accumulated notes by value = Banconote totali per valore
+Historic percent notes by value = Percentuale complessiva di banconote per valore
+Historic mean value = Media complessiva per valore
+Average value = Valore medio
+First notes by value = Prima banconota per valore
+was the first = è stata la prima
+
+## countries
+Number of notes by country code = Numero di banconote per Nazione
+Country = Nazione
+Detail of notes per value and country code = Dettaglio delle banconote per valore e Nazione
+First notes by country code = Prima banconota per Nazione
+Note = La banconota
+was the first from = è stata la prima da
+entered on = inserita il giorno
+note = banconota
+
+## locations
+Countries with notes entered = Nazioni da cui sono state inserite banconote
+Number of notes by location = Numero di banconote per località
+Alphabets of locations by country = Alfabeto delle località per Nazione
+First notes by printer code = Prima banconota per codice della stamperia
+
+## travel_stats
+Location = Località
+Total = Totale
+Visits = Visite
+Total yearly visits = Totale anni di visita
+Number of locations = Numero di località
+Number of different yearly visits = Visite annuali
+Number of one time visit locations = Località visitate un solo anno
+Cities with most notes = Località con più banconote
+
+## printers
+Number of notes by printer code = Numero di banconote per codice della stamperia
+Printer = Stamperia
+Printer name = Nome della stamperia
+Detail of notes per value and printer code = Dettaglio delle banconote per valore e codice della stamperia
+
+## huge_table
+Notes have been entered up to = Banconote inserite da meno di
+1 year ago = 1 anno
+3 months ago = 3 mesi
+1 week ago = 1 settimana
+
+## short codes
+Absolute lowest and highest short codes = Codici corti più bassi e più alti, in assoluto
+Lowest and highest short codes per value = Codici corti più bassi e più alti, per valore
+all = tutto
+Absolute highest short codes = Codici corti più alti, in assoluto
+Highest short codes per value = Codici corti più alti, per valore
+Short code = Codice corto
+Date = Data
+
+## nice_serials
+Serial number = Numero di serie
+note(s) = Banconota/e
+of total = sul totale
+have = ha/hanno
+numbers in a row = cifre consecutive
+contain = contiene/contengono
+different digits = cifre differenti
+
+## notes_per_year
+Number of notes per year = Numero di banconote per anno
+Year = Anno
+
+## notes_per_month
+Number of notes per month = Numero di banconote per mese
+Month = Mese
+
+## top_days
+Number of notes per day of the week = Numero di banconote per giorno della settimana
+Accumulated notes by day of the week = Totale banconote per giorno della settimana
+Top 10 days = I 10 giorni migliori
+Top 10 months = I 10 mesi migliori
+Day = Giorno
+
+## time analysis
+Time analysis = Analisi cronologica
+Colors = Colori
+Calendar = Calendario
+or more = o più
+Days = Giorni
+Hours = Ore
+Minutes = Minuti
+Seconds = Secondi
+Hours and minutes = Ore e minuti
+Minutes and seconds = Minuti e secondi
+Hours, minutes and seconds = Ore, minuti e secondi
+Days of week and hours = Giorni della settimana e ore
+Days of week, hours and minutes = Giorni della settimana, ore e minuti
+
+## combs detail
+Any signature = Qualunque firma
+Any = Qualunque
+Combinations = Combinazioni
+Combinations bingo = Bingo delle combinazioni
+Still missing combinations = Combinazioni mancanti
+Unknown combinations = Combinazioni sconosciute
+History = Storia
+History text format inspired by = Formato della storia ispirato da
+
+## note evolution
+Interval = Intervallo
+Filter = Filtro
+Group by = Raggruppare per
+Show only = Mostrare solo
+Output = Uscita
+
+## plate bingo
+Total for = Totale di
+
+## bad notes
+
+## hit list
+Hit date = Data
+Val = Val
+Hit note = Banconota
+Kms = Km
+Partner(s) = Utente/i
+Note number = Banconota n°
+Old hit ratio = Hit ratio precedente
+New hit ratio = Hit ratio attuale
+Notes between = Banconote intermedie
+Days between = Giorni intermedi
+from = da
+to = a
+
+## hits by month
+Natural month = Mese naturale
+Insert month = Mese di inserimento
+
+## hit times
+
+## hit locations
+My city = La mia località
+Frequent Locations (Hit Partners') = Località più frequenti (dei compagni di hit)
+Altogether hit partners in = Complessivamente hai compagni di hit in
+different locations = località differenti
+Frequent Directions = Direzioni frequenti
+Local Hits = Hit locali
+Both ways hits = Hit in entrambe le direzioni
+
+## hit analysis
+Hit top-10 = Top-10 delle hit
+Most kilometers = Più spazio
+Most days = Più tempo
+Lucky bundles = Giorni fortunati
+Other hit potential = Altri giorni potenzialmente fortunati
+
+## hit summary
+Hits = Hit
+national = nazionale/i
+and = e
+international = internazionale/i
+plus = più
+moderated = moderata/e
+Normal hits = Hit normali
+Triples = Triple
+Quadruples = Quadruple
+Pentuples = Quintuple
+Best = Migliore
+Average = Medio/a
+Worst = Peggiore
+Current = Attuale
+Historic hit ratio = Rapporto banconote/hit
+Hit ratio = Hit-ratio
+Hit ratios = Hit-ratio
+Hit finder/maker - giver/getter ratio = Rapporto hit attive / hit passive
+Next hit should occur on average on = La prossima hit arriverà, in media, il giorno
+or it's a dry spell = o sarà una sfortuna
+Minimum = Minimo
+Maximum = Massimo
+Travel days = Giorni di viaggio
+Travel km = Km di viaggio
+Travel kilometers = Chilometri di viaggio
+Historic hit travel days = Media dei giorni di viaggio per hit
+Historic hit travel km = Media dei Km di viaggio per hit
+Hit/hitless days = Giorni con/senza hit
+Longest period of consecutive hit days = Periodo più lungo di giorni consecutivi con hit
+Current consecutive hit days = Periodo attuale di giorni consecutivi con hit
+Consecutive hit days = Giorni consecutivi con hit
+Start = Inizio
+End = Fine
+Hits by combination = Hit per combinazione corto-seriale
+Frequent hit partner = Compagni di hit più frequenti
+% of all hits = % di tutte le hit
+Hits with same kilometers and days = Hit con lo stesso numero di Km e giorni
+None = Niente
+
+## calendar
+Top = Inizio pagina
+First day! = Primo giorno!
+Anniversary = Anniversario
+EBT day = giorno
+hit = hit
+hits = hit
+
+## gen_output
+Public stats have been generated = Le statistiche pubbliche sono state generate
+Link = Link
+
+## configuration
+#Name = Nome
+#EBT id number = Numero ID su EBT
+#Time zone = Fuso orario
+#Language = Lingua
+Notes CSV file = File CSV delle banconote
+Hits CSV file = File CSV delle hit
+Submit = Invio
+
+## help
+_help_main_usage_1 = Dopo aver caricato i file CSV (vedere la sezione "Configurazione"), selezionare le caselle desiderate a sinistra e cliccare su "BBCode / HTML" per generare statistiche pubbliche. Si apre una nuova finestra o scheda con un collegamento a BBCode e HTML.
+_help_colors_1 = Alcune sezioni mostrano i numeri in diversi colori. I colori sono:
+_help_colors_2 = Gli asterischi colorati che appaiono in alcune pagine mostrano quanto sono recenti le note:
+note has been entered up to 1 year ago = La banconota è stata inserita da meno di un anno
+note has been entered up to 3 months ago = La banconota è stata inserita da meno di 3 mesi
+note has been entered up to 1 week ago = La banconota è stata inserita da meno di 1 settimana
+_configure_1 = EBTST accetta file CSV compressi in formato zip o gzip. L'utilizzo di file compressi archivi rende minori i tempi di caricamento.
+_configure_2 = Sarà conservata una copia del file delle banconote, con il seguente formato:
+_countries_1 = I dati percentuali riportati nella tabella "Dettagli" mostrano la percentuale di banconote di ogni paese in relazione a tutte le banconote stampate per quel valore. Pertanto, sommati verticalmente, danno un risultato pari a 100%.
+_printers_1 = Come in "Nazioni", i dati percentuali riportati nella tabella "Dettagli" mostrano la percentuale di banconote di ogni paese in relazione a tutte le banconote stampate per quel valore. Pertanto, sommati verticalmente, danno un risultato pari a 100%.
+_huge_table_1 = Per evitare voci inutili nella tabella, vengono ignorate le banconote con errori.
+_short_codes_1 = Anche qui vengono ignorate le banconote con errori.
+_nice_serials_1 = L'algoritmo con cui si classificano i numeri di serie sono i seguenti: in primo luogo, conta il seriale con il minor numero di sequenze di cifre uguali. Così *1111122233 (3 sequenze) batte *1112111211 (5 sequenze). Nel caso frequente di un pareggio, la serie con la sequenza più lunga vince. Questi sono i criteri principali per il punteggio, ma ce ne sono altri di miore rilevanza.
+_coords_bingo_1 = Per evitare voci inutili, anche qui vengono ignorate le banconote con errori.
+_combinations_1 = Anche in questo caso non sono conteggiate le banconote con errori. Sommate tra loro, le percentuali danno un totale pari al 100%.
+_plate_bingo_1 = Vengono ignorate le banconote con errori. Nessun trattamento speciale è riservato ai rari casi di lastre di stampa che condividono firme diverse di presidenti della BCE (in particolare: <img src="images/values/10.gif"> K007, <img src="images/values/10.gif"> P005, <img src="images/values/20.gif"> F002 e <img src="images/values/100.gif"> F002g).
+
+## days of week
+Monday = Lunedì
+Tuesday = Martedì
+Wednesday = Mercoledì
+Thursday = Giovedì
+Friday = Venerdì
+Saturday = Sabato
+Sunday = Domenica
+
+## months
+January = Gennaio
+February = Febbraio
+March = Marzo
+April = Aprile
+May = Maggio
+June = Giugno
+July = Luglio
+August = Agosto
+September = Settembre
+October = Ottobre
+November = Novembre
+December = Dicembre
+
+## countries
+iso3166_ad = Andorra
+iso3166_ae = Emirati Arabi Uniti
+iso3166_af = Afghanistan
+iso3166_ag = Antigua e Barbuda
+iso3166_al = Albania
+iso3166_am = Armenia
+iso3166_ao = Angola
+iso3166_ar = Argentina
+iso3166_at = Austria
+iso3166_au = Australia
+iso3166_az = Azerbaidjan
+iso3166_ba = Bosnia-Herzegovina
+iso3166_bb = Barbados
+iso3166_bd = Bangladesh
+iso3166_be = Belgio
+iso3166_bf = Burkina-Faso
+iso3166_bg = Bulgaria
+iso3166_bh = Bahrein
+iso3166_bi = Burundi
+iso3166_bj = Benin
+iso3166_bl = San Bartolomé
+iso3166_bn = Brunei
+iso3166_bo = Bolivia
+iso3166_br = Brasile
+iso3166_bs = Bahamas
+iso3166_bt = Bhutan
+iso3166_bw = Botswana
+iso3166_by = Bielorussia
+iso3166_bz = Belize
+iso3166_ca = Canada
+iso3166_cd = Repubblica Democratica del Congo
+iso3166_cf = Repubblica Centroafricana
+iso3166_cg = Congo
+iso3166_ch = Svizzera
+iso3166_ci = Costa de Marfil
+iso3166_cl = Cile
+iso3166_cm = Camerun
+iso3166_cn = Cina
+iso3166_co = Colombia
+iso3166_cr = Costa Rica
+iso3166_cu = Cuba
+iso3166_cv = Capo Verde
+iso3166_cy = Cipro
+iso3166_cz = Repubblica Ceca
+iso3166_de = Germania
+iso3166_dj = Gibuti
+iso3166_dk = Danimarca
+iso3166_dm = Dominica
+iso3166_do = Repubblica Domenicana
+iso3166_dz = Algeria
+iso3166_ec = Ecuador
+iso3166_ee = Estonia
+iso3166_eg = Egitto
+iso3166_er = Eritrea
+iso3166_es = Spagna
+iso3166_et = Etiopia
+iso3166_fi = Finlandia
+iso3166_fj = Fiji
+iso3166_fm = Stati Federati di Micronesia
+iso3166_fr = Francia
+iso3166_ga = Gabon
+iso3166_gd = Grenada
+iso3166_ge = Georgia
+iso3166_gg = Guernsey
+iso3166_gh = Ghana
+iso3166_gm = Gambia
+iso3166_gn = Guinea
+iso3166_gq = Guinea Equatoriale
+iso3166_gr = Grecia
+iso3166_gt = Guatemala
+iso3166_gw = Guinea-Bissau
+iso3166_gy = Guyana
+iso3166_hn = Honduras
+iso3166_hr = Croazia
+iso3166_ht = Haiti
+iso3166_hu = Ungheria
+iso3166_id = Indonesia
+iso3166_ie = Irlanda
+iso3166_il = Israele
+iso3166_im = Isola di Man
+iso3166_in = India
+iso3166_iq = Iraq
+iso3166_ir = Iran
+iso3166_is = Islanda
+iso3166_it = Italia
+iso3166_je = Jersey
+iso3166_jm = Giamaica
+iso3166_jo = Giordania
+iso3166_jp = Giappone
+iso3166_ke = Kenia
+iso3166_kg = Kirgizistan
+iso3166_kh = Cambogia
+iso3166_ki = Kiribati
+iso3166_km = Comore
+iso3166_kn = San Kitts e Nevis
+iso3166_kp = Corea del Nord
+iso3166_kr = Corea del Sud
+iso3166_kw = Kuwait
+iso3166_kz = Kazakistan
+iso3166_la = Laos
+iso3166_lb = Libano
+iso3166_li = Liechtenstein
+iso3166_lk = Sri Lanka
+iso3166_lr = Liberia
+iso3166_ls = Lesotho
+iso3166_lt = Lituania
+iso3166_lu = Lussemburgo
+iso3166_lv = Lettonia
+iso3166_ly = Libia
+iso3166_ma = Marocco
+iso3166_mc = Principato di Monaco
+iso3166_md = Moldavia
+iso3166_me = Montenegro
+iso3166_mf = San Martín (Francia)
+iso3166_mg = Madagascar
+iso3166_mh = Isole Marshall
+iso3166_mk = Macedonia
+iso3166_ml = Mali
+iso3166_mm = Myanmar
+iso3166_mn = Mongolia
+iso3166_mo = Macao
+iso3166_mr = Mauritania
+iso3166_mt = Malta
+iso3166_mu = Mauritius
+iso3166_mv = Maldive
+iso3166_mw = Malawi
+iso3166_mx = Messico
+iso3166_my = Malaysia
+iso3166_mz = Mozambico
+iso3166_na = Namibia
+iso3166_ne = Niger
+iso3166_ng = Nigeria
+iso3166_ni = Nicaragua
+iso3166_nl = Paesi Bassi
+iso3166_no = Norvegia
+iso3166_nr = Nauru
+iso3166_nz = Nuova Zelanda
+iso3166_om = Oman
+iso3166_pa = Panama
+iso3166_pe = Perú
+iso3166_pg = Papua Nuova Guinea
+iso3166_ph = Filippine
+iso3166_pk = Pakistan
+iso3166_pl = Polonia
+iso3166_ps = Palestina
+iso3166_pt = Portogallo
+iso3166_pw = Palau
+iso3166_py = Paraguay
+iso3166_qa = Qatar
+iso3166_ro = Romania
+iso3166_rs = Serbia
+iso3166_rskm = Kosovo
+iso3166_ru = Russia
+iso3166_rw = Rwanda
+iso3166_sa = Arabia Saudta
+iso3166_sb = Isole Salomone
+iso3166_sc = Seychelles
+iso3166_sd = Sudan
+iso3166_se = Svezia
+iso3166_sg = Singapore
+iso3166_sh = Sant'Elena
+iso3166_si = Slovenia
+iso3166_sk = Slovacchia
+iso3166_sl = Sierra Leone
+iso3166_sm = San Marino
+iso3166_sn = Senegal
+iso3166_so = Somalia
+iso3166_sr = Suriname
+iso3166_st = San Tomé e Principe
+iso3166_sv = El Salvador
+iso3166_sy = Siria
+iso3166_sz = Swaziland
+iso3166_td = Ciad
+iso3166_tg = Togo
+iso3166_th = Thailandia
+iso3166_tj = Tadjikistan
+iso3166_tl = Timor Est
+iso3166_tm = Turkmenistan
+iso3166_tn = Tunisia
+iso3166_to = Tonga
+iso3166_tr = Turchia
+iso3166_tt = Trinidad e Tobago
+iso3166_tv = Tuvalu
+iso3166_tw = Taiwan
+iso3166_tz = Tanzania
+iso3166_ua = Ucraina
+iso3166_ug = Uganda
+iso3166_uk = Regno Unito di Gran Bretagna ed Irlanda del Nord
+iso3166_um = Isole minori esterne degli Stati Uniti d'America
+iso3166_us = Stati Uniti d'America
+iso3166_uy = Uruguay
+iso3166_uz = Uzbekistan
+iso3166_va = Città del Vaticano
+iso3166_vc = San Vincent e Grenadine
+iso3166_ve = Venezuela
+iso3166_vn = Vietnam
+iso3166_vu = Vanuatu
+iso3166_ws = Samoa
+iso3166_ye = Yemen
+iso3166_za = Sudafrica
+iso3166_zm = Zambia
+iso3166_zw = Zimbabwe

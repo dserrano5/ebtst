@@ -1,0 +1,527 @@
+## layout
+Public stats = Öffentliche Statistiken
+Information = Allgemeine Informationen
+Value = Wertstufen
+Countries = Länder
+Locations = Orte
+Travel stats = Reisestatistiken
+Printers = Druckereien
+Huge table = Große Tabelle
+Short codes = Druckereicodes
+Nice serials = Interessante Seriennummern
+Coordinates bingo = Koordinatenbingo
+Notes/year = Scheine/Jahr
+Notes/month = Scheine/Monat
+Top days = Beste Tage
+Time analysis (bingo) = Zeitanalyse (Bingo)
+Time analysis (detail) = Zeitanalyse (Detail)
+Combinations (bingo) = Kombinationen (Bingo)
+Combinations (detail) = Kombinationen (Detail)
+#Note evolution = Entwicklung
+Plate bingo = Plattenbingo
+Bad notes = Fehlerhafte Scheine
+Hit list = Trefferliste
+Hit times (bingo) = Trefferzeiten (Bingo)
+Hit times (detail) = Trefferzeiten (Detail)
+Hit locations = Trefferorte
+Hit analysis = Trefferanalyse
+Hit summary = Trefferzusammenfassung
+Calendar = Kalender
+#Charts = Tabellen
+Configuration = Einstellungen
+Logout = Ausloggen
+Help = Hilfe
+
+## index
+Welcome = Willkommen
+User = Benutzername
+Passphrase = Passwort
+Login = Login
+Register = Registrieren
+
+## register
+Confirm passphrase = Passwort bestätigen
+
+## information
+General information = Allgemeine Informationen
+First note entered = Erster Schein eingegeben
+in = in
+Situation on = Situation am
+(full) days after the first note was entered = (volle) Tage nach dem Eintragen des ersten Scheins
+Active/inactive EBT days = Aktive/inaktive EBT-Tage
+days = Tage
+notes = Scheine
+Longest period of consecutive active days = Längster Zeitraum aufeinanderfolgender aktiver Tage
+Current consecutive active days = Aktuelle aufeinanderfolgende aktive Tage
+Longest break from EBT = Längste Abwesenheit von EBT
+Current break from EBT = Aktuelle Abwesenheit von EBT
+Total number of notes = Scheine gesamt
+Total value of all notes = Gesamtwert aller Scheine
+Signatures = Unterschriften
+Unknown = Unbekannt
+Average value per note = Durchschnittlicher Wert pro Schein
+Average entering rate = Durchschnittliche Eingabequote
+notes/day = Scheine/Tag
+Historic percent notes by president = Entwicklung der Anteile der Unterschriften
+
+## value
+Number of notes by value = Anzahl der Scheine pro Wertstufe
+Notes = Scheine
+Percent = Anteil
+Amount = Gesamtwert
+Accumulated notes by value = Entwicklung der Anzahl der Scheine pro Wertstufe
+Historic percent notes by value = Entwicklung des Anteils der Scheine pro Wertstufe
+Historic mean value = Entwicklung des Durchschnittswerts
+Average value = Durchschnittswert
+First notes by value = Erste Scheine pro Wertstufe
+was the first = war der erste
+
+## countries
+Number of notes by country code = Anzahl der Scheine pro Ländercode
+Country = Land
+Detail of notes per value and country code = Details der Scheine pro Wertstufe und Ländercode
+First notes by country code = Erste Scheine pro Ländercode
+Note = Schein
+was the first from = war der erste aus
+entered on = eingegeben am
+note = Schein
+
+## locations
+Countries with notes entered = Besuchte Länder
+Number of notes by location = Anzahl der Scheine pro Ort
+Alphabets of locations by country = A-Z der Orte pro Land
+First notes by printer code = Erste Scheine pro Druckereicode
+
+## travel_stats
+Location = Ort
+Total = Gesamt
+Visits = Besuche
+Total yearly visits = Gesamte Besuche pro Jahr
+Number of locations = Anzahl der Orte
+Number of different yearly visits = Anzahl der jährlichen Besuche
+Number of one time visit locations = Anzahl von nur einmal besuchten Orten
+Cities with most notes = Städte mit den meisten Scheinen
+
+## printers
+Number of notes by printer code = Anzahl der Scheine pro Druckereicode
+Printer = Druckerei
+Printer name = Name der Druckerei
+Detail of notes per value and printer code = Anzahl der Scheine pro Wertstufe und Druckereicode
+
+## huge_table
+Notes have been entered up to = Scheine wurden eingegeben innerhalb:
+1 year ago = des letzten Jahres
+3 months ago = der letzten drei Monate
+1 week ago = der letzten Woche
+
+## short codes
+Absolute lowest and highest short codes = Niedrigste und höchste Druckereicodes
+Lowest and highest short codes per value = Niedrigste und höchste Druckereicodes pro Wertstufe
+all = alle
+Absolute highest short codes = Höchste Druckereicodes
+Highest short codes per value = Höchste Druckereicodes pro Wertstufe
+Short code = Druckereicode
+Date = Datum
+
+## nice_serials
+Serial number = Seriennummer
+note(s) = Schein(e)
+of total = von allen
+have = haben
+numbers in a row = gleiche Ziffern hintereinander
+contain = haben
+different digits = unterschiedliche Ziffern
+
+## notes_per_year
+Number of notes per year = Anzahl der Scheine pro Jahr
+Year = Jahr
+
+## notes_per_month
+Number of notes per month = Anzahl der Scheine pro Monat
+Month = Monat
+
+## top_days
+Number of notes per day of the week = Anzahl der Scheine pro Wochentag
+Accumulated notes by day of the week = Gesamtanzahl der Scheine pro Wochentag
+Top 10 days = Die besten zehn Tage
+Top 10 months = Die besten zehn Monate
+Day = Tag
+
+## time analysis
+Time analysis = Zeitanalyse
+Colors = Farben
+Calendar = Kalender
+or more = oder mehr
+Days = Tage
+Hours = Stunden
+Minutes = Minuten
+Seconds = Sekunden
+Hours and minutes = Stunden und Minuten
+Minutes and seconds = Minuten und Sekunden
+Hours, minutes and seconds = Stunden, Minuten und Sekunden
+Days of week and hours = Wochentage und Stunden
+Days of week, hours and minutes = Wochentage, Stunden und Minuten
+
+## combs detail
+Any signature = Alle Unterschriften
+Any = Alle
+Combinations = Kombinationen
+Combinations bingo = Kombinationenbingo
+Still missing combinations = Noch fehlende Kombinationen
+Unknown combinations = Unbekannte Kombinationen
+History = Protokoll
+History text format inspired by = Textformat des Protokolls inspiriert von
+
+## note evolution
+Interval = Intervall
+Filter = Filtern
+Group by = Sortieren nach
+Show only = Nur anzeigen
+Output = Resultat
+
+## plate bingo
+Total for = Gesamt für
+
+## bad notes
+
+## hit list
+Hit date = Datum
+Val = Wertstufe
+Hit note = Schein
+Kms = Km
+Partner(s) = Partner
+Note number = Scheinnummer
+Old hit ratio = Alte Trefferquote
+New hit ratio = Neue Trefferquote
+Notes between = Scheine dazwischen
+Days between = Tage dazwischen
+from = von
+to = nach
+
+## hits by month
+Natural month = Tatsächlicher Monat
+Insert month = Eingabemonat
+
+## hit times
+
+## hit locations
+My city = Meine Stadt
+Frequent Locations (Hit Partners') = Häufige Orte (deiner Trefferpartner)
+Altogether hit partners in = Trefferpartner insgesamt in
+different locations = unterschiedlichen Orten
+Frequent Directions = Häufige Richtungen
+Local Hits = Lokale Treffer
+Both ways hits = Treffer in beide Richtungen
+
+## hit analysis
+Hit top-10 = Top 10
+Most kilometers = Die größte Distanz
+Most days = Die längste Dauer
+Lucky bundles = Glückstage
+Other hit potential = Weitere Trefferquoten
+
+## hit summary
+Hits = Treffer
+national = national
+and = und
+international = international
+plus = außerdem
+moderated = moderiert
+Normal hits = Normale Treffer
+Triples = Tripel
+Quadruples = Quadrupel
+Pentuples = Quintupel
+Best = Bester Stand
+Average = Durchschnitt
+Worst = Schlechtester Stand
+Current = Gegenwärtig
+Historic hit ratio = Entwicklung der Trefferquote
+Hit ratio = Trefferquote
+Hit ratios = Trefferquoten
+Hit finder/maker - giver/getter ratio = Quote aktive/passive Treffer
+Next hit should occur on average on = Der nächste Treffer sollte sich voraussichtlich ereignen am
+or it's a dry spell = oder du hast gerade eine Durststrecke
+Minimum = Minimum
+Maximum = Maximum
+Travel days = Tage
+Travel km = Kilometer
+Travel kilometers = Kilometer
+Historic hit travel days = Entwicklung der durchschnittlichen Reisedauer
+Historic hit travel km = Entwicklung der durchschnittlichen Reisestrecke
+Hit/hitless days = Treffer-/trefferfreie Tage
+Longest period of consecutive hit days = Längste Periode aufeinanderfolgender Treffertage
+Current consecutive hit days = Gegenwärtige Periode aufeinanderfolgender Treffertage
+Consecutive hit days = Aufeinanderfolgende Treffertage
+Start = Beginn
+End = Ende
+Hits by combination = Treffer pro Kombination
+Frequent hit partner = Häufige Trefferpartner
+% of all hits = Anteil an allen Treffern
+Hits with same kilometers and days = Treffer mit gleicher Anzahl an Kilometern und Tagen
+None = Keine
+
+## calendar
+Top = Oben
+First day! = Erster Tag!
+Anniversary = Jahrestag
+EBT day = EBT-Tag
+hit = Treffer
+hits = Treffer
+
+## gen_output
+Public stats have been generated = Öffentliche Statistiken wurden erzeugt
+Link = Link
+
+## configuration
+#Name = Name
+#EBT id number = ID-Nummer
+#Time zone = Zeitzone
+#Language = Sprache
+Notes CSV file = CSV-Datei (Scheine)
+Hits CSV file = CSV-Datei (Treffer)
+Submit = Hochladen
+
+## help
+_help_main_usage_1 = Nach dem Hochladen deiner Schein- und Trefferdaten (siehe Einstellungen) wähle die gewünschten Checkboxen auf der linken Seite aus und klicke auf BBCode/HTML um die öffentlichen Statistiken zu erzeugen. Dann öffnet sich ein neues Fenster oder ein neuer Reiter mit dem BBCode und dem Link zur HTML-Version.
+_help_colors_1 = Einige Abschnitte beinhalten farbige Zahlen, die folgende Bedeutung haben:
+_help_colors_2 = Farbige Sterne, die an einigen Stellen auftauchen, haben folgende Bedeutung:
+note has been entered up to 1 year ago = ein Schein wurde innerhalb des letzten Jahres eingegeben
+note has been entered up to 3 months ago = ein Schein wurde innerhalb der letzten drei Monate eingegeben
+note has been entered up to 1 week ago = ein Schein wurde innerhalb der letzten Woche eingegeben
+_configure_1 = EBTST kann mit komprimierten CSV-Dateien umgehen. Unterstützt werden die Formate ZIP und GZIP. Komprimierte Dateien benötigen weniger Zeit zum Hochladen.
+_configure_2 = Eine Kopie der Scheindatei wird in folgendem Format aufbewahrt:
+_countries_1 = Der prozentuale Anteil, der in der zweiten Tabelle aufgeführt wird, gibt den Anteil der Scheine mit dem entsprechenden Ländercode an der Gesamtzahl der Scheine der entsprechenden Wertstufe wider. Senkrecht addieren sich die Zahlen also zu 100 % auf.
+_printers_1 = Wie bei den Ländern gibt der prozentuale Anteil, der in der zweiten Tabelle aufgeführt wird, den Anteil der Scheine mit dem entsprechenden Druckereicode an der Gesamtzahl der Scheine der entsprechenden Wertstufe wider. Senkrecht addieren sich die Zahlen also zu 100 % auf.
+_huge_table_1 = Um sinnlose Einträge zu vermeiden, werden Scheine mit fehlerhaften Daten nicht berücksichtigt.
+_short_codes_1 = Auch hier werden fehlerhafte Scheine nicht berücksichtigt.
+_nice_serials_1 = Der Algorithmus um Seriennummern zu bewerten funktioniert wie folgt: Zuerst werden die Seriennummern danach untersucht, wie viele Zifferwechsel innerhalb der Seriennummer auftreten. *1111122233 (zwei Wechsel) wird also besser bewertet als *1112111211 (vier Wechsel). Bei einem Gleichstand liegt die Seriennummer vorne, die die längste Kette aufeinanderfolgender gleicher Ziffern beinhaltet. Dies sind die hauptsächlichen Bewertungskriterien, daneben gibt es aber noch einige weitere.
+_coords_bingo_1 = Wie in der Großen Tabelle werden fehlerhafte Scheindaten nicht berücksichtigt.
+_combinations_1 = Wieder werden fehlerhafte Scheindaten nicht berücksichtigt. Wie in den Tabellen bei den Ländern und Druckereien addieren sich die einzelnen Anteile senkrecht zu 100 % auf.
+_plate_bingo_1 = Fehlerhafte Scheindaten werden nicht berücksichtigt. Die wenigen Platten, bei denen die Unterschriften verschiedener EZB-Präsidenten benutzt wurden (nämlich <img src="images/values/10.gif"> K007, <img src="images/values/10.gif"> P005, <img src="images/values/20.gif"> F002 und <img src="images/values/100.gif"> F002), werden nicht gesondert behandelt.
+
+## days of week
+Monday = Montag
+Tuesday = Dienstag
+Wednesday = Mittwoch
+Thursday = Donnerstag
+Friday = Freitag
+Saturday = Samstag
+Sunday = Sonntag
+
+## months
+January = Januar
+February = Februar
+March = März
+April = April
+May = Mai
+June = Juni
+July = Juli
+August = August
+September = September
+October = Oktober
+November = November
+December = Dezember
+
+## countries
+iso3166_ad = Andorra
+iso3166_ae = Vereinigte Arabische Emirate
+iso3166_af = Afghanistan
+iso3166_ag = Antigua und Barbuda
+iso3166_al = Albanien
+iso3166_am = Armenien
+iso3166_ao = Angola
+iso3166_ar = Argentinien
+iso3166_at = Österreich
+iso3166_au = Australien
+iso3166_az = Aserbaidschan
+iso3166_ba = Bosnien-Herzegovina
+iso3166_bb = Barbados
+iso3166_bd = Bangladesh
+iso3166_be = Belgien
+iso3166_bf = Burkina Faso
+iso3166_bg = Bulgarien
+iso3166_bh = Bahrain
+iso3166_bi = Burundi
+iso3166_bj = Benin
+iso3166_bl = Saint-Barthélemy
+iso3166_bn = Brunei
+iso3166_bo = Bolivien
+iso3166_br = Brasilien
+iso3166_bs = Bahamas
+iso3166_bt = Bhutan
+iso3166_bw = Botswana
+iso3166_by = Weißrussland
+iso3166_bz = Belize
+iso3166_ca = Kanada
+iso3166_cd = Demokratische Republik Kongo
+iso3166_cf = Zentralafrikanische Republik
+iso3166_cg = Republik Kongo
+iso3166_ch = Schweiz
+iso3166_ci = Elfenbeinküste
+iso3166_cl = Chile
+iso3166_cm = Kamerun
+iso3166_cn = China
+iso3166_co = Kolumbien
+iso3166_cr = Costa Rica
+iso3166_cu = Kuba
+iso3166_cv = Kapverdische Inseln
+iso3166_cy = Zypern
+iso3166_cz = Tschechische Republik
+iso3166_de = Deutschland
+iso3166_dj = Djibouti
+iso3166_dk = Dänemark
+iso3166_dm = Dominica
+iso3166_do = Dominikanische Republik
+iso3166_dz = Algerien
+iso3166_ec = Ecuador
+iso3166_ee = Estland
+iso3166_eg = Ägypten
+iso3166_er = Eritrea
+iso3166_es = Spanien
+iso3166_et = Äthiopien
+iso3166_fi = Finnland
+iso3166_fj = Fidschi
+iso3166_fm = Mikronesien
+iso3166_fr = Frankreich
+iso3166_ga = Gabun
+iso3166_gd = Grenada
+iso3166_ge = Georgien
+iso3166_gg = Guernsey
+iso3166_gh = Ghana
+iso3166_gm = Gambia
+iso3166_gn = Guinea
+iso3166_gq = Äquatorial-Guinea
+iso3166_gr = Griechenland
+iso3166_gt = Guatemala
+iso3166_gw = Guinea-Bissau
+iso3166_gy = Guyana
+iso3166_hn = Honduras
+iso3166_hr = Kroatien
+iso3166_ht = Haiti
+iso3166_hu = Ungarn
+iso3166_id = Indonesien
+iso3166_ie = Irland
+iso3166_il = Israel
+iso3166_im = Isle of Man
+iso3166_in = Indien
+iso3166_iq = Irak
+iso3166_ir = Iran
+iso3166_is = Island
+iso3166_it = Italien
+iso3166_je = Jersey
+iso3166_jm = Jamaika
+iso3166_jo = Jordanien
+iso3166_jp = Japan
+iso3166_ke = Kenia
+iso3166_kg = Kirgisien
+iso3166_kh = Kambodscha
+iso3166_ki = Kiribati
+iso3166_km = Komoren
+iso3166_kn = St. Kitts und Nevis
+iso3166_kp = Nordkorea
+iso3166_kr = Südkorea
+iso3166_kw = Kuwait
+iso3166_kz = Kasachstan
+iso3166_la = Laos
+iso3166_lb = Libanon
+iso3166_li = Liechtenstein
+iso3166_lk = Sri Lanka
+iso3166_lr = Liberia
+iso3166_ls = Lesotho
+iso3166_lt = Litauen
+iso3166_lu = Luxemburg
+iso3166_lv = Lettland
+iso3166_ly = Libyen
+iso3166_ma = Marokko
+iso3166_mc = Monaco
+iso3166_md = Moldavien
+iso3166_me = Montenegro
+iso3166_mf = Saint Martin (Gebietskörperschaft)
+iso3166_mg = Madagaskar
+iso3166_mh = Marshall-Inseln
+iso3166_mk = Mazedonien
+iso3166_ml = Mali
+iso3166_mm = Myanmar
+iso3166_mn = Mongolei
+iso3166_mo = Macao
+iso3166_mr = Mauretanien
+iso3166_mt = Malta
+iso3166_mu = Mauritius
+iso3166_mv = Malediven
+iso3166_mw = Malawi
+iso3166_mx = Mexiko
+iso3166_my = Malaysia
+iso3166_mz = Mosambik
+iso3166_na = Namibia
+iso3166_ne = Niger
+iso3166_ng = Nigeria
+iso3166_ni = Nicaragua
+iso3166_nl = Niederlande
+iso3166_no = Norwegen
+iso3166_nr = Nauru
+iso3166_nz = Neuseeland
+iso3166_om = Oman
+iso3166_pa = Panama
+iso3166_pe = Peru
+iso3166_pg = Papua-Neuguinea
+iso3166_ph = Philippinen
+iso3166_pk = Pakistan
+iso3166_pl = Polen
+iso3166_ps = Palästinensische Autonomiegebiete
+iso3166_pt = Portugal
+iso3166_pw = Palau
+iso3166_py = Paraguay
+iso3166_qa = Katar
+iso3166_ro = Rumänien
+iso3166_rs = Serbien
+iso3166_rskm = Kosovo
+iso3166_ru = Russland
+iso3166_rw = Ruanda
+iso3166_sa = Saudi-Arabien
+iso3166_sb = Salomonen
+iso3166_sc = Seychellen
+iso3166_sd = Sudan
+iso3166_se = Schweden
+iso3166_sg = Singapur
+iso3166_sh = St. Helena (Insel)
+iso3166_si = Slowenien
+iso3166_sk = Slowakei
+iso3166_sl = Sierra Leona
+iso3166_sm = San Marino
+iso3166_sn = Senegal
+iso3166_so = Somalia
+iso3166_sr = Surinam
+iso3166_st = Sao Tome und Principe
+iso3166_sv = El Salvador
+iso3166_sy = Syrien
+iso3166_sz = Swasiland
+iso3166_td = Tschad
+iso3166_tg = Togo
+iso3166_th = Thailand
+iso3166_tj = Tadschikistan
+iso3166_tl = Osttimor
+iso3166_tm = Turkmenistan
+iso3166_tn = Tunesien
+iso3166_to = Tonga
+iso3166_tr = Türkei
+iso3166_tt = Trinidad und Tobago
+iso3166_tv = Tuvalu
+iso3166_tw = Taiwan
+iso3166_tz = Tansania
+iso3166_ua = Ukraine
+iso3166_ug = Uganda
+iso3166_uk = Vereinigtes Königreich
+iso3166_um = United States Minor Outlying Islands
+iso3166_us = USA
+iso3166_uy = Uruguay
+iso3166_uz = Usbekistan
+iso3166_va = Vatikanstadt
+iso3166_vc = St. Vincent und die Grenadinen
+iso3166_ve = Venezuela
+iso3166_vn = Vietnam
+iso3166_vu = Vanuatu
+iso3166_ws = Samoa
+iso3166_ye = Jemen
+iso3166_za = Südafrika
+iso3166_zm = Sambia
+iso3166_zw = Simbabwe

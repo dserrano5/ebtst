@@ -62,6 +62,14 @@
 <br>
 
 <h2><%=l 'Alphabets of locations by country' %></h2>
+<p class="colors_legend">
+    <span style="color: <%= color    0, 'notes' %>">0 <%=l 'notes' %></span>,
+    <span style="color: <%= color    1, 'notes' %>">1-49 <%=l 'notes' %></span>,
+    <span style="color: <%= color   50, 'notes' %>">50-99 <%=l 'notes' %></span>,
+    <span style="color: <%= color  100, 'notes' %>">100-499 <%=l 'notes' %></span>,
+    <span style="color: <%= color  500, 'notes' %>">500-999 <%=l 'notes' %></span>,
+    <span style="color: <%= color 1000, 'notes' %>">1000 <%=l 'or more' %> <%=l 'notes' %></span>.
+</p>
 <table>
     <% foreach my $c (@$ab) { %>
         <tr>

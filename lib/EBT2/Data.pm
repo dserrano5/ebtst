@@ -95,13 +95,13 @@ sub get_checked_boxes {
 ## - for presentation
 ## - used in the process of signature guessing when plates are shared
 sub serial_remove_meaningless_figures2 {
-    my ($short, $serial) = @_;
+    my ($value, $short, $serial) = @_;
 
     my $pc = substr $short, 0, 1;
     my $cc = substr $serial, 0, 1;
 
     if ('M' eq $cc or 'T' eq $cc) {
-        $serial = $cc . '*' . substr $serial, 2;
+        #$serial = $cc . '*' . substr $serial, 2;
 
     } elsif ('N' eq $cc) {
         if ('G' ne $pc) {
@@ -118,14 +118,18 @@ sub serial_remove_meaningless_figures2 {
 
     } elsif ('P' eq $cc) {
         if ('F' eq $pc) {
-            $serial = $cc . '**' . substr $serial, 3;
+            if (500 == $value) {
+                $serial = $cc . '**' . substr $serial, 3;
+            } else {
+                $serial = $cc . (substr $serial, 1, 2) . '**' . substr $serial, 5;
+            }
         }
 
     } elsif ('Z' eq $cc) {
-        $serial = $cc . '***' . substr $serial, 4;
+        $serial = $cc . (substr $serial, 1, 1) . '**' . substr $serial, 4;
 
-    } else {
-        $serial = substr $serial, 0;
+    #} else {
+    #    $serial = substr $serial, 0;
 
     }
 
@@ -133,7 +137,7 @@ sub serial_remove_meaningless_figures2 {
 }
 
 sub _guess_signature {
-    my ($short, $serial, $sign) = @_;    ## $sign example: "WD:0-1990, JCT:1991-99999"
+    my ($value, $short, $serial, $sign) = @_;
     
     $sign =~ s/\s//g;
     my $max_len = max map length, $sign =~ /\d+/g;  ## how many digits to evaluate
@@ -142,7 +146,7 @@ sub _guess_signature {
         my ($result, $range) = split /:/, $choice;
         my ($min, $max) = split /-/, $range;
 
-        $serial = serial_remove_meaningless_figures2 $short, $serial;
+        $serial = serial_remove_meaningless_figures2 $value, $short, $serial;
         $serial =~ s/\D//g;
         my ($num) = $serial =~ /^(.{$max_len})/;
         next if $num < $min or $num > $max;
@@ -164,7 +168,7 @@ sub _find_out_signature {
         $sig = '_UNK';
     } else {
         if ($sig =~ /,/) {
-            if (!defined ($sig = _guess_signature $short, $serial, $sig)) {
+            if (!defined ($sig = _guess_signature $value, $short, $serial, $sig)) {
                 warn "Couldn't guess signature for note ($value) ($cc) ($plate) ($short) ($serial)\n";
             }
         }

@@ -38,7 +38,6 @@ my %country_names = (
     ru   => 'Russia',            ## instead of 'Russian Federation'
     va   => 'Vatican City',      ## instead of 'Holy See (Vatican City State)'
     ve   => 'Venezuela',         ## instead of 'Venezuela, Bolivarian Republic of'
-    rskm => 'Kosovo',
 );
 my %users;
 
@@ -252,6 +251,10 @@ sub register {
     if ($p1 ne $p2) {
         $self->_log (info => 'passwords do not match');
         $self->stash (msg => 'Passwords do not match');
+        return;
+    }
+
+    if (!length $u or !length $p1) {
         return;
     }
 

@@ -129,8 +129,8 @@ $t->get_ok ('/hit_list')->status_is (200)->content_unlike (qr/Exxxx0534xxx/, 'mo
 ## but their count appears in hit_summary
 $t->get_ok ('/hit_summary')->status_is (200)->content_like (qr/1\s+international\),\s+plus\s+1\s+moderated/, 'but they are counted');
 
-## Kosovo
-$t->get_ok ('/locations')->status_is (200)->content_like (qr/Kosovo/, 'Kosovo support');
+## misc countries
+$t->get_ok ('/locations')->status_is (200)->content_like (qr/Kosovo/, 'Kosovo support')->content_like (qr/Serbia and Montenegro/)->content_like (qr/Bosnia-Herzegovina/);
 
 ## logging out
 $t->get_ok ('/logout')->status_is (302)->header_like (Location => qr/index/, 'log out');
@@ -230,4 +230,4 @@ $t->ua->once (start => sub {
 });
 $t->get_ok ('/configure')->status_is (200)->content_like (qr/CSV upload doesn't work with Internet Explorer/);
 
-done_testing 178;
+done_testing 180;

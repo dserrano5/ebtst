@@ -51,8 +51,9 @@ my $DATA_VERSION = '20120810-01';
 #EOC
 
 Locale::Country::alias_code (uk => 'gb');
-## EBT lists Kosovo as a country, which isn't defined in ISO-3166-1 as a country. Use its ISO-3166-2 code
-Locale::Country::add_country ('rskm' => 'Kosovo');
+Locale::Country::add_country ('rskm' => 'Kosovo');                ## EBT lists Kosovo as a country, which isn't defined in ISO-3166-1 as a country. Use its ISO-3166-2 code
+Locale::Country::rename_country ('ba' => 'Bosnia-Herzegovina');   ## Locale::Country gives a different name to this one
+Locale::Country::add_country ('rsme' => 'Serbia and Montenegro'); ## EBT lists "Serbia and Montenegro" as a country. Use the joint ISO-3166-1 codes for "Serbia" and "Montenegro"
 
 sub new {
     my ($class, %args) = @_;

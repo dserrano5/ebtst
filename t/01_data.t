@@ -105,8 +105,10 @@ while (my $notes = $obj->note_getter) {
 }
 
 while (my $notes = $obj->note_getter (interval => 'all')) {
-    is $notes->[-1][COUNTRY], 'rskm', 'Kosovo is recognized';
+    is $notes->[-3][COUNTRY], 'rskm', 'Kosovo is recognized';
+    is $notes->[-2][COUNTRY], 'ba',   'Bosnia-Herzegovina is recognized';
+    is $notes->[-1][COUNTRY], 'rsme', 'Serbia and Montenegro is recognized';
 }
 
-done_testing 66;
+done_testing 68;
 unlink '/tmp/ebt2-storable' or warn "unlink: '/tmp/ebt2-storable': $!";

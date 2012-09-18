@@ -103,7 +103,7 @@ sub _quantize {
 sub line_chart {
     my (%args) = @_;
 
-    my ($xdata) = _quantize 1000, $args{'xdata'}, $args{'dsets'};      ## showing a lot of points is both cpu- and memory-intensive
+    my ($xdata) = _quantize 10000, $args{'xdata'}, $args{'dsets'};      ## showing a lot of points is both cpu- and memory-intensive
 
     my %gp_dset_args = (
         xdata    => $xdata,

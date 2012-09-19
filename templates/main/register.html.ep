@@ -13,7 +13,7 @@
         </tr>
     </table>
     <br>
-    <%= submit_button l 'Register' %>
+    <%= submit_button l 'Register' =%>
 </form>
 <script>
 $(document).ready (function() { $('#user').focus(); });

@@ -1,1 +1,1 @@
-<%= include 'main/_combs', mode => 'detail'; %>
+<%= include 'main/_combs', mode => 'detail'; =%>

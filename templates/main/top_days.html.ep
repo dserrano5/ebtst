@@ -11,19 +11,19 @@
         <th>200</th>
         <th>500</th>
     </tr>
-    <% foreach my $elem (@$nbdow) { %>
+    <% foreach my $elem (@$nbdow) { =%>
         <tr>
             <td><b><%=l $elem->{'dow'} %></b></td>
             <td><%= $elem->{'count'} %> (<%= $elem->{'pct'} %>%)</td>
-            <% foreach my $d (@{ $elem->{'detail'} }) { %>
-                <% if ($d->{'count'}) { %>
+            <% foreach my $d (@{ $elem->{'detail'} }) { =%>
+                <% if ($d->{'count'}) { =%>
                     <td><%= $d->{'count'} %></td>
-                <% } else { %>
+                <% } else { =%>
                     <td>
-                <% } %>
-            <% } %>
+                <% } =%>
+            <% } =%>
         </tr>
-    <% } %>
+    <% } =%>
 </table>
 <br>
 <br>
@@ -42,19 +42,19 @@
         <th>200</th>
         <th>500</th>
     </tr>
-    <% foreach my $elem (@$t10d) { %>
+    <% foreach my $elem (@$t10d) { =%>
         <tr>
             <td><b><%= $elem->{'date'} %></b></td>
             <td><%= $elem->{'count'} %> (<%= $elem->{'pct'} %>%)</td>
-            <% foreach my $d (@{ $elem->{'detail'} }) { %>
-                <% if ($d->{'count'}) { %>
+            <% foreach my $d (@{ $elem->{'detail'} }) { =%>
+                <% if ($d->{'count'}) { =%>
                     <td><%= $d->{'count'} %></td>
-                <% } else { %>
+                <% } else { =%>
                     <td></td>
-                <% } %>
-            <% } %>
+                <% } =%>
+            <% } =%>
         </tr>
-    <% } %>
+    <% } =%>
 </table>
 <br>
 
@@ -71,17 +71,17 @@
         <th>200</th>
         <th>500</th>
     </tr>
-    <% foreach my $elem (@$t10m) { %>
+    <% foreach my $elem (@$t10m) { =%>
         <tr>
             <td><b><%= $elem->{'date'} %></b></td>
             <td><%= $elem->{'count'} %> (<%= $elem->{'pct'} %>%)</td>
-            <% foreach my $m (@{ $elem->{'detail'} }) { %>
-                <% if ($m->{'count'}) { %>
+            <% foreach my $m (@{ $elem->{'detail'} }) { =%>
+                <% if ($m->{'count'}) { =%>
                     <td><%= $m->{'count'} %></td>
-                <% } else { %>
+                <% } else { =%>
                     <td></td>
-                <% } %>
-            <% } %>
+                <% } =%>
+            <% } =%>
         </tr>
-    <% } %>
+    <% } =%>
 </table>

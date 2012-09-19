@@ -1,4 +1,4 @@
-<% $self->stash (layout => undef); %>
+<% $self->stash (layout => undef); =%>
 <html>
 <head><title>Not found</title></head>
 <body><h1>Not found</h1></body>

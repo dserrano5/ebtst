@@ -10,7 +10,7 @@
         <th><%=l 'Total' %></th>
         <th><%=l 'Visits' %></th>
     </tr>
-    <% my $idx = 1; my %visits_per_year; %>
+    <% my $idx = 1; my %visits_per_year; =%>
     <% foreach my $loc (sort { =%>
     <%#     keys %{ $travel_stats->{$a}{'visits'} } cmp keys %{ $travel_stats->{$b}{'visits'} } || =%>
     <%#     $travel_stats->{$a}{'total'} <=> $travel_stats->{$b}{'total'} || =%>

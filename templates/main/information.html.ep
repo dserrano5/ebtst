@@ -4,21 +4,21 @@
 <br>
 <%=l 'Active/inactive EBT days' %>: <b><%= $ac->{'active_days_count'} %> - <%= $ac->{'inactive_days_count'} %></b> (<%= sprintf '%.2f', 100 * $ac->{'active_days_count'} / $ac->{'total_days_count'} %>% - <%= sprintf '%.2f', 100 * $ac->{'inactive_days_count'} / $ac->{'total_days_count'} %>%)<br>
 <%=l 'Longest period of consecutive active days' %>: <b><%= $ac->{'longest_active_period'} %></b> <%=l 'days' %> (<%= $ac->{'longest_active_period_notes'} %> <%=l 'notes' %>, <%= $ac->{'longest_active_period_from'} %> - <%= $ac->{'longest_active_period_to'} %>)<br>
-<% if ($ac->{'current_active_period'}) { %>
+<% if ($ac->{'current_active_period'}) { =%>
 <%=l 'Current consecutive active days' %>: <b><%= $ac->{'current_active_period'} %></b> <%=l 'days' %> (<%= $ac->{'current_active_period_notes'} %> <%=l 'notes' %>, <%= $ac->{'current_active_period_from'} %> - <%= $ac->{'current_active_period_to'} %>)<br>
-<% } else { %>
+<% } else { =%>
 <%=l 'Current consecutive active days' %>: <b>0</b> <%=l 'days' %><br>
-<% } %>
-<% if ($ac->{'longest_break'}) { %>
+<% } =%>
+<% if ($ac->{'longest_break'}) { =%>
 <%=l 'Longest break from EBT' %>: <b><%= $ac->{'longest_break'} %></b> <%=l 'days' %> (<%= $ac->{'longest_break_from'} %> - <%= $ac->{'longest_break_to'} %>)<br>
-<% } else { %>
-<%=l 'Longest break from EBT' %>: <b>0</b> <%=l 'days' %>
-<% } %>
-<% if ($ac->{'current_break'}) { %>
+<% } else { =%>
+<%=l 'Longest break from EBT' %>: <b>0</b> <%=l 'days' =%>
+<% } =%>
+<% if ($ac->{'current_break'}) { =%>
 <%=l 'Current break from EBT' %>: <b><%= $ac->{'current_break'} %></b> <%=l 'days' %> (<%= $ac->{'current_break_from'} %> - <%= $ac->{'current_break_to'} %>)<br>
-<% } else { %>
+<% } else { =%>
 <%=l 'Current break from EBT' %>: <b>0</b> <%=l 'days' %><br>
-<% } %>
+<% } =%>
 <br>
 <%=l 'Total number of notes' %>: <b><%= $count %></b><br>
 <%=l 'Total value of all notes' %>: <b><%= $total_value %></b> EUR<br>
@@ -29,14 +29,14 @@
   <b>Trichet <%= $sigs_jct %></b> (<%= $sigs_jct_pct %>%)
   -
   <b>Draghi <%= $sigs_md %></b> (<%= $sigs_md_pct %>%)
-  <% if ($sigs_unk) { %>
+  <% if ($sigs_unk) { =%>
   -
   <b><%=l 'Unknown' %>: <%= $sigs_unk %></b> (<%= $sigs_unk_pct %>%)
-  <% } %>
+  <% } =%>
   <br>
 <br>
 <%=l 'Average value per note' %>: <b><%= $avg_value %></b> EUR<br>
-<%=l 'Average entering rate' %>: <b><%= $avg_per_day %></b> <%=l 'notes/day' %>
+<%=l 'Average entering rate' %>: <b><%= $avg_per_day %></b> <%=l 'notes/day' =%>
 <br>
 <br>
 <img src="images/<%= $user %>/pct_by_pres.svg">

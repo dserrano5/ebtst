@@ -11,7 +11,7 @@
     <% foreach my $plate (sort keys %$ht) { =%>
     <tr>
         <td class="small_cell" style="vertical-align: top;">
-            <img src="images/countries/<%= $ht->{$plate}{'plate_flag'} %>.gif"> <%= $plate %>
+            <img src="images/countries/<%= $ht->{$plate}{'plate_flag'} %>.gif"> <%= $plate =%>
         </td>
         <% foreach my $v (@{ EBT2->values }) { =%>
         <td class="small_cell" style="vertical-align: top;">
@@ -27,7 +27,7 @@
                     <% } =%>
                     <br>
                 <% } =%>
-            <% } %>
+            <% } =%>
         </td>
         <% } =%>
     </tr>

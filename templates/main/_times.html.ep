@@ -35,20 +35,20 @@
             <% } =%>
         </tr>
     <% } =%>
-    <% foreach my $m (map { sprintf '%02d', $_ } 1 .. 12) { %>
+    <% foreach my $m (map { sprintf '%02d', $_ } 1 .. 12) { =%>
         <tr>
             <th class="small_cell"><%=l $EBTST::Main::months{0+$m} %></th>
-            <% foreach my $d (map { sprintf '%02d', $_ } 1 .. $last_days{$m}) { %>
-                <% my $color = color $time_data->{'cal'}{$m}{$d}, $color_what; $color_counts{$color}++; %>
-                <% my $class = 'bingo_' . (0 + !!$time_data->{'cal'}{$m}{$d}); %>
+            <% foreach my $d (map { sprintf '%02d', $_ } 1 .. $last_days{$m}) { =%>
+                <% my $color = color $time_data->{'cal'}{$m}{$d}, $color_what; $color_counts{$color}++; =%>
+                <% my $class = 'bingo_' . (0 + !!$time_data->{'cal'}{$m}{$d}); =%>
                 <% if ('detail' eq $mode) { =%>
                     <td class="small_cell"><span style="color: <%= $color %>"><%= $d %></span></td>
                 <% } else { =%>
                     <td class="small_cell"><span class="<%= $class %>"></span></td>
                 <% } =%>
-            <% } %>
+            <% } =%>
         </tr>
-    <% } %>
+    <% } =%>
 </table>
 <% if ('detail' eq $mode) { =%>
     <b><%=l 'Colors' %></b>:
@@ -72,13 +72,13 @@
         <% foreach my $num (map { sprintf '%02d', $_ } 0 .. 23) { =%>
             <tr>
                 <th><%= $num %></th>
-                <% my $color = color $time_data->{'hh'}{$num}, $color_what; $color_counts{$color}++; %>
+                <% my $color = color $time_data->{'hh'}{$num}, $color_what; $color_counts{$color}++; =%>
                 <td>
                     <span style="color: <%= $color %>"><%= $time_data->{'hh'}{$num}//0 %></span>
                     (<%= sprintf '%.2f', 100 * ($time_data->{'hh'}{$num}//0) / $count %>%)
                 </td>
             </tr>
-        <% } %>
+        <% } =%>
     </table>
     <b><%=l 'Colors' %></b>:
     <span style="color: <%= color $legend_colors[0], $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-5..-1] %>/24</span>,
@@ -93,13 +93,13 @@
         <tr>
             <% foreach my $num (map { sprintf '%02d', $_ } 0 .. 23) { =%>
                 <th class="small_cell"><%= $num %></th>
-            <% } %>
+            <% } =%>
         </tr>
         <tr>
             <% foreach my $num (map { sprintf '%02d', $_ } 0 .. 23) { =%>
-                <% my $class = 'bingo_' . (0 + !!$time_data->{'hh'}{$num}); $hour_count++ if 'bingo_1' eq $class; %>
+                <% my $class = 'bingo_' . (0 + !!$time_data->{'hh'}{$num}); $hour_count++ if 'bingo_1' eq $class; =%>
                 <td class="small_cell"><span class="<%= $class %>"></span></td>
-            <% } %>
+            <% } =%>
         </tr>
     </table>
     <b><%=l 'Hours' %></b>: <%= $hour_count %>/24<br>
@@ -117,15 +117,15 @@
         </tr>
     <% } =%>
     <tr>
-        <% foreach my $m (map { sprintf '%02d', $_ } 0 .. 59) { %>
-            <% my $color = color $time_data->{'mm'}{$m}, $color_what; $color_counts{$color}++; %>
-            <% my $class = 'bingo_' . (0 + !!$time_data->{'mm'}{$m}); %>
+        <% foreach my $m (map { sprintf '%02d', $_ } 0 .. 59) { =%>
+            <% my $color = color $time_data->{'mm'}{$m}, $color_what; $color_counts{$color}++; =%>
+            <% my $class = 'bingo_' . (0 + !!$time_data->{'mm'}{$m}); =%>
             <% if ('detail' eq $mode) { =%>
                 <td class="tiny_cell"><span style="color: <%= $color %>"><%= $m %></span></td>
-            <% } else { %>
+            <% } else { =%>
                 <td class="tiny_cell"><span class="<%= $class %>"></span></td>
-            <% } %>
-        <% } %>
+            <% } =%>
+        <% } =%>
     </tr>
 </table>
 <% if ('detail' eq $mode) { =%>
@@ -151,15 +151,15 @@
         </tr>
     <% } =%>
     <tr>
-        <% foreach my $s (map { sprintf '%02d', $_ } 0 .. 59) { %>
-            <% my $color = color $time_data->{'ss'}{$s}, $color_what; $color_counts{$color}++; %>
-            <% my $class = 'bingo_' . (0 + !!$time_data->{'ss'}{$s}); %>
+        <% foreach my $s (map { sprintf '%02d', $_ } 0 .. 59) { =%>
+            <% my $color = color $time_data->{'ss'}{$s}, $color_what; $color_counts{$color}++; =%>
+            <% my $class = 'bingo_' . (0 + !!$time_data->{'ss'}{$s}); =%>
             <% if ('detail' eq $mode) { =%>
                 <td class="tiny_cell"><span style="color: <%= $color %>"><%= $s %></span></td>
-            <% } else { %>
+            <% } else { =%>
                 <td class="tiny_cell"><span class="<%= $class %>"></span></td>
-            <% } %>
-        <% } %>
+            <% } =%>
+        <% } =%>
     </tr>
 </table>
 <% if ('detail' eq $mode) { =%>
@@ -185,20 +185,20 @@
             <% } =%>
         </tr>
     <% } =%>
-    <% foreach my $h (map { sprintf '%02d', $_ } 0 .. 23) { %>
+    <% foreach my $h (map { sprintf '%02d', $_ } 0 .. 23) { =%>
         <tr>
             <th class="tiny_cell"><%= $h %></th>
-            <% foreach my $m (map { sprintf '%02d', $_ } 0 .. 59) { %>
-                <% my $color = color $time_data->{'hhmm'}{$h}{$m}, $color_what; $color_counts{$color}++; %>
-                <% my $class = 'bingo_' . (0 + !!$time_data->{'hhmm'}{$h}{$m}); %>
+            <% foreach my $m (map { sprintf '%02d', $_ } 0 .. 59) { =%>
+                <% my $color = color $time_data->{'hhmm'}{$h}{$m}, $color_what; $color_counts{$color}++; =%>
+                <% my $class = 'bingo_' . (0 + !!$time_data->{'hhmm'}{$h}{$m}); =%>
                 <% if ('detail' eq $mode) { =%>
                     <td class="tiny_cell"><span style="color: <%= $color %>"><%= $m %></span></td>
-                <% } else { %>
+                <% } else { =%>
                     <td class="tiny_cell"><span class="<%= $class %>"></span></td>
-                <% } %>
-            <% } %>
+                <% } =%>
+            <% } =%>
         </tr>
-    <% } %>
+    <% } =%>
 </table>
 <% if ('detail' eq $mode) { =%>
     <b><%=l 'Colors' %></b>:
@@ -223,20 +223,20 @@
             <% } =%>
         </tr>
     <% } =%>
-    <% foreach my $m (map { sprintf '%02d', $_ } 0 .. 59) { %>
+    <% foreach my $m (map { sprintf '%02d', $_ } 0 .. 59) { =%>
         <tr>
             <th class="tiny_cell"><%= $m %></th>
-            <% foreach my $s (map { sprintf '%02d', $_ } 0 .. 59) { %>
-                <% my $color = color $time_data->{'mmss'}{$m}{$s}, $color_what; $color_counts{$color}++; %>
-                <% my $class = 'bingo_' . (0 + !!$time_data->{'mmss'}{$m}{$s}); %>
+            <% foreach my $s (map { sprintf '%02d', $_ } 0 .. 59) { =%>
+                <% my $color = color $time_data->{'mmss'}{$m}{$s}, $color_what; $color_counts{$color}++; =%>
+                <% my $class = 'bingo_' . (0 + !!$time_data->{'mmss'}{$m}{$s}); =%>
                 <% if ('detail' eq $mode) { =%>
                     <td class="tiny_cell"><span style="color: <%= $color %>"><%= $s %></span></td>
-                <% } else { %>
+                <% } else { =%>
                     <td class="tiny_cell"><span class="<%= $class %>"></span></td>
-                <% } %>
-            <% } %>
+                <% } =%>
+            <% } =%>
         </tr>
-    <% } %>
+    <% } =%>
 </table>
 <% if ('detail' eq $mode) { =%>
     <b><%=l 'Colors' %></b>:
@@ -255,10 +255,10 @@
 <% foreach my $h (keys %{ $time_data->{'hhmmss'} }) { =%>
     <% foreach my $m (keys %{ $time_data->{'hhmmss'}{$h} }) { =%>
         <% foreach my $s (keys %{ $time_data->{'hhmmss'}{$h}{$m} }) { =%>
-            <% my $color = color $time_data->{'hhmmss'}{$h}{$m}{$s}, $color_what; $color_counts{$color}++; %>
+            <% my $color = color $time_data->{'hhmmss'}{$h}{$m}{$s}, $color_what; $color_counts{$color}++; =%>
         <% } =%>
     <% } =%>
-<% } %>
+<% } =%>
 <% if ('detail' eq $mode) { =%>
     <b><%=l 'Colors' %></b>:
     <span style="color: <%= color $legend_colors[0], $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-5..-1] %>/86400</span>,
@@ -287,13 +287,13 @@
        <tr>
            <th><%=l $EBTST::Main::dows{$dow} %></th>
            <% foreach my $h (map { sprintf '%02d', $_ } 0 .. 23) { =%>
-               <% my $color = color $time_data->{'dowhh'}{$dow}{$h}, $color_what; $color_counts{$color}++; %>
-               <% my $class = 'bingo_' . (0 + !!$time_data->{'dowhh'}{$dow}{$h}); $dowh_count++ if 'bingo_1' eq $class; %>
+               <% my $color = color $time_data->{'dowhh'}{$dow}{$h}, $color_what; $color_counts{$color}++; =%>
+               <% my $class = 'bingo_' . (0 + !!$time_data->{'dowhh'}{$dow}{$h}); $dowh_count++ if 'bingo_1' eq $class; =%>
                <% if ('detail' eq $mode) { =%>
                    <td class="small_cell"><span style="color: <%= $color %>"><%= $h %></span></td>
-               <% } else { %>
+               <% } else { =%>
                    <td class="small_cell"><span class="<%= $class %>"></span></td>
-               <% } %>
+               <% } =%>
            <% } =%>
        </tr>
    <% } =%>
@@ -315,10 +315,10 @@
 <% foreach my $dow (keys %{ $time_data->{'dowhhmm'} }) { =%>
     <% foreach my $h (keys %{ $time_data->{'dowhhmm'}{$dow} }) { =%>
         <% foreach my $m (keys %{ $time_data->{'dowhhmm'}{$dow}{$h} }) { =%>
-            <% my $color = color $time_data->{'dowhhmm'}{$dow}{$h}{$m}, $color_what; $color_counts{$color}++; %>
+            <% my $color = color $time_data->{'dowhhmm'}{$dow}{$h}{$m}, $color_what; $color_counts{$color}++; =%>
         <% } =%>
     <% } =%>
-<% } %>
+<% } =%>
 <% if ('detail' eq $mode) { =%>
     <b><%=l 'Colors' %></b>:
     <span style="color: <%= color $legend_colors[0], $color_what %>"><%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-5..-1] %>/10080</span>,

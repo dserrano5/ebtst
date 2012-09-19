@@ -2,9 +2,9 @@
 <% my @tables = ( =%>
 <%     { msg => (l 'Most kilometers'), array => $longest }, =%>
 <%     { msg => (l 'Most days'),       array => $oldest }, =%>
-<% ); %>
+<% ); =%>
 
-<% foreach my $table (@tables) { %>
+<% foreach my $table (@tables) { =%>
 <h3><%=l 'Hit top-10' %>: <%= $table->{'msg'} %></h3>
 <table>
     <tr>
@@ -19,7 +19,7 @@
         <th><%=l 'Partner(s)' %></th>
         <th><%=l 'Note number' %></th>
     </tr>
-    <% foreach my $hit (@{ $table->{'array'} }) { %>
+    <% foreach my $hit (@{ $table->{'array'} }) { =%>
         <% my $hit_partners = $self->hit_partners ('html', $whoami->{'id'}, $hit->{'hit_partners'}, $hit->{'hit_partner_ids'}); =%>
         <tr>
             <td class="small_cell"><%= $hit->{'hit_no'} %></td>
@@ -33,10 +33,10 @@
             <td class="small_cell"><%== $hit_partners %></td>
             <td class="small_cell"><%= $hit->{'note_no'} %></td>
         </tr>
-    <% } %>
+    <% } =%>
 </table>
 <br>
-<% } %>
+<% } =%>
 <br>
 
 <h3><%=l 'Lucky bundles' %></h3>
@@ -57,7 +57,7 @@
             <td colspan="9" style="padding: 15px 15px 6px 10px">
                 <b><%= $lb->{'date'} %> - <%= $lb->{'num_hits'} %> <%=l 'hits' %></b> -
                 <%= $lb->{'num_notes'} %> <%=l 'notes' %>,
-                <%= lc l 'Hit ratio' %>: <%= sprintf '%.2f', $lb->{'ratio'} %>
+                <%= lc l 'Hit ratio' %>: <%= sprintf '%.2f', $lb->{'ratio'} =%>
             </td>
             <% foreach my $hit (@{ $lb->{'hits'} }) { =%>
                 <% my $hit_partners = $self->hit_partners ('html', $whoami->{'id'}, $hit->{'hit_partners'}, $hit->{'hit_partner_ids'}); =%>
@@ -87,5 +87,5 @@
     <%= $ohp->{'num_notes'} %> <%=l 'notes' %>,
     <%= $ohp->{'num_hits'} %> <%= $plural_hits %> -
     <%= lc l 'Hit ratio' %>: <b><%= sprintf '%.2f', $ohp->{'ratio'} %></b><br>
-    <% last if $shown >= 10; %>
+    <% last if $shown >= 10; =%>
 <% } } =%>

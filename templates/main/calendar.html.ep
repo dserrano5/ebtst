@@ -11,7 +11,7 @@
     <% my $first_cell = 1; foreach my $y (sort keys %$cal_data) { =%>
         <% my $va = $first_cell ? 'bottom' : 'top'; $first_cell = 0; =%>
         <td style="vertical-align: <%= $va %>; font-size: 9px">
-            <%== join '<br>', map { sprintf '<a href="%s#%s%s">%s</a>', $url, $y, $_, l $EBTST::Main::months{0+$_} } sort keys %{ $cal_data->{$y} } %>
+            <%== join '<br>', map { sprintf '<a href="%s#%s%s">%s</a>', $url, $y, $_, l $EBTST::Main::months{0+$_} } sort keys %{ $cal_data->{$y} } =%>
         </td>
     <% } =%>
     </tr>
@@ -24,7 +24,7 @@
             <tr>
                 <a name="<%= "$y$m" %>"></a>
                 <th colspan="7" style="text-align: center; padding: 5px 0px 5px 0px">
-                    <%= join ' ', (l $EBTST::Main::months{0+$m}), $y %>
+                    <%= join ' ', (l $EBTST::Main::months{0+$m}), $y =%>
                     <div style="float: right; padding-right: 15px"><a href="<%= $url %>#top"><%=l 'Top' %></a></div>
                 </th>
             </tr>
@@ -34,7 +34,7 @@
             <% } =%>
             </tr>
             <tr>
-                <%# days before %>
+                <%# days before =%>
                 <% foreach my $before (1 .. $cal_data->{$y}{$m}{'days_before'}) { =%>
                     <td class="cal_day_cell">
                         <div class="cal_day_container">
@@ -57,7 +57,7 @@
                                     <% } =%>
                                     <% if ($entry->{'num_hits'}) { =%>
                                         <% my $plural = $entry->{'num_hits'} > 1 ? (l 'hits') : (l 'hit'); =%>
-                                        <%= $entry->{'num_hits'} %> <%= $plural %>
+                                        <%= $entry->{'num_hits'} %> <%= $plural =%>
                                     <% } =%>
                                 </p></div>
                             <% } =%>
@@ -95,7 +95,7 @@
                     <%== '</tr><tr>' if 7 == $cal_data->{$y}{$m}{'days'}{$day}{'dow'}; =%>
                 <% } =%>
 
-                <%# days after %>
+                <%# days after =%>
                 <% foreach my $before (1 .. $cal_data->{$y}{$m}{'days_after'}) { =%>
                     <td class="cal_day_cell">
                         <div class="cal_day_container">

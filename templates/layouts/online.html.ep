@@ -20,7 +20,7 @@
             <div style="border: 1px solid black; height: 20px"><div id="progress_bar"></div></div>
         </div>
         <table style="padding: 15px"><tr style="vertical-align: top"><td style="padding: 0px 15px 0px 0px; margin: 0px; background-color: #c0c0ff">
-            <% if (defined $user) { %>
+            <% if (defined $user) { =%>
             <div id="sections">
                 <form id="calc_sections" action="calc_sections" method="POST" target="_new">
                 <table width="100%">
@@ -34,7 +34,7 @@
                             <hr>
                         </td>
                     </tr>
-                    <% if ($has_notes) { %>
+                    <% if ($has_notes) { =%>
                     % foreach my $elem (
                     %     [ information          => 'Information' ],
                     %     [ value                => 'Value' ],
@@ -84,21 +84,21 @@
                     %     my $td2 = sprintf '<td><a class="section_link" id="%s" href="%s">%s</a></td>', $section, $href, $self->l ($title);
                     %==   '<tr>'.$td1.$td2.'</tr>'
                     % }
-                    <% } %>
+                    <% } =%>
                     <tr><td></td><td><a class="section_link" id="configure" href="configure"><%=l 'Configuration' %></a></td></tr>
                     <tr><td></td><td><a class="section_link" id="help"      href="help"><%=l      'Help'          %></a></td></tr>
                     <tr><td></td><td><a class="section_link" id="logout"    href="logout"><%=l    'Logout'        %></a></td></tr>
                 </table>
                 </form>
             </div>
-            <% } else { %>
+            <% } else { =%>
             <div id="sections" style="padding: 0px 5px 0px 5px">
             </div>
-            <% } %>
+            <% } =%>
         </td><td style="padding: 0px; margin: 0px; background-color: #c0c0ff">
             <div id="repl">
                 <div id="error_msg"><%=l $msg %></div>
-                <%= content %>
+                <%= content =%>
             </div>
         </td></tr></table>
     </body>

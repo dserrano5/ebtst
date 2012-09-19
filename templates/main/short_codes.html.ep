@@ -13,7 +13,7 @@
         <th><%=l 'Value' %></th>
         <th><%=l 'Date' %></th>
     </tr>
-    <% foreach my $elem (@{ $sc->{'all'} }) { %>
+    <% foreach my $elem (@{ $sc->{'all'} }) { =%>
     <tr>
         <td><img src="images/countries/<%= $elem->{'lo'}{'pc_img'} %>.gif"> <%= $elem->{'lo'}{'pc_str'} %></td>
         <td><img src="images/countries/<%= $elem->{'lo'}{'cc_img'} %>.gif"> <a href="https://eurobilltracker.com/notes/?id=<%= $elem->{'lo'}{'id'} %>"><%= $elem->{'lo'}{'cc_str'} %></a></td>
@@ -25,11 +25,11 @@
         <td><img src="images/values/<%= $elem->{'hi'}{'value'} %>.gif"></td>
         <td><%= $elem->{'hi'}{'date'} %><span class="recent_<%= $elem->{'hi'}{'recent'} %>"></span></td>
     </tr>
-    <% } %>
+    <% } =%>
 </table>
 
 <h2><%=l 'Lowest and highest short codes per value' %></h2>
-<% foreach my $v (@{ EBT2->values }) { %>
+<% foreach my $v (@{ EBT2->values }) { =%>
     <h3><%= $v %></h3>
     <table>
         <tr>
@@ -41,8 +41,8 @@
             <th><%=l 'Country' %></th>
             <th><%=l 'Date' %></th>
         </tr>
-        <% foreach my $elem (@{ $sc->{$v} }) { %>
-            <% if (defined $elem) { %>
+        <% foreach my $elem (@{ $sc->{$v} }) { =%>
+            <% if (defined $elem) { =%>
             <tr>
                 <td><img src="images/countries/<%= $elem->{'lo'}{'pc_img'} %>.gif"> <%= $elem->{'lo'}{'pc_str'} %></td>
                 <td><img src="images/countries/<%= $elem->{'lo'}{'cc_img'} %>.gif"> <a href="https://eurobilltracker.com/notes/?id=<%= $elem->{'lo'}{'id'} %>"><%= $elem->{'lo'}{'cc_str'} %></a></td>
@@ -52,7 +52,7 @@
                 <td><img src="images/countries/<%= $elem->{'hi'}{'cc_img'} %>.gif"> <a href="https://eurobilltracker.com/notes/?id=<%= $elem->{'hi'}{'id'} %>"><%= $elem->{'hi'}{'cc_str'} %></a></td>
                 <td><%= $elem->{'hi'}{'date'} %><span class="recent_<%= $elem->{'hi'}{'recent'} %>"></span></td>
             </tr>
-            <% } %>
-        <% } %>
+            <% } =%>
+        <% } =%>
     </table>
-<% } %>
+<% } =%>

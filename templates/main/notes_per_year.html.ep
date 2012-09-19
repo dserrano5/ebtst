@@ -11,17 +11,17 @@
         <th>200</th>
         <th>500</th>
     </tr>
-    <% foreach my $elem (@$nby) { %>
+    <% foreach my $elem (@$nby) { =%>
         <tr>
             <td><b><%= $elem->{'year'} %></b></td>
             <td><%= $elem->{'count'} %> (<%= $elem->{'pct'} %>%)</td>
-            <% foreach my $d (@{ $elem->{'detail'} }) { %>
-                <% if ($d->{'count'}) { %>
+            <% foreach my $d (@{ $elem->{'detail'} }) { =%>
+                <% if ($d->{'count'}) { =%>
                     <td><%= $d->{'count'} %></td>
-                <% } else { %>
+                <% } else { =%>
                     <td></td>
-                <% } %>
-            <% } %>
+                <% } =%>
+            <% } =%>
         </tr>
-    <% } %>
+    <% } =%>
 </table>

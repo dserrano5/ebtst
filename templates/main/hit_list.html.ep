@@ -17,7 +17,7 @@
         <th class="small_cell"><%=l 'Notes between' %></th>
         <th class="small_cell"><%=l 'Days between' %></th>
     </tr>
-    <% foreach my $hit (@$hit_list) { %>
+    <% foreach my $hit (@$hit_list) { =%>
         <% my $hit_partners = $self->hit_partners ('html', $whoami->{'id'}, $hit->{'hit_partners'}, $hit->{'hit_partner_ids'}); =%>
         <tr>
             <td class="small_cell"><%= $hit->{'hit_no'} %></td>
@@ -36,5 +36,5 @@
             <td class="small_cell"><%= $hit->{'notes_between'} %></td>
             <td class="small_cell"><%= $hit->{'days_between'} %></td>
         </tr>
-    <% } %>
+    <% } =%>
 </table>

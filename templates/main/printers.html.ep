@@ -7,4 +7,4 @@
         tot_bv        => $tot_p_bv,
         first_title   => (l 'First notes by printer code'),
         first_by      => $fbpc,
-        first_from    => 'pc'; %>
+        first_from    => 'pc'; =%>

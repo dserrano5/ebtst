@@ -1,5 +1,5 @@
 <h2><%=l 'Plate bingo' %></h2>
-<% foreach my $elem (@$plate_bingo) { %>
+<% foreach my $elem (@$plate_bingo) { =%>
     <h3><%= 'all' eq $elem->{'value'} ? (ucfirst l $elem->{'value'}) : $elem->{'value'} %></h3>
     <% if ('all' eq $elem->{'value'}) { =%>
         <p class="colors_legend">
@@ -12,46 +12,46 @@
         </p>
     <% } =%>
     <table>
-        <% my %seen; my %total; %>
-        <% foreach my $printer (@{ $elem->{'printers'} }) { %>
-            <% $seen{$printer} = $total{$printer} = 0; %>
-        <% } %>
-        <% foreach my $row (map { sprintf '%03d', $_ } 1 .. $elem->{'highest'}) { %>
+        <% my %seen; my %total; =%>
+        <% foreach my $printer (@{ $elem->{'printers'} }) { =%>
+            <% $seen{$printer} = $total{$printer} = 0; =%>
+        <% } =%>
+        <% foreach my $row (map { sprintf '%03d', $_ } 1 .. $elem->{'highest'}) { =%>
             <tr>
-                <% foreach my $printer (@{ $elem->{'printers'} }) { %>
-                    <% my $plate = sprintf '%s%03d', $printer, $row; %>
-                    <% my $color; %>
-                    <% if (exists $elem->{'plates'}{$plate}) { %>
-                        <% $total{$printer}++; %>
-                        <% if ($elem->{'plates'}{$plate}{'count'}) { %>
-                            <% $seen{$printer}++; %>
-                            <% if ('err' eq $elem->{'plates'}{$plate}{'count'}) { %><%# shouldn't happen since this code doesn't receive bad notes %>
+                <% foreach my $printer (@{ $elem->{'printers'} }) { =%>
+                    <% my $plate = sprintf '%s%03d', $printer, $row; =%>
+                    <% my $color; =%>
+                    <% if (exists $elem->{'plates'}{$plate}) { =%>
+                        <% $total{$printer}++; =%>
+                        <% if ($elem->{'plates'}{$plate}{'count'}) { =%>
+                            <% $seen{$printer}++; =%>
+                            <% if ('err' eq $elem->{'plates'}{$plate}{'count'}) { =%><%# shouldn't happen since this code doesn't receive bad notes =%>
                                 <td class="small_cell"><div class="bingo_err"></div></td>
-                            <% } else { %>
+                            <% } else { =%>
                                 <% if (1 == $elem->{'plates'}{$plate}{'count'}) { =%>
                                     <td class="small_cell"><a href="https://eurobilltracker.com/notes/?id=<%= $elem->{'plates'}{$plate}{'last_id'} %>"><span style="color: <%= color $elem->{'plates'}{$plate}{'count'}, 'notes' %>"><%= $plate %></span></a></td>
                                 <% } else { =%>
                                     <td class="small_cell"><span style="color: <%= color $elem->{'plates'}{$plate}{'count'}, 'notes' %>"><%= $plate %></span></td>
                                 <% } =%>
-                            <% } %>
-                        <% } else { %>
+                            <% } =%>
+                        <% } else { =%>
                             <td class="small_cell"><span style="color: <%= color 0, 'notes' %>"><%= $plate %></span></td>
-                        <% } %>
-                    <% } else { %>
+                        <% } =%>
+                    <% } else { =%>
                         <td class="small_cell"><div class="bingo_na"></div></td>
-                    <% } %>
-                <% } %>
+                    <% } =%>
+                <% } =%>
             </tr>
-        <% } %>
+        <% } =%>
         <tr>
-            <% foreach my $printer (@{ $elem->{'printers'} }) { %>
+            <% foreach my $printer (@{ $elem->{'printers'} }) { =%>
                 <td class="small_cell"><%= $seen{$printer} %>/<%= $total{$printer} %></td>
-            <% } %>
+            <% } =%>
         </tr>
     </table>
-    <% my $all_seen;  $all_seen  += $_ for values %seen; %>
-    <% my $all_total; $all_total += $_ for values %total; %>
-    <% my $all_pct = sprintf '%.2f', $all_seen * 100 / $all_total; %>
+    <% my $all_seen;  $all_seen  += $_ for values %seen; =%>
+    <% my $all_total; $all_total += $_ for values %total; =%>
+    <% my $all_pct = sprintf '%.2f', $all_seen * 100 / $all_total; =%>
     <p><%=l 'Total for' %> <%=l $elem->{'value'} %>: <b><%= $all_seen; %>/<%= $all_total; %></b> (<%= $all_pct %>%)</p>
-    <% if ('all' eq $elem->{'value'} or 500 != $elem->{'value'}) { %><hr><% } %>
-<% } %>
+    <% if ('all' eq $elem->{'value'} or 500 != $elem->{'value'}) { %><hr><% } =%>
+<% } =%>

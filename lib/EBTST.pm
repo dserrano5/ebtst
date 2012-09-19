@@ -309,6 +309,7 @@ sub startup {
         my ($self, $level, @messages) = @_;
         return unless my $handle = $self->handle;
 
+        return if $messages[-1] =~ /Routing to a callback\.$/;
         my $txt = $self->format ($level, @messages);
         my $ip   = $ENV{'EBTST_SRC_IP'} // 'no_ip';
         my $user = $ENV{'EBTST_USER'}   // 'no_user';

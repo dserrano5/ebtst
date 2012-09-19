@@ -110,7 +110,9 @@ sub serial_remove_meaningless_figures2 {
 
     } elsif ('H' eq $cc) {
         if ('G' ne $pc) {
-            $serial = $cc . '**' . substr $serial, 3;
+            if (5 != $value) {
+                $serial = $cc . '**' . substr $serial, 3;
+            }
         }
 
     } elsif ('U' eq $cc) {

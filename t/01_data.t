@@ -110,7 +110,8 @@ while (my $notes = $obj->note_getter (interval => 'all')) {
     is $notes->[-1][COUNTRY], 'rsme', 'Serbia and Montenegro is recognized';
 }
 
-is +(EBT2::Data::serial_remove_meaningless_figures2 undef, 'E001A1', 'H00000'), 'H**000', 'Remove meaningless figures in E/H';
+is +(EBT2::Data::serial_remove_meaningless_figures2 20,    'E001A1', 'H00000'), 'H**000', 'Remove meaningless figures in E/H';
+is +(EBT2::Data::serial_remove_meaningless_figures2 5,     'E001A1', 'H00000'), 'H00000', 'Remove meaningless figures in E/H 5';
 is +(EBT2::Data::serial_remove_meaningless_figures2 undef, 'F001A1', 'N00000'), 'N**000', 'Remove meaningless figures in F/N';
 is +(EBT2::Data::serial_remove_meaningless_figures2 5,     'F001A1', 'P00000'), 'P00**0', 'Remove meaningless figures in F/P 5';
 is +(EBT2::Data::serial_remove_meaningless_figures2 500,   'F001A1', 'P00000'), 'P**000', 'Remove meaningless figures in F/P 500';
@@ -120,5 +121,5 @@ is +(EBT2::Data::serial_remove_meaningless_figures2 undef, 'L001A1', 'U00000'), 
 is +(EBT2::Data::serial_remove_meaningless_figures2 undef, 'T001A1', 'Z00000'), 'Z0**00', 'Remove meaningless figures in M/V';
 is +(EBT2::Data::serial_remove_meaningless_figures2 undef, 'U001A1', 'M00000'), 'M00000', 'Remove meaningless figures in U/M';
 
-done_testing 77;
+done_testing 78;
 unlink '/tmp/ebt2-storable' or warn "unlink: '/tmp/ebt2-storable': $!";

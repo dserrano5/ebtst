@@ -38,9 +38,17 @@ User = Benutzername
 Passphrase = Passwort
 Login = Login
 Register = Registrieren
+Wrong username/passphrase = Benutzername/Passwort falsch
 
 ## register
 Confirm passphrase = Passwort bestätigen
+Passwords do not match = Passwörter stimmen nicht überein
+Username contains invalid characters = Benutzername enthält ungültige Zeichen
+Password contains invalid characters = Passwort enthält ungültige Zeichen
+Username and password contain invalid characters = Benutzername und Passwort enthalten ungültige Zeichen
+User already exists = Benutzername existiert bereits
+Error upon registration = Fehler bei der Registrierung
+Registration successful = Registrierung erfolgreich
 
 ## information
 General information = Allgemeine Informationen

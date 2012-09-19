@@ -13,7 +13,7 @@ use EBT2::Data;
 use EBT2::Constants ':all';
 
 ## whenever there are changes in any stats format, this has to be increased in order to detect users with old stats formats
-our $STATS_VERSION = '20120827-01';
+our $STATS_VERSION = '20120919-01';
 my $chunk_size = '10000n';
 
 sub mean { return sum(@_)/@_; }

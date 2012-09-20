@@ -405,6 +405,7 @@ sub startup {
         $self->render_not_found if 'progress' eq $requested_url;
         $requested_url = '' if grep { $_ eq $requested_url } qw/logout index calc_sections/;
         $requested_url = '' if $requested_url =~ /^gen_output_/;
+        $requested_url = '' if $requested_url =~ m{^import/};
         $requested_url = 'configure' if 'upload' eq $requested_url;
         $self->flash (requested_url => $requested_url);
 

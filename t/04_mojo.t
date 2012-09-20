@@ -112,7 +112,7 @@ $sha = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->text;
 next_is_xhr; $t->get_ok ("/import/$sha")->status_is (200)->content_type_is ('text/plain')->content_is ('information', 'import hits');
 
 ## hit_analysis isn't broken with less than 10 hits
-$t->get_ok ('/hit_analysis')->status_is (200)->content_like (qr{<td class="small_cell"><a href="[^"]*">Lxxxx2379xxx</a></td>}, 'hit analysis');
+$t->get_ok ('/hit_analysis')->status_is (200)->content_like (qr{<td class="small_cell"><a href="[^"]*">Lxxxx2000xxx</a></td>}, 'hit analysis');
 
 ## upload notes and hits CSV
 $t->get_ok ('/information');
@@ -128,7 +128,7 @@ $sha = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->text;
 next_is_xhr; $t->get_ok ("/import/$sha")->status_is (200)->content_type_is ('text/plain')->content_is ('information', 'import notes and hits');
 
 ## moderated hits don't appear in hit_list
-$t->get_ok ('/hit_list')->status_is (200)->content_unlike (qr/Exxxx0534xxx/, 'moderated hits are ignored');
+$t->get_ok ('/hit_list')->status_is (200)->content_unlike (qr/Exxxx0000xxx/, 'moderated hits are ignored');
 
 ## but their count appears in hit_summary
 $t->get_ok ('/hit_summary')->status_is (200)->content_like (qr/1\s+international\),\s+plus\s+1\s+moderated/, 'but they are counted');

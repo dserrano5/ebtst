@@ -90,8 +90,8 @@ $res = $st->hit_list (undef, $data_obj, $data_obj->whoami);
 for (0..6) { is $res->{'hit_list'}[$_]{'hit_no'}, $_+1, sprintf 'Correct hit %d number', $_ + 1; }
 
 my @hit_dates = (
-    '2010-10-05 09:27:31', '2010-11-24 20:11:39', '2011-04-30 13:28:45', '2011-10-19 00:47:18', '2011-11-11 10:43:37',
-    '2011-11-14 22:12:29', '2012-02-01 09:25:51',
+    '2010-10-07 00:00:00', '2010-11-26 00:00:00', '2011-05-02 00:00:00', '2011-10-21 00:00:00', '2011-11-13 00:00:00',
+    '2011-11-16 00:00:00', '2012-02-03 00:00:00',
 );
 for (0..6) { is $res->{'hit_list'}[$_]{'hit_date'}, $hit_dates[$_], sprintf 'Correct hit %d date', $_ + 1; }
 is +(join ',', @{ $res->{'hits_dates'} }), (join ',', @hit_dates), 'Correct hits_dates';
@@ -142,8 +142,8 @@ is $res->{'hit_list'}[8]{'hit_no'}, 7,     sprintf 'Correct hit 9 number';
 for (0..8) { is $res->{'hit_list'}[$_]{'hit_no2'}, $_+1, sprintf 'Correct hit %d number, including moderated ones', $_ + 1; }
 
 my @all_hit_dates = (
-    '2010-03-11 11:48:39', '2010-10-05 09:27:31', '2010-11-24 20:11:39', '2011-03-11 11:48:39', '2011-04-30 13:28:45',
-    '2011-10-19 00:47:18', '2011-11-11 10:43:37', '2011-11-14 22:12:29', '2012-02-01 09:25:51',
+    '2010-03-13 00:00:00', '2010-10-07 00:00:00', '2010-11-26 00:00:00', '2011-03-13 00:00:00', '2011-05-02 00:00:00',
+    '2011-10-21 00:00:00', '2011-11-13 00:00:00', '2011-11-16 00:00:00', '2012-02-03 00:00:00',
 );
 for (0..8) { is $res->{'hit_list'}[$_]{'hit_date'}, $all_hit_dates[$_], sprintf 'Correct hit %d date', $_ + 1; }
 ## use @hit_dates here, not all_hit_dates since $res->{'hits_dates'} shouldn't contain moderated hits

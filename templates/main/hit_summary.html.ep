@@ -132,7 +132,7 @@
 <br>
 <b><%=l 'Hits with same kilometers and days' %></b><br>
 <% if ($hs->{'equal_km_days'}) { =%>
-    <% foreach my $equal (sort keys %{ $hs->{'equal_km_days'} }) { =%>
+    <% foreach my $equal (sort { $a <=> $b } keys %{ $hs->{'equal_km_days'} }) { =%>
         <%= $equal %> - <%= $equal %><br>
     <% } =%>
 <% } else { =%>

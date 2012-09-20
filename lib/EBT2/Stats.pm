@@ -670,7 +670,6 @@ sub notes_by_combination {
 
     return \%ret;
 }
-#sub notes_by_combination_with_value { goto &notes_by_combination; }
 
 sub plate_bingo {
     my ($self, $progress, $data) = @_;
@@ -1283,48 +1282,6 @@ sub calendar {
 
 __END__
 
-sub fooest_serial_per_comb3 {
-    my ($self, $cmp_key, $hash_key) = @_;
-
-    #return $self if $self->{$hash_key};  ## if already done
-
-    my $iter = $self->note_getter (one_result_aref => 0, one_result_full_data => 0);
-    while (my $hr = $iter->()) {
-        my $plate = substr $hr->{'short_code'}, 0, 4;
-        my $cc    = substr $hr->{'serial'}, 0, 1;
-        my $comb3 = sprintf '%s%s%03d', $plate, $cc, $hr->{'value'};
-
-        my $serial = $self->serial_remove_meaningless_figures2 ($hr->{'short_code'}, $hr->{'serial'});
-        #$serial =~ s/\*//g;
-
-        if (!exists $self->{$hash_key}{$comb3}) {
-            $self->{$hash_key}{$comb3} = { %$hr, sort_key => $serial };
-        } else {
-            if ($cmp_key == ($serial cmp $self->{$hash_key}{$comb3}{'sort_key'})) {
-                $self->{$hash_key}{$comb3} = { %$hr, sort_key => $serial };
-            }
-        }
-    }
-
-    return $self;
-}
-
-sub lowest_serial_per_comb3 {
-    my ($self) = @_;
-    my $cmp_key = -1;
-    my $hash_key = 'lowest_serial_per_comb3';
-
-    return $self->fooest_serial_per_comb3 ($cmp_key, $hash_key);
-}
-
-sub highest_serial_per_comb3 {
-    my ($self) = @_;
-    my $cmp_key = 1;
-    my $hash_key = 'highest_serial_per_comb3';
-
-    return $self->fooest_serial_per_comb3 ($cmp_key, $hash_key);
-}
-
 sub palindrome_serials {
     my ($self) = @_;
     $self->{'palindrome_serials7'} = {};
@@ -1508,21 +1465,6 @@ sub rare_notes {
         my $sum = sum @{ $self->{'rare_notes'}{'comb3diffs'}{$comb3} };
         my $mean = sprintf '%.0f', $sum/@{ $self->{'rare_notes'}{'comb3diffs'}{$comb3} };
         $self->{'rare_notes'}{'remaining_days'}{'comb3'}{$comb3} = $mean - $self->{'rare_notes'}{'comb3cur_diff'}{$comb3};
-    }
-
-    return $self;
-}
-
-sub note_entering_days {
-    my ($self) = @_;
-
-    #return $self if $self->{'note_entering_days'};  ## if already done
-
-    my $iter = $self->note_getter (one_result_aref => 0, one_result_full_data => 0);
-    while (my $hr = $iter->()) {
-        my $m = 0 + substr $hr->{'date_entered'}, 5, 2;
-        my $d = 0 + substr $hr->{'date_entered'}, 8, 2;
-        $self->{'note_entering_days'}{$m}{$d}++;
     }
 
     return $self;

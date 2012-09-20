@@ -17,39 +17,6 @@ use EBT2::Constants ':all';
 ## whenever there are changes in the data format, this has to be increased in order to detect users with old data formats
 my $DATA_VERSION = '20120810-01';
 
-#use Inline C => <<'EOC';
-#void my_split (char *str, int nfields) {
-#    int n;
-#    int len;
-#    char *start;
-#    char *substr;
-#    char *copy;
-#
-#    inline_stack_vars;
-#    inline_stack_reset;
-#
-#    copy = calloc (4096, 1);
-#    start = str;
-#    substr = index (str, ';');
-#    for (n = 0; n < nfields-1; n++) {
-#        len = substr-start;
-#        strncpy (copy, start, len);
-#        /* printf ("substr (%s) start (%s) copy (%s)\n", substr, start, copy); */
-#        if (!strncmp (copy, ";", 1)) {
-#            inline_stack_push (sv_2mortal (newSVpvn ("", 0)));
-#        } else {
-#            inline_stack_push (sv_2mortal (newSVpvn (copy, len)));
-#        }
-#        bzero (copy, len);
-#        start = substr+1;
-#        substr = index (start, ';');
-#    }
-#    inline_stack_push (sv_2mortal (newSVpvf ("%s", start)));
-#    inline_stack_done;
-#    free (copy);
-#}
-#EOC
-
 Locale::Country::alias_code (uk => 'gb');
 Locale::Country::add_country ('rskm' => 'Kosovo');                ## EBT lists Kosovo as a country, which isn't defined in ISO-3166-1 as a country. Use its ISO-3166-2 code
 Locale::Country::rename_country ('ba' => 'Bosnia-Herzegovina');   ## Locale::Country gives a different name to this one
@@ -129,9 +96,6 @@ sub serial_remove_meaningless_figures2 {
 
     } elsif ('Z' eq $cc) {
         $serial = $cc . (substr $serial, 1, 1) . '**' . substr $serial, 4;
-
-    #} else {
-    #    $serial = substr $serial, 0;
 
     }
 
@@ -691,47 +655,6 @@ full_data specifies whether to return dates along with notes or not
 =cut
 sub note_getter {
     my ($self, %args) = @_;
-
-    ## shortcut: skip the iterator and the multiple fetchrows
-    ## to use the getter as before, just feed a bogus argument, e.g. $self->note_getter (foo => 'bar');
-    if (0 and !%args) {
-        ## HASH, ARRAY
-        #return $self->{'notes'};
-
-        ## STRING, CSV
-        return [
-            map { [ split ';', $_, NCOLS ] } @{ $self->{'notes'} }
-        ];
-
-        ## STRING, CSV, MY_SPLIT
-        #return [
-        #    map { [ my_split $_, NCOLS ] } @{ $self->{'notes'} }
-        #];
-
-        ## STRING, FIXED LENGTH STRINGS
-        #my (@arr,@arr2);
-        #foreach my $n (@{ $self->{'notes'} }) {
-        #    $arr2[0]  = substr $n, 0, 3;
-        #    $arr2[1]  = substr $n, 0+3, 4;
-        #    $arr2[2]  = substr $n, 0+3+4, 12;
-        #    $arr2[3]  = substr $n, 0+3+4+12, 19;
-        #    $arr2[4]  = substr $n, 0+3+4+12+19, 30;
-        #    $arr2[5]  = substr $n, 0+3+4+12+19+30, 2;
-        #    $arr2[6]  = substr $n, 0+3+4+12+19+30+2, 12;
-        #    $arr2[7]  = substr $n, 0+3+4+12+19+30+2+12, 6;
-        #    $arr2[8]  = substr $n, 0+3+4+12+19+30+2+12+6, 10;
-        #    $arr2[9]  = substr $n, 0+3+4+12+19+30+2+12+6+10, 1;
-        #    $arr2[10] = substr $n, 0+3+4+12+19+30+2+12+6+10+1, 1;
-        #    $arr2[11] = substr $n, 0+3+4+12+19+30+2+12+6+10+1+1, 18;
-        #    $arr2[12] = substr $n, 0+3+4+12+19+30+2+12+6+10+1+1+18, 18;
-        #    $arr2[13] = substr $n, 0+3+4+12+19+30+2+12+6+10+1+1+18+18, 10;
-        #    $arr2[14] = substr $n, 0+3+4+12+19+30+2+12+6+10+1+1+18+18+10, 100;
-        #    $arr2[15] = substr $n, 0+3+4+12+19+30+2+12+6+10+1+1+18+18+10+100, 100;
-        #    $arr2[16] = substr $n, 0+3+4+12+19+30+2+12+6+10+1+1+18+18+10+100+100, 250;
-        #    push @arr, [ @arr2 ];
-        #}
-        #return \@arr;
-    }
 
     die "filter must be a hashref\n" if $args{'filter'} and 'HASH' ne ref $args{'filter'};
 

@@ -911,10 +911,6 @@ sub short_codes {
                 };
             }
             push @{ $sc->{$v} }, $tmp;
-
-            #if (!defined $lo->{$pc}{$v}{'sort_key'}) {
-            #    next;
-            #}
         }
     }
     $self->_log (debug => report 'short_codes cook', $t0, $count);

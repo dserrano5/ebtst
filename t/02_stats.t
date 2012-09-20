@@ -39,6 +39,20 @@ is $res->{'notes_by_value'}{'20'}, 4, 'Four 20€ notes';
 is $res->{'notes_by_value'}{'50'}, 1, 'One 50€ note';
 is $res->{'notes_by_value'}{'500'}, 1, 'One 500€ note';
 
+note 'short_codes';
+$data_obj->load_notes (undef, 't/notes-combs.csv');
+$res = $st->highest_short_codes (undef, $data_obj);
+is $res->{'highest_short_codes'}{'E'}{'5'}{'sort_key'}, 'E010A1H002', 'Short code for 5 E/H';
+is $res->{'highest_short_codes'}{'E'}{'20'}{'sort_key'}, 'E003A1H**011', 'Short code for 20 E/H';
+is $res->{'highest_short_codes'}{'G'}{'20'}{'sort_key'}, 'G008A1H550', 'Short code for 20 G/H';
+is $res->{'highest_short_codes'}{'U'}{'20'}{'sort_key'}, 'U001A1M378', 'Short code for 20 U/M';
+is $res->{'highest_short_codes'}{'F'}{'10'}{'sort_key'}, 'F001A1N**211', 'Short code for 10 F/N';
+is $res->{'highest_short_codes'}{'G'}{'200'}{'sort_key'}, 'G001A1N000', 'Short code for 200 G/N';
+is $res->{'highest_short_codes'}{'F'}{'5'}{'sort_key'}, 'F003A1P04**1', 'Short code for 5 F/P';
+is $res->{'highest_short_codes'}{'F'}{'500'}{'sort_key'}, 'F001A1P**011', 'Short code for 500 F/P';
+is $res->{'highest_short_codes'}{'K'}{'10'}{'sort_key'}, 'K001A1T265', 'Short code for 10 K/T';
+is $res->{'highest_short_codes'}{'L'}{'20'}{'sort_key'}, 'L004A1U**311', 'Short code for 20 L/U';
+is $res->{'highest_short_codes'}{'T'}{'50'}{'sort_key'}, 'T001A1Z3**11', 'Short code for 50 T/Z';
 
 note 'hit_list';
 $data_obj->load_notes (undef, 't/notes4.csv');
@@ -194,5 +208,5 @@ is $res->{'hit_list'}[0]{'moderated'}, 1, 'First hit is moderated';
 is $res->{'hit_list'}[1]{'moderated'}, 0, 'Second hit is not moderated';
 ok !exists $res->{'hit_list'}[0]{'old_hit_ratio'}, 'Key "old_hit_ratio" is not present';   ## the code doesn't set some keys for moderated hits
 
-done_testing 196;
+done_testing 207;
 unlink '/tmp/ebt2-storable' or warn "unlink: '/tmp/ebt2-storable': $!";

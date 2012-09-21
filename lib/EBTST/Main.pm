@@ -1965,7 +1965,7 @@ sub calc_sections {
 
     my @req_params = grep { $self->param ($_) } @params;
     $self->ebt->set_checked_boxes (@req_params);
-    @req_params = 'information' unless @req_params;
+    @req_params = qw/information value countries printers locations/ unless @req_params;
     $self->_log (debug => "calc_sections: req_params (@{[ sort @req_params ]})");
 
     my $mult; foreach my $rp (@req_params) { $mult += $mults{$rp} // 1; }

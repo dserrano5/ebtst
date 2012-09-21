@@ -91,6 +91,9 @@ $t->get_ok ('/information')->status_is (200)->content_like (qr/\bSignatures:.*\b
 $t->get_ok ('/configure')->status_is (200)->content_like (qr/short_codes/, 'configure has sections')->text_is ('div#error_msg' => '', 'no error_msg');
 $t->get_ok ('/help')->status_is (200)->content_like (qr/short_codes/, 'help has sections')->text_is ('div#error_msg' => '', 'no error_msg');
 
+## /travel_stats differentiates cities with the same name in different countries
+$t->get_ok ('/travel_stats')->status_is (200)->content_like (qr{Number of locations: <b>2</b>}, 'travel_stats');
+
 ## BBCode/HTML generation
 $t->post_form_ok ('/calc_sections', { information => 1, value => 1, })->status_is (404);
 next_is_xhr; $t->post_form_ok ('/calc_sections', {
@@ -263,4 +266,4 @@ $t->ua->once (start => sub {
 });
 $t->get_ok ('/configure')->status_is (200)->content_like (qr/CSV upload doesn't work with Internet Explorer/);
 
-done_testing 200;
+done_testing 203;

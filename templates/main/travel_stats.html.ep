@@ -12,15 +12,13 @@
     </tr>
     <% my $idx = 1; my %visits_per_year; =%>
     <% foreach my $loc (sort { =%>
-    <%#     keys %{ $travel_stats->{$a}{'visits'} } cmp keys %{ $travel_stats->{$b}{'visits'} } || =%>
-    <%#     $travel_stats->{$a}{'total'} <=> $travel_stats->{$b}{'total'} || =%>
-    <%#     $b cmp $a =%>
     <%     $travel_stats->{$a}{'first_seen'} cmp $travel_stats->{$b}{'first_seen'}
     <% } keys %{ $travel_stats }) { =%>
+        <% my ($country, $city) = split /#/, $loc; =%>
         <tr>
             <% my $city_total; =%>
             <td><%= $idx++ %></td>
-            <td><img src="images/countries/<%= $travel_stats->{$loc}{'country'} %>.gif"> <%= $loc %></td>
+            <td><img src="images/countries/<%= $travel_stats->{$loc}{'country'} %>.gif"> <%= $city %></td>
             <% foreach my $y (@$years) { =%>
                 <% my $notes = $travel_stats->{$loc}{'visits'}{$y} // 0; =%>
                 <% if ($notes) { =%>

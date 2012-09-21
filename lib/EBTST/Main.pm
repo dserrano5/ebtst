@@ -797,7 +797,10 @@ sub travel_stats {
     $t0 = [gettimeofday];
     my $dest_img = File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'travel_stats.svg');
     if (!-e $dest_img) {
-        my @_8best = grep defined, (reverse sort { $travel_stats->{$a}{'total'} <=> $travel_stats->{$b}{'total'}} keys %$travel_stats)[0..7];
+        my @_8best =
+            map { (split /#/)[1] }
+            grep defined,
+            (reverse sort { $travel_stats->{$a}{'total'} <=> $travel_stats->{$b}{'total'}} keys %$travel_stats)[0..7];
         my %dpoints;
         foreach my $elem (split '#', $elem_by_city) {
             push @{ $dpoints{$_} }, ($dpoints{$_}[-1]//0) for @_8best;

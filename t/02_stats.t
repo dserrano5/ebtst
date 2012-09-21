@@ -39,6 +39,7 @@ is $res->{'notes_by_value'}{'20'}, 4, 'Four 20€ notes';
 is $res->{'notes_by_value'}{'50'}, 1, 'One 50€ note';
 is $res->{'notes_by_value'}{'500'}, 1, 'One 500€ note';
 
+
 note 'short_codes';
 $data_obj->load_notes (undef, 't/notes-combs.csv');
 $res = $st->highest_short_codes (undef, $data_obj);
@@ -53,6 +54,7 @@ is $res->{'highest_short_codes'}{'F'}{'500'}{'sort_key'}, 'F001A1P**011', 'Short
 is $res->{'highest_short_codes'}{'K'}{'10'}{'sort_key'}, 'K001A1T265', 'Short code for 10 K/T';
 is $res->{'highest_short_codes'}{'L'}{'20'}{'sort_key'}, 'L004A1U**311', 'Short code for 20 L/U';
 is $res->{'highest_short_codes'}{'T'}{'50'}{'sort_key'}, 'T001A1Z3**11', 'Short code for 50 T/Z';
+
 
 note 'hit_list';
 $data_obj->load_notes (undef, 't/notes4.csv');
@@ -203,10 +205,10 @@ note 'first hit is passive and moderated';
 $data_obj->load_notes (undef, 't/notes6.csv');
 $data_obj->load_hits ('t/hits6.csv');
 $res = $st->hit_list (undef, $data_obj, $data_obj->whoami);
-#use Data::Dumper; warn sprintf "%s:%s: %s\n", __FILE__, __LINE__, Data::Dumper->Dump (sub{\@_}->(\$res), ['res']);
 is $res->{'hit_list'}[0]{'moderated'}, 1, 'First hit is moderated';
 is $res->{'hit_list'}[1]{'moderated'}, 0, 'Second hit is not moderated';
 ok !exists $res->{'hit_list'}[0]{'old_hit_ratio'}, 'Key "old_hit_ratio" is not present';   ## the code doesn't set some keys for moderated hits
+
 
 done_testing 207;
 unlink '/tmp/ebt2-storable' or warn "unlink: '/tmp/ebt2-storable': $!";

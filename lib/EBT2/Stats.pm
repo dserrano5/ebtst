@@ -13,7 +13,7 @@ use EBT2::Data;
 use EBT2::Constants ':all';
 
 ## whenever there are changes in any stats format, this has to be increased in order to detect users with old stats formats
-our $STATS_VERSION = '20120919-01';
+our $STATS_VERSION = '20120921-01';
 my $chunk_size = '10000n';
 
 sub mean { return sum(@_)/@_; }
@@ -313,10 +313,11 @@ sub bundle_locations {
 
             ## travel_stats
             my $y = substr $note->[DATE_ENTERED], 0, 4;
-            $ret{'travel_stats'}{ $note->[CITY] }{'first_seen'} ||= $note->[DATE_ENTERED];
-            $ret{'travel_stats'}{ $note->[CITY] }{'total'}++;
-            $ret{'travel_stats'}{ $note->[CITY] }{'visits'}{$y}++;
-            $ret{'travel_stats'}{ $note->[CITY] }{'country'} ||= $note->[COUNTRY];
+            my $k = join '#', $note->[COUNTRY], $note->[CITY];
+            $ret{'travel_stats'}{$k}{'first_seen'} ||= $note->[DATE_ENTERED];
+            $ret{'travel_stats'}{$k}{'total'}++;
+            $ret{'travel_stats'}{$k}{'visits'}{$y}++;
+            $ret{'travel_stats'}{$k}{'country'} ||= $note->[COUNTRY];
         }
     }
 

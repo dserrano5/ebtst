@@ -1,3 +1,9 @@
 <p><%=l 'Public stats have been generated' %>. <%=l 'Link' %>: <a href="<%= $url %>"><%= $url %></a></p>
+<ul>
+    <% foreach my $rp (@$req_params) { =%>
+        <li><%= $rp %></li>
+    <% } =%>
+</ul>
+<br>
 <p>BBCode:</p>
 <textarea id="bbcode" readonly=""><%= $bbcode %></textarea>

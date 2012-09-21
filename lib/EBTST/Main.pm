@@ -1964,8 +1964,8 @@ sub calc_sections {
     return $self->render_not_found unless $self->req->is_xhr;
 
     my @req_params = grep { $self->param ($_) } @params;
-    $self->ebt->set_checked_boxes (@req_params);
     @req_params = qw/information value countries printers locations/ unless @req_params;
+    $self->ebt->set_checked_boxes (@req_params);
     $self->_log (debug => "calc_sections: req_params (@{[ sort @req_params ]})");
 
     my $mult; foreach my $rp (@req_params) { $mult += $mults{$rp} // 1; }
@@ -2024,11 +2024,12 @@ sub gen_output {
     $self->_log (debug => report 'gen_output render', $t0);
 
     $self->stash (
-        format => 'html',
-        title  => $section_titles{'bbcode'},
-        user   => undef,
-        bbcode => (join "\n\n", grep defined, @rendered_bbcode),
-        url    => $self->stash ('public_stats'),
+        format     => 'html',
+        title      => $section_titles{'bbcode'},
+        user       => undef,
+        url        => $self->stash ('public_stats'),
+        req_params => \@req_params,
+        bbcode     => (join "\n\n", grep defined, @rendered_bbcode),
     );
 }
 

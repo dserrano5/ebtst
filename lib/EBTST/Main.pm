@@ -1756,9 +1756,13 @@ sub upload {
         $something_done = 1;
     }
 
-    if (!$something_done) { $self->_log (debug => "upload: no notes or hits given"); }
-    $self->app->log->debug ("sha ($sha)");
+    if (!$something_done) {
+        $self->_log (debug => "upload: no notes or hits given");
+        $self->render_text ('no_csvs', layout => undef, format => 'txt');
+        return;
+    }
 
+    $self->app->log->debug ("sha ($sha)");
     $self->render_text ($sha, layout => undef, format => 'txt');
     return;
 }

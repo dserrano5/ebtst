@@ -139,8 +139,9 @@ function config_submit_button() {
         //beforeSend: function() { },
         success: function(data) {
             $("#progress").hide ('slow');
-            if ('ko' == data) {
+            if ('no_csvs' == data) {
                 //console.log ('upload: ko');
+                $("#error_msg").html ('<br>No CSV files given<br>');   // TODO: translate this
             } else {
                 //console.log ('upload: ok, data ('+data+')');
                 var url = 'import/' + data;

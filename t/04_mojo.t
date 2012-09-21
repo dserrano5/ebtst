@@ -72,6 +72,10 @@ $t->get_ok ('/configure')->text_is ('div#error_msg' => '', 'no error_msg');
 #$csrftoken = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->html->body->div->[1]->form->input->[0]->{'value'};
 
 $t->post_form_ok ('/upload', {
+    #csrftoken => $csrftoken,
+})->status_is (200)->content_type_is ('text/plain')->content_is ('no_csvs', 'upload with no CSVs');
+
+$t->post_form_ok ('/upload', {
     notes_csv_file => { file => 't/notes1.csv' },
     #csrftoken => $csrftoken,
 })->status_is (200)->content_type_is ('text/plain')->content_like (qr/^[0-9a-f]{8}$/, 'upload notes');
@@ -266,4 +270,4 @@ $t->ua->once (start => sub {
 });
 $t->get_ok ('/configure')->status_is (200)->content_like (qr/CSV upload doesn't work with Internet Explorer/);
 
-done_testing 203;
+done_testing 207;

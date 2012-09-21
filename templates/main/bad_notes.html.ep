@@ -5,7 +5,6 @@
     <%= $note->{'short_code'} %>/<a href="https://www.eurobilltracker.com/notes/?id=<%= $note->{'id'} %>"><%= $note->{'serial'} %></a>
     <img src="images/values/<%= $note->{'value'} %>.gif">,
     <%=l 'entered on' %> <%= ((split / /, $note->{'date_entered'})[0]) %> <%=l 'in' %> <%= $note->{'city'} %> <img src="images/countries/<%= $note->{'country'} %>.gif">.<br>
-
     <% foreach my $error (@{ $note->{'errors'} }) { =%>
     <%= "\x{2022} $error" %><br>
     <% } =%>

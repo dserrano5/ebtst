@@ -1,0 +1,535 @@
+## layout
+Public stats = Openbare statistieken
+Information = Informatie
+Value = Waarde
+Countries = Landen
+Locations = Plaatsen
+Travel stats = Reisstatistieken
+Printers = Drukkers
+Huge table = Uitgebreide tabel
+Short codes = Shortcodes
+Nice serials = Mooie serienummers
+Coordinates bingo = Coördinatenbingo
+Notes/year = Biljetten/jaar
+Notes/month = Biljetten/maand
+Top days = Topdagen
+Time analysis (bingo) = Tijdanalyse (bingo)
+Time analysis (detail) = Tijdanalyse (detail)
+Combinations (bingo) = Combinaties (bingo)
+Combinations (detail) = Combinaties (detail)
+#Note evolution = Ontwikkeling biljetten
+Plate bingo = Platen (bingo)
+Bad notes = Onjuiste biljetten
+Hit list = Hitlijst
+Hit times (bingo) = Hittijden (hits, bingo)
+Hit times (detail) = Hittijden (hits, detail)
+Hit locations = Hitplaatsen
+Hit analysis = Hitanalyse
+Hit summary = Hitoverzicht
+Calendar = Kalender
+#Charts = Grafieken
+Configuration = Configuratie
+Logout = Uitloggen
+Help = Help
+
+## index
+Welcome = Welkom
+User = Gebruiker
+Passphrase = Wachtwoord
+Login = Inloggen
+Register = Registreren
+Wrong username/passphrase = Gebruikersnaam/wachtwoord onjuist
+
+## register
+Confirm passphrase = Bevestig wachtwoord
+Passwords do not match = Wachtwoorden zijn niet gelijk
+Username contains invalid characters = Gebruikersnaam bevat niet-toegestane tekens
+Password contains invalid characters = Wachtwoord bevat niet-toegestane tekens
+Username and password contain invalid characters = Gebruikersnaam en wachtwoord bevatten niet-toegestane tekens
+User already exists = Gebruiker bestaat al
+Error upon registration = Fout tijdens registratie
+Registration successful = Registratie gelukt
+
+## information
+General information = Algemene informatie
+First note entered = Eerste ingevoerde biljet
+in = in
+Situation on = Situatie op
+(full) days after the first note was entered = (hele) dagen nadat het eerste biljet was ingevoerd
+Active/inactive EBT days = Actieve/inactieve dagen op EBT
+days = dagen
+notes = biljetten
+Longest period of consecutive active days = Langste actieve periode
+Current consecutive active days = Huidige actieve periode
+Longest break from EBT = Langste EBT-pauze
+Current break from EBT = Huidige EBT-pauze
+Total number of notes = Totaal aantal biljetten
+Total value of all notes = Totale waarde van alle biljetten
+Signatures = Handtekening
+Unknown = Onbekend
+Average value per note = Gemiddelde waarde per biljet
+Average entering rate = Gemiddeld aantal biljetten per dag
+notes/day = Biljetten per dag
+Historic percent notes by president = Ontwikkeling percentage biljetten per president
+
+## value
+Number of notes by value = Aantal biljetten per waarde
+Notes = Biljetten
+Percent = Percentage
+Amount = Aantal
+Accumulated notes by value = Ontwikkeling aantal biljetten per waarde
+Historic percent notes by value = Ontwikkeling percentage waarden
+Historic mean value = Ontwikkeling gemiddelde waarde
+Average value = Gemiddelde waarde
+First notes by value = Eerste biljet per waarde
+was the first = was de eerste
+
+## countries
+Number of notes by country code = Aantal biljetten per landcode
+Country = Land
+Detail of notes per value and country code = Gedetailleerd overzicht aantal biljetten per waarde en landcode
+First notes by country code = Eerste biljet per landcode
+Note = Biljet
+was the first from = was de eerste uit
+entered on = ingevoerd op
+note = biljet
+
+## locations
+Countries with notes entered = Landen met ingevoerde biljetten
+Number of notes by location = Aantal biljetten per locatie
+Alphabets of locations by country = Alfabet van plaatsen per land
+First notes by printer code = Eerste biljetten per drukkercode
+
+## travel_stats
+Location = Plaats
+Total = Totaal
+Visits = Bezoeken
+Total yearly visits = Aantal bezoeken per jaar
+Number of locations = Aantal plaatsen
+Number of different yearly visits = Aantal verschillende bezoeken per jaar
+Number of one time visit locations = Aantal eenmalig bezochte plaatsen
+Cities with most notes = Steden met meeste biljetten
+
+## printers
+Number of notes by printer code = Aantal biljetten per drukkercode
+Printer = Drukker
+Printer name = Naam drukker
+Detail of notes per value and printer code = Biljetten per waarde en drukkercode
+
+## huge_table
+Notes have been entered up to = Biljetten zijn ingevoerd maximaal
+1 year ago = 1 jaar geleden
+3 months ago = 3 maanden geleden
+1 week ago = 1 week geleden
+
+## short codes
+Absolute lowest and highest short codes = Absoluut laagste en hoogste shortcodes
+Lowest and highest short codes per value = Laagste en hoogste shortcode per waarde
+all = alle
+Absolute highest short codes = Absoluut hoogste shortcodes
+Highest short codes per value = Hoogste shortcode per waarde
+Short code = Shortcode
+Date = Datum
+
+## nice_serials
+Serial number = Serienummer
+note(s) = biljet(ten)
+of total = van het totaal
+have = hebben
+numbers in a row = cijfers op een rij
+contain = hebben
+different digits = verschillende cijfers
+
+## notes_per_year
+Number of notes per year = Aantal biljetten per jaar
+Year = Jaar
+
+## notes_per_month
+Number of notes per month = Aantal biljetten per maand
+Month = Maand
+
+## top_days
+Number of notes per day of the week = Aantal biljetten per dag van de week
+Accumulated notes by day of the week = Totaal aantal biljetten per dag van de wek
+Top 10 days = Top 10 dagen
+Top 10 months = Top 10 maanden
+Day = Dag
+
+## time analysis
+Time analysis = Tijdanalyse
+Colors = Kleuren
+Calendar = Kalender
+or more = of meer
+Days = Dagen
+Hours = Uren
+Minutes = Minuten
+Seconds = Seconden
+Hours and minutes = Uren en minuten
+Minutes and seconds = Minuten en seconden
+Hours, minutes and seconds = Uren, minuten en seconden
+Days of week and hours = Dagen van de week en uren
+Days of week, hours and minutes = Dagen van de week, uren en minuten
+
+## combs detail
+Any signature = Alle handtekeningen
+Any = Minstens één
+Combinations = Combinaties
+Combinations bingo = Combinatiebingo
+Still missing combinations = Ontbrekende combinaties
+Unknown combinations = Onbekende combinaties
+History = Geschiedenis
+History text format inspired by = Layout van deze geschiedenis geïnspireerd door
+
+## note evolution
+Interval = Interval
+Filter = Filter
+Group by = Sorteer op
+Show only = Toon alleen
+Output = Output
+
+## plate bingo
+Total for = Totaal van
+
+## bad notes
+
+## hit list
+Hit date = Hitdatum
+Val = Waarde
+Hit note = Hitbiljet
+Kms = Km
+Partner(s) = Gebruiker(s)
+Note number = Biljetnummer
+Old hit ratio = Oude hitratio
+New hit ratio = Nieuwe hitratio
+Notes between = Biljetten ertussen
+Days between = Dagen ertussen
+from = van
+to = naar
+
+## hits by month
+Natural month = Maand van hit
+Insert month = Maand van invoer
+
+## hit times
+
+## hit locations
+My city = Mijn plaats
+Frequent Locations (Hit Partners') = Herhaalde plaatsen (van hitpartners)
+Altogether hit partners in = In totaal hitpartners in
+different locations = verschillende plaatsen
+Frequent Directions = veel voorkomende routes
+Local Hits = Lokale hits
+Both ways hits = Hits in beide richtingen
+
+## hit analysis
+Hit top-10 = Top 10 hits
+Most kilometers = Grootste afstand
+Most days = Langste tijd
+Lucky bundles = Dagen met veel geluk
+Other hit potential = Dagen met hitpotentie
+
+## hit summary
+Hits = Hits
+national = nationaal
+and = en
+international = internationaal
+plus = en
+moderated = gemodereerd
+Normal hits = Gewone hits
+Triples = Tripels
+Quadruples = Quadrupels
+Pentuples = Quintupels
+Best = Best
+Average = Gemiddeld
+Worst = Slechtst
+Current = Huidig
+Historic hit ratio = Ontwikkeling hitratio
+Hit ratio = Hitratio
+Hit ratios = Hitratio's
+Hit finder/maker - giver/getter ratio = Ratio actieve/passieve hits
+Next hit should occur on average on = De volgende hit zou, gemiddeld gezien, moeten vallen op
+or it's a dry spell = of het is een droge periode
+Minimum = Mininum
+Maximum = Maximum
+Travel days = Dagen onderweg
+Travel km = Km onderweg
+Travel kilometers = Kilometers onderweg
+Historic hit travel days = Ontwikkeling dagen onderweg
+Historic hit travel km = Ontwikkeling kilometers onderweg
+Hit/hitless days = Dagen met/zonder hits
+Longest period of consecutive hit days = Langste aaneengesloten periode met hits
+Current consecutive hit days = Huidige aaneengesloten periode met hits
+Consecutive hit days = Aaneengesloten periodes met hits
+Start = Begin
+End = Eind
+Hits by combination = Hits per combinatie
+Frequent hit partner = Herhaalde hitpartners
+% of all hits = % van alle hits
+Hits with same kilometers and days = Hits met zelfde aantal dagen als kilometers
+None = Geen
+
+## calendar
+Top = Terug naar boven
+First day! = Eerste dag!
+Anniversary = Jubileum
+EBT day = Dag
+hit = hit
+hits = hits
+
+## gen_output
+Public stats have been generated = De openbare statistieken zijn gegenereerd
+Link = Link
+
+## configuration
+#Name = Naam
+#EBT id number = Gebruikersnummer op EBT
+#Time zone = Tijdzone
+#Language = Taal
+Notes CSV file = Biljetten-CSV-bestand
+Hits CSV file = Hit-CSV-bestand
+Submit = Verzenden
+
+## help
+_help_main_usage_1 = Klik na het uploaden van je CSV-bestanden (zie "Configureren") links de gewenste selectievakjes aan en klik op "BBCode/HTML" om je openbare statistieken te genereren. Een nieuwe tabblad of nieuw venster met de BBCode en een link naar de HTML-statistieken zal openen.
+_help_colors_1 = Verschillende secties bevatten gekleurde getallen. De betekenis van deze kleuren is:
+_help_colors_2 = Gekleurde sterretjes op verschillende plekken geven aan hoe recent biljetten zijn:
+note has been entered up to 1 year ago = biljet ingevoerd afgelopen jaar
+note has been entered up to 3 months ago = biljet ingevoerd afgelopen 3 maanden
+note has been entered up to 1 week ago = biljet ingevoerd afgelopen week
+_configure_1 = EBTST accepteert gecomprimeerde CSV-bestanden. Ondersteunde compressie-algoritmen zijn zip en gzip. Het gebruik van deze gecomprimeerde bestanden reduceert de uploadtijd.
+_configure_2 = Een kopie van het biljetten-CSV-bestand wordt bewaard in de volgende indeling:
+_countries_1 = De percentages in de tabel "Detail" geven het percentage van biljetten van ieder land voor het totaal aantal biljetten van die waarde. Ze tellen verticaal op tot 100%.
+_printers_1 = Net als bij "Landen", geven de percentages in de tabel "Detail" het percentage van de biljetten van iedere drukker voor het totaal aantal biljetten van die waarde. Ze tellen verticaal op tot 100%.
+_huge_table_1 = Om onzinnige vermeldingen in de tabel te vermijden, worden biljetten waarvan bekend is dat ze fout zijn genegeerd.
+_short_codes_1 = Foute biljetten worden eveneens genegeerd.
+_nice_serials_1 = Het algoritme dat serienummers rangschikt is als volgt: eerst wint het serienummer met de minste reeksen gelijke cijfers. Bijvoorbeeld, *1111122233 (3 reeksen) wint van *1112111211 (5 reeksen). In het vaak voorkomende geval van een gelijkspel, wint het serienummer met de langste reeks. Dit zijn de belangrijkste criteria, maar er zijn er meer.
+_coords_bingo_1 = Net als in de "Uitgebreide tabel", worden biljetten met fouten genegeerd.
+_combinations_1 = Ook hier worden biljetten met fouten genegeerd. Net als in "Landen" en "Drukkers", tellen de percentages verticaal op tot 100%.
+_plate_bingo_1 = Biljetten met fouten worden genegeerd. De paar platen waarop verschillende handtekeningen van de ECB-president kunnen staan (dat zijn: <img src="images/values/10.gif"> K007, <img src="images/values/10.gif"> P005, <img src="images/values/20.gif"> F002 and <img src="images/values/100.gif"> F002) worden niet anders behandeld.
+
+## days of week
+Monday = maandag
+Tuesday = dinsdag
+Wednesday = woensdag
+Thursday = donderdag
+Friday = vrijdag
+Saturday = zaterdag
+Sunday = zondag
+
+## months
+January = januari
+February = februari
+March = maart
+April = april
+May = mei
+June = juni
+July = juli
+August = augustus
+September = september
+October = oktober
+November = november
+December = december
+
+## countries
+iso3166_ad = Andorra
+iso3166_ae = Verenigde Arabische Emiraten
+iso3166_af = Afghanistan
+iso3166_ag = Antigua en Barbuda
+iso3166_al = Albanië
+iso3166_am = Armenië
+iso3166_ao = Angola
+iso3166_ar = Argentinië
+iso3166_at = Oostenrijk
+iso3166_au = Australië
+iso3166_az = Azerbeidzjan
+iso3166_ba = Bosnië en Herzegovina
+iso3166_bb = Barbados
+iso3166_bd = Bangladesh
+iso3166_be = België
+iso3166_bf = Burkina Faso
+iso3166_bg = Bulgarije
+iso3166_bh = Bahrein
+iso3166_bi = Burundi
+iso3166_bj = Benin
+iso3166_bl = Saint-Barthélemy
+iso3166_bn = Brunei
+iso3166_bo = Bolivia
+iso3166_br = Brazilië
+iso3166_bs = Bahama's
+iso3166_bt = Bhutan
+iso3166_bw = Botswana
+iso3166_by = Wit-Rusland
+iso3166_bz = Belize
+iso3166_ca = Canada
+iso3166_cd = Democratische Republiek Congo
+iso3166_cf = Centraal-Afrikaanse Republiek
+iso3166_cg = Republiek Congo
+iso3166_ch = Zwitserland
+iso3166_ci = Ivoorkust
+iso3166_cl = Chili
+iso3166_cm = Kameroen
+iso3166_cn = China
+iso3166_co = Colombia
+iso3166_cr = Costa Rica
+iso3166_cu = Cuba
+iso3166_cv = Kaapverdië
+iso3166_cy = Cyprus
+iso3166_cz = Tsjechië
+iso3166_de = Duitsland
+iso3166_dj = Djibouti
+iso3166_dk = Denemarken
+iso3166_dm = Dominica
+iso3166_do = Dominicaanse Republiek
+iso3166_dz = Algerije
+iso3166_ec = Ecuador
+iso3166_ee = Estland
+iso3166_eg = Egypte
+iso3166_er = Eritrea
+iso3166_es = Spanje
+iso3166_et = Ethiopië
+iso3166_fi = Finland
+iso3166_fj = Fiji
+iso3166_fm = Micronesia
+iso3166_fr = Frankrijk
+iso3166_ga = Gabon
+iso3166_gd = Grenada
+iso3166_ge = Georgië
+iso3166_gg = Guernsey
+iso3166_gh = Ghana
+iso3166_gm = Gambia
+iso3166_gn = Guinee
+iso3166_gq = Equatoriaal-Guinea
+iso3166_gr = Griekenland
+iso3166_gt = Guatemala
+iso3166_gw = Guinee-Bissau
+iso3166_gy = Guyana
+iso3166_hn = Honduras
+iso3166_hr = Kroatië
+iso3166_ht = Haïti
+iso3166_hu = Hongarije
+iso3166_id = Indonesië
+iso3166_ie = Ierland
+iso3166_il = Israël
+iso3166_im = Eiland Man
+iso3166_in = India
+iso3166_iq = Irak
+iso3166_ir = Iran
+iso3166_is = IJsland
+iso3166_it = Italië
+iso3166_je = Jersey
+iso3166_jm = Jamaica
+iso3166_jo = Jordanië
+iso3166_jp = Japan
+iso3166_ke = Kenia
+iso3166_kg = Kirgizië
+iso3166_kh = Cambodja
+iso3166_ki = Kiribati
+iso3166_km = Comoren
+iso3166_kn = Saint Kitts en Nevis
+iso3166_kp = Noord-Korea
+iso3166_kr = Zuid-Korea
+iso3166_kw = Koeweit
+iso3166_kz = Kazachstan
+iso3166_la = Laos
+iso3166_lb = Libanon
+iso3166_li = Liechtenstein
+iso3166_lk = Sri Lanka
+iso3166_lr = Liberia
+iso3166_ls = Lesotho
+iso3166_lt = Litouwen
+iso3166_lu = Luxemburg
+iso3166_lv = Letland
+iso3166_ly = Libië
+iso3166_ma = Marokko
+iso3166_mc = Monaco
+iso3166_md = Moldavië
+iso3166_me = Montenegro
+iso3166_mf = Sint-Maarten (Frankrijk)
+iso3166_mg = Madagaskar
+iso3166_mh = Marshalleilanden
+iso3166_mk = Macedonië
+iso3166_ml = Mali
+iso3166_mm = Myanmar
+iso3166_mn = Mongolië
+iso3166_mo = Macau
+iso3166_mr = Mauritanië
+iso3166_mt = Malta
+iso3166_mu = Mauritius
+iso3166_mv = Maldiven
+iso3166_mw = Malawi
+iso3166_mx = Mexico
+iso3166_my = Maleisië
+iso3166_mz = Mozambique
+iso3166_na = Namibië
+iso3166_ne = Niger
+iso3166_ng = Nigeria
+iso3166_ni = Nicaragua
+iso3166_nl = Nederland
+iso3166_no = Noorwegen
+iso3166_nr = Nauru
+iso3166_nz = Nieuw-Zeeland
+iso3166_om = Oman
+iso3166_pa = Panama
+iso3166_pe = Peru
+iso3166_pg = Papoea-Nieuw-Guinea
+iso3166_ph = Filipijnen
+iso3166_pk = Pakistan
+iso3166_pl = Polen
+iso3166_ps = Palestina
+iso3166_pt = Portugal
+iso3166_pw = Palau
+iso3166_py = Paraguay
+iso3166_qa = Qatar
+iso3166_ro = Roemenië
+iso3166_rs = Servië
+iso3166_rskm = Kosovo
+iso3166_ru = Rusland
+iso3166_rw = Rwanda
+iso3166_sa = Saoedi-Arabië
+iso3166_sb = Salomonseilanden
+iso3166_sc = Seychellen
+iso3166_sd = Soedan
+iso3166_se = Zweden
+iso3166_sg = Singapore
+iso3166_sh = Sint-Helena
+iso3166_si = Slovenië
+iso3166_sk = Slowakije
+iso3166_sl = Sierra Leone
+iso3166_sm = San Marino
+iso3166_sn = Senegal
+iso3166_so = Somalië
+iso3166_sr = Suriname
+iso3166_st = Sao Tomé en Principe
+iso3166_sv = El Salvador
+iso3166_sy = Syrië
+iso3166_sz = Swaziland
+iso3166_td = Tsjaad
+iso3166_tg = Togo
+iso3166_th = Thailand
+iso3166_tj = Tadzjikistan
+iso3166_tl = Oost-Timor
+iso3166_tm = Turkmenistan
+iso3166_tn = Tunesië
+iso3166_to = Tonga
+iso3166_tr = Turkije
+iso3166_tt = Trinidad en Tobago
+iso3166_tv = Tuvalu
+iso3166_tw = Taiwan
+iso3166_tz = Tanzania
+iso3166_ua = Oekraïne
+iso3166_ug = Oeganda
+iso3166_uk = Verenigd Koninkrijk
+iso3166_um = Kleine afgelegen eilanden van de Verenigde Staten
+iso3166_us = Verenigde Staten van Amerika
+iso3166_uy = Uruguay
+iso3166_uz = Oezbekistan
+iso3166_va = Vaticaanstad
+iso3166_vc = Saint Vincent en de Grenadines
+iso3166_ve = Venezuela
+iso3166_vn = Vietnam
+iso3166_vu = Vanuatu
+iso3166_ws = Samoa
+iso3166_ye = Jemen
+iso3166_za = Zuid-Afrika
+iso3166_zm = Zambia
+iso3166_zw = Zimbabwe

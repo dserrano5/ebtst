@@ -1742,16 +1742,19 @@ sub upload {
     my $hits_csv  = $self->req->upload ('hits_csv_file');
     my $sha = substr +(sha512_hex $self->stash ('user')), 0, 8;
 
+    my $local_notes_file = File::Spec->catfile ($tmpdir, "$sha-notes.csv");
+    my $local_hits_file  = File::Spec->catfile ($tmpdir, "$sha-hits.csv");
+    unlink $local_notes_file or $self->_log (warn => "upload: unlink: '$local_notes_file': $!\n");
+    unlink $local_hits_file  or $self->_log (warn => "upload: unlink: '$local_hits_file': $!");
+
     my $something_done = 0;
     if ($notes_csv and $notes_csv->size) {
         $self->_log (debug => "upload: there's notes CSV");
-        my $local_notes_file = File::Spec->catfile ($tmpdir, "$sha-notes.csv");
         $notes_csv->move_to ($local_notes_file);
         $something_done = 1;
     }
     if ($hits_csv and $hits_csv->size) {
         $self->_log (debug => "upload: there's hits CSV");
-        my $local_hits_file = File::Spec->catfile ($tmpdir, "$sha-hits.csv");
         $hits_csv->move_to ($local_hits_file);
         $something_done = 1;
     }
@@ -1786,7 +1789,7 @@ sub import {
         my $outfile = File::Spec->catfile ($EBTST::config{'csvs_dir'}, $sha);
         $self->_log (info => "will store a censored copy at '$outfile'");
         if (!unlink $outfile and 'No such file or directory' ne $!) {
-            $self->_log (warn => "upload: unlink: '$outfile': $!");
+            $self->_log (warn => "import: unlink: '$outfile': $!");
         }
         ## we may get the first request for /progress before ->_decompress finishes
         ## initialize progress now, even with a bogus total (progress will be 0 anyway)
@@ -1795,25 +1798,31 @@ sub import {
 
         my $count = 0; if (open my $fd, '<', $local_notes_file) { <$fd>; $count =()= <$fd>; close $fd; }
         $self->_init_progress (tot => $count);
-        $self->ebt->load_notes ($local_notes_file, $outfile);
+        eval { $self->ebt->load_notes ($local_notes_file, $outfile); 1; };
+        unlink $local_notes_file or $self->_log (warn => "import: unlink: '$local_notes_file': $!\n");
+        if ($@ and $@ =~ /Unrecognized notes file/) {
+            return $self->_end_progress ('bad_notes');
+        }
         $done = 1;
 
-        unlink $local_notes_file or $self->_log (warn => "upload: unlink: '$local_notes_file': $!\n");
         my $globpat = File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), '*.svg');
         $globpat =~ s/ /\\ /g;    ## usernames may have spaces and glob splits on them. Avoid that
         foreach my $img (glob $globpat) {
-            unlink $img or $self->_log (warn => "upload: unlink: '$img': $!");
+            unlink $img or $self->_log (warn => "import: unlink: '$img': $!");
         }
     }
     if (-e $local_hits_file) {
         $self->_decompress ($local_hits_file);
-        $self->ebt->load_hits ($local_hits_file);
+        eval { $self->ebt->load_hits ($local_hits_file); 1; };
+        unlink $local_hits_file  or $self->_log (warn => "import: unlink: '$local_hits_file': $!");
+        if ($@ and $@ =~ /Unrecognized hits file/) {
+            return $self->_end_progress ('bad_hits');
+        }
         $done = 1;
-        unlink $local_hits_file  or $self->_log (warn => "upload: unlink: '$local_hits_file': $!");
         my $globpat = File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'hits_*.svg');
         $globpat =~ s/ /\\ /g;
         foreach my $img (glob $globpat) {
-            unlink $img or $self->_log (warn => "upload: unlink: '$img': $!");
+            unlink $img or $self->_log (warn => "import: unlink: '$img': $!");
         }
     }
 

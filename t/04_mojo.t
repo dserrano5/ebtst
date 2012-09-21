@@ -143,6 +143,28 @@ $t->get_ok ('/hit_summary')->status_is (200)->content_like (qr/1\s+international
 ## misc countries
 $t->get_ok ('/locations')->status_is (200)->content_like (qr/Kosovo/, 'Kosovo support')->content_like (qr/Serbia and Montenegro/)->content_like (qr/Bosnia-Herzegovina/);
 
+$t->post_form_ok ('/upload', {
+    notes_csv_file => { file => 't/hits1.csv' },
+    #csrftoken => $csrftoken,
+})->status_is (200)->content_type_is ('text/plain')->content_like (qr/^[0-9a-f]{8}$/, 'upload bad notes CSV');
+$sha = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->text;
+next_is_xhr; $t->get_ok ("/import/$sha")->status_is (200)->content_type_is ('text/plain')->content_is ('bad_notes', 'import bad notes CSV');
+
+$t->post_form_ok ('/upload', {
+    hits_csv_file => { file => 't/notes1.csv' },
+    #csrftoken => $csrftoken,
+})->status_is (200)->content_type_is ('text/plain')->content_like (qr/^[0-9a-f]{8}$/, 'upload bad hits CSV');
+$sha = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->text;
+next_is_xhr; $t->get_ok ("/import/$sha")->status_is (200)->content_type_is ('text/plain')->content_is ('bad_hits', 'import bad hits CSV');
+
+$t->post_form_ok ('/upload', {
+    notes_csv_file => { file => 't/hits1.csv' },
+    hits_csv_file => { file => 't/notes1.csv' },
+    #csrftoken => $csrftoken,
+})->status_is (200)->content_type_is ('text/plain')->content_like (qr/^[0-9a-f]{8}$/, 'upload bad notes and hits CSVs');
+$sha = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->text;
+next_is_xhr; $t->get_ok ("/import/$sha")->status_is (200)->content_type_is ('text/plain')->content_is ('bad_notes', 'import bad notes and hits CSVs');
+
 ## logging out
 $t->get_ok ('/logout')->status_is (302)->header_like (Location => qr/index/, 'log out');
 
@@ -270,4 +292,4 @@ $t->ua->once (start => sub {
 });
 $t->get_ok ('/configure')->status_is (200)->content_like (qr/CSV upload doesn't work with Internet Explorer/);
 
-done_testing 207;
+done_testing 231;

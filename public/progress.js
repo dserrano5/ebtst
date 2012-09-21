@@ -66,13 +66,20 @@ function go(dest) {
                 clearInterval (interval_id);
                 $("#progress").hide ('slow');
                 window.location.href = dest;
-            //} else if ('ko' == data) {
-            //    console.log ('ko');
-            //    running = 0;
-            //    clearTimeout (timeout_id);
-            //    clearInterval (interval_id);
-            //    $("#progress").hide ('slow');
-            //    $("#error_msg").html ('<br>' + 'ko' + '<br>');
+            } else if ('bad_notes' == data) {
+                console.log ('ko');
+                running = 0;
+                clearTimeout (timeout_id);
+                clearInterval (interval_id);
+                $("#progress").hide ('slow');
+                $("#error_msg").html ('<br>Invalid notes CSV<br>');   // TODO: translate this
+            } else if ('bad_hits' == data) {
+                console.log ('ko');
+                running = 0;
+                clearTimeout (timeout_id);
+                clearInterval (interval_id);
+                $("#progress").hide ('slow');
+                $("#error_msg").html ('<br>Invalid hits CSV<br>');   // TODO: translate this
             } else {
                 //console.log ('ok, clearing interval, hiding progress, moving forward onto ('+data+')');
                 running = 0;

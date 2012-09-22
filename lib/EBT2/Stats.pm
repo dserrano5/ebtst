@@ -755,15 +755,18 @@ sub hit_list {
         ## this $note is earlier than the earliest hit_date in %pas_hits. Don't enter the loop as it will do nothing
         return if $note and 1 != ($note->[DATE_ENTERED] cmp $pas_hits[0]{'hit_date'});
 
-        my @done;
+        my @pas2remove;
+        my $pas_interesting_found = 0;
         foreach my $pas_hit (@pas_hits) {
             if ($note) { next if 1 != ($note->[DATE_ENTERED] cmp $pas_hit->{'hit_date'}); }
-            push @done, $pas_hit->{'serial'};
+            push @pas2remove, $pas_hit->{'serial'};
 
             $pas_hit->{'moderated'} or $hit_no++;
             $hit_no2++;
 
             if (!$pas_hit->{'moderated'}) {
+                $pas_interesting_found = 1;
+
                 $pas_hit->{'hit_no'} = $hit_no;
                 $pas_hit->{'hit_no2'} = $hit_no2;
                 $pas_hit->{'notes'} = $notes_elapsed-1;
@@ -783,9 +786,9 @@ sub hit_list {
                 $ret{'elem_travel_km'} .= $pas_hit->{'km'} . ',';
             }
         }
-        if (@done) {
-            $notes_between = 0;    ## 0 because it would be -1 plus 1 for having already started another loop iteration
-            delete @passive_pending{@done};
+        $notes_between = 0 if $pas_interesting_found;   ## 0 because it would be -1 plus 1 for having already started another loop iteration
+        if (@pas2remove) {
+            delete @passive_pending{@pas2remove};
             $pp_changed = 1;
         }
     };
@@ -959,7 +962,7 @@ sub hit_analysis {
     $ret{'hit_analysis'}{'other_hit_potential'} ||= [];
 
     ## sort lucky_bundles and other_hit_potential
-    $ret{'hit_analysis'}{'lucky_bundles'} = [ reverse sort {
+    $ret{'hit_analysis'}{'lucky_bundles'} = [ sort {
         #$a->{'num_hits'}  <=> $b->{'num_hits'} or $a->{'num_notes'} <=> $b->{'num_notes'}
         $a->{'ratio'} <=> $b->{'ratio'}
     } @{ $ret{'hit_analysis'}{'lucky_bundles'} } ];

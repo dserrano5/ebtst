@@ -1744,8 +1744,8 @@ sub upload {
 
     my $local_notes_file = File::Spec->catfile ($tmpdir, "$sha-notes.csv");
     my $local_hits_file  = File::Spec->catfile ($tmpdir, "$sha-hits.csv");
-    unlink $local_notes_file or $self->_log (warn => "upload: unlink: '$local_notes_file': $!\n");
-    unlink $local_hits_file  or $self->_log (warn => "upload: unlink: '$local_hits_file': $!");
+    unlink $local_notes_file or (2 == $! or $self->_log (warn => "upload: unlink: '$local_notes_file': $!\n"));
+    unlink $local_hits_file  or (2 == $! or $self->_log (warn => "upload: unlink: '$local_hits_file': $!"));
 
     my $something_done = 0;
     if ($notes_csv and $notes_csv->size) {

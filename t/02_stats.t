@@ -210,12 +210,20 @@ is $res->{'hit_list'}[1]{'moderated'}, 0, 'Second hit is not moderated';
 ok !exists $res->{'hit_list'}[0]{'old_hit_ratio'}, 'Key "old_hit_ratio" is not present';   ## the code doesn't set some keys for moderated hits
 
 
-note 'notes between when... something happens';
+note 'notes_between on passive interesting hits';
 $data_obj->load_notes (undef, 't/notes7.csv');
 $data_obj->load_hits ('t/hits7.csv');
 $res = $st->hit_list (undef, $data_obj, $data_obj->whoami);
 is $res->{'hit_list'}[3]{'notes_between'}, 7, 'Correct notes_between';
 
 
-done_testing 208;
+note q[notes_between when there's more than one passive hit in a row without user entering notes];
+@hit_notes_between = qw/7 2 0 0 0 3 0 0 1/;
+$data_obj->load_notes (undef, 't/notes8.csv');
+$data_obj->load_hits ('t/hits8.csv');
+$res = $st->hit_list (undef, $data_obj, $data_obj->whoami);
+for (0..8) { is $res->{'hit_list'}[$_]{'notes_between'}, $hit_notes_between[$_], sprintf 'Correct hit %d notes between', $_ + 1; }
+
+
+done_testing 217;
 unlink '/tmp/ebt2-storable' or warn "unlink: '/tmp/ebt2-storable': $!";

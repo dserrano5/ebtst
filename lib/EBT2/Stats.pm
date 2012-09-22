@@ -756,7 +756,6 @@ sub hit_list {
         return if $note and 1 != ($note->[DATE_ENTERED] cmp $pas_hits[0]{'hit_date'});
 
         my @pas2remove;
-        my $pas_interesting_found = 0;
         foreach my $pas_hit (@pas_hits) {
             if ($note) { next if 1 != ($note->[DATE_ENTERED] cmp $pas_hit->{'hit_date'}); }
             push @pas2remove, $pas_hit->{'serial'};
@@ -765,8 +764,6 @@ sub hit_list {
             $hit_no2++;
 
             if (!$pas_hit->{'moderated'}) {
-                $pas_interesting_found = 1;
-
                 $pas_hit->{'hit_no'} = $hit_no;
                 $pas_hit->{'hit_no2'} = $hit_no2;
                 $pas_hit->{'notes'} = $notes_elapsed-1;
@@ -784,9 +781,9 @@ sub hit_list {
                 push @{ $ret{'hits_dates'} }, $pas_hit->{'hit_date'};
                 $ret{'elem_travel_days'} .= $pas_hit->{'days'} . ',';
                 $ret{'elem_travel_km'} .= $pas_hit->{'km'} . ',';
+                $notes_between = 0;     ## 0 because it would be -1 plus 1 for having already started another loop iteration
             }
         }
-        $notes_between = 0 if $pas_interesting_found;   ## 0 because it would be -1 plus 1 for having already started another loop iteration
         if (@pas2remove) {
             delete @passive_pending{@pas2remove};
             $pp_changed = 1;

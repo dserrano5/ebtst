@@ -19,9 +19,9 @@
     </tr>
     <tr>
         <th><%=l 'Hit ratios' %></th>
-        <td><%= sprintf '%.2f', $hs->{'ratio'}{'best'} %></td>
+        <td><%= sprintf '%.2f', $hs->{'ratio'}{'best'}//0 %></td>
         <td><%= $hs->{'ratio'}{'worst'} ? (sprintf '%.2f', $hs->{'ratio'}{'worst'}) : 'N/A' %></td>
-        <td><b><%= sprintf '%.2f', $hs->{'ratio'}{'current'} %></b></td>
+        <td><b><%= sprintf '%.2f', $hs->{'ratio'}{'current'}//0 %></b></td>
     </tr>
 </table>
 <br>
@@ -29,7 +29,7 @@
 <br>
 <br>
 <%=l 'Hit finder/maker - giver/getter ratio' %>: <%= $hs->{'active'} %> - <%= $hs->{'passive'} %> \
-(<b><%= sprintf '%.1f', 100 * $hs->{'active'} / $hs->{'total'} %>%</b> - <b><%= sprintf '%.1f', 100 * $hs->{'passive'} / $hs->{'total'} %>%</b>)</br>
+(<b><%= sprintf '%.1f', $hs->{'total'} ? (100 * $hs->{'active'} / $hs->{'total'}) : 0 %>%</b> - <b><%= sprintf '%.1f', $hs->{'total'} ? (100 * $hs->{'passive'} / $hs->{'total'}) : 0 %>%</b>)</br>
 <br>
 <table>
     <tr>
@@ -42,14 +42,14 @@
     <tr>
         <th><%=l 'Days between' %></th>
         <td><%= $hs->{'days_between'}{'best'} %></td>
-        <td><%= sprintf '%.2f', $hs->{'days_between'}{'avg'} %></td>
+        <td><%= sprintf '%.2f', $hs->{'days_between'}{'avg'}//0 %></td>
         <td><%= $hs->{'days_between'}{'worst'} %></td>
         <td><b><%= $hs->{'days_between'}{'current'} %></b></td>
     </tr>
     <tr>
         <th><%=l 'Notes between' %></th>
         <td><%= $hs->{'notes_between'}{'best'} %></td>
-        <td><%= sprintf '%.2f', $hs->{'notes_between'}{'avg'} %></td>
+        <td><%= sprintf '%.2f', $hs->{'notes_between'}{'avg'}//0 %></td>
         <td><%= $hs->{'notes_between'}{'worst'} %></td>
         <td><b><%= $hs->{'notes_between'}{'current'} %></b></td>
     </tr>
@@ -67,13 +67,13 @@
     <tr>
         <th><%=l 'Travel days' %></th>
         <td><%= $hs->{'days'}{'min'} %></td>
-        <td><%= sprintf '%.2f', $hs->{'days'}{'avg'} %></td>
+        <td><%= sprintf '%.2f', $hs->{'days'}{'avg'}//0 %></td>
         <td><%= $hs->{'days'}{'max'} %></td>
     </tr>
     <tr>
         <th><%=l 'Travel kilometers' %></th>
         <td><%= $hs->{'km'}{'min'} %></td>
-        <td><%= sprintf '%.2f', $hs->{'km'}{'avg'} %></td>
+        <td><%= sprintf '%.2f', $hs->{'km'}{'avg'}//0 %></td>
         <td><%= $hs->{'km'}{'max'} %></td>
     </tr>
 </table>

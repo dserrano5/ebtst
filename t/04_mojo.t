@@ -124,11 +124,46 @@ foreach my $section (qw/
     top_days time_analysis_bingo time_analysis_detail combs_bingo combs_detail plate_bingo hit_list hit_times_bingo hit_times_detail
     hit_locations hit_analysis hit_summary calendar
 /) {
-    $t->get_ok ("/$section")         ->status_is (200)->content_unlike (qr{<b>(?:comment|Madrid|Paris|28801|foo|dserrano⑤)</b>}, "escaped markup in $section");
+    $t->get_ok ("/$section")->status_is (200)->content_unlike (qr{<b>(?:comment|Madrid|Paris|28801|foo|dserrano⑤)</b>}, "escaped markup in $section");
 }
 
 ## hit_analysis isn't broken with less than 10 hits
 $t->get_ok ('/hit_analysis')->status_is (200)->content_like (qr{<td class="small_cell"><a href="[^"]*">Lxxxx2000xxx</a></td>}, 'hit analysis');
+
+
+## one broken note
+$t->post_form_ok ('/upload', {
+    notes_csv_file => { file => 't/one-broken-note.csv' },
+    #csrftoken => $csrftoken,
+})->status_is (200)->content_type_is ('text/plain')->content_like (qr/^[0-9a-f]{8}$/, 'upload notes');
+$sha = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->text;
+next_is_xhr; $t->get_ok ("/import/$sha")->status_is (200)->content_type_is ('text/plain')->content_is ('information', 'import');
+foreach my $section (qw/
+    information value countries printers locations travel_stats huge_table short_codes nice_serials coords_bingo notes_per_year notes_per_month
+    top_days time_analysis_bingo time_analysis_detail combs_bingo combs_detail plate_bingo calendar
+/) {
+    $t->get_ok ("/$section")->status_is (200);
+    $t->get_ok ("/$section.txt")->status_is (200);
+}
+
+
+## one passive moderated hit
+$t->post_form_ok ('/upload', {
+    notes_csv_file => { file => 't/one-passive-mod-hit-notes.csv' },
+    hits_csv_file  => { file => 't/one-passive-mod-hit-hits.csv' },
+    #csrftoken => $csrftoken,
+})->status_is (200)->content_type_is ('text/plain')->content_like (qr/^[0-9a-f]{8}$/, 'upload notes');
+$sha = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->text;
+next_is_xhr; $t->get_ok ("/import/$sha")->status_is (200)->content_type_is ('text/plain')->content_is ('information', 'import');
+foreach my $section (qw/
+    information value countries printers locations travel_stats huge_table short_codes nice_serials coords_bingo notes_per_year notes_per_month
+    top_days time_analysis_bingo time_analysis_detail combs_bingo combs_detail plate_bingo hit_list hit_times_bingo hit_times_detail
+    hit_locations hit_analysis hit_summary calendar
+/) {
+    $t->get_ok ("/$section")->status_is (200);
+    $t->get_ok ("/$section.txt")->status_is (200);
+}
+
 
 ## upload notes and hits CSV
 $t->get_ok ('/information');
@@ -149,9 +184,12 @@ $t->get_ok ('/hit_list')->status_is (200)->content_unlike (qr/Exxxx0000xxx/, 'mo
 ## but their count appears in hit_summary
 $t->get_ok ('/hit_summary')->status_is (200)->content_like (qr/1\s+international\),\s+plus\s+1\s+moderated/, 'but they are counted');
 
+
 ## misc countries
 $t->get_ok ('/locations')->status_is (200)->content_like (qr/Kosovo/, 'Kosovo support')->content_like (qr/Serbia and Montenegro/)->content_like (qr/Bosnia-Herzegovina/);
 
+
+## incorrect uploads
 $t->post_form_ok ('/upload', {
     notes_csv_file => { file => 't/hits1.csv' },
     #csrftoken => $csrftoken,
@@ -184,16 +222,18 @@ $t->post_form_ok ('/login' => {
     user => 'emptyuser',
     pass => 'emptypass',
     #csrftoken => $csrftoken,
-})->status_is (302)->header_like (Location => qr/information/, 'log in with empty user');
-
+})->status_is (302)->header_like (Location => qr/information/, 'log in with emptyuser');
 $t->get_ok ('/information')->status_is (302)->header_like (Location => qr/configure/, 'redir to configure');
+
+
+## registration
 $t->get_ok ('/register')->status_is (302)->header_like (Location => qr/information/, 'GET register with session');
 $t->post_form_ok ('/register' => {
     user  => 'fo€',
     pass1 => 'barbar',
     pass2 => 'barbar2',
 })->status_is (302)->header_like (Location => qr/information/, 'POST register with session');
-$t->get_ok ('/logout')->status_is (302)->header_like (Location => qr/index/, 'logout from empty user');
+$t->get_ok ('/logout')->status_is (302)->header_like (Location => qr/index/, 'logout from emptyuser');
 
 $t->get_ok ('/register')->status_is (200)->content_like (qr/Confirm passphrase/, 'GET register');
 $t->post_form_ok ('/register' => {
@@ -268,6 +308,7 @@ $t->post_form_ok ('/register' => {
 ## restore user db
 open $fd, '>:encoding(UTF-8)', $users_file or die "open: '$users_file': $!"; print $fd $_ for @lines; close $fd;
 
+
 ## users with latin-* characters in username
 $t->get_ok ('/logout');
 $t->post_form_ok ('/login' => {
@@ -276,6 +317,7 @@ $t->post_form_ok ('/login' => {
     #csrftoken => $csrftoken,
 })->status_is (302)->header_like (Location => qr/information/, 'log in with latin-* chars user');
 $t->get_ok ('/information')->status_is (200);
+
 
 ## users with unicode characters in username
 $t->get_ok ('/logout');
@@ -286,6 +328,7 @@ $t->post_form_ok ('/login' => {
 })->status_is (302)->header_like (Location => qr/information/, 'log in with unicode chars user');
 $t->get_ok ('/information')->status_is (200);
 
+
 ## users with both latin-* and unicode characters in username
 $t->get_ok ('/logout');
 $t->post_form_ok ('/login' => {
@@ -295,10 +338,12 @@ $t->post_form_ok ('/login' => {
 })->status_is (302)->header_like (Location => qr/information/, 'log in with latin-* and unicode chars user');
 $t->get_ok ('/information')->status_is (200);
 
+
+## MSIE warning
 $t->ua->once (start => sub {
     my ($ua, $tx) = @_;
     $tx->req->headers->header ('User-Agent', 'Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0)');
 });
 $t->get_ok ('/configure')->status_is (200)->content_like (qr/CSV upload doesn't work with Internet Explorer/);
 
-done_testing 306;
+done_testing 498;

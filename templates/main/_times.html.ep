@@ -75,7 +75,7 @@
                 <% my $color = color $time_data->{'hh'}{$num}, $color_what; $color_counts{$color}++; =%>
                 <td>
                     <span style="color: <%= $color %>"><%= $time_data->{'hh'}{$num}//0 %></span>
-                    (<%= sprintf '%.2f', 100 * ($time_data->{'hh'}{$num}//0) / $count %>%)
+                    (<%= sprintf '%.2f', $count ? (100 * ($time_data->{'hh'}{$num}//0) / $count) : 0 %>%)
                 </td>
             </tr>
         <% } =%>

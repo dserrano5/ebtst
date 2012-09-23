@@ -1586,7 +1586,11 @@ sub hit_summary {
     my $dest_img1 = File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'hits_ratio.svg');
     my $dest_img2 = File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'hits_travel_days.svg');
     my $dest_img3 = File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'hits_travel_km.svg');
-    if (!-e $dest_img1 or !-e $dest_img2 or !-e $dest_img3) {
+    my $gen_charts = !!$hs->{'total'};
+    if (!$gen_charts) {
+        $self->_log (info => 'no hits, skipping chart generation');
+    }
+    if ($gen_charts and (!-e $dest_img1 or !-e $dest_img2 or !-e $dest_img3)) {
         my %dpoints;
         $notes_dates = [ map { $_.'1' } @$notes_dates ];
         $hits_dates  = [ map { $_.'2' } @$hits_dates ];

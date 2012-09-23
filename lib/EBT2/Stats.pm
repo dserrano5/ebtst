@@ -877,9 +877,13 @@ sub hit_list {
         push @{ $ret{'hit_list'} }, @{ $hit_list{$date} };
     }
     ## triple hits can cause the list to be unsorted. TODO: test case. I found about this with a hit "someone -> giulcenc -> someone"
-    @{ $ret{'hits_dates'} } = sort @{ $ret{'hits_dates'} };
-    chop $ret{'elem_travel_days'};
-    chop $ret{'elem_travel_km'};
+    if (!defined $ret{'hits_dates'}) {
+        $ret{'hits_dates'} = [];
+    } else {
+        @{ $ret{'hits_dates'} } = sort @{ $ret{'hits_dates'} };
+        chop $ret{'elem_travel_days'};
+        chop $ret{'elem_travel_km'};
+    }
 
     return \%ret;
 }
@@ -1095,21 +1099,33 @@ sub hit_summary {
     my ($y, $m, $d);
 
     ## postfix: best/current/worst ratio (calculate current hit ratio)
-    $ret{'hit_summary'}{'ratio'}{'current'} = $count / $ret{'hit_summary'}{'total'};
+    $ret{'hit_summary'}{'ratio'}{'current'} = $ret{'hit_summary'}{'total'} ? ($count / $ret{'hit_summary'}{'total'}) : undef;
 
     ## postfix: notes between/days between best/avg/cur/worst (notes avg == hit ratio), days forecast (cur/avg days/notes, days forecast)
     ($y, $m, $d) = $hit_list->[-1]{'dates'}[1] =~ /^(\d{4})-(\d{2})-(\d{2})/;
     my $last_hit_date = DateTime->new (year => $y, month => $m, day => $d);
     $ret{'hit_summary'}{'days_between'}{'current'} = $last_hit_date->delta_days (DateTime->now)->delta_days;
-    $ret{'hit_summary'}{'notes_between'}{'current'} = $count - $hit_list->[-1]{'notes'};
-    $ret{'hit_summary'}{'days_between'}{'avg'}  = mean @{ $ret{'hit_summary'}{'days_between'}{'elems'} };
-    $ret{'hit_summary'}{'notes_between'}{'avg'} = mean @{ $ret{'hit_summary'}{'notes_between'}{'elems'} };
-    $ret{'hit_summary'}{'days_forecast'} = $last_hit_date->add (days => $ret{'hit_summary'}{'days_between'}{'avg'})->strftime ('%Y-%m-%d');
+    $ret{'hit_summary'}{'notes_between'}{'current'} = $count - ($hit_list->[-1]{'notes'}//0);
+    if ($ret{'hit_summary'}{'total'}) {
+        $ret{'hit_summary'}{'days_between'}{'avg'}  = mean @{ $ret{'hit_summary'}{'days_between'}{'elems'} };
+        $ret{'hit_summary'}{'notes_between'}{'avg'} = mean @{ $ret{'hit_summary'}{'notes_between'}{'elems'} };
+        $ret{'hit_summary'}{'days_forecast'} = $last_hit_date->add (days => $ret{'hit_summary'}{'days_between'}{'avg'})->strftime ('%Y-%m-%d');
+    } else {
+        $ret{'hit_summary'}{'days_between'}{'avg'}  = undef;
+        $ret{'hit_summary'}{'notes_between'}{'avg'} = undef;
+        $ret{'hit_summary'}{'days_forecast'} = undef;
+    }
 
     ## postfix: min/avg/max of $hit->{'days'} and $hit->{'km'}, speed too (calculate averages)
-    $ret{'hit_summary'}{'days'}{'avg'}  = mean @{ $ret{'hit_summary'}{'days'}{'elems'} };
-    $ret{'hit_summary'}{'km'}{'avg'}    = mean @{ $ret{'hit_summary'}{'km'}{'elems'} };
-    $ret{'hit_summary'}{'speed'}{'avg'} = mean @{ $ret{'hit_summary'}{'speed'}{'elems'} };
+    if ($ret{'hit_summary'}{'total'}) {
+        $ret{'hit_summary'}{'days'}{'avg'}  = mean @{ $ret{'hit_summary'}{'days'}{'elems'} };
+        $ret{'hit_summary'}{'km'}{'avg'}    = mean @{ $ret{'hit_summary'}{'km'}{'elems'} };
+        $ret{'hit_summary'}{'speed'}{'avg'} = mean @{ $ret{'hit_summary'}{'speed'}{'elems'} };
+    } else {
+        $ret{'hit_summary'}{'days'}{'avg'}  = undef;
+        $ret{'hit_summary'}{'km'}{'avg'}    = undef;
+        $ret{'hit_summary'}{'speed'}{'avg'} = undef;
+    }
     delete $ret{'hit_summary'}{'days'}{'elems'};
     delete $ret{'hit_summary'}{'km'}{'elems'};
     delete $ret{'hit_summary'}{'speed'}{'elems'};

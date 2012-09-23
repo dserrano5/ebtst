@@ -10,6 +10,8 @@ use Chart::Gnuplot;
 sub _quantize {
     my ($limit, $xdata, $dsets) = @_;
 
+    return $xdata if @$xdata <= $limit;
+
     my $graph_type = (caller 1)[3];
     $graph_type =~ s/.*::(\w+)_chart$/$1/;
 
@@ -31,7 +33,7 @@ sub _quantize {
     foreach my $limit_date (@intervals) {
         ## if a lot of time has passed, $cur_xdata could be greater than this $limit_date
         ## (never true in the first iteration)
-        my $cur_xdata = $xdata->[ $last_idx ];
+        my $cur_xdata = $xdata->[$last_idx];
         if (1 == ($cur_xdata cmp $limit_date)) {
             ## push $limit_date to @new_xdata and...
             push @new_xdata, $limit_date;
@@ -77,7 +79,7 @@ sub _quantize {
     }
     ## at this point, $last_idx should be == 1 + $#$xdata == @$xdata
     if ($last_idx != @$xdata) {
-        warn "premature exit from loop";
+        warn 'premature exit from _quantize loop';
     }
 
     ## push last point to @new_xdata and to the datasets. Update the 'points' elem in each dataset with the new values
@@ -103,7 +105,7 @@ sub _quantize {
 sub line_chart {
     my (%args) = @_;
 
-    my ($xdata) = _quantize 10000, $args{'xdata'}, $args{'dsets'};      ## showing a lot of points is both cpu- and memory-intensive
+    my $xdata = _quantize 10000, $args{'xdata'}, $args{'dsets'};      ## showing a lot of points is both cpu- and memory-intensive
 
     my %gp_dset_args = (
         xdata    => $xdata,
@@ -218,7 +220,7 @@ sub bar_chart {
 sub bartime_chart {
     my (%args) = @_;
 
-    my ($xdata) = _quantize 500, $args{'xdata'}, $args{'dsets'};      ## showing a lot of boxes is slow
+    my $xdata = _quantize 500, $args{'xdata'}, $args{'dsets'};      ## showing a lot of boxes is slow
 
     ## transform into percent
     if ($args{'percent'}) {

@@ -136,6 +136,7 @@ sub _find_out_signature {
         if ($sig =~ /,/) {
             if (!defined ($sig = _guess_signature $value, $short, $serial, $sig)) {
                 warn "Couldn't guess signature for note ($value) ($cc) ($plate) ($short) ($serial)\n";
+                $sig = '_UNK';
             }
         }
     }

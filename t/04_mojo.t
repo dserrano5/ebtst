@@ -88,7 +88,8 @@ next_is_xhr; $t->get_ok ("/import/$bad_sha")->status_is (404);
 next_is_xhr; $t->get_ok ("/import/$sha")->status_is (200)->content_type_is ('text/plain')->content_is ('information', 'import');
 
 ## correct data
-$t->get_ok ('/information')->status_is (200)->content_like (qr/\bSignatures:.*\bDuisenberg 0.*\bTrichet 2.*\bDraghi 0\b/s, 'correct data')->content_like (qr/short_codes/, 'with sections')->text_is ('div#error_msg' => '', 'no error_msg');
+$t->get_ok ('/information')->status_is (200)->content_like (qr/\bSignatures:.*\bDuisenberg 0.*\bTrichet 2.*\bDraghi 0\b/s, 'correct data')->
+    content_like (qr/short_codes/, 'with sections')->text_is ('div#error_msg' => '', 'no error_msg');
 #$csrftoken = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->html->body->div->[0]->form->input->{'value'};
 
 ## /configuration and /help now must show the entire menu
@@ -117,6 +118,14 @@ next_is_xhr; $t->post_form_ok ('/upload', {
 
 $sha = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->text;
 next_is_xhr; $t->get_ok ("/import/$sha")->status_is (200)->content_type_is ('text/plain')->content_is ('information', 'import hits');
+
+foreach my $section (qw/
+    information value countries printers locations travel_stats huge_table short_codes nice_serials coords_bingo notes_per_year notes_per_month
+    top_days time_analysis_bingo time_analysis_detail combs_bingo combs_detail plate_bingo hit_list hit_times_bingo hit_times_detail
+    hit_locations hit_analysis hit_summary calendar
+/) {
+    $t->get_ok ("/$section")         ->status_is (200)->content_unlike (qr{<b>(?:comment|Madrid|Paris|28801|foo|dserrano⑤)</b>}, "escaped markup in $section");
+}
 
 ## hit_analysis isn't broken with less than 10 hits
 $t->get_ok ('/hit_analysis')->status_is (200)->content_like (qr{<td class="small_cell"><a href="[^"]*">Lxxxx2000xxx</a></td>}, 'hit analysis');
@@ -292,4 +301,4 @@ $t->ua->once (start => sub {
 });
 $t->get_ok ('/configure')->status_is (200)->content_like (qr/CSV upload doesn't work with Internet Explorer/);
 
-done_testing 231;
+done_testing 306;

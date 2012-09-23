@@ -1,6 +1,7 @@
 package EBTST;
 
 use Mojo::Base 'Mojolicious';
+use Mojo::Util qw/xml_escape/;
 use File::Spec;
 use Carp qw/croak confess/;
 use Fcntl ':flock';
@@ -185,7 +186,7 @@ sub helper_hit_partners {
         if ($before) {
             if ('html' eq $mode) {
                 push @visible,
-                    (sprintf '<a href="https://en.eurobilltracker.com/profile/?user=%s">%s</a>', $id, $name),
+                    (sprintf '<a href="https://en.eurobilltracker.com/profile/?user=%s">%s</a>', $id, xml_escape $name),
                     '<img src="images/red_arrow.gif">';
             } elsif ('txt' eq $mode) {
                 push @visible, sprintf "[color=darkred]%s[/color] [url=https://en.eurobilltracker.com/profile/?user=%s]%s[/url]", ($self->l ('from')), $id, $name;
@@ -194,7 +195,7 @@ sub helper_hit_partners {
             if ('html' eq $mode) {
                 push @visible,
                     '<img src="images/blue_arrow.gif">',
-                    (sprintf '<a href="https://en.eurobilltracker.com/profile/?user=%s">%s</a>', $id, $name);
+                    (sprintf '<a href="https://en.eurobilltracker.com/profile/?user=%s">%s</a>', $id, xml_escape $name);
             } elsif ('txt' eq $mode) {
                 push @visible, sprintf "[color=darkblue]%s[/color] [url=https://en.eurobilltracker.com/profile/?user=%s]%s[/url]", ($self->l ('to')), $id, $name;
             }

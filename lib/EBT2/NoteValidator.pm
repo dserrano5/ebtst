@@ -9,7 +9,7 @@ use MIME::Base64;
 sub note_serial_cksum {
     my ($s) = map uc, @_;
 
-    return 0 if !defined $s or $s !~ /^[A-Z]\d{11}$/;
+    return 0 if !defined $s or $s !~ /^[EFGHLMNPSTUVXYZ]\d{11}$/;
     return 0 if $s =~ /0$/;
 
     $s =~ s/^(.)/ (ord $1) - 64 /e;
@@ -29,20 +29,28 @@ sub validate_note {
 
     push @errors, "Bad value '$v'" unless grep { $_ eq $v } @{ EBT2->values };
     push @errors, "Bad year '$hr->{'year'}'" if '2002' ne $hr->{'year'};
-    push @errors, "Invalid checksum for serial number '$hr->{'serial'}'" unless note_serial_cksum $hr->{'serial'};
-    push @errors, "Bad date '$hr->{'date_entered'}'" if
-        $hr->{'date_entered'} !~ /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/ and
-        $hr->{'date_entered'} !~ m{^\d{2}/\d{2}/\d{2} \d{2}:\d{2}$};
+    if ($hr->{'serial'} =~ /^[EFGHLMNPSTUVXYZ]\d{11}$/) {
+        push @errors, "Bad checksum for serial number '$hr->{'serial'}'" unless note_serial_cksum $hr->{'serial'};
+    } else {
+        push @errors, "Bad serial number '$hr->{'serial'}'";
+    }
+
+    ## date_entered has already been validated in load_notes
+
     #push @errors, "Bad city '$hr->{'city'}'" unless length $hr->{'city'};
     #push @errors, "Bad country '$hr->{'country'}'" unless length $hr->{'country'};
     #push @errors, "Bad zip '$hr->{'zip'}'" unless length $hr->{'zip'};  ## irish notes haven't a zip code
 
-    if (5 == $v or 10 == $v) {
-        push @errors, "Bad short code position '$position'" if $position !~ /^[A-J][0-6]$/;
-    } elsif (20 == $v) {
-        push @errors, "Bad short code position '$position'" if $position !~ /^[A-I][0-6]$/;
+    if ($hr->{'short_code'} !~ /[DEFGHJKLMNPRTU]\d{3}[A-J][0-6]/) {
+        push @errors, "Bad short code '$hr->{'short_code'}'";
     } else {
-        push @errors, "Bad short code position '$position'" if $position !~ /^[A-H][0-5]$/;
+        if (5 == $v or 10 == $v) {
+            push @errors, "Bad short code position '$position'" if $position !~ /^[A-J][0-6]$/;
+        } elsif (20 == $v) {
+            push @errors, "Bad short code position '$position'" if $position !~ /^[A-I][0-6]$/;
+        } else {
+            push @errors, "Bad short code position '$position'" if $position !~ /^[A-H][0-5]$/;
+        }
     }
 
     if (!grep { $_ eq $plate } @{ $EBT2::all_plates{$cc}{$v} }) {
@@ -50,7 +58,9 @@ sub validate_note {
     }
 
     push @errors, "Bad id '$hr->{'id'}'" if $hr->{'id'} !~ /^\d+$/;
-    push @errors, "Bad latitude '$hr->{'lat'}'"  if length $hr->{'lat'}  and $hr->{'lat'}  !~ /^ -? \d+ (?: \. \d+ )? $/x;
+    push @errors, "Bad number of times entered '$hr->{'times_entered'}'" if $hr->{'times_entered'} !~ /^\d+$/;
+    push @errors, "Bad status of moderated hit '$hr->{'moderated_hit'}'" if $hr->{'moderated_hit'} !~ /^[01]$/;
+    push @errors, "Bad latitude '$hr->{'lat'}'"   if length $hr->{'lat'}  and $hr->{'lat'}  !~ /^ -? \d+ (?: \. \d+ )? $/x;
     push @errors, "Bad longitude '$hr->{'long'}'" if length $hr->{'long'} and $hr->{'long'} !~ /^ -? \d+ (?: \. \d+ )? $/x;
 
     return encode_base64 +(join ';', @errors), '';

@@ -58,7 +58,7 @@ is $res->{'highest_short_codes'}{'T'}{'50'}{'sort_key'}, 'T001A1Z3**11', 'Short 
 
 note 'hit_list';
 $data_obj->load_notes (undef, 't/notes4.csv');
-$data_obj->load_hits ('t/hits4.csv');
+$data_obj->load_hits (undef, 't/hits4.csv');
 my $foo = <<'EOF';
 notes:
 1    50;2002;V****6280***;;2010-10-05 09:27:31
@@ -128,7 +128,7 @@ for (0..6) { is $res->{'hit_list'}[$_]{'days_between'}, $hit_days_between[$_], s
 
 note 'hit_list again, now with some moderated hits';
 $data_obj->load_notes (undef, 't/notes5.csv');
-$data_obj->load_hits ('t/hits5.csv');
+$data_obj->load_hits (undef, 't/hits5.csv');
 $res = $st->hit_list (undef, $data_obj, $data_obj->whoami);
 
 is $res->{'hit_list'}[0]{'hit_no'}, undef, sprintf 'Correct hit 1 (moderated) number';
@@ -203,7 +203,7 @@ for (0..8) { is $res->{'hit_list'}[$_]{'days_between'}, $all_hit_days_between[$_
 
 note 'first hit is passive and moderated';
 $data_obj->load_notes (undef, 't/notes6.csv');
-$data_obj->load_hits ('t/hits6.csv');
+$data_obj->load_hits (undef, 't/hits6.csv');
 $res = $st->hit_list (undef, $data_obj, $data_obj->whoami);
 is $res->{'hit_list'}[0]{'moderated'}, 1, 'First hit is moderated';
 is $res->{'hit_list'}[1]{'moderated'}, 0, 'Second hit is not moderated';
@@ -212,7 +212,7 @@ ok !exists $res->{'hit_list'}[0]{'old_hit_ratio'}, 'Key "old_hit_ratio" is not p
 
 note 'notes_between on passive interesting hits';
 $data_obj->load_notes (undef, 't/notes7.csv');
-$data_obj->load_hits ('t/hits7.csv');
+$data_obj->load_hits (undef, 't/hits7.csv');
 $res = $st->hit_list (undef, $data_obj, $data_obj->whoami);
 is $res->{'hit_list'}[3]{'notes_between'}, 7, 'Correct notes_between';
 
@@ -220,7 +220,7 @@ is $res->{'hit_list'}[3]{'notes_between'}, 7, 'Correct notes_between';
 note q[notes_between when there's more than one passive hit in a row without user entering notes];
 @hit_notes_between = qw/7 2 0 0 0 3 0 0 1/;
 $data_obj->load_notes (undef, 't/notes8.csv');
-$data_obj->load_hits ('t/hits8.csv');
+$data_obj->load_hits (undef, 't/hits8.csv');
 $res = $st->hit_list (undef, $data_obj, $data_obj->whoami);
 for (0..8) { is $res->{'hit_list'}[$_]{'notes_between'}, $hit_notes_between[$_], sprintf 'Correct hit %d notes between', $_ + 1; }
 

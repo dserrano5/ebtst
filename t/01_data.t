@@ -25,7 +25,7 @@ ok defined $obj->{'notes'}, 'There are notes after loading db';
 is scalar @{ $obj->{'notes'} }, 2, 'Correct number of notes';
 
 ## load_hits, check
-$obj->load_hits ('t/hits1.csv');
+$obj->load_hits (undef, 't/hits1.csv');
 is +(split ';', $obj->{'notes'}[0], NCOLS)[HIT], '', 'No spurious hits after loading hits CSV';
 is ref (thaw decode_base64 +(split ';', $obj->{'notes'}[1], NCOLS)[HIT]), 'HASH', 'There is a hit after loading hits CSV';
 $obj->load_db;
@@ -35,7 +35,7 @@ is ref (thaw decode_base64 +(split ';', $obj->{'notes'}[1], NCOLS)[HIT]), 'HASH'
 ## load new notes, check hits are still there
 $obj = new_ok 'EBT2::Data', [ db => '/tmp/ebt2-storable' ];
 $obj->load_notes (undef, 't/notes1.csv');
-$obj->load_hits ('t/hits1.csv');
+$obj->load_hits (undef, 't/hits1.csv');
 ok defined $obj->{'notes'}, 'There are notes after loading CSV';
 is scalar @{ $obj->{'notes'} }, 2, 'Correct number of notes';
 is ref (thaw decode_base64 +(split ';', $obj->{'notes'}[1], NCOLS)[HIT]), 'HASH', 'There is a hit after loading hits CSV';

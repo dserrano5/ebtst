@@ -114,8 +114,9 @@ sub flag {
 }
 
 sub load_notes        { my ($self, @args) = @_; $self->{'data'}->load_notes ($self->{'progress'}, @args); return $self; }
-sub load_hits         { my ($self, @args) = @_; $self->{'data'}->load_hits  (@args); return $self; }
+sub load_hits         { my ($self, @args) = @_; $self->{'data'}->load_hits  ($self->{'progress'}, @args); return $self; }
 sub load_db           { my ($self)        = @_; $self->{'data'}->load_db; return $self; }
+sub note_count        { my ($self)        = @_; $self->{'data'}->note_count; }
 sub has_notes         { my ($self)        = @_; $self->{'data'}->has_notes; }
 sub has_hits          { my ($self)        = @_; $self->{'data'}->has_hits; }
 sub has_bad_notes     { my ($self)        = @_; $self->{'data'}->has_bad_notes; }

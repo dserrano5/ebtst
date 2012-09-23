@@ -1780,12 +1780,15 @@ sub import {
     my $local_notes_file = File::Spec->catfile ($tmpdir, "$sha-notes.csv");
     my $local_hits_file  = File::Spec->catfile ($tmpdir, "$sha-hits.csv");
 
-    if (!-e $local_notes_file and !-e $local_hits_file) {
+    my $theres_notes = -e $local_notes_file;
+    my $theres_hits  = -e $local_hits_file;
+
+    if (!$theres_notes and !$theres_hits) {
         $self->_log (info => "import: no notes or hits, rendering 404");
         return $self->render_not_found;
     }
 
-    if (-e $local_notes_file) {
+    if ($theres_notes) {
         my $outfile = File::Spec->catfile ($EBTST::config{'csvs_dir'}, $sha);
         $self->_log (info => "will store a censored copy at '$outfile'");
         if (!unlink $outfile and 'No such file or directory' ne $!) {
@@ -1797,12 +1800,17 @@ sub import {
         $self->_decompress ($local_notes_file);
 
         my $count = 0; if (open my $fd, '<', $local_notes_file) { <$fd>; $count =()= <$fd>; close $fd; }
-        $self->_init_progress (tot => $count);
+        if ($theres_hits) {
+            $self->_init_progress (tot => $count*1.2);     ## processing hits takes around 20% of the time of processing notes, hence that 0.2
+        } else {
+            $self->_init_progress (tot => $count);
+        }
         eval { $self->ebt->load_notes ($local_notes_file, $outfile); 1; };
         unlink $local_notes_file or $self->_log (warn => "import: unlink: '$local_notes_file': $!\n");
         if ($@ and $@ =~ /Unrecognized notes file/) {
             return $self->_end_progress ('bad_notes');
         }
+        $self->{'progress'}->base_add ($count);
         $done = 1;
 
         my $globpat = File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), '*.svg');
@@ -1811,8 +1819,12 @@ sub import {
             unlink $img or $self->_log (warn => "import: unlink: '$img': $!");
         }
     }
-    if (-e $local_hits_file) {
+    if ($theres_hits) {
         $self->_decompress ($local_hits_file);
+
+        if (!$theres_notes) {
+            $self->_init_progress (tot => $self->ebt->note_count * 0.2);
+        }  ## else, the previous if-block has done a $self->{'progress'}->base_add
         eval { $self->ebt->load_hits ($local_hits_file); 1; };
         unlink $local_hits_file  or $self->_log (warn => "import: unlink: '$local_hits_file': $!");
         if ($@ and $@ =~ /Unrecognized hits file/) {

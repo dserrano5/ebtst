@@ -271,6 +271,16 @@ sub load_notes {
         if ($hr->{'date_entered'} =~ m{^(\d{2})/(\d{2})/(\d{2}) (\d{2}):(\d{2})$}) {
             $hr->{'date_entered'} = sprintf "%s-%s-%s %s:%s:00", (2000+$3), $2, $1, $4, $5;
         }
+        if ($hr->{'date_entered'} =~ /^(\d{2})\.(\d{2})\.(\d{4}) (\d{2}):(\d{2})$/) {
+            $hr->{'date_entered'} = sprintf "%s-%s-%s %s:%s:00", $3, $2, $1, $4, $5;
+        }
+        if ($hr->{'date_entered'} !~ /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/) {
+            die "Unrecognized notes file\n";
+        }
+        if ($hr->{'lat'} > 90 or $hr->{'lat'} < -90 or $hr->{'long'} > 180 or $hr->{'long'} < -180) {
+            $hr->{'lat'} /= 10;
+            $hr->{'long'} /= 10;
+        }
         my ($y, $m, $d) = (split /[-: ]/, $hr->{'date_entered'})[0,1,2];
         my $dow = dayofweek $d, $m, $y; $dow = 1 + ($dow-1) % 7;   ## turn 0 (sunday) into 7. So we end up with 1..7
 
@@ -295,21 +305,8 @@ sub load_notes {
 
         $self->{'has_bad_notes'} = 1 if $hr->{'errors'};
 
-        ## HASH
-        #$hr->{$_} +=0 for qw/value year id times_entered moderated_hit lat long/;
-        #push @{ $self->{'notes'} }, $hr;
-
-        ## ARRAY
-        #push @{ $self->{'notes'} }, [ @$hr{+COL_NAMES} ];
-
-        ## STRING, CSV
         my $fmt = join ';', ('%s') x NCOLS;
         push @{ $self->{'notes'} }, sprintf $fmt, @$hr{+COL_NAMES};
-
-        ## STRING, FIXED LENGTH STRINGS
-        ##         val yr  ser  ts   city co  zip  pc  id   t   mod lat  long sig  err   hit    desc
-        #my $fmt = '%3s;%4s;%12s;%19s;%30s;%2s;%12s;%6s;%10s;%1s;%1s;%18s;%18s;%10s;%150s;%1200s;%250s';
-        #push @{ $self->{'notes'} }, sprintf $fmt, @$hr{+COL_NAMES};
     }
     close $fd;
     close $outfd if $store_path;
@@ -373,9 +370,33 @@ sub load_hits {
         my $k = $hr->{'serial'};
         if ($second_pass) {
             delete @$hr{qw/value serial short_code year/};
+
+            if ($hr->{'date_entered'} =~ m{^(\d{2})/(\d{2})/(\d{2}) (\d{2}):(\d{2})$}) {
+                $hr->{'date_entered'} = sprintf "%s-%s-%s %s:%s:00", (2000+$3), $2, $1, $4, $5;
+            }
+            if ($hr->{'date_entered'} =~ /^(\d{2})\.(\d{2})\.(\d{4}) (\d{2}):(\d{2})$/) {
+                $hr->{'date_entered'} = sprintf "%s-%s-%s %s:%s:00", $3, $2, $1, $4, $5;
+            }
+            if ($hr->{'date_entered'} !~ /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/) {
+                die "Unrecognized hits file\n";
+            }
             $hr->{'country'} = _cc $hr->{'country'};
+            if ($hr->{'lat'} > 90 or $hr->{'lat'} < -90 or $hr->{'long'} > 180 or $hr->{'long'} < -180) {
+                $hr->{'lat'} /= 10;
+                $hr->{'long'} /= 10;
+            }
+
             push @{ $hits{$k}{'parts'} }, $hr;
         } else {
+            if ($hr->{'hit_date'} =~ m{^(\d{2})/(\d{2})/(\d{2}) (\d{2}):(\d{2})$}) {
+                $hr->{'hit_date'} = sprintf "%s-%s-%s %s:%s:00", (2000+$3), $2, $1, $4, $5;
+            }
+            if ($hr->{'hit_date'} =~ /^(\d{2})\.(\d{2})\.(\d{4}) (\d{2}):(\d{2})$/) {
+                $hr->{'hit_date'} = sprintf "%s-%s-%s %s:%s:00", $3, $2, $1, $4, $5;
+            }
+            if ($hr->{'hit_date'} !~ /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/) {
+                die "Unrecognized hits file\n";
+            }
             $hits{$k} = $hr;
         }
     }

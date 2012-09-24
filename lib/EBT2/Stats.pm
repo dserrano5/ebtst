@@ -428,7 +428,9 @@ sub _serial_niceness {
 
     my $visible_serial = $serial;
     my $repl_char = 'A';
+    my %chars_changed;
     foreach my $elem (grep { 1 != $_->{'length'} } @consecutives) {
+        next if $chars_changed{ $elem->{'key'} }++;
         $visible_serial =~ s/$elem->{'key'}/$repl_char/g;
         #substr $visible_serial, $elem->{'start'}, $elem->{'length'}, $repl_char x $elem->{'length'};
         $repl_char++;

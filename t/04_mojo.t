@@ -67,7 +67,7 @@ $t->get_ok ('/configure')->status_is (200)->element_exists ('#mainbody #repl #co
 ## EBT2 object needed
 $t->get_ok ('/value')->status_is (302)->header_like (Location => qr/configure/, 'EBT2 object needed');
 
-## upload notes CSV
+
 $t->get_ok ('/configure')->text_is ('div#error_msg' => '', 'no error_msg');
 #$csrftoken = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->html->body->div->[1]->form->input->[0]->{'value'};
 
@@ -75,11 +75,22 @@ $t->post_form_ok ('/upload', {
     #csrftoken => $csrftoken,
 })->status_is (200)->content_type_is ('text/plain')->content_is ('no_csvs', 'upload with no CSVs');
 
+
+## upload hits CSV, which is an error without notes
+$t->post_form_ok ('/upload', {
+    hits_csv_file => { file => 't/hits1.csv' },
+    #csrftoken => $csrftoken,
+})->status_is (200)->content_type_is ('text/plain')->content_like (qr/^[0-9a-f]{8}$/, 'upload hits without notes in the database');
+my $sha = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->text;
+next_is_xhr; $t->get_ok ("/import/$sha")->status_is (200)->content_type_is ('text/plain')->content_is ('no_notes', 'import hits with no notes in the database');
+
+
+## upload notes CSV
 $t->post_form_ok ('/upload', {
     notes_csv_file => { file => 't/notes1.csv' },
     #csrftoken => $csrftoken,
 })->status_is (200)->content_type_is ('text/plain')->content_like (qr/^[0-9a-f]{8}$/, 'upload notes');
-my $sha = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->text;
+$sha = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->text;
 
 $t->get_ok ("/import/$sha")->status_is (404);
 
@@ -346,4 +357,4 @@ $t->ua->once (start => sub {
 });
 $t->get_ok ('/configure')->status_is (200)->content_like (qr/CSV upload doesn't work with Internet Explorer/);
 
-done_testing 498;
+done_testing 506;

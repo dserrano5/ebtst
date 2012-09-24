@@ -1827,6 +1827,10 @@ sub import {
         $self->_decompress ($local_hits_file);
 
         if (!$theres_notes) {
+            if (!$self->ebt->has_notes) {
+                $self->render_text ('no_notes', layout => undef, format => 'txt');
+                return;
+            }
             $self->_init_progress (tot => $self->ebt->note_count * 0.2);
         }  ## else, the previous if-block has done a $self->{'progress'}->base_add
         eval { $self->ebt->load_hits ($local_hits_file); 1; };

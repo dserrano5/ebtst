@@ -80,6 +80,13 @@ function go(dest) {
                 clearInterval (interval_id);
                 $("#progress").hide ('slow');
                 $("#error_msg").html ('<br>Invalid hits CSV<br>');   // TODO: translate this
+            } else if ('no_notes' == data) {
+                console.log ('ko');
+                running = 0;
+                clearTimeout (timeout_id);
+                clearInterval (interval_id);
+                $("#progress").hide ('slow');
+                $("#error_msg").html ('<br>Need a notes CSV<br>');   // TODO: translate this
             } else {
                 //console.log ('ok, clearing interval, hiding progress, moving forward onto ('+data+')');
                 running = 0;

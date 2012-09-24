@@ -270,14 +270,11 @@ sub load_notes {
     $notes_csv->column_names (@notes_column_names);
     while (my $hr = $notes_csv->getline_hr ($fd)) {
         if ($progress and 0 == $note_no % $EBT2::progress_every) { $progress->set ($note_no); }
-        if ($hr->{'date_entered'} =~ m{^(\d{2})/(\d{2})/(\d{2}) (\d{2}):(\d{2})$}) {
-            $hr->{'date_entered'} = sprintf "%s-%s-%s %s:%s:00", (2000+$3), $2, $1, $4, $5;
+        if ($hr->{'date_entered'} =~ m{^(\d{1,2})[/.](\d{1,2})[/.](\d{2}) (\d{2}):(\d{2})$}) {
+            $hr->{'date_entered'} = sprintf "%s-%02s-%02s %s:%s:00", (2000+$3), $2, $1, $4, $5;
         }
-        if ($hr->{'date_entered'} =~ /^(\d{2})\.(\d{2})\.(\d{4}) (\d{2}):(\d{2})$/) {
-            $hr->{'date_entered'} = sprintf "%s-%s-%s %s:%s:00", $3, $2, $1, $4, $5;
-        }
-        if ($hr->{'date_entered'} =~ m{^(\d{1,2})/(\d{2})/(\d{4}) (\d{2}):(\d{2})$}) {
-            $hr->{'date_entered'} = sprintf "%02s-%s-%s %s:%s:00", $3, $2, $1, $4, $5;
+        if ($hr->{'date_entered'} =~ m{^(\d{1,2})[/.](\d{1,2})[/.](\d{4}) (\d{2}):(\d{2})$}) {
+            $hr->{'date_entered'} = sprintf "%s-%02s-%02s %s:%s:00", $3, $2, $1, $4, $5;
         }
         if ($hr->{'date_entered'} !~ /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/) {
             die "Unrecognized notes file\n";
@@ -387,15 +384,11 @@ sub load_hits {
         my $k = $hr->{'serial'};
         if ($second_pass) {
             delete @$hr{qw/value serial short_code year/};
-
-            if ($hr->{'date_entered'} =~ m{^(\d{2})/(\d{2})/(\d{2}) (\d{2}):(\d{2})$}) {
-                $hr->{'date_entered'} = sprintf "%s-%s-%s %s:%s:00", (2000+$3), $2, $1, $4, $5;
+            if ($hr->{'date_entered'} =~ m{^(\d{1,2})[/.](\d{1,2})[/.](\d{2}) (\d{2}):(\d{2})$}) {
+                $hr->{'date_entered'} = sprintf "%s-%02s-%02s %s:%s:00", (2000+$3), $2, $1, $4, $5;
             }
-            if ($hr->{'date_entered'} =~ /^(\d{2})\.(\d{2})\.(\d{4}) (\d{2}):(\d{2})$/) {
-                $hr->{'date_entered'} = sprintf "%s-%s-%s %s:%s:00", $3, $2, $1, $4, $5;
-            }
-            if ($hr->{'date_entered'} =~ m{^(\d{1,2})/(\d{2})/(\d{4}) (\d{2}):(\d{2})$}) {
-                $hr->{'date_entered'} = sprintf "%02s-%s-%s %s:%s:00", $3, $2, $1, $4, $5;
+            if ($hr->{'date_entered'} =~ m{^(\d{1,2})[/.](\d{1,2})[/.](\d{4}) (\d{2}):(\d{2})$}) {
+                $hr->{'date_entered'} = sprintf "%s-%02s-%02s %s:%s:00", $3, $2, $1, $4, $5;
             }
             if ($hr->{'date_entered'} !~ /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/) {
                 die "Unrecognized hits file\n";
@@ -408,14 +401,11 @@ sub load_hits {
 
             push @{ $hits{$k}{'parts'} }, $hr;
         } else {
-            if ($hr->{'hit_date'} =~ m{^(\d{2})/(\d{2})/(\d{2}) (\d{2}):(\d{2})$}) {
-                $hr->{'hit_date'} = sprintf "%s-%s-%s %s:%s:00", (2000+$3), $2, $1, $4, $5;
+            if ($hr->{'hit_date'} =~ m{^(\d{1,2})[/.](\d{1,2})[/.](\d{2}) (\d{2}):(\d{2})$}) {
+                $hr->{'hit_date'} = sprintf "%s-%02s-%02s %s:%s:00", (2000+$3), $2, $1, $4, $5;
             }
-            if ($hr->{'hit_date'} =~ /^(\d{2})\.(\d{2})\.(\d{4}) (\d{2}):(\d{2})$/) {
-                $hr->{'hit_date'} = sprintf "%s-%s-%s %s:%s:00", $3, $2, $1, $4, $5;
-            }
-            if ($hr->{'hit_date'} =~ m{^(\d{1,2})/(\d{2})/(\d{4}) (\d{2}):(\d{2})$}) {
-                $hr->{'hit_date'} = sprintf "%02s-%s-%s %s:%s:00", $3, $2, $1, $4, $5;
+            if ($hr->{'hit_date'} =~ m{^(\d{1,2})[/.](\d{1,2})[/.](\d{4}) (\d{2}):(\d{2})$}) {
+                $hr->{'hit_date'} = sprintf "%s-%02s-%02s %s:%s:00", $3, $2, $1, $4, $5;
             }
             if ($hr->{'hit_date'} !~ /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/) {
                 die "Unrecognized hits file\n";

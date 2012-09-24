@@ -264,6 +264,7 @@ sub load_notes {
     $header =~ s/[\x0d\x0a]*$//;
     die "Unrecognized notes file\n" if $header !~ /^\x{feff}?EBT notes v2;*$/;
 
+    my $last_date;
     open my $outfd, '>:encoding(UTF-8)', $store_path or die "open: '$store_path': $!" if $store_path;
     my $notes_csv = Text::CSV->new ({ sep_char => ';', binary => 1 });
     $notes_csv->column_names (@notes_column_names);
@@ -275,9 +276,16 @@ sub load_notes {
         if ($hr->{'date_entered'} =~ /^(\d{2})\.(\d{2})\.(\d{4}) (\d{2}):(\d{2})$/) {
             $hr->{'date_entered'} = sprintf "%s-%s-%s %s:%s:00", $3, $2, $1, $4, $5;
         }
+        if ($hr->{'date_entered'} =~ m{^(\d{1,2})/(\d{2})/(\d{4}) (\d{2}):(\d{2})$}) {
+            $hr->{'date_entered'} = sprintf "%02s-%s-%s %s:%s:00", $3, $2, $1, $4, $5;
+        }
         if ($hr->{'date_entered'} !~ /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/) {
             die "Unrecognized notes file\n";
         }
+        if ($last_date and -1 == ($hr->{'date_entered'} cmp $last_date)) {
+            die "Unrecognized notes file\n";
+        }
+        $last_date = $hr->{'date_entered'};
         if ($hr->{'lat'} > 90 or $hr->{'lat'} < -90 or $hr->{'long'} > 180 or $hr->{'long'} < -180) {
             $hr->{'lat'} /= 10;
             $hr->{'long'} /= 10;
@@ -366,6 +374,7 @@ sub load_hits {
     $header =~ s/[\x0d\x0a]*$//;
     die "Unrecognized hits file\n" if $header !~ /^\x{feff}?EBT hits v4;*$/;
 
+    my $last_date;
     my $hits_csv = Text::CSV->new ({ sep_char => ';', binary => 1 });
     $hits_csv->column_names (@hits_column_names1);
     while (my $hr = $hits_csv->getline_hr ($fd)) {
@@ -385,6 +394,9 @@ sub load_hits {
             if ($hr->{'date_entered'} =~ /^(\d{2})\.(\d{2})\.(\d{4}) (\d{2}):(\d{2})$/) {
                 $hr->{'date_entered'} = sprintf "%s-%s-%s %s:%s:00", $3, $2, $1, $4, $5;
             }
+            if ($hr->{'date_entered'} =~ m{^(\d{1,2})/(\d{2})/(\d{4}) (\d{2}):(\d{2})$}) {
+                $hr->{'date_entered'} = sprintf "%02s-%s-%s %s:%s:00", $3, $2, $1, $4, $5;
+            }
             if ($hr->{'date_entered'} !~ /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/) {
                 die "Unrecognized hits file\n";
             }
@@ -402,9 +414,16 @@ sub load_hits {
             if ($hr->{'hit_date'} =~ /^(\d{2})\.(\d{2})\.(\d{4}) (\d{2}):(\d{2})$/) {
                 $hr->{'hit_date'} = sprintf "%s-%s-%s %s:%s:00", $3, $2, $1, $4, $5;
             }
+            if ($hr->{'hit_date'} =~ m{^(\d{1,2})/(\d{2})/(\d{4}) (\d{2}):(\d{2})$}) {
+                $hr->{'hit_date'} = sprintf "%02s-%s-%s %s:%s:00", $3, $2, $1, $4, $5;
+            }
             if ($hr->{'hit_date'} !~ /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/) {
                 die "Unrecognized hits file\n";
             }
+            if ($last_date and -1 == ($hr->{'hit_date'} cmp $last_date)) {
+                die "Unrecognized hits file\n";
+            }
+            $last_date = $hr->{'date_entered'};
             $hits{$k} = $hr;
         }
     }

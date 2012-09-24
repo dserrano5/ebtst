@@ -1,0 +1,535 @@
+## layout
+Public stats = Statistiques publiques
+Information = Informations
+Value = Valeur
+Countries = Pays
+Locations = Villes
+Travel stats = Travel stats
+Printers = Imprimeurs
+Huge table = Grand tableau
+Short codes = Codes courts
+Nice serials = Numéros intéressants
+Coordinates bingo = Bingo des coordonnées
+Notes/year = Billets/an
+Notes/month = Billets/mois
+Top days = Meilleurs jours
+Time analysis (bingo) = Timehunting
+Time analysis (detail) = Timehunting (Détail)
+Combinations (bingo) = Bingo des combinaisons
+Combinations (detail) = Détail des combinaisons
+#Note evolution = Évolution de l'encodage
+Plate bingo = Bingo des planches
+Bad notes = Erreurs
+Hit list = Liste de hits
+Hit times (bingo) = Bingo des durées
+Hit times (detail) = Détail des durées
+Hit locations = Villes de hits
+Hit analysis = Analyse des hits
+Hit summary = Résumé des hits
+Calendar = Calendrier
+#Charts = Graphiques
+Configuration = Configuration
+Logout = Déconnexion
+Help = Aide
+
+## index
+Welcome = Bienvenue
+User = Utilisateur
+Passphrase = Mot de Passe
+Login = Connexion
+Register = Enregistrement
+Wrong username/passphrase = Nom d'utilisateur/mot de passe erroné
+
+## register
+Confirm passphrase = Confirmer le mot de passe
+Passwords do not match = Les deux mots de passe ne correspondent pas
+Username contains invalid characters = Le nom d'utilisateur contient des caractères invalides
+Password contains invalid characters = Le mot de passe contient des caractères invalides
+Username and password contain invalid characters = Le nom d'utilisateur et le mot de passe contiennent des caractères invalides
+User already exists = Cet utilisateur existe déjà
+Error upon registration = Erreur lors de l'enregistrement
+Registration successful = Enregistrement terminé
+
+## information
+General information = Informations générales
+First note entered = Premier billet encodé
+in = à
+Situation on = Situation le
+(full) days after the first note was entered = jours (complets) depuis le premier billet
+Active/inactive EBT days = Jours actifs/inactifs sur EBT
+days = jours
+notes = billets
+Longest period of consecutive active days = Plus longue période d'activité
+Current consecutive active days = Période d'activité en cours
+Longest break from EBT = Plus longue période d'inactivité
+Current break from EBT = Période d'inactivité en cours
+Total number of notes = Nombre total de billets
+Total value of all notes = Valeur totale des billets
+Signatures = Signatures
+Unknown = Inconnue
+Average value per note = Valeur moyenne des billets
+Average entering rate = Moyenne d'encodage par jour
+notes/day = billets/jour
+Historic percent notes by president = Historique du pourcentage de billets par président
+
+## value
+Number of notes by value = Nombre de billets par valeur
+Notes = Billets
+Percent = Pourcentage
+Amount = Total
+Accumulated notes by value = Total des billets par valeur
+Historic percent notes by value = Historique du pourcentage de billets par valeur
+Historic mean value = Historique de la valeur moyenne
+Average value = Valeur moyenne
+First notes by value = Premier billet par valeur
+was the first = est le premier
+
+## countries
+Number of notes by country code = Nombre de billets par pays émetteur
+Country = Pays
+Detail of notes per value and country code = Détail des billets par valeur et par pays émetteur
+First notes by country code = Premier billet par pays émetteur
+Note = Le billet
+was the first from = est le premier billet de
+entered on = encodé à
+note = billet
+
+## locations
+Countries with notes entered = Encodage par pays
+Number of notes by location = Nombre de billets par ville
+Alphabets of locations by country = Alphabet des villes par pays
+First notes by printer code = Premiers billets par code court
+
+## travel_stats
+Location = Ville
+Total = Total
+Visits = Visites
+Total yearly visits = Total des visites
+Number of locations = Nombre de villes
+Number of different yearly visits = Nombre de visites annuelles
+Number of one time visit locations = Nombre de visites uniques
+Cities with most notes = Villes avec le plus de billets
+
+## printers
+Number of notes by printer code = Nombre de billets par code court
+Printer = Imprimeur
+Printer name = Nom de l'imprimeur
+Detail of notes per value and printer code = Détail des billets par pays et code court
+
+## huge_table
+Notes have been entered up to = Billets encodés il y a moins de
+1 year ago = un an
+3 months ago = 3 mois
+1 week ago = une semaine
+
+## short codes
+Absolute lowest and highest short codes = Codes courts les plus bas/hauts
+Lowest and highest short codes per value = Codes courts les plus bas/hauts, par valeur
+all = tous
+Absolute highest short codes = Codes courts les plus hauts
+Highest short codes per value = Codes courts les plus hauts, par valeur
+Short code = Code court
+Date = Date
+
+## nice_serials
+Serial number = Numéro de série
+note(s) = billet(s)
+of total = du total
+have = ont
+numbers in a row = chiffres consécutifs
+contain = contiennent
+different digits = chiffres différents
+
+## notes_per_year
+Number of notes per year = Nombre de billets par an
+Year = Année
+
+## notes_per_month
+Number of notes per month = Nombre de billest par mois
+Month = Mois
+
+## top_days
+Number of notes per day of the week = Nombre de billets par jour de la semaine
+Accumulated notes by day of the week = Total des billets par jour de la semaine
+Top 10 days = 10 meilleurs jours
+Top 10 months = 10 meilleurs mois
+Day = Jour
+
+## time analysis
+Time analysis = Timehunting
+Colors = Couleurs
+Calendar = Calendrier
+or more = ou plus
+Days = Jours
+Hours = Heures
+Minutes = Minutes
+Seconds = Secondes
+Hours and minutes = Heures et minutes
+Minutes and seconds = Minutes et secondes
+Hours, minutes and seconds = Heures, minutes et secondes
+Days of week and hours = Jours de la semaine et heures
+Days of week, hours and minutes = Jours de la semaine, heures et minutes
+
+## combs detail
+Any signature = Toutes signatures confondues
+Any = Toutes valeurs
+Combinations = Combinaisons
+Combinations bingo = Bingo des Combinaisons
+Still missing combinations = Combinaisons manquantes
+Unknown combinations = Combinaisons inconnues
+History = Historique
+History text format inspired by = Format de l'historique inspiré de
+
+## note evolution
+Interval = Intervalle
+Filter = Filtrer
+Group by = Grouper par
+Show only = Montrer uniquement
+Output = Exportation
+
+## plate bingo
+Total for = Total pour
+
+## bad notes
+
+## hit list
+Hit date = Date
+Val = Val
+Hit note = Billet
+Kms = Kms
+Partner(s) = Partenaire(s)
+Note number = Billet numéro
+Old hit ratio = Ancien ratio de Hit
+New hit ratio = Nouveau ratio de Hit
+Notes between = Billets insérés dans l'intervalle
+Days between = Durée de l'intervalle
+from = de
+to = à
+
+## hits by month
+Natural month = Mois du calendrier
+Insert month = Mois d'encodage
+
+## hit times
+
+## hit locations
+My city = Ma ville
+Frequent Locations (Hit Partners') = Villes fréquentes (des partenaires)
+Altogether hit partners in = Au total, vos partenaires de hits sont dans
+different locations = Villes différentes
+Frequent Directions = Directions fréquentes
+Local Hits = Hits locaux
+Both ways hits = Hits à double sens
+
+## hit analysis
+Hit top-10 = Top 10 des hits
+Most kilometers = Plus longue distance
+Most days = Plus longue durée
+Lucky bundles = Liasses chanceuses
+Other hit potential = Potentiel de hits
+
+## hit summary
+Hits = Hits
+national = nationaux
+and = et
+international = internationaux
+plus = plus
+moderated = modérés
+Normal hits = Hits normaux
+Triples = Triples
+Quadruples = Quadruples
+Pentuples = Quintuples
+Best = meilleur
+Average = moyen
+Worst = pire
+Current = En cours
+Historic hit ratio = Historique du ratio de hits
+Hit ratio = Ratio de Hits
+Hit ratios = Ratios de Hits
+Hit finder/maker - giver/getter ratio = Ratio de hits actifs et passifs
+Next hit should occur on average on = En moyenne, le hit suivant aura lieu le
+or it's a dry spell = ou c'est une vague de sécheresse
+Minimum = Minimum
+Maximum = Maximum
+Travel days = Durée
+Travel km = Distance
+Travel kilometers = Distance
+Historic hit travel days = Historique de la durée des hits
+Historic hit travel km = Historique des distances des hits
+Hit/hitless days = Jours avec/sans hits
+Longest period of consecutive hit days = Plus grand nombre de jours consécutifs de hits
+Current consecutive hit days = nombre de jours consécutifs de hits en cours
+Consecutive hit days = Jours consécutifs de hits
+Start = Début
+End = Fin
+Hits by combination = Hits par combinaison
+Frequent hit partner = Partenaire de hits fréquent
+% of all hits = % de tous les hits
+Hits with same kilometers and days = Hits avec distances et durées identiques
+None = Aucun
+
+## calendar
+Top = Haut de page
+First day! = Premier jour !
+Anniversary = Anniversaire
+EBT day = Jour
+hit = hit
+hits = hits
+
+## gen_output
+Public stats have been generated = Statistiques publiques générées
+Link = Lien
+
+## configuration
+#Name = Nom
+#EBT id number = Identifiant sur EBT
+#Time zone = Fuseau Horaire
+#Language = Langue
+Notes CSV file = Fichier CSV de billets
+Hits CSV file = Fichier CSV de hits
+Submit = Envoyer
+
+## help
+_help_main_usage_1 = Après avoir téléchargé vos fichiers CSV (dans la section "Configuration"), cochez les cases désirées dans la liste de gauche et cliquez sur "BBCode/HTML" pour générer vos statistiques publiques. Le code BBCode ainsi qu'un lien vers le fichier HTML apparaîtront dans une nouvelle fenêtre ou onglet.
+_help_colors_1 = On trouve dans certaines sections des chiffres de couleurs différentes. Leur signification est la suivante :
+_help_colors_2 = Des astérisques de couleurs différentes apparaissent dans certaines sections et indiquent la durée écoulée depuis l'encodage d'un billet :
+note has been entered up to 1 year ago = Billet encodé il y a moins d'un an
+note has been entered up to 3 months ago = Billet encodé il y a moins de 3 mois
+note has been entered up to 1 week ago = Billet encodé il y a moins d'une semaine
+_configure_1 = EBTST fonctionne avec des fichiers CSV compressé au format zip ou gzip. L'utilisation de fichiers compressés réduit la durée de téléchargement.
+_configure_2 = Une copie du fichier CSV des billets sera conservée au format suivant :
+_countries_1 = Les pourcentages affichés dans le tableau "Détail" représentent le pourcentage par pays des billets d'une valeur en particulier. La somme des données d'une colonne est donc égale à 100%.
+_printers_1 = Comme pour la section "Pays", les pourcentages affichés dans le tableau "Détail" représentent le pourcentage par imprimeur des billets d'une valeur en particulier. La somme des données d'une colonne est donc égale à 100%.
+_huge_table_1 = Pour éviter que ce tableau contienne des données inutiles, les billets erronés sont ignorés.
+_short_codes_1 = Les billets erronés sont également ignorés dans ce tableau.
+_nice_serials_1 = L'algorithme de classement des numéros de série est le suivant : d'abord, le numéro de série avec le moins de séquences de chiffres est considéré le meilleur. Par exemple, *1111122233 (3 séquences) est meilleur que *1112111211 (5 séquences). En cas d'égalité, le numéro de série avec la séquence la plus longue l'emporte. Ce sont les deux critères principaux, mais il en existe d'autres.
+_coords_bingo_1 = Comme dans le "Tableau complet", les billets erronés sont ignorés.
+_combinations_1 = Les billets erronés sont à nouveau ignorés. Comme pour les sections "Pays" et "Imprimeurs", la somme des pourcentages d'une colonne est égale à 100%.
+_plate_bingo_1 = Les billets erronés sont ignorés. Les quelques planches qui peuvent porter la signature de présidents différents de la BCE (c'est-à-dire <img src="images/values/10.gif"> K007, <img src="images/values/10.gif"> P005, <img src="images/values/20.gif"> F002 and <img src="images/values/100.gif"> F002) sont traitées comme les autres.
+
+## days of week
+Monday = Lundi
+Tuesday = Mardi
+Wednesday = Mercredi
+Thursday = Jeudi
+Friday = Vendredi
+Saturday = Samedi
+Sunday = Dimanche
+
+## months
+January = Janvier
+February = Février
+March = Mars
+April = Avril
+May = Mai
+June = Juin
+July = Juillet
+August = Août
+September = Septembre
+October = Octobre
+November = Novembre
+December = Décembre
+
+## countries
+iso3166_ad = Andorre
+iso3166_ae = Émirats Arabes Unis
+iso3166_af = Afghanistan
+iso3166_ag = Antigua-et-Barbuda
+iso3166_al = Albanie
+iso3166_am = Arménie
+iso3166_ao = Angola
+iso3166_ar = Argentine
+iso3166_at = Autriche
+iso3166_au = Australie
+iso3166_az = Azerbaïdjan
+iso3166_ba = Bosnie-Herzégovine
+iso3166_bb = Barbade
+iso3166_bd = Bangladesh
+iso3166_be = Belgique
+iso3166_bf = Burkina Faso
+iso3166_bg = Bulgarie
+iso3166_bh = Bahreïn
+iso3166_bi = Burundi
+iso3166_bj = Bénin
+iso3166_bl = Saint-Barthélemy
+iso3166_bn = Brunei
+iso3166_bo = Bolivie
+iso3166_br = Brésil
+iso3166_bs = Bahamas
+iso3166_bt = Bhoutan
+iso3166_bw = Botswana
+iso3166_by = Biélorussie
+iso3166_bz = Belize
+iso3166_ca = Canade
+iso3166_cd = République Démocratique du Congo
+iso3166_cf = République Centrafricaine
+iso3166_cg = République du Congo
+iso3166_ch = Suisse
+iso3166_ci = Côte d'Ivoire
+iso3166_cl = Chili
+iso3166_cm = Cameroun
+iso3166_cn = Chine
+iso3166_co = Colombie
+iso3166_cr = Costa Rica
+iso3166_cu = Cuba
+iso3166_cv = Cap-Vert
+iso3166_cy = Chypre
+iso3166_cz = République tchèque
+iso3166_de = Allemagne
+iso3166_dj = Djibouti
+iso3166_dk = Danemark
+iso3166_dm = Dominique
+iso3166_do = République Dominicaine
+iso3166_dz = Algérie
+iso3166_ec = Équateur
+iso3166_ee = Estonie
+iso3166_eg = Égypte
+iso3166_er = Érythrée
+iso3166_es = Espagne
+iso3166_et = Éthiopie
+iso3166_fi = Finlande
+iso3166_fj = Fidji
+iso3166_fm = Micronésie
+iso3166_fr = France
+iso3166_ga = Gabon
+iso3166_gd = Grenade
+iso3166_ge = Géorgie
+iso3166_gg = Guernesey
+iso3166_gh = Ghana
+iso3166_gm = Gambie
+iso3166_gn = Guinée
+iso3166_gq = Guinée équatoriale
+iso3166_gr = Grèce
+iso3166_gt = Guatemala
+iso3166_gw = Guinée-Bissau
+iso3166_gy = Guyana
+iso3166_hn = Honduras
+iso3166_hr = Croatie
+iso3166_ht = Haïtí
+iso3166_hu = Hongrie
+iso3166_id = Indonésie
+iso3166_ie = Irlande
+iso3166_il = Israël
+iso3166_im = Île de Man
+iso3166_in = Indie
+iso3166_iq = Irak
+iso3166_ir = Irán
+iso3166_is = Islande
+iso3166_it = Italie
+iso3166_je = Jersey
+iso3166_jm = Jamaïque
+iso3166_jo = Jordanie
+iso3166_jp = Japon
+iso3166_ke = Kenya
+iso3166_kg = Kirghizistan
+iso3166_kh = Cambodge
+iso3166_ki = Kiribati
+iso3166_km = Comores
+iso3166_kn = Saint-Christophe-et-Niévès
+iso3166_kp = Corée du Nord
+iso3166_kr = Corée du Sud
+iso3166_kw = Koweït
+iso3166_kz = Kazakhstan
+iso3166_la = Laos
+iso3166_lb = Líban
+iso3166_li = Liechtenstein
+iso3166_lk = Sri Lanka
+iso3166_lr = Libéria
+iso3166_ls = Lesotho
+iso3166_lt = Lituanie
+iso3166_lu = Luxembourg
+iso3166_lv = Lettonie
+iso3166_ly = Libye
+iso3166_ma = Maroc
+iso3166_mc = Monaco
+iso3166_md = Moldavie
+iso3166_me = Montenegro
+iso3166_mf = Saint-Martin (France)
+iso3166_mg = Madagascar
+iso3166_mh = Marshall
+iso3166_mk = Macédoine
+iso3166_ml = Malí
+iso3166_mm = Myanmar
+iso3166_mn = Mongolie
+iso3166_mo = Macao
+iso3166_mr = Mauritanie
+iso3166_mt = Malte
+iso3166_mu = Maurice
+iso3166_mv = Maldives
+iso3166_mw = Malawi
+iso3166_mx = Mexique
+iso3166_my = Malaisie
+iso3166_mz = Mozambique
+iso3166_na = Namibie
+iso3166_ne = Níger
+iso3166_ng = Nigeria
+iso3166_ni = Nicaragua
+iso3166_nl = Pays-Bas
+iso3166_no = Norvège
+iso3166_nr = Nauru
+iso3166_nz = Nouvelle-Zélande
+iso3166_om = Oman
+iso3166_pa = Panama
+iso3166_pe = Pérou
+iso3166_pg = Papouasie-Nouvelle-Guinée
+iso3166_ph = Philippines
+iso3166_pk = Pakistan
+iso3166_pl = Pologne
+iso3166_ps = Palestine
+iso3166_pt = Portugal
+iso3166_pw = Palaos
+iso3166_py = Paraguay
+iso3166_qa = Qatar
+iso3166_ro = Roumanie
+iso3166_rs = Serbie
+iso3166_rskm = Kosovo
+iso3166_ru = Russie
+iso3166_rw = Rwanda
+iso3166_sa = Arabie Saoudite
+iso3166_sb = Salomon
+iso3166_sc = Seychelles
+iso3166_sd = Soudan
+iso3166_se = Suède
+iso3166_sg = Singapour
+iso3166_sh = Sainte-Hélène
+iso3166_si = Slovénie
+iso3166_sk = Slovaquie
+iso3166_sl = Sierra Leone
+iso3166_sm = Saint-Marin
+iso3166_sn = Sénégal
+iso3166_so = Somalie
+iso3166_sr = Suriname
+iso3166_st = Sao Tomé-et-Principe
+iso3166_sv = Salvador
+iso3166_sy = Syrie
+iso3166_sz = Swaziland
+iso3166_td = Tchad
+iso3166_tg = Togo
+iso3166_th = Thaïlande
+iso3166_tj = Tadjikistan
+iso3166_tl = Timor oriental
+iso3166_tm = Turkménistan
+iso3166_tn = Tunisie
+iso3166_to = Tonga
+iso3166_tr = Turquie
+iso3166_tt = Trinité-et-Tobago
+iso3166_tv = Tuvalu
+iso3166_tw = Taiwan
+iso3166_tz = Tanzanie
+iso3166_ua = Ukraine
+iso3166_ug = Ouganda
+iso3166_uk = Royaume-Uni
+iso3166_um = Îles mineures éloignées des États-Unis
+iso3166_us = États-Unis
+iso3166_uy = Uruguay
+iso3166_uz = Ouzbékistan
+iso3166_va = Cité du Vatican
+iso3166_vc = Saint-Vincent-et-les-Grenadines
+iso3166_ve = Venezuela
+iso3166_vn = Viêt Nam
+iso3166_vu = Vanuatu
+iso3166_ws = Samoa
+iso3166_ye = Yémen
+iso3166_za = Afrique du Sud
+iso3166_zm = Zambie
+iso3166_zw = Zimbabwe

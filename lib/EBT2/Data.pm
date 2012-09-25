@@ -441,6 +441,7 @@ sub load_hits {
         $hits{$serial}{'dow'} = $dow;
 
         my $note_num = $serials2idx{$serial};
+        defined $note_num or die "Unrecognized hits file\n";
         my @arr = split ';', $self->{'notes'}[$note_num], NCOLS;
         $arr[HIT] = encode_base64 +(freeze $hits{$serial}), '';
         $self->{'notes'}[$note_num] = join ';', @arr;

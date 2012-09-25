@@ -232,5 +232,10 @@ $res = $st->hit_list (undef, $data_obj, $data_obj->whoami);
 for (0..8) { is $res->{'hit_list'}[$_]{'notes_between'}, $hit_notes_between[$_], sprintf 'Correct hit %d notes between', $_ + 1; }
 
 
-done_testing 220;
+note 'hits file references unknown notes';
+eval { $data_obj->load_hits (undef, 't/hits8b.csv'); };
+like $@, qr/Unrecognized hits file/, 'load_hits dies if it references unknown notes';
+
+
+done_testing 221;
 unlink '/tmp/ebt2-storable' or warn "unlink: '/tmp/ebt2-storable': $!";

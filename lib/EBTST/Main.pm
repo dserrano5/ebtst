@@ -267,8 +267,8 @@ sub register {
     }
 
     my $invalid = 0;
-    if ($u  =~ /[<>&'"`]/) { $self->_log (info => 'invalid username'); $invalid |= 1; }
-    if ($p1 =~ /[<>&'"`]/) { $self->_log (info => 'invalid password'); $invalid |= 2; }
+    if ($u  =~ m{[<>&'"`/]}) { $self->_log (info => 'invalid username'); $invalid |= 1; }
+    if ($p1 =~ m{[<>&'"`/]}) { $self->_log (info => 'invalid password'); $invalid |= 2; }
     if ($invalid) {
         if (1 == $invalid) {
             $self->stash (msg => 'Username contains invalid characters');

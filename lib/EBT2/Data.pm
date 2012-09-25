@@ -332,9 +332,8 @@ sub load_notes {
     return $self;
 }
 
-## EBTST::Main::import configured a progress of $note_count*0.2 to this function
-## thus, this function sets the progress to 0.2 * the actual notes processed
-## it does it in two specific slow areas, 0.1 in each one
+## EBTST::Main::import configured a progress of $note_count*0.1 to this function
+## thus, this function sets the progress to 0.1 * the actual notes processed
 sub load_hits {
     my ($self, $progress, $hits_file) = @_;
     my $fd;
@@ -347,11 +346,13 @@ sub load_hits {
         city zip user_id user_name lat long km days
     /;
 
+    my %serials2idx;
     my $idx = 0;
     foreach my $n (@{ $self->{'notes'} }) {
         if ($progress and 0 == $idx % $EBT2::progress_every) { $progress->set ($idx*0.1); }
-        $idx++;
         my @arr = split ';', $n, NCOLS;
+        $serials2idx{ $arr[SERIAL] } = $idx;
+        $idx++;
         next unless $arr[HIT];
         $arr[HIT] = '';
         $n = join ';', @arr;
@@ -418,15 +419,6 @@ sub load_hits {
         }
     }
     close $fd;
-
-    my %serials2idx;
-    $idx = 0;
-    foreach my $n (@{ $self->{'notes'} }) {
-        if ($progress and 0 == $idx % $EBT2::progress_every) { $progress->set ($idx*0.1); }
-        my @arr = split ';', $n, NCOLS;
-        $serials2idx{ $arr[SERIAL] } = $idx++;
-    }
-    $progress and $progress->base_add (@{ $self->{'notes'} }*0.1);
 
     ## assign each entry in %hits to $self->{'notes'}[42]{'hit'}
     foreach my $serial (keys %hits) {

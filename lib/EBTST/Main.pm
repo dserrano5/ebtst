@@ -1821,7 +1821,7 @@ sub import {
 
         my $count = 0; if (open my $fd, '<', $local_notes_file) { <$fd>; $count =()= <$fd>; close $fd; }
         if ($theres_hits) {
-            $self->_init_progress (tot => $count*1.2);     ## processing hits takes around 20% of the time of processing notes, hence that 0.2
+            $self->_init_progress (tot => $count*1.1);     ## processing hits takes around 20% of the time of processing notes, hence that 0.2
         } else {
             $self->_init_progress (tot => $count);
         }
@@ -1847,7 +1847,7 @@ sub import {
                 $self->render_text ('no_notes', layout => undef, format => 'txt');
                 return;
             }
-            $self->_init_progress (tot => $self->ebt->note_count * 0.2);
+            $self->_init_progress (tot => $self->ebt->note_count * 0.1);
         }  ## else, the previous if-block has done a $self->{'progress'}->base_add
         eval { $self->ebt->load_hits ($local_hits_file); 1; };
         unlink $local_hits_file  or $self->_log (warn => "import: unlink: '$local_hits_file': $!");

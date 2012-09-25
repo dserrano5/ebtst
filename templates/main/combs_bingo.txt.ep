@@ -1,0 +1,1 @@
+<%= include 'main/_combs', mode => 'bingo'; =%>

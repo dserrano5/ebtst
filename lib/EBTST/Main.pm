@@ -1252,18 +1252,33 @@ sub combs_bingo {
             push @{ $missing->{"$p$c"}{'values'} }, $v;
         }
     }
+
+    my $history_pc; my %hpc_seen; my $hpc_idx = 0;
+    foreach my $h (@{ $comb_data->{'history'} }) {
+        my $k = sprintf '%s%s', @$h{qw/pc cc/};
+        next if $hpc_seen{$k}++;
+        push @$history_pc, {
+            %$h,
+            index        => ++$hpc_idx,
+            ## this history ends up in the BBCode, let's assign its flags
+            pc_flag      => EBT2->flag (EBT2->printers  ($h->{'pc'})),
+            cc_flag      => EBT2->flag (EBT2->countries ($h->{'cc'})),
+            country_flag => EBT2->flag ($h->{'country'}),
+        }
+    }
     $self->_log (debug => report 'combs_bingo cook', $t0, $count);
 
     my $presidents = [
         map { [ split /:/ ] } 'any:Any signature', @{ $self->ebt->presidents }
     ];
     $self->stash (
-        title      => ($detail ? $section_titles{'combs_detail'} : $section_titles{'combs_bingo'}),
-        nbcombo    => $nbcombo,
-        presidents => $presidents,
-        missing    => $missing,
-        history    => $comb_data->{'history'},
-        count      => $count,
+        title       => ($detail ? $section_titles{'combs_detail'} : $section_titles{'combs_bingo'}),
+        nbcombo     => $nbcombo,
+        presidents  => $presidents,
+        missing     => $missing,
+        history_pc  => $history_pc,
+        history_pcv => $comb_data->{'history'},
+        count       => $count,
     );
 }
 sub combs_detail { push @_, 1; goto &combs_bingo; }

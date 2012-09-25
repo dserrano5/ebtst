@@ -46,7 +46,7 @@
         </tr>
         <% foreach my $loc (@{ $elem->{'loc_data'} }) { =%>
             <tr>
-                <td><img src="images/countries/<%= $elem->{'imgname'} %>.gif"> <%= $loc->{'loc_name'} %></td>
+                <td><img src="images/countries/<%= $elem->{'imgname'} %>.gif"> <a href="http://en.eurobilltracker.com/notes/?id=<%= $loc->{'id'} %>"><%= $loc->{'loc_name'} %></a></td>
                 <td><%= $loc->{'count'} %> (<%= $loc->{'pct'} %>%)</td>
                 <% foreach my $d (@{ $loc->{'detail'} }) { =%>
                     <% if ($d->{'count'}) { =%>

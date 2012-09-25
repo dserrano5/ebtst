@@ -728,6 +728,7 @@ sub locations {
             }
             push @$loc_data, {
                 loc_name => $loc,
+                id       => $nbci->{$country}{$loc}{'first_id'},
                 count    => $nbci->{$country}{$loc}{'total'},
                 pct      => (sprintf '%.2f', 100 * $nbci->{$country}{$loc}{'total'} / $count),
                 detail   => $detail,

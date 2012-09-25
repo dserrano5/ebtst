@@ -40,6 +40,13 @@ is $res->{'notes_by_value'}{'50'}, 1, 'One 50€ note';
 is $res->{'notes_by_value'}{'500'}, 1, 'One 500€ note';
 
 
+note 'locations';
+$res = $st->notes_by_city (undef, $data_obj);
+is $res->{'notes_by_city'}{'es'}{'Madrid'}{'first_id'},  '99999999993', 'Correct id in notes_by_city for Madrid';
+is $res->{'notes_by_city'}{'es'}{'Sevilla'}{'first_id'}, '99999999998', 'Correct id in notes_by_city for Sevilla';
+is $res->{'notes_by_city'}{'es'}{'Toledo'}{'first_id'},  '99999999999', 'Correct id in notes_by_city for Toledo';
+
+
 note 'short_codes';
 $data_obj->load_notes (undef, 't/notes-combs.csv');
 $res = $st->highest_short_codes (undef, $data_obj);
@@ -225,5 +232,5 @@ $res = $st->hit_list (undef, $data_obj, $data_obj->whoami);
 for (0..8) { is $res->{'hit_list'}[$_]{'notes_between'}, $hit_notes_between[$_], sprintf 'Correct hit %d notes between', $_ + 1; }
 
 
-done_testing 217;
+done_testing 220;
 unlink '/tmp/ebt2-storable' or warn "unlink: '/tmp/ebt2-storable': $!";

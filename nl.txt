@@ -150,7 +150,7 @@ Month = Maand
 
 ## top_days
 Number of notes per day of the week = Aantal biljetten per dag van de week
-Accumulated notes by day of the week = Totaal aantal biljetten per dag van de wek
+Accumulated notes by day of the week = Totaal aantal biljetten per dag van de week
 Top 10 days = Top 10 dagen
 Top 10 months = Top 10 maanden
 Day = Dag

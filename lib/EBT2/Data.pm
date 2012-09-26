@@ -460,7 +460,8 @@ sub _clean_object {
 
     my @del_keys = grep {
         'db'            ne $_ and
-        'checked_boxes' ne $_
+        'checked_boxes' ne $_ and
+        'whoami'        ne $_
     } keys %$self;
     delete @$self{ @del_keys };
 

@@ -22,13 +22,13 @@ is ref (thaw decode_base64 +(split ';', $obj->{'data'}{'notes'}[1], NCOLS)[HIT])
 is +(split ';', $obj->{'data'}{'notes'}[0], NCOLS)[HIT],, '', 'No spurious hits after loading hits CSV';
 
 $obj->load_notes ('t/notes1.csv');
-is +(split ';', $obj->{'data'}{'notes'}[1], NCOLS)[HIT], '', 'No hits after loading new notes CSV';
+is ref (thaw decode_base64 +(split ';', $obj->{'data'}{'notes'}[1], NCOLS)[HIT]), 'HASH', 'Hits are still there after loading new notes CSV';
 is ref $obj->{'notes'}[0]{'hit'}, '', 'No spurious hits after loading new notes CSV';
 
 $obj->load_db;
 ok defined $obj->{'data'}{'notes'}, 'There are notes after loading db';
 is scalar @{ $obj->{'data'}{'notes'} }, 2, 'Correct number of notes';
-is +(split ';', $obj->{'data'}{'notes'}[1], NCOLS)[HIT], '', 'No spurious hits after loading db';
+is ref (thaw decode_base64 +(split ';', $obj->{'data'}{'notes'}[1], NCOLS)[HIT]), 'HASH', 'Hits are still there after loading db';
 is +(split ';', $obj->{'data'}{'notes'}[0], NCOLS)[HIT], '', 'No spurious hits after loading db';
 
 my $gotten;

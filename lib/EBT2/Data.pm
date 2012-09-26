@@ -230,7 +230,7 @@ sub _date_inside_range {
         $date le $end;
 }
 
-my $do_keep_hits = 0;   ## not sure whether to make this configurable or not...
+my $do_keep_hits = 1;   ## not sure whether to make this configurable or not...
 sub load_notes {
     my ($self, $progress, $notes_file, $store_path) = @_;
     my $fd;
@@ -249,8 +249,9 @@ sub load_notes {
     my %save_hits;
     if ($do_keep_hits) {
         foreach my $n (@{ $self->{'notes'} }) {
-            next unless exists $n->{'hit'};
-            $save_hits{ $n->{'serial'} } = $n->{'hit'};
+            my @arr = split ';', $n, NCOLS;
+            next unless exists $arr[HIT];
+            $save_hits{ $arr[SERIAL] } = $arr[HIT];
         }
     } else {
         $self->{'has_hits'} = 0;
@@ -307,7 +308,11 @@ sub load_notes {
         $hr->{'country'} = _cc $hr->{'country'};
         $hr->{'signature'} = _find_out_signature @$hr{qw/value short_code serial/};
         $hr->{'errors'} = EBT2::NoteValidator::validate_note $hr;
-        $hr->{'hit'} = '';
+        if ($do_keep_hits and $save_hits{ $hr->{'serial'} }) {
+            $hr->{'hit'} = $save_hits{ $hr->{'serial'} };
+        } else {
+            $hr->{'hit'} = '';
+        }
 
         $self->{'has_bad_notes'} = 1 if $hr->{'errors'};
 
@@ -317,12 +322,6 @@ sub load_notes {
     close $fd;
     close $outfd if $store_path;
 
-    if (%save_hits) {
-        foreach my $n (@{ $self->{'notes'} }) {
-            next unless $save_hits{ $n->{'serial'} };
-            $n->{'hit'} = $save_hits{ $n->{'serial'} };
-        }
-    }
 
     $self->{'has_notes'} = !!@{ $self->{'notes'} };
     $self->{'notes_pos'} = 0;

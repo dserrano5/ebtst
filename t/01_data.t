@@ -42,7 +42,7 @@ is ref (thaw decode_base64 +(split ';', $obj->{'notes'}[1], NCOLS)[HIT]), 'HASH'
 $obj->load_notes (undef, 't/notes1.csv');
 ok defined $obj->{'notes'}, 'There are notes after loading CSV';
 is scalar @{ $obj->{'notes'} }, 2, 'Correct number of notes';
-is +(split ';', $obj->{'notes'}[1], NCOLS)[HIT], '', 'No hits after loading new notes CSV';
+is ref (thaw decode_base64 +(split ';', $obj->{'notes'}[1], NCOLS)[HIT]), 'HASH', 'Hits are still there after loading new notes CSV';
 
 ## use another CSV for the following tests
 $obj = new_ok 'EBT2::Data', [ db => '/tmp/ebt2-storable' ];

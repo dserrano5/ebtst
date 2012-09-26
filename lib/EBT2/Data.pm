@@ -253,12 +253,16 @@ sub load_notes {
             next unless exists $arr[HIT];
             $save_hits{ $arr[SERIAL] } = $arr[HIT];
         }
-    } else {
-        $self->{'has_hits'} = 0;
     }
     $self->{'has_bad_notes'} = 0;
 
     $self->_clean_object;
+
+    if ($do_keep_hits) {
+        $self->{'has_hits'} = 0 + !!%save_hits;
+    } else {
+        $self->{'has_hits'} = 0;
+    }
 
     open $fd, '<:encoding(UTF-8)', $notes_file or die "open: '$notes_file': $!\n";
     my $header = <$fd>;

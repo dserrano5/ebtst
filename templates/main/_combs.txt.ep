@@ -3,6 +3,6 @@
 [i]<%=l 'History' %> (<%=l 'Printer' %>/<%=l 'Country' %>)[/i]
 <% foreach my $h (@$history_pc) { =%>
 <%= $h->{'index'} %>.) <%= $h->{'pc_flag'} %> <%= $h->{'cc_flag'} %> <%= $h->{'pc'} %>/<%= $h->{'cc'} =%>\
- :note-<%= $h->{'value'} %>: (<%=l 'note' %> <%= $h->{'num'} %>, <%=l 'entered on' %> <%= $h->{'date'} %> <%=l 'in' %> <%= $h->{'city'} %> <%= $h->{'country_flag'} %>)
+ (<%=l 'note' %> <%= $h->{'num'} %>, <%=l 'entered on' %> <%= $h->{'date'} %> <%=l 'in' %> <%= $h->{'city'} %> <%= $h->{'country_flag'} %>)
 <% } =%>
 <% } =%>

@@ -137,7 +137,7 @@
     <% foreach my $h (@$history_pc) { =%>
         <%= $h->{'index'} %>.) <img src="images/countries/<%= $h->{'pname'} %>.gif"> <img src="images/countries/<%= $h->{'cname'} %>.gif">
         <%= $h->{'pc'} %>/<%= $h->{'cc'} =%>
-        <img src="images/values/<%= $h->{'value'} %>.gif"> (<%=l 'note' %> <%= $h->{'num'} %>, <%=l 'entered on' %> <%= $h->{'date'} %> <%=l 'in' %> <%= $h->{'city'} %> <img src="images/countries/<%= $h->{'country'} %>.gif">)<br>
+        (<%=l 'note' %> <%= $h->{'num'} %>, <%=l 'entered on' %> <%= $h->{'date'} %> <%=l 'in' %> <%= $h->{'city'} %> <img src="images/countries/<%= $h->{'country'} %>.gif">)<br>
     <% } =%>
 
     <h2><%=l 'History' %> (<%=l 'Printer' %>/<%=l 'Country' %>/<%=l 'Value' %>)</h2>

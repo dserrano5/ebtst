@@ -784,6 +784,7 @@ sub hit_list {
                 push @{ $ret{'hits_dates'} }, $pas_hit->{'hit_date'};
                 $ret{'elem_travel_days'} .= $pas_hit->{'days'} . ',';
                 $ret{'elem_travel_km'} .= $pas_hit->{'km'} . ',';
+                push @{ $ret{'elem_ratio'} }, sprintf '%s=%s', $pas_hit->{'hit_date'}, $pas_hit->{'new_hit_ratio'}//0;
                 $notes_between = 0;     ## 0 because it would be -1 plus 1 for having already started another loop iteration
             }
         }
@@ -810,6 +811,9 @@ sub hit_list {
 
             ## if current note is more recent than any pending passive hits, then they have just occurred. Fill their data in
             if (%passive_pending) { $fill_passive_pending->($note); }
+
+            ## this ratio is incorrect if this is an active interesting hit, we'll change it later
+            push @{ $ret{'elem_ratio'} }, sprintf '%s=%s', $note->[DATE_ENTERED], $hit_no ? $notes_elapsed/$hit_no : 0;
 
             next unless $hit;
 
@@ -864,6 +868,9 @@ sub hit_list {
 
                 ## elem_travel_km
                 $ret{'elem_travel_km'} .= $entry->{'km'} . ',';
+
+                ## elem_ratio, replace last value
+                $ret{'elem_ratio'}[-1] = sprintf '%s=%s', $entry->{'hit_date'}, $entry->{'new_hit_ratio'}//0;
             }
             push @{ $hit_list{ $hit->{'hit_date'} } }, $entry;
             if ($passive) {
@@ -884,16 +891,19 @@ sub hit_list {
         $ret{'hits_dates'} = [];
         $ret{'elem_travel_days'} = '';
         $ret{'elem_travel_km'} = '';
+        $ret{'elem_ratio'} = [];
     } else {
         ## triple hits can cause the list to be unsorted. TODO: test case. I found about this with a hit "someone -> giulcenc -> someone"
         @{ $ret{'hits_dates'} } = sort @{ $ret{'hits_dates'} };
         chop $ret{'elem_travel_days'};
         chop $ret{'elem_travel_km'};
+        $ret{'elem_ratio'} = [ sort @{ $ret{'elem_ratio'} } ];
     }
 
     return \%ret;
 }
 sub hits_dates       { goto &hit_list; }
+sub elem_ratio       { goto &hit_list; }
 sub elem_travel_days { goto &hit_list; }
 sub elem_travel_km   { goto &hit_list; }
 
@@ -1027,8 +1037,6 @@ sub hit_summary {
         if (($hit->{'old_hit_ratio'} // 0) > ($ret{'hit_summary'}{'ratio'}{'worst'} // 0)) {
             $ret{'hit_summary'}{'ratio'}{'worst'} = $hit->{'old_hit_ratio'};
         }
-
-        ## TODO: hit ratio chart
 
         ## finder/maker - giver/getter
         if ($whoami->{'name'} eq $hit->{'hit_partners'}[0]) {

@@ -1584,8 +1584,8 @@ sub hit_summary {
     my $whoami       = $self->ebt->whoami;
     my $hit_list     = $self->ebt->get_hit_list ($whoami);     $xhr and $self->{'progress'}->base_add ($count);
     my $hs           = $self->ebt->get_hit_summary ($whoami, $activity, $count, $hit_list);
-    my $notes_dates  = $self->ebt->get_notes_dates;
     my $hits_dates   = $self->ebt->get_hits_dates ($whoami);
+    my $elem_ratio   = $self->ebt->get_elem_ratio ($whoami);
     my $elem_travel_days = $self->ebt->get_elem_travel_days ($whoami);
     my $elem_travel_km   = $self->ebt->get_elem_travel_km ($whoami);
     $self->_log (debug => report 'hit_summary get', $t0, $count);
@@ -1608,22 +1608,13 @@ sub hit_summary {
     }
     if ($gen_charts and (!-e $dest_img1 or !-e $dest_img2 or !-e $dest_img3)) {
         my %dpoints;
-        $notes_dates = [ map { $_.'1' } @$notes_dates ];
-        $hits_dates  = [ map { $_.'2' } @$hits_dates ];
-        ## when inserting several notes in the same second, a hit may occur at any point
-        ## this 'sort' places the hit at the end of the bundle, which results in a different hit ratio
-        ## we only know the dates so can't do better
-        my @all_dates = sort @$notes_dates, @$hits_dates;
+        my @all_dates;
 
-        my ($count_notes, $count_hits);
-        foreach my $elem (@all_dates) {
-            $count_notes++ if 1 == substr $elem, -1;
-            $count_hits++  if 2 == substr $elem, -1;
-            push @{ $dpoints{'hit_ratio'} }, $count_hits ? $count_notes/$count_hits : undef;
+        foreach my $elem (@$elem_ratio) {
+            my ($date, $ratio) = split /=/, $elem;
+            push @all_dates, $date;
+            push @{ $dpoints{'hit_ratio'} }, $ratio || undef;
         }
-        @$notes_dates = map { chop; $_ } @$notes_dates;
-        @$hits_dates  = map { chop; $_ } @$hits_dates;
-        @all_dates    = map { chop; $_ } @all_dates;
 
         my ($days_sum, $days_count);
         foreach my $elem (split ',', $elem_travel_days) {

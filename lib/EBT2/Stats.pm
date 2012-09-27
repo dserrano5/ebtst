@@ -879,10 +879,13 @@ sub hit_list {
     foreach my $date (sort keys %hit_list) {
         push @{ $ret{'hit_list'} }, @{ $hit_list{$date} };
     }
-    ## triple hits can cause the list to be unsorted. TODO: test case. I found about this with a hit "someone -> giulcenc -> someone"
     if (!defined $ret{'hits_dates'}) {
+        $ret{'hit_list'} = [];
         $ret{'hits_dates'} = [];
+        $ret{'elem_travel_days'} = '';
+        $ret{'elem_travel_km'} = '';
     } else {
+        ## triple hits can cause the list to be unsorted. TODO: test case. I found about this with a hit "someone -> giulcenc -> someone"
         @{ $ret{'hits_dates'} } = sort @{ $ret{'hits_dates'} };
         chop $ret{'elem_travel_days'};
         chop $ret{'elem_travel_km'};

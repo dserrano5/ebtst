@@ -21,9 +21,11 @@ sub _quantize {
     my $first_dt = DateTime->new (zip @{[ qw/year month day hour minute second/ ]}, @{[ split /[ :-]/, $xdata->[0]  ]})->epoch;
     my $last_dt  = DateTime->new (zip @{[ qw/year month day hour minute second/ ]}, @{[ split /[ :-]/, $xdata->[-1] ]})->epoch;
     my $interval_duration = ($last_dt - $first_dt) / $limit;
-    my @intervals = map {
-        DateTime->from_epoch (epoch => $first_dt + $interval_duration * $_)->strftime ('%Y-%m-%d %H:%M:%S')
-    } 1 .. $limit;
+    my @intervals;
+    foreach my $idx (1 .. $limit) {
+        my ($S,$M,$H,$d,$m,$y) = gmtime $first_dt + $interval_duration * $idx;
+        push @intervals, sprintf '%d-%02d-%02d %02d:%02d:%02d', 1900+$y, 1+$m, $d, $H, $M, $S;
+    }
 
     my @new_xdata;
     my @points;
@@ -74,12 +76,12 @@ sub _quantize {
                 last;
             }
             $last_idx++;
-            $cur_xdata = $xdata->[ $last_idx ];
+            $cur_xdata = $xdata->[$last_idx];
         }
     }
-    ## at this point, $last_idx should be == 1 + $#$xdata == @$xdata
+    ## at this point, $last_idx should be == (1 + $#$xdata) == @$xdata
     if ($last_idx != @$xdata) {
-        warn 'premature exit from _quantize loop';
+        warn sprintf "premature exit from _quantize loop, last_idx (%s) xdata size (%s)", $last_idx//'<undef>', scalar @$xdata;
     }
 
     ## push last point to @new_xdata and to the datasets. Update the 'points' elem in each dataset with the new values

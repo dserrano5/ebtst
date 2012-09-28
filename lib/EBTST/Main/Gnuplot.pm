@@ -9,7 +9,7 @@ use Chart::Gnuplot;
 sub _quantize {
     my ($limit, $xdata, $dsets) = @_;
 
-    return $xdata if @$xdata <= $limit;
+    return $xdata, $dsets if @$xdata <= $limit;
 
     my $graph_type = (caller 1)[3];
     $graph_type =~ s/.*::(\w+)_chart$/$1/;
@@ -22,9 +22,9 @@ sub _quantize {
     my $last_dt  = DateTime->new (zip @{[ qw/year month day hour minute second/ ]}, @{[ split /[ :-]/, $xdata->[-1]         ]})->epoch;
 
     my @new_xdata = @$xdata[0 .. $limit/2-1];
-    my @points;
+    my @new_dsets;
     foreach my $dset_idx (0 .. $#$dsets) {
-        @{ $points[$dset_idx] } = @{ $dsets->[$dset_idx] }[0 .. $limit/2-1];
+        @{ $new_dsets[$dset_idx] } = @{ $dsets->[$dset_idx] }[0 .. $limit/2-1];
     }
 
     my @intervals;
@@ -47,10 +47,10 @@ sub _quantize {
             foreach my $dset_idx (0 .. $#$dsets) {
                 if ('bartime' eq $graph_type) {
                     ## ...each last pushed value to each datasets, so the bartime graphs don't have any gaps
-                    push @{ $points[$dset_idx] }, $last_pushed[$dset_idx];
+                    push @{ $new_dsets[$dset_idx] }, $last_pushed[$dset_idx];
                 } else {
                     ## ...undef to each dataset
-                    push @{ $points[$dset_idx] }, undef;
+                    push @{ $new_dsets[$dset_idx] }, undef;
                 }
             }
 
@@ -74,7 +74,7 @@ sub _quantize {
                 ## push a point to @new_xdata and to the datasets
                 push @new_xdata, $xdata->[ $last_idx-1 ];
                 foreach my $dset_idx (0 .. $#$dsets) {
-                    push @{ $points[$dset_idx] }, $dsets->[$dset_idx][ $last_idx-1 ];
+                    push @{ $new_dsets[$dset_idx] }, $dsets->[$dset_idx][ $last_idx-1 ];
                     $last_pushed[$dset_idx] = $dsets->[$dset_idx][ $last_idx-1 ];
                 }
 
@@ -92,24 +92,25 @@ sub _quantize {
     ## push last point to @new_xdata and to the datasets
     push @new_xdata, $xdata->[ $last_idx-1 ];
     foreach my $dset_idx (0 .. $#$dsets) {
-        push @{ $points[$dset_idx] }, $dsets->[$dset_idx][ $last_idx-1 ];
+        push @{ $new_dsets[$dset_idx] }, $dsets->[$dset_idx][ $last_idx-1 ];
     }
 
-    ## check that @new_xdata and the datasets have the same number of points
+    ## check that @new_xdata and the new datasets have the same number of points
     my $npoints = @new_xdata;
     foreach my $dset_idx (0 .. $#$dsets) {
-        if ($npoints != @{ $points[$dset_idx] }) {
-            warn sprintf "new pointset $dset_idx has %d points instead of \@new_xdata's $npoints", scalar @{ $points[$dset_idx] };
+        if ($npoints != @{ $new_dsets[$dset_idx] }) {
+            warn sprintf "new pointset $dset_idx has %d points instead of \@new_xdata's $npoints", scalar @{ $new_dsets[$dset_idx] };
         }
     }
 
-    return \@new_xdata, \@points;
+    return \@new_xdata, \@new_dsets;
 }
 
 sub line_chart {
     my (%args) = @_;
 
-    my ($xdata, $psets) = _quantize 10000, $args{'xdata'}, $args{'dsets'};      ## showing a lot of points is both cpu- and memory-intensive
+    ## showing a lot of points is both cpu- and memory-intensive
+    my ($xdata, $psets) = _quantize 10000, $args{'xdata'}, [ map { $_->{'points'} } @{ $args{'dsets'} } ];
 
     my %gp_dset_args = (
         xdata    => $xdata,
@@ -119,12 +120,12 @@ sub line_chart {
     );
 
     my @gp_dsets;
-    foreach my $dset (@{ $args{'dsets'} }) {
+    foreach my $dset_idx (0 .. $#{ $args{'dsets'} }) {
         push @gp_dsets, Chart::Gnuplot::DataSet->new (
             %gp_dset_args,
-            ydata => $dset->{'points'},
-            title => $dset->{'title'},
-            color => $dset->{'color'},
+            ydata => $psets->[$dset_idx],
+            title => $args{'dsets'}[$dset_idx]{'title'},
+            color => $args{'dsets'}[$dset_idx]{'color'},
         );
     }
 
@@ -224,22 +225,23 @@ sub bar_chart {
 sub bartime_chart {
     my (%args) = @_;
 
-    my $xdata = _quantize 500, $args{'xdata'}, $args{'dsets'};      ## showing a lot of boxes is slow
+    ## showing a lot of boxes is slow
+    my ($xdata, $psets) = _quantize 500, $args{'xdata'}, [ map { $_->{'points'} } @{ $args{'dsets'} } ];
 
     ## transform into percent
     if ($args{'percent'}) {
         my @totals;
         foreach my $idx (0 .. $#$xdata) {
             foreach my $dset_idx (0 .. $#{ $args{'dsets'} }) {
-                next unless defined $args{'dsets'}[$dset_idx]{'points'}[$idx];
-                $totals[$idx] += $args{'dsets'}[$dset_idx]{'points'}[$idx];
+                next unless defined $psets->[$dset_idx][$idx];
+                $totals[$idx] += $psets->[$dset_idx][$idx];
             }
         }
 
-        foreach my $dset (@{ $args{'dsets'} }) {
-            foreach my $idx (0..$#{ $dset->{'points'} }) {
+        foreach my $dset_idx (0 .. $#{ $args{'dsets'} }) {
+            foreach my $idx (0..$#{ $psets->[$dset_idx] }) {
                 next unless $totals[$idx];
-                $dset->{'points'}[$idx] = 100 * $dset->{'points'}[$idx] / $totals[$idx];
+                $psets->[$dset_idx][$idx] = 100 * $psets->[$dset_idx][$idx] / $totals[$idx];
             }
         }
     }
@@ -252,14 +254,14 @@ sub bartime_chart {
     );
 
     my @gp_dsets;
-    my @acum;  ## we need to sum values, to make the illusion to create stacked boxes (actually they are tall ones, placed behind the smaller ones)
-    foreach my $dset (@{ $args{'dsets'} }) {
-        $acum[$_] += $dset->{'points'}[$_]//0 for 0..$#{ $dset->{'points'} };
+    my @acum;  ## we need to sum values, to make the illusion of creating stacked boxes (actually they are tall ones, placed behind the smaller ones)
+    foreach my $dset_idx (0 .. $#{ $args{'dsets'} }) {
+        $acum[$_] += $psets->[$dset_idx][$_]//0 for 0..$#{ $psets->[$dset_idx] };
         unshift @gp_dsets, Chart::Gnuplot::DataSet->new (
             %gp_dset_args,
             ydata    => [ @acum ],
-            title    => $dset->{'title'},
-            color    => $dset->{'color'},
+            title    => $args{'dsets'}[$dset_idx]{'title'},
+            color    => $args{'dsets'}[$dset_idx]{'color'},
             using    => '1:3',
             linetype => 'solid',
         );

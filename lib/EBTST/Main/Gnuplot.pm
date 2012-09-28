@@ -24,7 +24,7 @@ sub _quantize {
     my @new_xdata = @$xdata[0 .. $limit/2-1];
     my @points;
     foreach my $dset_idx (0 .. $#$dsets) {
-        @{ $points[$dset_idx] } = @{ $dsets->[$dset_idx]{'points'} }[0 .. $limit/2-1];
+        @{ $points[$dset_idx] } = @{ $dsets->[$dset_idx] }[0 .. $limit/2-1];
     }
 
     my @intervals;
@@ -74,8 +74,8 @@ sub _quantize {
                 ## push a point to @new_xdata and to the datasets
                 push @new_xdata, $xdata->[ $last_idx-1 ];
                 foreach my $dset_idx (0 .. $#$dsets) {
-                    push @{ $points[$dset_idx] }, $dsets->[$dset_idx]{'points'}[ $last_idx-1 ];
-                    $last_pushed[$dset_idx] = $dsets->[$dset_idx]{'points'}[ $last_idx-1 ];
+                    push @{ $points[$dset_idx] }, $dsets->[$dset_idx][ $last_idx-1 ];
+                    $last_pushed[$dset_idx] = $dsets->[$dset_idx][ $last_idx-1 ];
                 }
 
                 last;
@@ -92,7 +92,7 @@ sub _quantize {
     ## push last point to @new_xdata and to the datasets
     push @new_xdata, $xdata->[ $last_idx-1 ];
     foreach my $dset_idx (0 .. $#$dsets) {
-        push @{ $points[$dset_idx] }, $dsets->[$dset_idx]{'points'}[ $last_idx-1 ];
+        push @{ $points[$dset_idx] }, $dsets->[$dset_idx][ $last_idx-1 ];
     }
 
     ## check that @new_xdata and the datasets have the same number of points
@@ -109,7 +109,7 @@ sub _quantize {
 sub line_chart {
     my (%args) = @_;
 
-    my $xdata = _quantize 10000, $args{'xdata'}, $args{'dsets'};      ## showing a lot of points is both cpu- and memory-intensive
+    my ($xdata, $psets) = _quantize 10000, $args{'xdata'}, $args{'dsets'};      ## showing a lot of points is both cpu- and memory-intensive
 
     my %gp_dset_args = (
         xdata    => $xdata,

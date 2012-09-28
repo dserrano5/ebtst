@@ -13,8 +13,8 @@ sub line_chart {
     ## - odd number of elements
 
     $dsets = [
-        { points => [  1 ..  9 ] },
-        { points => [ 11 .. 19 ] },
+        [  1 ..  9 ],
+        [ 11 .. 19 ],
     ];
     ($xdata, $psets) = EBTST::Main::Gnuplot::_quantize 6,
         [
@@ -32,8 +32,8 @@ sub line_chart {
         $dsets;
 
     is scalar @$xdata, 6, 'line_chart: group 1: number of xdata elems';
-    is scalar @{ $dsets->[0]{'points'} }, 9, 'line_chart: group 1: number of dataset 0 elems is unchanged';
-    is scalar @{ $dsets->[1]{'points'} }, 9, 'line_chart: group 1: number of dataset 1 elems is unchanged';
+    is scalar @{ $dsets->[0] }, 9, 'line_chart: group 1: number of dataset 0 elems is unchanged';
+    is scalar @{ $dsets->[1] }, 9, 'line_chart: group 1: number of dataset 1 elems is unchanged';
     is_deeply $xdata, [
         '2010-01-01 00:01:00',
         '2010-01-01 00:02:00',
@@ -53,8 +53,8 @@ sub line_chart {
     ## - even number of elements
 
     $dsets = [
-        { points => [  1 ..  8 ] },
-        { points => [ 11 .. 18 ] },
+        [  1 ..  8 ],
+        [ 11 .. 18 ],
     ];
     ($xdata, $psets) = EBTST::Main::Gnuplot::_quantize 6,
         [
@@ -71,8 +71,8 @@ sub line_chart {
         $dsets;
 
     is scalar @$xdata, 6, 'line_chart: group 2: number of xdata elems';
-    is scalar @{ $dsets->[0]{'points'} }, 8, 'line_chart: group 2: number of dataset 0 elems is unchanged';
-    is scalar @{ $dsets->[1]{'points'} }, 8, 'line_chart: group 2: number of dataset 1 elems is unchanged';
+    is scalar @{ $dsets->[0] }, 8, 'line_chart: group 2: number of dataset 0 elems is unchanged';
+    is scalar @{ $dsets->[1] }, 8, 'line_chart: group 2: number of dataset 1 elems is unchanged';
     is_deeply $xdata, [
         '2010-01-01 00:01:00',
         '2010-01-01 00:02:00',
@@ -93,8 +93,8 @@ sub line_chart {
     ## - odd number of elements
 
     $dsets = [
-        { points => [  1 ..  9 ] },
-        { points => [ 11 .. 19 ] },
+        [  1 ..  9 ],
+        [ 11 .. 19 ],
     ];
     ($xdata, $psets) = EBTST::Main::Gnuplot::_quantize 5,
         [
@@ -112,8 +112,8 @@ sub line_chart {
         $dsets;
 
     is scalar @$xdata, 5, 'line_chart: group 3: number of xdata elems';
-    is scalar @{ $dsets->[0]{'points'} }, 9, 'line_chart: group 3: number of dataset 0 elems is unchanged';
-    is scalar @{ $dsets->[1]{'points'} }, 9, 'line_chart: group 3: number of dataset 1 elems is unchanged';
+    is scalar @{ $dsets->[0] }, 9, 'line_chart: group 3: number of dataset 0 elems is unchanged';
+    is scalar @{ $dsets->[1] }, 9, 'line_chart: group 3: number of dataset 1 elems is unchanged';
     is_deeply $xdata, [
         '2010-01-01 00:01:00',
         '2010-01-01 00:02:00',
@@ -132,8 +132,8 @@ sub line_chart {
     ## - even number of elements
 
     $dsets = [
-        { points => [  1 ..  8 ] },
-        { points => [ 11 .. 18 ] },
+        [  1 ..  8 ],
+        [ 11 .. 18 ],
     ];
     ($xdata, $psets) = EBTST::Main::Gnuplot::_quantize 5,
         [
@@ -150,8 +150,8 @@ sub line_chart {
         $dsets;
 
     is scalar @$xdata, 5, 'line_chart: group 4: number of xdata elems';
-    is scalar @{ $dsets->[0]{'points'} }, 8, 'line_chart: group 4: number of dataset 0 elems is unchanged';
-    is scalar @{ $dsets->[1]{'points'} }, 8, 'line_chart: group 4: number of dataset 1 elems is unchanged';
+    is scalar @{ $dsets->[0] }, 8, 'line_chart: group 4: number of dataset 0 elems is unchanged';
+    is scalar @{ $dsets->[1] }, 8, 'line_chart: group 4: number of dataset 1 elems is unchanged';
     is_deeply $xdata, [
         '2010-01-01 00:01:00',
         '2010-01-01 00:02:00',
@@ -170,8 +170,8 @@ sub line_chart {
     ## - odd number of elements
 
     $dsets = [
-        { points => [  1 ..  9 ] },
-        { points => [ 11 .. 19 ] },
+        [  1 ..  9 ],
+        [ 11 .. 19 ],
     ];
     ($xdata, $psets) = EBTST::Main::Gnuplot::_quantize 6,
         [
@@ -189,8 +189,8 @@ sub line_chart {
         $dsets;
 
     is scalar @$xdata, 6, 'line_chart: group 5: number of xdata elems';
-    is scalar @{ $dsets->[0]{'points'} }, 9, 'line_chart: group 5: number of dataset 0 elems is unchanged';
-    is scalar @{ $dsets->[1]{'points'} }, 9, 'line_chart: group 5: number of dataset 1 elems is unchanged';
+    is scalar @{ $dsets->[0] }, 9, 'line_chart: group 5: number of dataset 0 elems is unchanged';
+    is scalar @{ $dsets->[1] }, 9, 'line_chart: group 5: number of dataset 1 elems is unchanged';
     is_deeply $xdata, [
         '2010-01-01 00:01:00',
         '2010-01-01 00:02:00',
@@ -210,8 +210,8 @@ sub line_chart {
     ## - even number of elements
 
     $dsets = [
-        { points => [  1 ..  8 ] },
-        { points => [ 11 .. 18 ] },
+        [  1 ..  8 ],
+        [ 11 .. 18 ],
     ];
     ($xdata, $psets) = EBTST::Main::Gnuplot::_quantize 6,
         [
@@ -228,8 +228,8 @@ sub line_chart {
         $dsets;
 
     is scalar @$xdata, 6, 'line_chart: group 6: number of xdata elems';
-    is scalar @{ $dsets->[0]{'points'} }, 8, 'line_chart: group 6: number of dataset 0 elems is unchanged';
-    is scalar @{ $dsets->[1]{'points'} }, 8, 'line_chart: group 6: number of dataset 1 elems is unchanged';
+    is scalar @{ $dsets->[0] }, 8, 'line_chart: group 6: number of dataset 0 elems is unchanged';
+    is scalar @{ $dsets->[1] }, 8, 'line_chart: group 6: number of dataset 1 elems is unchanged';
     is_deeply $xdata, [
         '2010-01-01 00:01:00',
         '2010-01-01 00:02:00',
@@ -249,8 +249,8 @@ sub line_chart {
     ## - odd number of elements
 
     $dsets = [
-        { points => [  1 ..  9 ] },
-        { points => [ 11 .. 19 ] },
+        [  1 ..  9 ],
+        [ 11 .. 19 ],
     ];
     ($xdata, $psets) = EBTST::Main::Gnuplot::_quantize 5,
         [
@@ -268,8 +268,8 @@ sub line_chart {
         $dsets;
 
     is scalar @$xdata, 5, 'line_chart: group 7: number of xdata elems';
-    is scalar @{ $dsets->[0]{'points'} }, 9, 'line_chart: group 7: number of dataset 0 elems is unchanged';
-    is scalar @{ $dsets->[1]{'points'} }, 9, 'line_chart: group 7: number of dataset 1 elems is unchanged';
+    is scalar @{ $dsets->[0] }, 9, 'line_chart: group 7: number of dataset 0 elems is unchanged';
+    is scalar @{ $dsets->[1] }, 9, 'line_chart: group 7: number of dataset 1 elems is unchanged';
     is_deeply $xdata, [
         '2010-01-01 00:01:00',
         '2010-01-01 00:02:00',
@@ -288,8 +288,8 @@ sub line_chart {
     ## - even number of elements
 
     $dsets = [
-        { points => [  1 ..  8 ] },
-        { points => [ 11 .. 18 ] },
+        [  1 ..  8 ],
+        [ 11 .. 18 ],
     ];
     ($xdata, $psets) = EBTST::Main::Gnuplot::_quantize 5,
         [
@@ -306,8 +306,8 @@ sub line_chart {
         $dsets;
 
     is scalar @$xdata, 5, 'line_chart: group 8: number of xdata elems';
-    is scalar @{ $dsets->[0]{'points'} }, 8, 'line_chart: group 8: number of dataset 0 elems is unchanged';
-    is scalar @{ $dsets->[1]{'points'} }, 8, 'line_chart: group 8: number of dataset 1 elems is unchanged';
+    is scalar @{ $dsets->[0] }, 8, 'line_chart: group 8: number of dataset 0 elems is unchanged';
+    is scalar @{ $dsets->[1] }, 8, 'line_chart: group 8: number of dataset 1 elems is unchanged';
     is_deeply $xdata, [
         '2010-01-01 00:01:00',
         '2010-01-01 00:02:00',
@@ -330,8 +330,8 @@ sub bartime_chart {
     ## - odd number of elements
 
     $dsets = [
-        { points => [  1 ..  9 ] },
-        { points => [ 11 .. 19 ] },
+        [  1 ..  9 ],
+        [ 11 .. 19 ],
     ];
     ($xdata, $psets) = EBTST::Main::Gnuplot::_quantize 6,
         [
@@ -349,8 +349,8 @@ sub bartime_chart {
         $dsets;
 
     is scalar @$xdata, 6, 'bartime_chart: group 1: number of xdata elems';
-    is scalar @{ $dsets->[0]{'points'} }, 9, 'bartime_chart: group 1: number of dataset 0 elems is unchanged';
-    is scalar @{ $dsets->[1]{'points'} }, 9, 'bartime_chart: group 1: number of dataset 1 elems is unchanged';
+    is scalar @{ $dsets->[0] }, 9, 'bartime_chart: group 1: number of dataset 0 elems is unchanged';
+    is scalar @{ $dsets->[1] }, 9, 'bartime_chart: group 1: number of dataset 1 elems is unchanged';
     is_deeply $xdata, [
         '2010-01-01 00:01:00',
         '2010-01-01 00:02:00',
@@ -371,8 +371,8 @@ sub bartime_chart {
     ## - even number of elements
 
     $dsets = [
-        { points => [  1 ..  8 ] },
-        { points => [ 11 .. 18 ] },
+        [  1 ..  8 ],
+        [ 11 .. 18 ],
     ];
     ($xdata, $psets) = EBTST::Main::Gnuplot::_quantize 6,
         [
@@ -389,8 +389,8 @@ sub bartime_chart {
         $dsets;
 
     is scalar @$xdata, 6, 'bartime_chart: group 2: number of xdata elems';
-    is scalar @{ $dsets->[0]{'points'} }, 8, 'bartime_chart: group 2: number of dataset 0 elems is unchanged';
-    is scalar @{ $dsets->[1]{'points'} }, 8, 'bartime_chart: group 2: number of dataset 1 elems is unchanged';
+    is scalar @{ $dsets->[0] }, 8, 'bartime_chart: group 2: number of dataset 0 elems is unchanged';
+    is scalar @{ $dsets->[1] }, 8, 'bartime_chart: group 2: number of dataset 1 elems is unchanged';
     is_deeply $xdata, [
         '2010-01-01 00:01:00',
         '2010-01-01 00:02:00',
@@ -411,8 +411,8 @@ sub bartime_chart {
     ## - odd number of elements
 
     $dsets = [
-        { points => [  1 ..  9 ] },
-        { points => [ 11 .. 19 ] },
+        [  1 ..  9 ],
+        [ 11 .. 19 ],
     ];
     ($xdata, $psets) = EBTST::Main::Gnuplot::_quantize 5,
         [
@@ -430,8 +430,8 @@ sub bartime_chart {
         $dsets;
 
     is scalar @$xdata, 5, 'bartime_chart: group 3: number of xdata elems';
-    is scalar @{ $dsets->[0]{'points'} }, 9, 'bartime_chart: group 3: number of dataset 0 elems is unchanged';
-    is scalar @{ $dsets->[1]{'points'} }, 9, 'bartime_chart: group 3: number of dataset 1 elems is unchanged';
+    is scalar @{ $dsets->[0] }, 9, 'bartime_chart: group 3: number of dataset 0 elems is unchanged';
+    is scalar @{ $dsets->[1] }, 9, 'bartime_chart: group 3: number of dataset 1 elems is unchanged';
     is_deeply $xdata, [
         '2010-01-01 00:01:00',
         '2010-01-01 00:02:00',
@@ -450,8 +450,8 @@ sub bartime_chart {
     ## - even number of elements
 
     $dsets = [
-        { points => [  1 ..  8 ] },
-        { points => [ 11 .. 18 ] },
+        [  1 ..  8 ],
+        [ 11 .. 18 ],
     ];
     ($xdata, $psets) = EBTST::Main::Gnuplot::_quantize 5,
         [
@@ -468,8 +468,8 @@ sub bartime_chart {
         $dsets;
 
     is scalar @$xdata, 5, 'bartime_chart: group 4: number of xdata elems';
-    is scalar @{ $dsets->[0]{'points'} }, 8, 'bartime_chart: group 4: number of dataset 0 elems is unchanged';
-    is scalar @{ $dsets->[1]{'points'} }, 8, 'bartime_chart: group 4: number of dataset 1 elems is unchanged';
+    is scalar @{ $dsets->[0] }, 8, 'bartime_chart: group 4: number of dataset 0 elems is unchanged';
+    is scalar @{ $dsets->[1] }, 8, 'bartime_chart: group 4: number of dataset 1 elems is unchanged';
     is_deeply $xdata, [
         '2010-01-01 00:01:00',
         '2010-01-01 00:02:00',
@@ -488,8 +488,8 @@ sub bartime_chart {
     ## - odd number of elements
 
     $dsets = [
-        { points => [  1 ..  9 ] },
-        { points => [ 11 .. 19 ] },
+        [  1 ..  9 ],
+        [ 11 .. 19 ],
     ];
     ($xdata, $psets) = EBTST::Main::Gnuplot::_quantize 6,
         [
@@ -507,8 +507,8 @@ sub bartime_chart {
         $dsets;
 
     is scalar @$xdata, 6, 'bartime_chart: group 5: number of xdata elems';
-    is scalar @{ $dsets->[0]{'points'} }, 9, 'bartime_chart: group 5: number of dataset 0 elems is unchanged';
-    is scalar @{ $dsets->[1]{'points'} }, 9, 'bartime_chart: group 5: number of dataset 1 elems is unchanged';
+    is scalar @{ $dsets->[0] }, 9, 'bartime_chart: group 5: number of dataset 0 elems is unchanged';
+    is scalar @{ $dsets->[1] }, 9, 'bartime_chart: group 5: number of dataset 1 elems is unchanged';
     is_deeply $xdata, [
         '2010-01-01 00:01:00',
         '2010-01-01 00:02:00',
@@ -528,8 +528,8 @@ sub bartime_chart {
     ## - even number of elements
 
     $dsets = [
-        { points => [  1 ..  8 ] },
-        { points => [ 11 .. 18 ] },
+        [  1 ..  8 ],
+        [ 11 .. 18 ],
     ];
     ($xdata, $psets) = EBTST::Main::Gnuplot::_quantize 6,
         [
@@ -546,8 +546,8 @@ sub bartime_chart {
         $dsets;
 
     is scalar @$xdata, 6, 'bartime_chart: group 6: number of xdata elems';
-    is scalar @{ $dsets->[0]{'points'} }, 8, 'bartime_chart: group 6: number of dataset 0 elems is unchanged';
-    is scalar @{ $dsets->[1]{'points'} }, 8, 'bartime_chart: group 6: number of dataset 1 elems is unchanged';
+    is scalar @{ $dsets->[0] }, 8, 'bartime_chart: group 6: number of dataset 0 elems is unchanged';
+    is scalar @{ $dsets->[1] }, 8, 'bartime_chart: group 6: number of dataset 1 elems is unchanged';
     is_deeply $xdata, [
         '2010-01-01 00:01:00',
         '2010-01-01 00:02:00',
@@ -567,8 +567,8 @@ sub bartime_chart {
     ## - odd number of elements
 
     $dsets = [
-        { points => [  1 ..  9 ] },
-        { points => [ 11 .. 19 ] },
+        [  1 ..  9 ],
+        [ 11 .. 19 ],
     ];
     ($xdata, $psets) = EBTST::Main::Gnuplot::_quantize 5,
         [
@@ -586,8 +586,8 @@ sub bartime_chart {
         $dsets;
 
     is scalar @$xdata, 5, 'bartime_chart: group 7: number of xdata elems';
-    is scalar @{ $dsets->[0]{'points'} }, 9, 'bartime_chart: group 7: number of dataset 0 elems is unchanged';
-    is scalar @{ $dsets->[1]{'points'} }, 9, 'bartime_chart: group 7: number of dataset 1 elems is unchanged';
+    is scalar @{ $dsets->[0] }, 9, 'bartime_chart: group 7: number of dataset 0 elems is unchanged';
+    is scalar @{ $dsets->[1] }, 9, 'bartime_chart: group 7: number of dataset 1 elems is unchanged';
     is_deeply $xdata, [
         '2010-01-01 00:01:00',
         '2010-01-01 00:02:00',
@@ -606,8 +606,8 @@ sub bartime_chart {
     ## - even number of elements
 
     $dsets = [
-        { points => [  1 ..  8 ] },
-        { points => [ 11 .. 18 ] },
+        [  1 ..  8 ],
+        [ 11 .. 18 ],
     ];
     ($xdata, $psets) = EBTST::Main::Gnuplot::_quantize 5,
         [
@@ -624,8 +624,8 @@ sub bartime_chart {
         $dsets;
 
     is scalar @$xdata, 5, 'bartime_chart: group 8: number of xdata elems';
-    is scalar @{ $dsets->[0]{'points'} }, 8, 'bartime_chart: group 8: number of dataset 0 elems is unchanged';
-    is scalar @{ $dsets->[1]{'points'} }, 8, 'bartime_chart: group 8: number of dataset 1 elems is unchanged';
+    is scalar @{ $dsets->[0] }, 8, 'bartime_chart: group 8: number of dataset 0 elems is unchanged';
+    is scalar @{ $dsets->[1] }, 8, 'bartime_chart: group 8: number of dataset 1 elems is unchanged';
     is_deeply $xdata, [
         '2010-01-01 00:01:00',
         '2010-01-01 00:02:00',

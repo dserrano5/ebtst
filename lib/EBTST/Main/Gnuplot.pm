@@ -6,7 +6,6 @@ use DateTime;
 use List::MoreUtils qw/zip/;
 use Chart::Gnuplot;
 
-## this function modifies the 'points' element in each dataset in @$dsets
 sub _quantize {
     my ($limit, $xdata, $dsets) = @_;
 
@@ -90,24 +89,21 @@ sub _quantize {
         warn sprintf "premature exit from _quantize loop, last_idx (%s) xdata size (%s)", $last_idx//'<undef>', scalar @$xdata;
     }
 
-    ## push last point to @new_xdata and to the datasets. Update the 'points' elem in each dataset with the new values
+    ## push last point to @new_xdata and to the datasets
     push @new_xdata, $xdata->[ $last_idx-1 ];
     foreach my $dset_idx (0 .. $#$dsets) {
         push @{ $points[$dset_idx] }, $dsets->[$dset_idx]{'points'}[ $last_idx-1 ];
-        $dsets->[$dset_idx]{'points'} = $points[$dset_idx];
     }
-
-    undef @points;
 
     ## check that @new_xdata and the datasets have the same number of points
     my $npoints = @new_xdata;
     foreach my $dset_idx (0 .. $#$dsets) {
-        if ($npoints != @{ $dsets->[$dset_idx]{'points'} }) {
-            warn sprintf "new dataset $dset_idx has %d points instead of \@new_xdata's $npoints", scalar @{ $dsets->[$dset_idx]{'points'} };
+        if ($npoints != @{ $points[$dset_idx] }) {
+            warn sprintf "new pointset $dset_idx has %d points instead of \@new_xdata's $npoints", scalar @{ $points[$dset_idx] };
         }
     }
 
-    return \@new_xdata;
+    return \@new_xdata, \@points;
 }
 
 sub line_chart {

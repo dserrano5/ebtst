@@ -11,7 +11,6 @@ sub _quantize {
     my ($limit, $xdata, $dsets) = @_;
 
     return $xdata if @$xdata <= $limit;
-    my @xdata = @$xdata;   ## copy
 
     my $graph_type = (caller 1)[3];
     $graph_type =~ s/.*::(\w+)_chart$/$1/;
@@ -20,13 +19,13 @@ sub _quantize {
     ## ie the first point represents the note at (or just before) $intervals[0]
 
     ## keep the first $limit/2 as-is, regular intervals for the other half
-    my $first_dt = DateTime->new (zip @{[ qw/year month day hour minute second/ ]}, @{[ split /[ :-]/, $xdata[$limit/2-1] ]})->epoch;
-    my $last_dt  = DateTime->new (zip @{[ qw/year month day hour minute second/ ]}, @{[ split /[ :-]/, $xdata[-1]         ]})->epoch;
+    my $first_dt = DateTime->new (zip @{[ qw/year month day hour minute second/ ]}, @{[ split /[ :-]/, $xdata->[$limit/2-1] ]})->epoch;
+    my $last_dt  = DateTime->new (zip @{[ qw/year month day hour minute second/ ]}, @{[ split /[ :-]/, $xdata->[-1]         ]})->epoch;
 
-    my @new_xdata = splice @xdata, 0, $limit/2;;
+    my @new_xdata = @$xdata[0 .. $limit/2-1];
     my @points;
     foreach my $dset_idx (0 .. $#$dsets) {
-        @{ $points[$dset_idx] } = splice @{ $dsets->[$dset_idx]{'points'} }, 0 , $limit/2;
+        @{ $points[$dset_idx] } = @{ $dsets->[$dset_idx]{'points'} }[0 .. $limit/2-1];
     }
 
     my @intervals;
@@ -37,12 +36,12 @@ sub _quantize {
     }
 
     my @last_pushed;
-    my $last_idx = 0;
+    my $last_idx = int $limit/2;
     OUTER:
     foreach my $limit_date (@intervals) {
         ## if a lot of time has passed, $cur_xdata could be greater than this $limit_date
         ## (never true in the first iteration)
-        my $cur_xdata = $xdata[$last_idx];
+        my $cur_xdata = $xdata->[$last_idx];
         if (1 == ($cur_xdata cmp $limit_date)) {
             ## push $limit_date to @new_xdata and...
             push @new_xdata, $limit_date;
@@ -60,7 +59,7 @@ sub _quantize {
         }
 
         while (1) {
-            if ($last_idx > $#xdata) {
+            if ($last_idx > $#$xdata) {
                 ## at this point:
                 ## - $limit_date should be eq $intervals[-1];
                 ## - $cur_xdata should be undef
@@ -74,7 +73,7 @@ sub _quantize {
             }
             if (1 == ($cur_xdata cmp $limit_date)) {
                 ## push a point to @new_xdata and to the datasets
-                push @new_xdata, $xdata[ $last_idx-1 ];
+                push @new_xdata, $xdata->[ $last_idx-1 ];
                 foreach my $dset_idx (0 .. $#$dsets) {
                     push @{ $points[$dset_idx] }, $dsets->[$dset_idx]{'points'}[ $last_idx-1 ];
                     $last_pushed[$dset_idx] = $dsets->[$dset_idx]{'points'}[ $last_idx-1 ];
@@ -83,16 +82,16 @@ sub _quantize {
                 last;
             }
             $last_idx++;
-            $cur_xdata = $xdata[$last_idx];
+            $cur_xdata = $xdata->[$last_idx];
         }
     }
-    ## at this point, $last_idx should be == (1 + $#xdata) == @xdata
-    if ($last_idx != @xdata) {
-        warn sprintf "premature exit from _quantize loop, last_idx (%s) xdata size (%s)", $last_idx//'<undef>', scalar @xdata;
+    ## at this point, $last_idx should be == (1 + $#$xdata) == @$xdata
+    if ($last_idx != @$xdata) {
+        warn sprintf "premature exit from _quantize loop, last_idx (%s) xdata size (%s)", $last_idx//'<undef>', scalar @$xdata;
     }
 
     ## push last point to @new_xdata and to the datasets. Update the 'points' elem in each dataset with the new values
-    push @new_xdata, $xdata[ $last_idx-1 ];
+    push @new_xdata, $xdata->[ $last_idx-1 ];
     foreach my $dset_idx (0 .. $#$dsets) {
         push @{ $points[$dset_idx] }, $dsets->[$dset_idx]{'points'}[ $last_idx-1 ];
         $dsets->[$dset_idx]{'points'} = $points[$dset_idx];

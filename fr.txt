@@ -21,8 +21,8 @@ Combinations (detail) = Détail des combinaisons
 Plate bingo = Bingo des planches
 Bad notes = Erreurs
 Hit list = Liste de hits
-Hit times (bingo) = Bingo des durées
-Hit times (detail) = Détail des durées
+Hit times (bingo) = Horaires de hits (bingo)
+Hit times (detail) = Horaires de hits (détail)
 Hit locations = Villes de hits
 Hit analysis = Analyse des hits
 Hit summary = Résumé des hits
@@ -52,7 +52,7 @@ Registration successful = Enregistrement terminé
 
 ## information
 General information = Informations générales
-First note entered = Premier billet encodé
+First note entered = Premier billet encodé le
 in = à
 Situation on = Situation le
 (full) days after the first note was entered = jours (complets) depuis le premier billet
@@ -145,7 +145,7 @@ Number of notes per year = Nombre de billets par an
 Year = Année
 
 ## notes_per_month
-Number of notes per month = Nombre de billest par mois
+Number of notes per month = Nombre de billets par mois
 Month = Mois
 
 ## top_days

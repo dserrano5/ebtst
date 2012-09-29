@@ -86,7 +86,7 @@
 
 <h3><%=l 'Both ways hits' %></h3>
 <% if (%$both_ways) { =%>
-    <table>
+    <table id="both_ways_hits">
         <tr>
             <th><%=l 'Location' %></th>
             <th><%=l 'Hits' %></th>

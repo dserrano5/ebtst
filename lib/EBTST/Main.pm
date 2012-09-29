@@ -1462,7 +1462,10 @@ sub hit_locations {
             }
         }
 
-        my @cities = uniq @{ $hit->{'cities'} };
+        ## local hits
+        my @cities = uniq map {
+            sprintf '%s#%s', $hit->{'countries'}[$_], $hit->{'cities'}[$_]
+        } 0 .. $#{ $hit->{'cities'} };
         if (1 == @cities) {
             my $k = join ',', $hit->{'countries'}[0], $hit->{'cities'}[0];
             $local_hits{$k}++;
@@ -1514,7 +1517,7 @@ sub hit_locations {
         my $reverse_k = sprintf '%s|%s', $to, $from;
         if (exists $arrows{$reverse_k}) {
             my $sorted_k = sprintf '%s|%s', sort $from, $to;
-            $both_ways{$sorted_k}++;
+            $both_ways{$sorted_k} += $arrows{$k};
         }
     }
     $self->_log (debug => report 'hit_locations cook', $t0, $count);

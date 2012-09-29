@@ -206,11 +206,13 @@ $sha = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->text;
 next_is_xhr; $t->get_ok ("/import/$sha")->status_is (200)->content_type_is ('text/plain')->content_is ('information', 'import notes and hits');
 
 ## moderated hits don't appear in hit_list
-$t->get_ok ('/hit_list')->status_is (200)->content_unlike (qr/Exxxx0000xxx/, 'moderated hits are ignored');
+$t->get_ok ('/hit_list')->status_is (200)->content_unlike (qr/Xxxxx2000xxx/, 'moderated hits are ignored');
+
+## both ways hits
+$t->get_ok ('/hit_locations')->status_is (200)->text_is ('table#both_ways_hits > tr:nth-of-type(2) > td:nth-of-type(2)' => '7', 'both ways hits');
 
 ## but their count appears in hit_summary
 $t->get_ok ('/hit_summary')->status_is (200)->content_like (qr/7\s+international\),\s+plus\s+2\s+moderated/, 'but they are counted');
-
 
 ## misc countries
 $t->get_ok ('/locations')->status_is (200)->content_like (qr/Kosovo/, 'Kosovo support')->content_like (qr/Serbia and Montenegro/)->content_like (qr/Bosnia-Herzegovina/);
@@ -374,4 +376,4 @@ $t->ua->once (start => sub {
 });
 $t->get_ok ('/configure')->status_is (200)->content_like (qr/CSV upload doesn't work with Internet Explorer/);
 
-done_testing 547;
+done_testing 550;

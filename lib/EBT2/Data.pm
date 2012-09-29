@@ -250,7 +250,7 @@ sub load_notes {
     if ($do_keep_hits) {
         foreach my $n (@{ $self->{'notes'} }) {
             my @arr = split ';', $n, NCOLS;
-            next unless exists $arr[HIT];
+            next unless $arr[HIT];
             $save_hits{ $arr[SERIAL] } = $arr[HIT];
         }
     }

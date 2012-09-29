@@ -62,7 +62,8 @@ $t->post_form_ok ('/login' => {
 
 ## with session
 $t->get_ok ('/progress')->status_is (200)->content_type_is ('application/json')->json_content_is ({ cur => 0, total => 1 }, 'default progress');
-$t->get_ok ('/configure')->status_is (200)->element_exists ('#mainbody #repl #config_form table tr td input[name=notes_csv_file]', 'configure form')->content_unlike (qr/short_codes/, 'configure without sections')->text_is ('div#error_msg' => '', 'no error_msg');
+$t->get_ok ('/configure')->status_is (200)->element_exists ('#mainbody #repl #config_form table tr td input[name=notes_csv_file]', 'configure form')->
+    content_unlike (qr/short_codes/, 'configure without sections')->text_is ('div#error_msg' => '', 'no error_msg');
 
 ## EBT2 object needed
 $t->get_ok ('/value')->status_is (302)->header_like (Location => qr/configure/, 'EBT2 object needed');
@@ -100,15 +101,29 @@ next_is_xhr; $t->get_ok ("/import/$sha")->status_is (200)->content_type_is ('tex
 
 ## correct data
 $t->get_ok ('/information')->status_is (200)->content_like (qr/\bSignatures:.*\bDuisenberg 0.*\bTrichet 2.*\bDraghi 0\b/s, 'correct data')->
-    content_like (qr/short_codes/, 'with sections')->text_is ('div#error_msg' => '', 'no error_msg');
+    content_like (qr/short_codes/, 'with sections')->content_unlike (qr/hit_list/, 'with no hit sections')->text_is ('div#error_msg' => '', 'no error_msg');
 #$csrftoken = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->html->body->div->[0]->form->input->{'value'};
 
 ## /configuration and /help now must show the entire menu
-$t->get_ok ('/configure')->status_is (200)->content_like (qr/short_codes/, 'configure has sections')->text_is ('div#error_msg' => '', 'no error_msg');
-$t->get_ok ('/help')->status_is (200)->content_like (qr/short_codes/, 'help has sections')->text_is ('div#error_msg' => '', 'no error_msg');
+$t->get_ok ('/configure')->status_is (200)->content_like (qr/short_codes/, 'configure has sections')->content_unlike (qr/hit_list/, 'with no hit sections')->
+    text_is ('div#error_msg' => '', 'no error_msg');
+$t->get_ok ('/help')->status_is (200)->content_like (qr/short_codes/, 'help has sections')->content_unlike (qr/hit_list/, 'with no hit sections')->
+    text_is ('div#error_msg' => '', 'no error_msg');
 
 ## /travel_stats differentiates cities with the same name in different countries
 $t->get_ok ('/travel_stats')->status_is (200)->content_like (qr{Number of locations: <b>2</b>}, 'travel_stats');
+
+
+## upload again
+$t->post_form_ok ('/upload', {
+    notes_csv_file => { file => 't/notes1.csv' },
+    #csrftoken => $csrftoken,
+})->status_is (200)->content_type_is ('text/plain')->content_like (qr/^[0-9a-f]{8}$/, 'upload notes again');
+$sha = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->text;
+next_is_xhr; $t->get_ok ("/import/$sha")->status_is (200)->content_type_is ('text/plain')->content_is ('information', 'import');
+$t->get_ok ('/information')->status_is (200)->content_like (qr/\bSignatures:.*\bDuisenberg 0.*\bTrichet 2.*\bDraghi 0\b/s, 'correct data')->
+    content_like (qr/short_codes/, 'with sections')->content_unlike (qr/hit_list/, 'with no hit sections')->text_is ('div#error_msg' => '', 'no error_msg');
+
 
 ## BBCode/HTML generation
 $t->post_form_ok ('/calc_sections', { information => 1, value => 1, })->status_is (404);
@@ -278,7 +293,8 @@ open $fd, '<:encoding(UTF-8)', $users_file or die "open: '$users_file': $!"; @li
 my $user = pop @lines; chomp $user;
 is $user, 'fo€:bc828d429f21f3488802914fcd262e54a99e53f80870a041c24080aa01304eb5feec4962df145e1be2cc7ef40384de59e601923d4ef34d713dd49d616844bed4';
 
-$t->get_ok ('/configure')->status_is (200)->element_exists ('#mainbody #repl #config_form table tr td input[name=notes_csv_file]', 'configure form')->content_unlike (qr/short_codes/, 'configure without sections')->text_is ('div#error_msg' => 'Registration successful');
+$t->get_ok ('/configure')->status_is (200)->element_exists ('#mainbody #repl #config_form table tr td input[name=notes_csv_file]', 'configure form')->
+    content_unlike (qr/short_codes/, 'configure without sections')->text_is ('div#error_msg' => 'Registration successful');
 $t->get_ok ('/logout');
 
 $t->post_form_ok ('/register' => {
@@ -358,4 +374,4 @@ $t->ua->once (start => sub {
 });
 $t->get_ok ('/configure')->status_is (200)->content_like (qr/CSV upload doesn't work with Internet Explorer/);
 
-done_testing 530;
+done_testing 547;

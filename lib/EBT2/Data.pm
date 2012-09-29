@@ -313,7 +313,7 @@ sub load_notes {
         $hr->{'signature'} = _find_out_signature @$hr{qw/value short_code serial/};
         $hr->{'errors'} = EBT2::NoteValidator::validate_note $hr;
         if ($do_keep_hits and $save_hits{ $hr->{'serial'} }) {
-            $hr->{'hit'} = $save_hits{ $hr->{'serial'} };
+            $hr->{'hit'} = delete $save_hits{ $hr->{'serial'} };
         } else {
             $hr->{'hit'} = '';
         }
@@ -326,6 +326,9 @@ sub load_notes {
     close $fd;
     close $outfd if $store_path;
 
+    #if ($do_keep_hits and %save_hits) {
+    #    ## not all hits have been assigned, ie not all are present in the newly uploaded CSV
+    #}
 
     $self->{'has_notes'} = !!@{ $self->{'notes'} };
     $self->{'notes_pos'} = 0;
@@ -444,7 +447,7 @@ sub load_hits {
         $hits{$serial}{'dow'} = $dow;
 
         my $note_num = $serials2idx{$serial};
-        defined $note_num or die "Unrecognized hits file\n";
+        defined $note_num or die "Unrecognized hits file\n";   ## TODO: some hits may have been assigned, then we die in the middle of the process
         my @arr = split ';', $self->{'notes'}[$note_num], NCOLS;
         $arr[HIT] = encode_base64 +(freeze $hits{$serial}), '';
         $self->{'notes'}[$note_num] = join ';', @arr;

@@ -197,8 +197,8 @@ $t->get_ok ('/information');
 #$csrftoken = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->html->body->div->[0]->form->input->{'value'};
 
 next_is_xhr; $t->post_form_ok ('/upload', {
-    notes_csv_file => { file => 't/notes3.csv' },
-    hits_csv_file => { file => 't/hits3.csv' },
+    notes_csv_file => { file => 't/notes5.csv' },
+    hits_csv_file => { file => 't/hits5.csv' },
     #csrftoken => $csrftoken,
 })->status_is (200)->content_type_is ('text/plain')->content_like (qr/^[0-9a-z]{8}$/, 'upload notes and hits');
 
@@ -209,7 +209,7 @@ next_is_xhr; $t->get_ok ("/import/$sha")->status_is (200)->content_type_is ('tex
 $t->get_ok ('/hit_list')->status_is (200)->content_unlike (qr/Exxxx0000xxx/, 'moderated hits are ignored');
 
 ## but their count appears in hit_summary
-$t->get_ok ('/hit_summary')->status_is (200)->content_like (qr/1\s+international\),\s+plus\s+1\s+moderated/, 'but they are counted');
+$t->get_ok ('/hit_summary')->status_is (200)->content_like (qr/7\s+international\),\s+plus\s+2\s+moderated/, 'but they are counted');
 
 
 ## misc countries

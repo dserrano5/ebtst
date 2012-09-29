@@ -2,7 +2,7 @@
 <%=l 'First note entered' %> <%= $ac->{'first_note'}{'date'} %> ([url=https://eurobilltracker.com/notes/?id=<%= $ac->{'first_note'}{'id'} %>] :note-<%= $ac->{'first_note'}{'value'} %>:[/url] <%=l 'in' %> <%= $ac->{'first_note'}{'city'} %> <%= $bbflag %>)
 <%=l 'Situation on' %> <%= $today %>, <%= $full_days %> <%=l '(full) days after the first note was entered' %>
 
-<%=l 'Active/inactive EBT days' %>: [b]<%= $ac->{'active_days_count'} %> - <%= $ac->{'inactive_days_count'} %>[/b] (<%= sprintf '%.2f', 100 * $ac->{'active_days_count'} / $ac->{'total_days_count'} %>% - <%= sprintf '%.2f', 100 * $ac->{'inactive_days_count'} / $ac->{'total_days_count'} %>%)
+<%=l 'Active/inactive EBT days' %>: [b]<%= $ac->{'active_days_count'} %> - <%= $ac->{'inactive_days_count'}//0 %>[/b] (<%= sprintf '%.2f', 100 * $ac->{'active_days_count'} / $ac->{'total_days_count'} %>% - <%= sprintf '%.2f', 100 * ($ac->{'inactive_days_count'}//0) / $ac->{'total_days_count'} %>%)
 <%=l 'Longest period of consecutive active days' %>: [b]<%= $ac->{'longest_active_period'} %>[/b] <%=l 'days' %> (<%= $ac->{'longest_active_period_notes'} %> <%=l 'notes' %>, <%= $ac->{'longest_active_period_from'} %> - <%= $ac->{'longest_active_period_to'} %>)
 <% if ($ac->{'current_active_period'}) { =%>
 <%=l 'Current consecutive active days' %>: [b]<%= $ac->{'current_active_period'} %>[/b] <%=l 'days' %> (<%= $ac->{'current_active_period_notes'} %> <%=l 'notes' %>, <%= $ac->{'current_active_period_from'} %> - <%= $ac->{'current_active_period_to'} %>)

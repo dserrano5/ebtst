@@ -339,7 +339,7 @@ sub information {
     my $md          = $sigs->{'MD'}   // 0;
     my $unk         = $sigs->{'_UNK'} // 0;
     my $today       = DateTime->now->set_time_zone ('Europe/Madrid')->strftime ('%Y-%m-%d %H:%M:%S');
-    my $avg_per_day = $count / $full_days;
+    my $avg_per_day = $full_days ? $count / $full_days : undef;
     $self->_log (debug => report 'information cook', $t0, $count);
 
     $t0 = [gettimeofday];
@@ -377,7 +377,7 @@ sub information {
         count        => $count,
         total_value  => $total_value,
         avg_value    => (sprintf '%.2f', $avg_value),
-        avg_per_day  => (sprintf '%.2f', $avg_per_day),
+        avg_per_day  => (sprintf '%.2f', $avg_per_day//0),
         sigs_wd      => $wd,
         sigs_jct     => $jct,
         sigs_md      => $md,

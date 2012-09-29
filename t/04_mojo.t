@@ -157,11 +157,14 @@ foreach my $section (qw/
 $t->get_ok ('/hit_analysis')->status_is (200)->content_like (qr{<td class="small_cell"><a href="[^"]*">Lxxxx2000xxx</a></td>}, 'hit analysis');
 
 
-## one broken note
+## one broken note, inserted today
+my @now = localtime; my $now = sprintf '%d-%02d-%02d %02d:%02d:%02d', 1900+$now[5], 1+$now[4], @now[3,2,1,0];
+system qq{sed -e 's/__TODAY__/$now/' <t/one-broken-note.csv >/tmp/one-broken-note.csv} and die "system: $!$?";
 $t->post_form_ok ('/upload', {
-    notes_csv_file => { file => 't/one-broken-note.csv' },
+    notes_csv_file => { file => '/tmp/one-broken-note.csv' },
     #csrftoken => $csrftoken,
 })->status_is (200)->content_type_is ('text/plain')->content_like (qr/^[0-9a-f]{8}$/, 'upload notes');
+unlink '/tmp/one-broken-note.csv' or warn "unlink: '/tmp/one-broken-note.csv': $!";
 $sha = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->text;
 next_is_xhr; $t->get_ok ("/import/$sha")->status_is (200)->content_type_is ('text/plain')->content_is ('information', 'import');
 foreach my $section (qw/

@@ -232,10 +232,26 @@ $res = $st->hit_list (undef, $data_obj, $data_obj->whoami);
 for (0..8) { is $res->{'hit_list'}[$_]{'notes_between'}, $hit_notes_between[$_], sprintf 'Correct hit %d notes between', $_ + 1; }
 
 
+note q[hit number of a triple where I'm not the last user];
+$data_obj->load_notes (undef, 't/notes9.csv');
+$data_obj->load_hits (undef, 't/hits9.csv');
+$res = $st->hit_list (undef, $data_obj, $data_obj->whoami);
+is $res->{'hit_list'}[0]{'hit_no'}, undef, sprintf 'Correct hit 1 (moderated) number';
+is $res->{'hit_list'}[1]{'hit_no'}, 1,     sprintf 'Correct hit 2 number';
+is $res->{'hit_list'}[2]{'hit_no'}, undef, sprintf 'Correct hit 3 (moderated) number';
+is $res->{'hit_list'}[3]{'hit_no'}, 2,     sprintf 'Correct hit 4 number';
+is $res->{'hit_list'}[4]{'hit_no'}, 3,     sprintf 'Correct hit 5 number';
+is $res->{'hit_list'}[5]{'hit_no'}, 4,     sprintf 'Correct hit 6 number';
+is $res->{'hit_list'}[6]{'hit_no'}, 5,     sprintf 'Correct hit 7 number';
+is $res->{'hit_list'}[7]{'hit_no'}, 6,     sprintf 'Correct hit 8 number';
+is $res->{'hit_list'}[8]{'hit_no'}, 7,     sprintf 'Correct hit 9 number';
+
+
+
 note 'hits file references unknown notes';
 eval { $data_obj->load_hits (undef, 't/hits8b.csv'); };
 like $@, qr/Unrecognized hits file/, 'load_hits dies if it references unknown notes';
 
 
-done_testing 221;
+done_testing 230;
 unlink '/tmp/ebt2-storable' or warn "unlink: '/tmp/ebt2-storable': $!";

@@ -817,8 +817,8 @@ sub hit_list {
 
             next unless $hit;
 
-            my $passive = $whoami->{'id'} eq $hit->{'parts'}[0]{'user_id'};
-            my $active = !$passive;
+            my $active = $whoami->{'id'} eq $hit->{'parts'}[-1]{'user_id'};
+            my $passive = !$active;
 
             if ($active) {
                 $hit->{'moderated'} or $hit_no++;

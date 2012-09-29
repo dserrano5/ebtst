@@ -1515,7 +1515,7 @@ sub hit_locations {
     foreach my $k (keys %arrows) {
         my ($from, $to) = split /\|/, $k, 2;
         my $reverse_k = sprintf '%s|%s', $to, $from;
-        if (exists $arrows{$reverse_k}) {
+        if ($k ne $reverse_k and exists $arrows{$reverse_k}) {
             my $sorted_k = sprintf '%s|%s', sort $from, $to;
             $both_ways{$sorted_k} += $arrows{$k};
         }

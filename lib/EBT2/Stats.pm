@@ -1116,15 +1116,17 @@ sub hit_summary {
     $ret{'hit_summary'}{'ratio'}{'current'} = $ret{'hit_summary'}{'total'} ? ($count / $ret{'hit_summary'}{'total'}) : undef;
 
     ## postfix: notes between/days between best/avg/cur/worst (notes avg == hit ratio), days forecast (cur/avg days/notes, days forecast)
-    ($y, $m, $d) = $hit_list->[-1]{'dates'}[1] =~ /^(\d{4})-(\d{2})-(\d{2})/;
-    my $last_hit_date = DateTime->new (year => $y, month => $m, day => $d);
-    $ret{'hit_summary'}{'days_between'}{'current'} = $last_hit_date->delta_days (DateTime->now)->delta_days;
-    $ret{'hit_summary'}{'notes_between'}{'current'} = $count - ($hit_list->[-1]{'notes'}//0);
     if ($ret{'hit_summary'}{'total'}) {
+        ($y, $m, $d) = $hit_list->[-1]{'dates'}[1] =~ /^(\d{4})-(\d{2})-(\d{2})/;
+        my $last_hit_date = DateTime->new (year => $y, month => $m, day => $d);
+        $ret{'hit_summary'}{'days_between'}{'current'} = $last_hit_date->delta_days (DateTime->now)->delta_days;
+        $ret{'hit_summary'}{'notes_between'}{'current'} = $count - ($hit_list->[-1]{'notes'}//0);
         $ret{'hit_summary'}{'days_between'}{'avg'}  = mean @{ $ret{'hit_summary'}{'days_between'}{'elems'} };
         $ret{'hit_summary'}{'notes_between'}{'avg'} = mean @{ $ret{'hit_summary'}{'notes_between'}{'elems'} };
         $ret{'hit_summary'}{'days_forecast'} = $last_hit_date->add (days => $ret{'hit_summary'}{'days_between'}{'avg'})->strftime ('%Y-%m-%d');
     } else {
+        $ret{'hit_summary'}{'days_between'}{'current'} = undef;
+        $ret{'hit_summary'}{'notes_between'}{'current'} = undef;
         $ret{'hit_summary'}{'days_between'}{'avg'}  = undef;
         $ret{'hit_summary'}{'notes_between'}{'avg'} = undef;
         $ret{'hit_summary'}{'days_forecast'} = undef;

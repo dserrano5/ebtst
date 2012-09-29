@@ -151,7 +151,8 @@ $sha = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->text;
 next_is_xhr; $t->get_ok ("/import/$sha")->status_is (200)->content_type_is ('text/plain')->content_is ('information', 'import');
 foreach my $section (qw/
     information value countries printers locations travel_stats huge_table short_codes nice_serials coords_bingo notes_per_year notes_per_month
-    top_days time_analysis_bingo time_analysis_detail combs_bingo combs_detail plate_bingo calendar
+    top_days time_analysis_bingo time_analysis_detail combs_bingo combs_detail plate_bingo hit_list hit_times_bingo hit_times_detail
+    hit_locations hit_analysis hit_summary calendar
 /) {
     $t->get_ok ("/$section")->status_is (200);
     $t->get_ok ("/$section.txt")->status_is (200);
@@ -357,4 +358,4 @@ $t->ua->once (start => sub {
 });
 $t->get_ok ('/configure')->status_is (200)->content_like (qr/CSV upload doesn't work with Internet Explorer/);
 
-done_testing 506;
+done_testing 530;

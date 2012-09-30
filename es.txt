@@ -49,6 +49,8 @@ Username and password contain invalid characters = El usuario y la contraseña c
 User already exists = El usuario ya existe
 Error upon registration = Error durante el registro
 Registration successful = Registro correcto
+Empty user or password = Usuario o contraseña están vacíos
+Password is too short = La contraseña es demasiado corta
 
 ## information
 General information = Información general

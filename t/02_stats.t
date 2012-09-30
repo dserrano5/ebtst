@@ -50,17 +50,17 @@ is $res->{'notes_by_city'}{'es'}{'Toledo'}{'first_id'},  '99999999999', 'Correct
 note 'short_codes';
 $data_obj->load_notes (undef, 't/notes-combs.csv');
 $res = $st->highest_short_codes (undef, $data_obj);
-is $res->{'highest_short_codes'}{'E'}{'5'}{'sort_key'}, 'E010A1H002', 'Short code for 5 E/H';
-is $res->{'highest_short_codes'}{'E'}{'20'}{'sort_key'}, 'E003A1H**011', 'Short code for 20 E/H';
-is $res->{'highest_short_codes'}{'G'}{'20'}{'sort_key'}, 'G008A1H550', 'Short code for 20 G/H';
-is $res->{'highest_short_codes'}{'U'}{'20'}{'sort_key'}, 'U001A1M378', 'Short code for 20 U/M';
-is $res->{'highest_short_codes'}{'F'}{'10'}{'sort_key'}, 'F001A1N**211', 'Short code for 10 F/N';
-is $res->{'highest_short_codes'}{'G'}{'200'}{'sort_key'}, 'G001A1N000', 'Short code for 200 G/N';
-is $res->{'highest_short_codes'}{'F'}{'5'}{'sort_key'}, 'F003A1P04**1', 'Short code for 5 F/P';
-is $res->{'highest_short_codes'}{'F'}{'500'}{'sort_key'}, 'F001A1P**011', 'Short code for 500 F/P';
-is $res->{'highest_short_codes'}{'K'}{'10'}{'sort_key'}, 'K001A1T265', 'Short code for 10 K/T';
-is $res->{'highest_short_codes'}{'L'}{'20'}{'sort_key'}, 'L004A1U**311', 'Short code for 20 L/U';
-is $res->{'highest_short_codes'}{'T'}{'50'}{'sort_key'}, 'T001A1Z3**11', 'Short code for 50 T/Z';
+is $res->{'highest_short_codes'}{'E'}{'5'}{'sort_key'}, 'E010A1H002', 'Highest short code for 5 E/H';
+is $res->{'highest_short_codes'}{'E'}{'20'}{'sort_key'}, 'E003A1H**011', 'Highest short code for 20 E/H';
+is $res->{'highest_short_codes'}{'G'}{'20'}{'sort_key'}, 'G008A1H550', 'Highest short code for 20 G/H';
+is $res->{'highest_short_codes'}{'U'}{'20'}{'sort_key'}, 'U001A1M378', 'Highest short code for 20 U/M';
+is $res->{'highest_short_codes'}{'F'}{'10'}{'sort_key'}, 'F001A1N**211', 'Highest short code for 10 F/N';
+is $res->{'highest_short_codes'}{'G'}{'200'}{'sort_key'}, 'G001A1N000', 'Highest short code for 200 G/N';
+is $res->{'highest_short_codes'}{'F'}{'5'}{'sort_key'}, 'F003A1P04**1', 'Highest short code for 5 F/P';
+is $res->{'highest_short_codes'}{'F'}{'500'}{'sort_key'}, 'F001A1P**011', 'Highest short code for 500 F/P';
+is $res->{'highest_short_codes'}{'K'}{'10'}{'sort_key'}, 'K001A1T265', 'Highest short code for 10 K/T';
+is $res->{'highest_short_codes'}{'L'}{'20'}{'sort_key'}, 'L004A1U**311', 'Highest short code for 20 L/U';
+is $res->{'highest_short_codes'}{'T'}{'50'}{'sort_key'}, 'T001A1Z3**11', 'Highest short code for 50 T/Z';
 
 
 note 'hit_list';
@@ -258,8 +258,8 @@ $data_obj->load_notes (undef, 't/notes-validator.csv');
 $res = $st->bad_notes (undef, $data_obj);
 is $res->{'bad_notes'}[0]{'errors'}[0], q{Bad value '6'}, 'Bad value';
 is $res->{'bad_notes'}[1]{'errors'}[0], q{Bad year '2005'}, 'Bad year';
-is $res->{'bad_notes'}[2]{'errors'}[0], q{Bad checksum for serial number 'X22222222222'}, 'Bad checksum';
-is $res->{'bad_notes'}[3]{'errors'}[0], q{Bad serial number '_00035080005'}, 'Bad serial number';
+is $res->{'bad_notes'}[2]{'errors'}[0], q{Bad checksum for serial number}, 'Bad checksum';
+is $res->{'bad_notes'}[3]{'errors'}[0], q{Bad serial number}, 'Bad serial number';
 is $res->{'bad_notes'}[4]{'errors'}[0], q{Bad short code 'E001A9'}, 'Bad short code';
 is $res->{'bad_notes'}[5]{'errors'}[0], q{Bad short code position 'J1'}, 'Bad short code position';
 is $res->{'bad_notes'}[6]{'errors'}[0], q{Plate 'P100' doesn't exist for 5/X}, 'Unknown plate';
@@ -270,7 +270,7 @@ is $res->{'bad_notes'}[10]{'errors'}[0], q{Bad latitude '442532.3'}, 'Bad latitu
 is $res->{'bad_notes'}[11]{'errors'}[0], q{Bad longitude '122317.6'}, 'Bad longitude';
 is $res->{'bad_notes'}[12]{'errors'}[0], q{Bad value '7'}, 'Multiple errors: bad value';
 is $res->{'bad_notes'}[12]{'errors'}[1], q{Bad year '2009'}, 'Multiple errors: bad year';
-is $res->{'bad_notes'}[12]{'errors'}[2], q{Bad checksum for serial number 'U00001960001'}, 'Multiple errors: bad checksum';
+is $res->{'bad_notes'}[12]{'errors'}[2], q{Bad checksum for serial number}, 'Multiple errors: bad checksum';
 is $res->{'bad_notes'}[12]{'errors'}[3], q{Bad short code 'L001A9'}, 'Multiple errors: bad short code';
 is $res->{'bad_notes'}[12]{'errors'}[4], q{Plate 'L001' doesn't exist for 7/U}, 'Multiple errors: unknown plate';
 is $res->{'bad_notes'}[12]{'errors'}[5], q{Bad note id '_9999999987'}, 'Multiple errors: bad note id';

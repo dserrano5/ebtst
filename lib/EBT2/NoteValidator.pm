@@ -30,9 +30,9 @@ sub validate_note {
     push @errors, "Bad value '$v'" unless grep { $_ eq $v } @{ EBT2->values };
     push @errors, "Bad year '$hr->{'year'}'" if '2002' ne $hr->{'year'};
     if ($hr->{'serial'} =~ /^[EFGHLMNPSTUVXYZ]\d{11}$/) {
-        push @errors, "Bad checksum for serial number '$hr->{'serial'}'" unless note_serial_cksum $hr->{'serial'};
+        push @errors, 'Bad checksum for serial number' unless note_serial_cksum $hr->{'serial'};
     } else {
-        push @errors, "Bad serial number '$hr->{'serial'}'";
+        push @errors, 'Bad serial number';
     }
 
     ## date_entered has already been validated in load_notes

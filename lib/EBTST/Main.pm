@@ -1350,7 +1350,11 @@ sub bad_notes {
     foreach my $bn (@$bad_notes) {
         my $pc = substr $bn->{'short_code'}, 0, 1;
         my $cc = substr $bn->{'serial'},     0, 1;
-        $bn->{'serial'} =~ s/^([A-Z])....(....)...$/$1xxxx$2xxx/;
+        if (grep { 'Bad serial number' eq $_ } @{ $bn->{'errors'} }) {
+            $bn->{'serial'} = sprintf "%s\x{2026}", substr $bn->{'serial'}, 0, 4;
+        } else {
+            $bn->{'serial'} =~ s/^([A-Z])....(....)...$/$1xxxx$2xxx/;
+        }
         $bn->{'short_code'} = substr $bn->{'short_code'}, 0, 4;
         push @cooked, {
             %$bn,

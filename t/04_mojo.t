@@ -27,6 +27,7 @@ $ENV{'BASE_DIR'} = File::Spec->catfile (getcwd, (dirname __FILE__), '..');
 
 $t = Test::Mojo->new ('EBTST');
 
+
 my $users_file = $t->ua->app->config ('users_db');
 open my $fd, '<:encoding(UTF-8)', $users_file or die "open: '$users_file': $!"; my @lines = <$fd>; close $fd;
 if (5 != @lines) { die 'user database is broken'; }
@@ -74,30 +75,30 @@ $t->get_ok ('/configure')->text_is ('div#error_msg' => '', 'no error_msg');
 
 $t->post_form_ok ('/upload', {
     #csrftoken => $csrftoken,
-})->status_is (200)->content_type_is ('text/plain')->content_is ('no_csvs', 'upload with no CSVs');
+})->status_is (200)->content_type_is ('text/plain; charset=utf-8')->content_is ('no_csvs', 'upload with no CSVs');
 
 
 ## upload hits CSV, which is an error without notes
 $t->post_form_ok ('/upload', {
     hits_csv_file => { file => 't/hits1.csv' },
     #csrftoken => $csrftoken,
-})->status_is (200)->content_type_is ('text/plain')->content_like (qr/^[0-9a-f]{8}$/, 'upload hits without notes in the database');
+})->status_is (200)->content_type_is ('text/plain; charset=utf-8')->content_like (qr/^[0-9a-f]{8}$/, 'upload hits without notes in the database');
 my $sha = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->text;
-next_is_xhr; $t->get_ok ("/import/$sha")->status_is (200)->content_type_is ('text/plain')->content_is ('no_notes', 'import hits with no notes in the database');
+next_is_xhr; $t->get_ok ("/import/$sha")->status_is (200)->content_type_is ('text/plain; charset=utf-8')->content_is ('no_notes', 'import hits with no notes in the database');
 
 
 ## upload notes CSV
 $t->post_form_ok ('/upload', {
     notes_csv_file => { file => 't/notes1.csv' },
     #csrftoken => $csrftoken,
-})->status_is (200)->content_type_is ('text/plain')->content_like (qr/^[0-9a-f]{8}$/, 'upload notes');
+})->status_is (200)->content_type_is ('text/plain; charset=utf-8')->content_like (qr/^[0-9a-f]{8}$/, 'upload notes');
 $sha = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->text;
 
 $t->get_ok ("/import/$sha")->status_is (404);
 
 my $bad_sha = $sha; $bad_sha =~ tr/0-9a-f/a-f0-9/;
 next_is_xhr; $t->get_ok ("/import/$bad_sha")->status_is (404);
-next_is_xhr; $t->get_ok ("/import/$sha")->status_is (200)->content_type_is ('text/plain')->content_is ('information', 'import');
+next_is_xhr; $t->get_ok ("/import/$sha")->status_is (200)->content_type_is ('text/plain; charset=utf-8')->content_is ('information', 'import');
 
 ## correct data
 $t->get_ok ('/information')->status_is (200)->content_like (qr/\bSignatures:.*\bDuisenberg 0.*\bTrichet 2.*\bDraghi 0\b/s, 'correct data')->
@@ -118,9 +119,9 @@ $t->get_ok ('/travel_stats')->status_is (200)->content_like (qr{Number of locati
 $t->post_form_ok ('/upload', {
     notes_csv_file => { file => 't/notes1.csv' },
     #csrftoken => $csrftoken,
-})->status_is (200)->content_type_is ('text/plain')->content_like (qr/^[0-9a-f]{8}$/, 'upload notes again');
+})->status_is (200)->content_type_is ('text/plain; charset=utf-8')->content_like (qr/^[0-9a-f]{8}$/, 'upload notes again');
 $sha = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->text;
-next_is_xhr; $t->get_ok ("/import/$sha")->status_is (200)->content_type_is ('text/plain')->content_is ('information', 'import');
+next_is_xhr; $t->get_ok ("/import/$sha")->status_is (200)->content_type_is ('text/plain; charset=utf-8')->content_is ('information', 'import');
 $t->get_ok ('/information')->status_is (200)->content_like (qr/\bSignatures:.*\bDuisenberg 0.*\bTrichet 2.*\bDraghi 0\b/s, 'correct data')->
     content_like (qr/short_codes/, 'with sections')->content_unlike (qr/hit_list/, 'with no hit sections')->text_is ('div#error_msg' => '', 'no error_msg');
 
@@ -131,19 +132,19 @@ next_is_xhr; $t->post_form_ok ('/calc_sections', {
     information => 1,
     value       => 1,
     #csrftoken   => $csrftoken,
-})->status_is (200)->content_type_is ('text/plain')->content_like (qr/^[0-9a-z]{8}$/, 'calc_sections');
+})->status_is (200)->content_type_is ('text/plain; charset=utf-8')->content_like (qr/^[0-9a-z]{8}$/, 'calc_sections');
 
-$t->get_ok ('/information.txt')->status_is (200)->content_type_is ('text/plain')->content_like (qr/Signatures:.*\bDuisenberg 0.*\bTrichet 2.*\bDraghi 0\b/s, 'BBCode information');
+$t->get_ok ('/information.txt')->status_is (200)->content_type_is ('text/plain; charset=utf-8')->content_like (qr/Signatures:.*\bDuisenberg 0.*\bTrichet 2.*\bDraghi 0\b/s, 'BBCode information');
 $t->get_ok ('/value.txt')->status_is (200)->content_like (qr/\b20\b.*\b1\b.*\b50\.00 %.*\b20\b/s, 'BBCode value');
 
 ## upload hits CSV
 next_is_xhr; $t->post_form_ok ('/upload', {
     hits_csv_file => { file => 't/hits1.csv' },
     #csrftoken => $csrftoken,
-})->status_is (200)->content_type_is ('text/plain')->content_like (qr/^[0-9a-z]{8}$/, 'upload hits');
+})->status_is (200)->content_type_is ('text/plain; charset=utf-8')->content_like (qr/^[0-9a-z]{8}$/, 'upload hits');
 
 $sha = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->text;
-next_is_xhr; $t->get_ok ("/import/$sha")->status_is (200)->content_type_is ('text/plain')->content_is ('information', 'import hits');
+next_is_xhr; $t->get_ok ("/import/$sha")->status_is (200)->content_type_is ('text/plain; charset=utf-8')->content_is ('information', 'import hits');
 
 foreach my $section (qw/
     information value countries printers locations travel_stats huge_table short_codes nice_serials coords_bingo notes_per_year notes_per_month
@@ -163,10 +164,10 @@ system qq{sed -e 's/__TODAY__/$now/' <t/one-broken-note.csv >/tmp/one-broken-not
 $t->post_form_ok ('/upload', {
     notes_csv_file => { file => '/tmp/one-broken-note.csv' },
     #csrftoken => $csrftoken,
-})->status_is (200)->content_type_is ('text/plain')->content_like (qr/^[0-9a-f]{8}$/, 'upload notes');
+})->status_is (200)->content_type_is ('text/plain; charset=utf-8')->content_like (qr/^[0-9a-f]{8}$/, 'upload notes');
 unlink '/tmp/one-broken-note.csv' or warn "unlink: '/tmp/one-broken-note.csv': $!";
 $sha = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->text;
-next_is_xhr; $t->get_ok ("/import/$sha")->status_is (200)->content_type_is ('text/plain')->content_is ('information', 'import');
+next_is_xhr; $t->get_ok ("/import/$sha")->status_is (200)->content_type_is ('text/plain; charset=utf-8')->content_is ('information', 'import');
 foreach my $section (qw/
     information value countries printers locations travel_stats huge_table short_codes nice_serials coords_bingo notes_per_year notes_per_month
     top_days time_analysis_bingo time_analysis_detail combs_bingo combs_detail plate_bingo hit_list hit_times_bingo hit_times_detail
@@ -182,9 +183,9 @@ $t->post_form_ok ('/upload', {
     notes_csv_file => { file => 't/one-passive-mod-hit-notes.csv' },
     hits_csv_file  => { file => 't/one-passive-mod-hit-hits.csv' },
     #csrftoken => $csrftoken,
-})->status_is (200)->content_type_is ('text/plain')->content_like (qr/^[0-9a-f]{8}$/, 'upload notes');
+})->status_is (200)->content_type_is ('text/plain; charset=utf-8')->content_like (qr/^[0-9a-f]{8}$/, 'upload notes');
 $sha = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->text;
-next_is_xhr; $t->get_ok ("/import/$sha")->status_is (200)->content_type_is ('text/plain')->content_is ('information', 'import');
+next_is_xhr; $t->get_ok ("/import/$sha")->status_is (200)->content_type_is ('text/plain; charset=utf-8')->content_is ('information', 'import');
 foreach my $section (qw/
     information value countries printers locations travel_stats huge_table short_codes nice_serials coords_bingo notes_per_year notes_per_month
     top_days time_analysis_bingo time_analysis_detail combs_bingo combs_detail plate_bingo hit_list hit_times_bingo hit_times_detail
@@ -203,10 +204,10 @@ next_is_xhr; $t->post_form_ok ('/upload', {
     notes_csv_file => { file => 't/notes5.csv' },
     hits_csv_file => { file => 't/hits5.csv' },
     #csrftoken => $csrftoken,
-})->status_is (200)->content_type_is ('text/plain')->content_like (qr/^[0-9a-z]{8}$/, 'upload notes and hits');
+})->status_is (200)->content_type_is ('text/plain; charset=utf-8')->content_like (qr/^[0-9a-z]{8}$/, 'upload notes and hits');
 
 $sha = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->text;
-next_is_xhr; $t->get_ok ("/import/$sha")->status_is (200)->content_type_is ('text/plain')->content_is ('information', 'import notes and hits');
+next_is_xhr; $t->get_ok ("/import/$sha")->status_is (200)->content_type_is ('text/plain; charset=utf-8')->content_is ('information', 'import notes and hits');
 
 ## moderated hits don't appear in hit_list
 $t->get_ok ('/hit_list')->status_is (200)->content_unlike (qr/Xxxxx2000xxx/, 'moderated hits are ignored');
@@ -225,24 +226,24 @@ $t->get_ok ('/locations')->status_is (200)->content_like (qr/Kosovo/, 'Kosovo su
 $t->post_form_ok ('/upload', {
     notes_csv_file => { file => 't/hits1.csv' },
     #csrftoken => $csrftoken,
-})->status_is (200)->content_type_is ('text/plain')->content_like (qr/^[0-9a-f]{8}$/, 'upload bad notes CSV');
+})->status_is (200)->content_type_is ('text/plain; charset=utf-8')->content_like (qr/^[0-9a-f]{8}$/, 'upload bad notes CSV');
 $sha = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->text;
-next_is_xhr; $t->get_ok ("/import/$sha")->status_is (200)->content_type_is ('text/plain')->content_is ('bad_notes', 'import bad notes CSV');
+next_is_xhr; $t->get_ok ("/import/$sha")->status_is (200)->content_type_is ('text/plain; charset=utf-8')->content_is ('bad_notes', 'import bad notes CSV');
 
 $t->post_form_ok ('/upload', {
     hits_csv_file => { file => 't/notes1.csv' },
     #csrftoken => $csrftoken,
-})->status_is (200)->content_type_is ('text/plain')->content_like (qr/^[0-9a-f]{8}$/, 'upload bad hits CSV');
+})->status_is (200)->content_type_is ('text/plain; charset=utf-8')->content_like (qr/^[0-9a-f]{8}$/, 'upload bad hits CSV');
 $sha = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->text;
-next_is_xhr; $t->get_ok ("/import/$sha")->status_is (200)->content_type_is ('text/plain')->content_is ('bad_hits', 'import bad hits CSV');
+next_is_xhr; $t->get_ok ("/import/$sha")->status_is (200)->content_type_is ('text/plain; charset=utf-8')->content_is ('bad_hits', 'import bad hits CSV');
 
 $t->post_form_ok ('/upload', {
     notes_csv_file => { file => 't/hits1.csv' },
     hits_csv_file => { file => 't/notes1.csv' },
     #csrftoken => $csrftoken,
-})->status_is (200)->content_type_is ('text/plain')->content_like (qr/^[0-9a-f]{8}$/, 'upload bad notes and hits CSVs');
+})->status_is (200)->content_type_is ('text/plain; charset=utf-8')->content_like (qr/^[0-9a-f]{8}$/, 'upload bad notes and hits CSVs');
 $sha = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->text;
-next_is_xhr; $t->get_ok ("/import/$sha")->status_is (200)->content_type_is ('text/plain')->content_is ('bad_notes', 'import bad notes and hits CSVs');
+next_is_xhr; $t->get_ok ("/import/$sha")->status_is (200)->content_type_is ('text/plain; charset=utf-8')->content_is ('bad_notes', 'import bad notes and hits CSVs');
 
 ## logging out
 $t->get_ok ('/logout')->status_is (302)->header_like (Location => qr/index/, 'log out');
@@ -378,5 +379,7 @@ $t->ua->once (start => sub {
     $tx->req->headers->header ('User-Agent', 'Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0)');
 });
 $t->get_ok ('/configure')->status_is (200)->content_like (qr/CSV upload doesn't work with Internet Explorer/);
+
+
 
 done_testing 550;

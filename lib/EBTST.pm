@@ -284,6 +284,8 @@ sub startup {
     _mkdir $images_dir;
     _mkdir $config{'csvs_dir'};
 
+    $self->types->type (txt => 'text/plain; charset=utf-8');
+
     ## quickly hackly emulate the relevant CREATE TABLE
     if (!-f "$sess_dir/session") {
         open my $fd, '>', "$sess_dir/session" or die "open: '$sess_dir/session': $!";

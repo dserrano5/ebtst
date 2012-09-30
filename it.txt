@@ -290,6 +290,7 @@ Submit = Invio
 
 ## help
 _help_main_usage_1 = Dopo aver caricato i file CSV (vedere la sezione "Configurazione"), selezionare le caselle desiderate a sinistra e cliccare su "BBCode / HTML" per generare statistiche pubbliche. Si apre una nuova finestra o scheda con un collegamento a BBCode e HTML.
+_help_main_usage_2 = Note that you need a reasonable recent web browser to get the most out of EBTST. Firefox 8, Chrome 14 and Opera 9.80 are known to work. On the other hand, Internet Explorer is not supported.
 _help_colors_1 = Alcune sezioni mostrano i numeri in diversi colori. I colori sono:
 _help_colors_2 = Gli asterischi colorati che appaiono in alcune pagine mostrano quanto sono recenti le note:
 note has been entered up to 1 year ago = La banconota è stata inserita da meno di 1 anno
@@ -305,6 +306,8 @@ _nice_serials_1 = I criteri in base a cui si classificano i numeri di serie sono
 _coords_bingo_1 = Per evitare voci inutili, anche qui vengono ignorate le banconote con errori.
 _combinations_1 = Anche in questo caso non sono conteggiate le banconote con errori. Sommate verticalmente tra loro, le percentuali danno un totale pari a 100%.
 _plate_bingo_1 = Vengono ignorate le banconote con errori. Nessun trattamento speciale è riservato ai casi di lastre di stampa che condividono firme diverse di presidenti della BCE (attuamente sono: <img src="images/values/10.gif"> K007, <img src="images/values/10.gif"> P005, <img src="images/values/20.gif"> F002 e <img src="images/values/100.gif"> F002).
+_hit_analysis_1 = The table under "Lucky bundles" shows the days with more than one hit notes, sorted by hit ratio. For example if a given day you inserted 3 notes and all of them eventually became hits (either active or passive), the hit ratio for that day will be 1, and it will likely appear at the top of the table.
+_hit_analysis_2 = The section "Other hit potential" shows days with only one hit, that could potentially enter the "Lucky bundles" table if another one of that day's notes becomes a hit.
 
 ## days of week
 Monday = Lunedì

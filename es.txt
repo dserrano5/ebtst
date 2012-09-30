@@ -292,6 +292,7 @@ Submit = Enviar
 ## help
 Main usage = Uso
 _help_main_usage_1 = Después de subir tus archivos CSV (ver sección "Configuración"), marca las casillas deseadas de la izquierda y pincha en "BBCode/HTML" para generar las estadísticas públicas. Se abrirá una nueva ventana o tab con el BBCode y un enlace al HTML. Asegúrate de que tu bloqueador de ventanas emergentes (si tienes) está configurado para permitir dserrano5.es.
+_help_main_usage_2 = Ten en cuenta que hace falta un navegador razonablemente reciente para obtener la mejor experiencia de EBTST. Firefox 8, Chrome 14 y Opera 9.80 funcionan sin problema. Por otro lado, Internet Explorer no está soportado.
 _help_colors_1 = Algunas secciones muestran números pintados de diferentes colores. Los colores son:
 _help_colors_2 = Los asteriscos coloreados que aparecen en varios sitios muestran lo recientes que son los billetes:
 grey = gris
@@ -315,6 +316,8 @@ _nice_serials_1 = El algoritmo para puntuar los números de serie es como sigue:
 _coords_bingo_1 = Igual que en "Tabla tocha", se ignoran los billetes con errores.
 _combinations_1 = De nuevo, se ignoran los billetes con errores. Igual que en "Países" e "Imprentas", los porcentajes suman 100% en vertical.
 _plate_bingo_1 = Se ignoran los billetes con errores. No se da tratamiento especial a los raros casos de planchas que comparten distintas firmas del presidente del BCE (concretamente: <img src="images/values/10.gif"> K007, <img src="images/values/10.gif"> P005, <img src="images/values/20.gif"> F002 and <img src="images/values/100.gif"> F002).
+_hit_analysis_1 = La tabla bajo "Días afortunados" muestra los días de entre cuyos billetes hay más de un hit, ordenados por ratio de hits. Por ejemplo, si un día dado insertaste 3 billetes, todos los cuales fueron hit (ya sea activo o pasivo), el ratio de hits de ese día es 1 y probablemente ese día estará de primero en la lista.
+_hit_analysis_2 = La sección "Días potenciales" muestra los días con un solo hit, que potencialmente podrían pasar a la tabla "Días afortunados" si otro de los billetes de ese día se convierte en hit.
 
 ## days of week
 Monday = Lunes

@@ -1,5 +1,6 @@
 ## help
 _help_main_usage_1 = After uploading your CSV files (see section "Configuration"), check the desired checkboxes at the left and click on "BBCode/HTML" to generate the public statistics. A new tab or window will appear containing the BBCode and a link to the HTML stats. Make sure that your pop-up blocker (if any) is configured to allow pop-ups from dserrano5.es.
+_help_main_usage_2 = Note that you need a reasonable recent web browser to get the most out of EBTST. Firefox 8, Chrome 14 and Opera 9.80 are known to work. On the other hand, Internet Explorer is not supported.
 _help_colors_1 = Some sections display colored numbers. The key to colors is:
 _help_colors_2 = Colored stars that appear in several places denote how recent notes are:
 _configure_1 = EBTST accepts compressed CSV files. Compression algorithms supported are zip and gzip. Using compressed files helps reducing the upload time.
@@ -14,3 +15,5 @@ _nice_serials_1 = The algorithm for scoring serial numbers is as follows: first,
 _coords_bingo_1 = Just like in "Huge table", notes known to have errors are ignored.
 _combinations_1 = Again, notes known to have errors are ignored. As in "Countries" and "Printers", the percent numbers add up to 100% vertically.
 _plate_bingo_1 = Notes known to have errors are ignored. The rare plates that share different signatures of the ECB president (namely: <img src="images/values/10.gif"> K007, <img src="images/values/10.gif"> P005, <img src="images/values/20.gif"> F002 and <img src="images/values/100.gif"> F002) aren't treated specially.
+_hit_analysis_1 = The table under "Lucky bundles" shows the days with more than one hit notes, sorted by hit ratio. For example if a given day you inserted 3 notes and all of them eventually became hits (either active or passive), the hit ratio for that day will be 1, and it will likely appear at the top of the table.
+_hit_analysis_2 = The section "Other hit potential" shows days with only one hit, that could potentially enter the "Lucky bundles" table if another one of that day's notes becomes a hit.

@@ -290,6 +290,7 @@ Submit = Envoyer
 
 ## help
 _help_main_usage_1 = Après avoir téléchargé vos fichiers CSV (dans la section "Configuration"), cochez les cases désirées dans la liste de gauche et cliquez sur "BBCode/HTML" pour générer vos statistiques publiques. Le code BBCode ainsi qu'un lien vers le fichier HTML apparaîtront dans une nouvelle fenêtre ou onglet.
+_help_main_usage_2 = Note that you need a reasonable recent web browser to get the most out of EBTST. Firefox 8, Chrome 14 and Opera 9.80 are known to work. On the other hand, Internet Explorer is not supported.
 _help_colors_1 = On trouve dans certaines sections des chiffres de couleurs différentes. Leur signification est la suivante :
 _help_colors_2 = Des astérisques de couleurs différentes apparaissent dans certaines sections et indiquent la durée écoulée depuis l'encodage d'un billet :
 note has been entered up to 1 year ago = Billet encodé il y a moins d'un an
@@ -305,6 +306,8 @@ _nice_serials_1 = L'algorithme de classement des numéros de série est le suiva
 _coords_bingo_1 = Comme dans le "Tableau complet", les billets erronés sont ignorés.
 _combinations_1 = Les billets erronés sont à nouveau ignorés. Comme pour les sections "Pays" et "Imprimeurs", la somme des pourcentages d'une colonne est égale à 100%.
 _plate_bingo_1 = Les billets erronés sont ignorés. Les quelques planches qui peuvent porter la signature de présidents différents de la BCE (c'est-à-dire <img src="images/values/10.gif"> K007, <img src="images/values/10.gif"> P005, <img src="images/values/20.gif"> F002 and <img src="images/values/100.gif"> F002) sont traitées comme les autres.
+_hit_analysis_1 = The table under "Lucky bundles" shows the days with more than one hit notes, sorted by hit ratio. For example if a given day you inserted 3 notes and all of them eventually became hits (either active or passive), the hit ratio for that day will be 1, and it will likely appear at the top of the table.
+_hit_analysis_2 = The section "Other hit potential" shows days with only one hit, that could potentially enter the "Lucky bundles" table if another one of that day's notes becomes a hit.
 
 ## days of week
 Monday = Lundi

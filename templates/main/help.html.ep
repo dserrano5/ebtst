@@ -2,6 +2,7 @@
 
 <h3><%=l 'Main usage' =%></h3>
 <p><%=l2 '_help_main_usage_1' %></p>
+<p><%=l2 '_help_main_usage_2' %></p>
 
 <h3><%=l 'Colors' =%></h3>
 <p><%=l2 '_help_colors_1' %></p>
@@ -59,3 +60,7 @@
 
 <h3><%=l 'Plate bingo' =%></h3>
 <p><%==l2 '_plate_bingo_1' %></p>
+
+<h3><%=l 'Hit analysis' =%></h3>
+<p><%==l2 '_hit_analysis_1' %></p>
+<p><%==l2 '_hit_analysis_2' %></p>

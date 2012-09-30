@@ -290,6 +290,7 @@ Submit = Hochladen
 
 ## help
 _help_main_usage_1 = Nach dem Hochladen deiner Schein- und Trefferdaten (siehe "Einstellungen") wähle die gewünschten Checkboxen auf der linken Seite aus und klicke auf BBCode/HTML um die öffentlichen Statistiken zu erzeugen. Dann öffnet sich ein neues Fenster oder ein neuer Reiter mit dem BBCode und dem Link zur HTML-Version.
+_help_main_usage_2 = Note that you need a reasonable recent web browser to get the most out of EBTST. Firefox 8, Chrome 14 and Opera 9.80 are known to work. On the other hand, Internet Explorer is not supported.
 _help_colors_1 = Einige Abschnitte beinhalten farbige Zahlen, die folgende Bedeutung haben:
 _help_colors_2 = Farbige Sterne, die an einigen Stellen auftauchen, haben folgende Bedeutung:
 note has been entered up to 1 year ago = ein Schein wurde innerhalb des letzten Jahres eingegeben
@@ -305,6 +306,8 @@ _nice_serials_1 = Der Algorithmus um Seriennummern zu bewerten funktioniert wie 
 _coords_bingo_1 = Wie in der Großen Tabelle werden fehlerhafte Scheindaten nicht berücksichtigt.
 _combinations_1 = Wieder werden fehlerhafte Scheindaten nicht berücksichtigt. Wie in den Tabellen bei den Ländern und Druckereien addieren sich die einzelnen Anteile senkrecht zu 100 % auf.
 _plate_bingo_1 = Fehlerhafte Scheindaten werden nicht berücksichtigt. Die wenigen Platten, bei denen die Unterschriften verschiedener EZB-Präsidenten benutzt wurden (nämlich <img src="images/values/10.gif"> K007, <img src="images/values/10.gif"> P005, <img src="images/values/20.gif"> F002 und <img src="images/values/100.gif"> F002), werden nicht gesondert behandelt.
+_hit_analysis_1 = The table under "Lucky bundles" shows the days with more than one hit notes, sorted by hit ratio. For example if a given day you inserted 3 notes and all of them eventually became hits (either active or passive), the hit ratio for that day will be 1, and it will likely appear at the top of the table.
+_hit_analysis_2 = The section "Other hit potential" shows days with only one hit, that could potentially enter the "Lucky bundles" table if another one of that day's notes becomes a hit.
 
 ## days of week
 Monday = Montag

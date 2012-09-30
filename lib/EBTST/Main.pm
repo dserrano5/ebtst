@@ -2072,7 +2072,7 @@ sub gen_output {
         title      => $section_titles{'bbcode'},
         user       => undef,
         url        => $self->stash ('public_stats'),
-        req_params => \@req_params,
+        req_params => [ map { $section_titles{$_} } @req_params ],
         bbcode     => (join "\n\n", grep defined, @rendered_bbcode),
     );
 }

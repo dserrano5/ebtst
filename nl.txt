@@ -276,8 +276,8 @@ hit = hit
 hits = hits
 
 ## gen_output
-Public stats have been generated = De openbare statistieken zijn gegenereerd
-Link = Link
+#Public stats have been generated = De openbare statistieken zijn gegenereerd
+#Link = Link
 
 ## configuration
 #Name = Naam

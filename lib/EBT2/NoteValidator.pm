@@ -60,8 +60,8 @@ sub validate_note {
     push @errors, "Bad note id '$hr->{'id'}'" if $hr->{'id'} !~ /^\d+$/;
     push @errors, "Bad number of times entered '$hr->{'times_entered'}'" if $hr->{'times_entered'} !~ /^\d+$/;
     push @errors, "Bad status of moderated hit '$hr->{'moderated_hit'}'" if $hr->{'moderated_hit'} !~ /^[01]$/;
-    push @errors, "Bad latitude '$hr->{'lat'}'"   if length $hr->{'lat'}  and $hr->{'lat'}  !~ /^ -? \d+ (?: \. \d+ )? $/x;
-    push @errors, "Bad longitude '$hr->{'long'}'" if length $hr->{'long'} and $hr->{'long'} !~ /^ -? \d+ (?: \. \d+ )? $/x;
+    push @errors, "Bad latitude '$hr->{'lat'}'"   if length $hr->{'lat'}  and $hr->{'lat'}  !~ /^ -? \d{1,2} (?: \. \d+ )? $/x;
+    push @errors, "Bad longitude '$hr->{'long'}'" if length $hr->{'long'} and $hr->{'long'} !~ /^ -? \d{1,3} (?: \. \d+ )? $/x;
 
     return encode_base64 +(join ';', @errors), '';
 }

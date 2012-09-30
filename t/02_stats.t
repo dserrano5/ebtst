@@ -253,5 +253,32 @@ eval { $data_obj->load_hits (undef, 't/hits8b.csv'); };
 like $@, qr/Unrecognized hits file/, 'load_hits dies if it references unknown notes';
 
 
-done_testing 230;
+note 'note validator';
+$data_obj->load_notes (undef, 't/notes-validator.csv');
+$res = $st->bad_notes (undef, $data_obj);
+is $res->{'bad_notes'}[0]{'errors'}[0], q{Bad value '6'}, 'Bad value';
+is $res->{'bad_notes'}[1]{'errors'}[0], q{Bad year '2005'}, 'Bad year';
+is $res->{'bad_notes'}[2]{'errors'}[0], q{Bad checksum for serial number 'X22222222222'}, 'Bad checksum';
+is $res->{'bad_notes'}[3]{'errors'}[0], q{Bad serial number '_00035080005'}, 'Bad serial number';
+is $res->{'bad_notes'}[4]{'errors'}[0], q{Bad short code 'E001A9'}, 'Bad short code';
+is $res->{'bad_notes'}[5]{'errors'}[0], q{Bad short code position 'J1'}, 'Bad short code position';
+is $res->{'bad_notes'}[6]{'errors'}[0], q{Plate 'P100' doesn't exist for 5/X}, 'Unknown plate';
+is $res->{'bad_notes'}[7]{'errors'}[0], q{Bad note id '_9999999992'}, 'Bad note id';
+is $res->{'bad_notes'}[8]{'errors'}[0], q{Bad number of times entered '_'}, 'Bad times_entered';
+is $res->{'bad_notes'}[9]{'errors'}[0], q{Bad status of moderated hit '2'}, 'Bad is_moderated';
+is $res->{'bad_notes'}[10]{'errors'}[0], q{Bad latitude '442532.3'}, 'Bad latitude';
+is $res->{'bad_notes'}[11]{'errors'}[0], q{Bad longitude '122317.6'}, 'Bad longitude';
+is $res->{'bad_notes'}[12]{'errors'}[0], q{Bad value '7'}, 'Multiple errors: bad value';
+is $res->{'bad_notes'}[12]{'errors'}[1], q{Bad year '2009'}, 'Multiple errors: bad year';
+is $res->{'bad_notes'}[12]{'errors'}[2], q{Bad checksum for serial number 'U00001960001'}, 'Multiple errors: bad checksum';
+is $res->{'bad_notes'}[12]{'errors'}[3], q{Bad short code 'L001A9'}, 'Multiple errors: bad short code';
+is $res->{'bad_notes'}[12]{'errors'}[4], q{Plate 'L001' doesn't exist for 7/U}, 'Multiple errors: unknown plate';
+is $res->{'bad_notes'}[12]{'errors'}[5], q{Bad note id '_9999999987'}, 'Multiple errors: bad note id';
+is $res->{'bad_notes'}[12]{'errors'}[6], q{Bad number of times entered '_'}, 'Multiple errors: bad times_entered';
+is $res->{'bad_notes'}[12]{'errors'}[7], q{Bad status of moderated hit '2'}, 'Multiple errors: bad is_moderated';
+is $res->{'bad_notes'}[12]{'errors'}[8], q{Bad latitude '44532.3'}, 'Multiple errors: bad latitude';
+is $res->{'bad_notes'}[12]{'errors'}[9], q{Bad longitude '12317.6'}, 'Multiple errors: bad longitude';
+
+
+done_testing 252;
 unlink '/tmp/ebt2-storable' or warn "unlink: '/tmp/ebt2-storable': $!";

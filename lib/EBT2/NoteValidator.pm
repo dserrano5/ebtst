@@ -39,7 +39,7 @@ sub validate_note {
 
     #push @errors, "Bad city '$hr->{'city'}'" unless length $hr->{'city'};
     #push @errors, "Bad country '$hr->{'country'}'" unless length $hr->{'country'};
-    #push @errors, "Bad zip '$hr->{'zip'}'" unless length $hr->{'zip'};  ## irish notes haven't a zip code
+    #push @errors, "Bad zip '$hr->{'zip'}'" unless length $hr->{'zip'};  ## irish notes may not have a zip code
 
     if ($hr->{'short_code'} !~ /[DEFGHJKLMNPRTU]\d{3}[A-J][0-6]/) {
         push @errors, "Bad short code '$hr->{'short_code'}'";
@@ -57,7 +57,7 @@ sub validate_note {
         push @errors, "Plate '$plate' doesn't exist for $v/$cc";
     }
 
-    push @errors, "Bad id '$hr->{'id'}'" if $hr->{'id'} !~ /^\d+$/;
+    push @errors, "Bad note id '$hr->{'id'}'" if $hr->{'id'} !~ /^\d+$/;
     push @errors, "Bad number of times entered '$hr->{'times_entered'}'" if $hr->{'times_entered'} !~ /^\d+$/;
     push @errors, "Bad status of moderated hit '$hr->{'moderated_hit'}'" if $hr->{'moderated_hit'} !~ /^[01]$/;
     push @errors, "Bad latitude '$hr->{'lat'}'"   if length $hr->{'lat'}  and $hr->{'lat'}  !~ /^ -? \d+ (?: \. \d+ )? $/x;

@@ -94,6 +94,7 @@ while (my $notes = $obj->note_getter (interval => 'all')) {
 }
 is $c, 1, 'All: did 1 iteration';
 
+
 ## use another CSV for the following tests
 $obj = new_ok 'EBT2::Data', [ db => '/tmp/ebt2-storable' ];
 $obj->load_notes (undef, 't/notes-sigs.csv');
@@ -117,9 +118,11 @@ is +(EBT2::Data::serial_remove_meaningless_figures2 5,     'F001A1', 'P00000'), 
 is +(EBT2::Data::serial_remove_meaningless_figures2 500,   'F001A1', 'P00000'), 'P**000', 'Remove meaningless figures in F/P 500';
 is +(EBT2::Data::serial_remove_meaningless_figures2 undef, 'G001A1', 'H00000'), 'H00000', 'Remove meaningless figures in G/H';
 is +(EBT2::Data::serial_remove_meaningless_figures2 undef, 'G001A1', 'N00000'), 'N00000', 'Remove meaningless figures in G/N';
+is +(EBT2::Data::serial_remove_meaningless_figures2 undef, 'K001A1', 'T00000'), 'T00000', 'Remove meaningless figures in K/T';
 is +(EBT2::Data::serial_remove_meaningless_figures2 undef, 'L001A1', 'U00000'), 'U**000', 'Remove meaningless figures in L/U';
 is +(EBT2::Data::serial_remove_meaningless_figures2 undef, 'T001A1', 'Z00000'), 'Z0**00', 'Remove meaningless figures in M/V';
 is +(EBT2::Data::serial_remove_meaningless_figures2 undef, 'U001A1', 'M00000'), 'M00000', 'Remove meaningless figures in U/M';
 
-done_testing 78;
+
+done_testing 79;
 unlink '/tmp/ebt2-storable' or warn "unlink: '/tmp/ebt2-storable': $!";

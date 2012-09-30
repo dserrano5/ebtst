@@ -289,14 +289,14 @@ Hits CSV file = CSV-Datei (Treffer)
 Submit = Hochladen
 
 ## help
-_help_main_usage_1 = Nach dem Hochladen deiner Schein- und Trefferdaten (siehe Einstellungen) wähle die gewünschten Checkboxen auf der linken Seite aus und klicke auf BBCode/HTML um die öffentlichen Statistiken zu erzeugen. Dann öffnet sich ein neues Fenster oder ein neuer Reiter mit dem BBCode und dem Link zur HTML-Version.
+_help_main_usage_1 = Nach dem Hochladen deiner Schein- und Trefferdaten (siehe "Einstellungen") wähle die gewünschten Checkboxen auf der linken Seite aus und klicke auf BBCode/HTML um die öffentlichen Statistiken zu erzeugen. Dann öffnet sich ein neues Fenster oder ein neuer Reiter mit dem BBCode und dem Link zur HTML-Version.
 _help_colors_1 = Einige Abschnitte beinhalten farbige Zahlen, die folgende Bedeutung haben:
 _help_colors_2 = Farbige Sterne, die an einigen Stellen auftauchen, haben folgende Bedeutung:
 note has been entered up to 1 year ago = ein Schein wurde innerhalb des letzten Jahres eingegeben
 note has been entered up to 3 months ago = ein Schein wurde innerhalb der letzten drei Monate eingegeben
 note has been entered up to 1 week ago = ein Schein wurde innerhalb der letzten Woche eingegeben
 _configure_1 = EBTST kann mit komprimierten CSV-Dateien umgehen. Unterstützt werden die Formate ZIP und GZIP. Komprimierte Dateien benötigen weniger Zeit zum Hochladen.
-_configure_2 = Eine Kopie der Scheindatei wird in folgendem Format aufbewahrt:
+_configure_4 = Eine Kopie der Scheindatei wird in folgendem Format aufbewahrt:
 _countries_1 = Der prozentuale Anteil, der in der zweiten Tabelle aufgeführt wird, gibt den Anteil der Scheine mit dem entsprechenden Ländercode an der Gesamtzahl der Scheine der entsprechenden Wertstufe wider. Senkrecht addieren sich die Zahlen also zu 100 % auf.
 _printers_1 = Wie bei den Ländern gibt der prozentuale Anteil, der in der zweiten Tabelle aufgeführt wird, den Anteil der Scheine mit dem entsprechenden Druckereicode an der Gesamtzahl der Scheine der entsprechenden Wertstufe wider. Senkrecht addieren sich die Zahlen also zu 100 % auf.
 _huge_table_1 = Um sinnlose Einträge zu vermeiden, werden Scheine mit fehlerhaften Daten nicht berücksichtigt.

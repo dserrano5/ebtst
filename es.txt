@@ -291,7 +291,7 @@ Submit = Enviar
 
 ## help
 Main usage = Uso
-_help_main_usage_1 = Después de subir tus archivos CSV (ver sección "Configure"), marcar las casillas deseadas de la izquierda y pinchar en "BBCode/HTML" para generar las estadísticas públicas. Se abrirá una nueva ventana o tab con el BBCode y un enlace al HTML.
+_help_main_usage_1 = Después de subir tus archivos CSV (ver sección "Configuración"), marca las casillas deseadas de la izquierda y pincha en "BBCode/HTML" para generar las estadísticas públicas. Se abrirá una nueva ventana o tab con el BBCode y un enlace al HTML. Asegúrate de que tu bloqueador de ventanas emergentes (si tienes) está configurado para permitir dserrano5.es.
 _help_colors_1 = Algunas secciones muestran números pintados de diferentes colores. Los colores son:
 _help_colors_2 = Los asteriscos coloreados que aparecen en varios sitios muestran lo recientes que son los billetes:
 grey = gris
@@ -304,7 +304,9 @@ note has been entered up to 1 year ago = billete introducido hace 1 año o menos
 note has been entered up to 3 months ago = billete introducido hace 3 meses o menos
 note has been entered up to 1 week ago = billete introducido hace 1 semana o menos
 _configure_1 = EBTST accepta archivos CSV comprimidos, en formato zip o gzip. El usar archivos comprimidos hace que el tiempo necesario para cargar los archivos sea menor.
-_configure_2 = Se almacenará una copia del archivo de billetes, con el siguiente formato:
+_configure_2 = Los programas de hoja de cálculo suelen alterar los archivos CSV que se abren con ellos. Principalmente alteran el formato de fecha y las coordenadas geográficas en los archivos. EBTST es lo suficientemente flexible como para aceptar algunos de estos formatos de fecha alternativos (pero observa que ninguno de ellos incluye los segundos, lo que significa que algunos bingos de tiempo quedarán incompletos):
+_configure_3 = Como se ha mencionado, en algunos archivos CSV las coordenadas geográficas tienen valores fuera del rango 180ºO a 180ºE y 90ºN a 90ºS. Parece que esos valores son 10 veces mayores de lo que deberían, por lo que EBTST simplemente los divide por 10. Sin embargo, se recomienda que subáis los archivos CSV tal como están descargados de la web de EBT, sin abrirlos con ninguna hoja de cálculo.
+_configure_4 = Se almacenará una copia del archivo de billetes, con el siguiente formato:
 _countries_1 = Los datos porcentuales que aparecen en la tabla "Detalle" muestran el porcentaje de billetes de cada país con respecto a la totalidad de billetes para ese valor. Por tanto, cuando se suman verticalmente, el resultado es 100%.
 _printers_1 = Igual que en "Países", los datos porcentuales que aparecen en la tabla "Detalle" muestran el porcentaje de billetes de cada imprenta con respecto a la totalidad de billetes para ese valor. Por tanto, cuando se suman verticalmente, el resultado es 100%.
 _huge_table_1 = Para evitar entradas inútiles en la tabla, se ignoran los billetes con errores.

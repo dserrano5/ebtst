@@ -20,12 +20,21 @@
     <li><span class="recent_3"></span>: <%=l 'note has been entered up to 1 week ago' %></li>
 </ul>
 
-<!--<h3><%=l 'Register' =%></h3>-->
-<!--<p>long user names with spaces and utf8, since the site accepts long passwords with spaces, it's recommended to take advantage of that</p>-->
-
 <h3><%=l 'Configuration' =%></h3>
 <p><%=l2 '_configure_1' %></p>
-<p><%=l2 '_configure_2' %> <span style="font-family: monospace; font-size: 0.8em;"><%=l2 '_configure_3' %></span>.</p>
+<p><%=l2 '_configure_2' %></p>
+<ul>
+    <li>31/9/12 23:59</li>
+    <li>31/09/12 23:59</li>
+    <li>31.9.12 23:59</li>
+    <li>31.09.12 23:59</li>
+    <li>31/9/2012 23:59</li>
+    <li>31/09/2012 23:59</li>
+    <li>31.9.2012 23:59</li>
+    <li>31.09.2012 23:59</li>
+</ul>
+<p><%=l2 '_configure_3' %></p>
+<p><%=l2 '_configure_4' %> <span style="font-family: monospace; font-size: 0.8em;">5;2002;V00000000xxx;M001A1;2010-01-01 00:00:00;Madrid;Spain</span>.</p>
 
 <h3><%=l 'Countries' =%></h3>
 <p><%=l2 '_countries_1' %></p>

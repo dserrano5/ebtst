@@ -1,10 +1,11 @@
 ## help
-_help_main_usage_1 = After uploading your CSV files (see section "Configure"), check the desired checkboxes at the left and click on "BBCode/HTML" to generate the public statistics. A new tab or window will appear containing the BBCode and a link to the HTML stats.
+_help_main_usage_1 = After uploading your CSV files (see section "Configuration"), check the desired checkboxes at the left and click on "BBCode/HTML" to generate the public statistics. A new tab or window will appear containing the BBCode and a link to the HTML stats. Make sure that your pop-up blocker (if any) is configured to allow pop-ups from dserrano5.es.
 _help_colors_1 = Some sections display colored numbers. The key to colors is:
 _help_colors_2 = Colored stars that appear in several places denote how recent notes are:
 _configure_1 = EBTST accepts compressed CSV files. Compression algorithms supported are zip and gzip. Using compressed files helps reducing the upload time.
-_configure_2 = A copy of the notes CSV will be kept in the following format:
-_configure_3 = 5;2002;V00000000xxx;M001A1;2010-01-01 00:00:00;Madrid;Spain
+_configure_2 = Spreadsheet software is known to alter the CSV files that you open with them. Mostly they change the date format and the geographic coordinates in the files. EBTST is flexible enough to accept some of this alternative date formats (note that none of these formats include any value for the seconds, which means that some of your time bingos will be incomplete):
+_configure_3 = As said, in some CSV files the geographic coordinates have values far outside the ranges 180ºW to 180ºE and 90ºN to 90ºS. It seems that those values are actually 10 times greater than they should so EBTST simply divides them by 10. However, it's recommended that you upload the CSVs just as you downloaded them from the EBT site, without opening them with any spreadsheet program.
+_configure_4 = A copy of the notes CSV will be kept in the following format:
 _countries_1 = The percent numbers that appear in the "Detail" table denote the percent of notes of each country among the totality of notes for that value. Thus, when added vertically, the result is 100%.
 _printers_1 = Just like in "Countries", the percent numbers that appear in the "Detail" table denote the percent of notes of each printer among the totality of notes for that value. Thus, when added vertically, the result is 100%.
 _huge_table_1 = To avoid useless entries in the table, notes known to have errors are ignored.

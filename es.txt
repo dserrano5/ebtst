@@ -1,5 +1,6 @@
 ## layout
 Public stats = Datos públicos
+Login = Entrar
 Information = Información
 Value = Valor
 Countries = Países
@@ -36,7 +37,6 @@ Help = Ayuda
 Welcome = Bienvenido
 User = Usuario
 Passphrase = Contraseña
-Login = Entrar
 Register = Registrarse
 Wrong username/passphrase = Usuario/contraseña incorrectos
 
@@ -158,7 +158,6 @@ Day = Día
 ## time analysis
 Time analysis = Análisis de tiempo
 Colors = Colores
-Calendar = Calendario
 or more = o más
 Days = Días
 Hours = Horas
@@ -211,6 +210,7 @@ Natural month = Mes natural
 Insert month = Mes de registro
 
 ## hit times
+Hit times = Análisis de tiempo (hits)
 
 ## hit locations
 My city = Mi ciudad
@@ -290,9 +290,16 @@ Hits CSV file = Archivo CSV de hits
 Submit = Enviar
 
 ## help
+Main usage = Uso
 _help_main_usage_1 = Después de subir tus archivos CSV (ver sección "Configure"), marcar las casillas deseadas de la izquierda y pinchar en "BBCode/HTML" para generar las estadísticas públicas. Se abrirá una nueva ventana o tab con el BBCode y un enlace al HTML.
 _help_colors_1 = Algunas secciones muestran números pintados de diferentes colores. Los colores son:
 _help_colors_2 = Los asteriscos coloreados que aparecen en varios sitios muestran lo recientes que son los billetes:
+grey = gris
+blue = azul
+green = verde
+yellow = amarillo
+red = rojo
+black = negro
 note has been entered up to 1 year ago = billete introducido hace 1 año o menos
 note has been entered up to 3 months ago = billete introducido hace 3 meses o menos
 note has been entered up to 1 week ago = billete introducido hace 1 semana o menos
@@ -483,6 +490,7 @@ iso3166_qa = Catar
 iso3166_ro = Rumanía
 iso3166_rs = Serbia
 iso3166_rskm = Kosovo
+iso3166_rsme = Serbia y Montenegro
 iso3166_ru = Rusia
 iso3166_rw = Ruanda
 iso3166_sa = Arabia Saudí

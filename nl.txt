@@ -1,5 +1,6 @@
 ## layout
 Public stats = Openbare statistieken
+Login = Inloggen
 Information = Informatie
 Value = Waarde
 Countries = Landen
@@ -36,7 +37,6 @@ Help = Help
 Welcome = Welkom
 User = Gebruiker
 Passphrase = Wachtwoord
-Login = Inloggen
 Register = Registreren
 Wrong username/passphrase = Gebruikersnaam/wachtwoord onjuist
 
@@ -158,7 +158,6 @@ Day = Dag
 ## time analysis
 Time analysis = Tijdanalyse
 Colors = Kleuren
-Calendar = Kalender
 or more = of meer
 Days = Dagen
 Hours = Uren

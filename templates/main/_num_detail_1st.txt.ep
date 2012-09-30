@@ -7,7 +7,7 @@
 
 [b]<%= $first_title %>[/b]
 [table]\
-[tr][td]<%=l 'Note' %>[/td][td] ❘ <%=l 'was the first from' %>[/td][td] ❘ Value[/td][td] ❘ <%=l 'entered on' %>[/td][td] ❘ <%=l 'in' %>[/td][/tr]\
+[tr][td]<%=l 'Note' %>[/td][td] ❘ <%=l 'was the first from' %>[/td][td] ❘ <%=l 'Value' %>[/td][td] ❘ <%=l 'entered on' %>[/td][td] ❘ <%=l 'in' %>[/td][/tr]\
 <% for my $elem (@$first_by) { =%>
     [tr]\
         [td][url=https://eurobilltracker.com/notes/?id=<%= $elem->{'id'} %>]<%= $elem->{'at'} %>[/url][/td]\

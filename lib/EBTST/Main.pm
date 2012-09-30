@@ -43,7 +43,7 @@ my %users;
 
 my %section_titles;
 foreach my $section (qw/
-    index register information value countries locations travel_stats printers huge_table short_codes nice_serials
+    register information value countries locations travel_stats printers huge_table short_codes nice_serials
     top_days plate_bingo bad_notes hit_list hit_locations hit_analysis hit_summary calendar help
 /) {
     my $title = ucfirst $section;
@@ -52,6 +52,7 @@ foreach my $section (qw/
 }
 %section_titles = (
     %section_titles,
+    index                => 'Login',
     notes_per_year       => 'Notes/year',
     notes_per_month      => 'Notes/month',
     coords_bingo         => 'Coordinates bingo',

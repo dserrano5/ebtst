@@ -1,5 +1,6 @@
 ## layout
 Public stats = Öffentliche Statistiken
+Login = Login
 Information = Allgemeine Informationen
 Value = Wertstufen
 Countries = Länder
@@ -36,7 +37,6 @@ Help = Hilfe
 Welcome = Willkommen
 User = Benutzername
 Passphrase = Passwort
-Login = Login
 Register = Registrieren
 Wrong username/passphrase = Benutzername/Passwort falsch
 
@@ -158,7 +158,6 @@ Day = Tag
 ## time analysis
 Time analysis = Zeitanalyse
 Colors = Farben
-Calendar = Kalender
 or more = oder mehr
 Days = Tage
 Hours = Stunden

@@ -23,7 +23,7 @@
 <!--<h3><%=l 'Register' =%></h3>-->
 <!--<p>long user names with spaces and utf8, since the site accepts long passwords with spaces, it's recommended to take advantage of that</p>-->
 
-<h3><%=l 'Configure' =%></h3>
+<h3><%=l 'Configuration' =%></h3>
 <p><%=l2 '_configure_1' %></p>
 <p><%=l2 '_configure_2' %> <span style="font-family: monospace; font-size: 0.8em;"><%=l2 '_configure_3' %></span>.</p>
 
@@ -42,7 +42,7 @@
 <h3><%=l 'Nice serials' =%></h3>
 <p><%=l2 '_nice_serials_1' %></p>
 
-<h3><%=l 'Coords bingo' =%></h3>
+<h3><%=l 'Coordinates bingo' =%></h3>
 <p><%=l2 '_coords_bingo_1' %></p>
 
 <h3><%=l 'Combinations' =%></h3>

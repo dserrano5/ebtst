@@ -307,7 +307,7 @@ _coords_bingo_1 = Net als in de "Uitgebreide tabel", worden biljetten met fouten
 _combinations_1 = Ook hier worden biljetten met fouten genegeerd. Net als in "Landen" en "Drukkers", tellen de percentages verticaal op tot 100%.
 _plate_bingo_1 = Biljetten met fouten worden genegeerd. De paar platen waarop verschillende handtekeningen van de ECB-president kunnen staan (dat zijn: <img src="images/values/10.gif"> K007, <img src="images/values/10.gif"> P005, <img src="images/values/20.gif"> F002 and <img src="images/values/100.gif"> F002) worden niet anders behandeld.
 _hit_analysis_1 = The table under "Lucky bundles" shows the days with more than one hit notes, sorted by hit ratio. For example if a given day you inserted 3 notes and all of them eventually became hits (either active or passive), the hit ratio for that day will be 1, and it will likely appear at the top of the table.
-_hit_analysis_2 = The section "Other hit potential" shows days with only one hit, that could potentially enter the "Lucky bundles" table if another one of that day's notes becomes a hit.
+_hit_analysis_2 = The section "Other hit potential" shows the 10 days with best hit ratios, that could potentially bring more hits to your tally.
 
 ## days of week
 Monday = maandag

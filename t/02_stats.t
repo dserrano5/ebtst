@@ -9,7 +9,6 @@ use EBT2::Data;
 use EBT2::Stats;
 
 my $data_obj = new_ok 'EBT2::Data', [ db => '/tmp/ebt2-storable' ];
-$data_obj = new_ok 'EBT2::Data', [ db => '/tmp/ebt2-storable' ];
 $data_obj->load_notes (undef, 't/notes2.csv');
 ok defined $data_obj->{'notes'}, 'There are notes after loading db';
 is scalar @{ $data_obj->{'notes'} }, 7, 'Correct number of notes';
@@ -134,6 +133,7 @@ for (0..6) { is $res->{'hit_list'}[$_]{'days_between'}, $hit_days_between[$_], s
 
 
 note 'hit_list again, now with some moderated hits';
+$data_obj = new_ok 'EBT2::Data', [ db => '/tmp/ebt2-storable' ];
 $data_obj->load_notes (undef, 't/notes5.csv');
 $data_obj->load_hits (undef, 't/hits5.csv');
 $res = $st->hit_list (undef, $data_obj, $data_obj->whoami);
@@ -209,6 +209,7 @@ for (0..8) { is $res->{'hit_list'}[$_]{'days_between'}, $all_hit_days_between[$_
 
 
 note 'first hit is passive and moderated';
+$data_obj = new_ok 'EBT2::Data', [ db => '/tmp/ebt2-storable' ];
 $data_obj->load_notes (undef, 't/notes6.csv');
 $data_obj->load_hits (undef, 't/hits6.csv');
 $res = $st->hit_list (undef, $data_obj, $data_obj->whoami);
@@ -218,6 +219,7 @@ ok !exists $res->{'hit_list'}[0]{'old_hit_ratio'}, 'Key "old_hit_ratio" is not p
 
 
 note 'notes_between on passive interesting hits';
+$data_obj = new_ok 'EBT2::Data', [ db => '/tmp/ebt2-storable' ];
 $data_obj->load_notes (undef, 't/notes7.csv');
 $data_obj->load_hits (undef, 't/hits7.csv');
 $res = $st->hit_list (undef, $data_obj, $data_obj->whoami);
@@ -226,6 +228,7 @@ is $res->{'hit_list'}[3]{'notes_between'}, 7, 'Correct notes_between';
 
 note q[notes_between when there's more than one passive hit in a row without user entering notes];
 @hit_notes_between = qw/7 2 0 0 0 3 0 0 1/;
+$data_obj = new_ok 'EBT2::Data', [ db => '/tmp/ebt2-storable' ];
 $data_obj->load_notes (undef, 't/notes8.csv');
 $data_obj->load_hits (undef, 't/hits8.csv');
 $res = $st->hit_list (undef, $data_obj, $data_obj->whoami);
@@ -233,6 +236,7 @@ for (0..8) { is $res->{'hit_list'}[$_]{'notes_between'}, $hit_notes_between[$_],
 
 
 note q[hit number of a triple where I'm not the last user];
+$data_obj = new_ok 'EBT2::Data', [ db => '/tmp/ebt2-storable' ];
 $data_obj->load_notes (undef, 't/notes9.csv');
 $data_obj->load_hits (undef, 't/hits9.csv');
 $res = $st->hit_list (undef, $data_obj, $data_obj->whoami);
@@ -254,6 +258,7 @@ like $@, qr/Unrecognized hits file/, 'load_hits dies if it references unknown no
 
 
 note 'note validator';
+$data_obj = new_ok 'EBT2::Data', [ db => '/tmp/ebt2-storable' ];
 $data_obj->load_notes (undef, 't/notes-validator.csv');
 $res = $st->bad_notes (undef, $data_obj);
 is $res->{'bad_notes'}[0]{'errors'}[0], q{Bad value '6'}, 'Bad value';
@@ -280,5 +285,5 @@ is $res->{'bad_notes'}[12]{'errors'}[8], q{Bad latitude '44532.3'}, 'Multiple er
 is $res->{'bad_notes'}[12]{'errors'}[9], q{Bad longitude '12317.6'}, 'Multiple errors: bad longitude';
 
 
-done_testing 252;
+done_testing 257;
 unlink '/tmp/ebt2-storable' or warn "unlink: '/tmp/ebt2-storable': $!";

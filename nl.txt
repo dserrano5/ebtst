@@ -49,6 +49,8 @@ Username and password contain invalid characters = Gebruikersnaam en wachtwoord 
 User already exists = Gebruiker bestaat al
 Error upon registration = Fout tijdens registratie
 Registration successful = Registratie gelukt
+Empty user or password = Gebruikersnaam of wachtwoord is niet ingevuld.
+Password is too short = Wachtwoord is te kort
 
 ## information
 General information = Algemene informatie
@@ -210,6 +212,7 @@ Natural month = Maand van hit
 Insert month = Maand van invoer
 
 ## hit times
+Hit times = Hittijden
 
 ## hit locations
 My city = Mijn plaats
@@ -276,8 +279,8 @@ hit = hit
 hits = hits
 
 ## gen_output
-#Public stats have been generated = De openbare statistieken zijn gegenereerd
-#Link = Link
+Public stats for the following sections have been generated = Openbare statistieken zijn gemaakt voor de volgende onderdelen
+You can find them at this link = Je kunt ze vinden via deze link
 
 ## configuration
 #Name = Naam
@@ -289,14 +292,23 @@ Hits CSV file = Hit-CSV-bestand
 Submit = Verzenden
 
 ## help
-_help_main_usage_1 = Klik na het uploaden van je CSV-bestanden (zie "Configuratie") links de gewenste selectievakjes aan en klik op "BBCode/HTML" om je openbare statistieken te genereren. Een nieuwe tabblad of nieuw venster met de BBCode en een link naar de HTML-statistieken zal openen.
-_help_main_usage_2 = Note that you need a reasonable recent web browser to get the most out of EBTST. Firefox 8, Chrome 14 and Opera 9.80 are known to work. On the other hand, Internet Explorer is not supported.
+Main usage = Hoofd gebruik
+_help_main_usage_1 = Klik na het uploaden van je CSV-bestanden (zie "Configuratie") links de gewenste selectievakjes aan en klik op "BBCode/HTML" om je openbare statistieken te genereren. Een nieuwe tabblad of nieuw venster met de BBCode en een link naar de HTML-statistieken zal openen. Zorg ervoor dat je (eventuele) popup-blocker popups van dserrano5.es toestaat.
+_help_main_usage_2 = Je hebt een redelijk recente webbrowser nodig voor EBTST. Van Firefox 8, Chrome 14 en Opera 9.80 is bekend dat ze werken. Internet Explorer wordt niet ondersteund.
 _help_colors_1 = Verschillende secties bevatten gekleurde getallen. De betekenis van deze kleuren is:
 _help_colors_2 = Gekleurde sterretjes op verschillende plekken geven aan hoe recent biljetten zijn:
+grey = grijs
+blue = blauw
+green = groen
+yellow = geel
+red = rood
+black = zwart
 note has been entered up to 1 year ago = biljet ingevoerd afgelopen jaar
 note has been entered up to 3 months ago = biljet ingevoerd afgelopen 3 maanden
 note has been entered up to 1 week ago = biljet ingevoerd afgelopen week
 _configure_1 = EBTST accepteert gecomprimeerde CSV-bestanden. Ondersteunde compressie-algoritmen zijn zip en gzip. Het gebruik van deze gecomprimeerde bestanden reduceert de uploadtijd.
+_configure_2 = Van spreadsheetprogramma's is bekend dat ze CSV-bestanden veranderen die je ermee opent. Meestal veranderen ze de opmaak van de datum en de geografische coordinaten in de bestanden. EBTST is flexibel genoeg om met sommige van deze alternatieve opmaken te kunnen omgaan. (let op: geen van deze alternatieve opmaken hebben een waarde voor de seconden, sommige van je tijd-bingo's zullen incompleet blijven.)
+_configure_3 = Zoals gezegd: In sommige CSV-bestanden komen geografische coordinaten voor die ver buiten 180ºW to 180ºE and 90ºN to 90ºS liggen. Het lijkt erop dat deze coordinaten 10x zo groot zijn als eigenlijk zou moeten, dus EBTST deelt ze door 10. Het wordt echter aangeraden om CSV's te uploaden zoals je ze hebt gedownload, zonder ze te openen met een spreadsheetprogramma.
 _configure_4 = Een kopie van het biljetten-CSV-bestand wordt bewaard in de volgende indeling:
 _countries_1 = De percentages in de tabel "Detail" geven het percentage van biljetten van ieder land voor het totaal aantal biljetten van die waarde. Ze tellen verticaal op tot 100%.
 _printers_1 = Net als bij "Landen", geven de percentages in de tabel "Detail" het percentage van de biljetten van iedere drukker voor het totaal aantal biljetten van die waarde. Ze tellen verticaal op tot 100%.
@@ -485,6 +497,7 @@ iso3166_qa = Qatar
 iso3166_ro = Roemenië
 iso3166_rs = Servië
 iso3166_rskm = Kosovo
+iso3166_rsme = Servië en Montenegro
 iso3166_ru = Rusland
 iso3166_rw = Rwanda
 iso3166_sa = Saoedi-Arabië

@@ -6,7 +6,7 @@ Value = Valore
 Countries = Nazioni
 Locations = Località
 Travel stats = Statistiche sui viaggi
-Printers = Stamperie
+Printers = Poligrafici
 Huge table = Tabella gigante
 Short codes = Codici corti
 Nice serials = Numeri curiosi
@@ -49,6 +49,8 @@ Username and password contain invalid characters = Nome utente e password conten
 User already exists = Questo nome utente è già stato scelto
 Error upon registration = Si è verificato un errore, la registrazione non è stata completata
 Registration successful = La registrazione è stata effettuata con successo
+Empty user or password = Nome utente o password vuoti
+Password is too short = La password è troppo corta
 
 ## information
 General information = Informazioni generali
@@ -98,7 +100,7 @@ note = banconota
 Countries with notes entered = Nazioni da cui sono state inserite banconote
 Number of notes by location = Numero di banconote per località
 Alphabets of locations by country = Alfabeto delle località per Nazione
-First notes by printer code = Prima banconota per codice della stamperia
+First notes by printer code = Prima banconota per codice del poligrafico
 
 ## travel_stats
 Location = Località
@@ -111,10 +113,10 @@ Number of one time visit locations = Località visitate un solo anno
 Cities with most notes = Località con più banconote
 
 ## printers
-Number of notes by printer code = Numero di banconote per codice della stamperia
-Printer = Stamperia
-Printer name = Nome della stamperia
-Detail of notes per value and printer code = Dettaglio delle banconote per valore e codice della stamperia
+Number of notes by printer code = Numero di banconote per codice del poligrafico
+Printer = Poligrafico
+Printer name = Nome del poligrafico
+Detail of notes per value and printer code = Dettaglio delle banconote per valore e codice del poligrafico
 
 ## huge_table
 Notes have been entered up to = Banconote inserite da meno di
@@ -176,8 +178,8 @@ Combinations = Combinazioni
 Combinations bingo = Bingo delle combinazioni
 Still missing combinations = Combinazioni mancanti
 Unknown combinations = Combinazioni sconosciute
-History = Storia
-History text format inspired by = Formato del testo ispirato da
+History = Storico
+History text format inspired by = Formato dello storico ispirato da
 
 ## note evolution
 Interval = Intervallo
@@ -210,6 +212,7 @@ Natural month = Mese naturale
 Insert month = Mese di inserimento
 
 ## hit times
+Hit times = Analisi cronologica delle hit
 
 ## hit locations
 My city = Le mia località
@@ -247,7 +250,7 @@ Hit ratio = Hit-ratio
 Hit ratios = Hit-ratio
 Hit finder/maker - giver/getter ratio = Rapporto hit attive / hit passive
 Next hit should occur on average on = La prossima hit arriverà, in media, il giorno
-or it's a dry spell = o sarà un periodo di siccità
+or it's a dry spell = o sarà un periodo di sfortuna
 Minimum = Minimo
 Maximum = Massimo
 Travel days = Giorni di viaggio
@@ -276,8 +279,8 @@ hit = hit
 hits = hit
 
 ## gen_output
-#Public stats have been generated = Le statistiche pubbliche sono state generate
-#Link = Link
+Public stats for the following sections have been generated = Sono state generate le statistiche pubbliche per le seguenti sezioni
+You can find them at this link = Le puoi trovare a questo link
 
 ## configuration
 #Name = Nome
@@ -289,14 +292,23 @@ Hits CSV file = File CSV delle hit
 Submit = Invio
 
 ## help
-_help_main_usage_1 = Dopo aver caricato i file CSV (vedere la sezione "Configurazione"), selezionare le caselle desiderate a sinistra e cliccare su "BBCode / HTML" per generare statistiche pubbliche. Si apre una nuova finestra o scheda con un collegamento a BBCode e HTML.
-_help_main_usage_2 = Note that you need a reasonable recent web browser to get the most out of EBTST. Firefox 8, Chrome 14 and Opera 9.80 are known to work. On the other hand, Internet Explorer is not supported.
+Main usage = Generazione delle statistiche pubbliche
+_help_main_usage_1 = Dopo aver caricato i file CSV (vedere la sezione "Configurazione"), selezionare le caselle desiderate a sinistra e cliccare su "BBCode / HTML" per generare statistiche pubbliche. Si apre una nuova finestra o scheda con un collegamento a BBCode e HTML. Assicurarsi che il blocco dei pop-up (se presente) consenta l'apertura di finestre pop-up da dserrano5.es.
+_help_main_usage_2 = Notare che serve un browser internet abbastanza recente per ottenere il meglio da EBTST. Firefox 8, Chrome 14 e Opera 9.80 funzionano correttamente. Invece non si garantisce che Internet Explorer funzioni correttamente.
 _help_colors_1 = Alcune sezioni mostrano i numeri in diversi colori. I colori sono:
 _help_colors_2 = Gli asterischi colorati che appaiono in alcune pagine mostrano quanto sono recenti le note:
+grey = grigio
+blue = blu
+green = verde
+yellow = giallo
+red = rosso
+black = nero
 note has been entered up to 1 year ago = La banconota è stata inserita da meno di 1 anno
 note has been entered up to 3 months ago = La banconota è stata inserita da meno di 3 mesi
 note has been entered up to 1 week ago = La banconota è stata inserita da meno di 1 settimana
 _configure_1 = EBTST accetta file CSV compressi in formato zip o gzip. L'utilizzo di file compressi rende minori i tempi di caricamento.
+_configure_2 = I software per la gestione dei fogli di calcolo alterano i file CSV dopo l'apertura. EBTST è abbastanza flessibile da accettare alcuni di questi formati alternativi (notare che nessuno di questi formati supporta il conteggio dei secondi, per cui alcune delle analisi cronologiche saranno incompleti)
+_configure_3 = Come detto, in alcuni file CSV le coordinate geografiche riportano valori al di fuori degli intervalli 180°W-180°E e 90°N-90°S. Sembra che questi valori siano dieci volte più grandi di quello che dovrebbero essere, per cui EBTST semplicemente li divide per dieci. Tuttavia, si raccomanda di inviare i file CSV così come vengono scaricati da EBT, senza aprirli o modificarli con nessun programma esterno.
 _configure_4 = Sarà conservata una copia del file delle banconote, con il seguente formato:
 _countries_1 = I dati percentuali riportati nella tabella "Dettagli" mostrano la percentuale di banconote di ogni paese in relazione a tutte le banconote stampate per quel valore. Pertanto, sommati verticalmente, danno un risultato pari a 100%.
 _printers_1 = Come in "Nazioni", i dati percentuali riportati nella tabella "Dettagli" mostrano la percentuale di banconote di ogni paese in relazione a tutte le banconote stampate per quel valore. Pertanto, sommati verticalmente, danno un risultato pari a 100%.
@@ -485,6 +497,7 @@ iso3166_qa = Qatar
 iso3166_ro = Romania
 iso3166_rs = Serbia
 iso3166_rskm = Kosovo
+iso3166_rsme = Serbia e Montenegro
 iso3166_ru = Russia
 iso3166_rw = Rwanda
 iso3166_sa = Arabia Saudta

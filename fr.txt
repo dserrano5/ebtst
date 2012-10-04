@@ -49,6 +49,8 @@ Username and password contain invalid characters = Le nom d'utilisateur et le mo
 User already exists = Cet utilisateur existe déjà
 Error upon registration = Erreur lors de l'enregistrement
 Registration successful = Enregistrement terminé
+Empty user or password = Nom d'utilisateur ou mot de passe vide
+Password is too short = Votre mot de passe est trop court
 
 ## information
 General information = Informations générales
@@ -210,6 +212,7 @@ Natural month = Mois du calendrier
 Insert month = Mois d'encodage
 
 ## hit times
+Hit times = Horaires des hits
 
 ## hit locations
 My city = Ma ville
@@ -276,8 +279,8 @@ hit = hit
 hits = hits
 
 ## gen_output
-#Public stats have been generated = Statistiques publiques générées
-#Link = Lien
+Public stats for the following sections have been generated = Statistiques publiques générées pour les sections suivantes
+You can find them at this link = Pour y accéder, cliquez sur le lien suivant
 
 ## configuration
 #Name = Nom
@@ -289,14 +292,23 @@ Hits CSV file = Fichier CSV de hits
 Submit = Envoyer
 
 ## help
-_help_main_usage_1 = Après avoir téléchargé vos fichiers CSV (dans la section "Configuration"), cochez les cases désirées dans la liste de gauche et cliquez sur "BBCode/HTML" pour générer vos statistiques publiques. Le code BBCode ainsi qu'un lien vers le fichier HTML apparaîtront dans une nouvelle fenêtre ou onglet.
-_help_main_usage_2 = Note that you need a reasonable recent web browser to get the most out of EBTST. Firefox 8, Chrome 14 and Opera 9.80 are known to work. On the other hand, Internet Explorer is not supported.
+Main usage = Utilisation principale
+_help_main_usage_1 = Après avoir téléchargé vos fichiers CSV (dans la section "Configuration"), cochez les cases désirées dans la liste de gauche et cliquez sur "BBCode/HTML" pour générer vos statistiques publiques. Le code BBCode ainsi qu'un lien vers le fichier HTML apparaîtront dans une nouvelle fenêtre ou onglet. Assurez-vous que votre navigateur internet est configuré pour autoriser les pop-ups de dserrano5.es
+_help_main_usage_2 = Pour une utilisation optimale d'EBTST, il est recommandé d'utiliser un navigateur internet récent. Firefox 8, Chrome 14 and Opera 9.80 sont reconnus par EBTST. Par contre, Internet Explorer n'est pas pris en charge.
 _help_colors_1 = On trouve dans certaines sections des chiffres de couleurs différentes. Leur signification est la suivante :
 _help_colors_2 = Des astérisques de couleurs différentes apparaissent dans certaines sections et indiquent la durée écoulée depuis l'encodage d'un billet :
+grey = gris
+blue = bleu
+green = vert
+yellow = jaune
+red = rouge
+black = noir
 note has been entered up to 1 year ago = Billet encodé il y a moins d'un an
 note has been entered up to 3 months ago = Billet encodé il y a moins de 3 mois
 note has been entered up to 1 week ago = Billet encodé il y a moins d'une semaine
 _configure_1 = EBTST fonctionne avec des fichiers CSV compressé au format zip ou gzip. L'utilisation de fichiers compressés réduit la durée de téléchargement.
+_configure_2 = De nombreux tableurs modifient les fichiers CSV que vous ouvrez. En particulier, le format de dates et les coordonnées géographiques peuvent être changés. EBTST est capable de s'adapter à certains de ces formats alternatifs (attention, aucun de ces formats ne conserve de données pour les secondes, votre section "Timehunting" sera donc incomplète).
+_configure_3 = Dans certains fichiers CSV, les coordonnées géographiques contiennent des valeurs dépassant 180º ouest et 180º est, ainsi que 90º nord et 90º sud. Comme ces valeurs semblent être 10 fois trop grandes, EBTST les divise simplement par 10. Toutefois, il est recommandé d'utiliser les fichiers CSV que vous avez téléchargé d'EBT, sans les ouvrir avec un tableur.
 _configure_4 = Une copie du fichier CSV des billets sera conservée au format suivant :
 _countries_1 = Les pourcentages affichés dans le tableau "Détail" représentent le pourcentage par pays des billets d'une valeur en particulier. La somme des données d'une colonne est donc égale à 100%.
 _printers_1 = Comme pour la section "Pays", les pourcentages affichés dans le tableau "Détail" représentent le pourcentage par imprimeur des billets d'une valeur en particulier. La somme des données d'une colonne est donc égale à 100%.
@@ -485,6 +497,7 @@ iso3166_qa = Qatar
 iso3166_ro = Roumanie
 iso3166_rs = Serbie
 iso3166_rskm = Kosovo
+iso3166_rsme = Serbie-et-Monténégro
 iso3166_ru = Russie
 iso3166_rw = Rwanda
 iso3166_sa = Arabie Saoudite

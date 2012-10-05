@@ -49,6 +49,8 @@ Username and password contain invalid characters = Benutzername und Passwort ent
 User already exists = Benutzername existiert bereits
 Error upon registration = Fehler bei der Registrierung
 Registration successful = Registrierung erfolgreich
+#Empty user or password = 
+#Password is too short = 
 
 ## information
 General information = Allgemeine Informationen
@@ -210,6 +212,7 @@ Natural month = Tatsächlicher Monat
 Insert month = Eingabemonat
 
 ## hit times
+Hit times = Trefferzeiten
 
 ## hit locations
 My city = Meine Stadt
@@ -276,8 +279,8 @@ hit = Treffer
 hits = Treffer
 
 ## gen_output
-#Public stats have been generated = Öffentliche Statistiken wurden erzeugt
-#Link = Link
+#Public stats for the following sections have been generated = 
+#You can find them at this link = 
 
 ## configuration
 #Name = Name
@@ -289,14 +292,23 @@ Hits CSV file = CSV-Datei (Treffer)
 Submit = Hochladen
 
 ## help
+#Main usage = 
 _help_main_usage_1 = Nach dem Hochladen deiner Schein- und Trefferdaten (siehe "Einstellungen") wähle die gewünschten Checkboxen auf der linken Seite aus und klicke auf BBCode/HTML um die öffentlichen Statistiken zu erzeugen. Dann öffnet sich ein neues Fenster oder ein neuer Reiter mit dem BBCode und dem Link zur HTML-Version.
 _help_main_usage_2 = Note that you need a reasonable recent web browser to get the most out of EBTST. Firefox 8, Chrome 14 and Opera 9.80 are known to work. On the other hand, Internet Explorer is not supported.
 _help_colors_1 = Einige Abschnitte beinhalten farbige Zahlen, die folgende Bedeutung haben:
 _help_colors_2 = Farbige Sterne, die an einigen Stellen auftauchen, haben folgende Bedeutung:
+grey = grau
+blue = blau
+green = grün
+yellow = gelb
+red = rot
+black = schwarz
 note has been entered up to 1 year ago = ein Schein wurde innerhalb des letzten Jahres eingegeben
 note has been entered up to 3 months ago = ein Schein wurde innerhalb der letzten drei Monate eingegeben
 note has been entered up to 1 week ago = ein Schein wurde innerhalb der letzten Woche eingegeben
 _configure_1 = EBTST kann mit komprimierten CSV-Dateien umgehen. Unterstützt werden die Formate ZIP und GZIP. Komprimierte Dateien benötigen weniger Zeit zum Hochladen.
+_configure_2 = Spreadsheet software is known to alter the CSV files that you open with them. Mostly they change the date format and the geographic coordinates in the files. EBTST is flexible enough to accept some of this alternative date formats (note that none of these formats include any value for the seconds, which means that some of your time bingos will be incomplete):
+_configure_3 = As said, in some CSV files the geographic coordinates have values far outside the ranges 180ºW to 180ºE and 90ºN to 90ºS. It seems that those values are actually 10 times greater than they should so EBTST simply divides them by 10. However, it's recommended that you upload the CSVs just as you downloaded them from the EBT site, without opening them with any spreadsheet program.
 _configure_4 = Eine Kopie der Scheindatei wird in folgendem Format aufbewahrt:
 _countries_1 = Der prozentuale Anteil, der in der zweiten Tabelle aufgeführt wird, gibt den Anteil der Scheine mit dem entsprechenden Ländercode an der Gesamtzahl der Scheine der entsprechenden Wertstufe wider. Senkrecht addieren sich die Zahlen also zu 100 % auf.
 _printers_1 = Wie bei den Ländern gibt der prozentuale Anteil, der in der zweiten Tabelle aufgeführt wird, den Anteil der Scheine mit dem entsprechenden Druckereicode an der Gesamtzahl der Scheine der entsprechenden Wertstufe wider. Senkrecht addieren sich die Zahlen also zu 100 % auf.
@@ -485,6 +497,7 @@ iso3166_qa = Katar
 iso3166_ro = Rumänien
 iso3166_rs = Serbien
 iso3166_rskm = Kosovo
+#iso3166_rsme = 
 iso3166_ru = Russland
 iso3166_rw = Ruanda
 iso3166_sa = Saudi-Arabien

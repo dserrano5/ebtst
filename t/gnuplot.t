@@ -28,7 +28,7 @@ sub line_chart {
             '2010-01-01 00:07:00',
             '2010-01-01 00:08:00',
             '2010-01-01 00:09:00',
-        ], 
+        ],
         $dsets;
 
     is scalar @$xdata, 6, 'line_chart: group 1: number of xdata elems';
@@ -67,7 +67,7 @@ sub line_chart {
             '2010-01-01 00:06:00',
             '2010-01-01 00:07:00',
             '2010-01-01 00:08:00',
-        ], 
+        ],
         $dsets;
 
     is scalar @$xdata, 6, 'line_chart: group 2: number of xdata elems';
@@ -108,7 +108,7 @@ sub line_chart {
             '2010-01-01 00:07:00',
             '2010-01-01 00:08:00',
             '2010-01-01 00:09:00',
-        ], 
+        ],
         $dsets;
 
     is scalar @$xdata, 5, 'line_chart: group 3: number of xdata elems';
@@ -146,7 +146,7 @@ sub line_chart {
             '2010-01-01 00:06:00',
             '2010-01-01 00:07:00',
             '2010-01-01 00:08:00',
-        ], 
+        ],
         $dsets;
 
     is scalar @$xdata, 5, 'line_chart: group 4: number of xdata elems';
@@ -185,7 +185,7 @@ sub line_chart {
             '2010-01-01 00:27:00',
             '2010-01-01 00:28:00',
             '2010-01-01 00:29:00',
-        ], 
+        ],
         $dsets;
 
     is scalar @$xdata, 6, 'line_chart: group 5: number of xdata elems';
@@ -224,7 +224,7 @@ sub line_chart {
             '2010-01-01 00:06:00',
             '2010-01-01 00:27:00',
             '2010-01-01 00:28:00',
-        ], 
+        ],
         $dsets;
 
     is scalar @$xdata, 6, 'line_chart: group 6: number of xdata elems';
@@ -264,7 +264,7 @@ sub line_chart {
             '2010-01-01 00:27:00',
             '2010-01-01 00:28:00',
             '2010-01-01 00:29:00',
-        ], 
+        ],
         $dsets;
 
     is scalar @$xdata, 5, 'line_chart: group 7: number of xdata elems';
@@ -302,7 +302,7 @@ sub line_chart {
             '2010-01-01 00:06:00',
             '2010-01-01 00:27:00',
             '2010-01-01 00:28:00',
-        ], 
+        ],
         $dsets;
 
     is scalar @$xdata, 5, 'line_chart: group 8: number of xdata elems';
@@ -345,7 +345,7 @@ sub bartime_chart {
             '2010-01-01 00:07:00',
             '2010-01-01 00:08:00',
             '2010-01-01 00:09:00',
-        ], 
+        ],
         $dsets;
 
     is scalar @$xdata, 6, 'bartime_chart: group 1: number of xdata elems';
@@ -385,7 +385,7 @@ sub bartime_chart {
             '2010-01-01 00:06:00',
             '2010-01-01 00:07:00',
             '2010-01-01 00:08:00',
-        ], 
+        ],
         $dsets;
 
     is scalar @$xdata, 6, 'bartime_chart: group 2: number of xdata elems';
@@ -426,7 +426,7 @@ sub bartime_chart {
             '2010-01-01 00:07:00',
             '2010-01-01 00:08:00',
             '2010-01-01 00:09:00',
-        ], 
+        ],
         $dsets;
 
     is scalar @$xdata, 5, 'bartime_chart: group 3: number of xdata elems';
@@ -464,7 +464,7 @@ sub bartime_chart {
             '2010-01-01 00:06:00',
             '2010-01-01 00:07:00',
             '2010-01-01 00:08:00',
-        ], 
+        ],
         $dsets;
 
     is scalar @$xdata, 5, 'bartime_chart: group 4: number of xdata elems';
@@ -503,7 +503,7 @@ sub bartime_chart {
             '2010-01-01 00:27:00',
             '2010-01-01 00:28:00',
             '2010-01-01 00:29:00',
-        ], 
+        ],
         $dsets;
 
     is scalar @$xdata, 6, 'bartime_chart: group 5: number of xdata elems';
@@ -542,7 +542,7 @@ sub bartime_chart {
             '2010-01-01 00:06:00',
             '2010-01-01 00:27:00',
             '2010-01-01 00:28:00',
-        ], 
+        ],
         $dsets;
 
     is scalar @$xdata, 6, 'bartime_chart: group 6: number of xdata elems';
@@ -582,7 +582,7 @@ sub bartime_chart {
             '2010-01-01 00:27:00',
             '2010-01-01 00:28:00',
             '2010-01-01 00:29:00',
-        ], 
+        ],
         $dsets;
 
     is scalar @$xdata, 5, 'bartime_chart: group 7: number of xdata elems';
@@ -620,7 +620,7 @@ sub bartime_chart {
             '2010-01-01 00:06:00',
             '2010-01-01 00:27:00',
             '2010-01-01 00:28:00',
-        ], 
+        ],
         $dsets;
 
     is scalar @$xdata, 5, 'bartime_chart: group 8: number of xdata elems';

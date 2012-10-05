@@ -171,7 +171,7 @@ Days of week, hours and minutes = Wochentage, Stunden und Minuten
 
 ## combs detail
 Any signature = Alle Unterschriften
-Any = Alle
+Any = Mind. eine
 Combinations = Kombinationen
 Combinations bingo = Kombinationenbingo
 Still missing combinations = Noch fehlende Kombinationen

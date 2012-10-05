@@ -1820,7 +1820,7 @@ sub import {
 
         my $count = 0; if (open my $fd, '<', $local_notes_file) { <$fd>; $count =()= <$fd>; close $fd; }
         if ($theres_hits) {
-            $self->_init_progress (tot => $count*1.1);     ## processing hits takes around 20% of the time of processing notes, hence that 0.2
+            $self->_init_progress (tot => $count*1.1);     ## processing hits takes around 10% of the time of processing notes, hence that 0.1
         } else {
             $self->_init_progress (tot => $count);
         }

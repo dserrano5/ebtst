@@ -1176,15 +1176,17 @@ sub hit_summary {
     $ret{'hit_summary'}{'total_days'} = scalar keys %{ $ret{'hit_summary'}{'hit_dates'} };
 
     ## postfix: frequent hit partner (min: 2 hits) (remove myself, build data structure)
-    delete $ret{'hit_summary'}{'partners'}{ $whoami->{'name'} };
-    foreach my $p (keys %{ $ret{'hit_summary'}{'partners'} }) {
-        next if 1 == $ret{'hit_summary'}{'partners'}{$p};
-        $ret{'hit_summary'}{'freq_partners'}{$p} = {
-            partner => $p,
-            hits    => $ret{'hit_summary'}{'partners'}{$p},
-        };
+    if ($ret{'hit_summary'}{'total'}) {
+        delete $ret{'hit_summary'}{'partners'}{ $whoami->{'name'} };
+        foreach my $p (keys %{ $ret{'hit_summary'}{'partners'} }) {
+            next if 1 == $ret{'hit_summary'}{'partners'}{$p};
+            $ret{'hit_summary'}{'freq_partners'}{$p} = {
+                partner => $p,
+                hits    => $ret{'hit_summary'}{'partners'}{$p},
+            };
+        }
+        delete $ret{'hit_summary'}{'partners'};
     }
-    delete $ret{'hit_summary'}{'partners'};
 
     return \%ret;
 }

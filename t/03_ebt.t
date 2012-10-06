@@ -23,7 +23,7 @@ is +(split ';', $obj->{'data'}{'notes'}[0], NCOLS)[HIT],, '', 'No spurious hits 
 
 $obj->load_notes ('t/notes1.csv');
 is ref (thaw decode_base64 +(split ';', $obj->{'data'}{'notes'}[1], NCOLS)[HIT]), 'HASH', 'Hits are still there after loading new notes CSV';
-is ref $obj->{'notes'}[0]{'hit'}, '', 'No spurious hits after loading new notes CSV';
+is +(split ';', $obj->{'data'}{'notes'}[0], NCOLS)[HIT], '', 'No spurious hits after loading new notes CSV';
 
 $obj->load_db;
 ok defined $obj->{'data'}{'notes'}, 'There are notes after loading db';
@@ -52,5 +52,8 @@ $gotten = $obj->get_notes_by_value;
 is $gotten->{'10'}, 1, 'One 10€ note';
 is $gotten->{'20'}, 1, 'One 20€ note';
 
-done_testing 25;
+$obj->load_notes ('t/notes-validator.csv');
+is scalar @{ $obj->{'data'}{'bad_notes'}{'data'} }, 13, 'Correct number of bad notes after loading CSV';
+
+done_testing 26;
 unlink '/tmp/ebt2-storable' or warn "unlink: '/tmp/ebt2-storable': $!";

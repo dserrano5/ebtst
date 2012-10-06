@@ -245,6 +245,8 @@ sub load_notes {
         _1week   => DateTime->now->subtract (weeks  => 1)->strftime ('%Y%m%d'),
     );
 
+    my @bad_notes;
+
     ## maybe keep known hits (if any)
     my %save_hits;
     if ($do_keep_hits) {
@@ -312,13 +314,17 @@ sub load_notes {
         $hr->{'country'} = _cc $hr->{'country'};
         $hr->{'signature'} = _find_out_signature @$hr{qw/value short_code serial/};
         $hr->{'errors'} = EBT2::NoteValidator::validate_note $hr;
+        if ($hr->{'errors'}) {
+            push @bad_notes, {
+                %$hr,
+                errors => [ split ';', decode_base64 $hr->{'errors'} ],
+            };
+        }
         if ($do_keep_hits and $save_hits{ $hr->{'serial'} }) {
             $hr->{'hit'} = delete $save_hits{ $hr->{'serial'} };
         } else {
             $hr->{'hit'} = '';
         }
-
-        $self->{'has_bad_notes'} = 1 if $hr->{'errors'};
 
         my $fmt = join ';', ('%s') x NCOLS;
         push @{ $self->{'notes'} }, sprintf $fmt, @$hr{+COL_NAMES};
@@ -326,6 +332,11 @@ sub load_notes {
     close $fd;
     close $outfd if $store_path;
 
+    if (@bad_notes) {
+        $self->{'has_bad_notes'} = 1;
+        $self->{'bad_notes'}{'version'} = $EBT2::Stats::STATS_VERSION;
+        $self->{'bad_notes'}{'data'} = \@bad_notes;
+    }
     #if ($do_keep_hits and %save_hits) {
     #    ## not all hits have been assigned, ie not all are present in the newly uploaded CSV
     #}

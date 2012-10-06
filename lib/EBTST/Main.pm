@@ -2066,8 +2066,7 @@ sub gen_output {
     foreach my $param (@req_params) {
         ## missing templates yield an undef result
         my $r = $self->render_partial (template => "main/$param", format => 'txt');
-        push @rendered_bbcode, $r;
-
+        push @rendered_bbcode, { title => $section_titles{$param}, text => $r };
     }
     $self->_log (debug => report 'gen_output render', $t0);
 
@@ -2077,7 +2076,7 @@ sub gen_output {
         user       => undef,
         url        => $self->stash ('public_stats'),
         req_params => [ map { $section_titles{$_} } @req_params ],
-        bbcode     => (join "\n\n", grep defined, @rendered_bbcode),
+        bbcode     => \@rendered_bbcode,
     );
 }
 

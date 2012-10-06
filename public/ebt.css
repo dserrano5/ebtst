@@ -53,10 +53,15 @@ input[type=checkbox] {
     font-weight: bold;
     color: red;
 }
-#bbcode {
+.bbcode {
     margin: 0px 20px 20px;
     width: 700px;
     height: 400px;
+}
+.bbcode_short {
+    margin: 0px 20px 20px;
+    width: 700px;
+    height: 100px;
 }
 h2 {
     font-size: 15px;

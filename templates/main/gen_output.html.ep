@@ -6,5 +6,11 @@
 </ul>
 <p><%=l 'You can find them at this link' %>: <a href="<%= $url %>"><%= $url %></a></p>
 <br>
-<p>BBCode:</p>
-<textarea id="bbcode" readonly=""><%= $bbcode %></textarea>
+<h3>BBCode:</h3>
+<textarea class="bbcode" readonly=""><%= join "\n\n", grep { defined and length } map { $_->{'text'} } @$bbcode %></textarea>
+
+<% foreach my $partial_bb (@$bbcode) { =%>
+    <%= next if !defined $partial_bb->{'text'} or !length $partial_bb->{'text'} =%>
+    <p><%= $partial_bb->{'title'} %>:</p>
+    <textarea class="bbcode_short" readonly=""><%= $partial_bb->{'text'} %></textarea>
+<% } =%>

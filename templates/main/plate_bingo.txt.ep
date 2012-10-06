@@ -1,0 +1,23 @@
+[b]<%=l 'Plate bingo' %>[/b]
+% foreach my $elem (@$plate_bingo) {
+%     my %seen; my %total;
+%     foreach my $printer (@{ $elem->{'printers'} }) {
+%         $seen{$printer} = $total{$printer} = 0;
+%     }
+%     foreach my $row (map { sprintf '%03d', $_ } 1 .. $elem->{'highest'}) {
+%             foreach my $printer (@{ $elem->{'printers'} }) {
+%                 my $plate = sprintf '%s%03d', $printer, $row;
+%                 if (exists $elem->{'plates'}{$plate}) {
+%                     $total{$printer}++;
+%                     if ($elem->{'plates'}{$plate}{'count'}) {
+%                         $seen{$printer}++;
+%                     }
+%                 }
+%             }
+%     }
+%     my $all_seen;  $all_seen  += $_ for values %seen;
+%     my $all_total; $all_total += $_ for values %total;
+%     my $all_pct = sprintf '%.2f', $all_seen * 100 / $all_total;
+%     my $visible = 'all' eq $elem->{'value'} ? (l 'all') : ":note-$elem->{'value'}:";
+<%=l 'Total for' %> <%= $visible %>: <%= $all_seen; %>/<%= $all_total; %> (<%= $all_pct %>%)
+% }

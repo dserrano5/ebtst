@@ -9,6 +9,8 @@ use EBT2;
 use EBT2::Data;
 use EBT2::Constants ':all';
 
+plan tests => 79;
+
 my @notes;
 
 my $obj = new_ok 'EBT2::Data', [ db => '/tmp/ebt2-storable' ];
@@ -137,5 +139,4 @@ is +(EBT2::Data::serial_remove_meaningless_figures2 undef, 'T001A1', 'Z00000'), 
 is +(EBT2::Data::serial_remove_meaningless_figures2 undef, 'U001A1', 'M00000'), 'M00000', 'Remove meaningless figures in U/M';
 
 
-done_testing 79;
 unlink '/tmp/ebt2-storable' or warn "unlink: '/tmp/ebt2-storable': $!";

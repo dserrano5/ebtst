@@ -8,6 +8,8 @@ use EBT2;
 use EBT2::Data;
 use EBT2::Stats;
 
+plan tests => 257;
+
 my $data_obj = new_ok 'EBT2::Data', [ db => '/tmp/ebt2-storable' ];
 $data_obj->set_xor_key ('test');
 $data_obj->load_notes (undef, 't/notes2.csv');
@@ -286,5 +288,4 @@ is $res->{'bad_notes'}[12]{'errors'}[8], q{Bad latitude '44532.3'}, 'Multiple er
 is $res->{'bad_notes'}[12]{'errors'}[9], q{Bad longitude '12317.6'}, 'Multiple errors: bad longitude';
 
 
-done_testing 257;
 unlink '/tmp/ebt2-storable' or warn "unlink: '/tmp/ebt2-storable': $!";

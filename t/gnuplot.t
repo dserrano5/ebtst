@@ -1,8 +1,11 @@
 #!/usr/bin/perl
+
 use warnings;
 use strict;
 use Test::More;
 use EBTST::Main::Gnuplot;
+
+plan tests => 128;
 
 sub line_chart {
     my ($dsets, $xdata, $psets);
@@ -641,4 +644,3 @@ sub bartime_chart {
 
 line_chart;
 bartime_chart;
-done_testing 128;

@@ -8,6 +8,8 @@ use File::Basename 'dirname';
 use Test::More;
 use Test::Mojo;
 
+plan tests => 114;
+
 my ($t, $csrftoken);
 
 ## all words that don't need translation (e.g. "Trichet")
@@ -113,5 +115,3 @@ foreach my $section (qw/
 }
 
 $t->ua->unsubscribe ('start');
-
-done_testing 114;

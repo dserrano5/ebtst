@@ -8,6 +8,8 @@ use File::Basename 'dirname';
 use Test::More;
 use Test::Mojo;
 
+plan tests => 550;
+
 my ($t, $csrftoken);
 
 sub next_is_xhr {
@@ -380,7 +382,3 @@ $t->ua->once (start => sub {
     $tx->req->headers->header ('User-Agent', 'Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0)');
 });
 $t->get_ok ('/configure')->status_is (200)->content_like (qr/CSV upload doesn't work with Internet Explorer/);
-
-
-
-done_testing 550;

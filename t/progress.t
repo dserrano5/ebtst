@@ -30,6 +30,8 @@ use warnings;
 use strict;
 use Test::More;
 
+plan tests => 18;
+
 use_ok 'EBTST::Main::Progress';
 my $sess = Sess->new;
 {
@@ -58,5 +60,3 @@ my $sess = Sess->new;
     is $sess->data ('progress'), '3500/3500', 'value and tot change when increasing base';
 }
 is $sess->data ('progress'), '3500/3500', 'session still alive when object is destroyed';
-
-done_testing 18;

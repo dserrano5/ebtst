@@ -9,6 +9,7 @@ use EBT2::Data;
 use EBT2::Stats;
 
 my $data_obj = new_ok 'EBT2::Data', [ db => '/tmp/ebt2-storable' ];
+$data_obj->set_xor_key ('test');
 $data_obj->load_notes (undef, 't/notes2.csv');
 ok defined $data_obj->{'notes'}, 'There are notes after loading db';
 is scalar @{ $data_obj->{'notes'} }, 7, 'Correct number of notes';

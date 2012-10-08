@@ -5,6 +5,7 @@ use strict;
 use Test::More;
 use File::Copy;
 use EBT2;
+use EBT2::Data;
 
 my @dbs = sort glob 't/dbs/*';
 if (@dbs) {
@@ -21,6 +22,8 @@ foreach my $db (@dbs) {
 
     my $obj = new_ok 'EBT2', [ db => '/tmp/ebt2-storable' ];
     $obj->load_db;
+    $obj->set_enc_key ('test');
+    $obj->set_xor_key ('test');
 
     ok defined $obj->has_notes, 'has_notes';
 

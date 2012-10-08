@@ -2,7 +2,11 @@ package EBT2;
 
 use warnings;
 use strict;
-use Storable qw/dclone/;
+use Storable qw/dclone freeze thaw/;
+use Digest::SHA qw/sha512/;
+#use Crypt::Rijndael;
+#use Crypt::CBC;
+use Time::HiRes qw/gettimeofday tv_interval/; my $t0;
 use Config::General;
 
 sub _work_dir {
@@ -30,6 +34,7 @@ BEGIN {
 
 use EBT2::Data;
 use EBT2::Stats;
+
 
 our $progress_every = 5000;
 ## build empty hashes with all possible combinations
@@ -144,6 +149,49 @@ sub done_data {
     return @done;
 }
 
+#my $enc_key;
+my $xor_key;
+#sub set_enc_key {
+#    my ($self, $key) = @_;
+#    $enc_key = $key // die 'set_enc_key: no key specified';
+#}
+sub set_xor_key {
+    my ($self, $key) = @_;
+    $key // die 'set_xor_key: no key specified';
+    $xor_key = sha512 $key;
+    $self->{'data'}->set_xor_key ($key);
+}
+
+sub _xor {
+    my ($data) = @_;
+    return unless defined $data;
+    my $xor = $xor_key // die '_xor: no key has been set';
+
+    if (ref $data) { die sprintf "_xor: received a '%s' instead of a scalar", ref $data; }
+
+    while (1) {
+        if (length $data <= length $xor) {
+            $xor = substr $xor, 0, length $data;
+            return $data ^ $xor;
+        } else {
+            $xor .= $xor;
+        }
+    }
+}
+
+my @encrypted_fields = qw/
+    first_by_cc first_by_pc first_by_value
+    highest_short_codes lowest_short_codes
+    hit_analysis hit_list hit_summary
+    missing_combs_and_history notes_by_combination
+    notes_by_cc notes_by_city notes_by_country notes_by_dow notes_by_pc notes_by_value
+    bad_notes
+    huge_table
+    nice_serials
+    plate_bingo
+    travel_stats
+/;
+
 our $AUTOLOAD;
 sub AUTOLOAD {
     my ($self, @args) = @_;
@@ -175,6 +223,39 @@ sub AUTOLOAD {
             if ($self->{'data'}{$field}{'version'}) {
                 if (-1 != ($self->{'data'}{$field}{'version'} cmp $EBT2::Stats::STATS_VERSION)) {
                     #$self->_log (debug => "version of field ($field) ok, returning cached");
+
+                    ## always try to decrypt. Try both ->decrypt and ->decrypt_hex
+                    if (!ref $self->{'data'}{$field}{'data'}) {
+                        if (25 < length $self->{'data'}{$field}{'data'}) {
+                            my $weird_chars = $self->{'data'}{$field}{'data'} =~ tr/0-9a-zA-Z,#-//c;
+                            my $is_enc = 0.3 < $weird_chars / length $self->{'data'}{$field}{'data'};
+                            if ($is_enc) {
+                                $t0 = [gettimeofday];
+                                my $dec = _xor $self->{'data'}{$field}{'data'};
+                                my $elapsed = tv_interval $t0;
+                                if ($elapsed >= 0.001) { $self->_log (debug => sprintf "decryption of field (%s) length (%s) took (%s) secs", $field, (length $self->{'data'}{$field}{'data'}), $elapsed); }
+                                return ${ thaw $dec };
+                            }
+                        }
+                        $self->_log (debug => sprintf "scalar value for field '$field' not decrypted");
+
+                        #if ('Salted__' eq substr $self->{'data'}{$field}{'data'}, 0, 8) {
+                        #    my $c = Crypt::CBC->new (-cipher => 'Rijndael', -key => $enc_key);
+                        #    $t0 = [gettimeofday];
+                        #    my $dec = $c->decrypt ($self->{'data'}{$field}{'data'});
+                        #    $self->_log (debug => sprintf "decryption of field (%s) length (%s) took (%s) secs", $field, (length $self->{'data'}{$field}{'data'}), tv_interval $t0);
+                        #    return ${ thaw $dec };
+                        #}
+                        #if ('53616c7465645f5f' eq substr $self->{'data'}{$field}{'data'}, 0, 16) {
+                        #    my $c = Crypt::CBC->new (-cipher => 'Rijndael', -key => $enc_key);
+                        #    $t0 = [gettimeofday];
+                        #    my $dec = $c->decrypt_hex ($self->{'data'}{$field}{'data'});
+                        #    $self->_log (debug => sprintf "decryption of field (%s) length (%s) took (%s) secs", $field, (length $self->{'data'}{$field}{'data'}), tv_interval $t0);
+                        #    return ${ thaw $dec };
+                        #}
+                        #$self->_log (debug => sprintf "scalar value for field '$field' starts with '%s', not decrypting", substr $self->{'data'}{$field}{'data'}, 0, 8);
+                    }
+
                     return ref $self->{'data'}{$field}{'data'} ? dclone $self->{'data'}{$field}{'data'} : $self->{'data'}{$field}{'data'};
                 }
                 #$self->_log (info => sprintf q{version '%s' of field '%s' is less than $STATS_VERSION '%s', recalculating},
@@ -190,12 +271,15 @@ sub AUTOLOAD {
             }
             #$self->_log (debug => "field ($field) doesn't exist, let's go for it");
         }
-        my $ret = $self->{'stats'}->$field ($self->{'progress'}, $self->{'data'}, @args);
-        if (!keys %$ret) {
+
+        my $new_data = $self->{'stats'}->$field ($self->{'progress'}, $self->{'data'}, @args);
+
+        if (!keys %$new_data) {
             $self->_log (warn => "Method 'get_$field' returned nothing");
             return undef;
         }
-        foreach my $f (keys %$ret) {
+        my $ret;
+        foreach my $f (keys %$new_data) {
             ## temporary code for existing databases
             if (exists $self->{'data'}{$f}) {
                 if ('HASH' ne ref $self->{'data'}{$f}) {
@@ -207,11 +291,31 @@ sub AUTOLOAD {
                 }
             }
 
-            $self->{'data'}{$f}{'data'} = $ret->{$f};
+            if ($f eq $field) { $ret = ref $new_data->{$f} ? dclone $new_data->{$f} : $new_data->{$f}; }
+
+            ## encrypt only selected fields, but always take an additional ref so we don't try to freeze scalar values
+            if (grep { $f eq $_ } @encrypted_fields and 25 < length (my $frozen = freeze \$new_data->{$f})) {
+                #my $c = Crypt::CBC->new (-cipher => 'Rijndael', -key => $enc_key);
+                $t0 = [gettimeofday];
+                $self->{'data'}{$f}{'data'} = _xor $frozen;
+                #$self->{'data'}{$f}{'data'} = $c->encrypt_hex ($frozen);
+                my $elapsed = tv_interval $t0;
+                if ($elapsed >= 0.001) {
+                    $self->_log (debug => sprintf "encryption of field (%s) length (%s) took (%s) secs", $f, (length $frozen), $elapsed);
+                }
+            } else {
+                $self->{'data'}{$f}{'data'} = $new_data->{$f};
+            }
+
             $self->{'data'}{$f}{'version'} = $EBT2::Stats::STATS_VERSION;
         }
         $self->{'data'}->write_db;
-        return ref $self->{'data'}{$field}{'data'} ? dclone $self->{'data'}{$field}{'data'} : $self->{'data'}{$field}{'data'} if exists $self->{'data'}{$field};
+
+        return $ret;
+        #if (exists $self->{'data'}{$field}) {
+        #    $ret = ref $self->{'data'}{$field}{'data'} ? dclone $self->{'data'}{$field}{'data'} : $self->{'data'}{$field}{'data'};
+        #    return $ret;
+        #}
 
     } elsif ($field =~ /^(countries|printers)$/) {
         ## close over %config - the quoted eval doesn't do it, resulting in 'Variable "%config" is not available'

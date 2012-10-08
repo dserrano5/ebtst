@@ -34,6 +34,8 @@ my $hypnotoad_heartbeat_timeout = $config{'hypnotoad_heartbeat_timeout'} // 60;
 my $hypnotoad_workers           = $config{'hypnotoad_workers'} // 4;                ## Mojo::Server::Hypnotoad default
 my $base_parts = @{ Mojo::URL->new ($base_href)->path->parts };
 
+my $enc_key = $ENV{'EBTST_ENC_KEY'}; delete $ENV{'EBTST_ENC_KEY'};
+
 sub _mkdir {
     my ($dir) = @_;
     my @parents;
@@ -447,6 +449,8 @@ sub startup {
             $self->app->log->warn (sprintf "%s: loading db: '%s'. Going on anyway.", $self->stash ('requested_url'), $@);
         }
         $self->ebt->set_logger ($self->app->log);
+        #$self->ebt->set_enc_key ($enc_key);
+        $self->ebt->set_xor_key ($enc_key);
         $self->stash ('sess')->extend_expires;
         #$self->req->is_xhr or log_sizes $self->app->log, $self->ebt;
 

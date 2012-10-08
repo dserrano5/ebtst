@@ -11,6 +11,7 @@ use List::MoreUtils qw/zip/;
 use Storable qw/retrieve store freeze/;
 use Locale::Country;
 use MIME::Base64;
+use Digest::SHA qw/sha512/;
 use EBT2::NoteValidator;
 use EBT2::Constants ':all';
 
@@ -35,6 +36,30 @@ sub new {
     bless {
         %attrs,
     }, $class;
+}
+
+my $xor_key;
+sub set_xor_key {
+    my ($self, $key) = @_;
+    $key // die 'set_xor_key: no key specified';
+    $xor_key = sha512 $key;
+}
+
+sub _xor {
+    my ($data) = @_;
+    return unless defined $data;
+    my $xor = $xor_key // die '_xor: no key has been set';
+
+    if (ref $data) { die sprintf "_xor: received a '%s' instead of a scalar", ref $data; }
+
+    while (1) {
+        if (length $data <= length $xor) {
+            $xor = substr $xor, 0, length $data;
+            return $data ^ $xor;
+        } else {
+            $xor .= $xor;
+        }
+    }
 }
 
 sub whoami {
@@ -250,7 +275,7 @@ sub load_notes {
     ## maybe keep known hits (if any)
     my %save_hits;
     if ($do_keep_hits) {
-        foreach my $n (@{ $self->{'notes'} }) {
+        foreach my $n (map { _xor $_ } @{ $self->{'notes'} }) {
             my @arr = split ';', $n, NCOLS;
             next unless $arr[HIT];
             $save_hits{ $arr[SERIAL] } = $arr[HIT];
@@ -327,7 +352,7 @@ sub load_notes {
         }
 
         my $fmt = join ';', ('%s') x NCOLS;
-        push @{ $self->{'notes'} }, sprintf $fmt, @$hr{+COL_NAMES};
+        push @{ $self->{'notes'} }, _xor sprintf $fmt, @$hr{+COL_NAMES};
     }
     close $fd;
     close $outfd if $store_path;
@@ -335,7 +360,7 @@ sub load_notes {
     if (@bad_notes) {
         $self->{'has_bad_notes'} = 1;
         $self->{'bad_notes'}{'version'} = $EBT2::Stats::STATS_VERSION;
-        $self->{'bad_notes'}{'data'} = \@bad_notes;
+        $self->{'bad_notes'}{'data'} = _xor freeze \\@bad_notes;   ## always take an additional ref
     }
     #if ($do_keep_hits and %save_hits) {
     #    ## not all hits have been assigned, ie not all are present in the newly uploaded CSV
@@ -365,7 +390,7 @@ sub load_hits {
 
     my %serials2idx;
     my $idx = 0;
-    foreach my $n (@{ $self->{'notes'} }) {
+    foreach my $n (map { _xor $_ } @{ $self->{'notes'} }) {
         if ($progress and 0 == $idx % $EBT2::progress_every) { $progress->set ($idx*0.1); }
         my @arr = split ';', $n, NCOLS;
         $serials2idx{ $arr[SERIAL] } = $idx;
@@ -459,9 +484,9 @@ sub load_hits {
 
         my $note_num = $serials2idx{$serial};
         defined $note_num or die "Unrecognized hits file\n";   ## TODO: some hits may have been assigned, then we die in the middle of the process
-        my @arr = split ';', $self->{'notes'}[$note_num], NCOLS;
+        my @arr = split ';', (_xor $self->{'notes'}[$note_num]), NCOLS;
         $arr[HIT] = encode_base64 +(freeze $hits{$serial}), '';
-        $self->{'notes'}[$note_num] = join ';', @arr;
+        $self->{'notes'}[$note_num] = _xor join ';', @arr;
     }
 
     $self->{'has_hits'} = 1 if %hits;
@@ -543,7 +568,18 @@ sub rewind {
 sub next_note {
     my ($self) = @_;
 
-    return $self->{'notes'}[ $self->{'notes_pos'}++ ];
+    my $note = $self->{'notes'}[ $self->{'notes_pos'}++ ];
+    return unless defined $note;
+
+    ## duplicated code:
+    my $weird_chars = $note =~ tr/0-9a-zA-Z,#-//c;
+    my $is_enc = 0.3 < $weird_chars / length $note;
+
+    if ($is_enc) {
+        return _xor $note;
+    } else {
+        return $note;
+    }
 }
 
 my ($last_read, $chunk_start, $chunk_end);
@@ -556,9 +592,9 @@ sub get_chunk {
     if ('all' eq lc $interval) {
         $self->{'eof'} = 1;
         return {
-            start_date => (split ' ', (split /;/, $self->{'notes'}[ 0], NCOLS)[DATE_ENTERED])[0],
-            end_date   => (split ' ', (split /;/, $self->{'notes'}[-1], NCOLS)[DATE_ENTERED])[0],
-            notes      => [ @{ $self->{'notes'} } ],
+            start_date => (split ' ', (split /;/, (_xor $self->{'notes'}[ 0]), NCOLS)[DATE_ENTERED])[0],
+            end_date   => (split ' ', (split /;/, (_xor $self->{'notes'}[-1]), NCOLS)[DATE_ENTERED])[0],
+            notes      => [ map { _xor $_ } @{ $self->{'notes'} } ],
         };
     }
 

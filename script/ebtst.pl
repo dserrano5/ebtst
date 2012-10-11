@@ -25,11 +25,10 @@ Please visit http://mojolicio.us for detailed installation instructions.
 EOF
 
 print 'Enter encryption key: ';
-system 'stty -echo'; my $enc_key = <>; system 'stty echo'; print "\n";
+system 'stty -echo'; $::enc_key = <>; system 'stty echo'; print "\n";
 END { system 'stty echo'; }
-chomp $enc_key;
+chomp $::enc_key;
 
-$ENV{'EBTST_ENC_KEY'} = $enc_key;
 $ENV{'MOJO_APP'} ||= 'EBTST';
 $ENV{'MOJO_MAX_MESSAGE_SIZE'} = 260*1024*1024;
 $ENV{'MOJO_LOG_LEVEL'} = 'debug';

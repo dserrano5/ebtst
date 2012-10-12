@@ -9,6 +9,7 @@ use List::Util qw/first sum reduce/;
 use List::MoreUtils qw/uniq zip/;
 use Storable qw/thaw dclone/;
 use MIME::Base64;
+use EBT2::Util qw/serial_remove_meaningless_figures2/;
 use EBT2::Data;
 use EBT2::Constants ':all';
 
@@ -341,7 +342,7 @@ sub huge_table {
             if ($progress and 0 == $idx % $EBT2::progress_every) { $progress->set ($idx); }
             next if $note->[ERRORS];
             my $plate = substr $note->[SHORT_CODE], 0, 4;
-            my $serial = EBT2::Data::serial_remove_meaningless_figures2 $note->[VALUE], $note->[SHORT_CODE], $note->[SERIAL];
+            my $serial = serial_remove_meaningless_figures2 $note->[VALUE], $note->[SHORT_CODE], $note->[SERIAL];
             my $num_stars = $serial =~ tr/*/*/;
             $serial = substr $serial, 0, 4+$num_stars;
 
@@ -366,7 +367,7 @@ sub fooest_short_codes {
             next if $note->[ERRORS];
             my %hr2 = zip @{[ COL_NAMES ]}, @$note;
             my $pc = substr $note->[SHORT_CODE], 0, 1;
-            my $serial = EBT2::Data::serial_remove_meaningless_figures2 $note->[VALUE], $note->[SHORT_CODE], $note->[SERIAL];
+            my $serial = serial_remove_meaningless_figures2 $note->[VALUE], $note->[SHORT_CODE], $note->[SERIAL];
             my $num_stars = $serial =~ tr/*/*/;
             $serial = substr $serial, 0, 4+$num_stars;
             my $sort_key = sprintf '%s%s', $note->[SHORT_CODE], $serial;

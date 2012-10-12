@@ -12,7 +12,7 @@ use Storable qw/retrieve store freeze/;
 use Locale::Country;
 use MIME::Base64;
 use Digest::SHA qw/sha512/;
-use EBT2::Util qw/_xor/;
+use EBT2::Util qw/_xor serial_remove_meaningless_figures2/;
 use EBT2::NoteValidator;
 use EBT2::Constants ':all';
 
@@ -57,51 +57,6 @@ sub get_checked_boxes {
     my ($self) = @_;
 
     return $self->{'checked_boxes'};
-}
-
-## this is:
-## - for sorting
-## - for presentation
-## - used in the process of signature guessing when plates are shared
-sub serial_remove_meaningless_figures2 {
-    my ($value, $short, $serial) = @_;
-
-    my $pc = substr $short, 0, 1;
-    my $cc = substr $serial, 0, 1;
-
-    if ('M' eq $cc or 'T' eq $cc) {
-        #$serial = $cc . '*' . substr $serial, 2;
-
-    } elsif ('N' eq $cc) {
-        if ('G' ne $pc) {
-            $serial = $cc . '**' . substr $serial, 3;
-        }
-
-    } elsif ('H' eq $cc) {
-        if ('G' ne $pc) {
-            if (5 != $value) {
-                $serial = $cc . '**' . substr $serial, 3;
-            }
-        }
-
-    } elsif ('U' eq $cc) {
-        $serial = $cc . '**' . substr $serial, 3;
-
-    } elsif ('P' eq $cc) {
-        if ('F' eq $pc) {
-            if (500 == $value) {
-                $serial = $cc . '**' . substr $serial, 3;
-            } else {
-                $serial = $cc . (substr $serial, 1, 2) . '**' . substr $serial, 5;
-            }
-        }
-
-    } elsif ('Z' eq $cc) {
-        $serial = $cc . (substr $serial, 1, 1) . '**' . substr $serial, 4;
-
-    }
-
-    return $serial;
 }
 
 sub _guess_signature {

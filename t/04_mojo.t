@@ -27,7 +27,7 @@ unlink glob '/home/hue/ll/lang/perl/ebt-mojo-iframes2/public/images/unicode⑤ch
 unlink glob '/home/hue/ll/lang/perl/ebt-mojo-iframes2/public/images/latuniº⑤chars/*svg';
 $ENV{'BASE_DIR'} = File::Spec->catfile (getcwd, (dirname __FILE__), '..');
 
-$ENV{'EBTST_ENC_KEY'} = 'test';
+$::enc_key = 'test';
 $t = Test::Mojo->new ('EBTST');
 
 

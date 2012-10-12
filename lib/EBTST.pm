@@ -439,7 +439,7 @@ sub startup {
         _mkdir "$gnuplot_img_dir/static";
         _mkdir $user_data_dir;
 
-        eval { $self->stash (ebt => EBT2->new (db => $db)); };
+        eval { $self->stash (ebt => EBT2->new (db => $db, xor_key => $::enc_key)); };
         $@ and die "Initializing model: '$@'\n";   ## TODO: this isn's working
         $self->ebt->set_bbcode_flags_base_href ($base_href);
         eval { $self->ebt->load_db; };
@@ -447,7 +447,6 @@ sub startup {
             $self->app->log->warn (sprintf "%s: loading db: '%s'. Going on anyway.", $self->stash ('requested_url'), $@);
         }
         $self->ebt->set_logger ($self->app->log);
-        $self->ebt->set_xor_key ($::enc_key);
         $self->stash ('sess')->extend_expires;
         #$self->req->is_xhr or log_sizes $self->app->log, $self->ebt;
 

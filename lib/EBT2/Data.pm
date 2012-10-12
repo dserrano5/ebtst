@@ -12,6 +12,7 @@ use Storable qw/retrieve store freeze/;
 use Locale::Country;
 use MIME::Base64;
 use Digest::SHA qw/sha512/;
+use EBT2::Util qw/_xor/;
 use EBT2::NoteValidator;
 use EBT2::Constants ':all';
 
@@ -36,30 +37,6 @@ sub new {
     bless {
         %attrs,
     }, $class;
-}
-
-my $xor_key;
-sub set_xor_key {
-    my ($self, $key) = @_;
-    $key // die 'set_xor_key: no key specified';
-    $xor_key = sha512 $key;
-}
-
-sub _xor {
-    my ($data) = @_;
-    return unless defined $data;
-    my $xor = $xor_key // die '_xor: no key has been set';
-
-    if (ref $data) { die sprintf "_xor: received a '%s' instead of a scalar", ref $data; }
-
-    while (1) {
-        if (length $data <= length $xor) {
-            $xor = substr $xor, 0, length $data;
-            return $data ^ $xor;
-        } else {
-            $xor .= $xor;
-        }
-    }
 }
 
 sub whoami {

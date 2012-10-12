@@ -81,7 +81,7 @@ while (<$esfd>) {
 }
 close $esfd;
 
-$ENV{'EBTST_ENC_KEY'} = 'test';
+$::enc_key = 'test';
 my $all_text;
 $t = Test::Mojo->new ('EBTST');
 $t->ua->on (start => sub {

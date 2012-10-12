@@ -20,9 +20,8 @@ foreach my $db (@dbs) {
 
     my $gotten;
 
-    my $obj = new_ok 'EBT2', [ db => '/tmp/ebt2-storable' ];
+    my $obj = new_ok 'EBT2', [ db => '/tmp/ebt2-storable', xor_key => 'test' ];
     $obj->load_db;
-    $obj->set_xor_key ('test');
 
     ok defined $obj->has_notes, 'has_notes';
 

@@ -6,15 +6,17 @@ use Test::More;
 use MIME::Base64;
 use Storable qw/thaw/;
 use EBT2;
+use EBT2::Util qw/set_xor_key _xor/;
 use EBT2::Data;
 use EBT2::Constants ':all';
+
+set_xor_key 'test';
 
 plan tests => 81;
 
 my @notes;
 
 my $obj = new_ok 'EBT2::Data', [ db => '/tmp/ebt2-storable' ];
-$obj->set_xor_key ('test');
 ok $obj->{'db'};
 ok !$obj->has_notes, 'Object reports having no notes';
 
@@ -22,46 +24,43 @@ ok !$obj->has_notes, 'Object reports having no notes';
 $obj->load_notes (undef, 't/notes1.csv');
 ok $obj->has_notes, 'Object reports having some notes';
 ok defined $obj->{'notes'}, 'There are notes after loading notes CSV';
-@notes = map { EBT2::Data::_xor $_ } @{ $obj->{'notes'} };
+@notes = map { _xor $_ } @{ $obj->{'notes'} };
 is scalar @notes, 2, 'Correct number of notes';
 is +(split ';', $notes[1], NCOLS)[HIT], '', 'No hits at all after initial loading of notes CSV';
 $obj = new_ok 'EBT2::Data', [ db => '/tmp/ebt2-storable' ];
-$obj->set_xor_key ('test');
 $obj->load_db;
 ok defined $obj->{'notes'}, 'There are notes after loading db';
 is scalar @notes, 2, 'Correct number of notes';
 
 ## load_hits, check
 $obj->load_hits (undef, 't/hits1.csv');
-@notes = map { EBT2::Data::_xor $_ } @{ $obj->{'notes'} };
+@notes = map { _xor $_ } @{ $obj->{'notes'} };
 is +(split ';', $notes[0], NCOLS)[HIT], '', 'No spurious hits after loading hits CSV';
 is ref (thaw decode_base64 +(split ';', $notes[1], NCOLS)[HIT]), 'HASH', 'There is a hit after loading hits CSV';
 $obj->load_db;
-@notes = map { EBT2::Data::_xor $_ } @{ $obj->{'notes'} };
+@notes = map { _xor $_ } @{ $obj->{'notes'} };
 is +(split ';', $notes[0], NCOLS)[HIT], '', 'No spurious hits after loading db';
 is ref (thaw decode_base64 +(split ';', $notes[1], NCOLS)[HIT]), 'HASH', 'There is a hit after loading db';
 
 ## load new notes, check hits are still there
 $obj = new_ok 'EBT2::Data', [ db => '/tmp/ebt2-storable' ];
-$obj->set_xor_key ('test');
 $obj->load_notes (undef, 't/notes1.csv');
 $obj->load_hits (undef, 't/hits1.csv');
 ok defined $obj->{'notes'}, 'There are notes after loading CSV';
-@notes = map { EBT2::Data::_xor $_ } @{ $obj->{'notes'} };
+@notes = map { _xor $_ } @{ $obj->{'notes'} };
 is scalar @notes, 2, 'Correct number of notes';
 is ref (thaw decode_base64 +(split ';', $notes[1], NCOLS)[HIT]), 'HASH', 'There is a hit after loading hits CSV';
 $obj->load_notes (undef, 't/notes1.csv');
 ok defined $obj->{'notes'}, 'There are notes after loading CSV';
-@notes = map { EBT2::Data::_xor $_ } @{ $obj->{'notes'} };
+@notes = map { _xor $_ } @{ $obj->{'notes'} };
 is scalar @notes, 2, 'Correct number of notes';
 is ref (thaw decode_base64 +(split ';', $notes[1], NCOLS)[HIT]), 'HASH', 'Hits are still there after loading new notes CSV';
 
 ## use another CSV for the following tests
 $obj = new_ok 'EBT2::Data', [ db => '/tmp/ebt2-storable' ];
-$obj->set_xor_key ('test');
 $obj->load_notes (undef, 't/notes2.csv');
 ok defined $obj->{'notes'}, 'There are notes after loading CSV';
-@notes = map { EBT2::Data::_xor $_ } @{ $obj->{'notes'} };
+@notes = map { _xor $_ } @{ $obj->{'notes'} };
 is scalar @notes, 7, 'Correct number of notes';
 
 my $c;
@@ -111,7 +110,6 @@ is $c, 1, 'All: did 1 iteration';
 
 ## use another CSV for the following tests
 $obj = new_ok 'EBT2::Data', [ db => '/tmp/ebt2-storable' ];
-$obj->set_xor_key ('test');
 $obj->load_notes (undef, 't/notes-sigs.csv');
 my @sigs = qw/JCT JCT MD MD WD WD JCT JCT WD WD JCT JCT WD WD JCT JCT/;
 $c = 0;
@@ -142,7 +140,6 @@ is +(EBT2::Data::serial_remove_meaningless_figures2 undef, 'U001A1', 'M00000'), 
 
 ## use another CSV for the following tests: incomplete hits file
 $obj = new_ok 'EBT2::Data', [ db => '/tmp/ebt2-storable' ];
-$obj->set_xor_key ('test');
 $obj->load_notes (undef, 't/notes10.csv');
 eval { $obj->load_hits (undef, 't/hits10.csv') };
 like $@, qr/Unrecognized hits file/, 'bad hits file';

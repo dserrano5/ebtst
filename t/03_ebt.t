@@ -6,35 +6,34 @@ use Test::More;
 use MIME::Base64;
 use Storable qw/thaw/;
 use EBT2;
+use EBT2::Util qw/_xor/;
 use EBT2::Data;
 use EBT2::Constants ':all';
 
 plan tests => 26;
 
-my $obj = new_ok 'EBT2', [ db => '/tmp/ebt2-storable' ];
+my $obj = new_ok 'EBT2', [ db => '/tmp/ebt2-storable', xor_key => 'test' ];
 ok $obj->{'data'};
 ok $obj->{'stats'};
 ok !$obj->has_notes;
-
-$obj->set_xor_key ('test');
 
 $obj->load_notes ('t/notes1.csv');
 ok $obj->has_notes;
 ok defined $obj->{'data'}{'notes'}, 'There are some notes after loading CSV';
 is scalar @{ $obj->{'data'}{'notes'} }, 2, 'Correct number of notes';
 $obj->load_hits ('t/hits1.csv');
-is ref (thaw decode_base64 +(split ';', (EBT2::Data::_xor $obj->{'data'}{'notes'}[1]), NCOLS)[HIT]), 'HASH', 'There is a hit after loading hits CSV';
-is +(split ';', (EBT2::Data::_xor $obj->{'data'}{'notes'}[0]), NCOLS)[HIT], '', 'No spurious hits after loading hits CSV';
+is ref (thaw decode_base64 +(split ';', (_xor $obj->{'data'}{'notes'}[1]), NCOLS)[HIT]), 'HASH', 'There is a hit after loading hits CSV';
+is +(split ';', (_xor $obj->{'data'}{'notes'}[0]), NCOLS)[HIT], '', 'No spurious hits after loading hits CSV';
 
 $obj->load_notes ('t/notes1.csv');
-is ref (thaw decode_base64 +(split ';', (EBT2::Data::_xor $obj->{'data'}{'notes'}[1]), NCOLS)[HIT]), 'HASH', 'Hits are still there after loading new notes CSV';
-is +(split ';', (EBT2::Data::_xor $obj->{'data'}{'notes'}[0]), NCOLS)[HIT], '', 'No spurious hits after loading new notes CSV';
+is ref (thaw decode_base64 +(split ';', (_xor $obj->{'data'}{'notes'}[1]), NCOLS)[HIT]), 'HASH', 'Hits are still there after loading new notes CSV';
+is +(split ';', (_xor $obj->{'data'}{'notes'}[0]), NCOLS)[HIT], '', 'No spurious hits after loading new notes CSV';
 
 $obj->load_db;
 ok defined $obj->{'data'}{'notes'}, 'There are notes after loading db';
 is scalar @{ $obj->{'data'}{'notes'} }, 2, 'Correct number of notes';
-is ref (thaw decode_base64 +(split ';', (EBT2::Data::_xor $obj->{'data'}{'notes'}[1]), NCOLS)[HIT]), 'HASH', 'Hits are still there after loading db';
-is +(split ';', (EBT2::Data::_xor $obj->{'data'}{'notes'}[0]), NCOLS)[HIT], '', 'No spurious hits after loading db';
+is ref (thaw decode_base64 +(split ';', (_xor $obj->{'data'}{'notes'}[1]), NCOLS)[HIT]), 'HASH', 'Hits are still there after loading db';
+is +(split ';', (_xor $obj->{'data'}{'notes'}[0]), NCOLS)[HIT], '', 'No spurious hits after loading db';
 
 my $gotten;
 $gotten = $obj->get_activity;
@@ -58,6 +57,6 @@ is $gotten->{'10'}, 1, 'One 10€ note';
 is $gotten->{'20'}, 1, 'One 20€ note';
 
 $obj->load_notes ('t/notes-validator.csv');
-is scalar @${ thaw EBT2::Data::_xor $obj->{'data'}{'bad_notes'}{'data'} }, 13, 'Correct number of bad notes after loading CSV';
+is scalar @${ thaw _xor $obj->{'data'}{'bad_notes'}{'data'} }, 13, 'Correct number of bad notes after loading CSV';
 
 unlink '/tmp/ebt2-storable' or warn "unlink: '/tmp/ebt2-storable': $!";

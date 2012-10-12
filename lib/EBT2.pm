@@ -3,9 +3,9 @@ package EBT2;
 use warnings;
 use strict;
 use Storable qw/dclone freeze thaw/;
-use Digest::SHA qw/sha512/;
 use Time::HiRes qw/gettimeofday tv_interval/; my $t0;
 use Config::General;
+use EBT2::Util qw/set_xor_key _xor/;
 
 sub _work_dir {
     my $work_dir;
@@ -78,11 +78,13 @@ sub new {
     my ($class, %args) = @_;
 
     my %attrs;
-    $attrs{$_} = delete $args{$_} for qw/db/;
+    $attrs{$_} = delete $args{$_} for qw/db xor_key/;
     %args and die sprintf 'unrecognized parameters: %s', join ', ', sort keys %args;
 
-    #exists $attrs{'foo'} or die "need a 'foo' parameter";
+    exists $attrs{'xor_key'} or die "need a 'xor_key' parameter";
     $attrs{'db'} //= File::Spec->catfile ($work_dir, 'db2');
+
+    set_xor_key $attrs{'xor_key'};
 
     bless {
         data  => EBT2::Data->new (db => $attrs{'db'}),
@@ -145,31 +147,6 @@ sub done_data {
     delete @done{qw/db whoami version eof has_hits has_notes has_bad_notes checked_boxes notes_pos/};
     my @done = keys %done;
     return @done;
-}
-
-my $xor_key;
-sub set_xor_key {
-    my ($self, $key) = @_;
-    $key // die 'set_xor_key: no key specified';
-    $xor_key = sha512 $key;
-    $self->{'data'}->set_xor_key ($key);
-}
-
-sub _xor {
-    my ($data) = @_;
-    return unless defined $data;
-    my $xor = $xor_key // die '_xor: no key has been set';
-
-    if (ref $data) { die sprintf "_xor: received a '%s' instead of a scalar", ref $data; }
-
-    while (1) {
-        if (length $data <= length $xor) {
-            $xor = substr $xor, 0, length $data;
-            return $data ^ $xor;
-        } else {
-            $xor .= $xor;
-        }
-    }
 }
 
 my @encrypted_fields = qw/

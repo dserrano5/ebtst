@@ -1,7 +1,7 @@
 [b]<%=l 'Number of notes per month' %>[/b]
 [table]\
 [tr][td]<%=l 'Month' %>[/td][td] ❘ <%=l 'Notes' %>[/td][td] ❘ :note-5:[/td][td] ❘ :note-10:[/td][td] ❘ :note-20:[/td][td] ❘ :note-50:[/td][td] ❘ :note-100:[/td][td] ❘ :note-200:[/td][td] ❘ :note-500:[/td][/tr]\
-<% foreach my $elem (@$nbm) { =%>
+<% foreach my $elem (reverse @$nbm) { =%>
     [tr]\
     [td][b]<%= $elem->{'month'} %>[/b][/td][td] ❘ <%= $elem->{'count'} %> (<%= $elem->{'pct'} %>%)[/td]\
     <% foreach my $d (@{ $elem->{'detail'} }) { =%>

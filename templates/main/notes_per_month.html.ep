@@ -11,7 +11,7 @@
         <th>200</th>
         <th>500</th>
     </tr>
-    <% foreach my $elem (@$nbm) { =%>
+    <% foreach my $elem (reverse @$nbm) { =%>
         <tr>
             <td><b><%= $elem->{'month'} %></b></td>
             <td><%= $elem->{'count'} %> (<%= $elem->{'pct'} %>%)</td>

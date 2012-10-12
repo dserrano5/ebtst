@@ -462,6 +462,12 @@ sub load_hits {
     }
     close $fd;
 
+    ## check that all hits have parts. Otherwise, we haven't been given a complete hits file
+    foreach my $k (keys %hits) {
+        next if exists $hits{$k}{'parts'} and 'ARRAY' eq ref $hits{$k}{'parts'};
+        die "Unrecognized hits file\n";
+    }
+
     ## assign each entry in %hits to $self->{'notes'}[42]{'hit'}
     foreach my $serial (keys %hits) {
         my $p = $hits{$serial}{'parts'};

@@ -4,8 +4,6 @@ use warnings;
 use strict;
 use Storable qw/dclone freeze thaw/;
 use Digest::SHA qw/sha512/;
-#use Crypt::Rijndael;
-#use Crypt::CBC;
 use Time::HiRes qw/gettimeofday tv_interval/; my $t0;
 use Config::General;
 
@@ -149,12 +147,7 @@ sub done_data {
     return @done;
 }
 
-#my $enc_key;
 my $xor_key;
-#sub set_enc_key {
-#    my ($self, $key) = @_;
-#    $enc_key = $key // die 'set_enc_key: no key specified';
-#}
 sub set_xor_key {
     my ($self, $key) = @_;
     $key // die 'set_xor_key: no key specified';
@@ -238,22 +231,6 @@ sub AUTOLOAD {
                             }
                         }
                         $self->_log (debug => sprintf "scalar value for field '$field' not decrypted");
-
-                        #if ('Salted__' eq substr $self->{'data'}{$field}{'data'}, 0, 8) {
-                        #    my $c = Crypt::CBC->new (-cipher => 'Rijndael', -key => $enc_key);
-                        #    $t0 = [gettimeofday];
-                        #    my $dec = $c->decrypt ($self->{'data'}{$field}{'data'});
-                        #    $self->_log (debug => sprintf "decryption of field (%s) length (%s) took (%s) secs", $field, (length $self->{'data'}{$field}{'data'}), tv_interval $t0);
-                        #    return ${ thaw $dec };
-                        #}
-                        #if ('53616c7465645f5f' eq substr $self->{'data'}{$field}{'data'}, 0, 16) {
-                        #    my $c = Crypt::CBC->new (-cipher => 'Rijndael', -key => $enc_key);
-                        #    $t0 = [gettimeofday];
-                        #    my $dec = $c->decrypt_hex ($self->{'data'}{$field}{'data'});
-                        #    $self->_log (debug => sprintf "decryption of field (%s) length (%s) took (%s) secs", $field, (length $self->{'data'}{$field}{'data'}), tv_interval $t0);
-                        #    return ${ thaw $dec };
-                        #}
-                        #$self->_log (debug => sprintf "scalar value for field '$field' starts with '%s', not decrypting", substr $self->{'data'}{$field}{'data'}, 0, 8);
                     }
 
                     return ref $self->{'data'}{$field}{'data'} ? dclone $self->{'data'}{$field}{'data'} : $self->{'data'}{$field}{'data'};
@@ -295,10 +272,8 @@ sub AUTOLOAD {
 
             ## encrypt only selected fields, but always take an additional ref so we don't try to freeze scalar values
             if (grep { $f eq $_ } @encrypted_fields and 25 < length (my $frozen = freeze \$new_data->{$f})) {
-                #my $c = Crypt::CBC->new (-cipher => 'Rijndael', -key => $enc_key);
                 $t0 = [gettimeofday];
                 $self->{'data'}{$f}{'data'} = _xor $frozen;
-                #$self->{'data'}{$f}{'data'} = $c->encrypt_hex ($frozen);
                 my $elapsed = tv_interval $t0;
                 if ($elapsed >= 0.001) {
                     $self->_log (debug => sprintf "encryption of field (%s) length (%s) took (%s) secs", $f, (length $frozen), $elapsed);
@@ -312,10 +287,6 @@ sub AUTOLOAD {
         $self->{'data'}->write_db;
 
         return $ret;
-        #if (exists $self->{'data'}{$field}) {
-        #    $ret = ref $self->{'data'}{$field}{'data'} ? dclone $self->{'data'}{$field}{'data'} : $self->{'data'}{$field}{'data'};
-        #    return $ret;
-        #}
 
     } elsif ($field =~ /^(countries|printers)$/) {
         ## close over %config - the quoted eval doesn't do it, resulting in 'Variable "%config" is not available'

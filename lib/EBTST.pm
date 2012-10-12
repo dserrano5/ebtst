@@ -447,7 +447,6 @@ sub startup {
             $self->app->log->warn (sprintf "%s: loading db: '%s'. Going on anyway.", $self->stash ('requested_url'), $@);
         }
         $self->ebt->set_logger ($self->app->log);
-        #$self->ebt->set_enc_key ($::enc_key);
         $self->ebt->set_xor_key ($::enc_key);
         $self->stash ('sess')->extend_expires;
         #$self->req->is_xhr or log_sizes $self->app->log, $self->ebt;

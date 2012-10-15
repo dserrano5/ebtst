@@ -318,8 +318,8 @@ _nice_serials_1 = L'algorithme de classement des numéros de série est le suiva
 _coords_bingo_1 = Comme dans le "Tableau complet", les billets erronés sont ignorés.
 _combinations_1 = Les billets erronés sont à nouveau ignorés. Comme pour les sections "Pays" et "Imprimeurs", la somme des pourcentages d'une colonne est égale à 100%.
 _plate_bingo_1 = Les billets erronés sont ignorés. Les quelques planches qui peuvent porter la signature de présidents différents de la BCE (c'est-à-dire <img src="images/values/10.gif"> K007, <img src="images/values/10.gif"> P005, <img src="images/values/20.gif"> F002 and <img src="images/values/100.gif"> F002) sont traitées comme les autres.
-_hit_analysis_1 = The table under "Lucky bundles" shows the days with more than one hit notes, sorted by hit ratio. For example if a given day you inserted 3 notes and all of them eventually became hits (either active or passive), the hit ratio for that day will be 1, and it will likely appear at the top of the table.
-_hit_analysis_2 = The section "Other hit potential" shows the 10 days with best hit ratios, that could potentially bring more hits to your tally.
+_hit_analysis_1 = Le tableau "Liasses chanceuses" montre les jours ou vous avez obtenu des hits avec plusieurs billets, classés selon le ratio de hits. Par exemple, si vous avez encodé 3 billets dans la même journée et qu'ils ont tous produit des hits (actifs ou passifs), le ratio de hits pour cette journée sera 1 et elle apparaîtra en haut du tableau.
+_hit_analysis_2 = La section "Potentiel de hits" affiche les 10 jours où vous avez eu le meilleur ratio de hits et qui pourraient potentiellement vous apporter de nouveaux hits.
 
 ## days of week
 Monday = Lundi

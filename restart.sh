@@ -1,3 +1,3 @@
-hypnotoad ~/ebtst/script/ebtst.pl --stop
+kill $(cat ~/usr/ebtst/script/hypnotoad.pid)
 sleep 1
-hypnotoad ~/ebtst/script/ebtst.pl
+hypnotoad ~/usr/ebtst/script/ebtst.pl

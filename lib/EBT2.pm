@@ -203,11 +203,11 @@ sub AUTOLOAD {
                                 $t0 = [gettimeofday];
                                 my $dec = _xor $self->{'data'}{$field}{'data'};
                                 my $elapsed = tv_interval $t0;
-                                if ($elapsed >= 0.001) { $self->_log (debug => sprintf "decryption of field (%s) length (%s) took (%s) secs", $field, (length $self->{'data'}{$field}{'data'}), $elapsed); }
+                                #if ($elapsed >= 0.001) { $self->_log (debug => sprintf "decryption of field (%s) length (%s) took (%s) secs", $field, (length $self->{'data'}{$field}{'data'}), $elapsed); }
                                 return ${ thaw $dec };
                             }
                         }
-                        $self->_log (debug => sprintf "scalar value for field '$field' not decrypted");
+                        #$self->_log (debug => sprintf "scalar value for field '$field' not decrypted");
                     }
 
                     return ref $self->{'data'}{$field}{'data'} ? dclone $self->{'data'}{$field}{'data'} : $self->{'data'}{$field}{'data'};

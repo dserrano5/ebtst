@@ -294,7 +294,7 @@ Submit = Verzenden
 ## help
 Main usage = Algemeen gebruik
 _help_main_usage_1 = Klik na het uploaden van je CSV-bestanden (zie "Configuratie") links de gewenste selectievakjes aan en klik op "BBCode/HTML" om je openbare statistieken te genereren. Een nieuwe tabblad of nieuw venster met de BBCode en een link naar de HTML-statistieken zal openen. Zorg ervoor dat je (eventuele) popup-blocker popups van dserrano5.es toestaat.
-_help_main_usage_2 = Je hebt een redelijk recente webbrowser nodig voor EBTST. Van Firefox 8, Chrome 14 en Opera 9.80 is bekend dat ze werken. Internet Explorer wordt niet ondersteund.
+_help_main_usage_2 = Je hebt een redelijk recente webbrowser nodig voor EBTST. Van Firefox 5.0.1, Chrome 14 en Opera 9.80 is bekend dat ze werken. Internet Explorer wordt niet ondersteund.
 _help_colors_1 = Verschillende secties bevatten gekleurde getallen. De betekenis van deze kleuren is:
 _help_colors_2 = Gekleurde sterretjes op verschillende plekken geven aan hoe recent biljetten zijn:
 grey = grijs

@@ -294,7 +294,7 @@ Submit = Enviar
 ## help
 Main usage = Uso
 _help_main_usage_1 = Después de subir tus archivos CSV (ver sección "Configuración"), marca las casillas deseadas de la izquierda y pincha en "BBCode/HTML" para generar las estadísticas públicas. Se abrirá una nueva ventana o tab con el BBCode y un enlace al HTML. Asegúrate de que tu bloqueador de ventanas emergentes (si tienes) está configurado para permitir dserrano5.es.
-_help_main_usage_2 = Ten en cuenta que hace falta un navegador razonablemente reciente para obtener la mejor experiencia de EBTST. Firefox 8, Chrome 14 y Opera 9.80 funcionan sin problema. Por otro lado, Internet Explorer no está soportado.
+_help_main_usage_2 = Ten en cuenta que hace falta un navegador razonablemente reciente para obtener la mejor experiencia de EBTST. Firefox 5.0.1, Chrome 14 y Opera 9.80 funcionan sin problema. Por otro lado, Internet Explorer no está soportado.
 _help_colors_1 = Algunas secciones muestran números pintados de diferentes colores. Los colores son:
 _help_colors_2 = Los asteriscos coloreados que aparecen en varios sitios muestran lo recientes que son los billetes:
 grey = gris

@@ -294,7 +294,7 @@ Submit = Envoyer
 ## help
 Main usage = Utilisation principale
 _help_main_usage_1 = Après avoir téléchargé vos fichiers CSV (dans la section "Configuration"), cochez les cases désirées dans la liste de gauche et cliquez sur "BBCode/HTML" pour générer vos statistiques publiques. Le code BBCode ainsi qu'un lien vers le fichier HTML apparaîtront dans une nouvelle fenêtre ou onglet. Assurez-vous que votre navigateur internet est configuré pour autoriser les pop-ups de dserrano5.es
-_help_main_usage_2 = Pour une utilisation optimale d'EBTST, il est recommandé d'utiliser un navigateur internet récent. Firefox 8, Chrome 14 and Opera 9.80 sont reconnus par EBTST. Par contre, Internet Explorer n'est pas pris en charge.
+_help_main_usage_2 = Pour une utilisation optimale d'EBTST, il est recommandé d'utiliser un navigateur internet récent. Firefox 5.0.1, Chrome 14 and Opera 9.80 sont reconnus par EBTST. Par contre, Internet Explorer n'est pas pris en charge.
 _help_colors_1 = On trouve dans certaines sections des chiffres de couleurs différentes. Leur signification est la suivante :
 _help_colors_2 = Des astérisques de couleurs différentes apparaissent dans certaines sections et indiquent la durée écoulée depuis l'encodage d'un billet :
 grey = gris

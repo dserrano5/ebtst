@@ -294,7 +294,7 @@ Submit = Pošlji
 ## help
 Main usage = Uporaba
 _help_main_usage_1 = Naloži datoteki CSV (glej rubriko "Nastavitve"), odkljukaj rubrike, ki jih želiš vključiti v javno statistiko, in klikni na "BBCode/HTML". Odprlo se bo novo okno s statistiko v oblikah BBCode in HTML. Nastavitve v brskalniku morajo omogočati odpiranje novih oken (pop-up) s strani dserrano5.es.
-_help_main_usage_2 = Opozorilo: EBTST deluje v večini novejših brskalnikov, kot so Firefox 8, Chrome 14 in Opera 9.80. Program ne deluje v Internet Explorerju.
+_help_main_usage_2 = Opozorilo: EBTST deluje v večini novejših brskalnikov, kot so Firefox 5.0.1, Chrome 14 in Opera 9.80. Program ne deluje v Internet Explorerju.
 _help_colors_1 = Nekatere rubrike vsebujejo obarvano besedilo. Pomen barv:
 _help_colors_2 = Barvne zvezdice se nanašajo na nedavne vpise:
 grey = siva

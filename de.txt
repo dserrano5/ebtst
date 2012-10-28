@@ -294,7 +294,7 @@ Submit = Hochladen
 ## help
 #Main usage = 
 _help_main_usage_1 = Nach dem Hochladen deiner Schein- und Trefferdaten (siehe "Einstellungen") wähle die gewünschten Checkboxen auf der linken Seite aus und klicke auf BBCode/HTML um die öffentlichen Statistiken zu erzeugen. Dann öffnet sich ein neues Fenster oder ein neuer Reiter mit dem BBCode und dem Link zur HTML-Version.
-_help_main_usage_2 = Note that you need a reasonable recent web browser to get the most out of EBTST. Firefox 8, Chrome 14 and Opera 9.80 are known to work. On the other hand, Internet Explorer is not supported.
+_help_main_usage_2 = Note that you need a reasonable recent web browser to get the most out of EBTST. Firefox 5.0.1, Chrome 14 and Opera 9.80 are known to work. On the other hand, Internet Explorer is not supported.
 _help_colors_1 = Einige Abschnitte beinhalten farbige Zahlen, die folgende Bedeutung haben:
 _help_colors_2 = Farbige Sterne, die an einigen Stellen auftauchen, haben folgende Bedeutung:
 grey = grau

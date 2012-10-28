@@ -294,7 +294,7 @@ Submit = Invio
 ## help
 Main usage = Generazione delle statistiche pubbliche
 _help_main_usage_1 = Dopo aver caricato i file CSV (vedere la sezione "Configurazione"), selezionare le caselle desiderate a sinistra e cliccare su "BBCode / HTML" per generare statistiche pubbliche. Si apre una nuova finestra o scheda con un collegamento a BBCode e HTML. Assicurarsi che il blocco dei pop-up (se presente) consenta l'apertura di finestre pop-up da dserrano5.es.
-_help_main_usage_2 = Notare che serve un browser internet abbastanza recente per ottenere il meglio da EBTST. Firefox 8, Chrome 14 e Opera 9.80 funzionano correttamente. Invece non si garantisce che Internet Explorer funzioni correttamente.
+_help_main_usage_2 = Notare che serve un browser internet abbastanza recente per ottenere il meglio da EBTST. Firefox 5.0.1, Chrome 14 e Opera 9.80 funzionano correttamente. Invece non si garantisce che Internet Explorer funzioni correttamente.
 _help_colors_1 = Alcune sezioni mostrano i numeri in diversi colori. I colori sono:
 _help_colors_2 = Gli asterischi colorati che appaiono in alcune pagine mostrano quanto sono recenti le note:
 grey = grigio

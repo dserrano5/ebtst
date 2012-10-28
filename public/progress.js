@@ -15,21 +15,29 @@ function _center_on_screen(elem) {
 }
 var interval_id;
 var running = 0;
+var prev_progress; var prev_total; var repeated_times;
 function _gp(label) {
+    prev_progress = -1; prev_total = -1; repeated_times = 0;
     $.ajax({
         url: 'progress',
         success: function(data) {
             var cur = data['cur'];
             var total = data['total'];
+            if (cur == prev_progress && total == prev_total) {
+                repeated_times++;
+            }
+            if (repeated_times > 10) {
+                // probably EBTST has finished processing and the javascript didn't get EBTST's response
+                // so this loop would run forever. Stop updating but don't remove the dialog
+                running = 0;
+                clearTimeout (timeout_id);
+                clearInterval (interval_id);
+            }
             var pct = total ? 100*cur/total : 0;
             //console.log ('progress: cur ('+cur+') total ('+total+') pct ('+pct+')');
             _set_progress (Math.floor (pct), label);
-            //if (cur < total) {   ## apparently 20000 isn't less than 166000
-            //if (pct < 100) {
-            //    $("#progress").show ('slow');
-            //} else {
-            //    console.log ('progress: cur ('+cur+') !< total ('+total+'), hiding div');
-            //}
+            prev_progress = cur;
+            prev_total = total;
         },
         error: function(jqXHR, textStatus, errorThrown) {
             running = 0;

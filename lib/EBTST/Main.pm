@@ -1824,7 +1824,7 @@ sub import {
         } else {
             $self->_init_progress (tot => $count);
         }
-        eval { $self->ebt->load_notes ($local_notes_file, $outfile); 1; };
+        eval { $self->ebt->load_notes ($local_notes_file, $outfile, !$theres_hits); 1; };
         unlink $local_notes_file or $self->_log (warn => "import: unlink: '$local_notes_file': $!\n");
         if ($@ and $@ =~ /Unrecognized notes file/) {
             return $self->_end_progress ('bad_notes');

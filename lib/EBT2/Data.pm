@@ -187,11 +187,11 @@ sub _date_inside_range {
         $date le $end;
 }
 
-my $do_keep_hits = 1;   ## not sure whether to make this configurable or not...
 sub load_notes {
-    my ($self, $progress, $notes_file, $store_path) = @_;
+    my ($self, $progress, $notes_file, $store_path, $do_keep_hits) = @_;
     my $fd;
     my $note_no = 0;
+    $do_keep_hits //= 1;
     my @notes_column_names = qw/
         value year serial desc date_entered city country
         zip short_code id times_entered moderated_hit lat long

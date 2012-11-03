@@ -510,7 +510,7 @@ sub next_note {
     return unless defined $note;
 
     ## duplicated code:
-    my $weird_chars = $note =~ tr/0-9a-zA-Z,#-//c;
+    my $weird_chars = $note =~ tr/0-9a-zA-Z,#-\.//c;
     my $is_enc = 0.3 < $weird_chars / length $note;
 
     if ($is_enc) {

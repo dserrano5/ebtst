@@ -197,7 +197,7 @@ sub AUTOLOAD {
                     ## always try to decrypt. Try both ->decrypt and ->decrypt_hex
                     if (!ref $self->{'data'}{$field}{'data'}) {
                         if (25 < length $self->{'data'}{$field}{'data'}) {
-                            my $weird_chars = $self->{'data'}{$field}{'data'} =~ tr/0-9a-zA-Z,#-//c;
+                            my $weird_chars = $self->{'data'}{$field}{'data'} =~ tr/0-9a-zA-Z,#-\.//c;
                             my $is_enc = 0.3 < $weird_chars / length $self->{'data'}{$field}{'data'};
                             if ($is_enc) {
                                 $t0 = [gettimeofday];

@@ -260,12 +260,6 @@ sub load_notes {
         elsif ($ymd > $recent_cutoffs{'_1year'})   { $hr->{'recent'} = 1; }
         else                                       { $hr->{'recent'} = 0; }
 
-        if ($store_path) {
-            my $serial2 = $hr->{'serial'};
-            $serial2 =~ s/...$/xxx/;
-            printf $outfd "%s\n", join ';', @$hr{qw/value year/}, $serial2, @$hr{qw/short_code date_entered city country/};
-        }
-
         $hr->{'note_no'} = ++$note_no;
         $hr->{'dow'} = $dow;
         $hr->{'country'} = _cc $hr->{'country'};
@@ -276,6 +270,12 @@ sub load_notes {
                 %$hr,
                 errors => [ split ';', decode_base64 $hr->{'errors'} ],
             };
+        } else {
+            if ($store_path) {
+                my $serial2 = $hr->{'serial'};
+                $serial2 =~ s/...$/xxx/;
+                printf $outfd "%s\n", join ';', @$hr{qw/value year/}, $serial2, @$hr{qw/short_code date_entered city country/};
+            }
         }
         if ($do_keep_hits and $save_hits{ $hr->{'serial'} }) {
             $hr->{'hit'} = delete $save_hits{ $hr->{'serial'} };

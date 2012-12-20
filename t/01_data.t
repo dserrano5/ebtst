@@ -12,7 +12,7 @@ use EBT2::Constants ':all';
 
 set_xor_key 'test';
 
-plan tests => 81;
+plan tests => 82;
 
 my @notes;
 
@@ -119,6 +119,7 @@ while (my $notes = $obj->note_getter) {
 }
 
 while (my $notes = $obj->note_getter (interval => 'all')) {
+    is $notes->[-4][COUNTRY], 'ci',   'Ivory Coast is recognized';
     is $notes->[-3][COUNTRY], 'rskm', 'Kosovo is recognized';
     is $notes->[-2][COUNTRY], 'ba',   'Bosnia-Herzegovina is recognized';
     is $notes->[-1][COUNTRY], 'rsme', 'Serbia and Montenegro is recognized';

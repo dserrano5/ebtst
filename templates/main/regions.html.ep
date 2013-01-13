@@ -1,0 +1,20 @@
+<h2><%=l 'Regions' %></h2>
+<% foreach my $country (sort keys %$region_data) { =%>
+    <% foreach my $group_name (sort keys %{ $region_data->{$country} }) { =%>
+        <b><%== $group_name %></b> (<%= $country %>)
+        <table>
+        <tr><th>Name</th><th>Notes</th></tr>
+        <% foreach my $subgroup_name (sort keys %{ $region_data->{$country}{$group_name} }) { =%>
+            <% my $flag_url = delete $region_data->{$country}{$group_name}{$subgroup_name}{'flag_url'}; =%>
+            <% if ('__UNDEF__' ne $subgroup_name) { =%>
+                <tr><td colspan="2"><i>(subgroup: <img src="<%= $flag_url %>"> <%== $subgroup_name %>)</i></td></tr>
+            <% } =%>
+            <% foreach my $row (sort keys %{ $region_data->{$country}{$group_name}{$subgroup_name} }) { =%>
+                <% my $val = $region_data->{$country}{$group_name}{$subgroup_name}{$row}; =%>
+                <tr><td><%== $row %></td><td><%= $val %></td></tr>
+            <% } =%>
+        <% } =%>
+        </table>
+        <br>
+    <% } =%>
+<% } =%>

@@ -1,0 +1,206 @@
+// Post code groups for Spain
+// Types:
+//  -post code ranges "00000,00000=name" (must be numbers)
+//  -single code "00000=name"
+//  -single code+name "00000;PlaceNameinCSV=name"
+//  -single name ";PlaceNameinCSV=name"
+
+// Feel free to edit/correct/add stuff :)
+// (empty lines and lines beginning with "//" are ignored)
+
+// 01/05/2010 - Comunities and provinces flags added to the relevant groups (Pole Doctor)
+
+
+Country=es
+
+Group=Autonomous Communities of Spain/Comunidades autónomas
+21000,21999=<img border='0' alt="Andalucía" src=http://img249.imageshack.us/img249/8403/flagesandaluca300pxresihh4.png> Andalucía
+41000,41999=<img border='0' alt="Andalucía" src=http://img249.imageshack.us/img249/8403/flagesandaluca300pxresihh4.png> Andalucía
+11000,11999=<img border='0' alt="Andalucía" src=http://img249.imageshack.us/img249/8403/flagesandaluca300pxresihh4.png> Andalucía
+14000,14999=<img border='0' alt="Andalucía" src=http://img249.imageshack.us/img249/8403/flagesandaluca300pxresihh4.png> Andalucía
+29000,29999=<img border='0' alt="Andalucía" src=http://img249.imageshack.us/img249/8403/flagesandaluca300pxresihh4.png> Andalucía
+18000,18999=<img border='0' alt="Andalucía" src=http://img249.imageshack.us/img249/8403/flagesandaluca300pxresihh4.png> Andalucía
+23000,23999=<img border='0' alt="Andalucía" src=http://img249.imageshack.us/img249/8403/flagesandaluca300pxresihh4.png> Andalucía
+04000,04999=<img border='0' alt="Andalucía" src=http://img249.imageshack.us/img249/8403/flagesandaluca300pxresihh4.png> Andalucía
+22000,22999=<img border='0' alt="Aragón" src=http://img249.imageshack.us/img249/5217/800pxflagofaragonsvgresqz1.png> Aragón
+50000,50999=<img border='0' alt="Aragón" src=http://img249.imageshack.us/img249/5217/800pxflagofaragonsvgresqz1.png> Aragón
+44000,44999=<img border='0' alt="Aragón" src=http://img249.imageshack.us/img249/5217/800pxflagofaragonsvgresqz1.png> Aragón
+33000,33999=<img border='0' alt="Principado de Asturias" src=http://img249.imageshack.us/img249/861/800pxflagofasturiassvgrbp5.png> Principado de Asturias
+07000,07999=<img border='0' alt="Illes Balears/Islas Baleares" src=http://img9.imageshack.us/img9/7268/540pxflagofthebalearici.png> Illes Balears/Islas Baleares
+48000,48999=<img border='0' alt="Euskadi/País Vasco" src=http://img223.imageshack.us/img223/7260/800pxflagofthebasquecougr3.png> Euskadi/País Vasco
+01000,01999=<img border='0' alt="Euskadi/País Vasco" src=http://img223.imageshack.us/img223/7260/800pxflagofthebasquecougr3.png> Euskadi/País Vasco
+20000,20999=<img border='0' alt="Euskadi/País Vasco" src=http://img223.imageshack.us/img223/7260/800pxflagofthebasquecougr3.png> Euskadi/País Vasco
+35000,35999=<img border='0' alt="Islas Canarias" src=http://img223.imageshack.us/img223/5738/744pxflagofthecanaryislut3.png> Islas Canarias
+39000,39999=<img border='0' alt="Cantabria" src=http://img526.imageshack.us/img526/8594/800pxflagofcantabriasvgfj0.png> Cantabria
+19000,19999=<img border='0' alt="Castilla-La Mancha" src=http://img150.imageshack.us/img150/9223/800pxbanderacastillalamrg1.png> Castilla-La Mancha
+45000,45999=<img border='0' alt="Castilla-La Mancha" src=http://img150.imageshack.us/img150/9223/800pxbanderacastillalamrg1.png> Castilla-La Mancha
+16000,16999=<img border='0' alt="Castilla-La Mancha" src=http://img150.imageshack.us/img150/9223/800pxbanderacastillalamrg1.png> Castilla-La Mancha
+02000,02999=<img border='0' alt="Castilla-La Mancha" src=http://img150.imageshack.us/img150/9223/800pxbanderacastillalamrg1.png> Castilla-La Mancha
+13000,13999=<img border='0' alt="Castilla-La Mancha" src=http://img150.imageshack.us/img150/9223/800pxbanderacastillalamrg1.png> Castilla-La Mancha
+05000,05999=<img border='0' alt="Castilla y León" src=http://img150.imageshack.us/img150/2478/600pxflagofcastillaylenhz1.png> Castilla y León
+37000,37999=<img border='0' alt="Castilla y León" src=http://img150.imageshack.us/img150/2478/600pxflagofcastillaylenhz1.png> Castilla y León
+47000,47999=<img border='0' alt="Castilla y León" src=http://img150.imageshack.us/img150/2478/600pxflagofcastillaylenhz1.png> Castilla y León
+40000,40999=<img border='0' alt="Castilla y León" src=http://img150.imageshack.us/img150/2478/600pxflagofcastillaylenhz1.png> Castilla y León
+42000,42999=<img border='0' alt="Castilla y León" src=http://img150.imageshack.us/img150/2478/600pxflagofcastillaylenhz1.png> Castilla y León
+09000,09999=<img border='0' alt="Castilla y León" src=http://img150.imageshack.us/img150/2478/600pxflagofcastillaylenhz1.png> Castilla y León
+34000,34999=<img border='0' alt="Castilla y León" src=http://img150.imageshack.us/img150/2478/600pxflagofcastillaylenhz1.png> Castilla y León
+49000,49999=<img border='0' alt="Castilla y León" src=http://img150.imageshack.us/img150/2478/600pxflagofcastillaylenhz1.png> Castilla y León
+24000,24999=<img border='0' alt="Castilla y León" src=http://img150.imageshack.us/img150/2478/600pxflagofcastillaylenhz1.png> Castilla y León
+17000,17999=<img border='0' alt="Catalunya/Cataluña" src=http://img517.imageshack.us/img517/7631/675pxflagofcataloniasvgdt5.png> Catalunya/Cataluña
+08000,08999=<img border='0' alt="Catalunya/Cataluña" src=http://img517.imageshack.us/img517/7631/675pxflagofcataloniasvgdt5.png> Catalunya/Cataluña
+25000,25999=<img border='0' alt="Catalunya/Cataluña" src=http://img517.imageshack.us/img517/7631/675pxflagofcataloniasvgdt5.png> Catalunya/Cataluña
+43000,43999=<img border='0' alt="Catalunya/Cataluña" src=http://img517.imageshack.us/img517/7631/675pxflagofcataloniasvgdt5.png> Catalunya/Cataluña
+06000,06999=<img border='0' alt="Extremadura" src=http://img153.imageshack.us/img153/3013/banderaextremaduraresizhg6.png> Extremadura
+10000,10999=<img border='0' alt="Extremadura" src=http://img153.imageshack.us/img153/3013/banderaextremaduraresizhg6.png> Extremadura
+27000,27999=<img border='0' alt="Galicia" src=http://img517.imageshack.us/img517/1176/600pxflagofgaliciasvgregf7.png> Galicia
+32000,32999=<img border='0' alt="Galicia" src=http://img517.imageshack.us/img517/1176/600pxflagofgaliciasvgregf7.png> Galicia
+36000,36999=<img border='0' alt="Galicia" src=http://img517.imageshack.us/img517/1176/600pxflagofgaliciasvgregf7.png> Galicia
+15000,15999=<img border='0' alt="Galicia" src=http://img517.imageshack.us/img517/1176/600pxflagofgaliciasvgregf7.png> Galicia
+26000,26999=<img border='0' alt="La Rioja" src=http://img99.imageshack.us/img99/5954/600pxflagoflariojawithcxl2.png> La Rioja
+28000,28999=<img border='0' alt="Madrid" src=http://img99.imageshack.us/img99/2830/800pxflagofthecommunityey1.png> Madrid
+30000,30999=<img border='0' alt="Murcia" src=http://img249.imageshack.us/img249/5735/744pxflagoftheregionofmmk7.png> Murcia
+31000,31999=<img border='0' alt="Nafarroa/Navarra" src=http://img96.imageshack.us/img96/4513/744pxflagofnavarresvgrexf7.png> Nafarroa/Navarra
+12000,12999=<img border='0' alt="Comunitat Valenciana/Comunidad Valenciana" src=http://img153.imageshack.us/img153/1711/800pxflagofthelandofvalou5.png> Comunitat Valenciana/Comunidad Valenciana
+46000,46999=<img border='0' alt="Comunitat Valenciana/Comunidad Valenciana" src=http://img153.imageshack.us/img153/1711/800pxflagofthelandofvalou5.png> Comunitat Valenciana/Comunidad Valenciana
+03000,03999=<img border='0' alt="Comunitat Valenciana/Comunidad Valenciana" src=http://img153.imageshack.us/img153/1711/800pxflagofthelandofvalou5.png> Comunitat Valenciana/Comunidad Valenciana
+
+Group=Autonomous cities/Ciudades autónomas
+51001,51080=<img border='0' alt="Ceuta" src=http://img146.imageshack.us/img146/8937/100pxflagceutasvg.png> Ceuta
+52001,52080=<img border='0' alt="Melilla" src=http://img576.imageshack.us/i/100pxflagofmelillasvg.png/> Melilla
+
+
+Group=Provinces of Spain/Provincias de España
+//SubGroup=Andalucía
+//SubFlag=http://img249.imageshack.us/img249/8403/flagesandaluca300pxresihh4.png
+SubGroup=<img src=http://img249.imageshack.us/img249/8403/flagesandaluca300pxresihh4.png> Andalucía
+04000,04999=<img border='0' src=http://img130.imageshack.us/img130/2766/banderaprovinciadealmer.gif> Almería
+11000,11999=<img border='0' src=http://img87.imageshack.us/img87/5121/750pxflagcdizprovincesv.png> Cádiz
+14000,14999=<img border='0' src=http://img26.imageshack.us/img26/2148/750pxprovinciadecrdobab.png> Córdoba
+18000,18999=<img border='0' src=http://img85.imageshack.us/img85/7607/750pxprovinciadegranada.png> Granada
+21000,21999=<img border='0' src=http://img707.imageshack.us/img707/4320/flagofprovinceofhuelvaw.png> Huelva
+23000,23999=<img border='0' src=http://img580.imageshack.us/img580/200/800pxbanderaprovinciaja.png> Jaén
+29000,29999=<img border='0' src=http://img693.imageshack.us/img693/2799/750pxflagmlagaprovinces.png> Málaga
+41000,41999=<img border='0' src=http://img443.imageshack.us/img443/6021/banderadiputacionsevill.jpg> Sevilla
+
+//SubGroup=Aragón
+//SubFlag=http://img249.imageshack.us/img249/5217/800pxflagofaragonsvgresqz1.png
+SubGroup=<img src=http://img249.imageshack.us/img249/5217/800pxflagofaragonsvgresqz1.png> Aragón
+22000,22999=<img border='0' src=http://img443.imageshack.us/img443/8862/750pxflagofhuescaprovin.png> Huesca
+44000,44999=<img border='0' src=http://img291.imageshack.us/img291/6854/750pxteruelprovinciasvg.png> Teruel
+50000,50999=<img border='0' src=http://img682.imageshack.us/img682/6062/797pxflagofzaragozaprov.png> Zaragoza
+
+//SubGroup=Principado de Asturias
+//SubFlag=http://img249.imageshack.us/img249/861/800pxflagofasturiassvgrbp5.png
+SubGroup=<img src=http://img249.imageshack.us/img249/861/800pxflagofasturiassvgrbp5.png> Principado de Asturias
+33000,33999=<img border='0' src=http://img249.imageshack.us/img249/861/800pxflagofasturiassvgrbp5.png> Asturias
+
+//SubGroup=Illes Balears/Islas Baleares
+//SubFlag=http://img223.imageshack.us/img223/8094/540pxflagofthebalearicilz9.png
+SubGroup=<img src=http://img9.imageshack.us/img9/7268/540pxflagofthebalearici.png> Illes Balears/Islas Baleares
+07000,07999=<img border='0' src=http://img9.imageshack.us/img9/7268/540pxflagofthebalearici.png> Illes Balears/Islas Baleares
+
+//SubGroup=Euskadi/País Vasco
+//SubFlag=http://img223.imageshack.us/img223/7260/800pxflagofthebasquecougr3.png
+SubGroup=<img src=http://img223.imageshack.us/img223/7260/800pxflagofthebasquecougr3.png> Euskadi/País Vasco
+01000,01999=<img border='0' src=http://img442.imageshack.us/img442/1460/750pxlavasvgresize.png> Álava/Araba
+20000,20999=<img border='0' src=http://img404.imageshack.us/img404/5503/744pxgipuzkoaflagsvgres.png> Guipúzcoa/Gipuzkoa
+48000,48999=<img border='0' src=http://img406.imageshack.us/img406/7649/302pxbizkaikobandereasv.png> Vizcaya/Bizkaia
+
+//SubGroup=Islas Canarias
+//SubFlag=http://img223.imageshack.us/img223/5738/744pxflagofthecanaryislut3.png
+SubGroup=<img src=http://img223.imageshack.us/img223/5738/744pxflagofthecanaryislut3.png> Islas Canarias
+35000,35999=<img border='0' src=http://img571.imageshack.us/img571/1347/750pxprovinciadelaspalm.png> Las Palmas
+38000,38999=<img border='0' src=http://img85.imageshack.us/img85/3922/750pxprovinciadesantacr.png> Santa Cruz de Tenerife
+
+//SubGroup=Cantabria
+//SubFlag=http://img526.imageshack.us/img526/8594/800pxflagofcantabriasvgfj0.png
+SubGroup=<img src=http://img526.imageshack.us/img526/8594/800pxflagofcantabriasvgfj0.png> Cantabria
+39000,39999=<img border='0' src=http://img526.imageshack.us/img526/8594/800pxflagofcantabriasvgfj0.png> Cantabria
+
+//SubGroup=Castilla-La Mancha
+//SubFlag=http://img150.imageshack.us/img150/9223/800pxbanderacastillalamrg1.png
+SubGroup=<img src=http://img150.imageshack.us/img150/9223/800pxbanderacastillalamrg1.png> Castilla-La Mancha
+02000,02999=<img border='0' src=http://img444.imageshack.us/img444/1889/750pxbanderaprovinciaal.png> Albacete
+13000,13999=<img border='0' src=http://img339.imageshack.us/img339/3372/800pxbanderaprovinciald.png> Ciudad Real
+16000,16999=<img border='0' src=http://img13.imageshack.us/img13/4586/750pxflagcuencaprovince.png> Cuenca
+19000,19999=<img border='0' src=http://img30.imageshack.us/img30/216/banderaprovinciadeguada.png> Guadalajara
+45000,45999=<img border='0' src=http://img153.imageshack.us/img153/5610/800pxbanderaprovinciade.png> Toledo
+
+//SubGroup=Castilla y León
+//SubFlag=http://img150.imageshack.us/img150/2478/600pxflagofcastillaylenhz1.png
+SubGroup=<img src=http://img150.imageshack.us/img150/2478/600pxflagofcastillaylenhz1.png> Castilla y León
+05000,05999=<img border='0' src=http://img688.imageshack.us/img688/2646/750pxbanderadelaprovinc.png> Ávila
+09000,09999=<img border='0' src=http://img413.imageshack.us/img413/1292/750pxflagburgosprovince.png> Burgos
+24000,24999=<img border='0' src=http://img204.imageshack.us/img204/4877/750pxbanderadelensvgres.png> León
+34000,34999=<img border='0' src=http://img687.imageshack.us/img687/8606/800pxpalenciaprovbander.png> Palencia
+37000,37999=<img border='0' src=http://img263.imageshack.us/img263/2646/750pxbanderadelaprovinc.png> Salamanca
+40000,40999=<img border='0' src=http://img526.imageshack.us/img526/624/651pxflagsegoviaprovinc.png> Segovia
+42000,42999=<img border='0' src=http://img404.imageshack.us/img404/5800/750pxflagsoriaprovinces.png> Soria
+47000,47999=<img border='0' src=http://img408.imageshack.us/img408/5772/750pxbanderaprovvallado.png> Valladolid
+49000,49999=<img border='0' src=http://img402.imageshack.us/img402/3900/750pxbanderadezamorasvg.png> Zamora
+
+//SubGroup=Catalunya/Cataluña
+//SubFlag=http://img517.imageshack.us/img517/7631/675pxflagofcataloniasvgdt5.png
+SubGroup=<img src=http://img517.imageshack.us/img517/7631/675pxflagofcataloniasvgdt5.png> Catalunya/Cataluña
+08000,08999=<img border='0' src=http://img338.imageshack.us/img338/4886/750pxflagofbarcelonapro.png> Barcelona
+17000,17999=<img border='0' src=http://img232.imageshack.us/img232/966/750pxflagofgironaprovin.png> Gerona/Girona
+25000,25999=<img border='0' src=http://img193.imageshack.us/img193/2646/750pxbanderadelaprovinc.png> Lérida/Lleida
+43000,43999=<img border='0' src=http://img191.imageshack.us/img191/980/750pxbanderaactualdelap.png> Tarragona
+
+//SubGroup=Extremadura
+//SubFlag=http://img153.imageshack.us/img153/3013/banderaextremaduraresizhg6.png
+SubGroup=<img src=http://img153.imageshack.us/img153/3013/banderaextremaduraresizhg6.png> Extremadura
+06000,06999=<img border='0' src=http://img20.imageshack.us/img20/9836/750pxprovinciadebadajoz.png> Badajoz
+10000,10999=<img border='0' src=http://img697.imageshack.us/img697/2311/800pxbanderadecceressvg.png> Cáceres
+
+//SubGroup=Galicia
+//SubFlag=http://img517.imageshack.us/img517/1176/600pxflagofgaliciasvgregf7.png
+SubGroup=<img src=http://img517.imageshack.us/img517/1176/600pxflagofgaliciasvgregf7.png> Galicia
+15000,15999=<img border='0' src=http://img94.imageshack.us/img94/5946/banderacoruaresize.png> La Coruña/A Coruña
+27000,27999=<img border='0' src=http://img709.imageshack.us/img709/5395/750pxlugoprovinciasvgre.png> Lugo
+32000,32999=<img border='0' src=http://img687.imageshack.us/img687/8905/750pxprovinciadeourense.png> Orense/Ourense
+36000,36999=<img border='0' src=http://img143.imageshack.us/img143/8489/flagoftheprovinceofpont.png> Pontevedra
+
+//SubGroup=La Rioja
+//SubFlag=http://img99.imageshack.us/img99/5954/600pxflagoflariojawithcxl2.png
+SubGroup=<img src=http://img99.imageshack.us/img99/5954/600pxflagoflariojawithcxl2.png> La Rioja
+26000,26999=<img border='0' src=http://img99.imageshack.us/img99/5954/600pxflagoflariojawithcxl2.png> La Rioja
+
+//SubGroup=Madrid
+//SubFlag=http://img99.imageshack.us/img99/2830/800pxflagofthecommunityey1.png
+SubGroup=<img src=http://img99.imageshack.us/img99/2830/800pxflagofthecommunityey1.png> Madrid
+28000,28999=<img border='0' src=http://img99.imageshack.us/img99/2830/800pxflagofthecommunityey1.png> Madrid
+
+//SubGroup=Murcia
+//SubFlag=http://img249.imageshack.us/img249/5735/744pxflagoftheregionofmmk7.png
+SubGroup=<img src=http://img249.imageshack.us/img249/5735/744pxflagoftheregionofmmk7.png> Murcia
+30000,30999=<img border='0' src=http://img249.imageshack.us/img249/5735/744pxflagoftheregionofmmk7.png> Murcia
+
+//SubGroup=Nafarroa/Navarra
+//SubFlag=http://img96.imageshack.us/img96/4513/744pxflagofnavarresvgrexf7.png
+SubGroup=<img src=http://img96.imageshack.us/img96/4513/744pxflagofnavarresvgrexf7.png> Nafarroa/Navarra
+31000,31999=<img border='0' src=http://img96.imageshack.us/img96/4513/744pxflagofnavarresvgrexf7.png> Navarra
+
+//SubGroup=Comunitat Valenciana/Comunidad Valenciana
+//SubFlag=http://img153.imageshack.us/img153/1711/800pxflagofthelandofvalou5.png
+SubGroup=<img src=http://img153.imageshack.us/img153/1711/800pxflagofthelandofvalou5.png> Comunitat Valenciana/Comunidad Valenciana
+03000,03999=<img border='0' src=http://img402.imageshack.us/img402/8454/750pxalicanteprovincias.png> Alicante/Alacant
+12000,12999=Castellón/Castelló
+46000,46999=<img border='0' src=http://img153.imageshack.us/img153/1711/800pxflagofthelandofvalou5.png> Valencia/València
+
+// 08.09.2007: fixed the flags for BBCode users -- Bobtail
+
+
+
+
+
+
+//Group=Places of sovereignty/Plazas de soberanía
+//Islas Chafarinas
+//Peñón de Alhucemas
+//Peñón de Vélez de la Gomera
+//Isla de Alborán
+//Isla Perejil
+
+
+//end

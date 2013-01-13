@@ -1,0 +1,21 @@
+Country=li
+
+Group=Municipalities of Liechtenstein
+9496=Balzers 
+9492=Eschen
+9485=Eschen
+9487=Gamprin
+9493=Mauren
+9486=Mauren
+9498=Planken
+9491=Ruggell 
+9494=Schaan 
+9488=Schellenberg 
+9495=Triesen 
+9497=Triesenberg 
+9490=Vaduz 
+
+// created by yli ... with all the help I needed from wikipedia
+// map of Liechtenstein : http://img.photobucket.com/albums/v231/ylivieska/ebt/FL.png
+// info wikipedia (German) : http://de.wikipedia.org/wiki/Verwaltungsgliederung_Liechtensteins
+// info wikipedia (English) : http://en.wikipedia.org/wiki/Municipalities_of_Liechtenstein

@@ -1,0 +1,63 @@
+// Post code groups for Algeria
+// Types:
+//  -post code ranges "00000,00000=name" (must be numbers)
+//  -single code "00000=name"
+//  -single code+name "00000;PlaceNameinCSV=name"
+
+// Post codes by Miguel Ângelo
+
+Country=dz
+
+Group=Provinces of Algeria
+01000,01444=Adrar
+44000,44380=Aïn Defla
+46000,46351=Aïn Témouchent
+16000,16342=Algiers
+23000,23251=Annaba
+05000,05861=Batna
+08000,08380=Béchar
+06000,06781=Béjaïa
+07000,07451=Biskra
+09000,09480=Blida
+34000,34295=Bordj Bou Arréridj
+10000,10491=Bouira
+35000,35490=Boumerdès
+02000,02390=Chlef
+25000,25251=Constantine
+17000,17470=Djelfa
+32000,32360=El Bayadh
+39000,39470=El Oued
+36000,36332=El Tarf
+47000,47310=Ghardaïa
+24000,24381=Guelma
+33000,33220=Illizi
+18000,18381=Jijel
+40000,40360=Khenchela
+03000,03550=Laghouat
+26000,26695=Médéa
+43000,43380=Mila
+27000,27390=Mostaganem
+28000,28541=M'Sila
+29000,29565=Muaskar
+45000,45250=Naama
+31000,31342=Oran
+30000,30510=Ouargla
+04000,04365=Oum el-Bouaghi
+48000,48381=Relizane
+20000,20250=Saida
+19000,19730=Sétif
+22000,22485=Sidi Bel Abbes
+21000,21457=Skikda
+41000,41290=Souk Ahras
+11000,11221=Tamanghasset
+12000,12460=Tébessa
+14000,14480=Tiaret
+37000,37011=Tindouf
+42000,42455=Tipasa
+38000,38395=Tissemsilt
+15000,15664=Tizi Ouzou
+13000,13641=Tlemcen
+
+
+// http://en.wikipedia.org/wiki/Provinces_of_Algeria
+// http://en.wikipedia.org/wiki/List_of_postal_codes_of_Algerian_cities

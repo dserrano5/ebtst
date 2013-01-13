@@ -1,0 +1,10 @@
+// Città del Vaticano / Vatican City
+// Plaese save this files as 'codes_Vatican City.txt' in the NIG's directory.
+
+Country=va
+
+Group=Città del Vaticano
+00120=Città del Vaticano 
+
+
+//Many thanks to presidente for testing phase

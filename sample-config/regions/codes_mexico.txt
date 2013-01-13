@@ -1,0 +1,46 @@
+// Post code groups for Mexico
+// Types:
+//  -post code ranges "00000,00000=name" (must be numbers)
+//  -single code "00000=name"
+//  -single code+name "00000;PlaceNameinCSV=name"
+
+// Post codes by ZdS
+
+Country=mx
+
+Group=States of Mexico
+00000,19999=Distrito Federal
+20000,20999=Aguascalientes
+21000,22999=Baja California Norte
+23000,23999=Baja California Sur
+24000,24999=Campeche
+25000,27999=Coahuila
+28000,28999=Colima
+29000,30999=Chiapas
+31000,33999=Chihuahua
+34000,35999=Durango
+36000,38999=Guanajuato
+39000,39999=Guerrero
+42000,43999=Hidalgo
+44000,48999=Jalisco
+50000,57999=Estado de México
+58000,61999=Michoacán
+62000,62999=Morelos
+63000,63999=Nayarit
+64000,67999=Nuevo León
+68000,70999=Oaxaca
+72000,75999=Puebla
+76000,76999=Querétaro
+77000,77999=Quintana Roo
+78000,79999=San Luis Potosí
+80000,82999=Sinaloa
+83000,85999=Sonora
+86000,86999=Tabasco
+87000,89999=Tamaulipas
+90000,90999=Tlaxcala
+91000,94999=Veracruz
+97000,97999=Yucatán
+98000,98999=Zacatecas
+
+
+// http://en.wikipedia.org/wiki/List_of_postal_codes_in_Mexico

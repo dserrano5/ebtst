@@ -1,0 +1,121 @@
+// Post code groups for Costa Rica
+// Types:
+//  -post code ranges "00000,00000=name" (must be numbers)
+//  -single code "00000=name"
+//  -single code+name "00000;PlaceNameinCSV=name"
+//  -single name ";PlaceNameinCSV=name"
+
+
+
+Country=cr
+
+Group=Provincias de Costa Rica
+10000,19999=San José
+20000,29999=Alajuela
+30000,39999=Cartago
+40000,49999=Heredia
+50000,59999=Guanacaste
+60000,69999=Puntarenas
+70000,79999=Limón
+
+
+
+
+Group=Cantones de Costa Rica
+
+SubGroup=Cantones de San José
+
+10000,10199=San José
+10200,10299=Escazú
+10300,10399=Desamparados
+10400,10499=Puriscal
+10500,10599=Tarrazú
+10600,10699=Aserrí
+10700,10799=Mora
+10800,10899=Goicoechea
+10900,10999=Santa Ana
+11000,11099=Alajuelita
+11100,11199=Vázquez de Coronado
+11200,11299=Acosta
+11300,11399=Tibás
+11400,11499=Moravia
+11500,11599=Montes de Oca
+11600,11699=Turrubares
+11700,11799=Dota
+11800,11899=Curridabat
+11900,11999=Perez Zeledón
+12000,12099=León Cortés
+SubGroup=Cantones de Alajuela
+SubFlag=http://www.eurobilltracker.at/images/flags/Alajuela_flag.gif
+20100,20199=Alajuela
+20200,20299=San Ramón
+20300,20399=Grecia
+20400,20499=San Mateo
+20500,20599=Atenas
+20600,20699=Naranjo
+20700,20799=Palmares
+20800,20899=Poás
+20900,20999=Orotina
+21000,21099=San Carlos
+21100,21199=Alfaro Ruiz
+21200,21299=Valverde Vega
+21300,21399=Upala
+21400,21499=Los Chiles
+21500,21599=Guatuso
+SubGroup=Cantones de Cartago
+SubFlag=http://www.eurobilltracker.at/images/flags/Cartago_flag.gif
+30100,30199=Cartago
+30200,30299=Paraíso
+30300,30399=La Unión
+30400,30499=Jiménez
+30500,30599=Turrialba
+30600,30699=Alvarado
+30700,30799=Oreamuno
+30800,30899=El Guarco
+SubGroup=Cantones de Heredia
+SubFlag=http://www.eurobilltracker.at/images/flags/Heredia_flag.gif
+40100,40199=Heredia
+40200,40299=Barva
+40300,40399=Santo Domingo
+40400,40499=Santa Bárbara
+40500,40599=San Rafael
+40600,40699=San Isidro
+40700,40799=Belén
+40800,40899=San Joaquín de Flores
+40900,40999=San Pablo
+41000,41099=Sarapiquí
+SubGroup=Cantones de Guanacaste
+SubFlag=http://www.eurobilltracker.at/images/flags/Guanacaste_flag.png
+50100,50199=Liberia
+50200,50299=Nicoya
+50300,50399=Santa Cruz
+50400,50499=Bagaces
+50500,50599=Carrillo
+50600,50699=Cañas
+50700,50799=Abangares
+50800,50899=Tilarán
+50900,50999=Nandayure
+51000,51099=La Cruz
+51100,51199=Hojancha
+SubGroup=Cantones de Puntarenas
+SubFlag=http://www.eurobilltracker.at/images/flags/Puntarenas_flag.gif
+60100,60199=Puntarenas
+60200,60299=Esparza
+60300,60399=Buenos Aires
+60400,60499=Montes de Oro
+60500,60599=Osa
+60600,60699=Aguirre
+60700,60799=Golfito
+60800,60899=Coto Brus
+60900,60999=Parrita
+61000,61099=Corredores
+61100,61199=Garabito
+SubGroup=Cantones de Limón
+SubFlag=http://www.eurobilltracker.at/images/flags/Limon_flag.png
+70100,70199=Limón
+70200,70299=Pococí
+70300,70399=Siquirres
+70400,70499=Talamanca
+70500,70599=Matina
+70600,70699=Guácimo
+

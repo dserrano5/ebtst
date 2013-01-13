@@ -2,6 +2,7 @@ package EBT2;
 
 use warnings;
 use strict;
+use 5.10.0;
 use Storable qw/dclone freeze thaw/;
 use Time::HiRes qw/gettimeofday tv_interval/; my $t0;
 use Config::General;
@@ -20,6 +21,140 @@ sub _work_dir {
     return $work_dir;
 }
 
+sub _parse_region_file {
+    my ($f, $config) = @_;
+
+    my $fd;
+    if (!open $fd, '<', $f) {
+        warn "open: '$f': $!";
+        return;
+    }
+
+    my $cfg;       ## shortcut to the proper place within $config
+    my ($country, $group, $subgroup);
+    my $entry_check = sub {
+        if (!$group) { warn "no group defined yet, ignoring line\n"; return; }
+        if (!$subgroup) {          ## entry without a subgroup, create a dummy subgroup
+            if ($group->{'subgroups'}) { die "wow"; }       ## redundant sanity: there should be no previous subgroups
+            $group->{'subgroups'} = [ { entries => {} } ];
+            $subgroup = $group->{'subgroups'}[-1];
+        }
+        return 1;
+    };
+    while (defined (my $line = <$fd>)) {
+        chomp $line;
+        $line =~ s{\s*(?<!http:)//.*}{};
+        next if $line =~ /^\s*$/;
+
+        ## actual parsing work
+        given ($line) {
+            when (/^\s*Country\s*=\s*(.*)/)       {
+                if ($country and $country ne $1) { warn "duplicate 'Country' line, ignoring whole file '$f'\n"; return; }
+                $country = $1;
+                $country =~ s/\s*$//;
+                $cfg = $config->{'regions'}{$country} = [];
+            }
+            when (/^\s*Group\s*=\s*(.*)/)         {
+                if (!$cfg) { warn "group without country, ignoring whole file '$f'\n"; return; }
+                my $group_name = $1;
+                $group_name =~ s/\s*$//;
+                push @$cfg, { name => $group_name };
+                $group = $cfg->[-1];
+                undef $subgroup;
+            }
+            when (/^\s*SubGroup\s*=\s*(.*)/)      {
+                if (!@$cfg) { warn "subgroup without group, ignoring whole file '$f'\n"; return; }
+                if (!$group->{'subgroups'}) {                     ## first subgroup and no entries directly under the group
+                    my $subgroup_name = $1;
+                    $subgroup_name =~ s/\s*$//;
+                    push @{ $group->{'subgroups'} }, { name => $subgroup_name, entries => {} };
+                    $subgroup = $group->{'subgroups'}[-1];
+
+                } elsif ($subgroup->{'name'}) {                   ## prev subgroup has name, this is the next subgroup
+                    my $subgroup_name = $1;
+                    $subgroup_name =~ s/\s*$//;
+                    push @{ $group->{'subgroups'} }, { name => $subgroup_name, entries => {} };
+                    $subgroup = $group->{'subgroups'}[-1];
+
+                } elsif (!$subgroup->{'name'}) {                  ## prev subgroup has no name (entries directly under the group), this is an error
+                    warn "entries outside any subgroup, ignoring whole file '$f'";
+                    return;
+
+                } else {
+                    die "shouldn't happen";
+                }
+            }
+            when (/^\s*SubFlag\s*=\s*(.*)/)       {
+                if (!$subgroup) { warn "subflag without subgroup, ignoring whole file '$f'\n"; return; }
+                my $flag_url = $1;
+                $flag_url =~ s/\s*$//;
+                $subgroup->{'flag_url'} = $flag_url;
+            }
+            when (/^\s*(\d+)\s*,\s*(\d+)\s*=\s*(.*)/)   {
+                next unless $entry_check->();
+                my $name = $3;
+                $name =~ s/\s*$//;
+                push @{ $subgroup->{'entries'}{'ranges'} }, { start => $1, end => $2, name => $name };
+            }
+            when (/^\s*([^=]+)=\s*(.*)/)         {
+                next unless $entry_check->();
+                my ($zip, $name) = ($1, $2);
+                $zip  =~ s/\s*$//;
+                $name =~ s/\s*$//;
+                push @{ $subgroup->{'entries'}{'zip_map'} }, { zip => $zip, name => $name };
+            }
+            when (/^\s*(\d+)\s*;\s*([^=]+)=\s*(.*)/) {
+                next unless $entry_check->();
+                my ($csv_name, $name) = ($2, $3);
+                $csv_name =~ s/\s*$//;
+                $name     =~ s/\s*$//;
+                push @{ $subgroup->{'entries'}{'specific'} }, { zip => $1, csv_name => $csv_name, name => $name };
+            }
+            when (/^\s*;\s*([^=]+)=\s*(.*)/)      {
+                next unless $entry_check->();
+                my ($csv_name, $name) = ($1, $2);
+                $csv_name =~ s/\s*$//;
+                $name     =~ s/\s*$//;
+                push @{ $subgroup->{'entries'}{'name_map'} }, { csv_name => $csv_name, name => $name };
+            }
+            default { warn "ignoring unrecognized line '$line'\n"; }
+        }
+    }
+
+    close $fd;
+
+$cfg = <<'EOF';
+$config->{'regions'} = {
+    es => [     ## groups
+        {
+            name => 'Provinces',
+            subgroups => [
+                {
+                    name => 'foo',
+                    flag_img => 'http://bar',
+                    entries => {
+                        ranges => [
+                            { start => '0', end => '4', name => 'foo' },
+                        ],
+                        zip_map => [
+                            { zip => '9', name => 'baz' },
+                        ],
+                        specific => [
+                            { zip => '42', csv_name => 'foo', name => 'foo' },
+                        ],
+                        name_map => [
+                            { csv_name => 'foo', name => 'foo' },
+                        ],
+                    },
+                },
+            ],
+        },
+    ],
+}
+EOF
+    return;
+}
+
 ## set up configuration before use'ing other EBT2 modules
 my $work_dir;
 our %config;
@@ -28,6 +163,11 @@ BEGIN {
     my $cfg_file = File::Spec->catfile ($work_dir, 'ebt2.cfg');
     -r $cfg_file or die "Can't find configuration file '$cfg_file'\n";
     %config = Config::General->new (-ConfigFile => $cfg_file, -IncludeRelative => 1, -UTF8 => 1)->getall;
+
+    my $region_files = File::Spec->catfile ($work_dir, 'regions', '*');
+    foreach my $region_file (glob $region_files) {
+        _parse_region_file $region_file, \%config;
+    }
 }
 
 use EBT2::Data;

@@ -1,0 +1,77 @@
+Country=ad
+
+Group=Parishes of Andorra
+AD100=Canillo
+AD200=Encamp
+AD300=Ordino
+AD400=La Massana
+AD500=Andorra La Vella
+AD600=Sant Julià de Lòria
+AD700=Escaldes-Engordany 
+
+Group=Municipalities of Andorra
+SubGroup=Canillo
+AD100;Canillo=Canillo
+AD100;El Forn=El Forn
+AD100;El Tarter=El Tarter
+AD100;El Vilar=El Vilar
+AD100;Els Plans=Els Plans
+AD100;Incles=Incles
+AD100;Meritxell=Meritxell
+AD100;Prats=Prats
+AD100;Ransol=Ransol
+AD100;Soldeu=Soldeu
+//
+SubGroup=Encamp
+AD200;Els Cortals=Els cortals
+AD200;Encamp=Encamp
+AD200;Les Bons=Les Bons
+AD200;Pas de la Casa=Pas de la Casa
+AD200;Vila=Vila
+//
+SubGroup=Ordino
+AD300;Ansalonga=Ansalonga
+AD300;Arans=Arans
+AD300;El Serrat=El Serrat
+AD300;La Cortinada=La Cortinada
+AD300;Llorts=Llorts
+AD300;Ordino=Ordino
+AD300;Segudet=Segudet
+AD300;Sornàs=Sornàs
+//
+SubGroup=La Massana
+AD400;Anyòs=Anyòs
+AD400;Arinsal=Arinsal
+AD400;Erts=Erts
+AD400;Escàs=Escàs
+AD400;L'Aldosa=L'Aldosa
+AD400;La Massana=La Massana
+AD400;Pal=Pal
+AD400;Sispony=Sispony
+AD400;Xixerella=Xixerella
+//
+SubGroup=Andorra La Vella
+AD500;Andorra La Vella=Andorra La Vella
+AD500;La Margineda=La Margineda
+AD500;Santa Coloma=Santa Coloma
+//
+SubGroup=Sant Julià de Lòria
+AD600;Aixirivall=Aixirivall
+AD600;Aixovall=Aixovall
+AD600;Aubinyà=Aubinyà
+AD600;Bixessarri=Bixessarri
+AD600;Certers=Certers
+AD600;Fontaneda=Fontaneda
+AD600;Juberri=Juberri
+AD600;Llumeneres=Llumeneres
+AD600;Nagol=Nagol
+AD600;Sant Julià de Lòria=Sant Julià de Lòria
+//
+SubGroup=Escaldes-Engordany
+AD700;Escaldes=Escaldes
+AD700;Escaldes-Engordany=Escaldes
+AD700;Engordany=Escaldes
+
+
+// first incarnation created by Mr Euro ... 
+// improvements by swedenfan

@@ -1,0 +1,33 @@
+// Post code groups for Uruguay
+// Types:
+//  -post code ranges "00000,00000=name" (must be numbers)
+//  -single code "00000=name"
+//  -single code+name "00000;PlaceNameinCSV=name"
+
+// Post codes by Miguel Ângelo
+
+Country=uy
+
+Group=Departments of Uruguay / Departamentos de Uruguay
+55000,59999=Artigas
+90000,93999=Canelones
+37000,39999=Cerro Largo
+70000,74999=Colonia
+97000,99999=Durazano
+85000,89999=Flores
+94000,96999=Florida
+30000,32999=Lavalleja
+20000,26999=Maldonado
+10000,19999=Montevideo
+60000,64999=Paysandú
+65000,69999=Rio Negro
+40000,44999=Rivera
+27000,29999=Rocha
+50000,54999=Salto
+80000,84999=San José de Mayo
+75000,79999=Soriano
+45000,49999=Tacuarembó
+33000,36999=Treinta y Tres
+
+
+// http://en.wikipedia.org/wiki/List_of_postal_codes_in_Uruguay

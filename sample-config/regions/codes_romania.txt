@@ -1,0 +1,56 @@
+// Post code groups for Romania
+// Types:
+//  -post code ranges "00000,00000=name" (must be numbers)
+//  -single code "00000=name"
+//  -single code+name "00000;PlaceNameinCSV=name"
+
+// Post codes by magpie
+
+Country=ro
+
+
+Group=Judeţele României - Counties of Romania
+510000,519999=Alba
+310000,319999=Arad
+110000,119999=Argeş
+600000,609999=Bacău
+410000,419999=Bihor
+420000,429999=Bistriţa-Năsăud
+710000,719999=Botoşani
+500000,509999=Braşov
+810000,819999=Brăila
+000000,069999=Bucureşti
+120000,129999=Buzău
+320000,329999=Caraş-Severin
+910000,919999=Călăraşi
+400000,409999=Cluj
+900000,909999=Constanţa
+520000,529999=Covasna
+130000,139999=Dâmboviţa
+200000,209999=Dolj
+800000,809999=Galaţi
+080000,089999=Giurgiu
+210000,219999=Gorj
+530000,539999=Harghita
+330000,339999=Hunedoara
+920000,929999=Ialomiţa
+700000,709999=Iaşi
+070000,079999=Ilfov
+430000,439999=Maramureş
+220000,229999=Mehedinţi
+540000,549999=Mureş
+610000,619999=Neamţ
+230000,239999=Olt
+100000,109999=Prahova
+440000,449999=Satu-Mare
+450000,459999=Sălaj
+550000,559999=Sibiu
+720000,729999=Suceava
+140000,149999=Teleorman
+300000,309999=Timiş
+820000,829999=Tulcea
+730000,739999=Vaslui
+240000,249999=Vâlcea
+620000,629999=Vrancea
+
+

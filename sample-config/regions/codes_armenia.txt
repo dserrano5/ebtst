@@ -1,0 +1,26 @@
+// Post code groups for Armenia
+// Types:
+//  -post code ranges "0000,0000=name" (must be numbers)
+//  -single code "0000=name"
+//  -single code+name "0000;PlaceNameinCSV=name"
+
+// Post codes by Miguel Ângelo
+
+Country=am
+
+Group=Provinces of Armenia
+0201,0514=Aragatsotn
+0601,0823=Ararat
+0901,1149=Armavir
+1201,1626=Gegharkunik
+1701,2117=Lori
+2201,2506=Kotayk
+2601,3126=Shirak
+3201,3519=Syunik
+3901,4216=Tavush
+3601,3810=Vayots Dzor
+0001,0099=Yerevan
+
+
+
+// http://en.wikipedia.org/wiki/Armenian_postal_codes

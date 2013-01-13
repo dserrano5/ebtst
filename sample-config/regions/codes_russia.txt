@@ -1,0 +1,213 @@
+// Post code groups for Russia
+// Types:
+//  -post code ranges "000000,000000=name" (must be numbers)
+//  -single code "000000=name"
+//  -single code+name "000000;PlaceNameinCSV=name"
+
+// Post codes by ZdS
+// Updates & Flags by debemaks
+
+Country=ru
+
+Group=Federal Subjects of Russia / Административно-территориальное деление России
+SubGroup=<img src=http://img510.imageshack.us/img510/2488/moscowbp1.png> Moscow Federal City / Москва
+101000,129999=Moscow Federal City / Москва Город
+SubGroup=<img src=http://img410.imageshack.us/img410/6171/moscowoblasttu7.png> Moscow Oblast / Московская область
+140000,142999=Moscow Oblast / Московская область
+144000,144999=Moscow Oblast / Московская область
+SubGroup=<img src=http://img265.imageshack.us/img265/8128/yaroslavloblastxj8.png> Yaroslavl Oblast / Ярославская область
+150000,150999=Yaroslavl Oblast / Ярославская область
+152000,152999=Yaroslavl Oblast / Ярославская область
+SubGroup=<img src=http://img402.imageshack.us/img402/7234/ivanovooblastvm0.png> Ivanovo Oblast / Ивановская область
+153000,153999=Ivanovo Oblast / Ивановская область
+155000,155999=Ivanovo Oblast / Ивановская область
+SubGroup=<img src=http://img184.imageshack.us/img184/5544/kostromskajaoblsl1.gif> Kostroma Oblast / Костромская область
+156000,157999=Kostroma Oblast / Костромская область
+SubGroup=<img src=http://img85.imageshack.us/img85/311/vologdaoblastkl8.png> Vologda Oblast / Вологодская область
+160000,162999=Vologda Oblast / Вологодская область
+SubGroup=<img src=http://img100.imageshack.us/img100/6636/arkhangelskoblastrg6.gif> Arkhangelsk Oblast / Архангельская область
+163000,165999=Arkhangelsk Oblast / Архангельская область
+SubGroup=<img src=http://img246.imageshack.us/img246/6273/nenetsautonomousdistricxj5.png> Nenets Autonomous Okrug / Ненецкий автономный округ / Ненёцие автономной Нокрук
+166000,166999=Nenets Autonomous Okrug / Ненецкий автономный округ / Ненёцие автономной Нокрук
+SubGroup=<img src=http://img403.imageshack.us/img403/5535/komimm7.png> Komi Republic / Коми Республика
+167000,169999=Komi Republic / Коми Республика
+SubGroup=<img src=http://img120.imageshack.us/img120/1552/tveroblastdp8.png> Tver Oblast / Тверская область
+170000,172999=Tver Oblast / Тверская область
+SubGroup=<img src=http://img149.imageshack.us/img149/8526/novgorodoblastpq0.png> Novgorod Oblast / Новгородская область
+173000,175999=Novgorod Oblast / Новгородская область
+SubGroup=<img src=http://img523.imageshack.us/img523/9311/yamalnenetsautonomousdiri0.png> Pskov Oblast / Псковская область
+180000,182999=Pskov Oblast / Псковская область
+SubGroup=<img src=http://img184.imageshack.us/img184/888/murmanskoblastbx9.png> Murmansk Oblast / Мурманская область
+183000,184999=Murmansk Oblast / Мурманская область
+SubGroup=<img src=http://img245.imageshack.us/img245/2863/kareliaqg0.png> Republic of Karelia / Карелия Республика / Karjalan tazavalla
+185000,186999=Republic of Karelia / Карелия Республика / Karjalan tazavalla
+SubGroup=<img src=http://img254.imageshack.us/img254/9303/leningradoblastpl0.png> Leningrad Oblast / Ленинградская область
+187000,188999=Leningrad Oblast / Ленинградская область
+SubGroup=<img src=http://img296.imageshack.us/img296/1515/stpetersburglg8.png> Sankt-Peterburg Federal City / Санкт-Петербург
+190000,199999=Sankt-Peterburg Federal City / Санкт-Петербург Город
+SubGroup=<img src=http://img405.imageshack.us/img405/2240/smolenskoblastgg7.png> Smolensk Oblast / Смоленская область
+214000,216999=Smolensk Oblast / Смоленская область
+SubGroup=<img src=http://img248.imageshack.us/img248/4043/kaliningradoblastzp9.png> Kaliningrad Oblast / Калининградская область
+236000,236999=Kaliningrad Oblast / Калининградская область
+238000,238999=Kaliningrad Oblast / Калининградская область
+SubGroup=<img src=http://img134.imageshack.us/img134/1889/bryanskoblasttk0.png> Bryansk Oblast / Брянская область
+241000,243999=Bryansk Oblast / Брянская область
+SubGroup=<img src=http://img523.imageshack.us/img523/9311/yamalnenetsautonomousdiri0.png> Adygea
+248000,249999=Kaluga Oblast /Калужская область
+SubGroup=<img src=http://img136.imageshack.us/img136/2634/tulaoblastfq9.png> Tula Oblast / Тульская область
+300000,301999=Tula Oblast / Тульская область
+SubGroup=<img src=http://img156.imageshack.us/img156/1677/oryoloblastaa9.png> Oryol Oblast / Орловская область
+302000,303999=Oryol Oblast / Орловская область
+SubGroup=<img src=http://img402.imageshack.us/img402/6541/kurskoblastse6.png> Kursk Oblast / Курская область
+305000,307999=Kursk Oblast / Курская область
+SubGroup=<img src=http://img408.imageshack.us/img408/1161/belgorodoblasthh9.png> Belgorod Oblast / Белгородская область
+308000,309999=Belgorod Oblast / Белгородская область
+SubGroup=<img src=http://img410.imageshack.us/img410/7275/rostovoblastrf7.png> Rostov Oblast / Ростовская область
+344000,344999=Rostov Oblast / Ростовская область
+346000,347999=Rostov Oblast / Ростовская область
+SubGroup=<img src=http://img528.imageshack.us/img528/1633/krasnodarkraipz2.png> Krasnodar Krai / Краснодарский край
+350000,350999=Krasnodar Krai / Краснодарский край
+352000,354999=Krasnodar Krai / Краснодарский край
+SubGroup=<img src=http://img155.imageshack.us/img155/8560/stavropolkraiep0.png> Stavropol Krai / Ставропольский край
+355000,357999=Stavropol Krai / Ставропольский край
+SubGroup=<img src=http://img170.imageshack.us/img170/7060/kalmykiahx1.png> Republic of Kalmykia / Калмыкия Республика / Хальмг-Тангч
+358000,359999=Republic of Kalmykia / Калмыкия Республика / Хальмг-Тангч
+SubGroup=<img src=http://img503.imageshack.us/img503/4238/kabardinobalkariagm1.png> Kabardino-Balkar Republic / Кабардино-Балкарская Республика / Къэбэрдей-Балъкъэр Республикэ
+360000,361999=Kabardino-Balkar Republic / Кабардино-Балкарская Республика / Къэбэрдей-Балъкъэр Республикэ
+SubGroup=<img src=http://img132.imageshack.us/img132/4646/northossetiafx6.png> Republic of North Ossetia-Alania / Северная Осетия-Алания Республика / Цæгат Ирыстоны Аланийы Республикæ
+362000,363999=Republic of North Ossetia-Alania / Северная Осетия-Алания Республика / Цæгат Ирыстоны Аланийы Республикæ
+SubGroup=<img src=http://img84.imageshack.us/img84/6210/chechenrepublicpm4.png> Chechen Republic / Чеченская Республика / Нохчийн Республика
+364000,364999=Chechen Republic / Чеченская Республика / Нохчийн Республика
+366000,366999=Chechen Republic / Чеченская Республика / Нохчийн Республика
+SubGroup=<img src=http://img138.imageshack.us/img138/6192/dagestanxc6.png> Republic of Dagestan / Дагестан Республика / Дагъистанлъул ДжумхIурият
+367000,368999=Republic of Dagestan / Дагестан Республика / Дагъистанлъул ДжумхIурият
+SubGroup=<img src=http://img120.imageshack.us/img120/126/karachaycherkessiaee9.png> Karachay-Cherkess Republic / Карачаево-Черкесская Республика / Къарачай-Черкес Республика
+369000,369999=Karachay-Cherkess Republic / Карачаево-Черкесская Республика / Къарачай-Черкес Республика
+SubGroup=<img src=http://img232.imageshack.us/img232/5089/adygeafy6.png> Adygea Republic / Адыгея Республика / Адыгэ Республик
+385000,385999=Adygea Republic / Адыгея Республика / Адыгэ Республик
+SubGroup=<img src=http://img90.imageshack.us/img90/2150/ingushetiahm2.png> Republic of Ingushetia / Ингушетия Республика / ГIалгIай Мохк
+386000,386999=Republic of Ingushetia / Ингушетия Республика / ГIалгIай Мохк
+SubGroup=<img src=http://img410.imageshack.us/img410/5831/ryazanoblasttg1.png> Ryazan Oblast / Рязанская область
+390000,391999=Ryazan Oblast / Рязанская область
+SubGroup=<img src=http://img237.imageshack.us/img237/5919/tambovoblastvy8.png> Tambov Oblast / Тамбовская область
+392000,393999=Tambov Oblast / Тамбовская область
+SubGroup=<img src=http://img153.imageshack.us/img153/6435/voronezhoblastgs9.png> Voronezh Oblast / Воронежская область
+394000,394999=Voronezh Oblast / Воронежская область
+396000,397999=Voronezh Oblast / Воронежская область
+SubGroup=<img src=http://img254.imageshack.us/img254/8772/lipetskoblastcn0.gif> Lipetsk Oblast / Липецкая область
+398000,399999=Lipetsk Oblast / Липецкая область
+SubGroup=<img src=http://img524.imageshack.us/img524/3191/volgogradoblastoh7.png> Volgograd Oblast / Волгоградская область
+400000,400999=Volgograd Oblast / Волгоградская область
+403000,404999=Volgograd Oblast / Волгоградская область
+SubGroup=<img src=http://img120.imageshack.us/img120/9271/saratovoblastmp2.png> Saratov Oblast / Саратовская область
+410000,410999=Saratov Oblast / Саратовская область
+412000,413999=Saratov Oblast / Саратовская область
+SubGroup=<img src=http://img149.imageshack.us/img149/3981/astrakhanoblastsb1.png> Astrakhan Oblast / Астраханская область
+414000,414999=Astrakhan Oblast / Астраханская область
+416000,416999=Astrakhan Oblast / Астраханская область
+SubGroup=<img src=http://img98.imageshack.us/img98/7138/tatarstanuv7.png> Republic of Tatarstan / Татарстан Республика
+420000,420999=Republic of Tatarstan / Татарстан Республика
+422000,423999=Republic of Tatarstan / Татарстан Республика
+SubGroup=<img src=http://img230.imageshack.us/img230/3763/marielyz6.png> Mari El Republic / Марий-Эл Республика
+424000,425999=Mari El Republic / Марий-Эл Республика
+SubGroup=<img src=http://img87.imageshack.us/img87/2953/udmurtiadh3.png> Republic of Udmurtia / Удмуртская Республика / Удмурт Элькун
+426000,427999=Republic of Udmurtia / Удмуртская Республика / Удмурт Элькун
+SubGroup=<img src=http://img187.imageshack.us/img187/5986/chuvashiawd4.png> Chuvash Republic / Чувашская Республика / Чăваш Республики
+428000,429999=Chuvash Republic / Чувашская Республика / Чăваш Республики
+SubGroup=<img src=http://img508.imageshack.us/img508/6324/mordoviano4.png> Republic of Mordovia / Мордовия Республика
+430000,431999=Republic of Mordovia / Мордовия Республика
+SubGroup=<img src=http://img340.imageshack.us/img340/5890/ulyanovskoblastwm9.png> Ulyanovsk Oblast / Ульяновская область
+432000,433999=Ulyanovsk Oblast / Ульяновская область
+SubGroup=<img src=http://img156.imageshack.us/img156/8089/penzaoblastan0.png> Penza Oblast / Пензенская область
+440000,440999=Penza Oblast / Пензенская область
+442000,442999=Penza Oblast / Пензенская область
+SubGroup=<img src=http://img120.imageshack.us/img120/2520/samaraoblastzy2.png> Samara Oblast / Самарская область
+443000,443999=Samara Oblast / Самарская область
+445000,446999=Samara Oblast / Самарская область
+SubGroup=<img src=http://img369.imageshack.us/img369/8955/bashkortostanzq7.png> Republic of Bashkortostan / Башкортостан Республика / Башkортостан Республикаhы
+450000,450999=Republic of Bashkortostan / Башкортостан Республика / Башkортостан Республикаhы
+452000,453999=Republic of Bashkortostan / Башкортостан Республика / Башkортостан Республикаhы
+SubGroup=<img src=http://img358.imageshack.us/img358/1527/chelyabinskoblastog7.png> Chelyabinsk Oblast / Челябинская область
+454000,457999=Chelyabinsk Oblast / Челябинская область
+SubGroup=<img src=http://img136.imageshack.us/img136/9045/orenburgoblastuc6.png> Orenburg Oblast / Оренбургская область
+460000,462999=Orenburg Oblast / Оренбургская область
+SubGroup=<img src=http://img524.imageshack.us/img524/7223/vladoblastrx5.gif> Vladimir Oblast / Владимирская область
+600000,602999=Vladimir Oblast / Владимирская область
+SubGroup=<img src=http://img182.imageshack.us/img182/188/novgorodoblastre8.gif> Nizhny Novgorod Oblast / Нижегородская область
+603000,603999=Nizhny Novgorod Oblast / Нижегородская область
+606000,607999=Nizhny Novgorod Oblast / Нижегородская область
+SubGroup=<img src=http://img523.imageshack.us/img523/9311/yamalnenetsautonomousdiri0.png> Adygea
+610000,610999=Kirov Oblast / Кировская область
+612000,613999=Kirov Oblast / Кировская область
+SubGroup=<img src=http://img504.imageshack.us/img504/7218/permoblastqv1.gif> Perm Krai / Пермский край
+614000,614999=Perm Krai / Пермский край
+617000,619999=Perm Krai / Пермский край
+SubGroup=<img src=http://img405.imageshack.us/img405/5056/sverdlovskoblastwx1.png> Sverdlovsk Oblast / Свердловская область
+620000,620999=Sverdlovsk Oblast / Свердловская область
+622000,624999=Sverdlovsk Oblast / Свердловская область
+SubGroup=<img src=http://img120.imageshack.us/img120/909/tyumenoblastgq5.png> Tyumen Oblast / Тюменская область
+625000,627999=Tyumen Oblast / Тюменская область
+SubGroup=<img src=http://img403.imageshack.us/img403/6425/khantimansiokrugsw4.png> Khanty-Mansi Autonomous Okrug / Ханты-Мансийский автономный округ
+628000,628999=Khanty-Mansi Autonomous Okrug / Ханты-Мансийский автономный округ
+SubGroup=<img src=http://img149.imageshack.us/img149/4859/yamaloautonomousdistricou5.png> Yamalo Autonomous Okrug / Ямалий автономный округ
+629000,629999=Yamalo Autonomous Okrug / Ямалий автономный округ
+SubGroup=<img src=http://img136.imageshack.us/img136/6968/novosibirskoblastoi9.gif> Novosibirsk Oblast / Новосибирская область
+630000,630999=Novosibirsk Oblast / Новосибирская область
+632000,633999=Novosibirsk Oblast / Новосибирская область
+SubGroup=<img src=http://img254.imageshack.us/img254/7495/tomskoblastnc2.png> Tomsk Oblast / Томская область
+634000,634999=Tomsk Oblast / Томская область
+636000,636999=Tomsk Oblast / Томская область
+SubGroup=<img src=http://img184.imageshack.us/img184/134/kurganoblastbk3.png> Kurgan Oblast / Курганская область
+640000,641999=Kurgan Oblast / Курганская область
+SubGroup=<img src=http://img156.imageshack.us/img156/5346/omskoblastdo4.png> Omsk Oblast / Омская область
+644000,644999=Omsk Oblast / Омская область
+646000,646999=Omsk Oblast / Омская область
+SubGroup=<img src=http://img257.imageshack.us/img257/4503/altairepublicek1.png> Altai Republic / Алтай Республика
+649000,649999=Altai Republic / Алтай Республика
+SubGroup=<img src=http://img523.imageshack.us/img523/9311/yamalnenetsautonomousdiri0.png> Adygea
+650000,650999=Kemerovo Oblast / Кемеровская область
+652000,654999=Kemerovo Oblast / Кемеровская область
+SubGroup=<img src=http://img138.imageshack.us/img138/352/khakassianw7.png> Republic of Khakassia / Хакасия Республика
+655000,655999=Republic of Khakassia / Хакасия Республика
+SubGroup=<img src=http://img177.imageshack.us/img177/6620/altaikrajqn4.gif> Altai Krai / Алтайский край
+656000,656999=Altai Krai / Алтайский край
+658000,659999=Altai Krai / Алтайский край
+SubGroup=<img src=http://img181.imageshack.us/img181/6996/krasnojarskikraiul2.gif> Krasnoyarsk Krai / Красноярский край
+660000,660999=Krasnoyarsk Krai / Красноярский край
+662000,663999=Krasnoyarsk Krai / Красноярский край
+647000,648999=Krasnoyarsk Krai / Красноярский край
+SubGroup=<img src=http://img172.imageshack.us/img172/340/irkutskoblastpt9.png> Irkutsk Oblast / Иркутская область
+664000,666999=Irkutsk Oblast / Иркутская область
+669000,669999=Irkutsk Oblast / Иркутская область
+SubGroup=<img src=http://img512.imageshack.us/img512/2659/tuvagu2.png> Tuva Republic / Тыва Республика
+667000,668999=Tuva Republic / Тыва Республика
+SubGroup=<img src=http://img519.imageshack.us/img519/7028/aginburyatokrugft1.png> Buryat Republic / Бурятия Республика
+670000,671999=Buryat Republic / Бурятия Республика
+SubGroup=<img src=http://img172.imageshack.us/img172/1276/chitaxf8.png> Zabayakalsky Krai / Забайкальский Край
+672000,674999=Zabayakalsky Krai / Забайкальский Край
+687000,687999=Zabayakalsky Krai / Забайкальский Край
+SubGroup=<img src=http://img100.imageshack.us/img100/7648/amuroblastzb6.png> Amur Oblast / Амурская область
+675000,676999=Amur Oblast / Амурская область
+SubGroup=<img src=http://img504.imageshack.us/img504/5720/sakhayo9.png> Sakha Republic / Саха (Якутия) Республика
+677000,678999=Sakha (Yakutia) Republic / Саха (Якутия) Республика
+SubGroup=<img src=http://img90.imageshack.us/img90/7862/jewishautonomousoblastes4.png> Jewish Autonomous Oblast / Еврейская автономная область
+679000,679999=Jewish Autonomous Oblast / Еврейская автономная область
+SubGroup=<img src=http://img138.imageshack.us/img138/9965/khabarovskkraiuz3.png> Khabarovsk Krai / Хабаровский край
+680000,682999=Khabarovsk Krai / Хабаровский край
+SubGroup=<img src=http://img407.imageshack.us/img407/1465/kamchatkaoblasteu8.png> Kamchatka Oblast / Камчатская область
+683000,684999=Kamchatka Oblast / Камчатская область
+688000,688999=Kamchatka Oblast / Камчатская область
+SubGroup=<img src=http://img410.imageshack.us/img410/1963/magadanoblastbt1.png> Magadan Oblast / Магаданская область
+685000,686999=Magadan Oblast / Магаданская область
+SubGroup=<img src=http://img512.imageshack.us/img512/4856/chukotkaokrugcb8.png> Chukotka Autonomous Okrug / Чукотский автономный округ
+689000,689999=Chukotka Autonomous Okrug / Чукотский автономный округ
+SubGroup=<img src=http://img291.imageshack.us/img291/93/primorskykraibp0.png> Primorsky Krai / Приморский край
+690000,692999=Primorsky Krai / Приморский край
+SubGroup=<img src=http://img120.imageshack.us/img120/6084/sakhalinoblastst9.png> Sakhalin Oblast / Сахалинская область
+693000,694999=Sakhalin Oblast / Сахалинская область
+
+
+// http://en.wikipedia.org/wiki/List_of_postal_codes_in_Russia
+// http://en.wikipedia.org/wiki/Federal_subjects_of_Russia
+// http://indexes.boom.ru/byregion
+// http://en.wikipedia.org/wiki/Flags_of_federal_subjects_of_Russia

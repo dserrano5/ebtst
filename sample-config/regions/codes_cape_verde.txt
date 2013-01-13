@@ -1,0 +1,32 @@
+// Post code groups for Cape Verde
+// Types:
+//  -post code ranges "0000,0000=name" (must be numbers)
+//  -single code "0000=name"
+//  -single code+name "0000;PlaceNameinCSV=name"
+
+// Post codes by Miguel Ângelo
+
+Country=cv
+
+Group=Counties of Cape Verde / Municípios de Cabo Verde
+5100,5199=Boa Vista
+9100,9199=Brava
+6100,6199=Maio
+8100,8199=Mosteiros
+1200,1299=Paúl 
+1300,1399=Porto Novo 
+7400,7499=Praia 
+1100,1199=Ribeira Grande 
+4100,4199=Sal 
+7200,7299=Santa Catarina 
+7300,7399=Santa Cruz 
+7500,7599=São Domingos 
+8200,8299=São Filipe 
+7600,7699=São Miguel 
+3100,3199=São Nicolau 
+2100,2199=São Vicente 
+7100,7199=Tarrafal 
+
+
+
+// http://en.wikipedia.org/wiki/List_of_postal_codes_in_Cape_Verde

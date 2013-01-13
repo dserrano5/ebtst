@@ -376,7 +376,6 @@ Group=Districts of City of Naantali/Naantalin kaupunginosat
 21101=Naantali keskus
 21110=Taimo-Nuhjala-Lietsala
 
-PrintZeros=0
 
 Group=Districts of City of Oulu/Oulun kaupunginosat
 90530=90530 Alppila/Välivainio

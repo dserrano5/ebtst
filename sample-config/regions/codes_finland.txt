@@ -454,7 +454,6 @@ FinKunta766=Åland
 FinKunta771=Åland
 FinKunta941=Åland
 
-PrintZeros=0
 
 Group=Regions of Finland (Maakunnat / Landskap)
 // SubGroups are Provinces of Finland (Läänit / Län)
@@ -899,7 +898,6 @@ FinKunta766=Åland
 FinKunta771=Åland
 FinKunta941=Åland
 
-PrintZeros=0
 
 Group=Districts of Finland (Seutukunnat / Ekonomisk Region)
 // SubGroups are Regions of Finland (Maakunnat / Landskap)
@@ -1358,7 +1356,6 @@ FinKunta295=Ålands skärgård
 FinKunta766=Ålands skärgård
 FinKunta941=Ålands skärgård
 
-PrintZeros=0
 
 Group=Biggest Cities in Finland
 FinKunta091=01 Helsinki / Helsingfors
@@ -1506,7 +1503,6 @@ FinKunta186=20 Järvenpää
 //  FinKunta979=Yläne
 
 
-PrintZeros=0
 
 Group=Municipalities of Finland (Kunnat / Kommuner)
 // SubGroups are Regions of Finland (Maakunnat / Landskap)
@@ -2111,7 +2107,6 @@ FinKunta479=Vörå-Maxmo / Vöyri-Maksamaa
 FinKunta944=Vörå-Maxmo / Vöyri-Maksamaa
 
 
-PrintZeros=0
 
 Group=Postal Code Areas of Finland
 SubGroup=00000-09999

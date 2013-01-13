@@ -717,7 +717,6 @@ Group=kleinsten Gemeinden in Deutschland nach Einwohnerzahl
 
 
 
-PrintZeros=0
 
 Group=Landkreise und Kreisfreie Städte of Germany (<a href="http://forum.eurobilltracker.eu/viewtopic.php?t=9098">see forum</a>)
 SubGroup=<img src="http://www.eurobilltracker.at/images/flags/D-Baden-Wuerttemberg.gif"></a> Baden-Württemberg
@@ -4353,7 +4352,6 @@ SubFlag=http://www.eurobilltracker.at/images/flags/D-Thueringen.gif
 99441;Mellingen=Landkreis Weimarer Land (AP)
 99441;Umpferstedt=Landkreis Weimarer Land (AP)
 
-PrintZeros=0
 Group=Cities of Germany / Städte Deutschlands
 SubGroup=Baden-Württemberg
 78267=Aach
@@ -7724,7 +7722,6 @@ SubGroup=Thüringen
 07924;Ziegenrück=Ziegenrück
 
 
-PrintZeros=0
 Group=Kreisfreie Städte, kreisangehörige Städte und Gemeinden Baden-Württemberg
 SubGroup=Alb-Donau-Kreis (UL)
 89604=Allmendingen
@@ -8901,7 +8898,6 @@ SubGroup=Zollernalbkreis (BL)
 72474=Winterlingen
 72369=Zimmern unter der Burg
 
-PrintZeros=0
 Group=Kreisfreie Städte, kreisangehörige Städte und Gemeinden Bayern
 SubGroup=Landkreis Aichach-Friedberg (AIC)
 86559=Adelzhausen
@@ -11143,7 +11139,6 @@ SubGroup=Landkreis Würzburg (WÜ)
 97286;Winterhausen=Winterhausen
 97299=Zell am Main
 
-PrintZeros=0
 Group=Kreisfreie Städte, kreisangehörige Städte und Gemeinden Brandenburg
 SubGroup=Landkreis Barnim (BAR)
 16321;Lindenberg=Ahrensfelde
@@ -13540,7 +13535,6 @@ SubGroup=Landkreis Uckermark (UM)
 16306;Golm=Zichow
 16306;Zichow=Zichow
 
-PrintZeros=0
 Group=Kreisfreie Städte, kreisangehörige Städte und Gemeinden Hessen
 SubGroup=Landkreis Bergstraße (HP)
 69518=Abtsteinach
@@ -14049,7 +14043,6 @@ SubGroup=Kreisfreie Stadt Wiesbaden (WI)
 65183,65207=Wiesbaden
 
 
-PrintZeros=0
 Group=Kreisfreie Städte, kreisangehörige Städte und Gemeinden Mecklenburg-Vorpommern
 SubGroup=Landkreis Bad Doberan (DBR)
 18211;Admannshagen=Admannshagen-Bargeshagen 
@@ -15256,7 +15249,6 @@ SubGroup=Kreisfreie Stadt Wismar (HWI)
 23970;Wismar=Wismar
 
 
-PrintZeros=0
 Group=Kreisfreie Städte, kreisangehörige Städte und Gemeinden Niedersachsen
 SubGroup=Landkreis Ammerland (WST)
 26689=Apen
@@ -16359,7 +16351,6 @@ SubGroup=Kreisfreie Stadt Wolfsburg (WOB)
 
 
 
-PrintZeros=0
 Group=Kreisfreie Städte, kreisangehörige Städte und Gemeinden Nordrhein-Westfalen
 SubGroup=Kreisfreie Stadt Aachen (AC)
 52062,52080=Aachen
@@ -16856,7 +16847,6 @@ SubGroup=Kreis Wesel (WES)
 SubGroup=Kreisfreie Stadt Wuppertal (W)
 42000,42399=Wuppertal
 
-PrintZeros=0
 Group=Kreisfreie Städte, kreisangehörige Städte und Gemeinden Rheinland-Pfalz
 SubGroup=Landkreis Ahrweiler (AW)
 53518;Adenau=Adenau
@@ -19463,7 +19453,6 @@ SubGroup=Zweibrücken (ZW) Kreisfreie Stadt
 66482=Kreisfreie Stadt Zweibrücken (ZW)
 
 
-PrintZeros=0
 Group=Kreisfreie Städte, kreisangehörige Städte und Gemeinden Saarland
 SubGroup=Landkreis Merzig-Wadern (MZG)
 66701=Beckingen
@@ -19524,7 +19513,6 @@ SubGroup=Landkreis Sankt Wendel (WND)
 66591,66606=Sankt Wendel
 66630,66636=Tholey
 
-PrintZeros=0
 Group=Kreisfreie Städte, kreisangehörige Städte und Gemeinden Sachsen
 SubGroup=Landkreis Bautzen (BZ)
 01477=Arnsdorf
@@ -20356,7 +20344,6 @@ SubGroup=Landkreis Zwickau (Z)
 08056,08066=Zwickau
 
 
-PrintZeros=0
 Group=Kreisfreie Städte, kreisangehörige Städte und Gemeinden Sachsen-Anhalt
 SubGroup=Altmarkkreis Salzwedel (SAW)
 38489;Ahlum=Ahlum
@@ -21780,7 +21767,6 @@ SubGroup=Landkreis Wittenberg (WB)
 06888;Zörnigall=Zörnigall
 06791;Zschornewitz=Zschornewitz
 
-PrintZeros=0
 Group=Kreisfreie Städte, kreisangehörige Städte und Gemeinden Schleswig-Holstein
 SubGroup=Kreis Dithmarschen (HEI)
 25767;Albersdorf=Albersdorf
@@ -23036,7 +23022,6 @@ SubGroup=Kreis Stormarn (OD)
 22969=Witzhave
 23619;Zarpen=Zarpen
 
-PrintZeros=0
 Group=Kreisfreie Städte, kreisangehörige Städte und Gemeinden Thüringen
 SubGroup=Landkreis Altenburger Land (ABG)
 04600=Altenburg
@@ -24430,7 +24415,6 @@ SubGroup=Landkreis Weimarer Land (AP)
 99439;Wohlsborn=Wohlsborn
 
 
-PrintZeros=0
 
 Group=Postalcodes / Postleitzahlen
 SubGroup=0xxxx

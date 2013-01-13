@@ -1,4 +1,4 @@
-//   *** Ultimo aggiornamento / Last update: 30/09/2009 ***
+//   *** Ultimo aggiornamento / Last update: 10/01/2012 ***
 
 // Post code groups for Italy
 // Types:
@@ -36,6 +36,9 @@ Group=Regioni d'Italia / Regioni of Italy
 61010;Monte Cerignone=Marche
 61010;Vale di Teva=Marche
 61010;Montegrimano=Marche
+61010;Montegrimano Terme=Marche
+61010;Monte Grimano=Marche
+61010;Monte Grimano Terme=Marche
 61010;Montelicciano=Marche
 61010;Savignano Montetassi=Marche
 61010;Savignano montetassi=Marche
@@ -50,7 +53,7 @@ Group=Regioni d'Italia / Regioni of Italy
 61010;Rio Salso=Marche
 61010;Rio salso=Marche
 61011,61014=Marche
-61020,63100=Marche
+61020,63900=Marche
 86010,86170=Molise
 10010,10156=Piemonte
 12010,12070=Piemonte
@@ -60,14 +63,15 @@ Group=Regioni d'Italia / Regioni of Italy
 18025;Piaggia=Piemonte
 28010,28925=Piemonte
 70010,74123=Puglia
-07010,09134=Sardegna
+76011,76125=Puglia
+07010,09170=Sardegna
 90010,98168=Sicilia
 50010,59100=Toscana
 38010,39100=Trentino - AltoAdige/SüdTirol
 05010,06139=Umbria
 11010,11100=Valle d'Aosta
 30010,32100=Veneto
-35010,37139=Veneto
+35010,37142=Veneto
 45010,45100=Veneto
 
 Group=Province d'Italia / Provinces of Italy
@@ -111,7 +115,7 @@ SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Friuli-Venezia-Giulia.
 33070,33099=Pordenone
 33170=Pordenone
 34010,34019=Trieste
-34100,34147=Trieste
+34100,34151=Trieste
 33010,33069=Udine
 33100=Udine
 SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Lazio.gif> Lazio
@@ -178,22 +182,13 @@ SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Lombardia.gif> Lombard
 20020;Vanzaghello=Milano
 20020;Villa Cortese=Milano
 20021,20029=Milano
-20030;Lentate sul Seveso=Milano
-20030;Camnago=Milano
-20030;Cimnago=Milano
 20030;Palazzolo Milanese=Milano
 20030;Paderno Dugnano=Milano
 20030;Senago=Milano
 20032=Milano
 20037,20038=Milano
-20040;Busnago=Milano
 20040;Cambiago=Milano
 20040;Torrazza dei Mandelli=Milano
-20040;Caponago=Milano
-20040;Cornate d'Adda=Milano
-20040;Colnago=Milano
-20040;Porto d'Adda=Milano
-20040;Roncello=Milano
 20042=Milano
 20050;Correzzana=Milano
 20050;Veduggio con Colzano=Milano
@@ -208,6 +203,13 @@ SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Lombardia.gif> Lombard
 20030;Barlassina=Monza e Brianza
 20030;Bovisio Masciago=Monza e Brianza
 20030;Bovisio=Monza e Brianza
+20030;Lentate sul Seveso=Monza e Brianza
+20030;Lentate sul seveso=Monza e Brianza
+20030;Lentate=Monza e Brianza
+20030;Birago=Monza e Brianza
+20030;Camnago=Monza e Brianza
+20030;Cimnago=Monza e Brianza
+20030;Copreno=Monza e Brianza
 20030;Masciago=Monza e Brianza
 20030;Seveso=Monza e Brianza
 20030;Baruccana=Monza e Brianza
@@ -216,12 +218,24 @@ SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Lombardia.gif> Lombard
 20039=Monza e Brianza
 20040;Aicurzio=Monza e Brianza
 20040;Bellusco=Monza e Brianza
+20040;Busnago=Monza e Brianza
 20040;Briosco=Monza e Brianza
+20040;Caponago=Monza e Brianza
 20040;Capriano=Monza e Brianza
+20040;Cornate d'Adda=Monza e Brianza
+20040;Cornate d'adda=Monza e Brianza
+20040;Cornate=Monza e Brianza
+20040;Colnago=Monza e Brianza
+20040;Porto d'Adda=Monza e Brianza
+20040;Porto d'adda=Monza e Brianza
+20040;Porto=Monza e Brianza
+20040;Villa Paradiso=Monza e Brianza
+20040;Villa paradiso=Monza e Brianza
 20040;Fornaci=Monza e Brianza
 20040;Burago di Molgora=Monza e Brianza
 20040;Carnate=Monza e Brianza
 20040;Cavenago di Brianza=Monza e Brianza
+20040;Roncello=Monza e Brianza
 20040;Usmate Velate=Monza e Brianza
 20040;Usmate=Monza e Brianza
 20040;Velate=Monza e Brianza
@@ -244,6 +258,7 @@ SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Lombardia.gif> Lombard
 20050;Verano Brianza=Monza e Brianza
 20051,20055=Monza e Brianza
 20057,20059=Monza e Brianza
+20811,20900=Monza e Brianza
 27010,27100=Pavia
 23010,23100=Sondrio
 21010,21100=Varese
@@ -260,10 +275,14 @@ SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Marche.gif> Marche
 63010;Torre San Patrizio=Fermo
 63014,63029=Fermo
 63044;Montefortino=Fermo
+63811,63900=Fermo
 62010,62100=Macerata
 61010;Monte Cerignone=Pesaro e Urbino
 61010;Vale di Teva=Pesaro e Urbino
 61010;Montegrimano=Pesaro e Urbino
+61010;Montegrimano Terme=Pesaro e Urbino
+61010;Monte Grimano=Pesaro e Urbino
+61010;Monte Grimano Terme=Pesaro e Urbino
 61010;Montelicciano=Pesaro e Urbino
 61010;Savignano Montetassi=Pesaro e Urbino
 61010;Tavullia=Pesaro e Urbino
@@ -299,6 +318,7 @@ SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Puglia.gif> Puglia
 70051,70053=Barletta-Andria-Trani
 70055=Barletta-Andria-Trani
 70058,70059=Barletta-Andria-Trani
+76011,76125=Barletta-Andria-Trani
 72010,72100=Brindisi
 71010,71043=Foggia
 71045=Foggia
@@ -520,7 +540,7 @@ SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Toscana.gif> Toscana
 58010,58100=Grosseto
 57010,57128=Livorno
 55010,55100=Lucca
-54010,54100=Massa-Carrara
+54010,54100=Massa e Carrara
 56010,56128=Pisa
 51010,51100=Pistoia
 59010,59100=Prato
@@ -539,6 +559,6 @@ SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Veneto.gif> Veneto
 45010,45100=Rovigo
 31010,31100=Treviso
 30010,30175=Venezia
-37010,37139=Verona
+37010,37142=Verona
 36010,36100=Vicenza
 

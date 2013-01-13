@@ -25,7 +25,7 @@ sub _parse_region_file {
     my ($f, $config) = @_;
 
     my $fd;
-    if (!open $fd, '<', $f) {
+    if (!open $fd, '<:encoding(UTF-8)', $f) {
         warn "open: '$f': $!";
         return;
     }
@@ -52,7 +52,7 @@ sub _parse_region_file {
                 if ($country and $country ne $1) { warn "duplicate 'Country' line, ignoring whole file '$f'\n"; return; }
                 $country = $1;
                 $country =~ s/\s*$//;
-                $cfg = $config->{'regions'}{$country} = [];
+                $cfg = $config->{'regions'}{$country} ||= [];
             }
             when (/^\s*Group\s*=\s*(.*)/)         {
                 if (!$cfg) { warn "group without country, ignoring whole file '$f'\n"; return; }
@@ -92,9 +92,9 @@ sub _parse_region_file {
             }
             when (/^\s*(\d+)\s*,\s*(\d+)\s*=\s*(.*)/)   {
                 next unless $entry_check->();
-                my $name = $3;
+                my ($start, $end, $name) = ($1, $2, $3);
                 $name =~ s/\s*$//;
-                push @{ $subgroup->{'entries'}{'ranges'} }, { start => $1, end => $2, name => $name };
+                push @{ $subgroup->{'entries'}{'ranges'} }, { start => $start, end => $end, name => $name };
             }
             when (/^\s*([^=]+)=\s*(.*)/)         {
                 next unless $entry_check->();
@@ -105,10 +105,10 @@ sub _parse_region_file {
             }
             when (/^\s*(\d+)\s*;\s*([^=]+)=\s*(.*)/) {
                 next unless $entry_check->();
-                my ($csv_name, $name) = ($2, $3);
+                my ($zip, $csv_name, $name) = ($1, $2, $3);
                 $csv_name =~ s/\s*$//;
                 $name     =~ s/\s*$//;
-                push @{ $subgroup->{'entries'}{'specific'} }, { zip => $1, csv_name => $csv_name, name => $name };
+                push @{ $subgroup->{'entries'}{'specific'} }, { zip => $zip, csv_name => $csv_name, name => $name };
             }
             when (/^\s*;\s*([^=]+)=\s*(.*)/)      {
                 next unless $entry_check->();
@@ -131,7 +131,7 @@ $config->{'regions'} = {
             subgroups => [
                 {
                     name => 'foo',
-                    flag_img => 'http://bar',
+                    flag_url => 'http://bar',
                     entries => {
                         ranges => [
                             { start => '0', end => '4', name => 'foo' },

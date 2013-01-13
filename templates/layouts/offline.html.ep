@@ -19,7 +19,7 @@
                     </tr><tr>
                         <td><a class="section_link" id="printers"             href="printers.html"><%=l 'Printers' %></a></td>
                     </tr><tr>
-                        <td><a class="section_link" id="regions"              href="locations.html"><%=l 'Regions' %></a></td>
+                        <td><a class="section_link" id="regions"              href="regions.html"><%=l 'Regions' %></a></td>
                     </tr><tr>
                         <td><a class="section_link" id="travel_stats"         href="travel_stats.html"><%=l 'Travel stats' %></a></td>
                     </tr><tr>

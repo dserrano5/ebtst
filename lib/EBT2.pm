@@ -96,19 +96,19 @@ sub _parse_region_file {
                 $name =~ s/\s*$//;
                 push @{ $subgroup->{'entries'}{'ranges'} }, { start => $start, end => $end, name => $name };
             }
-            when (/^\s*([^=]+)=\s*(.*)/)         {
-                next unless $entry_check->();
-                my ($zip, $name) = ($1, $2);
-                $zip  =~ s/\s*$//;
-                $name =~ s/\s*$//;
-                push @{ $subgroup->{'entries'}{'zip_map'} }, { zip => $zip, name => $name };
-            }
             when (/^\s*(\d+)\s*;\s*([^=]+)=\s*(.*)/) {
                 next unless $entry_check->();
                 my ($zip, $csv_name, $name) = ($1, $2, $3);
                 $csv_name =~ s/\s*$//;
                 $name     =~ s/\s*$//;
                 push @{ $subgroup->{'entries'}{'specific'} }, { zip => $zip, csv_name => $csv_name, name => $name };
+            }
+            when (/^\s*([^=]+)=\s*(.*)/)         {
+                next unless $entry_check->();
+                my ($zip, $name) = ($1, $2);
+                $zip  =~ s/\s*$//;
+                $name =~ s/\s*$//;
+                push @{ $subgroup->{'entries'}{'zip_map'} }, { zip => $zip, name => $name };
             }
             when (/^\s*;\s*([^=]+)=\s*(.*)/)      {
                 next unless $entry_check->();

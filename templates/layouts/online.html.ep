@@ -41,6 +41,7 @@
                     %     [ countries            => 'Countries' ],
                     %     [ printers             => 'Printers' ],
                     %     [ locations            => 'Locations' ],
+                    %     [ regions              => 'Regions' ],
                     %     [ travel_stats         => 'Travel stats' ],
                     %     [ huge_table           => 'Huge table' ],
                     %     [ short_codes          => 'Short codes' ],

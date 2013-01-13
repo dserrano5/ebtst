@@ -331,6 +331,59 @@ sub elem_notes_by_city { goto &bundle_locations; }
 sub alphabets          { goto &bundle_locations; }
 sub travel_stats       { goto &bundle_locations; }
 
+sub regions {
+    my ($self, $progress, $data) = @_;
+    my %ret;
+    my $idx = 0;
+
+    while (my $chunk = $data->note_getter (interval => $chunk_size)) {
+        foreach my $note (@$chunk) {
+            $idx++;
+            if ($progress and 0 == $idx % $EBT2::progress_every) { $progress->set ($idx); }
+
+            my $country = $note->[COUNTRY];
+            foreach my $group (@{ $EBT2::config{'regions'}{$country} }) {
+                my $group_name = $group->{'name'};
+                foreach my $subgroup (@{ $group->{'subgroups'} }) {
+                    my $subgroup_name = $subgroup->{'name'}//'__UNDEF__';
+
+                    if (exists $subgroup->{'entries'}{'ranges'}) {
+                        foreach my $entry (@{ $subgroup->{'entries'}{'ranges'} }) {
+                            no warnings 'numeric';   ## to be removed
+                            next if $note->[ZIP] < $entry->{'start'} or $note->[ZIP] > $entry->{'end'};
+                            $ret{'regions'}{$country}{$group_name}{$subgroup_name}{'flag_url'} ||= $subgroup->{'flag_url'};  ## maybe undef, that's ok
+                            $ret{'regions'}{$country}{$group_name}{$subgroup_name}{ $entry->{'name'} }++;
+                        }
+                    }
+                    if (exists $subgroup->{'entries'}{'zip_map'}) {
+                        foreach my $entry (@{ $subgroup->{'entries'}{'zip_map'} }) {
+                            next if $note->[ZIP] ne $entry->{'zip'};
+                            $ret{'regions'}{$country}{$group_name}{$subgroup_name}{'flag_url'} ||= $subgroup->{'flag_url'};  ## maybe undef, that's ok
+                            $ret{'regions'}{$country}{$group_name}{$subgroup_name}{ $entry->{'name'} }++;
+                        }
+                    }
+                    if (exists $subgroup->{'entries'}{'specific'}) {
+                        foreach my $entry (@{ $subgroup->{'entries'}{'specific'} }) {
+                            next if $note->[ZIP] ne $entry->{'zip'} or $note->[CITY] ne $entry->{'csv_name'};
+                            $ret{'regions'}{$country}{$group_name}{$subgroup_name}{'flag_url'} ||= $subgroup->{'flag_url'};  ## maybe undef, that's ok
+                            $ret{'regions'}{$country}{$group_name}{$subgroup_name}{ $entry->{'name'} }++;
+                        }
+                    }
+                    if (exists $subgroup->{'entries'}{'name_map'}) {
+                        foreach my $entry (@{ $subgroup->{'entries'}{'name_map'} }) {
+                            next if $note->[CITY] ne $entry->{'csv_name'};
+                            $ret{'regions'}{$country}{$group_name}{$subgroup_name}{'flag_url'} ||= $subgroup->{'flag_url'};  ## maybe undef, that's ok
+                            $ret{'regions'}{$country}{$group_name}{$subgroup_name}{ $entry->{'name'} }++;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    return \%ret;
+}
+
 sub huge_table {
     my ($self, $progress, $data) = @_;
     my %ret;

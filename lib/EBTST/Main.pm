@@ -43,7 +43,7 @@ my %users;
 
 my %section_titles;
 foreach my $section (qw/
-    register information value countries locations travel_stats printers huge_table short_codes nice_serials
+    register information value countries locations regions travel_stats printers huge_table short_codes nice_serials
     top_days plate_bingo bad_notes hit_list hit_locations hit_analysis hit_summary calendar help
 /) {
     my $title = ucfirst $section;
@@ -767,6 +767,29 @@ sub locations {
         num_locs  => $distinct_cities,
         c_data    => $c_data,
         ab        => $ab,
+    );
+}
+
+sub regions {
+    my ($self) = @_;
+    my $xhr = $self->req->is_xhr;
+    my ($pbase, $ptot) = split m{/}, $self->req->headers->header ('X-Calc-Sections-Progress') // '';
+
+    my $t0 = [gettimeofday];
+    my $count       = $self->ebt->get_count;       $xhr and $self->_init_progress (base => $pbase, tot => $ptot);
+    my $region_data = $self->ebt->get_regions;     $xhr and $self->{'progress'}->base_add ($count);
+    #$self->_log (debug => report 'regions get', $t0, $count);
+    $xhr and $self->{'progress'}->base_add ($count);
+    if ($xhr) { $self->res->headers->connection ('close'); return $self->_end_progress; }
+
+    $t0 = [gettimeofday];
+    #my $regions;
+    ## cook
+    #$self->_log (debug => report 'regions cook', $t0, $count);
+
+    $self->stash (
+        title       => $section_titles{'regions'},
+        region_data => $region_data,
     );
 }
 
@@ -2003,7 +2026,7 @@ sub _ua_get {
 sub calc_sections {
     my ($self) = @_;
     my @params = qw/
-        information value countries printers locations travel_stats huge_table short_codes nice_serials
+        information value countries printers locations regions travel_stats huge_table short_codes nice_serials
         coords_bingo notes_per_year notes_per_month top_days time_analysis_bingo time_analysis_detail
         combs_bingo combs_detail plate_bingo bad_notes hit_list hit_times_bingo hit_times_detail
         hit_locations hit_analysis hit_summary calendar

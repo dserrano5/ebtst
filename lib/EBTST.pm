@@ -505,6 +505,7 @@ sub startup {
     $r_notes->get ('/countries')->to ('main#countries');
     $r_notes->get ('/printers')->to ('main#printers');
     $r_notes->get ('/locations')->to ('main#locations');
+    $r_notes->get ('/regions')->to ('main#regions');
     $r_notes->get ('/travel_stats')->to ('main#travel_stats');
     $r_notes->get ('/huge_table')->to ('main#huge_table');
     $r_notes->get ('/short_codes')->to ('main#short_codes');

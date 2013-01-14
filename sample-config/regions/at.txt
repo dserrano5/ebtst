@@ -1,0 +1,744 @@
+// Post code groups for Austria
+// Types=
+//  -ranges "xxxxx,xxxxx=name" (must be numbers)
+//  -single codes "xxxxx=name"
+
+// Post codes by ErGo addition by Burky :)
+// districts of Austria added on Nov 2nd 2006 by Ergo
+//
+// Please be aware, that the zipcode doesnt't
+// cover the districts 100% - but the following list
+// is better than nothing ;-)
+//
+// Flags added by pole doctor may 2007
+//
+// Changes
+// 14.08.2007 ErGo
+// Link to Flag of Burgenland broken - new Image added to Imageshack
+// Blank added to name of "Wr.Neustadt(Land)" [without Blank]
+// double entries for Imst are wrong: "6123-6135=..." and "6261-6295=702 Imst" deleted
+// line "6183-6215=702 - Imst" changed to "6183-6199=702 - Imst"
+// missing entry 3002,3003=324 - Wien Umgebung (thnx to robag)
+//
+// 03.11.2007
+// wrong (double) entry 4772=414 - Schärding deleted (thnx to tombola)
+//
+// 06.11.2007
+// 2 small errors:
+// Blank added again to name of "Wr.Neustadt(Land)" [without Blank]
+// line added to 324 - Wien-Umgebung
+//
+// 01/05/2010 : flags added to the Bundesländer group (Pole Doctor)
+
+
+
+Group=Bundesländer of Austria
+1000,1299=<img border='0' src=http://img40.imageshack.us/img40/8046/wiendienstflaggeresize.png> Wien
+1300,1309=<img border='0' src=http://img267.imageshack.us/img267/9673/800pxflagofniedersterrejh2.png> Niederösterreich
+1310,1999=<img border='0' src=http://img40.imageshack.us/img40/8046/wiendienstflaggeresize.png> Wien
+2000,2412=<img border='0' src=http://img267.imageshack.us/img267/9673/800pxflagofniedersterrejh2.png> Niederösterreich
+2413;Berg=<img border='0' src=http://img267.imageshack.us/img267/9673/800pxflagofniedersterrejh2.png> Niederösterreich
+2413;Edelstal=<img border='0' src=http://img205.imageshack.us/img205/5034/fahneburgenlandpz0.png> Burgenland
+2421,2425=<img border='0' src=http://img205.imageshack.us/img205/5034/fahneburgenlandpz0.png> Burgenland
+2430,2472=<img border='0' src=http://img267.imageshack.us/img267/9673/800pxflagofniedersterrejh2.png> Niederösterreich
+2473,2475=<img border='0' src=http://img205.imageshack.us/img205/5034/fahneburgenlandpz0.png> Burgenland
+2481,2490=<img border='0' src=http://img267.imageshack.us/img267/9673/800pxflagofniedersterrejh2.png> Niederösterreich
+2491,2491=<img border='0' src=http://img205.imageshack.us/img205/5034/fahneburgenlandpz0.png> Burgenland
+2492,3333=<img border='0' src=http://img267.imageshack.us/img267/9673/800pxflagofniedersterrejh2.png> Niederösterreich
+3334,3335=<img border='0' src=http://img267.imageshack.us/img267/7948/obersterreichdienstflagvh2.png> Oberösterreich
+3340,3999=<img border='0' src=http://img267.imageshack.us/img267/9673/800pxflagofniedersterrejh2.png> Niederösterreich
+4000,4299=<img border='0' src=http://img267.imageshack.us/img267/7948/obersterreichdienstflagvh2.png> Oberösterreich
+4300,4309=<img border='0' src=http://img267.imageshack.us/img267/9673/800pxflagofniedersterrejh2.png> Niederösterreich
+4310,4391=<img border='0' src=http://img267.imageshack.us/img267/7948/obersterreichdienstflagvh2.png> Oberösterreich
+4392,4392=<img border='0' src=http://img267.imageshack.us/img267/9673/800pxflagofniedersterrejh2.png> Niederösterreich
+4400,4429=<img border='0' src=http://img267.imageshack.us/img267/7948/obersterreichdienstflagvh2.png> Oberösterreich
+4430,4441=<img border='0' src=http://img267.imageshack.us/img267/9673/800pxflagofniedersterrejh2.png> Niederösterreich
+4442,4481=<img border='0' src=http://img267.imageshack.us/img267/7948/obersterreichdienstflagvh2.png> Oberösterreich
+4482,4482=<img border='0' src=http://img267.imageshack.us/img267/9673/800pxflagofniedersterrejh2.png> Niederösterreich
+4483,4999=<img border='0' src=http://img267.imageshack.us/img267/7948/obersterreichdienstflagvh2.png> Oberösterreich
+5000,5119=<img border='0' src=http://img509.imageshack.us/img509/2537/800pxflagofsalzburgstatue1.png> Salzburg
+5120,5149=<img border='0' src=http://img267.imageshack.us/img267/7948/obersterreichdienstflagvh2.png> Oberösterreich
+5150,5209=<img border='0' src=http://img509.imageshack.us/img509/2537/800pxflagofsalzburgstatue1.png> Salzburg
+5210,5289=<img border='0' src=http://img267.imageshack.us/img267/7948/obersterreichdienstflagvh2.png> Oberösterreich
+5300,5309=<img border='0' src=http://img509.imageshack.us/img509/2537/800pxflagofsalzburgstatue1.png> Salzburg
+5310,5319=<img border='0' src=http://img267.imageshack.us/img267/7948/obersterreichdienstflagvh2.png> Oberösterreich
+5320,5359=<img border='0' src=http://img509.imageshack.us/img509/2537/800pxflagofsalzburgstatue1.png> Salzburg
+5360,5369=<img border='0' src=http://img267.imageshack.us/img267/7948/obersterreichdienstflagvh2.png> Oberösterreich
+5400,5999=<img border='0' src=http://img509.imageshack.us/img509/2537/800pxflagofsalzburgstatue1.png> Salzburg
+6000,6699=<img border='0' src=http://img440.imageshack.us/img440/2082/800pxtiroldienstflaggevke8.png> Tirol
+6700,6999=<img border='0' src=http://img443.imageshack.us/img443/1893/vorarlbergdienstflaggevmj7.png> Vorarlberg
+7000,7419=<img border='0' src=http://img205.imageshack.us/img205/5034/fahneburgenlandpz0.png> Burgenland
+7421,7421=<img border='0' src=http://img440.imageshack.us/img440/4802/800pxflagofsteiermarkstnc4.png> Steiermark
+7422,7599=<img border='0' src=http://img205.imageshack.us/img205/5034/fahneburgenlandpz0.png> Burgenland
+8000,8369=<img border='0' src=http://img440.imageshack.us/img440/4802/800pxflagofsteiermarkstnc4.png> Steiermark
+8380,8389=<img border='0' src=http://img205.imageshack.us/img205/5034/fahneburgenlandpz0.png> Burgenland
+8400,8999=<img border='0' src=http://img440.imageshack.us/img440/4802/800pxflagofsteiermarkstnc4.png> Steiermark
+9000,9322=<img border='0' src=http://img511.imageshack.us/img511/682/800pxflagofkaerntenstatzf8.png> Kärnten
+9323,9323=<img border='0' src=http://img440.imageshack.us/img440/4802/800pxflagofsteiermarkstnc4.png> Steiermark
+9330,9781=<img border='0' src=http://img511.imageshack.us/img511/682/800pxflagofkaerntenstatzf8.png> Kärnten
+9782,9782=<img border='0' src=http://img440.imageshack.us/img440/2082/800pxtiroldienstflaggevke8.png> Tirol
+9800,9899=<img border='0' src=http://img511.imageshack.us/img511/682/800pxflagofkaerntenstatzf8.png> Kärnten
+9900,9999=<img border='0' src=http://img440.imageshack.us/img440/2082/800pxtiroldienstflaggevke8.png> Tirol
+
+Group=<img border='0' src=http://img40.imageshack.us/img40/8046/wiendienstflaggeresize.png> Gemeindebezirke of Vienna
+1010,1019=1. Innere Stadt
+1020,1029=2. Leopoldstadt
+1030,1039=3. Landstraße
+1040,1049=4. Wieden
+1050,1059=5. Margareten
+1060,1069=6. Mariahilf
+1070,1079=7. Neubau
+1080,1089=8. Josefstadt
+1090,1099=9. Alsergrund
+1100,1109=10. Favoriten
+1110,1119=11. Simmering
+1120,1129=12. Meidling
+1130,1139=13. Hietzing
+1140,1149=14. Penzing
+1150,1159=15. Rudolfsheim - Fünfhaus
+1160,1169=16. Ottakring
+1170,1179=17. Hernals
+1180,1189=18. Währing
+1190,1199=19. Döbling
+1200,1209=20. Brigittenau
+1210,1219=21. Floridsdorf
+1220,1229=22. Donaustadt
+1230,1239=23. Liesing
+
+
+Group=Biggest Cities of Austria
+1000,1239=01 Wien
+8010=02 Graz
+8020=02 Graz
+4020=03 Linz
+4030=03 Linz
+4040;Linz=03 Linz
+4052;Linz=03 Linz
+5020=04 Salzburg
+5023;Salzburg=04 Salzburg
+5026;Salzburg=04 Salzburg
+6020=05 Innsbruck
+6080;Innsbruck=05 Innsbruck
+9020=06 Klagenfurt
+9061;Klagenfurt=06 Klagenfurt
+9063;Klagenfurt=06 Klagenfurt
+9073;Klagenfurt=06 Klagenfurt
+9500=07 Villach
+9523=07 Villach
+4600,4606=08 Wels
+3100=09 Sankt Pölten
+3140;Pengersdorf=09 Sankt Pölten
+3140;Pottenbrunn=09 Sankt Pölten
+3140;Wasserburg=09 Sankt Pölten
+3140;Zwerndorf=09 Sankt Pölten
+3151=09 Sankt Pölten
+6850=10 Dornbirn
+;Steyr=11 Steyr
+2700=12 Wiener Neustadt
+2751=12 Wiener Neustadt
+6800=13 Feldkirch
+6900=14 Bregenz
+6911=14 Bregenz
+8700=15 Leoben
+9400,9412=16 Wolfsberg
+3400=17 Klosterneuburg
+2500=18 Baden
+3500=19 Krems an der Donau
+4050=20 Traun
+
+// Created by Ergo on 02.11.2006
+Group=Politische Bezirke Österreichs / Districts of Austria
+SubGroup=<img src=http://img205.imageshack.us/img205/5034/fahneburgenlandpz0.png> Burgenland
+7000=101 - Eisenstadt (Stadt)
+7071=102 - Rust (Stadt)
+2443=103 - Eisenstadt-Umgebung
+2485;Wimpassing=103 - Eisenstadt-Umgebung
+2491=103 - Eisenstadt-Umgebung
+7011,7013=103 - Eisenstadt-Umgebung
+7033;Zillingtal=103 - Eisenstadt-Umgebung
+7034,7040=103 - Eisenstadt-Umgebung
+7041;Wulkaprodersdorf=103 - Eisenstadt-Umgebung
+7042,7064=103 - Eisenstadt-Umgebung
+7072,7091=103 - Eisenstadt-Umgebung
+7521,7522=104 - Güssing
+7533,7552=104 - Güssing
+8291;Burgauberg=104 - Güssing
+8292;Neudauberg=104 - Güssing
+8293;Wörterberg=104 - Güssing
+7561,7572=105 - Jennersdorf
+8282;Henndorf im Burgenland=105 - Jennersdorf
+8350;Welten=105 - Jennersdorf
+8380,8385=105 - Jennersdorf
+7021,7032=106 - Mattersburg
+7033;Pöttsching=106 - Mattersburg
+7041;Antau=106 - Mattersburg
+7201,7223=106 - Mattersburg
+2413;Edelstal=107 - Neusiedl am See
+2421,2425=107 - Neusiedl am See
+2460;Bruckneudorf=107 - Neusiedl am See
+2460;Kaisersteinbruch=107 - Neusiedl am See
+2460;Königshof=107 - Neusiedl am See
+2462;Kaisersteinbruch=107 - Neusiedl am See
+2473,2475=107 - Neusiedl am See
+7092,7163=107 - Neusiedl am See
+2812;Landsee=108 - Oberpullendorf
+7301,7372=108 - Oberpullendorf
+7441,7453=108 - Oberpullendorf
+2852;Dreihütten=109 - Oberwart
+7400,7412=109 - Oberwart
+7422,7423=109 - Oberwart
+7431,7435=109 - Oberwart
+7461,7512=109 - Oberwart
+7531,7532=109 - Oberwart
+SubGroup=<img src=http://img511.imageshack.us/img511/682/800pxflagofkaerntenstatzf8.png> Kärnten / Carinthia
+9020=201 - Klagenfurt (Stadt)
+9500=202 - Villach (Stadt)
+9523,9524=202 - Villach (Stadt)
+9580=202 - Villach (Stadt)
+9614,9655=203 - Hermagor
+9061,9082=204 - Klagenfurt Land
+9131=204 - Klagenfurt Land
+9161,9181=204 - Klagenfurt Land
+9201,9210=204 - Klagenfurt Land
+9535=204 - Klagenfurt Land
+9300,9322=205 - Sankt Veit an der Glan
+9330,9376=205 - Sankt Veit an der Glan
+9556=205 - Sankt Veit an der Glan
+9572=205 - Sankt Veit an der Glan
+9545,9546=206 - Spittal an der Drau
+9701=206 - Spittal an der Drau
+9751,9781=206 - Spittal an der Drau
+9800,9873=206 - Spittal an der Drau
+9182,9184=207 - Villach Land
+9220,9241=207 - Villach Land
+9520,9521=207 - Villach Land
+9530,9531=207 - Villach Land
+9536,9544=207 - Villach Land
+9581,9613=207 - Villach Land
+9702,9722=207 - Villach Land
+9100,9125=208 - Völkermarkt
+9132,9150=208 - Völkermarkt
+9473;Neuhaus=208 - Völkermarkt
+9400,9472=209 - Wolfsberg
+9473;Lavamünd=209 - Wolfsberg
+9551,9555=210 - Feldkirchen
+9560,9571=210 - Feldkirchen
+SubGroup=<img src=http://img267.imageshack.us/img267/9673/800pxflagofniedersterrejh2.png> Niederösterreich / Lower Austria
+3500,3506=301 - Krems an der Donau (Stadt)
+3100,3104=302 - Sankt Pölten (Stadt)
+3140;Pengersdorf=302 - Sankt Pölten (Stadt)
+3140;Maria Jeutendorf=302 - Sankt Pölten (Stadt)
+3140;Pottenbrunn=302 - Sankt Pölten (Stadt)
+3140;Wasserburg=302 - Sankt Pölten (Stadt)
+3140;Zwerndorf=302 - Sankt Pölten (Stadt)
+3151=302 - Sankt Pölten (Stadt)
+3340=303 - Waidhofen an der Ybbs (Stadt)
+2700;Wiener Neustadt=304 - Wiener Neustadt (Stadt)
+2700;Wr.Neustadt=304 - Wiener Neustadt (Stadt)
+2700;Wr. Neustadt=304 - Wiener Neustadt (Stadt)
+2751;Wiener Neustadt=304 - Wiener Neustadt (Stadt)
+2751;Wr.Neustadt=304 - Wiener Neustadt (Stadt)
+2751;Wr. Neustadt=304 - Wiener Neustadt (Stadt)
+3300,3333=305 - Amstetten
+3341,3344=305 - Amstetten
+3350,3365=305 - Amstetten
+3372;Kleinwolfstein=305 - Amstetten
+3372;Hermannsdorf=305 - Amstetten
+3372;Krahof=305 - Amstetten
+3372;Leutzmannsdorf=305 - Amstetten
+3372;St. Georgen am Ybbsfelde=305 - Amstetten
+3372;Ferschnitz=305 - Amstetten
+4300=305 - Amstetten
+4431,4441=305 - Amstetten
+4482=305 - Amstetten
+2440;Reisenberg=306 - Baden
+2440;Mitterndorf=306 - Baden
+2441;Mitterndorf=306 - Baden
+2442=306 - Baden
+2444=306 - Baden
+2452;Reisenberg=306 - Baden
+2483=306 - Baden
+2485;Wampersdorf=306 - Baden
+2486=306 - Baden
+2500,2525=306 - Baden
+2532,2572=306 - Baden
+2602;Schönau an der Triesting=306 - Baden
+2602;Blumau=306 - Baden
+2402,2412=307 - Bruck an der Leitha
+2413;Berg=307 - Bruck an der Leitha
+2452;Mannersdorf am Leithagebirge=307 - Bruck an der Leitha
+2431;Enzersdorf an der Fischa=307 - Bruck an der Leitha
+2433,2434=307 - Bruck an der Leitha
+2435;Pischelsdorf=307 - Bruck an der Leitha
+2451=307 - Bruck an der Leitha
+2452;Mannersdorf=307 - Bruck an der Leitha
+2453,2454=307 - Bruck an der Leitha
+2460;Wilfleinsdorf=307 - Bruck an der Leitha
+2460;Bruck an der Leitha=307 - Bruck an der Leitha
+2462;Bruck an der Leitha=307 - Bruck an der Leitha
+2462;Wilfleinsdorf=307 - Bruck an der Leitha
+2463,2472=307 - Bruck an der Leitha
+2181,2185=308 - Gänserndorf
+2214,2273=308 - Gänserndorf
+2281,2305=308 - Gänserndorf
+3860,3874=309 - Gmünd
+3922=309 - Gmünd
+3932,3972=309 - Gmünd
+3973;Karlstift=309 - Gmünd
+2013,2033=310 - Hollabrunn
+2034,2062=310 - Hollabrunn
+2070,2083=310 - Hollabrunn
+2092=310 - Hollabrunn
+3472,3473=310 - Hollabrunn
+3704,3712=310 - Hollabrunn
+3714,3721=310 - Hollabrunn
+3741=310 - Hollabrunn
+2084,2091=311 - Horn
+2093,2095=311 - Horn
+3571=311 - Horn
+3573,3592=311 - Horn
+3595=311 - Horn
+3713=311 - Horn
+3722,3730=311 - Horn
+3742,3761=311 - Horn
+3763=311 - Horn
+2000,2011=312 - Korneuburg
+2100,2115=312 - Korneuburg
+2116;Klement=312 - Korneuburg
+2116;Au=312 - Korneuburg
+2201;Hagenbrunn=312 - Korneuburg
+2202=312 - Korneuburg
+3463,3464=312 - Korneuburg
+3702=312 - Korneuburg
+3485,3495=313 - Krems (Land)
+3511,3522=313 - Krems (Land)
+3524;Engelschalks=313 - Krems (Land)
+3524;Gloden=313 - Krems (Land)
+3524;Großreinprechts=313 - Krems (Land)
+3524;Kornberg=313 - Krems (Land)
+3532=313 - Krems (Land)
+3541,3564=313 - Krems (Land)
+3572=313 - Krems (Land)
+3601,3622=313 - Krems (Land)
+3641=313 - Krems (Land)
+3643=313 - Krems (Land)
+2572=314 - Lilienfeld
+2663;Innerhalbach=314 - Lilienfeld
+3153,3195=314 - Lilienfeld
+3222=314 - Lilienfeld
+3223;Langseitenrotte=314 - Lilienfeld
+3223;Lassingrotte=314 - Lilienfeld
+3223;Mitterbach=314 - Lilienfeld
+3224;Josefsrotte=314 - Lilienfeld
+3224;Mitterbach=314 - Lilienfeld
+8694;Lahnsattel=314 - Lilienfeld
+8694;Ulreichsberg=314 - Lilienfeld
+3122=315 - Melk
+3232,3244=315 - Melk
+3252,3253=315 - Melk
+3371;Neumarkt an der Ybbs=315 - Melk
+3371;Ennsbach=315 - Melk
+3371;Karlsbach=315 - Melk
+3371;Neuhaus=315 - Melk
+3371;St. Martin am Ybbsfelde=315 - Melk
+3372;Atzelsdorf=315 - Melk
+3372;Blindenmarkt=315 - Melk
+3372;Kottingburgstall=315 - Melk
+3372;Weitgraben=315 - Melk
+3372;Ennsbach=315 - Melk
+3372;Hengstberg=315 - Melk
+3372;Neuhaus=315 - Melk
+3373,3383=315 - Melk
+3390,3393=315 - Melk
+3642=315 - Melk
+3644,3663=315 - Melk
+3671,3691=315 - Melk
+4392;Forstamt=315 - Melk
+4392;Wimbergeramt=315 - Melk
+2034=316 - Mistelbach
+2063,2064=316 - Mistelbach
+2116;Niederleis=316 - Mistelbach
+2116;Nodendorf=316 - Mistelbach
+2120,2172=316 - Mistelbach
+2191,2193=316 - Mistelbach
+2203,2213=316 - Mistelbach
+2274,2276=316 - Mistelbach
+2331,2332=317 - Mödling
+2334,2380=317 - Mödling
+2381;Laab im Walde=317 - Mödling
+2384,2393=317 - Mödling
+2481,2482=317 - Mödling
+2531=317 - Mödling
+2620,2662=318 - Neunkirchen
+2671,2673=318 - Neunkirchen
+2680;Semmering=318 - Neunkirchen
+2724;Oberhöflein=318 - Neunkirchen
+2731,2734=318 - Neunkirchen
+2823,2832=318 - Neunkirchen
+2840,2842=318 - Neunkirchen
+2851;Kulma=318 - Neunkirchen
+2851;Thomasberg=318 - Neunkirchen
+2851;Kampichl=318 - Neunkirchen
+2870,2881=318 - Neunkirchen
+3032,3041=319 - Sankt Pölten (Land)
+3051,3074=319 - Sankt Pölten (Land)
+3107,3121=319 - Sankt Pölten (Land)
+3123,3133=319 - Sankt Pölten (Land)
+3141,3150=319 - Sankt Pölten (Land)
+3200,3213=319 - Sankt Pölten (Land)
+3231=319 - Sankt Pölten (Land)
+3384,3386=319 - Sankt Pölten (Land)
+3214=320 - Scheibbs
+3221=320 - Scheibbs
+3223;Trübenbach=320 - Scheibbs
+3223;Schaflahn=320 - Scheibbs
+3250,3251=320 - Scheibbs
+3261,3295=320 - Scheibbs
+3345=320 - Scheibbs
+3371;Schönegg=320 - Scheibbs
+3371;Breitenschollen=320 - Scheibbs
+3371;Köchling=320 - Scheibbs
+3371;Buch=320 - Scheibbs
+3371;Dörfl=320 - Scheibbs
+3371;Fischerberg=320 - Scheibbs
+3371;Hofa=320 - Scheibbs
+3371;Keppelberg=320 - Scheibbs
+3371;Krottenthal=320 - Scheibbs
+3371;Linden=320 - Scheibbs
+8924;Rothwald=320 - Scheibbs
+3001;Tulbing=321 - Tulln
+3004=321 - Tulln
+3042=321 - Tulln
+3413=321 - Tulln
+3422,3462=321 - Tulln
+3465,3471=321 - Tulln
+3474,3484=321 - Tulln
+3701=321 - Tulln
+3762=322 - Waidhofen an der Thaya
+3812,3852=322 - Waidhofen an der Thaya
+3902=322 - Waidhofen an der Thaya
+2490=323 - Wiener Neustadt (Land)
+2492,2493=323 - Wiener Neustadt (Land)
+2601=323 - Wiener Neustadt (Land)
+2603,2604=323 - Wiener Neustadt (Land)
+2721,2723=323 - Wiener Neustadt (Land)
+2700;Bad Fischau=323 - Wiener Neustadt (Land)
+2700;Katzelsdorf=323 - Wiener Neustadt (Land)
+2700;Kleinwolkersdorf=323 - Wiener Neustadt (Land)
+2700;Lichtenwörth=323 - Wiener Neustadt (Land)
+2700;Weikersdorf=323 - Wiener Neustadt (Land)
+2751;Hölles=323 - Wiener Neustadt (Land)
+2751;Matzendorf=323 - Wiener Neustadt (Land)
+2751;Steinabrückl=323 - Wiener Neustadt (Land)
+2751;Wöllersdorf=323 - Wiener Neustadt (Land)
+2752,2822=323 - Wiener Neustadt (Land)
+2833=323 - Wiener Neustadt (Land)
+2602;Sollenau=323 - Wiener Neustadt (Land)
+2663;Rohr im Gebirge=323 - Wiener Neustadt (Land)
+2724;Gaaden=323 - Wiener Neustadt (Land)
+2724;Maiersdorf=323 - Wiener Neustadt (Land)
+2724;Stollhof=323 - Wiener Neustadt (Land)
+2724;Dürnbach=323 - Wiener Neustadt (Land)
+2724;Hohe Wand=323 - Wiener Neustadt (Land)
+2851;Krumbach=323 - Wiener Neustadt (Land)
+2851;Tiefenbach=323 - Wiener Neustadt (Land)
+2852,2860=323 - Wiener Neustadt (Land)
+1300=324 - Wien-Umgebung
+2320,2326=324 - Wien-Umgebung
+2333=324 - Wien-Umgebung
+2401=324 - Wien-Umgebung
+2431;Klein-Neusiedl=324 - Wien-Umgebung
+2432=324 - Wien-Umgebung
+2435;Ebergassing=324 - Wien-Umgebung
+2435;Wienerherberg=324 - Wien-Umgebung
+2440;Gramatneusiedl=324 - Wien-Umgebung
+2440;Moosbrunn=324 - Wien-Umgebung
+2441;Gramatneusiedl=324 - Wien-Umgebung
+2441;Moosbrunn=324 - Wien-Umgebung
+2201;Gerasdorf=324 - Wien-Umgebung
+2201;Seyring=324 - Wien-Umgebung
+2381;Wolfsgraben=324 - Wien-Umgebung
+3001;Hainbuch=324 - Wien-Umgebung
+3001;Mauerbach=324 - Wien-Umgebung
+3001;Steinbach=324 - Wien-Umgebung
+3002,3003=324 - Wien-Umgebung
+3011,3031=324 - Wien-Umgebung
+3400=324 - Wien-Umgebung
+3420,3421=324 - Wien-Umgebung
+3973;Reichenauerwald=325 - Zwettl
+3524;Grainbrunn=325 - Zwettl
+3524;Großnondorf=325 - Zwettl
+3524;Moniholz=325 - Zwettl
+3524;Kleinhaslau=325 - Zwettl
+3524;Spielleithen=325 - Zwettl
+3524;Voitschlag=325 - Zwettl
+3531=325 - Zwettl
+3533=325 - Zwettl
+3593,3594=325 - Zwettl
+3623,3633=325 - Zwettl
+3664,3665=325 - Zwettl
+3800,3811=325 - Zwettl
+3900=325 - Zwettl
+3903,3921=325 - Zwettl
+3923,3931=325 - Zwettl
+SubGroup=<img src=http://img267.imageshack.us/img267/7948/obersterreichdienstflagvh2.png> Oberösterreich / Upper Austria
+4020,4030=401 - Linz (Stadt)
+;Steyr=402 - Steyr (Stadt)
+4600=403 - Wels (Stadt)
+4933=404 - Braunau am Inn
+4950,4952=404 - Braunau am Inn
+4962,4963=404 - Braunau am Inn
+5120,5145=404 - Braunau am Inn
+5163=404 - Braunau am Inn
+5211,5282=404 - Braunau am Inn
+4070,4072=405 - Eferding
+4074,4083=405 - Eferding
+4612=405 - Eferding
+4731=405 - Eferding
+4210=406 - Freistadt
+4212=406 - Freistadt
+4224,4294=406 - Freistadt
+4644,4645=407 - Gmunden
+4655,4664=407 - Gmunden
+4694=407 - Gmunden
+4801,4831=407 - Gmunden
+5351,5360=407 - Gmunden
+4084=408 - Grieskirchen
+4633=408 - Grieskirchen
+4673,4682=408 - Grieskirchen
+4701,4720=408 - Grieskirchen
+4722,4724=408 - Grieskirchen
+4730=408 - Grieskirchen
+4732,4742=408 - Grieskirchen
+4742=408 - Grieskirchen
+4542,4594=409 - Kirchdorf an der Krems
+4643=409 - Kirchdorf an der Krems
+4050,4064=410 - Linz-Land
+4073=410 - Linz-Land
+4470,4481=410 - Linz-Land
+4483,4492=410 - Linz-Land
+4501,4511=410 - Linz-Land
+4531=410 - Linz-Land
+4533=410 - Linz-Land
+4622=410 - Linz-Land
+4222,4223=411 - Perg
+4310,4391=411 - Perg
+4743=412 - Ried im Innkreis
+4753,4754=412 - Ried im Innkreis
+4772=412 - Ried im Innkreis
+4906,4932=412 - Ried im Innkreis
+4941,4943=412 - Ried im Innkreis
+4961=412 - Ried im Innkreis
+4971,4974=412 - Ried im Innkreis
+4980,4984=412 - Ried im Innkreis
+4113,4174=413 - Rohrbach
+4183,4184=413 - Rohrbach
+4085,4092=414 - Schärding
+4721=414 - Schärding
+4725=414 - Schärding
+4751,4752=414 - Schärding
+4755,4771=414 - Schärding
+4773,4794=414 - Schärding
+4975=414 - Schärding
+3334,3335=415 - Steyr-Land
+4400,4421=415 - Steyr-Land
+4442,4464=415 - Steyr-Land
+4493=415 - Steyr-Land
+4521,4523=415 - Steyr-Land
+4532=415 - Steyr-Land
+4540=415 - Steyr-Land
+4595=415 - Steyr-Land
+8934=415 - Steyr-Land
+4040=416 - Urfahr-Umgebung
+4100,4112=416 - Urfahr-Umgebung
+4175,4182=416 - Urfahr-Umgebung
+4190,4209=416 - Urfahr-Umgebung
+4210=416 - Urfahr-Umgebung
+4211=416 - Urfahr-Umgebung
+4221=416 - Urfahr-Umgebung
+4690,4693=417 - Vöcklabruck
+4800=417 - Vöcklabruck
+4840,4865=417 - Vöcklabruck
+4866=417 - Vöcklabruck
+4870,4905=417 - Vöcklabruck
+5310=417 - Vöcklabruck
+4611=418 - Wels-Land
+4613,4621=418 - Wels-Land
+4623,4632=418 - Wels-Land
+4641,4642=418 - Wels-Land
+4650,4654=418 - Wels-Land
+4671,4672=418 - Wels-Land
+SubGroup=<img src=http://img509.imageshack.us/img509/2537/800pxflagofsalzburgstatue1.png> Salzburg
+5020=501 - Salzburg (Stadt)
+5400,5442=502 - Hallein
+5523,5524=502 - Hallein
+5023,5084=503 - Salzburg-Umgebung
+5101,5114=503 - Salzburg-Umgebung
+5151,5162=503 - Salzburg-Umgebung
+;Mattsee=503 - Salzburg-Umgebung
+5164,5205=503 - Salzburg-Umgebung
+5300,5303=503 - Salzburg-Umgebung
+5321,5350=503 - Salzburg-Umgebung
+5450,5522=504 - Sankt Johann im Pongau
+5531,5561=504 - Sankt Johann im Pongau
+5600,5640=504 - Sankt Johann im Pongau
+5562,5591=505 - Tamsweg
+5090,5093=506 - Zell am See
+5651,5771=506 - Zell am See
+SubGroup=<img src=http://img440.imageshack.us/img440/4802/800pxflagofsteiermarkstnc4.png> Steiermark / Styria
+8010,8043=601 - Graz (Stadt)
+8051=601 - Graz (Stadt)
+8053=601 - Graz (Stadt)
+8055=601 - Graz (Stadt)
+3224;Sankt Sebastian=602 - Bruck an der Mur
+8131,8132=602 - Bruck an der Mur
+8600,8614=602 - Bruck an der Mur
+8621,8642=602 - Bruck an der Mur
+8644;Alt-Hadersdorf=602 - Bruck an der Mur
+8644;Mürzgraben=602 - Bruck an der Mur
+8652;Alt-Hadersdorf=602 - Bruck an der Mur
+8502,8504=603 - Deutschlandsberg
+8510,8554=603 - Deutschlandsberg
+8081=604 - Feldbach
+8082,8091=604 - Feldbach
+8312,8313=604 - Feldbach
+8322=604 - Feldbach
+8324,8344=604 - Feldbach
+8345=604 - Feldbach
+8350,8354=604 - Feldbach
+8361,8361=604 - Feldbach
+8421=604 - Feldbach
+8262,8265=605 - Fürstenfeld
+8280,8283=605 - Fürstenfeld
+8291=605 - Fürstenfeld
+8362=605 - Fürstenfeld
+8044,8047=606 - Graz-Umgebung
+8052=606 - Graz-Umgebung
+8054=606 - Graz-Umgebung
+8061,8075=606 - Graz-Umgebung
+8101,8130=606 - Graz-Umgebung
+8141,8151=606 - Graz-Umgebung
+8301,8302=606 - Graz-Umgebung
+8323=606 - Graz-Umgebung
+8401,8402=606 - Graz-Umgebung
+8501=606 - Graz-Umgebung
+8561=606 - Graz-Umgebung
+7421=607 - Hartberg
+8221,8255=607 - Hartberg
+8271,8274=607 - Hartberg
+8292;Neudau=607 - Hartberg
+8292;Unterlimbach=607 - Hartberg
+8293;Wörth an der Lafnitz=607 - Hartberg
+8294,8295=607 - Hartberg
+8740,8765=608 - Judenburg
+8785=608 - Judenburg
+8800=608 - Judenburg
+8592;Kleinlobming8592=609 - Knittelfeld
+8715,8734=609 - Knittelfeld
+8081=610 - Leibnitz
+8403,8413=610 - Leibnitz
+8421=610 - Leibnitz
+8422,8472=610 - Leibnitz
+8505=610 - Leibnitz
+8700,8714=611 - Leoben
+8770,8781=611 - Leoben
+8790,8795=611 - Leoben
+8920=611 - Leoben
+8782,8784=612 - Liezen
+8786=612 - Liezen
+8900,8913=612 - Liezen
+8921,8923=612 - Liezen
+8924;Wildalpen=612 - Liezen
+8931,8933=612 - Liezen
+8940,8993=612 - Liezen
+2680;Spital am Semmering=613 - Mürzzuschlag
+2680;Steinhaus am Semmering=613 - Mürzzuschlag
+8643=613 - Mürzzuschlag
+8644;Mürzhofen=613 - Mürzzuschlag
+8652;Leopersdorf=613 - Mürzzuschlag
+8652;Kindberg=613 - Mürzzuschlag
+8650,8653=613 - Mürzzuschlag
+8661,8671=613 - Mürzzuschlag
+8680,8693=613 - Mürzzuschlag
+8694;Steinalpl=613 - Mürzzuschlag
+8694;Frein=613 - Mürzzuschlag
+8694;Kaltenbach=613 - Mürzzuschlag
+8811,8864=614 - Murau
+9323=614 - Murau
+8092,8093=615 - Radkersburg
+8345=615 - Radkersburg
+8355=615 - Radkersburg
+8473,8493=615 - Radkersburg
+8152,8153=616 - Voitsberg
+8561;Moosing=616 - Voitsberg
+8561;Großsöding=616 - Voitsberg
+8561;Kleinsöding=616 - Voitsberg
+8561;Pichling=616 - Voitsberg
+8562,8593=616 - Voitsberg
+8160,8212=617 - Weiz
+8261=617 - Weiz
+8311=617 - Weiz
+8321=617 - Weiz
+8616=617 - Weiz
+8654=617 - Weiz
+8672,8674=617 - Weiz
+SubGroup=<img src=http://img440.imageshack.us/img440/2082/800pxtiroldienstflaggevke8.png> Tirol / Tyrol
+6020=701 - Innsbruck-Stadt
+6063;Arzl=701 - Innsbruck-Stadt
+6080=701 - Innsbruck-Stadt
+6183,6199=702 - Imst
+6414,6491=702 - Imst
+6020;Ampass=703 - Innsbruck-Land
+6020;Schönberg im Stubaital=703 - Innsbruck-Land
+6020;Mutters=703 - Innsbruck-Land
+6020;Raitis=703 - Innsbruck-Land
+6020;Natters=703 - Innsbruck-Land
+6063;Rum=703 - Innsbruck-Land
+6063;Thaur=703 - Innsbruck-Land
+6060,6075=703 - Innsbruck-Land
+6082,6122=703 - Innsbruck-Land
+6141,6182=703 - Innsbruck-Land
+6401,6410=703 - Innsbruck-Land
+6314;Grafenweg=704 - Kitzbühel
+6314;Niederau=705 - Kufstein
+6314;Oberau=705 - Kufstein
+6314;Hopfgarten=704 - Kitzbühel
+6345=704 - Kitzbühel
+6352;Reith=704 - Kitzbühel
+6352;Ellmau=705 - Kufstein
+6353,6395=704 - Kitzbühel
+6230,6252=705 - Kufstein
+6300,6313=705 - Kufstein
+6322,6344=705 - Kufstein
+6351=705 - Kufstein
+6500,6591=706 - Landeck
+9782=707 - Lienz
+9900,9991=707 - Lienz
+6600,6691=708 - Reutte
+6767;Lechleiten=708 - Reutte
+6123,6135=709 - Schwaz
+6200,6215=709 - Schwaz
+6261,6295=709 - Schwaz
+SubGroup=<img src=http://img443.imageshack.us/img443/1893/vorarlbergdienstflaggevmj7.png> Vorarlberg
+6700,6764=801 - Bludenz
+6771,6794=801 - Bludenz
+6820;Gurtis=801 - Bludenz
+6820;Mittelberg=801 - Bludenz
+6820;Nenzing=801 - Bludenz
+6767;Hochkrumbach=802 - Bregenz
+6767;Warth=802 - Bregenz
+6850;Schwarzenberg=802 - Bregenz
+6858,6888=802 - Bregenz
+6900,6993=802 - Bregenz
+6845=803 - Dornbirn
+6850;Dornbirn=803 - Dornbirn
+6850;Ebnit=803 - Dornbirn
+6890=803 - Dornbirn
+6800,6812=804 - Feldkirch
+6820;Frastanz=804 - Feldkirch
+6820;Frastafeders=804 - Feldkirch
+6820;Gampelün=804 - Feldkirch
+6822,6844=804 - Feldkirch
+
+
+//bye bye

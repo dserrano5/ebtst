@@ -1,0 +1,49 @@
+// Post code groups for Lithuania
+// Types=
+//  -ranges "xxxxx,xxxxx=name" (must be numbers)
+//  -single codes "xxxxx=name"
+
+// Post codes by BaliBennie :)
+
+
+
+Group=Counties of Lithuania
+62000,65999=Alytus/Alytaus
+43000,60999=Kaunas/Kauno
+3000,3099=Kaunas/Kauno
+00001,09999=Klaipėda/Klaipėdos
+91000,99999=Klaipėda/Klaipėdos
+68000,71999=Marijampolė/Maryampolės
+4500,4799=Marijampolė/Maryampolės
+35000,42999=Panevėžys/Panevėžio
+76000,86999=Šiauliai/Šiaulių
+72000,75999=Tauragė/Tauragės
+87000,90999=Telšiai/Telšių
+5500,5599=Telšiai/Telšių
+28000,33999=Utena/Utenos
+4100,4199=Utena/Utenos
+01000,27999=Vilnius/Vilniaus
+2000,2099=Vilnius/Vilniaus
+2600,2699=Vilnius/Vilniaus
+4000,4099=Vilnius/Vilniaus
+
+
+//The 4-digit system is replaced with the 5-digit postcode system
+//I have searched the EBT-database for all 4-digit codes that were entered and as of the 13th august 2005 all used codes are covered.
+//I haven't found a complete 4-digit postcodelist yet so this has to be sufficient for the time being.
+
+//There are still alot of Lithuanian entries that does not have postcodes.
+//These can not be recognised by this file.
+//Please correct your entries in the database and they will be recognised.
+
+
+
+//The names of the counties are given in English/Lithuanian
+
+//There are a lot of uncommon characters in the county names.
+//If you can't see them or they are messed up you have to
+//download the Eastern Europe characterset for your operating system
+//If you are using Windows go to the windows update site.
+
+
+//bye bye

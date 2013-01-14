@@ -1,0 +1,41 @@
+// Post code groups for Bulgaria
+// Types:
+//  -post code ranges "0000,0000=name" (must be numbers)
+//  -single code "0000=name"
+//  -single code+name "0000;PlaceNameinCSV=name"
+
+// Post codes by ZdS
+
+
+Group=Provinces of Bulgaria / Административно деление на България
+1000,1830=Sofia City / София
+2000,2260=Sofia Province / Софийска
+2300,2460=Pernik / Перник
+2500,2670=Kyustendil / Кюстендил
+2700,2933=Blagoevgrad / Благоевград
+3000,3330=Vratsa / Враца
+3400,3680=Montana / Монтана
+3700,3900=Vidin / Видин
+4000,4370=Plovdiv / Пловдив
+4400,4644=Pazardzhik / Пазарджик
+4700,4990=Smolyan / Смолян
+5000,5250=Veliko Tarnovo / Велико Търново
+5300,5400=Gabrovo / Габрово
+5500,5770=Lovech / Ловеч
+5800,5986=Pleven / Плевен
+6000,6280=Stara Zagora / Стара Загора
+6300,6570=Haskovo / Хасково
+6600,7080=Kardzhali / Кърджалийска
+7100,7174=Ruse / Русе
+7200,7400=Razgrad / Разград
+7500,7650=Silistra / Силистра
+7700,7970=Targovishte / Търговище
+8000,8500=Burgas / Област Бургас
+8600,8720=Yambol / Ямбол
+8800,8970=Sliven / Сливен
+9000,9280=Varna / Варна
+9300,9680=Dobrich / Добрич
+9700,9960=Shumen / Шумен
+
+
+// http://en.wikipedia.org/wiki/List_of_postal_codes_in_Bulgaria

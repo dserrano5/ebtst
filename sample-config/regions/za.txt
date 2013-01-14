@@ -1,0 +1,25 @@
+// Post code groups for South Africa
+// Types:
+//  -post code ranges "0000,0000=name" (must be numbers)
+//  -single code "0000=name"
+//  -single code+name "0000;PlaceNameinCSV=name"
+
+// Post codes by ZdS
+
+
+Group=Provinces of South Africa
+0001,0200=Gauteng
+0300,0499=North West
+0500,0999=Limpopo
+1000,1399=Mpumalanga
+1400,2199=Gauteng
+2200,2499=Mpumalanga
+2500,2899=North West
+2900,4730=KwaZulu-Natal
+4731,6499=Eastern Cape
+6500,8099=Western Cape
+8100,8999=Northern Cape
+9300,9999=Free State
+
+
+// http://en.wikipedia.org/wiki/List_of_postal_codes_in_South_Africa

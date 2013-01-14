@@ -1,0 +1,103 @@
+// Post code groups for Turkey
+// Types=
+//  -ranges "xxxxx,xxxxx=name" (must be numbers)
+//  -single codes "xxxxx=name"
+
+// Post codes by robag
+// 
+// Please be aware, that the zipcode doesnt't
+// cover the districts 100% - but the following list
+// is better than nothing ;-)
+//
+
+
+Group=Türkiye'deki iller - Provinces of Turkey
+01000,01999=Adana
+02000,02999=Adiyaman
+03000,03999=Afyonkarahisar
+04000,04999=Ağrı
+05000,05999=Amasya
+06000,06999=Ankara
+07000,07999=Antalya
+08000,08999=Artvin
+09000,09999=Aydın
+10000,10999=Balıkesir
+11000,11999=Bilecik
+12000,12999=Bingöl
+13000,13999=Bitlis
+14000,14999=Bolu
+15000,15999=Burdur
+16000,16999=Bursa
+17000,17999=Çanakkale
+18000,18999=Çankırı
+19000,19999=Çorum
+20000,20999=Denizli
+21000,21999=Diyarbakır
+22000,22999=Edirne
+23000,23999=Elazığ
+24000,24999=Erzincan
+25000,25999=Erzurum
+26000,26999=Eskişehir
+27000,27999=Gaziantep
+28000,28999=Giresun
+29000,29999=Gümüşhane
+30000,30999=Hakkari
+31000,31999=Hatay
+32000,32999=Isparta
+33000,33999=Mersin
+34000,34999=İstanbul
+35000,35999=İzmir
+36000,36999=Kars
+37000,37999=Kastamonu
+38000,38999=Kayseri
+39000,39999=Kırklareli
+40000,40999=Kırşehir
+41000,41999=Kocaeli
+42000,42999=Konya
+43000,43999=Kütahya
+44000,44999=Malatya
+45000,45999=Manisa
+46000,46999=Kahramanmaraş
+47000,47999=Mardin
+48000,48999=Muğla
+49000,49999=Muş
+50000,50999=Nevşehir
+51000,51999=Niğde
+52000,52999=Ordu
+53000,53999=Rize
+54000,54999=Sakarya
+55000,55999=Samsun
+56000,56999=Siirt
+57000,57999=Sinop
+58000,58999=Sivas
+59000,59999=Tekirdağ
+60000,60999=Tokat
+61000,61999=Trabzon
+62000,62999=Tunceli
+63000,63999=Şanlıurfa
+64000,64999=Uşak
+65000,65999=Van
+66000,66999=Yozgat
+67000,67999=Zonguldak
+68000,68999=Aksaray
+69000,69999=Bayburt
+70000,70999=Karaman
+71000,71999=Kırıkkale
+72000,72000=Batman
+73000,73999=Şırnak
+74000,74999=Bartın
+75000,75999=Ardahan
+76000,76999=Iğdır
+77000,77999=Yalova
+78000,78999=Karabük
+79000,79999=Kilis
+80000,80999=Osmaniye
+81000,81999=Düzce
+
+
+
+
+//codes from http://en.wikipedia.org/wiki/ISO_3166-2:TR
+//provinces of turkey also see wikipedia http://de.wikipedia.org/wiki/Liste_der_t%C3%BCrkischen_Provinzen
+
+//bye bye

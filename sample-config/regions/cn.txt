@@ -1,0 +1,72 @@
+// Post code groups for China
+// Types:
+//  -post code ranges "00000,00000=name" (must be numbers)
+//  -single code "00000=name"
+//  -single code+name "00000;PlaceNameinCSV=name"
+//  -single name ";PlaceNameinCSV=name"
+
+// Feel free to edit/correct/add stuff :)
+// (empty lines and lines beginning with "//" are ignored)
+
+
+Group=Chinese provinces
+010000,029999=Inner Mongolia
+030000,049999=Shanxi
+050000,079999=Hebei
+100000,102799=Beijing
+102800=Hebei
+102801,109999=Beijing
+110000,129999=Liaoning
+130000,137399=Jilin
+137400=Inner Mongolia
+137401,137499=Jilin
+137500=Inner Mongolia
+137501,137599=Jilin
+137600=Inner Mongolia
+137601,139999=Jilin
+150000,162599=Heilongjiang
+162600=Inner Mongolia
+162601,162699=Heilongjiang
+162700=Inner Mongolia
+162701,162799=Heilongjiang
+162800=Inner Mongolia
+162801,169999=Heilongjiang
+200000,202399=Shanghai
+202400=Zhejiang
+202401,20999=Shanghai
+210000,229999=Jiangsu
+230000,249999=Janhui
+250000,279999=Shandong
+300000,309999=Tianjin
+310000,329999=Zhejiang
+330000,349999=Jiangxi
+350000,369999=Fujian
+400000,409999=Chongqing
+410000,429999=Hunan
+430000,449999=Hubei
+450000,479999=Henan
+510000,529999=Guangdong
+530000,549999=Guangxi
+550000,569999=Guizhou
+570000,579999=Hainan
+610000,617299=Sichuan
+617300=Yunnan
+617301,624699=Sichuan
+624700=Qinghai
+624701,649999=Sichuan
+650000,679999=Yunnan
+710000,729999=Shaanxi
+730000,749999=Gansu
+735400=Inner Mongolia
+735401,737299=Gansu
+737300=Inner Mongolia
+737301,749999=Gansu
+750000,750299=Ningxia
+750300=Inner Mongolia
+750301,759999=Ningxia
+810000,819999=Qinghai
+830000,849999=Xinjiang
+850000,859999=Tibet Autonomous Region
+
+
+//end

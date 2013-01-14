@@ -1,0 +1,32 @@
+// Post code groups for India
+// Types:
+//  -post code ranges "000000,000000=name" (must be numbers)
+//  -single code "000000=name"
+//  -single code+name "000000;PlaceNameinCSV=name"
+
+// Post codes by ZdS
+
+
+Group=Indian States and Territories
+110000,119999=Delhi
+120000,139999=Haryana
+140000,169999=Punjab
+170000,179999=Himachal Pradesh
+180000,199999=Jammu & Kashmir
+200000,289999=Uttaar Pradesh
+300000,349999=Rajashtan
+360000,399999=Gujarath
+400000,449999=Maharastra
+450000,499999=Madhya Pradesh
+500000,539999=Andhra Pradesh
+560000,599999=Karnataka
+600000,649999=Tamil Nadu
+670000,699999=Kerala
+700000,749999=West Bengal
+750000,779999=Orissa
+780000,789999=Assam
+790000,799999=North Eastern
+800000,850000=Bihar
+
+
+// http://en.wikipedia.org/wiki/Postal_Index_Number

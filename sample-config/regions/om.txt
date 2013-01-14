@@ -1,0 +1,160 @@
+// Post code groups for Oman
+// Types:
+//  -post code ranges "000,000=name" (must be numbers)
+//  -single code "000=name"
+//  -single code+name "000;PlaceNameinCSV=name"
+//  -single name ";PlaceNameinCSV=name"
+
+
+
+Group=Regions and Governments of Oman / Manatiq u Muhafaza' al-Omani
+100,199=Masqat (Muscat)
+200,299=Dhofar 	
+300,399=Al-Batinah
+400,499=Al-Sharqiya 
+511=Al-Dhahirah 	
+513=Al-Dhahirah 	
+516=Al-Dhahirah 	
+519,599=Al-Dhahirah 	
+512=Al Buraimi
+517=Al Buraimi 
+518=Al Buraimi
+// Al Buraimi (Arabic: ????????) is the newest governorate of Oman which was split from the Ad Dhahirah region. 
+// for this the postcode system is a bit chaotic in this point!
+600,699=Ad Dakhiliyah 	
+700,712=Al-Wosta	
+800,899=Musandam 
+
+Group=Districts of Oman / Wilayat al-Omani
+SubGroup=Ad-Dakhiliyah 
+611=Nizwa
+621=Nizwa
+616=Nizwa
+620=Suma'il
+612=Bahla
+618=Adam
+617=Al-Hamra
+619=Manah
+614=Izki
+613=Bidbid
+// further there are the postcodes 615 for Lizgh (Lizq), 616 for Birkat Al-Moze (Birkat Al Mawz) and 
+// 621 for Saiq (Sayq). Saiq and Birkat Al Mawz belong to 99% to Nizwa, but I'm not sure. 
+// They all seem to be small villages. I merged Saiq and Birkat Al-Moze to Nizwa, 
+// for Lizq I don't have a clue so I left it out. Please tell me if you have better information.
+SubGroup=Al-Batinah 
+311=Sohar
+327=Sohar
+322=Sohar
+// 322 is for Falaj Al-Qabail near to Sohar. Also a hotel in Sohar has postal code 322.
+318=Rustaq
+329=Rustaq
+// 329 is for Burj Al-Radah which seems to be the hospital of Rustaq
+324=Shinas
+325=Liwa
+319=Saham
+326=Khaboura
+315=Al-Suwaiq
+323=Nakhal
+Wadi al-Maawil = Wadi al-Maawil
+// couldn't find a postcode for Wadi al-Maawil :(
+317=Awabi
+312=Al-Musana'a
+320=Barka
+328=Barka
+// 328 should be for Al-Rumays, searching it on google it always appears "Al-Rumays (Barka) so I 
+// merged it here
+// for the following postal codes I couldn't find the corresponding wilaya:
+//  313 Widam Al-Sahil, 314 Al-Malda, 316 Al-Bidaya, 321 Al Tarif
+SubGroup=Al-Wosta
+711;Hayma=Hayma
+711;Haima=Hayma
+Muhut=Muhut
+Doqum=Al Duqum
+Al Duqum=Al Duqum
+Duqm=Al Duqum
+712;Al Jazur=Al Jazer
+712;Al Jazer=Al Jazer
+//couldn't find any postcodes for Muhut and Doqum, I didn't even find these citys on google maps, do they 
+//really exist????
+SubGroup=Wilaya of Al-Sharqiya 
+411=Sur
+425=Sur
+413=Ibra
+423=Ibra
+// 423 is for Samad Al-Shain, not at all near to Ibra, but all other wilaya are farer away! any ideas where it belongs to?
+421=Bidiyah
+Al-Qabil = Al-Qabil
+// it exists (on the street from Sur to Nizwa) but I couldn't find a postal code
+418,420=Al-Mudaibi
+//418 is for Sinaw but as it's near Al-Mudaibi....
+424=Dima wa at-Tayyin
+412=Al-Kamil
+422=Al-Kamil 
+// 422 is the postcode for Al Ashkharah, on the cost. It's not a own wilaya so I simply took the nearest city.
+416=Bani Bu Ali
+415=Bani Bu Hassan
+417=Wadi Bani Chalid
+414=Masirah
+SubGroup=Al-Dhahira
+511=Ibri
+515=Ibri
+// 515 is for Al Araqi but as it's only 8km north of Ibri I think it belongs to Ibri!
+513=Yanqul
+514=Dhank
+SubGroup=Masqat (Muscat)
+125,126=Matrah (Muttrah)
+112=Matrah (Muttrah)
+// 112 is for the district Ruwi, and I couldn't find any information if it belongs to the wilaya of Muttrah or Muscat. 
+// as it's geografically nearer to Muttrah, I merged it there, but if you have better information please contact me!!!
+// 126 is for the Oman Commercial Center in Ruwi - same problem here!
+Bawschar = Bowshar
+Bowshar = Bowshar
+Wadi Bowshar = Bowshar
+Bawshar = Bowshar
+// Bowshar doesn't have a postcode but at least it exists... N 23° 33,291 E58° 24,666
+121=Sib (Seeb)
+128=Sib (Seeb)
+119=Al Amrat
+111=Masqat (Muscat)
+113=Masqat (Muscat)
+114,118=Masqat (Muscat)
+// 114+115 is for Jabroo, near Qurum near the mosk. I don't know whether it belongs to Muttrah or Muscat, but looking at a very small politic map online it seems to me like it belongs to Muscat.
+122,124=Masqat (Muscat)
+127=Masqat (Muscat)
+129,134=Masqat (Muscat)
+120=Quryat
+// postcode 111 is for Muscat PO-Box numbers
+// various postcodes 116 Mina Al Fahal, 117 Al Wadi Al Kabir, 118 Al Harthy Complex, 122 Al Ma'abela, 
+// 123 Sultan Qaboos University, 124 Al Rusayl, 127 Khaula Hospital, 129 Al Murtafa'a, 130 Azaiba, 
+// 131 Al Hamriyah, 132 Al Khud, 133 Al Khuwair, 134 Jawharat Al Shati --> should belong everything to 
+// Muscat or Muttrah, for 127 130 and 133 I'm sure, the rest... well, if you know details where it belongs
+//  to please tell me, for the moment I merged everything with Muscat! But well I don't think anyone will ever
+// enter a note from there!
+SubGroup=Musandam
+811=Chasab
+812=Bakha
+813=Daba
+814=Madha
+SubGroup=Dhofar
+211=Salalah
+214=Salalah
+216=Salalah
+//216 is for the Al Hafa region (Souq)
+217=Salalah
+222=Thamrait
+218=Taqa
+220=Marbat
+223=Sadah
+Rachyut=Rachyut
+Dalkut=Dalkut
+Muqschin=Muqschin
+Shalim=Shalim and Hallaniyyat-Isles
+// http://de.wikipedia.org/wiki/Churiya-Muriya-Inseln, couldn't find a postcode 
+Al-Mazuna=Al-Mazuna
+Al Mazuna=Al-Mazuna
+//postcodes : 212 Quirun Hairiti, 213 Teetam, 219 Madinat Al-Haq, 221 Tiwi Atair --> nothing found where they belong to, instead for Rachyut, Dalkut, Muqschin, Shalim and Al Mazuna I couldn't find a fitting postcode.
+SubGroup=Buraimi
+512=Buraimi
+518=Mahda
+517=Al-Sinainah
+

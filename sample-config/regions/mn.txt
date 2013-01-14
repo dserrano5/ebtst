@@ -1,0 +1,39 @@
+// Post code groups for Mongolia
+// Types:
+// -post code ranges "00000,00000=name" (must be numbers)
+// -single code "00000=name"
+// -single code+name "00000;PlaceNameinCSV=name"
+// -single name ";PlaceNameinCSV=name"
+
+// Feel free to edit/correct/add stuff Smile
+// (empty lines and lines beginning with "//" are ignored)
+
+
+Group=Mongolian provinces
+
+210000,211199=Ulaanbaatar
+212100,212199=Bayan Olgii
+212200,212299=Bayankhongor
+212300,212399=Bulgan
+212400,212499=Gobi-Altai
+212500,212599=Dornogobi
+212600,212699=Dornod
+212700,212799=Dundgobi
+212800,212899=Zavkhan
+212900,212999=Ovorkhangai
+213000,213099=Omnogobi
+213100,213199=Sukhbaatar
+213200,213299=Selenge
+213300,213399=Tuv
+213400,213499=Uvs
+213500,213599=Khovd
+213600,213699=Khovsgol
+213700,213799=Khentii
+213800,213899=Darkhan-Uul
+213900,213999=Orkhon
+221200,221399=Arkhangai
+221400,229999=Gobisumber
+
+
+
+//end

@@ -1,0 +1,27 @@
+// Castelli di San Marino / Castles of San Marino
+// Plaese save this files as 'codes_San Marino.txt' in the NIG's directory.
+
+
+Group=Castelli di San Marino / Castles of San Marino
+SubGroup=Acquaviva
+47892=Acquaviva
+SubGroup=Borgo Maggiore
+47893=Borgo Maggiore
+SubGroup=Chiesanuova
+47894=Chiesanuova
+SubGroup=Domagnano
+47895=Domagnano
+SubGroup=Faetano
+47896=Faetano
+SubGroup=Fiorentino
+47897=Fiorentino
+SubGroup=Montegiardino
+47898=Montegiardino
+SubGroup=San Marino
+47890=San Marino
+SubGroup=Serravalle
+47891=Dogana
+47899=Serravalle 
+
+
+// Many thanks to presidente for testing phase

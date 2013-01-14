@@ -1,0 +1,126 @@
+// Post code groups for the USA
+// Types:
+//  -post code ranges "00000,00000=name" (must be numbers)
+//  -single code "00000=name"
+//  -single code+name "00000;PlaceNameinCSV=name"
+
+// Post codes by ZdS, flag by debemaks
+
+
+Group=United States of America
+SubGroup=States Of USA
+SubGroup=<img src=http://giulcenc.altervista.org/USA/us-ny.gif> New York (NY)
+00501=New York
+00544=New York
+06390=New York
+10000,14999=New York
+SubGroup=<img src=http://giulcenc.altervista.org/USA/us-ms.gif> Massachusetts (MS)
+01000,02799=Massachusetts
+SubGroup=<img src=http://giulcenc.altervista.org/USA/us-ri.gif> Rhode Island (RI)
+02800,02999=Rhode Island
+SubGroup=<img src=http://giulcenc.altervista.org/USA/us-nh.gif> New Hampshire (NH)
+03000,03899=New Hampshire
+SubGroup=<img src=http://giulcenc.altervista.org/USA/us-me.gif> Maine (ME)
+03900,04999=Maine
+SubGroup=<img src=http://giulcenc.altervista.org/USA/us-vt.gif> Vermount (VT)
+05000,05999=Vermont
+SubGroup=<img src=http://giulcenc.altervista.org/USA/us-ct.gif> Connecticut (CT)
+06000,06329=Conneticut
+06331,06999=Conneticut
+SubGroup=<img src=http://giulcenc.altervista.org/USA/us-nj.gif> New Jersey (NJ)
+07000,08999=New Jersey
+SubGroup=<img src=http://giulcenc.altervista.org/USA/us-pa.gif> Pennsylvania (PA)
+15000,19699=Pennsylvania
+SubGroup=<img src=http://giulcenc.altervista.org/USA/us-de.gif> Delaware (DE)
+19700,19999=Delaware
+SubGroup=<img src=http://giulcenc.altervista.org/USA/us-dc.gif> District of Columbia (DC)
+20000,20099;20200,20599;56900,56999=District of Columbia
+SubGroup=<img src=http://giulcenc.altervista.org/USA/us-va.gif> Virginia (VA)
+20100,20199=Virginia
+22000,24699=Virginia
+SubGroup=<img src=http://giulcenc.altervista.org/USA/us-ma.gif> Maryland (MA)
+20600,21999=Maryland
+SubGroup=<img src=http://giulcenc.altervista.org/USA/us-wv.gif> West Virginia (WV)
+24700,26999=West Virginia
+SubGroup=<img src=http://giulcenc.altervista.org/USA/us-nc.gif> North Carolina (NC)
+27000,28999=North Carolina
+SubGroup=<img src=http://giulcenc.altervista.org/USA/us-sc.gif> South Carolina (SC)
+29000,29999=South Carolina
+SubGroup=<img src=http://giulcenc.altervista.org/USA/us-ga.gif> Georgia (GA)
+39001=Georgia
+30000,31999=Georgia
+SubGroup=<img src=http://giulcenc.altervista.org/USA/us-fl.gif> Florida (FL)
+32000,33999=Florida
+34100,34999=Florida
+SubGroup=<img src=http://giulcenc.altervista.org/USA/us-al.gif> Alabama (AL)
+35000,36999=Alabama
+SubGroup=<img src=http://giulcenc.altervista.org/USA/us-tn.gif> Tennessee (TN)
+37000,38599=Tennessee
+SubGroup=<img src=http://giulcenc.altervista.org/USA/us-ms.gif> Mississippi (MS)
+38600,39000=Mississipi
+39002,39999=Mississipi
+SubGroup=<img src=http://giulcenc.altervista.org/USA/us-ky.gif> Kentucky (KY)
+40000,42799=Kentucky
+SubGroup=<img src=http://giulcenc.altervista.org/USA/us-oh.gif> Ohio (OH)
+43000,45999=Ohio
+SubGroup=<img src=http://giulcenc.altervista.org/USA/us-in.gif> Indiana (IN)
+46000,47999=Indiana
+SubGroup=<img src=http://giulcenc.altervista.org/USA/us-mi.gif> Michigan (MI)
+48000,49999=Michigan
+SubGroup=<img src=http://giulcenc.altervista.org/USA/us-ia.gif> Iowa (IA)
+50000,52999=Iowa
+SubGroup=<img src=http://giulcenc.altervista.org/USA/us-wi.gif> Wisconsin (WI)
+53000,54999=Wisconsin
+SubGroup=<img src=http://giulcenc.altervista.org/USA/us-mn.gif> Minnesota (MN)
+55000,56799=Minnessota
+SubGroup=<img src=http://giulcenc.altervista.org/USA/us-sd.gif> South Dakota (SD)
+57000,57999=South Dakota
+SubGroup=<img src=http://giulcenc.altervista.org/USA/us-nd.gif> North Dakota (ND)
+58000,58999=North Dakota
+SubGroup=<img src=http://giulcenc.altervista.org/USA/us-mt.gif> Montana (MT)
+59000,59999=Montana
+SubGroup=<img src=http://giulcenc.altervista.org/USA/us-il.gif> Illinois (IL)
+60000,62999=Illinois
+SubGroup=<img src=http://giulcenc.altervista.org/USA/us-mo.gif> Missouri (MO)
+63000,65999=Missouri
+SubGroup=<img src=http://giulcenc.altervista.org/USA/us-ks.gif> Kansas (KS)
+66000,67999=Kansas
+SubGroup=<img src=http://giulcenc.altervista.org/USA/us-ne.gif> Nebraska (NB)
+68000,69999=Nebraska
+SubGroup=<img src=http://giulcenc.altervista.org/USA/us-la.gif> Louisiana (LA)
+70000,71599=Louisiana
+SubGroup=<img src=http://giulcenc.altervista.org/USA/us-ar.gif> Arkansas (AS)
+71600,72999=Arkansas
+SubGroup=<img src=http://giulcenc.altervista.org/USA/us-ok.gif> Oklahoma (OK)
+73000,74999=Oklahoma
+SubGroup=<img src=http://giulcenc.altervista.org/USA/us-co.gif> Colorado (CO)
+80000,81999=Colorado
+SubGroup=<img src=http://giulcenc.altervista.org/USA/us-wy.gif> Wyoming (WY)
+82000,83199=Wyoming
+SubGroup=<img src=http://giulcenc.altervista.org/USA/us-id.gif> Idaho (ID)
+83200,83999=Idaho
+SubGroup=<img src=http://giulcenc.altervista.org/USA/us-ut.gif> Utah (UT)
+84000,84999=Utah
+SubGroup=<img src=http://giulcenc.altervista.org/USA/us-az.gif> Arizona (AZ)
+85000,86999=Arizona
+SubGroup=<img src=http://giulcenc.altervista.org/USA/us-nm.gif> New Mexico (NM)
+87000,88499=New Mexico
+SubGroup=<img src=http://giulcenc.altervista.org/USA/us-tx.gif> Texas (TX)
+88500,88599=Texas
+75000,79999=Texas
+SubGroup=<img src=http://giulcenc.altervista.org/USA/us-nv.gif> Nevada (NV)
+88900,89999=Nevada
+SubGroup=<img src=http://giulcenc.altervista.org/USA/us-ca.gif> California (CA)
+90000,96199=California
+SubGroup=<img src=http://giulcenc.altervista.org/USA/us-hi.gif> Hawaii (HI)
+96700,96798=Hawaii
+96800,96899=Hawaii
+SubGroup=<img src=http://giulcenc.altervista.org/USA/us-or.gif> Oregon (OR)
+97000,97999=Oregon
+SubGroup=<img src=http://giulcenc.altervista.org/USA/us-wa.gif> Washington (WA)
+98000,99499=Washington
+SubGroup=<img src=http://giulcenc.altervista.org/USA/us-ak.gif> Alaska (AK)
+99500,99950=Alaska
+
+
+// http://en.wikipedia.org/wiki/List_of_ZIP_Codes_in_the_United_States

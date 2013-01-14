@@ -1,0 +1,162 @@
+// Malta
+// Types:
+//  -single code "AAA=name"
+//  -single code+name "AAA 0000;PlaceNameinCSV=name"
+//  -single name ";PlaceNameinCSV=name"
+
+// version 6 (1.9.2008)
+
+// NEW version for NIG 1.657
+
+// contact me (yli) by PM on the EBT-forum, or on IRC channels #ebt #ebt.de or #ebt.nl of IRCNet 
+
+// The total number of Local Councils should be 68 on Malta
+
+
+Group=Local Councils / Kunsilli Lokali of Malta
+ATD=Attard (ATD)
+BZN=Balzan (BZN)
+BRG=Birgu (BRG)
+BKR=Birkirkara (BKR)
+BBG=Birżebbuġa (BBG)
+BML=Bormla (Cospicua) (BML)
+DGL=Dingli (DGL)
+FGR=Fgura (FGR)
+FNT=Fontana (FNT)
+FRN=Furjana (Floriana) (FRN)
+GSM=Għajnsielem (GSM / KMN)
+KMN=Għajnsielem (GSM / KMN)
+GRB=Għarb (GRB)
+GHR=Għargħur (GHR)
+GSR=Għasri (GSR)
+GXQ=Għaxaq (GXQ)
+GDJ=Gudja (GDJ)
+GZR=Gżira (GZR)
+HMR=Ħamrun (HMR)
+IKL=Iklin (IKL)
+ISL=Isla (Senglea) (ISL)
+KKR=Kalkara (KKR)
+KCM=Kerċem (KCM)
+KKP=Kirkop (KKP)
+LJA=Lija (LJA)
+LQA=Luqa (LQA)
+MRS=Marsa (MRS)
+MSK=Marsaskala (MSK)
+MXK=Marsaxlokk (MXK)
+MDN=Mdina (MDN)
+MLH=Mellieħa (MLH)
+MGR=Mġarr (MGR)
+MST=Mosta (MST)
+MQB=Mqabba (MQB)
+MSD=Msida (MSD)
+MTF=Mtarfa (MTF)
+MXR=Munxar (MXR / XLN)
+XLN=Munxar (MXR / XLN)
+NDR=Nadur (NDR)
+NXR=Naxxar (NXR)
+PLA=Paola (PLA)
+PBK=Pembroke (PBK)
+PTA=Pietà (PTA)
+QLA=Qala (QLA)
+QRM=Qormi (QRM)
+QRD=Qrendi (QRD)
+VCT=Rabat (Għawdex) / Victoria (VCT)
+RBT=Rabat (Malta) (RBT)
+SFI=Safi (SFI)
+STJ=San Ġiljan (Saint Julian's) (STJ)
+SGN=San Ġwann (SGN)
+SLZ=San Lawrenz (SLZ)
+SPB=San Pawl il-Bahar (Saint Paul's Bay) (SPB)
+SNT=Sannat (SNT)
+SLC=Santa Luċija (SLC)
+SVR=Santa Venera (SVR)
+SGW=Siġġiewi (SGW)
+SLM=Sliema (SLM)
+SWQ=Swieqi (SWQ)
+XBX=Ta' Xbiex (XBX)
+TXN=Tarxien (TXN)
+VLT=Valletta (VLT)
+XRA=Xagħra (XRA)
+XWK=Xewkija (XWK)
+XJR=Xgħajra (XJR)
+ZBR=Żabbar (ZBR)
+ZBB=Żebbuġ (ZBB / MFN)
+MFN=Żebbuġ (ZBB / MFN)
+ZBG=Żebbuġ (ZBG)
+ZTN=Żejtun (ZTN)
+ZRQ=Żurrieq (ZRQ)
+
+Group=Island of Malta
+FNT=Għawdex (Gozo)
+GSM=Għawdex (Gozo)
+GRB=Għawdex (Gozo)
+GSR=Għawdex (Gozo)
+KCM=Għawdex (Gozo)
+MXR=Għawdex (Gozo)
+XLN=Għawdex (Gozo)
+NDR=Għawdex (Gozo)
+QLA=Għawdex (Gozo)
+VCT=Għawdex (Gozo)
+SLZ=Għawdex (Gozo)
+SNT=Għawdex (Gozo)
+XRA=Għawdex (Gozo)
+XWK=Għawdex (Gozo)
+ZBB=Għawdex (Gozo)
+MFN=Għawdex (Gozo)
+KMN=Kemmuna (Comino)
+ATD=Malta
+BZN=Malta
+BRG=Malta
+BKR=Malta
+BBG=Malta
+BML=Malta
+DGL=Malta
+FGR=Malta
+FRN=Malta
+GHR=Malta
+GXQ=Malta
+GDJ=Malta
+GZR=Malta
+HMR=Malta
+IKL=Malta
+ISL=Malta
+KKR=Malta
+KKP=Malta
+LJA=Malta
+LQA=Malta
+MRS=Malta
+MSK=Malta
+MXK=Malta
+MDN=Malta
+MLH=Malta
+MGR=Malta
+MST=Malta
+MQB=Malta
+MSD=Malta
+MTF=Malta
+NXR=Malta
+PLA=Malta
+PBK=Malta
+PTA=Malta
+QRM=Malta
+QRD=Malta
+RBT=Malta
+SFI=Malta
+STJ=Malta
+SGN=Malta
+SPB=Malta
+SLC=Malta
+SVR=Malta
+SGW=Malta
+SLM=Malta
+SWQ=Malta
+XBX=Malta
+TXN=Malta
+VLT=Malta
+XJR=Malta
+ZBR=Malta
+ZBG=Malta
+ZTN=Malta
+ZRQ=Malta
+
+

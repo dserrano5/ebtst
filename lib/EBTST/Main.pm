@@ -775,6 +775,8 @@ sub regions {
     my $xhr = $self->req->is_xhr;
     my ($pbase, $ptot) = split m{/}, $self->req->headers->header ('X-Calc-Sections-Progress') // '';
 
+    $self->ebt->load_region_config;
+
     my $t0 = [gettimeofday];
     my $count       = $self->ebt->get_count;       $xhr and $self->_init_progress (base => $pbase, tot => $ptot);
     my $region_data = $self->ebt->get_regions;     $xhr and $self->{'progress'}->base_add ($count);

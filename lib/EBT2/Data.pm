@@ -264,6 +264,7 @@ sub load_notes {
         $hr->{'note_no'} = ++$note_no;
         $hr->{'dow'} = $dow;
         $hr->{'country'} = _cc $hr->{'country'};
+        $self->{'existing_countries'}{ $hr->{'country'} } = undef;
         $hr->{'signature'} = _find_out_signature @$hr{qw/value short_code serial/};
         $hr->{'errors'} = EBT2::NoteValidator::validate_note $hr;
         if ($hr->{'errors'}) {

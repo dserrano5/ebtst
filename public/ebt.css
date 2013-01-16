@@ -108,6 +108,10 @@ table tr .tiny_cell {
     padding: 0px 1px 0px 1px;
     font-size: 8px;
 }
+table tr .subgroup {
+    background-color: #ffffb0;
+    padding-left: 4px;
+}
 .colors_legend {
     font-size: 0.8em;
     font-style: italic;

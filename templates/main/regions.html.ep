@@ -1,20 +1,37 @@
 <h2><%=l 'Regions' %></h2>
+<table>
 <% foreach my $country (sort keys %$region_data) { =%>
     <% foreach my $group_name (sort keys %{ $region_data->{$country} }) { =%>
-        <b><%== $group_name %></b> (<%= $country %>)
-        <table>
-        <tr><th>Name</th><th>Notes</th></tr>
+        <% my $tot_notes; =%>
+        <tr><td colspan="4"><h3><img src="/images/countries/<%= $country %>.gif"> <%== $group_name %></h3></td></tr>
+        <tr>
+            <th><%=l 'Name' %></th>
+            <th><%=l 'Notes' %></th>
+            <th><%=l 'Percent' %></th>
+            <th><%=l 'Percent of' %> <img src="/images/countries/<%= $country %>.gif"></th>
+        </tr>
         <% foreach my $subgroup_name (sort keys %{ $region_data->{$country}{$group_name} }) { =%>
             <% my $flag_url = delete $region_data->{$country}{$group_name}{$subgroup_name}{'flag_url'}; =%>
             <% if ('__UNDEF__' ne $subgroup_name) { =%>
-                <tr><td colspan="2"><i>(subgroup: <img src="<%= $flag_url %>"> <%== $subgroup_name %>)</i></td></tr>
+                <tr><td colspan="4" class="subgroup"><i><img src="<%= $flag_url %>"> <%== $subgroup_name %></i></td></tr>
             <% } =%>
             <% foreach my $row (sort keys %{ $region_data->{$country}{$group_name}{$subgroup_name} }) { =%>
                 <% my $val = $region_data->{$country}{$group_name}{$subgroup_name}{$row}; =%>
-                <tr><td><%== $row %></td><td><%= $val %></td></tr>
+                <% $tot_notes += $val; =%>
+                <tr>
+                    <td><%== $row %></td>
+                    <td><%= $val %></td>
+                    <td><%= sprintf '%.2f', $val*100/$count %>%</td>
+                    <td><%= sprintf '%.2f', $nbco->{$country}{'total'} ? $val*100/$nbco->{$country}{'total'} : 'N/A' %>%</td>
+                </tr>
             <% } =%>
         <% } =%>
-        </table>
-        <br>
+        <tr>
+            <th><%=l 'Total' %></th>
+            <th><%= $tot_notes %></th>
+            <th><%= sprintf '%.2f', $tot_notes*100/$count %>%</th>
+            <th><%= sprintf '%.2f', $nbco->{$country}{'total'} ? $tot_notes*100/$nbco->{$country}{'total'} : 'N/A' %>%</th>
+        </tr>
     <% } =%>
 <% } =%>
+</table>

@@ -778,8 +778,9 @@ sub regions {
     $self->ebt->load_region_config;
 
     my $t0 = [gettimeofday];
-    my $count       = $self->ebt->get_count;       $xhr and $self->_init_progress (base => $pbase, tot => $ptot);
-    my $region_data = $self->ebt->get_regions;     $xhr and $self->{'progress'}->base_add ($count);
+    my $count       = $self->ebt->get_count;              $xhr and $self->_init_progress (base => $pbase, tot => $ptot);
+    my $region_data = $self->ebt->get_regions;            $xhr and $self->{'progress'}->base_add ($count);
+    my $nbco        = $self->ebt->get_notes_by_country;   $xhr and $self->{'progress'}->base_add ($count);
     #$self->_log (debug => report 'regions get', $t0, $count);
     $xhr and $self->{'progress'}->base_add ($count);
     if ($xhr) { $self->res->headers->connection ('close'); return $self->_end_progress; }
@@ -791,6 +792,8 @@ sub regions {
 
     $self->stash (
         title       => $section_titles{'regions'},
+        count       => $count,
+        nbco        => $nbco,
         region_data => $region_data,
     );
 }

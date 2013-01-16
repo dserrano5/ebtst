@@ -1,0 +1,2 @@
+[b]<%=l 'Time analysis (bingo)' %>[/b]
+<%= include 'main/_times', mode => 'bingo', time_data => $ta, count => $ta_count, color_what => 'notes'; =%>

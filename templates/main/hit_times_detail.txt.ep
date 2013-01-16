@@ -1,0 +1,2 @@
+[b]<%=l 'Hit times (detail)' %>[/b]
+<%= include 'main/_times', mode => 'detail', time_data => $hit_times, count => $hit_times_count, color_what => 'hits'; =%>

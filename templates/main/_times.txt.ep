@@ -1,0 +1,40 @@
+<% no warnings 'qw'; use List::Util qw/sum/; =%>
+<% my %last_days = qw/01 31   02 29   03 31   04 30   05 31   06 30   07 31   08 31   09 30   10 31   11 30   12 31/; =%>
+<% my @legend_colors = 'notes' eq $color_what ? qw/1 50 100 500 1000/ : qw/1 2 3 5 10/; =%>
+<% my %color_counts; =%>
+[b]<%=l 'Calendar' %>[/b]
+[table]\
+    <% if ('bingo' eq $mode) { =%>
+        [tr]\
+            [td][/td]\
+            <% foreach my $d (map { sprintf '%02d', $_ } 1 .. 31) { =%>
+                [td]<%= $d %>[/td]\
+            <% } =%>
+        [/tr]\
+    <% } =%>
+    <% foreach my $m (map { sprintf '%02d', $_ } 1 .. 12) { =%>
+        [tr]\
+            [td]<%=l $EBTST::Main::months{0+$m} %>[/td]\
+            <% foreach my $d (map { sprintf '%02d', $_ } 1 .. $last_days{$m}) { =%>
+                <% my $color = color $time_data->{'cal'}{$m}{$d}, $color_what; $color_counts{$color}++; =%>
+                <% my $class = { 0 => '.', 1 => 'x' }->{ (0 + !!$time_data->{'cal'}{$m}{$d}) }; =%>
+                <% if ('detail' eq $mode) { =%>
+                    [td][color=<%= $color %>]<%= $d %>[/color][/td]\
+                <% } else { =%>
+                    [td]<%= $class %>[/td]\
+                <% } =%>
+            <% } =%>
+        [/tr]\
+    <% } =%>
+[/table]
+<% if ('detail' eq $mode) { =%>
+    <%=l 'Colors' %>:
+    [color=<%= color $legend_colors[0], $color_what %>]<%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-5..-1] %>/366[/color],\
+    [color=<%= color $legend_colors[1], $color_what %>]<%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-4..-1] %>/366[/color],\
+    [color=<%= color $legend_colors[2], $color_what %>]<%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-3..-1] %>/366[/color],\
+    [color=<%= color $legend_colors[3], $color_what %>]<%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-2..-1] %>/366[/color],\
+    [color=<%= color $legend_colors[4], $color_what %>]<%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-1..-1] %>/366[/color]
+<% } else { =%>
+    <%=l 'Days' %>: <%= sum map { $color_counts{$_}//0 } @EBTST::graphs_colors[-5..-1] %>/366
+<% } =%>
+

@@ -13,7 +13,11 @@
         <% foreach my $subgroup_name (sort keys %{ $region_data->{$country}{$group_name} }) { =%>
             <% my $flag_url = delete $region_data->{$country}{$group_name}{$subgroup_name}{'flag_url'}; =%>
             <% if ('__UNDEF__' ne $subgroup_name) { =%>
-                <tr><td colspan="4" class="subgroup"><i><img src="<%= $flag_url %>"> <%== $subgroup_name %></i></td></tr>
+                <tr>
+                    <td colspan="4" class="subgroup">
+                        <i><% if ($flag_url) { %><img src="<%= $flag_url %>"> <% } %><%== $subgroup_name %></i>
+                    </td>
+                </tr>
             <% } =%>
             <% foreach my $row (sort keys %{ $region_data->{$country}{$group_name}{$subgroup_name} }) { =%>
                 <% my $val = $region_data->{$country}{$group_name}{$subgroup_name}{$row}; =%>

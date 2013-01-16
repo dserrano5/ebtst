@@ -3,12 +3,12 @@
 <% foreach my $country (sort keys %$region_data) { =%>
     <% foreach my $group_name (sort keys %{ $region_data->{$country} }) { =%>
         <% my $tot_notes; =%>
-        <tr><td colspan="4"><h3><img src="/images/countries/<%= $country %>.gif"> <%== $group_name %></h3></td></tr>
+        <tr><td colspan="4"><h3><img src="images/countries/<%= $country %>.gif"> <%== $group_name %></h3></td></tr>
         <tr>
             <th><%=l 'Name' %></th>
             <th><%=l 'Notes' %></th>
             <th><%=l 'Percent' %></th>
-            <th><%=l 'Percent of' %> <img src="/images/countries/<%= $country %>.gif"></th>
+            <th><%=l 'Percent of' %> <img src="images/countries/<%= $country %>.gif"></th>
         </tr>
         <% foreach my $subgroup_name (sort keys %{ $region_data->{$country}{$group_name} }) { =%>
             <% my $flag_url = delete $region_data->{$country}{$group_name}{$subgroup_name}{'flag_url'}; =%>

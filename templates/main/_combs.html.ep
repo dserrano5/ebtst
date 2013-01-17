@@ -125,26 +125,26 @@
 <% if ('bingo' eq $mode) { =%>
     <h2><%=l 'Still missing combinations' %></h2>
     <% foreach my $elem (map { $missing->{$_} } sort keys %$missing) { =%>
-        <img src="images/countries/<%= $elem->{'pname'} %>.gif"> <img src="images/countries/<%= $elem->{'cname'} %>.gif">
+        <img src="<%= $images_prefix %>images/countries/<%= $elem->{'pname'} %>.gif"> <img src="<%= $images_prefix %>images/countries/<%= $elem->{'cname'} %>.gif">
         <%= $elem->{'pletter'} %>/<%= $elem->{'cletter'} %>:
         <% foreach my $d (@{ $elem->{'values'} }) { =%>
-            <img src="images/values/<%= $d %>.gif">
+            <img src="<%= $images_prefix %>images/values/<%= $d %>.gif">
         <% } =%>
         <br>
     <% } =%>
 
     <h2><%=l 'History' %> (<%=l 'Printer' %>/<%=l 'Country' %>)</h2>
     <% foreach my $h (@$history_pc) { =%>
-        <%= $h->{'index'} %>.) <img src="images/countries/<%= $h->{'pname'} %>.gif"> <img src="images/countries/<%= $h->{'cname'} %>.gif">
+        <%= $h->{'index'} %>.) <img src="<%= $images_prefix %>images/countries/<%= $h->{'pname'} %>.gif"> <img src="<%= $images_prefix %>images/countries/<%= $h->{'cname'} %>.gif">
         <%= $h->{'pc'} %>/<%= $h->{'cc'} =%>
-        (<%=l 'note' %> <%= $h->{'num'} %>, <%=l 'entered on' %> <%= $h->{'date'} %> <%=l 'in' %> <%= $h->{'city'} %> <img src="images/countries/<%= $h->{'country'} %>.gif">)<br>
+        (<%=l 'note' %> <%= $h->{'num'} %>, <%=l 'entered on' %> <%= $h->{'date'} %> <%=l 'in' %> <%= $h->{'city'} %> <img src="<%= $images_prefix %>images/countries/<%= $h->{'country'} %>.gif">)<br>
     <% } =%>
 
     <h2><%=l 'History' %> (<%=l 'Printer' %>/<%=l 'Country' %>/<%=l 'Value' %>)</h2>
     <% foreach my $h (@$history_pcv) { =%>
-        <%= $h->{'index'} %>.) <img src="images/countries/<%= $h->{'pname'} %>.gif"> <img src="images/countries/<%= $h->{'cname'} %>.gif">
+        <%= $h->{'index'} %>.) <img src="<%= $images_prefix %>images/countries/<%= $h->{'pname'} %>.gif"> <img src="<%= $images_prefix %>images/countries/<%= $h->{'cname'} %>.gif">
         <%= $h->{'pc'} %>/<%= $h->{'cc'} =%>
-        <img src="images/values/<%= $h->{'value'} %>.gif"> (<%=l 'note' %> <%= $h->{'num'} %>, <%=l 'entered on' %> <%= $h->{'date'} %> <%=l 'in' %> <%= $h->{'city'} %> <img src="images/countries/<%= $h->{'country'} %>.gif">)<br>
+        <img src="<%= $images_prefix %>images/values/<%= $h->{'value'} %>.gif"> (<%=l 'note' %> <%= $h->{'num'} %>, <%=l 'entered on' %> <%= $h->{'date'} %> <%=l 'in' %> <%= $h->{'city'} %> <img src="<%= $images_prefix %>images/countries/<%= $h->{'country'} %>.gif">)<br>
     <% } =%>
 
     <small><%=l 'History text format inspired by' %> <a href="https://en.eurobilltracker.com/profile/?user=112566">Dioniz</a>.</small>

@@ -9,7 +9,7 @@
     </tr>
     <% foreach my $my_loc (@$my_locs) { =%>
         <tr>
-            <td><img src="images/countries/<%= $my_loc->{'country'} %>.gif"> <%= $my_loc->{'city'} %></td>
+            <td><img src="<%= $images_prefix %>images/countries/<%= $my_loc->{'country'} %>.gif"> <%= $my_loc->{'city'} %></td>
             <td><%= $my_loc->{'notes'} %> (<%= sprintf '%.2f', $my_loc->{'notes_pct'} %>%)</td>
             <td><%= $my_loc->{'hits'} %> (<%= sprintf '%.2f', $my_loc->{'hits_pct'} %>%)</td>
             <td><%= sprintf '%.2f', $my_loc->{'ratio'} %></td>
@@ -28,7 +28,7 @@
         </tr>
         <% foreach my $their_loc (@$their_locs) { =%>
             <tr>
-                <td><img src="images/countries/<%= $their_loc->{'country'} %>.gif"> <%= $their_loc->{'city'} %></td>
+                <td><img src="<%= $images_prefix %>images/countries/<%= $their_loc->{'country'} %>.gif"> <%= $their_loc->{'city'} %></td>
                 <td><%= $their_loc->{'hits'} %></td>
                 <td><%= sprintf '%.2f', $their_loc->{'hits_pct'} %>%</td>
             </tr>
@@ -53,7 +53,7 @@
                 <% my ($from, $to) = split /\|/, $arrow->{'fromto'}, 2; =%>
                 <% my ($from_country, $from_city) = split /,/, $from, 2; =%>
                 <% my ($to_country, $to_city) = split /,/, $to, 2; =%>
-                <td><img src="images/countries/<%= $from_country %>.gif"> <%= $from_city %> → <img src="images/countries/<%= $to_country %>.gif"> <%= $to_city %></td>
+                <td><img src="<%= $images_prefix %>images/countries/<%= $from_country %>.gif"> <%= $from_city %> → <img src="<%= $images_prefix %>images/countries/<%= $to_country %>.gif"> <%= $to_city %></td>
                 <td><%= $arrow->{'num'} %></td>
                 <td><%= sprintf '%.2f', $arrow->{'pct'} %>%</td>
             </tr>
@@ -74,7 +74,7 @@
         <% foreach my $place (reverse sort { $local_hits->{$a} <=> $local_hits->{$b} } keys %$local_hits) { =%>
             <% my ($country, $city) = split /,/, $place, 2; =%>
             <tr>
-                <td><img src="images/countries/<%= $country %>.gif"> <%= $city %></td>
+                <td><img src="<%= $images_prefix %>images/countries/<%= $country %>.gif"> <%= $city %></td>
                 <td><%= $local_hits->{$place} %></td>
             </tr>
         <% } =%>
@@ -97,9 +97,9 @@
             <% my ($to_country, $to_city) = split /,/, $to, 2; =%>
             <tr>
                 <td>
-                    <img src="images/countries/<%= $from_country %>.gif"> <%= $from_city =%>
+                    <img src="<%= $images_prefix %>images/countries/<%= $from_country %>.gif"> <%= $from_city =%>
                     &#x2194;   <!-- that's U+2194 LEFT RIGHT ARROW -->
-                    <img src="images/countries/<%= $to_country %>.gif"> <%= $to_city =%>
+                    <img src="<%= $images_prefix %>images/countries/<%= $to_country %>.gif"> <%= $to_city =%>
                 </td>
                 <td><%= $both_ways->{$bw} %></td>
             </tr>

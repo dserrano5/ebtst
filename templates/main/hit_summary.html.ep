@@ -109,7 +109,7 @@
 <br>
 <b><%=l 'Hits by combination' %></b><br>
 <% foreach my $hbc (reverse sort { $hs->{'hits_by_combo'}{$a}{'count'} <=> $hs->{'hits_by_combo'}{$b}{'count'} } keys %{ $hs->{'hits_by_combo'} }) { =%>
-    <img src="images/countries/<%= EBT2->printers ($hs->{'hits_by_combo'}{$hbc}{'pc'}) %>.gif"> <img src="images/countries/<%= EBT2->countries ($hs->{'hits_by_combo'}{$hbc}{'cc'}) %>.gif"> \
+    <img src="<%= $images_prefix %>images/countries/<%= EBT2->printers ($hs->{'hits_by_combo'}{$hbc}{'pc'}) %>.gif"> <img src="<%= $images_prefix %>images/countries/<%= EBT2->countries ($hs->{'hits_by_combo'}{$hbc}{'cc'}) %>.gif"> \
     <%= $hbc %> - <%= $hs->{'hits_by_combo'}{$hbc}{'count'} %> (<%= sprintf '%.2f', 100 * $hs->{'hits_by_combo'}{$hbc}{'count'} / $hs->{'total'} %>%)<br>
 <% } =%>
 <br>

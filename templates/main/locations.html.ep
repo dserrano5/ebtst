@@ -13,7 +13,7 @@
     </tr>
     <% foreach my $elem (@$countries) { =%>
         <tr>
-            <td><img src="images/countries/<%= $elem->{'imgname'} %>.gif"> <%= $elem->{'cname'} %></td>
+            <td><img src="<%= $images_prefix %>images/countries/<%= $elem->{'imgname'} %>.gif"> <%= $elem->{'cname'} %></td>
             <td><%= $elem->{'count'} %> (<%= $elem->{'pct'} %>%)</td>
             <% foreach my $d (@{ $elem->{'detail'} }) { =%>
                 <% if ($d->{'count'}) { =%>
@@ -46,7 +46,7 @@
         </tr>
         <% foreach my $loc (@{ $elem->{'loc_data'} }) { =%>
             <tr>
-                <td><img src="images/countries/<%= $elem->{'imgname'} %>.gif"> <a href="http://en.eurobilltracker.com/notes/?id=<%= $loc->{'id'} %>"><%= $loc->{'loc_name'} %></a></td>
+                <td><img src="<%= $images_prefix %>images/countries/<%= $elem->{'imgname'} %>.gif"> <a href="http://en.eurobilltracker.com/notes/?id=<%= $loc->{'id'} %>"><%= $loc->{'loc_name'} %></a></td>
                 <td><%= $loc->{'count'} %> (<%= $loc->{'pct'} %>%)</td>
                 <% foreach my $d (@{ $loc->{'detail'} }) { =%>
                     <% if ($d->{'count'}) { =%>
@@ -73,7 +73,7 @@
 <table>
     <% foreach my $c (@$ab) { =%>
         <tr>
-            <th class="small_cell"><img src="images/countries/<%= $c->{'imgname'} %>.gif"> <%= $c->{'cname'} %></th>
+            <th class="small_cell"><img src="<%= $images_prefix %>images/countries/<%= $c->{'imgname'} %>.gif"> <%= $c->{'cname'} %></th>
             <% foreach my $l ('A'..'Z') { =%>
                 <td class="small_cell"><span style='color: <%= color $c->{'letters'}{$l}, 'notes' %>'><%= $l %></span></td>
             <% } =%>

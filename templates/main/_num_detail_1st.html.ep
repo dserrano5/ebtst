@@ -15,7 +15,7 @@
     % }
     % my $style = sprintf 'width: %s%%; float: left; %s background-color: %s', 1.2*$elem->{'pct'}, $border, $color;
     <tr>
-        <td><img src="images/countries/<%= $elem->{'imgname'} %>.gif"> <b><%= $elem->{$notes_by_key} %></b> <%= $elem->{'cname'} %></td>
+        <td><img src="<%= $images_prefix %>images/countries/<%= $elem->{'imgname'} %>.gif"> <b><%= $elem->{$notes_by_key} %></b> <%= $elem->{'cname'} %></td>
         <td class="numeric"><%= $elem->{'count'} %></td>
         <td class="numeric"><div style="<%= $style %>">&nbsp;</div><%= $elem->{'pct'} %>%</td>
     </tr>
@@ -36,7 +36,7 @@
     </tr>
 <% foreach my $elem (@$notes_by) { =%>
     <tr>
-        <td class="small_cell"><b><img src="images/countries/<%= $elem->{'imgname'} %>.gif"> <%= $elem->{$notes_by_key} %></b></td>
+        <td class="small_cell"><b><img src="<%= $images_prefix %>images/countries/<%= $elem->{'imgname'} %>.gif"> <%= $elem->{$notes_by_key} %></b></td>
         <% foreach my $det (@{ $elem->{'detail'} }) { =%>
             <% if (defined $det->{'count'}) { =%>
                 <td class="numeric small_cell"><b><%= $det->{'count'} %></b></td>
@@ -59,6 +59,6 @@
 
 <h2><%= $first_title %></h2>
 <% foreach my $elem (@$first_by) { =%>
-    <a href="https://eurobilltracker.com/notes/?id=<%= $elem->{'id'} %>"><%=l 'Note' %> <%= $elem->{'at'} %></a> <%=l 'was the first from' %> <img src="images/countries/<%= $elem->{'imgname'} %>.gif"> <b><%= $elem->{$first_from} %></b>
-    (<img src="images/values/<%= $elem->{'value'} %>.gif"> <%=l 'entered on' %> <%= $elem->{'on'} %> <%=l 'in' %> <%= $elem->{'city'} %> <img src="images/countries/<%= $elem->{'imgname2'} %>.gif">)<br>
+    <a href="https://eurobilltracker.com/notes/?id=<%= $elem->{'id'} %>"><%=l 'Note' %> <%= $elem->{'at'} %></a> <%=l 'was the first from' %> <img src="<%= $images_prefix %>images/countries/<%= $elem->{'imgname'} %>.gif"> <b><%= $elem->{$first_from} %></b>
+    (<img src="<%= $images_prefix %>images/values/<%= $elem->{'value'} %>.gif"> <%=l 'entered on' %> <%= $elem->{'on'} %> <%=l 'in' %> <%= $elem->{'city'} %> <img src="<%= $images_prefix %>images/countries/<%= $elem->{'imgname2'} %>.gif">)<br>
 <% } =%>

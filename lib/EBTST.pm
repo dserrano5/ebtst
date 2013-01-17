@@ -114,6 +114,7 @@ sub bd_set_env_initial_stash {
     $self->stash (user          => undef);
     $self->stash (msg           => '');
     $self->stash (title         => '');
+    $self->stash (images_prefix => '');
 }
 
 sub helper_ebt {

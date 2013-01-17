@@ -2076,7 +2076,7 @@ sub gen_output {
     my $html_dir = File::Spec->catfile ($self->stash ('html_dir'), $self->stash ('user'));
     $self->_log (debug => "gen_output: html_dir '$html_dir'");
     $self->_prepare_html_dir ($self->stash ('statics_dir'), $html_dir);
-    my $html_output = encode 'UTF-8', $self->render_partial (template => 'layouts/offline', format => 'html');
+    my $html_output = encode 'UTF-8', $self->render_partial (template => 'layouts/offline', format => 'html', images_prefix => '../../');
     $html_output = $self->_trim_html_sections ($html_output, @req_params);
 
     my $t0 = [gettimeofday];

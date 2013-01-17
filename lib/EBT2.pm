@@ -180,6 +180,8 @@ sub load_region_file {
 
         ## actual parsing work
         given ($line) {
+            when (/^PrintZeros/i) {}
+            when (/^NMessage/) {}
             when (/^\s*Group\s*=\s*(.*)/)         {
                 my $group_name = $1;
                 $group_name =~ s/\s*$//;
@@ -243,8 +245,6 @@ sub load_region_file {
                 $name     =~ s/\s*$//;
                 push @{ $subgroup->{'entries'}{'name_map'} }, { csv_name => $csv_name, name => $name };
             }
-            when (/^PrintZeros/i) {}
-            when (/^NMessage/) {}
             default { $self->_log (warn => "ignoring unrecognized line '$line'\n"); }
         }
     }

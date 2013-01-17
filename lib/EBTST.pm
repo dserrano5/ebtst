@@ -188,14 +188,14 @@ sub helper_hit_partners {
             if ('html' eq $mode) {
                 push @visible,
                     (sprintf '<a href="https://en.eurobilltracker.com/profile/?user=%s">%s</a>', $id, xml_escape $name),
-                    '<img src="images/red_arrow.gif">';
+                    (sprintf '<img src="%simages/red_arrow.gif">', $self->stash ('images_prefix'));
             } elsif ('txt' eq $mode) {
                 push @visible, sprintf "[color=darkred]%s[/color] [url=https://en.eurobilltracker.com/profile/?user=%s]%s[/url]", ($self->l ('from')), $id, $name;
             }
         } else {
             if ('html' eq $mode) {
                 push @visible,
-                    '<img src="images/blue_arrow.gif">',
+                    (sprintf '<img src="%simages/blue_arrow.gif">', $self->stash ('images_prefix')),
                     (sprintf '<a href="https://en.eurobilltracker.com/profile/?user=%s">%s</a>', $id, xml_escape $name);
             } elsif ('txt' eq $mode) {
                 push @visible, sprintf "[color=darkblue]%s[/color] [url=https://en.eurobilltracker.com/profile/?user=%s]%s[/url]", ($self->l ('to')), $id, $name;

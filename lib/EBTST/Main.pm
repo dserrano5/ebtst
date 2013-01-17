@@ -1912,12 +1912,6 @@ sub _prepare_html_dir {
         die "Couldn't create directory: '$dest_dir/images': $!\n";
     }
 
-    foreach my $file (qw{images/values images/countries images/blue_arrow.gif images/red_arrow.gif}) {
-        my $src  = File::Spec->catfile ($statics_dir, $file);
-        my $dest = File::Spec->catfile ($dest_dir,    $file);
-        symlink $src, $dest or $self->_log (warn => "_prepare_html_dir: symlink: '$src' to '$dest': $!");
-    }
-
     my ($src, $dest);
 
     ## don't link but copy ebt.css, so generated stats don't break when the CSS is changed

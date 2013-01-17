@@ -27,7 +27,7 @@
             <td class="small_cell"><%= ((split ' ', $hit->{'hit_date'})[0]) %><%# syntax error without additional parens... %></td>
             <td class="small_cell"><img src="<%= $images_prefix %>images/values/<%= $hit->{'value'} %>.gif"></td>
             <td class="small_cell"><a href="https://eurobilltracker.com/notes/?id=<%= $hit->{'id'} %>"><%= $hit->{'serial'} %></a></td>
-            <td class="small_cell"><%== join ' ', map { qq[<img src="<%= $images_prefix %>images/countries/$_.gif">] } @{ $hit->{'countries'} } %></td>
+            <td class="small_cell"><%== join ' ', map { qq[<img src="${images_prefix}images/countries/$_.gif">] } @{ $hit->{'countries'} } %></td>
             <td class="small_cell"><%== join ',<br>', map { xml_escape $_ } @{ $hit->{'cities'} } %></td>
             <td class="small_cell"><%= $hit->{'km'} %></td>
             <td class="small_cell"><%= $hit->{'days'} %></td>
@@ -66,7 +66,7 @@
                     <td class="small_cell"><%= $hit->{'hit_date'} %></td>
                     <td class="small_cell"><img src="<%= $images_prefix %>images/values/<%= $hit->{'value'} %>.gif"></td>
                     <td class="small_cell"><a href="https://eurobilltracker.com/notes/?id=<%= $hit->{'id'} %>"><%= $hit->{'serial'} %></a></td>
-                    <td class="small_cell"><%== join ' ', map { qq[<img src="<%= $images_prefix %>images/countries/$_.gif">] } @{ $hit->{'countries'} } %></td>
+                    <td class="small_cell"><%== join ' ', map { qq[<img src="${images_prefix}images/countries/$_.gif">] } @{ $hit->{'countries'} } %></td>
                     <td class="small_cell"><%== join ',<br>', map { xml_escape $_ } @{ $hit->{'cities'} } %></td>
                     <td class="small_cell"><%= $hit->{'km'} %></td>
                     <td class="small_cell"><%= $hit->{'days'} %></td>

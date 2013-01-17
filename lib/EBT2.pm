@@ -25,6 +25,7 @@ sub _work_dir {
 ## set up configuration before use'ing other EBT2 modules
 my $work_dir;
 our %config;
+our %config_regions_loaded;
 BEGIN {
     $work_dir = _work_dir;
     my $cfg_file = File::Spec->catfile ($work_dir, 'ebt2.cfg');
@@ -144,6 +145,14 @@ sub _log {
 
 sub load_region_file {
     my ($self, $country, $f) = @_;
+
+    my $bn = basename $f;
+    if (exists $config_regions_loaded{$bn}) {
+        $self->_log (debug => "load_region_file: region_file ($bn) already loaded, skipping");
+        return;
+    }
+    $self->_log (debug => "load_region_file: loading region_file ($bn)");
+    $config_regions_loaded{$bn} = undef;
 
     my $fd;
     if (!open $fd, '<:encoding(UTF-8)', $f) {
@@ -279,23 +288,13 @@ sub load_region_config {
 
     my @countries = keys %{ $self->{'data'}{'existing_countries'} };
     if (!@countries) { @countries = ''; }
-$self->_log (debug => "load_region_config: countries (@countries)");
 
     foreach my $country (@countries) {
         my $region_files = File::Spec->catfile ($work_dir, 'regions', "$country*");
-$self->_log (debug => "load_region_config: region_files ($region_files)");
         foreach my $region_file (glob $region_files) {
-            my $bn = basename $region_file;
-            if (exists $self->{'data'}{'loaded_region_files'}{$bn}) {
-$self->_log (debug => "load_region_config: region_file ($region_file) already loaded, skipping");
-                next;
-            }
-            $self->{'data'}{'loaded_region_files'}{$bn} = undef;
-$self->_log (debug => "load_region_config: loading region_file ($region_file)");
             $self->load_region_file ($country, $region_file);
         }
     }
-$self->{'data'}->write_db;
 }
 
 sub done_data {
@@ -384,6 +383,7 @@ sub AUTOLOAD {
             #$self->_log (debug => "field ($field) doesn't exist, let's go for it");
         }
 
+        $self->load_region_config if 'regions' eq $field;
         my $new_data = $self->{'stats'}->$field ($self->{'progress'}, $self->{'data'}, @args);
 
         if (!keys %$new_data) {

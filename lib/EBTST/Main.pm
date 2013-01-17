@@ -775,8 +775,6 @@ sub regions {
     my $xhr = $self->req->is_xhr;
     my ($pbase, $ptot) = split m{/}, $self->req->headers->header ('X-Calc-Sections-Progress') // '';
 
-    $self->ebt->load_region_config;
-
     my $t0 = [gettimeofday];
     my $count       = $self->ebt->get_count;              $xhr and $self->_init_progress (base => $pbase, tot => $ptot);
     my $region_data = $self->ebt->get_regions;            $xhr and $self->{'progress'}->base_add ($count);
@@ -784,11 +782,6 @@ sub regions {
     #$self->_log (debug => report 'regions get', $t0, $count);
     $xhr and $self->{'progress'}->base_add ($count);
     if ($xhr) { $self->res->headers->connection ('close'); return $self->_end_progress; }
-
-    $t0 = [gettimeofday];
-    #my $regions;
-    ## cook
-    #$self->_log (debug => report 'regions cook', $t0, $count);
 
     $self->stash (
         title       => $section_titles{'regions'},

@@ -1,0 +1,6 @@
+Group=Kerpener Stadtteile
+50169=50169 Balkhausen / Brüggen / Buir / Horrem / Neu-Bottenbroich / Türnich
+50170=50170 Manheim / Sindorf
+50171=50171 Kerpen-Mitte / Blatzheim / Langenich / Manheim / Mödrath
+
+NMessage=Loaded Kerpener Stadtteile

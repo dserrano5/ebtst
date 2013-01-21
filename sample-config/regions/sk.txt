@@ -211,7 +211,7 @@ SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/zilina.png> Žil
 01351,01362=Bytča
 01401=Bytča
 01501=Žilina
-0220,022041=Čadca
+02201,02204=Čadca
 02301,02322=Čadca
 02331,02345=Kysucké Nové Mesto
 02351,02357=Čadca

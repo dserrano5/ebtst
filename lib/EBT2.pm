@@ -175,7 +175,7 @@ sub load_region_file {
     };
     while (defined (my $line = <$fd>)) {
         chomp $line;
-        $line =~ s{\s*(?<!http:)//.*}{};
+        $line =~ s{(?<!:)//.*}{};
         next if $line =~ /^\s*$/;
 
         ## actual parsing work

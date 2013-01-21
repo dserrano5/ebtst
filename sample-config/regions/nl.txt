@@ -126,22 +126,22 @@ Group=Provinces of The Netherlands (see <a href="http://forum.eurobilltracker.eu
 4213,4213=Zuid-Holland
 4220,4247=Zuid-Holland
 Group=Neterlands outside Europe
-Bonaire=BES-Eilanden
-Kralendijk=BES-Eilanden
-Rincon=BES-Eilanden
-Windwardside (Saba)=BES-Eilanden
-The Bottom=BES-Eilanden
-Oranjestad (Sint Eustatius)=BES-Eilanden
-Oranjestad (Aruba)=Aruba
-Sint Nicolaas (Aruba)=Aruba
-Savaneta (Aruba)=Aruba
-Santa Cruz (Aruba)=Aruba
-Aruba=Aruba
-Curaçao=Curaçao
-Willemstad (Curaçao)=Curaçao
-Hato Airport (Curaçao)=Curaçao
-Philipsburg (Sint Maarten)=Sint Maarten
-Koolbaai (Sint Maarten)=Sint Maarten
+;Bonaire=BES-Eilanden
+;Kralendijk=BES-Eilanden
+;Rincon=BES-Eilanden
+;Windwardside (Saba)=BES-Eilanden
+;The Bottom=BES-Eilanden
+;Oranjestad (Sint Eustatius)=BES-Eilanden
+;Oranjestad (Aruba)=Aruba
+;Sint Nicolaas (Aruba)=Aruba
+;Savaneta (Aruba)=Aruba
+;Santa Cruz (Aruba)=Aruba
+;Aruba=Aruba
+;Curaçao=Curaçao
+;Willemstad (Curaçao)=Curaçao
+;Hato Airport (Curaçao)=Curaçao
+;Philipsburg (Sint Maarten)=Sint Maarten
+;Koolbaai (Sint Maarten)=Sint Maarten
 
 Group=Provincial capitals in The Netherlands (see <a href="http://www.eurobilltrackerforum.com/viewtopic.php?t=11503">forum</a>)
 
@@ -1252,12 +1252,12 @@ SubFlag=https://dserrano5.es/ebt/ebtst/images/regions/ZH.png
 2995=Zwijndrecht
 3330,3336=Zwijndrecht
 SubGroup=BES-Eilanden
-Bonaire=Bonaire
-Kralendijk=Bonaire
-Rincon=Bonaire
-Windwardside (Saba)=Saba
-The Bottom=Saba
-Oranjestad (Sint Eustatius)=Sint Eustatius
+;Bonaire=Bonaire
+;Kralendijk=Bonaire
+;Rincon=Bonaire
+;Windwardside (Saba)=Saba
+;The Bottom=Saba
+;Oranjestad (Sint Eustatius)=Sint Eustatius
 
 Group=Disappeared Dutch Municipalities / Verdwenen Nederlandse Gemeentes (2002-2013)
 SubGroup=<img src=https://dserrano5.es/ebt/ebtst/public/images/FRL.png> Friesland / Fryslân

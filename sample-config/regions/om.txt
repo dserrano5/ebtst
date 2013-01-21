@@ -55,7 +55,7 @@ SubGroup=Al-Batinah
 326=Khaboura
 315=Al-Suwaiq
 323=Nakhal
-Wadi al-Maawil = Wadi al-Maawil
+;Wadi al-Maawil = Wadi al-Maawil
 // couldn't find a postcode for Wadi al-Maawil :(
 317=Awabi
 312=Al-Musana'a
@@ -68,10 +68,10 @@ Wadi al-Maawil = Wadi al-Maawil
 SubGroup=Al-Wosta
 711;Hayma=Hayma
 711;Haima=Hayma
-Muhut=Muhut
-Doqum=Al Duqum
-Al Duqum=Al Duqum
-Duqm=Al Duqum
+;Muhut=Muhut
+;Doqum=Al Duqum
+;Al Duqum=Al Duqum
+;Duqm=Al Duqum
 712;Al Jazur=Al Jazer
 712;Al Jazer=Al Jazer
 //couldn't find any postcodes for Muhut and Doqum, I didn't even find these citys on google maps, do they 
@@ -83,7 +83,7 @@ SubGroup=Wilaya of Al-Sharqiya
 423=Ibra
 // 423 is for Samad Al-Shain, not at all near to Ibra, but all other wilaya are farer away! any ideas where it belongs to?
 421=Bidiyah
-Al-Qabil = Al-Qabil
+;Al-Qabil = Al-Qabil
 // it exists (on the street from Sur to Nizwa) but I couldn't find a postal code
 418,420=Al-Mudaibi
 //418 is for Sinaw but as it's near Al-Mudaibi....
@@ -107,10 +107,10 @@ SubGroup=Masqat (Muscat)
 // 112 is for the district Ruwi, and I couldn't find any information if it belongs to the wilaya of Muttrah or Muscat. 
 // as it's geografically nearer to Muttrah, I merged it there, but if you have better information please contact me!!!
 // 126 is for the Oman Commercial Center in Ruwi - same problem here!
-Bawschar = Bowshar
-Bowshar = Bowshar
-Wadi Bowshar = Bowshar
-Bawshar = Bowshar
+;Bawschar = Bowshar
+;Bowshar = Bowshar
+;Wadi Bowshar = Bowshar
+;Bawshar = Bowshar
 // Bowshar doesn't have a postcode but at least it exists... N 23° 33,291 E58° 24,666
 121=Sib (Seeb)
 128=Sib (Seeb)
@@ -145,13 +145,13 @@ SubGroup=Dhofar
 218=Taqa
 220=Marbat
 223=Sadah
-Rachyut=Rachyut
-Dalkut=Dalkut
-Muqschin=Muqschin
-Shalim=Shalim and Hallaniyyat-Isles
+;Rachyut=Rachyut
+;Dalkut=Dalkut
+;Muqschin=Muqschin
+;Shalim=Shalim and Hallaniyyat-Isles
 // http://de.wikipedia.org/wiki/Churiya-Muriya-Inseln, couldn't find a postcode 
-Al-Mazuna=Al-Mazuna
-Al Mazuna=Al-Mazuna
+;Al-Mazuna=Al-Mazuna
+;Al Mazuna=Al-Mazuna
 //postcodes : 212 Quirun Hairiti, 213 Teetam, 219 Madinat Al-Haq, 221 Tiwi Atair --> nothing found where they belong to, instead for Rachyut, Dalkut, Muqschin, Shalim and Al Mazuna I couldn't find a fitting postcode.
 SubGroup=Buraimi
 512=Buraimi

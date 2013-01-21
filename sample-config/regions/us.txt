@@ -34,7 +34,9 @@ SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/us-pa.gif> Penns
 SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/us-de.gif> Delaware (DE)
 19700,19999=Delaware
 SubGroup=District of Columbia (DC)
-20000,20099;20200,20599;56900,56999=District of Columbia
+20000,20099=District of Columbia
+20200,20599=District of Columbia
+56900,56999=District of Columbia
 SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/us-va.gif> Virginia (VA)
 20100,20199=Virginia
 22000,24699=Virginia

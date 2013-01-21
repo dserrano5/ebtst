@@ -4223,7 +4223,7 @@ SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/rc.gif> Provinci
 89040;Monasterace=Monasterace
 89040;Monasterace Marina=Monasterace
 89040;Monasterace marina=Monasterace
-89064;=Montebello Ionico
+89064;Montebello Ionico
 89060;Fossato Ionico=Montebello Ionico
 89060;Fossato ionico=Montebello Ionico
 89060;Fossato=Montebello Ionico

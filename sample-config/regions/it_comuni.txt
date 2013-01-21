@@ -33457,7 +33457,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/bz.gif> Provincia Auto
 39030;Niederolang=Olang / Valdaora
 39030;Kronplatz=Olang / Valdaora
 39030;Plan de Corones=Olang / Valdaora
-39030:Kronplatz / Plan de Corones=Olang / Valdaora
+39030;Kronplatz / Plan de Corones=Olang / Valdaora
 39030;Valle Aurina=Ahrntal / Valle Aurina
 39030;Valle aurina=Ahrntal / Valle Aurina
 39030;Ahrntal=Ahrntal / Valle Aurina

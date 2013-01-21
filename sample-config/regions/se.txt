@@ -4484,7 +4484,7 @@ Group=Provinces of Sweden / Sveriges län
 
 
 Group=Municipalities of Sweden / Sveriges Kommuner
-SubGroup=<img src=http://a.imageshack.us/img205/2643/blekinge.jpg> Blekinge län
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/blekinge.jpg> Blekinge län
 37402=Karlshamn
 37450,37453=Karlshamn
 37491,37492=Karlshamn
@@ -4567,7 +4567,7 @@ SubGroup=<img src=http://a.imageshack.us/img205/2643/blekinge.jpg> Blekinge län
 29480,29481=Sölvesborg
 29491,29495=Sölvesborg
 //
-SubGroup=<img src=http://a.imageshack.us/img10/2521/dalarna.jpg> Dalarnas län
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/dalarna.jpg> Dalarnas län
 79601,79602=Älvdalen
 79620,79622=Älvdalen
 79625,79626=Älvdalen
@@ -4773,7 +4773,7 @@ SubGroup=<img src=http://a.imageshack.us/img10/2521/dalarna.jpg> Dalarnas län
 78053=Vansbro
 78050=Vansbro
 //
-SubGroup=<img src=http://a.imageshack.us/img97/3292/gvleborg.jpg> Gävleborgs län
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/gvleborg.jpg> Gävleborgs län
 81695=Bollnäs
 82010=Bollnäs
 82100=Bollnäs
@@ -4989,7 +4989,7 @@ SubGroup=<img src=http://a.imageshack.us/img97/3292/gvleborg.jpg> Gävleborgs l�
 82695=Söderhamn
 82021=Söderhamn
 //
-SubGroup=<img src=http://a.imageshack.us/img827/1484/gotland.jpg> Gotlands län
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/gotland.jpg> Gotlands län
 62010=Gotland
 62024=Gotland
 62035=Gotland
@@ -5011,7 +5011,7 @@ SubGroup=<img src=http://a.imageshack.us/img827/1484/gotland.jpg> Gotlands län
 62167=Gotland
 62170,62199=Gotland
 //
-SubGroup=<img src=http://a.imageshack.us/img237/8595/halland.jpg> Hallands län
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/halland.jpg> Hallands län
 31063=Falkenberg
 31061=Falkenberg
 31101=Falkenberg
@@ -5154,7 +5154,7 @@ SubGroup=<img src=http://a.imageshack.us/img237/8595/halland.jpg> Hallands län
 43024,43025=Varberg
 43020=Varberg
 //
-SubGroup=<img src=http://img541.imageshack.us/img541/4594/jmtland.jpg> Jämtlands län
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/jmtland.jpg> Jämtlands län
 83013=Åre
 83015=Åre
 83001=Åre
@@ -5258,7 +5258,7 @@ SubGroup=<img src=http://img541.imageshack.us/img541/4594/jmtland.jpg> Jämtland
 83387=Strömsund
 83392,83396=Strömsund
 //
-SubGroup=<img src=http://img835.imageshack.us/img835/6971/jnkping.jpg> Jönköpings län
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/jnkping.jpg> Jönköpings län
 57801=Aneby
 57820,57825=Aneby
 57831,57833=Aneby
@@ -5466,7 +5466,7 @@ SubGroup=<img src=http://img835.imageshack.us/img835/6971/jnkping.jpg> Jönköpi
 57485=Vetlanda
 57491,57497=Vetlanda
 //
-SubGroup=<img src=http://a.imageshack.us/img843/9618/kalmar.jpg> Kalmar län
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/kalmar.jpg> Kalmar län
 38701=Borgholm
 38720,38724=Borgholm
 38730,38738=Borgholm
@@ -5645,7 +5645,7 @@ SubGroup=<img src=http://a.imageshack.us/img843/9618/kalmar.jpg> Kalmar län
 59883,59886=Vimmerby
 59891,59896=Vimmerby
 //
-SubGroup=<img src=http://a.imageshack.us/img686/4624/kronoberg.jpg> Kronobergs län
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/kronoberg.jpg> Kronobergs län
 34321,34324=Älmhult
 34332=Älmhult
 34334,34337=Älmhult
@@ -5761,7 +5761,7 @@ SubGroup=<img src=http://a.imageshack.us/img686/4624/kronoberg.jpg> Kronobergs l
 35591,35593=Växjö
 35594=Växjö
 //
-SubGroup=<img src=http://img138.imageshack.us/img138/4313/norrbotten.jpg> Norrbottens län
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/norrbotten.jpg> Norrbottens län
 94221,94222=Älvsbyn
 94228=Älvsbyn
 94231,94236=Älvsbyn
@@ -6002,7 +6002,7 @@ SubGroup=<img src=http://img138.imageshack.us/img138/4313/norrbotten.jpg> Norrbo
 94204=Piteå
 94640=Piteå
 //
-SubGroup=<img src=http://img408.imageshack.us/img408/7821/rebro.jpg> Örebro län
+SubGroup=Örebro län
 69675=Askersund
 69695=Askersund
 69045=Askersund
@@ -6168,7 +6168,7 @@ SubGroup=<img src=http://img408.imageshack.us/img408/7821/rebro.jpg> Örebro lä
 71930,71932=Örebro
 71991,71995=Örebro
 //
-SubGroup=<img src=http://img828.imageshack.us/img828/9575/stergtland.jpg> Östergötlands län
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/stergtland.jpg> Östergötlands län
 59721,59726=Åtvidaberg
 59730,59732=Åtvidaberg
 59740,59743=Åtvidaberg
@@ -6349,7 +6349,7 @@ SubGroup=<img src=http://img828.imageshack.us/img828/9575/stergtland.jpg> Öster
 //
 57060=Ydre
 //
-SubGroup=<img src=http://img825.imageshack.us/img825/3769/skne.jpg> Skåne län
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/skne.jpg> Skåne län
 26221,26224=Ängelholm
 26231,26235=Ängelholm
 26241,26244=Ängelholm
@@ -6961,7 +6961,7 @@ SubGroup=<img src=http://img825.imageshack.us/img825/3769/skne.jpg> Skåne län
 27180,27183=Ystad
 27191,27199=Ystad
 //
-SubGroup=<img src=http://img217.imageshack.us/img217/5795/sdermanland.jpg> Södermanlands län
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/sdermanland.jpg> Södermanlands län
 64043=Eskilstuna
 63003,63008=Eskilstuna
 63012=Eskilstuna
@@ -7089,7 +7089,7 @@ SubGroup=<img src=http://img217.imageshack.us/img217/5795/sdermanland.jpg> Söde
 64380=Vingåker
 64391,64395=Vingåker
 //
-SubGroup=<img src=http://img827.imageshack.us/img827/3772/stockholmz.jpg> Stockholms län
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/stockholmz.jpg> Stockholms län
 14707=Botkyrka
 14770,14771=Botkyrka
 14791,14792=Botkyrka
@@ -7941,7 +7941,7 @@ SubGroup=<img src=http://img827.imageshack.us/img827/3772/stockholmz.jpg> Stockh
 18591,18594=Vaxholm
 18599=Vaxholm
 //
-SubGroup=<img src=http://img405.imageshack.us/img405/5732/uppsalas.jpg> Uppsala län
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/uppsalas.jpg> Uppsala län
 81425,81427=Älvkarleby
 81470=Älvkarleby
 81494,81495=Älvkarleby
@@ -8101,7 +8101,7 @@ SubGroup=<img src=http://img405.imageshack.us/img405/5732/uppsalas.jpg> Uppsala 
 74350=Uppsala
 74392,74393=Uppsala
 //
-SubGroup=<img src=http://img228.imageshack.us/img228/8346/vrmland.jpg> Värmlands län
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/vrmland.jpg> Värmlands län
 67221,67224=Årjäng
 67229,67232=Årjäng
 67291,67295=Årjäng
@@ -8255,7 +8255,7 @@ SubGroup=<img src=http://img228.imageshack.us/img228/8346/vrmland.jpg> Värmland
 68591,68594=Torsby
 68599=Torsby
 //
-SubGroup=<img src=http://img827.imageshack.us/img827/8673/vsterbotten.jpg> Västerbottens län
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/vsterbotten.jpg> Västerbottens län
 91060=Åsele
 91050=Åsele
 91063=Åsele
@@ -8468,7 +8468,7 @@ SubGroup=<img src=http://img827.imageshack.us/img827/8673/vsterbotten.jpg> Väst
 92281,92282=Vindeln
 92291,92293=Vindeln
 //
-SubGroup=<img src=http://img121.imageshack.us/img121/8881/vsternorrland.jpg> Västernorrlands län
+SubGroup=Västernorrlands län
 84144=Ånge
 84194=Ånge
 84121,84123=Ånge
@@ -8653,7 +8653,7 @@ SubGroup=<img src=http://img121.imageshack.us/img121/8881/vsternorrland.jpg> Vä
 86181,86184=Timrå
 86191=Timrå
 //
-SubGroup=<img src=http://img832.imageshack.us/img832/8696/vstmanland.jpg> Västmanlands län
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/vstmanland.jpg> Västmanlands län
 73221,73227=Arboga
 73230,73234=Arboga
 73245,73249=Arboga
@@ -8750,7 +8750,7 @@ SubGroup=<img src=http://img832.imageshack.us/img832/8696/vstmanland.jpg> Västm
 72460,72482=Västerås
 72591,72598=Västerås
 //
-SubGroup=<img src=http://img266.imageshack.us/img266/4002/vstragtaland.jpg> Västra Götalands län
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/vstragtaland.jpg> Västra Götalands län
 44914,44915=Ale
 44950,44951=Ale
 44980=Ale
@@ -9674,7 +9674,7 @@ SubGroup=<img src=http://img266.imageshack.us/img266/4002/vstragtaland.jpg> Väs
 
 
 
-Group=<img src=http://a.imageshack.us/img205/2643/blekinge.jpg> Tätorter i Blekinge län / Communities in Blekinge County
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/blekinge.jpg> Tätorter i Blekinge län / Communities in Blekinge County
 SubGroup=Karlshamn
 37402=Asarum
 37450,37453=Asarum
@@ -9766,7 +9766,7 @@ SubGroup=Sölvesborg
 29491,29495=Sölvesborg
 
 
-Group=<img src=http://a.imageshack.us/img10/2521/dalarna.jpg> Tätorter i Dalarnas län/Communities in Dalarnas County
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/dalarna.jpg> Tätorter i Dalarnas län/Communities in Dalarnas County
 SubGroup=Älvdalen
 79601,79602=Älvdalen
 79620,79622=Älvdalen
@@ -9988,7 +9988,7 @@ SubGroup=Vansbro
 78050=Vansbro
 
 
-Group=<img src=http://a.imageshack.us/img97/3292/gvleborg.jpg> Tätorter i Gävleborgs län/Communities in Gävleborgs County
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/gvleborg.jpg> Tätorter i Gävleborgs län/Communities in Gävleborgs County
 SubGroup=Bollnäs
 81695=Åmotsbruk
 82010=Arbrå
@@ -10215,7 +10215,7 @@ SubGroup=Söderhamn
 82021=Vallvik
 
 
-Group=<img src=http://a.imageshack.us/img827/1484/gotland.jpg> Tätorter i Gotlands län/Communities in Gotlands County
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/gotland.jpg> Tätorter i Gotlands län/Communities in Gotlands County
 SubGroup=Gotland
 62010=Burgsvik
 62024=Dalhem
@@ -10239,7 +10239,7 @@ SubGroup=Gotland
 62170,62199=Visby
 
 
-Group=<img src=http://a.imageshack.us/img237/8595/halland.jpg> Tätorter i Hallands län/Communities in Hallands County
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/halland.jpg> Tätorter i Hallands län/Communities in Hallands County
 SubGroup=Falkenberg
 31063=Älvsered
 31061=Ätran
@@ -10389,7 +10389,7 @@ SubGroup=Varberg
 43020=Veddige
 
 
-Group=<img src=http://img541.imageshack.us/img541/4594/jmtland.jpg> Tätorter i Jämtlands län/Communities in Jämtlands County
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/jmtland.jpg> Tätorter i Jämtlands län/Communities in Jämtlands County
 //
 SubGroup=Åre
 83013=Åre
@@ -10503,7 +10503,7 @@ SubGroup=Strömsund
 83392,83396=Strömsund
 
 
-Group=<img src=http://img835.imageshack.us/img835/6971/jnkping.jpg> Tätorter i Jönköpings län/Communities in Jönköpings County
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/jnkping.jpg> Tätorter i Jönköpings län/Communities in Jönköpings County
 SubGroup=Aneby
 57801=Aneby
 57820,57825=Aneby
@@ -10725,7 +10725,7 @@ SubGroup=Vetlanda
 57491,57497=Vetlanda
 
 
-Group=<img src=http://a.imageshack.us/img843/9618/kalmar.jpg> Tätorter i Kalmar län/Communities in Kalmar County
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/kalmar.jpg> Tätorter i Kalmar län/Communities in Kalmar County
 SubGroup=Borgholm
 38701=Borgholm
 38720,38724=Borgholm
@@ -10916,7 +10916,7 @@ SubGroup=Vimmerby
 59883,59886=Vimmerby
 59891,59896=Vimmerby
 
-Group=<img src=http://a.imageshack.us/img686/4624/kronoberg.jpg> Tätorter i Kronobergs län/Communities in Kronobergs County
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/kronoberg.jpg> Tätorter i Kronobergs län/Communities in Kronobergs County
 SubGroup=Älmhult
 34321,34324=Älmhult
 34332=Älmhult
@@ -11042,7 +11042,7 @@ SubGroup=Växjö
 
 
 
-Group=<img src=http://img138.imageshack.us/img138/4313/norrbotten.jpg> Tätorter i Norrbottens län/Communities in Norrbottens County
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/norrbotten.jpg> Tätorter i Norrbottens län/Communities in Norrbottens County
 SubGroup=Älvsbyn
 94221,94222=Älvsbyn
 94228=Älvsbyn
@@ -11298,7 +11298,7 @@ SubGroup=Piteå
 94640=Svensbyn
 
 
-Group=<img src=http://img408.imageshack.us/img408/7821/rebro.jpg> Tätorter i Örebro län/Communities in örebro County
+Group=Tätorter i Örebro län/Communities in örebro County
 SubGroup=Askersund
 69675=Åmmeberg
 69695=Åmmeberg
@@ -11477,7 +11477,7 @@ SubGroup=Örebro
 71991,71995=vintrosa
 
 
-Group=<img src=http://img828.imageshack.us/img828/9575/stergtland.jpg> Tätorter i Östergötlands län/Communities in östergötlands County
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/stergtland.jpg> Tätorter i Östergötlands län/Communities in östergötlands County
 SubGroup=Åtvidaberg
 59721,59726=Åtvidaberg
 59730,59732=Åtvidaberg
@@ -11672,7 +11672,7 @@ SubGroup=Ydre
 57060=Österbymo
 
 
-Group=<img src=http://img825.imageshack.us/img825/3769/skne.jpg> Tätorter i Skåne län/Communities in Skåne County
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/skne.jpg> Tätorter i Skåne län/Communities in Skåne County
 SubGroup=Ängelholm
 26221,26224=Ängelholm
 26231,26235=Ängelholm
@@ -12319,7 +12319,7 @@ SubGroup=Ystad
 
 
 
-Group=<img src=http://img217.imageshack.us/img217/5795/sdermanland.jpg> Tätorter i Södermanlands län/Communities in Södermanlands County
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/sdermanland.jpg> Tätorter i Södermanlands län/Communities in Södermanlands County
 SubGroup=Eskilstuna
 64043=Ärla
 63003,63008=Eskilstuna
@@ -12458,7 +12458,7 @@ SubGroup=Vingåker
 
 
 
-Group=<img src=http://img827.imageshack.us/img827/3772/stockholmz.jpg> Tätorter i Stockholms län/Communities in Stockholms County
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/stockholmz.jpg> Tätorter i Stockholms län/Communities in Stockholms County
 SubGroup=Botkyrka
 14707=Grödinge
 14770,14771=Grödinge
@@ -13338,7 +13338,7 @@ SubGroup=Vaxholm
 
 
 
-Group=<img src=http://img405.imageshack.us/img405/5732/uppsalas.jpg> Tätorter i Uppsala län/Communities in Uppsala County
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/uppsalas.jpg> Tätorter i Uppsala län/Communities in Uppsala County
 SubGroup=Älvkarleby
 81425,81427=Älvkarleby
 81470=Älvkarleby
@@ -13508,7 +13508,7 @@ SubGroup=Uppsala
 
 
 
-Group=<img src=http://img228.imageshack.us/img228/8346/vrmland.jpg> Tätorter i Värmlands län/Communities in Värmlands County
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/vrmland.jpg> Tätorter i Värmlands län/Communities in Värmlands County
 SubGroup=Årjäng
 67221,67224=Årjäng
 67229,67232=Årjäng
@@ -13680,7 +13680,7 @@ SubGroup=Torsby
 
 
 
-Group=<img src=http://img827.imageshack.us/img827/8673/vsterbotten.jpg> Tätorter i Västerbottens län/Communities in Västerbottens County
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/vsterbotten.jpg> Tätorter i Västerbottens län/Communities in Västerbottens County
 SubGroup=Åsele
 91060=Åsele
 91050=Fredrika
@@ -13910,7 +13910,7 @@ SubGroup=Vindeln
 
 
 
-Group=<img src=http://img121.imageshack.us/img121/8881/vsternorrland.jpg> Tätorter i Västernorrlands län/Communities in Västernorrlands County
+Group=Tätorter i Västernorrlands län/Communities in Västernorrlands County
 SubGroup=Ånge
 84144=Alby
 84194=Alby
@@ -14104,7 +14104,7 @@ SubGroup=Timrå
 
 
 
-Group=<img src=http://img832.imageshack.us/img832/8696/vstmanland.jpg> Tätorter i Västmanlands län/Communities in Västmanlands County
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/vstmanland.jpg> Tätorter i Västmanlands län/Communities in Västmanlands County
 SubGroup=Arboga
 73221,73227=Arboga
 73230,73234=Arboga
@@ -14213,7 +14213,7 @@ SubGroup=Västerås
 
 
 
-Group=<img src=http://img266.imageshack.us/img266/4002/vstragtaland.jpg> Tätorter i Västra Götalands län/Communities in Västra Götaland County
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/vstragtaland.jpg> Tätorter i Västra Götalands län/Communities in Västra Götaland County
 SubGroup=Ale
 44914,44915=Alafors
 44950,44951=Alafors

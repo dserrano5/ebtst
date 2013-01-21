@@ -22,9 +22,9 @@
 
 
 
-Group=<img src=http://giulcenc.altervista.org/Bandiere/Abruzzo.gif> Comuni dell'Abruzzo
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Abruzzo.gif> Comuni dell'Abruzzo
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/ch.gif> Provincia di Chieti
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/ch.gif> Provincia di Chieti
 66040;Altino=Altino
 66040;Briccioli=Altino
 66040;Colli=Altino
@@ -679,7 +679,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/ch.gif> Provincia di C
 66010;Pian di mare=Villamagna
 66010;Serepenne=Villamagna
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/aq.gif> Provincia di L'Aquila
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/aq.gif> Provincia di L'Aquila
 67020;Acciano=Acciano
 67020;Beffi=Acciano
 67020;Roccapreturo=Acciano
@@ -1052,7 +1052,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/aq.gif> Provincia di L
 67030;Villetta Barrea=Villetta Barrea
 67030;Vittorito=Vittorito
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/pe.gif> Provincia di Pescara
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/pe.gif> Provincia di Pescara
 65020;Abbateggio=Abbateggio
 65020;Catalano=Abbateggio
 65020;Cusano=Abbateggio
@@ -1436,7 +1436,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/pe.gif> Provincia di P
 65010;Vagnola=Villa Celiera
 
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/te.gif> Provincia di Teramo
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/te.gif> Provincia di Teramo
 64011=Alba Adriatica
 64010;Ancarano=Ancarano
 64010;Casette di Ancarano=Ancarano
@@ -1849,9 +1849,9 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/te.gif> Provincia di T
 64010;Villa Franca=Valle Castellana
 64010;Villa franca=Valle Castellana
 
-Group=<img src=http://giulcenc.altervista.org/Bandiere/Basilicata.gif> Comuni della Basilicata
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Basilicata.gif> Comuni della Basilicata
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/mt.gif> Provincia di Matera
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/mt.gif> Provincia di Matera
 75011=Accettura
 75010;Aliano=Aliano
 75010;Alianello=Aliano
@@ -1944,7 +1944,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/mt.gif> Provincia di M
 75020;Caprarico=Tursi
 75029=Valsinni
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/pz.gif> Provincia di Potenza
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/pz.gif> Provincia di Potenza
 85010;Abriola=Abriola
 85010;Il Palazzo=Abriola
 85010;Palazzo=Abriola
@@ -2411,9 +2411,9 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/pz.gif> Provincia di P
 85040;Zarafa=Viggianello
 85059=Viggiano
 
-Group=<img src=http://giulcenc.altervista.org/Bandiere/Calabria.gif> Comuni della Calabria
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Calabria.gif> Comuni della Calabria
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/cz.gif> Provincia di Catanzaro
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/cz.gif> Provincia di Catanzaro
 88055;Albi=Albi
 88055;Buturo=Albi
 88055;San Giovanni=Albi
@@ -2660,7 +2660,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/cz.gif> Provincia di C
 88050;Vallefiorita=Vallefiorita
 88050;Zagarise=Zagarise
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/cs.gif> Provincia di Cosenza
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/cs.gif> Provincia di Cosenza
 87010;Acquaformosa=Acquaformosa
 87020;Acquappesa=Acquappesa
 87020;Intavolata=Acquappesa
@@ -3930,7 +3930,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/cs.gif> Provincia di C
 87040;Padula=Zumpano
 87040;Cannuzze=Zumpano
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/kr.gif> Provincia di Crotone
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/kr.gif> Provincia di Crotone
 88824=Belvedere di Spinello
 88833;Caccuri=Caccuri
 88833;Acquafredda=Caccuri
@@ -3997,7 +3997,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/kr.gif> Provincia di C
 88823=Umbriatico
 88819=Verzino
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/rc.gif> Provincia di Reggio Calabria
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/rc.gif> Provincia di Reggio Calabria
 89030;Africo=Africo
 89040;Agnana Calabra=Agnana Calabra
 89040;Agnana calabra=Agnana Calabra
@@ -4415,7 +4415,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/rc.gif> Provincia di R
 89010;Varapodio=Varapodio
 89018=Villa San Giovanni
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/vv.gif> Provincia di Vibo Valentia
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/vv.gif> Provincia di Vibo Valentia
 89832;Acquaro=Acquaro
 89832;Budellara=Acquaro
 89832;Camerino=Acquaro
@@ -4637,9 +4637,9 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/vv.gif> Provincia di V
 89867;Zungri=Zungri
 89867;Papaglionti=Zungri
 
-Group=<img src=http://giulcenc.altervista.org/Bandiere/Campania.gif> Comuni della Campania
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Campania.gif> Comuni della Campania
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/av.gif> Provincia di Avellino
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/av.gif> Provincia di Avellino
 83020;Aiello del Sabato=Aiello del Sabato
 83020;Aiello del sabato=Aiello del Sabato
 83020;Aiello=Aiello del Sabato
@@ -5053,7 +5053,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/av.gif> Provincia di A
 83050;Tavernole=Volturara Irpina
 83030;Zungoli=Zungoli
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/bn.gif> Provincia di Benevento
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/bn.gif> Provincia di Benevento
 82011;Airola=Airola
 82031=Amorosi
 82021;Apice=Apice
@@ -5816,7 +5816,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/bn.gif> Provincia di B
 82030;Torrepalazzo=Torrecuso
 82038=Vitulano
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/ce.gif> Provincia di Caserta
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/ce.gif> Provincia di Caserta
 81010;Ailano=Ailano
 81011=Alife
 81012=Alvignano
@@ -6187,7 +6187,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/ce.gif> Provincia di C
 81039=Villa Literno
 81041;Vitulazio=Vitulazio
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/na.gif> Provincia di Napoli
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/na.gif> Provincia di Napoli
 80011=Acerra
 80021=Afragola
 80051=Agerola
@@ -6413,7 +6413,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/na.gif> Provincia di N
 80040;Volla=Volla
 
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/sa.gif> Provincia di Salerno
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/sa.gif> Provincia di Salerno
 84042=Acerno
 84043=Agropoli
 84044=Albanella
@@ -6957,9 +6957,9 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/sa.gif> Provincia di S
 84079=Vibonati
 84019=Vietri sul Mare
 
-Group=<img src=http://giulcenc.altervista.org/Bandiere/Emilia-Romagna.gif> Comuni dell'Emilia Romagna
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Emilia-Romagna.gif> Comuni dell'Emilia Romagna
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/bo.gif> Provincia di Bologna
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/bo.gif> Provincia di Bologna
 40011=Anzola dell'Emilia
 40050;Argelato=Argelato
 40050;Casadio=Argelato
@@ -7109,7 +7109,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/bo.gif> Provincia di B
 40038=Vergato
 40069=Zola Predosa
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/fe.gif> Provincia di Ferrara
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/fe.gif> Provincia di Ferrara
 44010,44011=Argenta
 44013,44014=Argenta
 44016=Argenta
@@ -7261,7 +7261,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/fe.gif> Provincia di F
 44010;Monte Santo=Voghiera
 44010;Monte santo=Voghiera
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/fc.gif> Provincia di Forlì-Cesena
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/fc.gif> Provincia di Forlì-Cesena
 47021=Bagno di Romagna
 47026=Bagno di Romagna
 47020;Selvapiana=Bagno di Romagna
@@ -7450,7 +7450,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/fc.gif> Provincia di F
 47020;Alfero=Verghereto
 47020;Balze=Verghereto
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/mo.gif> Provincia di Modena
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/mo.gif> Provincia di Modena
 41030;Bastiglia=Bastiglia
 41030;Bomporto=Bomporto
 41030;Gorghetto=Bomporto
@@ -7515,7 +7515,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/mo.gif> Provincia di M
 41058=Vignola
 41059=Zocca
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/pr.gif> Provincia di Parma
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/pr.gif> Provincia di Parma
 43051=Albareto
 43032=Bardi
 43041=Bedonia
@@ -7635,7 +7635,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/pr.gif> Provincia di P
 43010;Pieve Ottoville=Zibello
 43010;Pieve ottoville=Zibello
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/pc.gif> Provincia di Piacenza
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/pc.gif> Provincia di Piacenza
 29010;Agazzano=Agazzano
 29010;Bastardina=Agazzano
 29010;Sarturano=Agazzano
@@ -7847,7 +7847,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/pc.gif> Provincia di P
 29010;Vicobarone=Ziano Piacentino
 29010;Vicomarino=Ziano Piacentino
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/ra.gif> Provincia di Ravenna
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/ra.gif> Provincia di Ravenna
 48011=Alfonsine
 48012=Bagnacavallo
 48020;Traversara=Bagnacavallo
@@ -7961,7 +7961,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/ra.gif> Provincia di R
 48020;Sant'agata sul santerno=Sant'Agata sul Santerno
 48027=Solarolo
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/re.gif> Provincia di Reggio nell'Emilia
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/re.gif> Provincia di Reggio nell'Emilia
 42020;Albinea=Albinea
 42020;Borzano=Albinea
 42020;Botteghe=Albinea
@@ -8063,7 +8063,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/re.gif> Provincia di R
 42030;Minozzo=Villa Minozzo
 42030;Sologno=Villa Minozzo
 
-SubGroup=<img src=http://img408.imageshack.us/img408/2941/rnzt2.gif> Provincia di Rimini
+SubGroup=Provincia di Rimini
 47814=Bellaria-Igea Marina
 47861=Casteldelci
 61010;Casteldelci=Casteldelci
@@ -8153,9 +8153,9 @@ SubGroup=<img src=http://img408.imageshack.us/img408/2941/rnzt2.gif> Provincia d
 47825=Torriana
 47826=Verucchio
 
-Group=<img src=http://giulcenc.altervista.org/Bandiere/Friuli-Venezia-Giulia.gif> Comuni del Friuli Venezia Giulia
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Friuli-Venezia-Giulia.gif> Comuni del Friuli Venezia Giulia
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/go.gif> Provincia di Gorizia
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/go.gif> Provincia di Gorizia
 34070;Capriva del Friuli=Capriva del Friuli
 34070;Capriva del friuli=Capriva del Friuli
 34070;Capriva=Capriva del Friuli
@@ -8359,7 +8359,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/go.gif> Provincia di G
 34070;Turriaco=Turriaco
 34070;Villesse=Villesse
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/pn.gif> Provincia di Pordenone
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/pn.gif> Provincia di Pordenone
 33080;Andreis=Andreis
 33080;Alcheda=Andreis
 33080;Bosplans=Andreis
@@ -8582,7 +8582,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/pn.gif> Provincia di P
 33080;S. Valentino=Zoppola
 33080;Poincicco di Zoppola=Zoppola
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/ts.gif> Provincia di Trieste
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/ts.gif> Provincia di Trieste
 34011=Duino-Aurisina / Devin-Nabrežina
 34016=Monrupino / Repentabor
 34015=Muggia / Milje
@@ -8593,7 +8593,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/ts.gif> Provincia di T
 34014=Trieste / Trst
 34017=Trieste / Trst
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/ud.gif> Provincia di Udine
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/ud.gif> Provincia di Udine
 33041=Aiello del Friuli
 33020;Amaro=Amaro
 33021=Ampezzo
@@ -8957,9 +8957,9 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/ud.gif> Provincia di U
 33040;Visco=Visco
 33020;Zuglio=Zuglio
 
-Group=<img src=http://giulcenc.altervista.org/Bandiere/Lazio.gif> Comuni del Lazio
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Lazio.gif> Comuni del Lazio
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/fr.gif> Provincia di Frosinone
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/fr.gif> Provincia di Frosinone
 03040;Acquafondata=Acquafondata
 03040;Casalcassinese=Acquafondata
 03010;Acuto=Acuto
@@ -9219,7 +9219,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/fr.gif> Provincia di F
 03020;Villa=Villa Santo Stefano
 03040;Viticuso=Viticuso
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/lt.gif> Provincia di Latina
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/lt.gif> Provincia di Latina
 04011=Aprilia
 04010;Bassiano=Bassiano
 04020;Campodimele=Campodimele
@@ -9297,7 +9297,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/lt.gif> Provincia di L
 04019=Terracina
 04020;Ventotene=Ventotene
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/ri.gif> Provincia di Rieti
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/ri.gif> Provincia di Rieti
 02011=Accumoli
 02012=Amatrice
 02013=Antrodoco
@@ -9487,7 +9487,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/ri.gif> Provincia di R
 02020;Varco sabino=Varco Sabino
 02020;Varco=Varco Sabino
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/rm.gif> Provincia di Roma
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/rm.gif> Provincia di Roma
 00021=Affile
 00020;Agosta=Agosta
 00020;Madonna della Pace=Agosta
@@ -9878,7 +9878,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/rm.gif> Provincia di R
 00030;Valle Martella=Zagarolo
 00030;Valle martella=Zagarolo
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/vt.gif> Provincia di Viterbo
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/vt.gif> Provincia di Viterbo
 01021=Acquapendente
 01010;Arlena di Castro=Arlena di Castro
 01010;Arlena di castro=Arlena di Castro
@@ -10012,9 +10012,9 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/vt.gif> Provincia di V
 01030;Pallone=Vitorchiano
 01030;Paparano=Vitorchiano
 
-Group=<img src=http://giulcenc.altervista.org/Bandiere/Liguria.gif> Comuni della Liguria
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Liguria.gif> Comuni della Liguria
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/ge.gif> Provincia di Genova
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/ge.gif> Provincia di Genova
 16011=Arenzano
 16030;Avegno=Avegno
 16030;Testana=Avegno
@@ -10147,7 +10147,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/ge.gif> Provincia di G
 16030;Zoagli=Zoagli
 16030;Sant'Anna=Zoagli
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/im.gif> Provincia di Imperia
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/im.gif> Provincia di Imperia
 18030;Airole=Airole
 18035;Apricale=Apricale
 18020;Aquila di Arroscia=Aquila di Arroscia
@@ -10254,7 +10254,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/im.gif> Provincia di I
 18010;Villa Faraldi=Villa Faraldi
 18010;Villa faraldi=Villa Faraldi
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/sp.gif> Provincia di La Spezia
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/sp.gif> Provincia di La Spezia
 19030;Ameglia=Ameglia
 19030;Bocca di Magra=Ameglia
 19030;Fiumaretta=Ameglia
@@ -10449,7 +10449,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/sp.gif> Provincia di L
 19020;Valgiuncata=Zignago
 19020;Vezzola=Zignago
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/sv.gif> Provincia di Savona
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/sv.gif> Provincia di Savona
 17021=Alassio
 17031=Albenga
 17011=Albisola Superiore
@@ -10544,9 +10544,9 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/sv.gif> Provincia di S
 17038=Villanova d'Albenga
 17039=Zuccarello
 
-Group=<img src=http://giulcenc.altervista.org/Bandiere/Lombardia.gif> Comuni della Lombardia
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Lombardia.gif> Comuni della Lombardia
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/bg.gif> Provincia di Bergamo
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/bg.gif> Provincia di Bergamo
 24060;Adrara San Martino=Adrara San Martino
 24060;Adrara S. Martino=Adrara San Martino
 24060;Adrara san Martino=Adrara San Martino
@@ -11582,7 +11582,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/bg.gif> Provincia di B
 24050;Padergnone=Zanica
 24019=Zogno
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/bs.gif> Provincia di Brescia
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/bs.gif> Provincia di Brescia
 25010;Acquafredda=Acquafredda
 25030;Adro=Adro
 25030;Torbiato=Adro
@@ -12205,7 +12205,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/bs.gif> Provincia di B
 25050;Cusato=Zone
 25050;Rucca=Zone
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/co.gif> Provincia di Como
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/co.gif> Provincia di Como
 22031=Albavilla
 22032=Albese con Cassano
 22070;Albiolo=Albiolo
@@ -12785,7 +12785,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/co.gif> Provincia di C
 22079=Villa Guardia
 22020;Zelbio=Zelbio
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/cr.gif> Provincia di Cremona
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/cr.gif> Provincia di Cremona
 26020;Acquanegra Cremonese=Acquanegra Cremonese
 26020;Acquanegra cremonese=Acquanegra Cremonese
 26020;Acquanegra=Acquanegra Cremonese
@@ -13363,7 +13363,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/cr.gif> Provincia di C
 26030;Gattarolo cappellino=Voltido
 26030;Recorfano=Voltido
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/lc.gif> Provincia di Lecco
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/lc.gif> Provincia di Lecco
 23821=Abbadia Lariana
 23881=Airuno
 23841=Annone di Brianza
@@ -13544,7 +13544,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/lc.gif> Provincia di L
 23822;Vestreno=Vestreno
 23897=Viganò
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/lo.gif> Provincia di Lodi
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/lo.gif> Provincia di Lodi
 26834;Abbadia Cerreto=Abbadia Cerreto
 26834;Abbadia cerreto=Abbadia Cerreto
 26834;Isella=Abbadia Cerreto
@@ -13668,7 +13668,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/lo.gif> Provincia di L
 26818=Villanova del Sillaro
 26839=Zelo Buon Persico
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/mn.gif> Provincia di Mantova
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/mn.gif> Provincia di Mantova
 46011=Acquanegra sul Chiese
 46041=Asola
 46040;Castelnuovo Asolano=Asola
@@ -14231,7 +14231,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/mn.gif> Provincia di M
 46030;Virgiliana=Virgilio
 46049=Volta Mantovana
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/mi.gif> Provincia di Milano
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/mi.gif> Provincia di Milano
 20081;Abbiategrasso=Abbiategrasso
 20080;Albairate=Albairate
 20020;Arconate=Arconate
@@ -14660,7 +14660,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/mi.gif> Provincia di M
 20080;San Pietro=Zibido San Giacomo
 20080;San pietro=Zibido San Giacomo
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/mb.gif> Provincia di Monza e della Brianza
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/mb.gif> Provincia di Monza e della Brianza
 20041=Agrate Brianza
 20864=Agrate Brianza
 20040;Aicurzio=Aicurzio
@@ -14877,7 +14877,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/mb.gif> Provincia di M
 20059=Vimercate
 20871=Vimercate
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/pv.gif> Provincia di Pavia
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/pv.gif> Provincia di Pavia
 27020;Alagna=Alagna
 27040;Albaredo Arnaboldi=Albaredo Arnaboldi
 27040;Albaredo arnaboldi=Albaredo Arnaboldi
@@ -16297,7 +16297,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/pv.gif> Provincia di P
 27030;Gerone=Zinasco
 27030;Sairano=Zinasco
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/so.gif> Provincia di Sondrio
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/so.gif> Provincia di Sondrio
 23010;Albaredo per San Marco=Albaredo per San Marco
 23010;Albaredo S. Marco=Albaredo per San Marco
 23010;Albaredo san marco=Albaredo per San Marco
@@ -16728,7 +16728,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/so.gif> Provincia di S
 23030;Stazzona=Villa di Tirano
 23030;Motta=Villa di Tirano
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/va.gif> Provincia di Varese
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/va.gif> Provincia di Varese
 21010;Agra=Agra
 21010;Bedorè=Agra
 21010;Bedore'=Agra
@@ -17541,9 +17541,9 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/va.gif> Provincia di V
 21010;Vizzola=Vizzola Ticino
 21010;Castelnovate=Vizzola Ticino
 
-Group=<img src=http://giulcenc.altervista.org/Bandiere/Marche.gif> Comuni delle Marche
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Marche.gif> Comuni delle Marche
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/an.gif> Provincia di Ancona
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/an.gif> Provincia di Ancona
 60020;Agugliano=Agugliano
 60020;Castel d'Emilio=Agugliano
 60020;Castel D'Emilio=Agugliano
@@ -17722,7 +17722,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/an.gif> Provincia di A
 60020;S. Lorenzo=Sirolo
 60039=Staffolo
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/ap.gif> Provincia di Ascoli Piceno
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/ap.gif> Provincia di Ascoli Piceno
 63041=Acquasanta Terme
 63095=Acquasanta Terme
 63030;Acquaviva Picena=Acquaviva Picena
@@ -18098,7 +18098,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/ap.gif> Provincia di A
 63040;Villa Curti=Venarotta
 63091=Venarotta
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/fm.gif> Provincia di Fermo
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/fm.gif> Provincia di Fermo
 63017;Altidona=Altidona
 63017;Marina di Altidona=Altidona
 63017;marina di Altidona=Altidona
@@ -18457,7 +18457,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/fm.gif> Provincia di F
 63010;Villa Zara=Torre San Patrizio
 63814=Torre San Patrizio
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/mc.gif> Provincia di Macerata
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/mc.gif> Provincia di Macerata
 62035;Acquacanina=Acquacanina
 62035;Campicino=Acquacanina
 62035;Meriggio=Acquacanina
@@ -18809,7 +18809,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/mc.gif> Provincia di M
 62039;Borgo S.Antonio=Visso
 62039;Borgo S. Antonio=Visso
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/pu.gif> Provincia di Pesaro e Urbino
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/pu.gif> Provincia di Pesaro e Urbino
 61041=Acqualagna
 61042=Apecchio
 61020;Auditore=Auditore
@@ -19074,9 +19074,9 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/pu.gif> Provincia di P
 61049;San Lorenzo in Torre=Urbania
 61029=Urbino
 
-Group=<img src=http://giulcenc.altervista.org/Bandiere/Molise.gif> Comuni del Molise
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Molise.gif> Comuni del Molise
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/cb.gif> Provincia di Campobasso
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/cb.gif> Provincia di Campobasso
 86030;Acquaviva Collecroce=Acquaviva Collecroce
 86030;Acquaviva collecroce=Acquaviva Collecroce
 86030;Acquaviva=Acquaviva Collecroce
@@ -19234,7 +19234,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/cb.gif> Provincia di C
 86049=Ururi
 86019=Vinchiaturo
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/is.gif> Provincia di Isernia
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/is.gif> Provincia di Isernia
 86080;Acquaviva d'Isernia=Acquaviva d'Isernia
 86080;Acquaviva d'isernia=Acquaviva d'Isernia
 86080;Acquaviva=Acquaviva d'Isernia
@@ -19395,9 +19395,9 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/is.gif> Provincia di I
 86089=Vastogirardi
 86079=Venafro
 
-Group=<img src=http://giulcenc.altervista.org/Bandiere/Piemonte.gif> Comuni del Piemonte
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Piemonte.gif> Comuni del Piemonte
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/al.gif> Provincia di Alessandria
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/al.gif> Provincia di Alessandria
 15011=Acqui Terme
 15060;Albera Ligure=Albera Ligure
 15060;Albera ligure=Albera Ligure
@@ -20651,7 +20651,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/al.gif> Provincia di A
 15060;Passo della Bocchetta=Voltaggio
 15060;Passo della bocchetta=Voltaggio
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/at.gif> Provincia di Asti
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/at.gif> Provincia di Asti
 14041=Agliano Terme
 14022;Albugnano=Albugnano
 14022;Campolungo=Albugnano
@@ -21769,7 +21769,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/at.gif> Provincia di A
 14040;Vinchio=Vinchio
 14040;Noche=Vinchio
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/bi.gif> Provincia di Biella
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/bi.gif> Provincia di Biella
 13861=Ailoche
 13811;Andorno Micca=Andorno Micca
 13811;Andorno micca=Andorno Micca
@@ -22192,7 +22192,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/bi.gif> Provincia di B
 13888;Vermogno=Zubiena
 13848=Zumaglia
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/cn.gif> Provincia di Cuneo
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/cn.gif> Provincia di Cuneo
 12021=Acceglio
 12010;Aisone=Aisone
 12010;Forani=Aisone
@@ -24038,7 +24038,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/cn.gif> Provincia di C
 12020;Tetti Falchi=Vottignasco
 12020;Tetti falchi=Vottignasco
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/no.gif> Provincia di Novara
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/no.gif> Provincia di Novara
 28010;Agrate Conturbia=Agrate Conturbia
 28010;Agrate conturbia=Agrate Conturbia
 28010;Agrate=Agrate Conturbia
@@ -24319,7 +24319,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/no.gif> Provincia di N
 28060;Cascinotti=Vinzaglio
 28060;Corona=Vinzaglio
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/to.gif> Provincia di Torino
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/to.gif> Provincia di Torino
 10011=Agliè
 10060;Airasca=Airasca
 10070;Ala di Stura=Ala di Stura
@@ -25766,7 +25766,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/to.gif> Provincia di T
 10040;Gerbole-Zucche=Volvera
 10040;Zucche=Volvera
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/vb.gif> Provincia del Verbano-Cusio-Ossola
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/vb.gif> Provincia del Verbano-Cusio-Ossola
 28841;Antrona Schieranco=Antrona Schieranco
 28841;Antrona schieranco=Antrona Schieranco
 28841;Antrona=Antrona Schieranco
@@ -25937,7 +25937,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/vb.gif> Provincia del 
 28856;Londrago=Villette
 28805=Vogogna
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/vc.gif> Provincia di Vercelli
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/vc.gif> Provincia di Vercelli
 13021=Alagna Valsesia
 13030;Albano Vercellese=Albano Vercellese
 13030;Albano vercellese=Albano Vercellese
@@ -26344,9 +26344,9 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/vc.gif> Provincia di V
 13020;Sassiglioni=Vocca
 13020;Mogliane=Vocca
 
-Group=<img src=http://giulcenc.altervista.org/Bandiere/Puglia.gif> Comuni della Puglia
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Puglia.gif> Comuni della Puglia
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/ba.gif> Provincia di Bari
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/ba.gif> Provincia di Bari
 70021=Acquaviva delle Fonti
 70010;Adelfia=Adelfia
 70010;Adelfia Montrone=Adelfia
@@ -26442,7 +26442,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/ba.gif> Provincia di B
 70010;Valenzano=Valenzano
 70010;Lamie=Valenzano
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/bat.gif> Provincia di Barletta - Andria - Trani
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/bat.gif> Provincia di Barletta - Andria - Trani
 70031=Andria
 76123=Andria
 70051=Barletta
@@ -26465,7 +26465,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/bat.gif> Provincia di 
 71049=Trinitapoli
 76015=Trinitapoli
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/br.gif> Provincia di Brindisi
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/br.gif> Provincia di Brindisi
 72100=Brindisi
 72011;Casale=Brindisi
 72020;Tuturano=Brindisi
@@ -26526,7 +26526,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/br.gif> Provincia di B
 72028=Torre Santa Susanna
 72029=Villa Castelli
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/fg.gif> Provincia di Foggia
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/fg.gif> Provincia di Foggia
 71021=Accadia
 71031=Alberona
 71020;Anzano di Puglia=Anzano di Puglia
@@ -26719,7 +26719,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/fg.gif> Provincia di F
 71030;Foggiamare=Zapponeta
 71030;Fonterosa=Zapponeta
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/le.gif> Provincia di Lecce
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/le.gif> Provincia di Lecce
 73040;Acquarica del Capo=Acquarica del Capo
 73040;Acquarica del capo=Acquarica del Capo
 73040;Acquarica=Acquarica del Capo
@@ -26974,7 +26974,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/le.gif> Provincia di L
 73020;Struda'=Vernole
 73010;Zollino=Zollino
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/ta.gif> Provincia di Taranto
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/ta.gif> Provincia di Taranto
 74020;Avetrana=Avetrana
 74020;Urmo Belsito=Avetrana 
 74020;Urmo belsito=Avetrana
@@ -27077,9 +27077,9 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/ta.gif> Provincia di T
 74020;Trullo di Mare=Torricella
 74020;Trullo di mare=Torricella
 
-Group=<img src=http://giulcenc.altervista.org/Bandiere/Sardegna.gif> Comuni della Sardegna
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Sardegna.gif> Comuni della Sardegna
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/ca.gif> Provincia di Cagliari
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/ca.gif> Provincia di Cagliari
 09040;Armungia=Armungia
 09032=Assemini
 09040;Ballao=Ballao
@@ -27236,7 +27236,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/ca.gif> Provincia di C
 09034=Villasor
 09010;Villaspeciosa=Villaspeciosa
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/ci.gif> Provincia di Carbonia-Iglesias
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/ci.gif> Provincia di Carbonia-Iglesias
 09010;Buggerru=Buggerru
 09011=Calasetta
 09013=Carbonia
@@ -27381,7 +27381,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/ci.gif> Provincia di C
 09010;Is cotzas=Villaperuccio
 09010;Cotzas=Villaperuccio
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/vs.gif> Provincia del Medio Campidano
+SubGroup=Provincia del Medio Campidano
 09031=Arbus
 09021=Barumini
 09020;Collinas=Collinas
@@ -27416,7 +27416,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/vs.gif> Provincia del 
 09020;Villanovaforru=Villanovaforru
 09020;Villanovafranca=Villanovafranca
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/nu.gif> Provincia di Nuoro
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/nu.gif> Provincia di Nuoro
 08031=Aritzo
 08030;Atzara=Atzara
 08030;Austis=Austis
@@ -27508,7 +27508,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/nu.gif> Provincia di N
 08020;Sos rios=Torpè
 08020;Brunella=Torpè
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/og.gif> Provincia dell'Ogliastra
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/og.gif> Provincia dell'Ogliastra
 08040;Arzana=Arzana
 08042=Bari Sardo
 08040;Baunei=Baunei
@@ -27548,7 +27548,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/og.gif> Provincia dell
 08040;Ussassai=Ussassai
 08049=Villagrande Strisaili
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/ot.gif> Provincia di Olbia-Tempio
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/ot.gif> Provincia di Olbia-Tempio
 07020;Aggius=Aggius
 07020;Bonaita=Aggius
 07020;Aglientu=Aglientu
@@ -27720,7 +27720,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/ot.gif> Provincia di O
 07029=Tempio Pausania
 07038=Trinità d'Agultu e Vignola
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/or.gif> Provincia di Oristano
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/or.gif> Provincia di Oristano
 09071=Abbasanta
 09070;Aidomaggiore=Aidomaggiore
 09090;Albagiara=Albagiara
@@ -27902,7 +27902,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/or.gif> Provincia di O
 09070;S. Lucia=Zeddiani
 09070;Zerfaliu=Zerfaliu
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/ss.gif> Provincia di Sassari
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/ss.gif> Provincia di Sassari
 07041=Alghero
 07010;Anela=Anela
 07010;Ardara=Ardara
@@ -28060,9 +28060,9 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/ss.gif> Provincia di S
 07030;Viddalba=Viddalba
 07019=Villanova Monteleone
 
-Group=<img src=http://giulcenc.altervista.org/Bandiere/Sicilia.gif> Comuni della Sicilia
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Sicilia.gif> Comuni della Sicilia
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/ag.gif> Provincia di Agrigento
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/ag.gif> Provincia di Agrigento
 92100=Agrigento
 92010;Giardina Gallotta=Agrigento
 92010;Giardina gallotta=Agrigento
@@ -28173,7 +28173,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/ag.gif> Provincia di A
 92020;Villafranca sicula=Villafranca Sicula
 92020;Villafranca=Villafranca Sicula
 	
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/cl.gif> Provincia di Caltanissetta
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/cl.gif> Provincia di Caltanissetta
 93010;Acquaviva Platani=Acquaviva Platani
 93010;Acquaviva platani=Acquaviva Platani
 93010;Acquaviva=Acquaviva Platani
@@ -28250,7 +28250,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/cl.gif> Provincia di C
 93010;Vallelunga=Vallelunga Pratameno
 93010;Villalba=Villalba
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/ct.gif> Provincia di Catania
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/ct.gif> Provincia di Catania
 95020;Aci Bonaccorsi=Aci Bonaccorsi
 95020;Aci bonaccorsi=Aci Bonaccorsi
 95020;Bonaccorsi=Aci Bonaccorsi
@@ -28445,7 +28445,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/ct.gif> Provincia di C
 95049=Vizzini
 95019=Zafferana Etnea
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/en.gif> Provincia di Enna
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/en.gif> Provincia di Enna
 94011=Agira
 94010;Aidone=Aidone
 94010;Baccarato=Aidone
@@ -28481,7 +28481,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/en.gif> Provincia di E
 94010;Villarosa=Villarosa
 94010;Villapriolo=Villarosa
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/me.gif> Provincia di Messina
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/me.gif> Provincia di Messina
 98070;Acquedolci=Acquedolci
 98070;Alcara Li Fusi=Alcara Li Fusi
 98070;Alcara li Fusi=Alcara Li Fusi
@@ -28988,7 +28988,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/me.gif> Provincia di M
 98040;Divieto=Villafranca Tirrena
 98040;Serra=Villafranca Tirrena
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/pa.gif> Provincia di Palermo
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/pa.gif> Provincia di Palermo
 90021=Alia
 90020;Alimena=Alimena
 90020;Aliminusa=Aliminusa
@@ -29222,7 +29222,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/pa.gif> Provincia di P
 90039=Villabate
 90030;Villafrati=Villafrati
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/rg.gif>Provincia di Ragusa
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/rg.gif>Provincia di Ragusa
 97011=Acate
 97012=Chiaramonte Gulfi
 97010;Roccazzo=Chiaramonte Gulfi
@@ -29270,7 +29270,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/rg.gif>Provincia di Ra
 97019=Vittoria
 97010;Scoglitti=Vittoria
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/sr.gif> Provincia di Siracusa
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/sr.gif> Provincia di Siracusa
 96011=Augusta
 96010;Brucoli=Augusta
 96012=Avola
@@ -29339,7 +29339,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/sr.gif> Provincia di S
 96010;Solarino=Solarino
 96010;Sortino=Sortino
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/ar.gif> Provincia di Trapani
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/ar.gif> Provincia di Trapani
 91011=Alcamo
 91012=Buseto Palizzolo
 91010;Bruca=Buseto Palizzolo
@@ -29458,9 +29458,9 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/ar.gif> Provincia di T
 91010;Sant'andrea=Valderice
 91010;Vita=Vita
 
-Group=<img src=http://giulcenc.altervista.org/Bandiere/Toscana.gif> Comuni della Toscana
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Toscana.gif> Comuni della Toscana
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/ar.gif> Provincia di Arezzo
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/ar.gif> Provincia di Arezzo
 52031=Anghiari
 52030;San Leo=Anghiari
 52030;San leo=Anghiari
@@ -29718,7 +29718,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/ar.gif> Provincia di A
 52020;Campogialli=Terranuova Bracciolini
 52020;Malva=Terranuova Bracciolini
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/fi.gif> Provincia di Firenze
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/fi.gif> Provincia di Firenze
 50011,50012=Bagno a Ripoli
 50015=Bagno a Ripoli
 50010;Candeli=Bagno a Ripoli
@@ -30029,7 +30029,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/fi.gif> Provincia di F
 50053;Spicchio=Vinci
 50050;Vitolini=Vinci
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/gr.gif> Provincia di Grosseto
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/gr.gif> Provincia di Grosseto
 58031=Arcidosso
 58030;Bagnoli=Arcidosso
 58030;Montelaterone=Arcidosso
@@ -30224,7 +30224,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/gr.gif> Provincia di G
 58010;San valentino=Sorano
 58010;Sovana=Sorano
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/li.gif> Provincia di Livorno
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/li.gif> Provincia di Livorno
 57020;Bibbona=Bibbona
 57020;La California=Bibbona
 57020;La california=Bibbona
@@ -30316,7 +30316,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/li.gif> Provincia di L
 57020;Sassetta=Sassetta
 57028=Suvereto
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/lu.gif> Provincia di Lucca
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/lu.gif> Provincia di Lucca
 55011=Altopascio
 55010;Badia Pozzeveri=Altopascio
 55010;Badia pozzeveri=Altopascio
@@ -30608,7 +30608,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/lu.gif> Provincia di L
 55030;Pianacci=Villa Collemandina
 55030;Sassorosso=Villa Collemandina
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/ms.gif> Provincia di Massa-Carrara
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/ms.gif> Provincia di Massa-Carrara
 54011=Aulla
 54020;Pallerone=Aulla
 54020;Gabbiana=Bagnone
@@ -30678,7 +30678,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/ms.gif> Provincia di M
 54020;Chiesa di Rossano=Zeri
 54029=Zeri
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/pi.gif> Provincia di Pisa
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/pi.gif> Provincia di Pisa
 56031=Bientina
 56032=Buti
 56011;Calci=Calci
@@ -31013,7 +31013,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/pi.gif> Provincia di P
 56010;Uliveto=Vicopisano
 56048=Volterra
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/pt.gif> Provincia di Pistoia
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/pt.gif> Provincia di Pistoia
 51021=Abetone
 51031=Agliana
 51030;Ferruccia=Agliana
@@ -31202,7 +31202,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/pt.gif> Provincia di P
 51017;Sant'allucio=Uzzano
 51017;Torricchio=Uzzano
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/po.gif> Provincia di Prato
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/po.gif> Provincia di Prato
 59025=Cantagallo
 50040;Cantagallo=Cantagallo
 50040;Carmignanello=Cantagallo
@@ -31244,7 +31244,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/po.gif> Provincia di P
 50040;Mercatale=Vernio
 50040;Cavarzano=Vernio
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/si.gif> Provincia di Siena
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/si.gif> Provincia di Siena
 53021=Abbadia San Salvatore
 53041=Asciano
 53020;Chiusure=Asciano
@@ -31426,12 +31426,12 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/si.gif> Provincia di S
 53020;Castelmuzio=Trequanda
 53020;Petroio=Trequanda
 
-Group=<img src=http://giulcenc.altervista.org/Bandiere/Trentino-Alto-Adige.gif> Comuni del Trentino - AltoAdige/SüdTirol
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Trentino-Alto-Adige.gif> Comuni del Trentino - AltoAdige/SüdTirol
 
 // Ho indicato il nome ufficiale dei vari comuni in italiano e tedesco, secondo l'ordine in cui le due lingue sono maggiormente o minormente diffuse nella località.
 // Nei casi in cui ho indicato anche il nome in ladino, significa che è la lingua maggiormente parlata.
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/bz.gif> Provincia Autonoma di Bolzano / Autonome Provinz Bozen - Südtirol
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/bz.gif> Provincia Autonoma di Bolzano / Autonome Provinz Bozen - Südtirol
 39040;Aldino=Aldein / Aldino
 39040;Olmi=Aldein / Aldino
 39040;Redagno=Aldein / Aldino
@@ -33719,7 +33719,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/bz.gif> Provincia Auto
 39049;Tunes / Thuins=Sterzing / Vipiteno
 39049;Thuins / Tunes=Sterzing / Vipiteno
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/tn.gif> Provincia Autonoma di Trento
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/tn.gif> Provincia Autonoma di Trento
 38061=Ala
 38041=Albiano
 38060;Aldeno=Aldeno
@@ -35275,8 +35275,8 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/tn.gif> Provincia Auto
 38079;Giugia=Zuclo
 38079;Giugia'=Zuclo
 
-Group=<img src=http://giulcenc.altervista.org/Bandiere/Umbria.gif> Comuni dell'Umbria
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/pg.gif> Provincia di Perugia
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Umbria.gif> Comuni dell'Umbria
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/pg.gif> Provincia di Perugia
 06081=Assisi
 06083=Bastia Umbra
 06084=Bettona
@@ -35377,7 +35377,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/pg.gif> Provincia di P
 06040;Piedipaterno=Vallo di Nera
 06030;Valtopina=Valtopina
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/tr.gif> Provincia di Terni
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/tr.gif> Provincia di Terni
 05021=Acquasparta
 05011=Allerona
 05020;Alviano=Alviano
@@ -35444,7 +35444,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/tr.gif> Provincia di T
 05039=Stroncone
 05100=Terni
 
-Group=<img src=http://giulcenc.altervista.org/Bandiere/Valle-d_Aosta.gif> Comuni della Valle d'Aosta
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Valle-d_Aosta.gif> Comuni della Valle d'Aosta
 11010;Allein=Allein
 11010;Allamanaz=Allein
 11010;Allerod=Allein
@@ -37301,9 +37301,9 @@ Group=<img src=http://giulcenc.altervista.org/Bandiere/Valle-d_Aosta.gif> Comuni
 11029=Verrès
 11018=Villeneuve
 
-Group=<img src=http://giulcenc.altervista.org/Bandiere/Veneto.gif> Comuni del Veneto
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Veneto.gif> Comuni del Veneto
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/bl.gif> Provincia di Belluno
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/bl.gif> Provincia di Belluno
 32021=Agordo
 32031=Alano di Piave
 32022=Alleghe
@@ -37777,7 +37777,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/bl.gif> Provincia di B
 32010;Zoppè di cadore=Zoppè di Cadore
 32010;Zoppè=Zoppè di Cadore
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/pd.gif> Provincia di Padova
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/pd.gif> Provincia di Padova
 35031=Abano Terme
 35021=Agna 
 35020;Albignasego=Albignasego
@@ -38030,7 +38030,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/pd.gif> Provincia di P
 35030;Vo'=Vo'
 35030;Vò=Vo' 
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/ro.gif> Provincia di Rovigo
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/ro.gif> Provincia di Rovigo
 45011=Adria 
 45010;Baricetta=Adria
 45010;Bellombra=Adria
@@ -38183,7 +38183,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/ro.gif> Provincia di R
 45030;Villanova Marchesana=Villanova Marchesana 
 45030;Villanova marchesana=Villanova Marchesana 
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/tv.gif> Provincia di Treviso
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/tv.gif> Provincia di Treviso
 31030;Altivole=Altivole
 31030;Arcade=Arcade
 31011=Asolo 
@@ -38428,7 +38428,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/tv.gif> Provincia di T
 31050;Zenson di piave=Zenson di Piave 
 31059=Zero Branco
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/ve.gif> Provincia di Venezia
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/ve.gif> Provincia di Venezia
 30020;Annone Veneto=Annone Veneto
 30020;Annone veneto=Annone Veneto
 30010;Campagna Lupia=Campagna Lupia
@@ -38558,7 +38558,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/ve.gif> Provincia di V
 30030;Tessera=Venezia
 30030;Vigonovo=Vigonovo
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/vr.gif> Provincia di Verona
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/vr.gif> Provincia di Verona
 37010;Affi=Affi
 37010;Caorsa=Affi
 37010;Casetta=Affi
@@ -39386,7 +39386,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/vr.gif> Provincia di V
 37040;S.to stefano=Zimella
 37040;Volpino=Zimella
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/vi.gif> Provincia di Vicenza
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/vi.gif> Provincia di Vicenza
 36020;Agugliaro=Agugliaro 
 36020;Albettone=Albettone 
 36040;Alonte=Alonte

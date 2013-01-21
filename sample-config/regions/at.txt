@@ -33,54 +33,54 @@
 
 
 Group=Bundesländer of Austria
-1000,1299=<img border='0' src=http://img40.imageshack.us/img40/8046/wiendienstflaggeresize.png> Wien
-1300,1309=<img border='0' src=http://img267.imageshack.us/img267/9673/800pxflagofniedersterrejh2.png> Niederösterreich
-1310,1999=<img border='0' src=http://img40.imageshack.us/img40/8046/wiendienstflaggeresize.png> Wien
-2000,2412=<img border='0' src=http://img267.imageshack.us/img267/9673/800pxflagofniedersterrejh2.png> Niederösterreich
-2413;Berg=<img border='0' src=http://img267.imageshack.us/img267/9673/800pxflagofniedersterrejh2.png> Niederösterreich
-2413;Edelstal=<img border='0' src=http://img205.imageshack.us/img205/5034/fahneburgenlandpz0.png> Burgenland
-2421,2425=<img border='0' src=http://img205.imageshack.us/img205/5034/fahneburgenlandpz0.png> Burgenland
-2430,2472=<img border='0' src=http://img267.imageshack.us/img267/9673/800pxflagofniedersterrejh2.png> Niederösterreich
-2473,2475=<img border='0' src=http://img205.imageshack.us/img205/5034/fahneburgenlandpz0.png> Burgenland
-2481,2490=<img border='0' src=http://img267.imageshack.us/img267/9673/800pxflagofniedersterrejh2.png> Niederösterreich
-2491,2491=<img border='0' src=http://img205.imageshack.us/img205/5034/fahneburgenlandpz0.png> Burgenland
-2492,3333=<img border='0' src=http://img267.imageshack.us/img267/9673/800pxflagofniedersterrejh2.png> Niederösterreich
-3334,3335=<img border='0' src=http://img267.imageshack.us/img267/7948/obersterreichdienstflagvh2.png> Oberösterreich
-3340,3999=<img border='0' src=http://img267.imageshack.us/img267/9673/800pxflagofniedersterrejh2.png> Niederösterreich
-4000,4299=<img border='0' src=http://img267.imageshack.us/img267/7948/obersterreichdienstflagvh2.png> Oberösterreich
-4300,4309=<img border='0' src=http://img267.imageshack.us/img267/9673/800pxflagofniedersterrejh2.png> Niederösterreich
-4310,4391=<img border='0' src=http://img267.imageshack.us/img267/7948/obersterreichdienstflagvh2.png> Oberösterreich
-4392,4392=<img border='0' src=http://img267.imageshack.us/img267/9673/800pxflagofniedersterrejh2.png> Niederösterreich
-4400,4429=<img border='0' src=http://img267.imageshack.us/img267/7948/obersterreichdienstflagvh2.png> Oberösterreich
-4430,4441=<img border='0' src=http://img267.imageshack.us/img267/9673/800pxflagofniedersterrejh2.png> Niederösterreich
-4442,4481=<img border='0' src=http://img267.imageshack.us/img267/7948/obersterreichdienstflagvh2.png> Oberösterreich
-4482,4482=<img border='0' src=http://img267.imageshack.us/img267/9673/800pxflagofniedersterrejh2.png> Niederösterreich
-4483,4999=<img border='0' src=http://img267.imageshack.us/img267/7948/obersterreichdienstflagvh2.png> Oberösterreich
-5000,5119=<img border='0' src=http://img509.imageshack.us/img509/2537/800pxflagofsalzburgstatue1.png> Salzburg
-5120,5149=<img border='0' src=http://img267.imageshack.us/img267/7948/obersterreichdienstflagvh2.png> Oberösterreich
-5150,5209=<img border='0' src=http://img509.imageshack.us/img509/2537/800pxflagofsalzburgstatue1.png> Salzburg
-5210,5289=<img border='0' src=http://img267.imageshack.us/img267/7948/obersterreichdienstflagvh2.png> Oberösterreich
-5300,5309=<img border='0' src=http://img509.imageshack.us/img509/2537/800pxflagofsalzburgstatue1.png> Salzburg
-5310,5319=<img border='0' src=http://img267.imageshack.us/img267/7948/obersterreichdienstflagvh2.png> Oberösterreich
-5320,5359=<img border='0' src=http://img509.imageshack.us/img509/2537/800pxflagofsalzburgstatue1.png> Salzburg
-5360,5369=<img border='0' src=http://img267.imageshack.us/img267/7948/obersterreichdienstflagvh2.png> Oberösterreich
-5400,5999=<img border='0' src=http://img509.imageshack.us/img509/2537/800pxflagofsalzburgstatue1.png> Salzburg
-6000,6699=<img border='0' src=http://img440.imageshack.us/img440/2082/800pxtiroldienstflaggevke8.png> Tirol
-6700,6999=<img border='0' src=http://img443.imageshack.us/img443/1893/vorarlbergdienstflaggevmj7.png> Vorarlberg
-7000,7419=<img border='0' src=http://img205.imageshack.us/img205/5034/fahneburgenlandpz0.png> Burgenland
-7421,7421=<img border='0' src=http://img440.imageshack.us/img440/4802/800pxflagofsteiermarkstnc4.png> Steiermark
-7422,7599=<img border='0' src=http://img205.imageshack.us/img205/5034/fahneburgenlandpz0.png> Burgenland
-8000,8369=<img border='0' src=http://img440.imageshack.us/img440/4802/800pxflagofsteiermarkstnc4.png> Steiermark
-8380,8389=<img border='0' src=http://img205.imageshack.us/img205/5034/fahneburgenlandpz0.png> Burgenland
-8400,8999=<img border='0' src=http://img440.imageshack.us/img440/4802/800pxflagofsteiermarkstnc4.png> Steiermark
-9000,9322=<img border='0' src=http://img511.imageshack.us/img511/682/800pxflagofkaerntenstatzf8.png> Kärnten
-9323,9323=<img border='0' src=http://img440.imageshack.us/img440/4802/800pxflagofsteiermarkstnc4.png> Steiermark
-9330,9781=<img border='0' src=http://img511.imageshack.us/img511/682/800pxflagofkaerntenstatzf8.png> Kärnten
-9782,9782=<img border='0' src=http://img440.imageshack.us/img440/2082/800pxtiroldienstflaggevke8.png> Tirol
-9800,9899=<img border='0' src=http://img511.imageshack.us/img511/682/800pxflagofkaerntenstatzf8.png> Kärnten
-9900,9999=<img border='0' src=http://img440.imageshack.us/img440/2082/800pxtiroldienstflaggevke8.png> Tirol
+1000,1299=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/wiendienstflaggeresize.png> Wien
+1300,1309=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/800pxflagofniedersterrejh2.png> Niederösterreich
+1310,1999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/wiendienstflaggeresize.png> Wien
+2000,2412=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/800pxflagofniedersterrejh2.png> Niederösterreich
+2413;Berg=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/800pxflagofniedersterrejh2.png> Niederösterreich
+2413;Edelstal=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/fahneburgenlandpz0.png> Burgenland
+2421,2425=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/fahneburgenlandpz0.png> Burgenland
+2430,2472=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/800pxflagofniedersterrejh2.png> Niederösterreich
+2473,2475=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/fahneburgenlandpz0.png> Burgenland
+2481,2490=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/800pxflagofniedersterrejh2.png> Niederösterreich
+2491,2491=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/fahneburgenlandpz0.png> Burgenland
+2492,3333=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/800pxflagofniedersterrejh2.png> Niederösterreich
+3334,3335=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/obersterreichdienstflagvh2.png> Oberösterreich
+3340,3999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/800pxflagofniedersterrejh2.png> Niederösterreich
+4000,4299=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/obersterreichdienstflagvh2.png> Oberösterreich
+4300,4309=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/800pxflagofniedersterrejh2.png> Niederösterreich
+4310,4391=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/obersterreichdienstflagvh2.png> Oberösterreich
+4392,4392=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/800pxflagofniedersterrejh2.png> Niederösterreich
+4400,4429=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/obersterreichdienstflagvh2.png> Oberösterreich
+4430,4441=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/800pxflagofniedersterrejh2.png> Niederösterreich
+4442,4481=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/obersterreichdienstflagvh2.png> Oberösterreich
+4482,4482=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/800pxflagofniedersterrejh2.png> Niederösterreich
+4483,4999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/obersterreichdienstflagvh2.png> Oberösterreich
+5000,5119=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/800pxflagofsalzburgstatue1.png> Salzburg
+5120,5149=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/obersterreichdienstflagvh2.png> Oberösterreich
+5150,5209=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/800pxflagofsalzburgstatue1.png> Salzburg
+5210,5289=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/obersterreichdienstflagvh2.png> Oberösterreich
+5300,5309=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/800pxflagofsalzburgstatue1.png> Salzburg
+5310,5319=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/obersterreichdienstflagvh2.png> Oberösterreich
+5320,5359=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/800pxflagofsalzburgstatue1.png> Salzburg
+5360,5369=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/obersterreichdienstflagvh2.png> Oberösterreich
+5400,5999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/800pxflagofsalzburgstatue1.png> Salzburg
+6000,6699=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/800pxtiroldienstflaggevke8.png> Tirol
+6700,6999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/vorarlbergdienstflaggevmj7.png> Vorarlberg
+7000,7419=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/fahneburgenlandpz0.png> Burgenland
+7421,7421=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/800pxflagofsteiermarkstnc4.png> Steiermark
+7422,7599=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/fahneburgenlandpz0.png> Burgenland
+8000,8369=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/800pxflagofsteiermarkstnc4.png> Steiermark
+8380,8389=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/fahneburgenlandpz0.png> Burgenland
+8400,8999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/800pxflagofsteiermarkstnc4.png> Steiermark
+9000,9322=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/800pxflagofkaerntenstatzf8.png> Kärnten
+9323,9323=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/800pxflagofsteiermarkstnc4.png> Steiermark
+9330,9781=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/800pxflagofkaerntenstatzf8.png> Kärnten
+9782,9782=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/800pxtiroldienstflaggevke8.png> Tirol
+9800,9899=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/800pxflagofkaerntenstatzf8.png> Kärnten
+9900,9999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/800pxtiroldienstflaggevke8.png> Tirol
 
-Group=<img border='0' src=http://img40.imageshack.us/img40/8046/wiendienstflaggeresize.png> Gemeindebezirke of Vienna
+Group=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/wiendienstflaggeresize.png> Gemeindebezirke of Vienna
 1010,1019=1. Innere Stadt
 1020,1029=2. Leopoldstadt
 1030,1039=3. Landstraße
@@ -148,7 +148,7 @@ Group=Biggest Cities of Austria
 
 // Created by Ergo on 02.11.2006
 Group=Politische Bezirke Österreichs / Districts of Austria
-SubGroup=<img src=http://img205.imageshack.us/img205/5034/fahneburgenlandpz0.png> Burgenland
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/fahneburgenlandpz0.png> Burgenland
 7000=101 - Eisenstadt (Stadt)
 7071=102 - Rust (Stadt)
 2443=103 - Eisenstadt-Umgebung
@@ -190,7 +190,7 @@ SubGroup=<img src=http://img205.imageshack.us/img205/5034/fahneburgenlandpz0.png
 7431,7435=109 - Oberwart
 7461,7512=109 - Oberwart
 7531,7532=109 - Oberwart
-SubGroup=<img src=http://img511.imageshack.us/img511/682/800pxflagofkaerntenstatzf8.png> Kärnten / Carinthia
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/800pxflagofkaerntenstatzf8.png> Kärnten / Carinthia
 9020=201 - Klagenfurt (Stadt)
 9500=202 - Villach (Stadt)
 9523,9524=202 - Villach (Stadt)
@@ -223,7 +223,7 @@ SubGroup=<img src=http://img511.imageshack.us/img511/682/800pxflagofkaerntenstat
 9473;Lavamünd=209 - Wolfsberg
 9551,9555=210 - Feldkirchen
 9560,9571=210 - Feldkirchen
-SubGroup=<img src=http://img267.imageshack.us/img267/9673/800pxflagofniedersterrejh2.png> Niederösterreich / Lower Austria
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/800pxflagofniedersterrejh2.png> Niederösterreich / Lower Austria
 3500,3506=301 - Krems an der Donau (Stadt)
 3100,3104=302 - Sankt Pölten (Stadt)
 3140;Pengersdorf=302 - Sankt Pölten (Stadt)
@@ -481,7 +481,7 @@ SubGroup=<img src=http://img267.imageshack.us/img267/9673/800pxflagofniedersterr
 3900=325 - Zwettl
 3903,3921=325 - Zwettl
 3923,3931=325 - Zwettl
-SubGroup=<img src=http://img267.imageshack.us/img267/7948/obersterreichdienstflagvh2.png> Oberösterreich / Upper Austria
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/obersterreichdienstflagvh2.png> Oberösterreich / Upper Austria
 4020,4030=401 - Linz (Stadt)
 ;Steyr=402 - Steyr (Stadt)
 4600=403 - Wels (Stadt)
@@ -568,7 +568,7 @@ SubGroup=<img src=http://img267.imageshack.us/img267/7948/obersterreichdienstfla
 4641,4642=418 - Wels-Land
 4650,4654=418 - Wels-Land
 4671,4672=418 - Wels-Land
-SubGroup=<img src=http://img509.imageshack.us/img509/2537/800pxflagofsalzburgstatue1.png> Salzburg
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/800pxflagofsalzburgstatue1.png> Salzburg
 5020=501 - Salzburg (Stadt)
 5400,5442=502 - Hallein
 5523,5524=502 - Hallein
@@ -585,7 +585,7 @@ SubGroup=<img src=http://img509.imageshack.us/img509/2537/800pxflagofsalzburgsta
 5562,5591=505 - Tamsweg
 5090,5093=506 - Zell am See
 5651,5771=506 - Zell am See
-SubGroup=<img src=http://img440.imageshack.us/img440/4802/800pxflagofsteiermarkstnc4.png> Steiermark / Styria
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/800pxflagofsteiermarkstnc4.png> Steiermark / Styria
 8010,8043=601 - Graz (Stadt)
 8051=601 - Graz (Stadt)
 8053=601 - Graz (Stadt)
@@ -682,7 +682,7 @@ SubGroup=<img src=http://img440.imageshack.us/img440/4802/800pxflagofsteiermarks
 8616=617 - Weiz
 8654=617 - Weiz
 8672,8674=617 - Weiz
-SubGroup=<img src=http://img440.imageshack.us/img440/2082/800pxtiroldienstflaggevke8.png> Tirol / Tyrol
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/800pxtiroldienstflaggevke8.png> Tirol / Tyrol
 6020=701 - Innsbruck-Stadt
 6063;Arzl=701 - Innsbruck-Stadt
 6080=701 - Innsbruck-Stadt
@@ -719,7 +719,7 @@ SubGroup=<img src=http://img440.imageshack.us/img440/2082/800pxtiroldienstflagge
 6123,6135=709 - Schwaz
 6200,6215=709 - Schwaz
 6261,6295=709 - Schwaz
-SubGroup=<img src=http://img443.imageshack.us/img443/1893/vorarlbergdienstflaggevmj7.png> Vorarlberg
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/vorarlbergdienstflaggevmj7.png> Vorarlberg
 6700,6764=801 - Bludenz
 6771,6794=801 - Bludenz
 6820;Gurtis=801 - Bludenz

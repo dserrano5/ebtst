@@ -9,7 +9,7 @@
 
 
 Group=Magyarország megyéi - Provinces of Hungary
-SubGroup=<img src=http://img246.imageshack.us/img246/7666/hubz31ao3.png> Borsod-Abaúj-Zemplén Megyek
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/hubz31ao3.png> Borsod-Abaúj-Zemplén Megyek
 3400;Mezőkövesd=Borsod-Abaúj-Zemplén
 3401;Mezőkövesd=Borsod-Abaúj-Zemplén
 3411;Szomolya=Borsod-Abaúj-Zemplén
@@ -210,7 +210,7 @@ SubGroup=<img src=http://img246.imageshack.us/img246/7666/hubz31ao3.png> Borsod-
 3994;Pálháza=Borsod-Abaúj-Zemplén
 3996;Füzér=Borsod-Abaúj-Zemplén
 3999;Hollóháza=Borsod-Abaúj-Zemplén
-SubGroup=<img src=http://img299.imageshack.us/img299/8199/huhvxp9.png> Heves Megyek
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/huhvxp9.png> Heves Megyek
 3000;Hatvan=Heves
 3001;Hatvan=Heves
 3002;Hatvan=Heves
@@ -351,7 +351,7 @@ SubGroup=<img src=http://img299.imageshack.us/img299/8199/huhvxp9.png> Heves Meg
 3397;Maklár=Heves
 3398;Nagytálya=Heves
 3399;Andornaktálya=Heves
-SubGroup=<img src=http://img155.imageshack.us/img155/4798/hung31bf7.png> Nógrád Megyek
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/hung31bf7.png> Nógrád Megyek
 2175;Kálló=Nógrád
 2176;Erdőkürt=Nógrád
 2177;Erdőtarcsa=Nógrád
@@ -501,7 +501,7 @@ SubGroup=<img src=http://img155.imageshack.us/img155/4798/hung31bf7.png> Nógrá
 3186;Litke=Nógrád
 3187;Nógrádszakál=Nógrád
 3188;Ludányhalászi=Nógrád
-SubGroup=<img src=http://img258.imageshack.us/img258/8554/huhaee0.png> Hajdú-Bihar Megyek
+SubGroup=Hajdú-Bihar Megyek
 4000;Debrecen=Hajdú-Bihar
 4001;Debrecen=Hajdú-Bihar
 4002;Debrecen=Hajdú-Bihar
@@ -646,7 +646,7 @@ SubGroup=<img src=http://img258.imageshack.us/img258/8554/huhaee0.png> Hajdú-Bi
 4286;Bagamér=Hajdú-Bihar
 4287;Vámospércs=Hajdú-Bihar
 4288;Újléta=Hajdú-Bihar
-SubGroup=<img src=http://img155.imageshack.us/img155/8536/hujnsbb2.png> Jász-Nagykun-Szolnok Megyek
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/hujnsbb2.png> Jász-Nagykun-Szolnok Megyek
 5000;Szolnok=Jász-Nagykun-Szolnok
 5001;Szolnok=Jász-Nagykun-Szolnok
 5002;Szolnok=Jász-Nagykun-Szolnok
@@ -761,7 +761,7 @@ SubGroup=<img src=http://img155.imageshack.us/img155/8536/hujnsbb2.png> Jász-Na
 5474;Tiszasas=Jász-Nagykun-Szolnok
 5475;Csépa=Jász-Nagykun-Szolnok
 5476;Szelevény=Jász-Nagykun-Szolnok
-SubGroup=<img src=http://img134.imageshack.us/img134/4294/huszvg4.png> Szabolcs-Szatmár-Bereg Megyek
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/huszvg4.png> Szabolcs-Szatmár-Bereg Megyek
 4231;Bököny=Szabolcs-Szatmár-Bereg
 4232;Geszteréd=Szabolcs-Szatmár-Bereg
 4233;Balkány=Szabolcs-Szatmár-Bereg
@@ -962,7 +962,7 @@ SubGroup=<img src=http://img134.imageshack.us/img134/4294/huszvg4.png> Szabolcs-
 4951;Tiszabecs=Szabolcs-Szatmár-Bereg
 4965;Kölcse=Szabolcs-Szatmár-Bereg
 4974;Zajta=Szabolcs-Szatmár-Bereg
-SubGroup=<img src=http://img72.imageshack.us/img72/5013/hubpjm0.png> Budapest Főváros Megyek
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/hubpjm0.png> Budapest Főváros Megyek
 1010,1019=Budapest I kerület
 1020,1029=Budapest II kerület
 1030,1019=Budapest III kerület
@@ -986,7 +986,7 @@ SubGroup=<img src=http://img72.imageshack.us/img72/5013/hubpjm0.png> Budapest F�
 1210,1219=Budapest XXI kerület
 1220,1229=Budapest XXII kerület
 1230,1239=Budapest XXIII kerület
-SubGroup=<img src=http://img442.imageshack.us/img442/6435/hupeqg2.png> Pest Megyek
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/hupeqg2.png> Pest Megyek
 2000;Szentendre=Pest
 2001;Szentendre=Pest
 2002;Szentendre=Pest
@@ -1187,7 +1187,7 @@ SubGroup=<img src=http://img442.imageshack.us/img442/6435/hupeqg2.png> Pest Megy
 2767;Tápiógyörgye=Pest
 2768;Újszilvás=Pest
 2769;Tápiószőlős=Pest
-SubGroup=<img src=http://img257.imageshack.us/img257/4293/hubepo4.png> Békés Megyek
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/hubepo4.png> Békés Megyek
 5500;Gyomaendrőd=Békés
 5501;Gyomaendrőd=Békés
 5502;Gyomaendrőd=Békés
@@ -1290,7 +1290,7 @@ SubGroup=<img src=http://img257.imageshack.us/img257/4293/hubepo4.png> Békés M
 5945;Kardoskút=Békés
 5946;Békéssámson=Békés
 5948;Kaszaper=Békés
-SubGroup=<img src=http://img245.imageshack.us/img245/4240/hubklj7.png> Bács-Kiskun Megyek
+SubGroup=Bács-Kiskun Megyek
 6000;Kecskemét=Bács-Kiskun
 6001;Kecskemét=Bács-Kiskun
 6002;Kecskemét=Bács-Kiskun
@@ -1433,7 +1433,7 @@ SubGroup=<img src=http://img245.imageshack.us/img245/4240/hubklj7.png> Bács-Kis
 6525;Hercegszántó=Bács-Kiskun
 6527;Nagybaracska=Bács-Kiskun
 6528;Bátmonostor=Bács-Kiskun
-SubGroup=<img src=http://img183.imageshack.us/img183/5085/hucshb5.png> Csongrád Megyek
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/hucshb5.png> Csongrád Megyek
 6600;Szentes=Csongrád
 6601;Szentes=Csongrád
 6602;Szentes=Csongrád
@@ -1552,7 +1552,7 @@ SubGroup=<img src=http://img183.imageshack.us/img183/5085/hucshb5.png> Csongrád
 6931;Apátfalva=Csongrád
 6932;Magyarcsanád=Csongrád
 6933;Nagylak=Csongrád
-SubGroup=<img src=http://img186.imageshack.us/img186/1777/hufefq2.png> Fejér Megyek
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/hufefq2.png> Fejér Megyek
 2060;Bicske=Fejér
 2061;Bicske=Fejér
 2063;Bicske=Fejér
@@ -1699,7 +1699,7 @@ SubGroup=<img src=http://img186.imageshack.us/img186/1777/hufefq2.png> Fejér Me
 8154;Polgárdi=Fejér
 8156;Kisláng=Fejér
 8157;Füle=Fejér
-SubGroup=<img src=http://img245.imageshack.us/img245/6985/hukewq7.png> Komárom-Esztergo Megyek
+SubGroup=Komárom-Esztergo Megyek
 2027;Dömös=Komárom-Esztergom
 2028;Pilismarót=Komárom-Esztergom
 2500;Esztergom=Komárom-Esztergom
@@ -1806,7 +1806,7 @@ SubGroup=<img src=http://img245.imageshack.us/img245/6985/hukewq7.png> Komárom-
 2947;Ete=Komárom-Esztergom
 2948;Kisigmánd=Komárom-Esztergom
 2949;Csém=Komárom-Esztergom
-SubGroup=<img src=http://img167.imageshack.us/img167/8152/huvecr2.png> Veszprém Megyek
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/huvecr2.png> Veszprém Megyek
 8100;Várpalota=Veszprém
 8101;Várpalota=Veszprém
 8103;Várpalota=Veszprém
@@ -2007,7 +2007,7 @@ SubGroup=<img src=http://img167.imageshack.us/img167/8152/huvecr2.png> Veszprém
 9532;Külsővat=Veszprém
 9533;Nemesszalók=Veszprém
 9534;Marcalgergelyi=Veszprém
-SubGroup=<img src=http://img171.imageshack.us/img171/533/hubywt8.png> Baranya Megyek
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/hubywt8.png> Baranya Megyek
 7678;Abaliget=Baranya
 7841;Adorjás=Baranya
 7934;Almamellék=Baranya
@@ -2208,7 +2208,7 @@ SubGroup=<img src=http://img171.imageshack.us/img171/533/hubywt8.png> Baranya Me
 7768;Vokány=Baranya
 7839;Zaláta=Baranya
 7720;Zengővárkony=Baranya
-SubGroup=<img src=http://img155.imageshack.us/img155/1645/husomogrk8.png> Somogy Megyek
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/husomogrk8.png> Somogy Megyek
 8653;Ádánd=Somogy
 7443;Alsóbogát=Somogy
 8675;Andocs=Somogy
@@ -2409,7 +2409,7 @@ SubGroup=<img src=http://img155.imageshack.us/img155/1645/husomogrk8.png> Somogy
 7477;Zselickisfalud=Somogy
 7400;Zselickislak=Somogy
 7474;Zselicszentpál=Somogy
-SubGroup=<img src=http://img244.imageshack.us/img244/2724/hutodm8.png> Tolna Megyek
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/hutodm8.png> Tolna Megyek
 7020;Dunaföldvár=Tolna
 7021;Dunaföldvár=Tolna
 7025;Bölcske=Tolna
@@ -2534,7 +2534,7 @@ SubGroup=<img src=http://img244.imageshack.us/img244/2724/hutodm8.png> Tolna Meg
 7361;Kaposszekcső=Tolna
 7362;Jágónak=Tolna
 7362;Tarrós=Tolna 
-SubGroup=<img src=http://img180.imageshack.us/img180/7963/hugmul5.png> Győr-Moson-Sopron Megyek
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/hugmul5.png> Győr-Moson-Sopron Megyek
 8534;Csikvánd=Győr-Moson-Sopron
 8545;Gyarmat=Győr-Moson-Sopron
 9000;Győr=Győr-Moson-Sopron
@@ -2735,7 +2735,7 @@ SubGroup=<img src=http://img180.imageshack.us/img180/7963/hugmul5.png> Győr-Mos
 9492;Fertőhomok=Győr-Moson-Sopron
 9493;Fertőboz=Győr-Moson-Sopron
 9495;Kópháza=Győr-Moson-Sopron
-SubGroup=<img src=http://img169.imageshack.us/img169/9573/huvajk5.gif> Vas Megyek
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/huvajk5.gif> Vas Megyek
 9500;Celldömölk=Vas
 9501;Celldömölk=Vas
 9511;Kemenesmihályfa=Vas
@@ -2936,7 +2936,7 @@ SubGroup=<img src=http://img169.imageshack.us/img169/9573/huvajk5.gif> Vas Megye
 9982;Kétvölgy=Vas
 9983;Alsószölnök=Vas
 9985;Felsőszölnök=Vas
-SubGroup=<img src=http://img168.imageshack.us/img168/9859/huzahm4.gif> Zala Megyek
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/huzahm4.gif> Zala Megyek
 8313;Balatongyörök=Zala
 8314;Vonyarcvashegy=Zala
 8315;Gyenesdiás=Zala

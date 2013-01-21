@@ -13,136 +13,136 @@
 
 
 Group=Régions of France / Régions de France
-67000,68999=<img border='0' alt="Alsace" src=http://orusso.free.fr/Flags/fr/Drap_alsace_resize.jpg> Alsace
-24000,24999=<img border='0' alt="Aquitaine" src=http://orusso.free.fr/Flags/fr/360px-Aquitaine_flag.svg_resize.png> Aquitaine
-33000,33999=<img border='0' alt="Aquitaine" src=http://orusso.free.fr/Flags/fr/360px-Aquitaine_flag.svg_resize.png> Aquitaine
-40000,40999=<img border='0' alt="Aquitaine" src=http://orusso.free.fr/Flags/fr/360px-Aquitaine_flag.svg_resize.png> Aquitaine
-47000,47999=<img border='0' alt="Aquitaine" src=http://orusso.free.fr/Flags/fr/360px-Aquitaine_flag.svg_resize.png> Aquitaine
-64000,64999=<img border='0' alt="Aquitaine" src=http://orusso.free.fr/Flags/fr/360px-Aquitaine_flag.svg_resize.png> Aquitaine
-03000,03999=<img border='0' alt="Auvergne" src=http://orusso.free.fr/Flags/fr/360px-Auvergne_flag.svg_resize.png> Auvergne
-15000,15999=<img border='0' alt="Auvergne" src=http://orusso.free.fr/Flags/fr/360px-Auvergne_flag.svg_resize.png> Auvergne
-43000,43999=<img border='0' alt="Auvergne" src=http://orusso.free.fr/Flags/fr/360px-Auvergne_flag.svg_resize.png> Auvergne
-63000,63999=<img border='0' alt="Auvergne" src=http://orusso.free.fr/Flags/fr/360px-Auvergne_flag.svg_resize.png> Auvergne
-14000,14999=<img border='0' alt="Basse-Normandie" src=http://orusso.free.fr/Flags/fr/600px-Basse-Normandie_flag.svg_resize.png> Basse-Normandie
-50000,50999=<img border='0' alt="Basse-Normandie" src=http://orusso.free.fr/Flags/fr/600px-Basse-Normandie_flag.svg_resize.png> Basse-Normandie
-61000,61999=<img border='0' alt="Basse-Normandie" src=http://orusso.free.fr/Flags/fr/600px-Basse-Normandie_flag.svg_resize.png> Basse-Normandie
-21000,21999=<img border='0' alt="Bourgogne" src=http://orusso.free.fr/Flags/fr/360px-Bourgogne_flag.svg_resize.png> Bourgogne
-58000,58999=<img border='0' alt="Bourgogne" src=http://orusso.free.fr/Flags/fr/360px-Bourgogne_flag.svg_resize.png> Bourgogne
-71000,71999=<img border='0' alt="Bourgogne" src=http://orusso.free.fr/Flags/fr/360px-Bourgogne_flag.svg_resize.png> Bourgogne
-89000,89999=<img border='0' alt="Bourgogne" src=http://orusso.free.fr/Flags/fr/360px-Bourgogne_flag.svg_resize.png> Bourgogne
-22000,22999=<img border='0' alt="Bretagne" src=http://orusso.free.fr/Flags/fr/Drapeau-bzh_resize.jpg> Bretagne
-29000,29999=<img border='0' alt="Bretagne" src=http://orusso.free.fr/Flags/fr/Drapeau-bzh_resize.jpg> Bretagne
-35000,35999=<img border='0' alt="Bretagne" src=http://orusso.free.fr/Flags/fr/Drapeau-bzh_resize.jpg> Bretagne
-56000,56999=<img border='0' alt="Bretagne" src=http://orusso.free.fr/Flags/fr/Drapeau-bzh_resize.jpg> Bretagne
-18000,18999=<img border='0' alt="Centre" src=http://orusso.free.fr/Flags/fr/360px-Centre-Val-de-Loire_flag.svg_resize.png> Centre
-28000,28999=<img border='0' alt="Centre" src=http://orusso.free.fr/Flags/fr/360px-Centre-Val-de-Loire_flag.svg_resize.png> Centre
-36000,37999=<img border='0' alt="Centre" src=http://orusso.free.fr/Flags/fr/360px-Centre-Val-de-Loire_flag.svg_resize.png> Centre
-41000,41999=<img border='0' alt="Centre" src=http://orusso.free.fr/Flags/fr/360px-Centre-Val-de-Loire_flag.svg_resize.png> Centre
-45000,45999=<img border='0' alt="Centre" src=http://orusso.free.fr/Flags/fr/360px-Centre-Val-de-Loire_flag.svg_resize.png> Centre
-08000,08999=<img border='0' alt="Champagne-Ardenne" src=http://orusso.free.fr/Flags/fr/360px-Champagne-Ardenne_flag.svg_resize.png> Champagne-Ardenne
-10000,10999=<img border='0' alt="Champagne-Ardenne" src=http://orusso.free.fr/Flags/fr/360px-Champagne-Ardenne_flag.svg_resize.png> Champagne-Ardenne
-51000,52999=<img border='0' alt="Champagne-Ardenne" src=http://orusso.free.fr/Flags/fr/360px-Champagne-Ardenne_flag.svg_resize.png> Champagne-Ardenne
-20000,20999=<img border='0' alt="Corse" src=http://orusso.free.fr/Flags/fr/360px-Flag_of_Corsica.svg_resize.png> Corse
-25000,25999=<img border='0' alt="Franche-Comté" src=http://orusso.free.fr/Flags/fr/330px-Franche-Comt%C3%A9.svg_resize.png> Franche-Comté
-39000,39999=<img border='0' alt="Franche-Comté" src=http://orusso.free.fr/Flags/fr/330px-Franche-Comt%C3%A9.svg_resize.png> Franche-Comté
-70000,70999=<img border='0' alt="Franche-Comté" src=http://orusso.free.fr/Flags/fr/330px-Franche-Comt%C3%A9.svg_resize.png> Franche-Comté
-90000,90999=<img border='0' alt="Franche-Comté" src=http://orusso.free.fr/Flags/fr/330px-Franche-Comt%C3%A9.svg_resize.png> Franche-Comté
-27000,27999=<img border='0' alt="Haute-Normandie" src=http://orusso.free.fr/Flags/fr/360px-Haute-Normandie_flag.svg_resize.png> Haute-Normandie
-76000,76999=<img border='0' alt="Haute-Normandie" src=http://orusso.free.fr/Flags/fr/360px-Haute-Normandie_flag.svg_resize.png> Haute-Normandie
-75000,75999=<img border='0' alt="Île-de-France" src=http://orusso.free.fr/Flags/fr/361px-%C3%8Ele-de-France_flag.svg_resize.png> Île-de-France
-77000,78999=<img border='0' alt="Île-de-France" src=http://orusso.free.fr/Flags/fr/361px-%C3%8Ele-de-France_flag.svg_resize.png> Île-de-France
-91000,95999=<img border='0' alt="Île-de-France" src=http://orusso.free.fr/Flags/fr/361px-%C3%8Ele-de-France_flag.svg_resize.png> Île-de-France
-11000,11999=<img border='0' alt="Languedoc-Roussillon" src=http://orusso.free.fr/Flags/fr/360px-Languedoc_Roussillon_flag.svg_resize.png> Languedoc-Roussillon
-30000,30999=<img border='0' alt="Languedoc-Roussillon" src=http://orusso.free.fr/Flags/fr/360px-Languedoc_Roussillon_flag.svg_resize.png> Languedoc-Roussillon
-34000,34999=<img border='0' alt="Languedoc-Roussillon" src=http://orusso.free.fr/Flags/fr/360px-Languedoc_Roussillon_flag.svg_resize.png> Languedoc-Roussillon
-48000,48999=<img border='0' alt="Languedoc-Roussillon" src=http://orusso.free.fr/Flags/fr/360px-Languedoc_Roussillon_flag.svg_resize.png> Languedoc-Roussillon
-66000,66999=<img border='0' alt="Languedoc-Roussillon" src=http://orusso.free.fr/Flags/fr/360px-Languedoc_Roussillon_flag.svg_resize.png> Languedoc-Roussillon
-19000,19999=<img border='0' alt="Limousin" src=http://orusso.free.fr/Flags/fr/323px-Limousin_flag.svg_resize.png> Limousin
-23000,23999=<img border='0' alt="Limousin" src=http://orusso.free.fr/Flags/fr/323px-Limousin_flag.svg_resize.png> Limousin
-87000,87999=<img border='0' alt="Limousin" src=http://orusso.free.fr/Flags/fr/323px-Limousin_flag.svg_resize.png> Limousin
-54000,55999=<img border='0' alt="Lorraine" src=http://orusso.free.fr/Flags/fr/360px-Lorraine.svg_resize.png> Lorraine
-57000,57999=<img border='0' alt="Lorraine" src=http://orusso.free.fr/Flags/fr/360px-Lorraine.svg_resize.png> Lorraine
-88000,88999=<img border='0' alt="Lorraine" src=http://orusso.free.fr/Flags/fr/360px-Lorraine.svg_resize.png> Lorraine
-09000,09999=<img border='0' alt="Midi-Pyrénées" src=http://orusso.free.fr/Flags/fr/360px-Midi-Pyr%C3%A9n%C3%A9es_flag.svg_resize.png> Midi-Pyrénées
-12000,12999=<img border='0' alt="Midi-Pyrénées" src=http://orusso.free.fr/Flags/fr/360px-Midi-Pyr%C3%A9n%C3%A9es_flag.svg_resize.png> Midi-Pyrénées
-31000,32999=<img border='0' alt="Midi-Pyrénées" src=http://orusso.free.fr/Flags/fr/360px-Midi-Pyr%C3%A9n%C3%A9es_flag.svg_resize.png> Midi-Pyrénées
-46000,46999=<img border='0' alt="Midi-Pyrénées" src=http://orusso.free.fr/Flags/fr/360px-Midi-Pyr%C3%A9n%C3%A9es_flag.svg_resize.png> Midi-Pyrénées
-65000,65999=<img border='0' alt="Midi-Pyrénées" src=http://orusso.free.fr/Flags/fr/360px-Midi-Pyr%C3%A9n%C3%A9es_flag.svg_resize.png> Midi-Pyrénées
-81000,82999=<img border='0' alt="Midi-Pyrénées" src=http://orusso.free.fr/Flags/fr/360px-Midi-Pyr%C3%A9n%C3%A9es_flag.svg_resize.png> Midi-Pyrénées
-59000,59999=<img border='0' alt="Nord-Pas-de-Calais" src=http://orusso.free.fr/Flags/fr/360px-Nord-Pas-de-Calais_flag.svg_resize.png> Nord-Pas-de-Calais
-62000,62999=<img border='0' alt="Nord-Pas-de-Calais" src=http://orusso.free.fr/Flags/fr/360px-Nord-Pas-de-Calais_flag.svg_resize.png> Nord-Pas-de-Calais
-44000,44999=<img border='0' alt="Pays de la Loire" src=http://orusso.free.fr/Flags/fr/359px-Pays-de-la-Loire_flag.svg_resize.png> Pays de la Loire
-49000,49999=<img border='0' alt="Pays de la Loire" src=http://orusso.free.fr/Flags/fr/359px-Pays-de-la-Loire_flag.svg_resize.png> Pays de la Loire
-53000,53999=<img border='0' alt="Pays de la Loire" src=http://orusso.free.fr/Flags/fr/359px-Pays-de-la-Loire_flag.svg_resize.png> Pays de la Loire
-72000,72999=<img border='0' alt="Pays de la Loire" src=http://orusso.free.fr/Flags/fr/359px-Pays-de-la-Loire_flag.svg_resize.png> Pays de la Loire
-85000,85999=<img border='0' alt="Pays de la Loire" src=http://orusso.free.fr/Flags/fr/359px-Pays-de-la-Loire_flag.svg_resize.png> Pays de la Loire
-02000,02999=<img border='0' alt="Picardie" src=http://orusso.free.fr/Flags/fr/picardie_resize.gif> Picardie
-60000,60999=<img border='0' alt="Picardie" src=http://orusso.free.fr/Flags/fr/picardie_resize.gif> Picardie
-80000,80999=<img border='0' alt="Picardie" src=http://orusso.free.fr/Flags/fr/picardie_resize.gif> Picardie
-16000,17999=<img border='0' alt="Poitou-Charentes" src=http://orusso.free.fr/Flags/fr/Drapeau_Poitou_resize.png> Poitou-Charentes
-79000,79999=<img border='0' alt="Poitou-Charentes" src=http://orusso.free.fr/Flags/fr/Drapeau_Poitou_resize.png> Poitou-Charentes
-86000,86999=<img border='0' alt="Poitou-Charentes" src=http://orusso.free.fr/Flags/fr/Drapeau_Poitou_resize.png> Poitou-Charentes
-04000,06999=<img border='0' alt="Provence-Alpes-Côte d'Azur" src=http://orusso.free.fr/Flags/fr/322px-Provence-Alpes-C%C3%B4te-d%27Azur_flag.svg_resize.png> Provence-Alpes-Côte d'Azur
-13000,13999=<img border='0' alt="Provence-Alpes-Côte d'Azur" src=http://orusso.free.fr/Flags/fr/322px-Provence-Alpes-C%C3%B4te-d%27Azur_flag.svg_resize.png> Provence-Alpes-Côte d'Azur
-83000,84999=<img border='0' alt="Provence-Alpes-Côte d'Azur" src=http://orusso.free.fr/Flags/fr/322px-Provence-Alpes-C%C3%B4te-d%27Azur_flag.svg_resize.png> Provence-Alpes-Côte d'Azur
-01000,01999=<img border='0' alt="Rhône-Alpes" src=http://orusso.free.fr/Flags/fr/Blason_rhonalpe_resize.png> Rhône-Alpes
-07000,07999=<img border='0' alt="Rhône-Alpes" src=http://orusso.free.fr/Flags/fr/Blason_rhonalpe_resize.png> Rhône-Alpes
-26000,26999=<img border='0' alt="Rhône-Alpes" src=http://orusso.free.fr/Flags/fr/Blason_rhonalpe_resize.png> Rhône-Alpes
-38000,38999=<img border='0' alt="Rhône-Alpes" src=http://orusso.free.fr/Flags/fr/Blason_rhonalpe_resize.png> Rhône-Alpes
-42000,42999=<img border='0' alt="Rhône-Alpes" src=http://orusso.free.fr/Flags/fr/Blason_rhonalpe_resize.png> Rhône-Alpes
-69000,69999=<img border='0' alt="Rhône-Alpes" src=http://orusso.free.fr/Flags/fr/Blason_rhonalpe_resize.png> Rhône-Alpes
-73000,74999=<img border='0' alt="Rhône-Alpes" src=http://orusso.free.fr/Flags/fr/Blason_rhonalpe_resize.png> Rhône-Alpes
-97100,97199=<img border='0' alt="Guadeloupe" src=http://orusso.free.fr/Flags/fr/600px-Flag_of_Guadeloupe_%28local%29.svg_resize.png> Guadeloupe
-97200,97299=<img border='0' alt="Martinique" src=http://orusso.free.fr/Flags/fr/750px-Flag_of_Martinique.svg_resize.png> Martinique
-97300,97399=<img border='0' alt="Guyane" src=http://orusso.free.fr/Flags/fr/GuyaneLogo1_resize.gif> Guyane Française
-97400,97499=<img border='0' alt="La Réunion" src=http://orusso.free.fr/Flags/fr/Logo_reunion_resize.jpg> La Réunion
+67000,68999=<img border='0' alt="Alsace" src=https://dserrano5.es/ebt/ebtst/images/regions/Drap_alsace_resize.jpg> Alsace
+24000,24999=<img border='0' alt="Aquitaine" src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Aquitaine_flag.svg_resize.png> Aquitaine
+33000,33999=<img border='0' alt="Aquitaine" src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Aquitaine_flag.svg_resize.png> Aquitaine
+40000,40999=<img border='0' alt="Aquitaine" src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Aquitaine_flag.svg_resize.png> Aquitaine
+47000,47999=<img border='0' alt="Aquitaine" src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Aquitaine_flag.svg_resize.png> Aquitaine
+64000,64999=<img border='0' alt="Aquitaine" src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Aquitaine_flag.svg_resize.png> Aquitaine
+03000,03999=<img border='0' alt="Auvergne" src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Auvergne_flag.svg_resize.png> Auvergne
+15000,15999=<img border='0' alt="Auvergne" src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Auvergne_flag.svg_resize.png> Auvergne
+43000,43999=<img border='0' alt="Auvergne" src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Auvergne_flag.svg_resize.png> Auvergne
+63000,63999=<img border='0' alt="Auvergne" src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Auvergne_flag.svg_resize.png> Auvergne
+14000,14999=<img border='0' alt="Basse-Normandie" src=https://dserrano5.es/ebt/ebtst/images/regions/600px-Basse-Normandie_flag.svg_resize.png> Basse-Normandie
+50000,50999=<img border='0' alt="Basse-Normandie" src=https://dserrano5.es/ebt/ebtst/images/regions/600px-Basse-Normandie_flag.svg_resize.png> Basse-Normandie
+61000,61999=<img border='0' alt="Basse-Normandie" src=https://dserrano5.es/ebt/ebtst/images/regions/600px-Basse-Normandie_flag.svg_resize.png> Basse-Normandie
+21000,21999=<img border='0' alt="Bourgogne" src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Bourgogne_flag.svg_resize.png> Bourgogne
+58000,58999=<img border='0' alt="Bourgogne" src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Bourgogne_flag.svg_resize.png> Bourgogne
+71000,71999=<img border='0' alt="Bourgogne" src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Bourgogne_flag.svg_resize.png> Bourgogne
+89000,89999=<img border='0' alt="Bourgogne" src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Bourgogne_flag.svg_resize.png> Bourgogne
+22000,22999=<img border='0' alt="Bretagne" src=https://dserrano5.es/ebt/ebtst/images/regions/Drapeau-bzh_resize.jpg> Bretagne
+29000,29999=<img border='0' alt="Bretagne" src=https://dserrano5.es/ebt/ebtst/images/regions/Drapeau-bzh_resize.jpg> Bretagne
+35000,35999=<img border='0' alt="Bretagne" src=https://dserrano5.es/ebt/ebtst/images/regions/Drapeau-bzh_resize.jpg> Bretagne
+56000,56999=<img border='0' alt="Bretagne" src=https://dserrano5.es/ebt/ebtst/images/regions/Drapeau-bzh_resize.jpg> Bretagne
+18000,18999=<img border='0' alt="Centre" src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Centre-Val-de-Loire_flag.svg_resize.png> Centre
+28000,28999=<img border='0' alt="Centre" src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Centre-Val-de-Loire_flag.svg_resize.png> Centre
+36000,37999=<img border='0' alt="Centre" src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Centre-Val-de-Loire_flag.svg_resize.png> Centre
+41000,41999=<img border='0' alt="Centre" src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Centre-Val-de-Loire_flag.svg_resize.png> Centre
+45000,45999=<img border='0' alt="Centre" src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Centre-Val-de-Loire_flag.svg_resize.png> Centre
+08000,08999=<img border='0' alt="Champagne-Ardenne" src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Champagne-Ardenne_flag.svg_resize.png> Champagne-Ardenne
+10000,10999=<img border='0' alt="Champagne-Ardenne" src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Champagne-Ardenne_flag.svg_resize.png> Champagne-Ardenne
+51000,52999=<img border='0' alt="Champagne-Ardenne" src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Champagne-Ardenne_flag.svg_resize.png> Champagne-Ardenne
+20000,20999=<img border='0' alt="Corse" src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Flag_of_Corsica.svg_resize.png> Corse
+25000,25999=<img border='0' alt="Franche-Comté" src=https://dserrano5.es/ebt/ebtst/images/regions/330px-Franche-Comté.svg_resize.png> Franche-Comté
+39000,39999=<img border='0' alt="Franche-Comté" src=https://dserrano5.es/ebt/ebtst/images/regions/330px-Franche-Comté.svg_resize.png> Franche-Comté
+70000,70999=<img border='0' alt="Franche-Comté" src=https://dserrano5.es/ebt/ebtst/images/regions/330px-Franche-Comté.svg_resize.png> Franche-Comté
+90000,90999=<img border='0' alt="Franche-Comté" src=https://dserrano5.es/ebt/ebtst/images/regions/330px-Franche-Comté.svg_resize.png> Franche-Comté
+27000,27999=<img border='0' alt="Haute-Normandie" src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Haute-Normandie_flag.svg_resize.png> Haute-Normandie
+76000,76999=<img border='0' alt="Haute-Normandie" src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Haute-Normandie_flag.svg_resize.png> Haute-Normandie
+75000,75999=<img border='0' alt="Île-de-France" src=https://dserrano5.es/ebt/ebtst/images/regions/361px-Île-de-France_flag.svg_resize.png> Île-de-France
+77000,78999=<img border='0' alt="Île-de-France" src=https://dserrano5.es/ebt/ebtst/images/regions/361px-Île-de-France_flag.svg_resize.png> Île-de-France
+91000,95999=<img border='0' alt="Île-de-France" src=https://dserrano5.es/ebt/ebtst/images/regions/361px-Île-de-France_flag.svg_resize.png> Île-de-France
+11000,11999=<img border='0' alt="Languedoc-Roussillon" src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Languedoc_Roussillon_flag.svg_resize.png> Languedoc-Roussillon
+30000,30999=<img border='0' alt="Languedoc-Roussillon" src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Languedoc_Roussillon_flag.svg_resize.png> Languedoc-Roussillon
+34000,34999=<img border='0' alt="Languedoc-Roussillon" src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Languedoc_Roussillon_flag.svg_resize.png> Languedoc-Roussillon
+48000,48999=<img border='0' alt="Languedoc-Roussillon" src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Languedoc_Roussillon_flag.svg_resize.png> Languedoc-Roussillon
+66000,66999=<img border='0' alt="Languedoc-Roussillon" src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Languedoc_Roussillon_flag.svg_resize.png> Languedoc-Roussillon
+19000,19999=<img border='0' alt="Limousin" src=https://dserrano5.es/ebt/ebtst/images/regions/323px-Limousin_flag.svg_resize.png> Limousin
+23000,23999=<img border='0' alt="Limousin" src=https://dserrano5.es/ebt/ebtst/images/regions/323px-Limousin_flag.svg_resize.png> Limousin
+87000,87999=<img border='0' alt="Limousin" src=https://dserrano5.es/ebt/ebtst/images/regions/323px-Limousin_flag.svg_resize.png> Limousin
+54000,55999=<img border='0' alt="Lorraine" src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Lorraine.svg_resize.png> Lorraine
+57000,57999=<img border='0' alt="Lorraine" src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Lorraine.svg_resize.png> Lorraine
+88000,88999=<img border='0' alt="Lorraine" src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Lorraine.svg_resize.png> Lorraine
+09000,09999=<img border='0' alt="Midi-Pyrénées" src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Midi-Pyrénées_flag.svg_resize.png> Midi-Pyrénées
+12000,12999=<img border='0' alt="Midi-Pyrénées" src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Midi-Pyrénées_flag.svg_resize.png> Midi-Pyrénées
+31000,32999=<img border='0' alt="Midi-Pyrénées" src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Midi-Pyrénées_flag.svg_resize.png> Midi-Pyrénées
+46000,46999=<img border='0' alt="Midi-Pyrénées" src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Midi-Pyrénées_flag.svg_resize.png> Midi-Pyrénées
+65000,65999=<img border='0' alt="Midi-Pyrénées" src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Midi-Pyrénées_flag.svg_resize.png> Midi-Pyrénées
+81000,82999=<img border='0' alt="Midi-Pyrénées" src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Midi-Pyrénées_flag.svg_resize.png> Midi-Pyrénées
+59000,59999=<img border='0' alt="Nord-Pas-de-Calais" src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Nord-Pas-de-Calais_flag.svg_resize.png> Nord-Pas-de-Calais
+62000,62999=<img border='0' alt="Nord-Pas-de-Calais" src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Nord-Pas-de-Calais_flag.svg_resize.png> Nord-Pas-de-Calais
+44000,44999=<img border='0' alt="Pays de la Loire" src=https://dserrano5.es/ebt/ebtst/images/regions/359px-Pays-de-la-Loire_flag.svg_resize.png> Pays de la Loire
+49000,49999=<img border='0' alt="Pays de la Loire" src=https://dserrano5.es/ebt/ebtst/images/regions/359px-Pays-de-la-Loire_flag.svg_resize.png> Pays de la Loire
+53000,53999=<img border='0' alt="Pays de la Loire" src=https://dserrano5.es/ebt/ebtst/images/regions/359px-Pays-de-la-Loire_flag.svg_resize.png> Pays de la Loire
+72000,72999=<img border='0' alt="Pays de la Loire" src=https://dserrano5.es/ebt/ebtst/images/regions/359px-Pays-de-la-Loire_flag.svg_resize.png> Pays de la Loire
+85000,85999=<img border='0' alt="Pays de la Loire" src=https://dserrano5.es/ebt/ebtst/images/regions/359px-Pays-de-la-Loire_flag.svg_resize.png> Pays de la Loire
+02000,02999=<img border='0' alt="Picardie" src=https://dserrano5.es/ebt/ebtst/images/regions/picardie_resize.gif> Picardie
+60000,60999=<img border='0' alt="Picardie" src=https://dserrano5.es/ebt/ebtst/images/regions/picardie_resize.gif> Picardie
+80000,80999=<img border='0' alt="Picardie" src=https://dserrano5.es/ebt/ebtst/images/regions/picardie_resize.gif> Picardie
+16000,17999=<img border='0' alt="Poitou-Charentes" src=https://dserrano5.es/ebt/ebtst/images/regions/Drapeau_Poitou_resize.png> Poitou-Charentes
+79000,79999=<img border='0' alt="Poitou-Charentes" src=https://dserrano5.es/ebt/ebtst/images/regions/Drapeau_Poitou_resize.png> Poitou-Charentes
+86000,86999=<img border='0' alt="Poitou-Charentes" src=https://dserrano5.es/ebt/ebtst/images/regions/Drapeau_Poitou_resize.png> Poitou-Charentes
+04000,06999=<img border='0' alt="Provence-Alpes-Côte d'Azur" src=https://dserrano5.es/ebt/ebtst/images/regions/322px-Provence-Alpes-Côte-d'Azur_flag.svg_resize.png> Provence-Alpes-Côte d'Azur
+13000,13999=<img border='0' alt="Provence-Alpes-Côte d'Azur" src=https://dserrano5.es/ebt/ebtst/images/regions/322px-Provence-Alpes-Côte-d'Azur_flag.svg_resize.png> Provence-Alpes-Côte d'Azur
+83000,84999=<img border='0' alt="Provence-Alpes-Côte d'Azur" src=https://dserrano5.es/ebt/ebtst/images/regions/322px-Provence-Alpes-Côte-d'Azur_flag.svg_resize.png> Provence-Alpes-Côte d'Azur
+01000,01999=<img border='0' alt="Rhône-Alpes" src=https://dserrano5.es/ebt/ebtst/images/regions/Blason_rhonalpe_resize.png> Rhône-Alpes
+07000,07999=<img border='0' alt="Rhône-Alpes" src=https://dserrano5.es/ebt/ebtst/images/regions/Blason_rhonalpe_resize.png> Rhône-Alpes
+26000,26999=<img border='0' alt="Rhône-Alpes" src=https://dserrano5.es/ebt/ebtst/images/regions/Blason_rhonalpe_resize.png> Rhône-Alpes
+38000,38999=<img border='0' alt="Rhône-Alpes" src=https://dserrano5.es/ebt/ebtst/images/regions/Blason_rhonalpe_resize.png> Rhône-Alpes
+42000,42999=<img border='0' alt="Rhône-Alpes" src=https://dserrano5.es/ebt/ebtst/images/regions/Blason_rhonalpe_resize.png> Rhône-Alpes
+69000,69999=<img border='0' alt="Rhône-Alpes" src=https://dserrano5.es/ebt/ebtst/images/regions/Blason_rhonalpe_resize.png> Rhône-Alpes
+73000,74999=<img border='0' alt="Rhône-Alpes" src=https://dserrano5.es/ebt/ebtst/images/regions/Blason_rhonalpe_resize.png> Rhône-Alpes
+97100,97199=<img border='0' alt="Guadeloupe" src=https://dserrano5.es/ebt/ebtst/images/regions/600px-Flag_of_Guadeloupe_(local).svg_resize.png> Guadeloupe
+97200,97299=<img border='0' alt="Martinique" src=https://dserrano5.es/ebt/ebtst/images/regions/750px-Flag_of_Martinique.svg_resize.png> Martinique
+97300,97399=<img border='0' alt="Guyane" src=https://dserrano5.es/ebt/ebtst/images/regions/GuyaneLogo1_resize.gif> Guyane Française
+97400,97499=<img border='0' alt="La Réunion" src=https://dserrano5.es/ebt/ebtst/images/regions/Logo_reunion_resize.jpg> La Réunion
 
 
 
 Group=Départements of France / Départements de France
 //SubGroup=Alsace
-//SubFlag=http://img266.imageshack.us/img266/4136/drapalsaceresizerd9.gif
-SubGroup=<img src=http://orusso.free.fr/Flags/fr/Drap_alsace_resize.jpg> Alsace
+//SubFlag=https://dserrano5.es/ebt/ebtst/images/regions/drapalsaceresizerd9.gif
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Drap_alsace_resize.jpg> Alsace
 67000,67999= 67 Bas-Rhin
 68000,68999= 68 Haut-Rhin
 //SubGroup=Aquitaine
-//SubFlag=http://img253.imageshack.us/img253/3624/360pxaquitaineflagsvgresf9.png
-SubGroup=<img src=http://orusso.free.fr/Flags/fr/360px-Aquitaine_flag.svg_resize.png> Aquitaine
+//SubFlag=https://dserrano5.es/ebt/ebtst/images/regions/360pxaquitaineflagsvgresf9.png
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Aquitaine_flag.svg_resize.png> Aquitaine
 24000,24999= 24 Dordogne
 33000,33999= 33 Gironde
 40000,40999= 40 Landes
 47000,47999= 47 Lot-et-Garonne
 64000,64999= 64 Pyrénées-Atlantiques
 //SubGroup=Auvergne
-//SubFlag=http://img339.imageshack.us/img339/9477/360pxauvergneflagsvgressd4.png
-SubGroup=<img src=http://orusso.free.fr/Flags/fr/360px-Auvergne_flag.svg_resize.png> Auvergne
+//SubFlag=https://dserrano5.es/ebt/ebtst/images/regions/360pxauvergneflagsvgressd4.png
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Auvergne_flag.svg_resize.png> Auvergne
 03000,03999= 03 Allier
 15000,15999= 15 Cantal
 43000,43999= 43 Haute-Loire
 63000,63999= 63 Puy-de-Dôme
 //SubGroup=Basse-Normandie
-//SubFlag=http://img133.imageshack.us/img133/6446/600pxbassenormandieflagpc3.png
-SubGroup=<img src=http://orusso.free.fr/Flags/fr/600px-Basse-Normandie_flag.svg_resize.png> Basse-Normandie
+//SubFlag=https://dserrano5.es/ebt/ebtst/images/regions/600pxbassenormandieflagpc3.png
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/600px-Basse-Normandie_flag.svg_resize.png> Basse-Normandie
 14000,14999= 14 Calvados
 50000,50999= 50 Manche
 61000,61999= 61 Orne
 //SubGroup=Bourgogne
-//SubFlag=http://img339.imageshack.us/img339/7927/360pxbourgogneflagsvgreft8.png
-SubGroup=<img src=http://orusso.free.fr/Flags/fr/360px-Bourgogne_flag.svg_resize.png> Bourgogne
+//SubFlag=https://dserrano5.es/ebt/ebtst/images/regions/360pxbourgogneflagsvgreft8.png
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Bourgogne_flag.svg_resize.png> Bourgogne
 21000,21999= 21 Côte-d'Or
 58000,58999= 58 Nièvre
 71000,71999= 71 Saône-et-Loire
 89000,89999= 89 Yonne
 //SubGroup=Bretagne
-//SubFlag=http://img141.imageshack.us/img141/8770/drapeaubzhresizebd0.jpg
-SubGroup=<img src=http://orusso.free.fr/Flags/fr/Drapeau-bzh_resize.jpg> Bretagne
+//SubFlag=https://dserrano5.es/ebt/ebtst/images/regions/drapeaubzhresizebd0.jpg
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Drapeau-bzh_resize.jpg> Bretagne
 22000,22999= 22 Côtes-d'Armor
 29000,29999= 29 Finistère
 35000,35999= 35 Ille-et-Vilaine
 56000,56999= 56 Morbihan
 //SubGroup=Centre
-//SubFlag=http://img339.imageshack.us/img339/4645/360pxcentrevaldeloireflrc1.png
-SubGroup=<img src=http://orusso.free.fr/Flags/fr/360px-Centre-Val-de-Loire_flag.svg_resize.png> Centre
+//SubFlag=https://dserrano5.es/ebt/ebtst/images/regions/360pxcentrevaldeloireflrc1.png
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Centre-Val-de-Loire_flag.svg_resize.png> Centre
 18000,18999= 18 Cher
 28000,28999= 28 Eure-et-Loir
 36000,36999= 36 Indre
@@ -150,32 +150,31 @@ SubGroup=<img src=http://orusso.free.fr/Flags/fr/360px-Centre-Val-de-Loire_flag.
 41000,41999= 41 Loir-et-Cher
 45000,45999= 45 Loiret
 //SubGroup=Champagne-Ardenne
-//SubFlag=http://img339.imageshack.us/img339/7566/360pxchampagneardenneflug5.png
-SubGroup=<img src=http://orusso.free.fr/Flags/fr/360px-Champagne-Ardenne_flag.svg_resize.png> Champagne-Ardenne
+//SubFlag=https://dserrano5.es/ebt/ebtst/images/regions/360pxchampagneardenneflug5.png
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Champagne-Ardenne_flag.svg_resize.png> Champagne-Ardenne
 08000,08999= 08 Ardennes
 10000,10999= 10 Aube
 51000,51999= 51 Marne
 52000,52999= 52 Haute-Marne
 //SubGroup=Corse
-//SubFlag=http://img443.imageshack.us/img443/1065/360pxflagofcorsicasvgreds4.png
-SubGroup=<img src=http://orusso.free.fr/Flags/fr/360px-Flag_of_Corsica.svg_resize.png> Corse
+//SubFlag=https://dserrano5.es/ebt/ebtst/images/regions/360pxflagofcorsicasvgreds4.png
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Flag_of_Corsica.svg_resize.png> Corse
 20000,20199= 2A Corse-du-Sud
 20200,20999= 2B Haute-Corse
 //SubGroup=Franche-Comté
-//SubFlag=http://img47.imageshack.us/img47/1065/330pxfranchecomtsvgresiks6.png
-SubGroup=<img src=http://orusso.free.fr/Flags/fr/330px-Franche-Comt%C3%A9.svg_resize.png> Franche-Comté
+//SubFlag=https://dserrano5.es/ebt/ebtst/images/regions/330pxfranchecomtsvgresiks6.png
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/330px-Franche-Comté.svg_resize.png> Franche-Comté
 25000,25999= 25 Doubs
 39000,39999= 39 Jura
 70000,70999= 70 Haute-Saône
 90000,90999= 90 Territoire-de-Belfort
 //SubGroup=Haute-Normandie
-//SubFlag=http://img253.imageshack.us/img253/4162/360pxhautenormandieflagcq6.png
-SubGroup=<img src=http://orusso.free.fr/Flags/fr/360px-Haute-Normandie_flag.svg_resize.png> Haute-Normandie
+//SubFlag=https://dserrano5.es/ebt/ebtst/images/regions/360pxhautenormandieflagcq6.png
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Haute-Normandie_flag.svg_resize.png> Haute-Normandie
 27000,27999= 27 Eure
 76000,76999= 76 Seine-Maritime
 //SubGroup=Île-de-France
-//SubFlag=http://img443.imageshack.us/img443/7779/361pxledefranceflagsvgrzk2.png
-SubGroup=<img src=http://orusso.free.fr/Flags/fr/361px-%C3%8Ele-de-France_flag.svg_resize.png> Île-de-France
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/361px-Île-de-France_flag.svg_resize.png> Île-de-France
 75000,75999= 75 Paris
 77000,77999= 77 Seine-et-Marne
 78000,78999= 78 Yvelines
@@ -185,29 +184,27 @@ SubGroup=<img src=http://orusso.free.fr/Flags/fr/361px-%C3%8Ele-de-France_flag.s
 94000,94999= 94 Val-de-Marne
 95000,95999= 95 Val-d'Oise
 //SubGroup=Languedoc-Roussillon
-//SubFlag=http://img443.imageshack.us/img443/7018/360pxlanguedocroussilloxv7.png
-SubGroup=<img src=http://orusso.free.fr/Flags/fr/360px-Languedoc_Roussillon_flag.svg_resize.png> Languedoc-Roussillon
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Languedoc_Roussillon_flag.svg_resize.png> Languedoc-Roussillon
 11000,11999= 11 Aude
 30000,30999= 30 Gard
 34000,34999= 34 Hérault
 48000,48999= 48 Lozère
 66000,66999= 66 Pyrénées-Orientales
 //SubGroup=Limousin
-//SubFlag=http://img338.imageshack.us/img338/641/323pxlimousinflagsvgresnr8.png
-SubGroup=<img src=http://orusso.free.fr/Flags/fr/323px-Limousin_flag.svg_resize.png> Limousin
+//SubFlag=https://dserrano5.es/ebt/ebtst/images/regions/323pxlimousinflagsvgresnr8.png
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/323px-Limousin_flag.svg_resize.png> Limousin
 19000,19999= 19 Corrèze
 23000,23999= 23 Creuse
 87000,87999= 87 Haute-Vienne
 //SubGroup=Lorraine
-//SubFlag=http://img253.imageshack.us/img253/9467/360pxlorrainesvgresizebu4.png
-SubGroup=<img src=http://orusso.free.fr/Flags/fr/360px-Lorraine.svg_resize.png> Lorraine
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Lorraine.svg_resize.png> Lorraine
 54000,54999= 54 Meurthe-et-Moselle
 55000,55999= 55 Meuse
 57000,57999= 57 Moselle
 88000,88999= 88 Vosges
 //SubGroup=Midi-Pyrénées
-//SubFlag=http://img122.imageshack.us/img122/5844/360pxmidipyrnesflagsvgrql3.png
-SubGroup=<img src=http://orusso.free.fr/Flags/fr/360px-Midi-Pyr%C3%A9n%C3%A9es_flag.svg_resize.png> Midi-Pyrénées
+//SubFlag=https://dserrano5.es/ebt/ebtst/images/regions/360pxmidipyrnesflagsvgrql3.png
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Midi-Pyrénées_flag.svg_resize.png> Midi-Pyrénées
 09000,09999= 09 Ariège
 12000,12999= 12 Aveyron
 31000,31999= 31 Haute-Garonne
@@ -217,34 +214,33 @@ SubGroup=<img src=http://orusso.free.fr/Flags/fr/360px-Midi-Pyr%C3%A9n%C3%A9es_f
 81000,81999= 81 Tarn
 82000,82999= 82 Tarn-et-Garonne
 //SubGroup=Nord-Pas-de-Calais
-//SubFlag=http://img443.imageshack.us/img443/9990/360pxnordpasdecalaisflaet0.png
-SubGroup=<img src=http://orusso.free.fr/Flags/fr/360px-Nord-Pas-de-Calais_flag.svg_resize.png> Nord-Pas-de-Calais
+//SubFlag=https://dserrano5.es/ebt/ebtst/images/regions/360pxnordpasdecalaisflaet0.png
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Nord-Pas-de-Calais_flag.svg_resize.png> Nord-Pas-de-Calais
 59000,59999= 59 Nord
 62000,62999= 62 Pas-de-Calais
 //SubGroup=Pays de la Loire
-//SubFlag=http://img256.imageshack.us/img256/3025/359pxpaysdelaloireflagshy0.png
-SubGroup=<img src=http://orusso.free.fr/Flags/fr/359px-Pays-de-la-Loire_flag.svg_resize.png> Pays de la Loire
+//SubFlag=https://dserrano5.es/ebt/ebtst/images/regions/359pxpaysdelaloireflagshy0.png
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/359px-Pays-de-la-Loire_flag.svg_resize.png> Pays de la Loire
 44000,44999= 44 Loire-Atlantique
 49000,49999= 49 Maine-et-Loire
 53000,53999= 53 Mayenne
 72000,72999= 72 Sarthe
 85000,85999= 85 Vendée
 //SubGroup=Picardie
-//SubFlag=http://img148.imageshack.us/img148/9776/picardieresizeyy3.gif
-SubGroup=<img src=http://orusso.free.fr/Flags/fr/picardie_resize.gif> Picardie
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/picardie_resize.gif> Picardie
 02000,02999= 02 Aisne
 60000,60999= 60 Oise
 80000,80999= 80 Somme
 //SubGroup=Poitou-Charentes
-//SubFlag=http://img141.imageshack.us/img141/7476/drapeaupoitouresizeft5.png
-SubGroup=<img src=http://orusso.free.fr/Flags/fr/Drapeau_Poitou_resize.png> Poitou-Charentes
+//SubFlag=https://dserrano5.es/ebt/ebtst/images/regions/drapeaupoitouresizeft5.png
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Drapeau_Poitou_resize.png> Poitou-Charentes
 16000,16999= 16 Charente
 17000,17999= 17 Charente-Maritime
 79000,79999= 79 Deux-Sèvres
 86000,86999= 86 Vienne
 //SubGroup=Provence-Alpes-Côte d'Azur
-//SubFlag=http://img338.imageshack.us/img338/6604/322pxprovencealpesctedaec5.png
-SubGroup=<img src=http://orusso.free.fr/Flags/fr/322px-Provence-Alpes-C%C3%B4te-d%27Azur_flag.svg_resize.png> Provence-Alpes-Côte d'Azur
+//SubFlag=https://dserrano5.es/ebt/ebtst/images/regions/322pxprovencealpesctedaec5.png
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/322px-Provence-Alpes-Côte-d'Azur_flag.svg_resize.png> Provence-Alpes-Côte d'Azur
 04000,04999= 04 Alpes-de-Haute-Provence
 05000,05999= 05 Hautes-Alpes
 06000,06999= 06 Alpes-Maritimes
@@ -252,8 +248,8 @@ SubGroup=<img src=http://orusso.free.fr/Flags/fr/322px-Provence-Alpes-C%C3%B4te-
 83000,83999= 83 Var
 84000,84999= 84 Vaucluse
 //SubGroup=Rhône-Alpes
-//SubFlag=http://img48.imageshack.us/img48/5986/blasonrhonalperesizenx9.png
-SubGroup=<img src=http://orusso.free.fr/Flags/fr/Blason_rhonalpe_resize.png> Rhône-Alpes
+//SubFlag=https://dserrano5.es/ebt/ebtst/images/regions/blasonrhonalperesizenx9.png
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Blason_rhonalpe_resize.png> Rhône-Alpes
 01000,01999= 01 Ain
 07000,07999= 07 Ardèche
 26000,26999= 26 Drôme
@@ -263,20 +259,19 @@ SubGroup=<img src=http://orusso.free.fr/Flags/fr/Blason_rhonalpe_resize.png> Rh�
 73000,73999= 73 Savoie
 74000,74999= 74 Haute-Savoie
 //SubGroup=Guadeloupe
-//SubFlag=http://img69.imageshack.us/img69/4825/600pxflagofguadeloupeloho3.png
-SubGroup=<img src=http://orusso.free.fr/Flags/fr/600px-Flag_of_Guadeloupe_%28local%29.svg_resize.png> Guadeloupe
+//SubFlag=https://dserrano5.es/ebt/ebtst/images/regions/600pxflagofguadeloupeloho3.png
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/600px-Flag_of_Guadeloupe_(local).svg_resize.png> Guadeloupe
 97100,97199=971 Guadeloupe
 //SubGroup=Martinique
-//SubFlag=http://img227.imageshack.us/img227/7604/750pxflagofmartiniquesvxv9.png
-SubGroup=<img src=http://orusso.free.fr/Flags/fr/750px-Flag_of_Martinique.svg_resize.png> Martinique
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/750px-Flag_of_Martinique.svg_resize.png> Martinique
 97200,97299=972 Martinique
 //SubGroup=Guyane Française
-//SubFlag=http://img141.imageshack.us/img141/4496/guyanelogo1resizeij7.gif
-SubGroup=<img src=http://orusso.free.fr/Flags/fr/GuyaneLogo1_resize.gif> Guyane Française
+//SubFlag=https://dserrano5.es/ebt/ebtst/images/regions/guyanelogo1resizeij7.gif
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/GuyaneLogo1_resize.gif> Guyane Française
 97300,97399=973 Guyane Française
 //SubGroup=La Réunion
-//SubFlag=http://img265.imageshack.us/img265/3203/logoreunionresizerr1.jpg
-SubGroup=<img src=http://orusso.free.fr/Flags/fr/Logo_reunion_resize.jpg> La Réunion
+//SubFlag=https://dserrano5.es/ebt/ebtst/images/regions/logoreunionresizerr1.jpg
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Logo_reunion_resize.jpg> La Réunion
 97400,97499=974 La Réunion
 
 

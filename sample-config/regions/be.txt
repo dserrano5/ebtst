@@ -19,19 +19,19 @@ Group=Regions of Belgium
 4000,7999=Région Wallonne / Wallonische Region / Waals gewest
 
 Group=Provinces of Belgium (see <a href="http://forum.eurobilltracker.eu/viewtopic.php?t=9197">forum</a>)
-2000,2999=<img border='0' alt="Antwerpen" src=http://img526.imageshack.us/img526/2540/800pxantwerpenresizeev8.png> Antwerpen
-1000,1299=<img border='0' alt="Région de Bruxelles-Capitale / Brussels Hoofdstedelijk Gewest" src=http://img365.imageshack.us/img365/7917/744pxflagbelgiumbrusselgi9.png> Région de Bruxelles-Capitale / Brussels Hoofdstedelijk Gewest
-1300,1499=<img border='0' alt="Brabant Wallon" src=http://img440.imageshack.us/img440/7494/brabantwallonhtmlresizeao7.gif> Brabant Wallon
-6000,6599=<img border='0' alt="Hainaut" src=http://img338.imageshack.us/img338/3225/hainauthtmlresizein3.gif> Hainaut
-7000,7999=<img border='0' alt="Hainaut" src=http://img338.imageshack.us/img338/3225/hainauthtmlresizein3.gif> Hainaut
-4000,4999=<img border='0' alt="Liège" src=http://img338.imageshack.us/img338/3471/liegehtmlresizewr4.gif> Liège
-3500,3999=<img border='0' alt="Limburg" src=http://img50.imageshack.us/img50/76/vlaamslimburgresizery4.png> Limburg
-6600,6999=<img border='0' alt="Luxembourg" src=http://img171.imageshack.us/img171/9099/800pxflagprovinceluxembcp3.png> Luxembourg
-5000,5999=<img border='0' alt="Namur" src=http://img171.imageshack.us/img171/6397/300pxflagprovincenamursnu5.png> Namur
-9000,9999=<img border='0' alt="Oost-Vlaanderen" src=http://img441.imageshack.us/img441/999/oostvlaanderenresizerz9.png> Oost-Vlaanderen
-1500,1999=<img border='0' alt="Vlaams Brabant" src=http://img479.imageshack.us/img479/7663/flemishbrabantflagresizod7.png> Vlaams Brabant
-3000,3499=<img border='0' alt="Vlaams Brabant" src=http://img479.imageshack.us/img479/7663/flemishbrabantflagresizod7.png> Vlaams Brabant
-8000,8999=<img border='0' alt="West-Vlaanderen" src=http://img441.imageshack.us/img441/527/324pxflagofwestflandersqr2.png> West-Vlaanderen
+2000,2999=<img border='0' alt="Antwerpen" src=https://dserrano5.es/ebt/ebtst/images/regions/800pxantwerpenresizeev8.png> Antwerpen
+1000,1299=<img border='0' alt="Région de Bruxelles-Capitale / Brussels Hoofdstedelijk Gewest" src=https://dserrano5.es/ebt/ebtst/images/regions/744pxflagbelgiumbrusselgi9.png> Région de Bruxelles-Capitale / Brussels Hoofdstedelijk Gewest
+1300,1499=<img border='0' alt="Brabant Wallon" src=https://dserrano5.es/ebt/ebtst/images/regions/brabantwallonhtmlresizeao7.gif> Brabant Wallon
+6000,6599=<img border='0' alt="Hainaut" src=https://dserrano5.es/ebt/ebtst/images/regions/hainauthtmlresizein3.gif> Hainaut
+7000,7999=<img border='0' alt="Hainaut" src=https://dserrano5.es/ebt/ebtst/images/regions/hainauthtmlresizein3.gif> Hainaut
+4000,4999=<img border='0' alt="Liège" src=https://dserrano5.es/ebt/ebtst/images/regions/liegehtmlresizewr4.gif> Liège
+3500,3999=<img border='0' alt="Limburg" src=https://dserrano5.es/ebt/ebtst/images/regions/vlaamslimburgresizery4.png> Limburg
+6600,6999=<img border='0' alt="Luxembourg" src=https://dserrano5.es/ebt/ebtst/images/regions/800pxflagprovinceluxembcp3.png> Luxembourg
+5000,5999=<img border='0' alt="Namur" src=https://dserrano5.es/ebt/ebtst/images/regions/300pxflagprovincenamursnu5.png> Namur
+9000,9999=<img border='0' alt="Oost-Vlaanderen" src=https://dserrano5.es/ebt/ebtst/images/regions/oostvlaanderenresizerz9.png> Oost-Vlaanderen
+1500,1999=<img border='0' alt="Vlaams Brabant" src=https://dserrano5.es/ebt/ebtst/images/regions/flemishbrabantflagresizod7.png> Vlaams Brabant
+3000,3499=<img border='0' alt="Vlaams Brabant" src=https://dserrano5.es/ebt/ebtst/images/regions/flemishbrabantflagresizod7.png> Vlaams Brabant
+8000,8999=<img border='0' alt="West-Vlaanderen" src=https://dserrano5.es/ebt/ebtst/images/regions/324pxflagofwestflandersqr2.png> West-Vlaanderen
 
 Group=Biggest Cities of Belgium (see <a href="http://forum.eurobilltracker.eu/viewtopic.php?t=8490">forum</a>)
 1000,1299=01 Brussel (Gewest/Région)
@@ -196,7 +196,7 @@ Group=Smallest Municipalities of Belgium (by surface)
 1050=20 Ixelles / Elsene
 
 Group=Municipalities of Belgium / Gemeentes België (see <a href="http://forum.eurobilltracker.eu/viewtopic.php?t=8935">forum</a>) 
-SubGroup=<img src=http://img526.imageshack.us/img526/2540/800pxantwerpenresizeev8.png> Antwerpen
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/800pxantwerpenresizeev8.png> Antwerpen
 2630=Aartselaar
 2000,2060=Antwerpen
 2100=Antwerpen
@@ -272,7 +272,7 @@ SubGroup=<img src=http://img526.imageshack.us/img526/2540/800pxantwerpenresizeev
 2240,2243=Zandhoven
 2980=Zoersel
 2070=Zwijndrecht
-SubGroup=<img src=http://img440.imageshack.us/img440/7494/brabantwallonhtmlresizeao7.gif> Brabant Wallon
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/brabantwallonhtmlresizeao7.gif> Brabant Wallon
 1320=Beauvechain
 1420,1428=Braine-l'Alleud
 1440=Braine-le-Château
@@ -300,7 +300,7 @@ SubGroup=<img src=http://img440.imageshack.us/img440/7494/brabantwallonhtmlresiz
 1457=Walhain
 1410=Waterloo
 1300,1301=Wavre
-SubGroup=<img src=http://img365.imageshack.us/img365/7917/744pxflagbelgiumbrusselgi9.png> Région de Bruxelles-Capitale / Brussels Hoofdstedelijk Gewest
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/744pxflagbelgiumbrusselgi9.png> Région de Bruxelles-Capitale / Brussels Hoofdstedelijk Gewest
 1070=Anderlecht
 1160=Auderghem / Oudergem
 1082=Berchem-Sainte-Agathe / Sint-Agatha-Berchem
@@ -321,7 +321,7 @@ SubGroup=<img src=http://img365.imageshack.us/img365/7917/744pxflagbelgiumbrusse
 1170=Watermael-Boitsfort / Watermaal-Bosvoorde
 1200=Woluwe-Saint-Lambert / Sint-Lambrechts-Woluwe
 1150=Woluwe-Saint-Pierre / Sint-Pieters-Woluwe
-SubGroup=<img src=http://img338.imageshack.us/img338/3225/hainauthtmlresizein3.gif> Hainaut
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/hainauthtmlresizein3.gif> Hainaut
 6250=Aiseau-Presles
 6150=Anderlues
 7640,7643=Antoing
@@ -391,7 +391,7 @@ SubGroup=<img src=http://img338.imageshack.us/img338/3225/hainauthtmlresizein3.g
 7060,7063=Soignies
 6530,6536=Thuin
 7500,7548=Tournai
-SubGroup=<img src=http://img338.imageshack.us/img338/3471/liegehtmlresizewr4.gif> Liège
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/liegehtmlresizewr4.gif> Liège
 4540=Amay
 4770,4771=Amel / Amblève
 4430,4432=Ans
@@ -476,7 +476,7 @@ SubGroup=<img src=http://img338.imageshack.us/img338/3471/liegehtmlresizewr4.gif
 4300=Waremme
 4219=Wasseiges
 4840,4841=Welkenraedt
-SubGroup=<img src=http://img50.imageshack.us/img50/76/vlaamslimburgresizery4.png> Limburg
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/vlaamslimburgresizery4.png> Limburg
 3570=Alken
 3665,3668=As
 3580,3583=Beringen
@@ -521,7 +521,7 @@ SubGroup=<img src=http://img50.imageshack.us/img50/76/vlaamslimburgresizery4.png
 3830,3832=Wellen
 3520=Zonhoven
 3690=Zutendaal
-SubGroup=<img src=http://img171.imageshack.us/img171/9099/800pxflagprovinceluxembcp3.png> Luxembourg
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/800pxflagprovinceluxembcp3.png> Luxembourg
 6700,6706=Arlon
 6717=Attert
 6790,6792=Aubange
@@ -566,7 +566,7 @@ SubGroup=<img src=http://img171.imageshack.us/img171/9099/800pxflagprovinceluxem
 6690,6698=Vielsalm
 6760,6762=Virton
 6920,6924=Wellin
-SubGroup=<img src=http://img171.imageshack.us/img171/6397/300pxflagprovincenamursnu5.png> Namur
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/300pxflagprovincenamursnu5.png> Namur
 5300=Andenne
 5537=Anhée
 5330,5336=Assesse
@@ -607,7 +607,7 @@ SubGroup=<img src=http://img171.imageshack.us/img171/6397/300pxflagprovincenamur
 5550=Vresse-sur-Semois
 5650,5651=Walcourt
 5530=Yvoir
-SubGroup=<img src=http://img441.imageshack.us/img441/999/oostvlaanderenresizerz9.png> Oost-Vlaanderen
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/oostvlaanderenresizerz9.png> Oost-Vlaanderen
 9300,9320=Aalst
 9880,9881=Aalter
 9960,9968=Assenede
@@ -673,7 +673,7 @@ SubGroup=<img src=http://img441.imageshack.us/img441/999/oostvlaanderenresizerz9
 9620=Zottegem
 9870=Zulte
 9630,9636=Zwalm
-SubGroup=<img src=http://img479.imageshack.us/img479/7663/flemishbrabantflagresizod7.png> Vlaams-Brabant
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/flemishbrabantflagresizod7.png> Vlaams-Brabant
 3200,3202=Aarschot
 1790=Affligem
 1730,1731=Asse
@@ -739,7 +739,7 @@ SubGroup=<img src=http://img479.imageshack.us/img479/7663/flemishbrabantflagresi
 1930,1933=Zaventem
 1980,1982=Zemst
 3440=Zoutleeuw
-SubGroup=<img src=http://img441.imageshack.us/img441/527/324pxflagofwestflandersqr2.png> West-Vlaanderen
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/24pxflagofwestflandersqr2.png> West-Vlaanderen
 8690,8691=Alveringem
 8570,8573=Anzegem
 8850,8851=Ardooie

@@ -145,34 +145,34 @@ Koolbaai (Sint Maarten)=Sint Maarten
 
 Group=Provincial capitals in The Netherlands (see <a href="http://www.eurobilltrackerforum.com/viewtopic.php?t=11503">forum</a>)
 
-6800,6846=<img border='0' alt="Gelderland" src=http://i127.photobucket.com/albums/p142/SmikeNL/EBT/GL.png> Arnhem
-9400,9408=<img border='0' alt="Drenthe" src=http://i127.photobucket.com/albums/p142/SmikeNL/EBT/Dr.png> Assen
-2490,2597=<img border='0' alt="Zuid-Holland" src=http://i127.photobucket.com/albums/p142/SmikeNL/EBT/ZH.png> Den Haag
-9700,9722=<img border='0' alt="Groningen" src=http://i127.photobucket.com/albums/p142/SmikeNL/EBT/Gr.png> Groningen
-9723;Groningen=<img border='0' alt="Groningen" src=http://i127.photobucket.com/albums/p142/SmikeNL/EBT/Gr.png> Groningen
-9724,9733=<img border='0' alt="Groningen" src=http://i127.photobucket.com/albums/p142/SmikeNL/EBT/Gr.png> Groningen
-9734;Groningen=<img border='0' alt="Groningen" src=http://i127.photobucket.com/albums/p142/SmikeNL/EBT/Gr.png> Groningen
-9735,9737=<img border='0' alt="Groningen" src=http://i127.photobucket.com/albums/p142/SmikeNL/EBT/Gr.png> Groningen
-9738;Groningen=<img border='0' alt="Groningen" src=http://i127.photobucket.com/albums/p142/SmikeNL/EBT/Gr.png> Groningen
-9741,9743=<img border='0' alt="Groningen" src=http://i127.photobucket.com/albums/p142/SmikeNL/EBT/Gr.png> Groningen
-9745;Groningen=<img border='0' alt="Groningen" src=http://i127.photobucket.com/albums/p142/SmikeNL/EBT/Gr.png> Groningen
-9746;Groningen=<img border='0' alt="Groningen" src=http://i127.photobucket.com/albums/p142/SmikeNL/EBT/Gr.png> Groningen
-9747=<img border='0' alt="Groningen" src=http://i127.photobucket.com/albums/p142/SmikeNL/EBT/Gr.png> Groningen
-2000,2037=<img border='0' alt="Noord-Holland" src=http://i127.photobucket.com/albums/p142/SmikeNL/EBT/NH.png> Haarlem
-5200,5220=<img border='0' alt="Noord-Brabant" src=http://i127.photobucket.com/albums/p142/SmikeNL/EBT/NB.png> 's-Hertogenbosch
-5221;'s-Hertogenbosch=<img border='0' alt="Noord-Brabant" src=http://i127.photobucket.com/albums/p142/SmikeNL/EBT/NB.png> 's-Hertogenbosch
-5222,5234=<img border='0' alt="Noord-Brabant" src=http://i127.photobucket.com/albums/p142/SmikeNL/EBT/NB.png> 's-Hertogenbosch
-5235;'s-Hertogenbosch=<img border='0' alt="Noord-Brabant" src=http://i127.photobucket.com/albums/p142/SmikeNL/EBT/NB.png> 's-Hertogenbosch
-5236;'s-Hertogenbosch=<img border='0' alt="Noord-Brabant" src=http://i127.photobucket.com/albums/p142/SmikeNL/EBT/NB.png> 's-Hertogenbosch
-5237=<img border='0' alt="Noord-Brabant" src=http://i127.photobucket.com/albums/p142/SmikeNL/EBT/NB.png> 's-Hertogenbosch
-8900,8939=<img border='0' alt="Friesland / Fryslân" src=http://i127.photobucket.com/albums/p142/SmikeNL/EBT/FRL.png> Leeuwarden
-8200,8245=<img border='0' alt="Flevoland" src=http://i127.photobucket.com/albums/p142/SmikeNL/EBT/FL.png> Lelystad
-6200,6222=<img border='0' alt="Limburg" src=http://i127.photobucket.com/albums/p142/SmikeNL/EBT/Lb.png> Maastricht
-6223;Maastricht=<img border='0' alt="Limburg" src=http://i127.photobucket.com/albums/p142/SmikeNL/EBT/Lb.png> Maastricht
-6224,6229=<img border='0' alt="Limburg" src=http://i127.photobucket.com/albums/p142/SmikeNL/EBT/Lb.png> Maastricht
-4330,4338=<img border='0' alt="Zeeland" src=http://i127.photobucket.com/albums/p142/SmikeNL/EBT/ZL.jpg> Middelburg
-3500,3585=<img border='0' alt="Utrecht" src=http://i127.photobucket.com/albums/p142/SmikeNL/EBT/Ut.png> Utrecht
-8000,8045=<img border='0' alt="Overijssel" src=http://i127.photobucket.com/albums/p142/SmikeNL/EBT/Ov.png> Zwolle
+6800,6846=<img border='0' alt="Gelderland" src=https://dserrano5.es/ebt/ebtst/images/regions/GL.png> Arnhem
+9400,9408=<img border='0' alt="Drenthe" src=https://dserrano5.es/ebt/ebtst/images/regions/Dr.png> Assen
+2490,2597=<img border='0' alt="Zuid-Holland" src=https://dserrano5.es/ebt/ebtst/images/regions/ZH.png> Den Haag
+9700,9722=<img border='0' alt="Groningen" src=https://dserrano5.es/ebt/ebtst/images/regions/Gr.png> Groningen
+9723;Groningen=<img border='0' alt="Groningen" src=https://dserrano5.es/ebt/ebtst/images/regions/Gr.png> Groningen
+9724,9733=<img border='0' alt="Groningen" src=https://dserrano5.es/ebt/ebtst/images/regions/Gr.png> Groningen
+9734;Groningen=<img border='0' alt="Groningen" src=https://dserrano5.es/ebt/ebtst/images/regions/Gr.png> Groningen
+9735,9737=<img border='0' alt="Groningen" src=https://dserrano5.es/ebt/ebtst/images/regions/Gr.png> Groningen
+9738;Groningen=<img border='0' alt="Groningen" src=https://dserrano5.es/ebt/ebtst/images/regions/Gr.png> Groningen
+9741,9743=<img border='0' alt="Groningen" src=https://dserrano5.es/ebt/ebtst/images/regions/Gr.png> Groningen
+9745;Groningen=<img border='0' alt="Groningen" src=https://dserrano5.es/ebt/ebtst/images/regions/Gr.png> Groningen
+9746;Groningen=<img border='0' alt="Groningen" src=https://dserrano5.es/ebt/ebtst/images/regions/Gr.png> Groningen
+9747=<img border='0' alt="Groningen" src=https://dserrano5.es/ebt/ebtst/images/regions/Gr.png> Groningen
+2000,2037=<img border='0' alt="Noord-Holland" src=https://dserrano5.es/ebt/ebtst/images/regions/NH.png> Haarlem
+5200,5220=<img border='0' alt="Noord-Brabant" src=https://dserrano5.es/ebt/ebtst/images/regions/NB.png> 's-Hertogenbosch
+5221;'s-Hertogenbosch=<img border='0' alt="Noord-Brabant" src=https://dserrano5.es/ebt/ebtst/images/regions/NB.png> 's-Hertogenbosch
+5222,5234=<img border='0' alt="Noord-Brabant" src=https://dserrano5.es/ebt/ebtst/images/regions/NB.png> 's-Hertogenbosch
+5235;'s-Hertogenbosch=<img border='0' alt="Noord-Brabant" src=https://dserrano5.es/ebt/ebtst/images/regions/NB.png> 's-Hertogenbosch
+5236;'s-Hertogenbosch=<img border='0' alt="Noord-Brabant" src=https://dserrano5.es/ebt/ebtst/images/regions/NB.png> 's-Hertogenbosch
+5237=<img border='0' alt="Noord-Brabant" src=https://dserrano5.es/ebt/ebtst/images/regions/NB.png> 's-Hertogenbosch
+8900,8939=<img border='0' alt="Friesland / Fryslân" src=https://dserrano5.es/ebt/ebtst/public/images/FRL.png> Leeuwarden
+8200,8245=<img border='0' alt="Flevoland" src=https://dserrano5.es/ebt/ebtst/images/regions/FL.png> Lelystad
+6200,6222=<img border='0' alt="Limburg" src=https://dserrano5.es/ebt/ebtst/images/regions/Lb.png> Maastricht
+6223;Maastricht=<img border='0' alt="Limburg" src=https://dserrano5.es/ebt/ebtst/images/regions/Lb.png> Maastricht
+6224,6229=<img border='0' alt="Limburg" src=https://dserrano5.es/ebt/ebtst/images/regions/Lb.png> Maastricht
+4330,4338=<img border='0' alt="Zeeland" src=https://dserrano5.es/ebt/ebtst/images/regions/ZL.jpg> Middelburg
+3500,3585=<img border='0' alt="Utrecht" src=https://dserrano5.es/ebt/ebtst/images/regions/Ut.png> Utrecht
+8000,8045=<img border='0' alt="Overijssel" src=https://dserrano5.es/ebt/ebtst/images/regions/Ov.png> Zwolle
 
 
 Group=Biggest Cities in The Netherlands (see <a href="http://forum.eurobilltracker.eu/viewtopic.php?t=8261">forum</a>)
@@ -414,7 +414,7 @@ Group=Smallest Municipalities of The Netherlands (by surface)
 
 Group=Nederlandse Gemeentes/Municipalities of the Netherlands (01-01-2012) (see <a href="http://forum.eurobilltracker.eu/viewtopic.php?t=8227">forum</a>)
 // Drenthe 12 Municipalities 
-SubGroup=<img src=http://i127.photobucket.com/albums/p142/SmikeNL/EBT/Dr.png> Drenthe
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Dr.png> Drenthe
 9443,9469=Aa en Hunze
 9510,9515=Aa en Hunze
 9654,9659=Aa en Hunze
@@ -456,7 +456,7 @@ SubGroup=<img src=http://i127.photobucket.com/albums/p142/SmikeNL/EBT/Dr.png> Dr
 8437,8439=Westerveld
 // Flevoland 6 Municipalities 
 SubGroup=Flevoland
-SubFlag=http://i127.photobucket.com/albums/p142/SmikeNL/EBT/FL.png
+SubFlag=https://dserrano5.es/ebt/ebtst/images/regions/FL.png
 1300,1379=Almere
 8250,8256=Dronten
 8200,8245=Lelystad
@@ -465,7 +465,7 @@ SubFlag=http://i127.photobucket.com/albums/p142/SmikeNL/EBT/FL.png
 3890,3899=Zeewolde
 // Friesland 31 Municipalities
 SubGroup=Friesland / Fryslân
-SubFlag=http://i127.photobucket.com/albums/p142/SmikeNL/EBT/FRL.png
+SubFlag=https://dserrano5.es/ebt/ebtst/public/images/FRL.png
 9230,9233=Achtkarspelen
 9280,9289=Achtkarspelen
 9870,9873=Achtkarspelen
@@ -544,7 +544,7 @@ SubFlag=http://i127.photobucket.com/albums/p142/SmikeNL/EBT/FRL.png
 
 // Gelderland 56 Municipalities
 SubGroup=Gelderland
-SubFlag=http://i127.photobucket.com/albums/p142/SmikeNL/EBT/GL.png
+SubFlag=https://dserrano5.es/ebt/ebtst/images/regions/GL.png
 7090,7095=Aalten
 7120,7126=Aalten
 7300,7351=Apeldoorn
@@ -662,7 +662,7 @@ SubFlag=http://i127.photobucket.com/albums/p142/SmikeNL/EBT/GL.png
 7230,7232=Zutphen
 // Groningen 25 Municipalities
 SubGroup=Groningen
-SubFlag=http://i127.photobucket.com/albums/p142/SmikeNL/EBT/Gr.png
+SubFlag=https://dserrano5.es/ebt/ebtst/images/regions/Gr.png
 9900,9903=Appingedam
 9780,9785=Bedum
 9959=Bedum
@@ -715,7 +715,7 @@ SubFlag=http://i127.photobucket.com/albums/p142/SmikeNL/EBT/Gr.png
 9880,9886=Zuidhorn
 // Limburg 40 Municipalities
 SubGroup=Limburg
-SubFlag=http://i127.photobucket.com/albums/p142/SmikeNL/EBT/Lb.png
+SubFlag=https://dserrano5.es/ebt/ebtst/images/regions/Lb.png
 6176=Beek
 6190,6199=Beek
 5953,5954=Beesel
@@ -791,7 +791,7 @@ SubFlag=http://i127.photobucket.com/albums/p142/SmikeNL/EBT/Lb.png
 6039=Weert
 // Noord-Brabant 68 Municipalities
 SubGroup=Noord-Brabant
-SubFlag=http://i127.photobucket.com/albums/p142/SmikeNL/EBT/NB.png
+SubFlag=https://dserrano5.es/ebt/ebtst/images/regions/NB.png
 4260,4269=Aalburg
 4855,4861=Alphen-Chaam
 5130,5131=Alphen-Chaam
@@ -906,7 +906,7 @@ SubFlag=http://i127.photobucket.com/albums/p142/SmikeNL/EBT/NB.png
 4880,4891=Zundert
 // Noord-Holland 61 Municipalities
 SubGroup=Noord-Holland
-SubFlag=http://i127.photobucket.com/albums/p142/SmikeNL/EBT/NH.png
+SubFlag=https://dserrano5.es/ebt/ebtst/images/regions/NH.png
 1430,1433=Aalsmeer
 1800,1831=Alkmaar
 1180,1189=Amstelveen
@@ -1012,7 +1012,7 @@ SubFlag=http://i127.photobucket.com/albums/p142/SmikeNL/EBT/NH.png
 1470,1477=Zeevang
 // Overijssel 25 Municipalities
 SubGroup=Overijssel
-SubFlag=http://i127.photobucket.com/albums/p142/SmikeNL/EBT/Ov.png
+SubFlag=https://dserrano5.es/ebt/ebtst/images/regions/Ov.png
 7600,7611=Almelo
 7627=Almelo
 7620,7626=Borne
@@ -1066,7 +1066,7 @@ SubFlag=http://i127.photobucket.com/albums/p142/SmikeNL/EBT/Ov.png
 8292=Zwolle
 // Utrecht 29 Municipalities
 SubGroup=Utrecht
-SubFlag=http://i127.photobucket.com/albums/p142/SmikeNL/EBT/Ut.png
+SubFlag=https://dserrano5.es/ebt/ebtst/images/regions/Ut.png
 
 3800,3829=Amersfoort
 3836=Amersfoort
@@ -1118,7 +1118,7 @@ SubFlag=http://i127.photobucket.com/albums/p142/SmikeNL/EBT/Ut.png
 3734,3735=Zeist
 // Zeeland 13 Municipalities
 SubGroup=Zeeland
-SubFlag=http://i127.photobucket.com/albums/p142/SmikeNL/EBT/ZL.jpg
+SubFlag=https://dserrano5.es/ebt/ebtst/images/regions/ZL.jpg
 4430,4456=Borsele
 4458,4482=Goes
 4560,4569=Hulst
@@ -1139,7 +1139,7 @@ SubFlag=http://i127.photobucket.com/albums/p142/SmikeNL/EBT/ZL.jpg
 4380,4389=Vlissingen
 // Zuid-Holland 77 Municipalities
 SubGroup=Zuid-Holland
-SubFlag=http://i127.photobucket.com/albums/p142/SmikeNL/EBT/ZH.png
+SubFlag=https://dserrano5.es/ebt/ebtst/images/regions/ZH.png
 2950,2954=Alblasserdam
 3160,3176=Albrandswaard
 2400,2409=Alphen aan den Rijn
@@ -1260,7 +1260,7 @@ The Bottom=Saba
 Oranjestad (Sint Eustatius)=Sint Eustatius
 
 Group=Disappeared Dutch Municipalities / Verdwenen Nederlandse Gemeentes (2002-2013)
-SubGroup=<img src=http://img.photobucket.com/albums/v231/ylivieska/vlaggen/prov-regio/FRL.png> Friesland / Fryslân
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/public/images/FRL.png> Friesland / Fryslân
 8700,8702=Bolsward (2011: Súdwest Fryslân)
 8584=Nijefurd (2011: Súdwest Fryslân)
 8710,8729=Nijefurd (2011: Súdwest Fryslân)
@@ -1276,7 +1276,7 @@ SubGroup=<img src=http://img.photobucket.com/albums/v231/ylivieska/vlaggen/prov-
 8627,8632=Wymbritseradeel (2011: Súdwest Fryslân)
 8650,8658=Wymbritseradeel (2011: Súdwest Fryslân)
 8770,8774=Wymbritseradeel (2011: Súdwest Fryslân)
-SubGroup=<img src=http://img.photobucket.com/albums/v231/ylivieska/vlaggen/prov-regio/GL.png> Gelderland
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/GL.png> Gelderland
 6986,6988=Angerlo (2005: Zevenaar)
 7035,7048=Bergh (2005: Montferland)
 7270,7271=Borculo (2005: Berkelland)
@@ -1316,14 +1316,14 @@ SubGroup=<img src=http://img.photobucket.com/albums/v231/ylivieska/vlaggen/prov-
 7064,7065=Wisch (2005: Oude IJsselstreek)
 7020,7021=Zelhem (2005: Bronckhorst)
 7025=Zelhem (2005: Bronckhorst)
-SubGroup=<img src=http://img.photobucket.com/albums/v231/ylivieska/vlaggen/prov-regio/Gr.png>  Groningen
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Gr.png>  Groningen
 9684,9694=Reiderland (2010: Oldambt)
 9677,9682=Scheemda (2010: Oldambt)
 9940,9944=Scheemda (2010: Oldambt)
 9670,9675=Winschoten (2010: Oldambt)
 
 SubGroup=Limburg
-SubFlag=http://i127.photobucket.com/albums/p142/SmikeNL/EBT/Lb.png
+SubFlag=https://dserrano5.es/ebt/ebtst/images/regions/Lb.png
 6060,6061=Ambt Montfort (2007: Roerdalen)
 6065=Ambt Montfort (2007: Roerdalen)
 6077=Ambt Montfort (2007: Roerdalen)
@@ -1357,7 +1357,7 @@ SubFlag=http://i127.photobucket.com/albums/p142/SmikeNL/EBT/Lb.png
 6017=Thorn (2007: Maasgouw)
 
 SubGroup=Noord-Brabant
-SubFlag=http://img.photobucket.com/albums/v231/ylivieska/vlaggen/prov-regio/NB.png
+SubFlag=https://dserrano5.es/ebt/ebtst/images/regions/NB.png
 5660,5667=Geldrop (2004: Geldrop-Mierlo)
 5394,5398=Lith (2011: Oss)
 5730,5731=Mierlo (2004: Geldrop-Mierlo)
@@ -1365,7 +1365,7 @@ SubFlag=http://img.photobucket.com/albums/v231/ylivieska/vlaggen/prov-regio/NB.p
 5373=Ravenstein (2003: Oss)
 
 SubGroup=Noord-Holland
-SubFlag=http://i127.photobucket.com/albums/p142/SmikeNL/EBT/NH.png
+SubFlag=https://dserrano5.es/ebt/ebtst/images/regions/NH.png
 1489=Akersloot (2002: Castricum)
 1920,1921=Akersloot (2002: Castricum)
 1619=Andijk (2011: Medemblik)
@@ -1396,11 +1396,11 @@ SubFlag=http://i127.photobucket.com/albums/p142/SmikeNL/EBT/NH.png
 1750,1759=Zijpe (2013: Schagen)
 
 SubGroup=Overijssel
-SubFlag=http://img.photobucket.com/albums/v231/ylivieska/vlaggen/prov-regio/Ov.png
+SubFlag=https://dserrano5.es/ebt/ebtst/images/regions/Ov.png
 7437=Bathmen (2005: Deventer)
 
 SubGroup=Utrecht
-SubFlag=http://img.photobucket.com/albums/v231/ylivieska/vlaggen/prov-regio/Ut.png
+SubFlag=https://dserrano5.es/ebt/ebtst/images/regions/Ut.png
 1390,1391=Abcoude (2011: De Ronde Venen)
 1396=Abcoude (2011: De Ronde Venen)
 3958,3959=Amerongen (2006: Utrechtse Heuvelrug)
@@ -1417,7 +1417,7 @@ SubFlag=http://img.photobucket.com/albums/v231/ylivieska/vlaggen/prov-regio/Ut.p
 3600,3612=Maarssen (2011: Stichtse Vecht)
 
 SubGroup=Zeeland
-SubFlag=http://img.photobucket.com/albums/v231/ylivieska/vlaggen/prov-regio/ZL.jpg
+SubFlag=https://dserrano5.es/ebt/ebtst/images/regions/ZL.jpg
 4570,4571=Axel (2003: Terneuzen)
 4574,4576=Axel (2003: Terneuzen)
 4539=Axel (2003: Terneuzen)
@@ -1435,7 +1435,7 @@ SubFlag=http://img.photobucket.com/albums/v231/ylivieska/vlaggen/prov-regio/ZL.j
 4527,4529=Sluis-Aardenburg (2003: Sluis)
 
 SubGroup=Zuid-Holland
-SubFlag=http://i127.photobucket.com/albums/p142/SmikeNL/EBT/ZH.png
+SubFlag=https://dserrano5.es/ebt/ebtst/images/regions/ZH.png
 2159=Alkemade (2009: Kaag en Braassem)
 2370,2377=Alkemade (2009: Kaag en Braassem)
 2660,2662=Bergschenhoek (2007: Lansingerland)
@@ -5822,7 +5822,7 @@ SubGroup=Zwijndrecht
 2995=Heerjansdam
 3330,3336=Zwijndrecht
 
-Group=postal codes (2 digits) (see <a href="http://forum.eurobilltracker.eu/viewtopic.php?t=7370">forum</a>) <img src="http://img.photobucket.com/albums/v231/ylivieska/NL-postcode.png"></a>
+Group=postal codes (2 digits) (see <a href="http://forum.eurobilltracker.eu/viewtopic.php?t=7370">forum</a>)</a>
 SubGroup=1xxx
 1000,1099=10xx (Amsterdam)
 1100,1199=11xx (Amsterdam Zuidoost)

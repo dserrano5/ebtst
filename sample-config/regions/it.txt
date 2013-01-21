@@ -74,27 +74,27 @@ Group=Regioni d'Italia / Regioni of Italy
 45010,45100=Veneto
 
 Group=Province d'Italia / Provinces of Italy
-SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Abruzzo.gif> Abruzzo
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Abruzzo.gif> Abruzzo
 66010,66100=Chieti
 67010,67100=L'Aquila
 65010,65132=Pescara
 64010,64100=Teramo
-SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Basilicata.gif> Basilicata
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Basilicata.gif> Basilicata
 75010,75100=Matera
 85010,85100=Potenza
-SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Calabria.gif> Calabria
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Calabria.gif> Calabria
 88010,88100=Catanzaro
 87010,87100=Cosenza
 88810,88900=Crotone
 89010,89133=Reggio Calabria
 89810,89900=Vibo Valentia
-SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Campania.gif> Campania
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Campania.gif> Campania
 83010,83100=Avellino
 82010,82100=Benevento
 81010,81100=Caserta
 80010,80147=Napoli
 84010,84135=Salerno
-SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Emilia-Romagna.gif> Emilia Romagna
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Emilia-Romagna.gif> Emilia Romagna
 40010,40141=Bologna
 44010,44124=Ferrara
 47010,47522=Forlì-Cesena
@@ -108,7 +108,7 @@ SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Emilia-Romagna.gif> Em
 61010;Maiolo=Rimini
 61015,61016=Rimini
 61018,61019=Rimini
-SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Friuli-Venezia-Giulia.gif> Friuli Venezia Giulia
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Friuli-Venezia-Giulia.gif> Friuli Venezia Giulia
 34070,34079=Gorizia
 34170=Gorizia
 33070,33099=Pordenone
@@ -117,7 +117,7 @@ SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Friuli-Venezia-Giulia.
 34100,34151=Trieste
 33010,33069=Udine
 33100=Udine
-SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Lazio.gif> Lazio
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Lazio.gif> Lazio
 00010,00029=Roma
 00030;Castellaccio=Frosinone
 00030;Bellegra=Roma
@@ -147,7 +147,7 @@ SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Lazio.gif> Lazio
 02010,02100=Rieti
 03010,03100=Frosinone
 04010,04100=Latina
-SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Liguria.gif> Liguria
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Liguria.gif> Liguria
 16010,16167=Genova
 18010,18024=Imperia
 18025;Mendatica=Imperia
@@ -156,7 +156,7 @@ SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Liguria.gif> Liguria
 19010,19139=La Spezia
 12071;Massimino=Savona
 17010,17100=Savona
-SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Lombardia.gif> Lombardia
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Lombardia.gif> Lombardia
 24010,24129=Bergamo
 25010,25136=Brescia
 22010,22100=Como
@@ -261,7 +261,7 @@ SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Lombardia.gif> Lombard
 27010,27100=Pavia
 23010,23100=Sondrio
 21010,21100=Varese
-SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Marche.gif> Marche
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Marche.gif> Marche
 60010,60131=Ancona
 63010;Massignano=Ascoli Piceno
 63010;Montefiore dell'Aso=Ascoli Piceno
@@ -291,12 +291,12 @@ SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Marche.gif> Marche
 61010;Rio Salso=Pesaro e Urbino
 61011,61014=Pesaro e Urbino
 61020,61122=Pesaro e Urbino
-SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Molise.gif> Molise
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Molise.gif> Molise
 86010,86069=Campobasso
 86100=Campobasso
 86070,86099=Isernia
 86170=Isernia
-SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Piemonte.gif> Piemonte
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Piemonte.gif> Piemonte
 15010,15122=Alessandria
 14010,14100=Asti
 13810,13900=Biella
@@ -309,7 +309,7 @@ SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Piemonte.gif> Piemonte
 10010,10156=Torino
 28810,28925=Verbano-Cusio-Ossola
 13010,13100=Vercelli
-SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Puglia.gif> Puglia
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Puglia.gif> Puglia
 70010,70049=Bari
 70054=Bari
 70056=Bari
@@ -325,7 +325,7 @@ SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Puglia.gif> Puglia
 71100,71122=Foggia
 73010,73100=Lecce
 74010,74123=Taranto
-SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Sardegna.gif> Sardegna
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Sardegna.gif> Sardegna
 08030;Escolca=Cagliari
 08030;Esterzili=Cagliari
 08030;Gergei=Cagliari
@@ -523,7 +523,7 @@ SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Sardegna.gif> Sardegna
 07030;Viddalba=Sassari
 07031,07037=Sassari
 07039,07100=Sassari
-SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Sicilia.gif> Sicilia
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Sicilia.gif> Sicilia
 92010,92100=Agrigento
 93010,93100=Caltanissetta
 95010,95131=Catania
@@ -533,7 +533,7 @@ SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Sicilia.gif> Sicilia
 97010,97100=Ragusa
 96010,96100=Siracusa
 91010,91100=Trapani
-SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Toscana.gif> Toscana
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Toscana.gif> Toscana
 52010,52100=Arezzo
 50010,50145=Firenze
 58010,58100=Grosseto
@@ -544,15 +544,15 @@ SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Toscana.gif> Toscana
 51010,51100=Pistoia
 59010,59100=Prato
 53010,53100=Siena
-SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Trentino-Alto-Adige.gif> Trentino - AltoAdige/SüdTirol
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Trentino-Alto-Adige.gif> Trentino - AltoAdige/SüdTirol
 39010,39100=Bolzano/Bozen
 38010,38123=Trento
-SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Umbria.gif> Umbria
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Umbria.gif> Umbria
 06010,06139=Perugia
 05010,05100=Terni
-SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Valle-d_Aosta.gif> Valle d'Aosta
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Valle-d_Aosta.gif> Valle d'Aosta
 11010,11100=Aosta
-SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Veneto.gif> Veneto
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Veneto.gif> Veneto
 32010,32100=Belluno
 35010,35143=Padova
 45010,45100=Rovigo

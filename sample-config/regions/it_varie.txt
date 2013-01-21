@@ -8847,7 +8847,7 @@ SubGroup=Comuni che terminano con z / Comuni of Italy ending with z
 
 Group= Comuni con nomi di regioni
 //by Kart
-SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Abruzzo.gif> Comuni con riferimento all' Abruzzo
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Abruzzo.gif> Comuni con riferimento all' Abruzzo
 66045=Schiavi di Abruzzo
 67030;Anversa degli Abruzzi=Anversa degli Abruzzi
 67030;Anversa degli abruzzi=Anversa degli Abruzzi
@@ -8910,7 +8910,7 @@ SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Abruzzo.gif> Comuni co
 65020;Solcano=San Valentino in Abruzzo Citeriore
 65020;Trovigliano=San Valentino in Abruzzo Citeriore
 64026=Roseto degli Abruzzi
-SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Basilicata.gif> Comuni con riferimento alla Basilicata
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Basilicata.gif> Comuni con riferimento alla Basilicata
 85010;Vaglio Basilicata=Vaglio Basilicata
 85010;Vaglio=Vaglio Basilicata
 75010;Oliveto Lucano=Oliveto Lucano
@@ -8968,7 +8968,7 @@ SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Basilicata.gif> Comuni
 84030;Atena lucana=Atena Lucana
 84030;Atena=Atena Lucana
 84078=Vallo della Lucania
-SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Calabria.gif> Comuni con riferimento alla Calabria
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Calabria.gif> Comuni con riferimento alla Calabria
 87031=Aiello Calabro
 87033=Belmonte Calabro
 87070;Cerchiara di Calabria=Cerchiara di Calabria
@@ -9148,7 +9148,7 @@ SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Calabria.gif> Comuni c
 89851;S. costantino Calabro=San Costantino Calabro
 89831;Soriano Calabro=Soriano Calabro
 89831;Soriano calabro=Soriano Calabro
-SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Campania.gif> Comuni con riferimento alla Campania
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Campania.gif> Comuni con riferimento alla Campania
 83040;Conza della Campania=Conza della Campania
 83040;Conza della campania=Conza della Campania
 83040;Conza=Conza della Campania
@@ -9167,7 +9167,7 @@ SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Campania.gif> Comuni c
 80036=Palma Campania
 03025=Monte San Giovanni Campano
 86078=Sesto Campano
-SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Emilia-Romagna.gif> Comuni con riferimento all'Emilia Romagna
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Emilia-Romagna.gif> Comuni con riferimento all'Emilia Romagna
 40011=Anzola dell'Emilia
 40057=Granarolo dell'Emilia
 40064=Ozzano dell'Emilia
@@ -9192,7 +9192,7 @@ SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Emilia-Romagna.gif> Co
 48010;San filippo=Bagnara di Romagna
 47833=Morciano di Romagna
 47822=Santarcangelo di Romagna
-SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Lazio.gif> Comuni con riferimento al Lazio
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Lazio.gif> Comuni con riferimento al Lazio
 03040;San Vittore del Lazio=San Vittore del Lazio
 03040;S. Vittore del Lazio=San Vittore del Lazio
 03040;San Vittore del lazio=San Vittore del Lazio
@@ -9228,7 +9228,7 @@ SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Lazio.gif> Comuni con 
 00010;Gallicano nel lazio=Gallicano nel Lazio
 00010;Gallicano Nel Lazio=Gallicano nel Lazio
 00010;Gallicano=Gallicano nel Lazio
-SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Lombardia.gif> Comuni con riferimento alla Lombardia
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Lombardia.gif> Comuni con riferimento alla Lombardia
 83040;Guardia Lombardi=Guardia Lombardi
 83040;Guardia lombardi=Guardia Lombardi
 83040;Guardia=Guardia Lombardi
@@ -9269,7 +9269,7 @@ SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Lombardia.gif> Comuni 
 21010;Aeroporto di malpensa=Somma Lombardo
 21010;Aeroporto Malpensa=Somma Lombardo
 21010;Aeroporto malpensa=Somma Lombardo
-SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Liguria.gif> Comuni con riferimento alla Liguria
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Liguria.gif> Comuni con riferimento alla Liguria
 16013=Campo Ligure
 16030;Casarza Ligure=Casarza Ligure
 16030;Casarza ligure=Casarza Ligure
@@ -9527,7 +9527,7 @@ SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Liguria.gif> Comuni co
 15060;Sant'Ambrogio=Rocchetta Ligure
 15060;S. Ambrogio=Rocchetta Ligure
 15060;Sisola=Rocchetta Ligure
-SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Marche.gif> Comuni con riferimento alle Marche
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Marche.gif> Comuni con riferimento alle Marche
 63034;Montalto delle Marche=Montalto delle Marche
 63034;Montalto Marche=Montalto delle Marche
 63034;Montalto=Montalto delle Marche
@@ -9546,7 +9546,7 @@ SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Marche.gif> Comuni con
 63068=Montalto delle Marche
 62012=Civitanova Marche
 62027=San Severino Marche
-SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Molise.gif> Comuni con riferimento al Molise
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Molise.gif> Comuni con riferimento al Molise
 86020;Molise=Molise
 86030;San Felice del Molise=San Felice del Molise
 86030;S. Felice del Molise=San Felice del Molise
@@ -9578,7 +9578,7 @@ SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Molise.gif> Comuni con
 86097;Sessano del Molise=Sessano del Molise
 86097;Sessano del molise=Sessano del Molise
 86097;Sessano=Sessano del Molise
-SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Piemonte.gif> Comuni con riferimento al Piemonte
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Piemonte.gif> Comuni con riferimento al Piemonte
 87020;Guardia Piemontese=Guardia Piemontese
 87020;Guardia piemontese=Guardia Piemontese
 87020;Marina=Guardia Piemontese
@@ -9627,7 +9627,7 @@ SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Piemonte.gif> Comuni c
 10060;San Paolo=Virle Piemonte
 10060;S. Paolo=Virle Piemonte
 84086=Roccapiemonte
-SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Puglia.gif> Comuni con riferimento alla Puglia
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Puglia.gif> Comuni con riferimento alla Puglia
 86040;San Giuliano di Puglia=San Giuliano di Puglia
 86040;S. Giuliano di Puglia=San Giuliano di Puglia
 86040;San Giuliano di puglia=San Giuliano di Puglia
@@ -9658,7 +9658,7 @@ SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Puglia.gif> Comuni con
 71020;Monteleone=Monteleone di Puglia
 71027=Orsara di Puglia
 71028=Sant'Agata di Puglia
-SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Sardegna.gif> Comuni della Sardegna
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Sardegna.gif> Comuni della Sardegna
 08030;Meana Sardo=Meana Sardo
 08030;Meana sardo=Meana Sardo
 08030;Meana=Meana Sardo
@@ -9688,7 +9688,7 @@ SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Sardegna.gif> Comuni d
 09070;Riola sardo=Riola Sardo
 09070;Riola=Riola Sardo
 07031=Castelsardo
-SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Sicilia.gif> Comuni con riferimento alla Sicilia
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Sicilia.gif> Comuni con riferimento alla Sicilia
 92017=Sambuca di Sicilia
 95012=Castiglione di Sicilia
 95010;Mitogio=Castiglione di Sicilia
@@ -9739,7 +9739,7 @@ SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Sicilia.gif> Comuni co
 90010;Geraci Siculo=Geraci Siculo
 90010;Geraci siculo=Geraci Siculo
 90010;Geraci=Geraci Siculo
-SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Veneto.gif> Comuni con riferimento al Veneto
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Veneto.gif> Comuni con riferimento al Veneto
 33080;Fiume Veneto=Fiume Veneto
 33080;Fiume veneto=Fiume Veneto
 33080;Fiume=Fiume Veneto
@@ -9776,10 +9776,10 @@ SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Veneto.gif> Comuni con
 36028;Rossano veneto=Rossano Veneto
 36028;Rossano V.to=Rossano Veneto
 36028;Rossano v.to=Rossano Veneto
-SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Toscana.gif> Comuni con riferimento alla Toscana
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Toscana.gif> Comuni con riferimento alla Toscana
 58051,58052=Magliano in Toscana
 58050;Pereta=Magliano in Toscana
-SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Friuli-Venezia-Giulia.gif> Comuni con riferimento al Friuli Venezia Giulia
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Friuli-Venezia-Giulia.gif> Comuni con riferimento al Friuli Venezia Giulia
 34070;Capriva del Friuli=Capriva del Friuli
 34070;Capriva del friuli=Capriva del Friuli
 34070;Capriva=Capriva del Friuli
@@ -9809,7 +9809,7 @@ SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Friuli-Venezia-Giulia.
 33050;Terenzano=Pozzuolo del Friuli
 33050;Zugliano=Pozzuolo del Friuli
 33038=San Daniele del Friuli
-SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Umbria.gif> Comuni con riferimento all'Umbria
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Umbria.gif> Comuni con riferimento all'Umbria
 06083=Bastia Umbra
 06030;Giano dell'Umbria=Giano dell'Umbria
 06030;Giano dell'umbria=Giano dell'Umbria
@@ -9924,7 +9924,7 @@ SubGroup=Comune più a Ovest d'Italia / Italia's most Western Comune
 
 //Comuni alle estremità delle regioni / Comuni at the fins of Italian Regioni
 //by debemaks
-Group=<img src=http://giulcenc.altervista.org/Bandiere/Abruzzo.gif> Comuni all'estremità dell'Abruzzo / Comune at the fins of Abruzzo
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Abruzzo.gif> Comuni all'estremità dell'Abruzzo / Comune at the fins of Abruzzo
 SubGroup=Comune più a Nord / Most Northern Comune
 64014=Martinsicuro
 SubGroup=Comune più a Sud / Most Southern Comune
@@ -9941,7 +9941,7 @@ SubGroup=Comune più a Est / Most Eastern Comune
 66050;Stazione=San Salvo
 SubGroup=Comune più a Ovest / Most Western Comune
 67063=Oricola
-Group=<img src=http://giulcenc.altervista.org/Bandiere/Basilicata.gif> Comuni all'estremità della Basilicata / Comune at the fins of Basilicata
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Basilicata.gif> Comuni all'estremità della Basilicata / Comune at the fins of Basilicata
 SubGroup=Comune più a Nord / Most Northern Comune
 85024=Lavello
 85020;Gaudiano=Lavello
@@ -9958,7 +9958,7 @@ SubGroup=Comune più a Est / Most Eastern Comune
 SubGroup=Comune più a Ovest / Most Western Comune
 85020;Pescopagano=Pescopagano
 85020;Lago di Saetta=Pescopagano
-Group=<img src=http://giulcenc.altervista.org/Bandiere/Calabria.gif> Comuni all'estremità della Calabria / Comune at the fins of Calabria
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Calabria.gif> Comuni all'estremità della Calabria / Comune at the fins of Calabria
 SubGroup=Comune più a Nord / Most Northern Comune
 87070;Nocara=Nocara
 SubGroup=Comune più a Sud / Most Southern Comune
@@ -9967,7 +9967,7 @@ SubGroup=Comune più a Est / Most Eastern Comune
 88900=Crotone
 SubGroup=Comune più a Ovest / Most Western Comune
 89100,89135=Reggio Calabria
-Group=<img src=http://giulcenc.altervista.org/Bandiere/Campania.gif> Comuni all'estremità della Campania / Comune at the fins of Campania
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Campania.gif> Comuni all'estremità della Campania / Comune at the fins of Campania
 SubGroup=Comune più a Nord / Most Northern Comune
 81014;Capriati a Volturno=Capriati a Volturno
 81014;Capriati a volturno=Capriati a Volturno
@@ -9978,7 +9978,7 @@ SubGroup=Comune più a Est / Most Eastern Comune
 84033=Montesano sulla Marcellana
 SubGroup=Comune più a Ovest / Most Western Comune
 81037=Sessa Aurunca
-Group=<img src=http://giulcenc.altervista.org/Bandiere/Emilia-Romagna.gif> Comuni all'estremità dell'Emilia Romagna / Comune at the fins of Emilia Romagna
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Emilia-Romagna.gif> Comuni all'estremità dell'Emilia Romagna / Comune at the fins of Emilia Romagna
 SubGroup=Comune più a Nord / Most Northern Comune
 29010;Monticelli d'Ongina=Monticelli d'Ongina
 29010;Monticelli=Monticelli d'Ongina
@@ -10024,7 +10024,7 @@ SubGroup=Comune più a Ovest / Most Western Comune
 29020;Samboneto=Zerba
 29020;Vesimo=Zerba
 29020;Vezimo=Zerba
-Group=<img src=http://giulcenc.altervista.org/Bandiere/Friuli-Venezia-Giulia.gif> Comuni all'estremità del Friuli Venezia Giulia / Comune at the fins of Friuli Venezia Giulia
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Friuli-Venezia-Giulia.gif> Comuni all'estremità del Friuli Venezia Giulia / Comune at the fins of Friuli Venezia Giulia
 SubGroup=Comune più a Nord / Most Northern Comune
 33020;Forni Avoltri=Forni Avoltri
 33020;Forni avoltri=Forni Avoltri
@@ -10042,7 +10042,7 @@ SubGroup=Comune più a Ovest / Most Western Comune
 33080;Liron=Erto e Casso
 33080;Pineda=Erto e Casso
 33080;Val del Pont=Erto e Casso
-Group=<img src=http://giulcenc.altervista.org/Bandiere/Lazio.gif> Comuni all'estremità del Lazio / Comune at the fins of Lazio
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Lazio.gif> Comuni all'estremità del Lazio / Comune at the fins of Lazio
 SubGroup=Comune più a Nord / Most Northern Comune
 01021=Acquapendente
 SubGroup=Comune più a Sud / Most Southern Comune
@@ -10051,7 +10051,7 @@ SubGroup=Comune più a Est / Most Eastern Comune
 03040;Viticuso=Viticuso
 SubGroup=Comune più a Ovest / Most Western Comune
 01014=Montalto di Castro
-Group=<img src=http://giulcenc.altervista.org/Bandiere/Liguria.gif> Comuni all'estremità della Liguria / Comune at the fins of Liguria
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Liguria.gif> Comuni all'estremità della Liguria / Comune at the fins of Liguria
 SubGroup=Comune più a Nord / Most Northern Comune
 16017=Isola del Cantone
 SubGroup=Comune più a Sud / Most Southern Comune
@@ -10070,7 +10070,7 @@ SubGroup=Comune più a Ovest / Most Western Comune
 18030;Olivetta San michele=Olivetta San Michele
 18030;Olivetta san Michele=Olivetta San Michele
 18030;Olivetta S. Michele=Olivetta San Michele
-Group=<img src=http://giulcenc.altervista.org/Bandiere/Lombardia.gif> Comuni all'estremità della Lombardia / Comune at the fins of Lombardia
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Lombardia.gif> Comuni all'estremità della Lombardia / Comune at the fins of Lombardia
 SubGroup=Comune più a Nord / Most Northern Comune
 23030;Livigno=Livigno
 23030;Trepalle=Livigno
@@ -10130,7 +10130,7 @@ SubGroup=Comune più a Est / Most Eastern Comune
 SubGroup=Comune più a Ovest / Most Western Comune
 27030;Palestro=Palestro
 27030;Pizzarosto=Palestro
-Group=<img src=http://giulcenc.altervista.org/Bandiere/Marche.gif> Comuni all'estremità delle Marche / Comune at the fins of Marche
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Marche.gif> Comuni all'estremità delle Marche / Comune at the fins of Marche
 SubGroup=Comune più a Nord / Most Northern Comune
 61011=Gabicce Mare
 SubGroup=Comune più a Sud / Most Southern Comune
@@ -10146,7 +10146,7 @@ SubGroup=Comune più a Ovest / Most Western Comune
 61040;Parchiule=Borgo Pace
 61040;Sompiano=Borgo Pace
 61040;Palazzo Mucci=Borgo Pace
-Group=<img src=http://giulcenc.altervista.org/Bandiere/Molise.gif> Comuni all'estremità del Molise / Comune at the fins of Molise
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Molise.gif> Comuni all'estremità del Molise / Comune at the fins of Molise
 SubGroup=Comune più a Nord / Most Northern Comune
 86036=Montenero di Bisaccia
 SubGroup=Comune più a Sud / Most Southern Comune
@@ -10161,7 +10161,7 @@ SubGroup=Comune più a Ovest / Most Western Comune
 86071;Aramerdiara=Pizzone
 86071;Ommaro=Pizzone
 86071;Pagliarone=Pizzone
-Group=<img src=http://giulcenc.altervista.org/Bandiere/Piemonte.gif> Comuni all'estremità del Piemonte / Comune at the fins of Piemonte
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Piemonte.gif> Comuni all'estremità del Piemonte / Comune at the fins of Piemonte
 SubGroup=Comune più a Nord / Most Northern Comune
 28863=Formazza
 SubGroup=Comune più a Sud / Most Southern Comune
@@ -10170,7 +10170,7 @@ SubGroup=Comune più a Est / Most Eastern Comune
 15054=Fabbrica Curone
 SubGroup=Comune più a Ovest / Most Western Comune
 10052=Bardonecchia
-Group=<img src=http://giulcenc.altervista.org/Bandiere/Puglia.gif> Comuni all'estremità della Puglia / Comune at the fins of Puglia
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Puglia.gif> Comuni all'estremità della Puglia / Comune at the fins of Puglia
 SubGroup=Comune più a Nord / Most Northern Comune
 71040;Isole Tremiti=Isole Tremiti
 71040;San Domino=Isole Tremiti
@@ -10204,7 +10204,7 @@ SubGroup=Comune più a Ovest / Most Western Comune
 71030;Carlantino=Carlantino
 71030;Lago Occhito=Carlantino
 71030;Lago d'Occhito=Carlantino
-Group=<img src=http://giulcenc.altervista.org/Bandiere/Sardegna.gif> Comuni all'estremità della Sardegna / Comune at the fins of Sardegna
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Sardegna.gif> Comuni all'estremità della Sardegna / Comune at the fins of Sardegna
 SubGroup=Comune più a Nord / Most Northern Comune
 07024=La Maddalena
 SubGroup=Comune più a Sud / Most Southern Comune
@@ -10213,7 +10213,7 @@ SubGroup=Comune più a Est / Most Eastern Comune
 08029=Siniscola
 SubGroup=Comune più a Ovest / Most Western Comune
 09014=Carloforte
-Group=<img src=http://giulcenc.altervista.org/Bandiere/Sicilia.gif> Comuni all'estremità della Sicilia / Comune at the fins of Sicilia
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Sicilia.gif> Comuni all'estremità della Sicilia / Comune at the fins of Sicilia
 SubGroup=Comune più a Nord / Most Northern Comune
 98055=Lipari
 98052=Lipari
@@ -10293,7 +10293,7 @@ SubGroup=Comune più a Ovest / Most Western Comune
 91010;Aeroporto di Pantelleria=Pantelleria
 91010;Aeroporto di pantelleria=Pantelleria
 91010;Kamma=Pantelleria
-Group=<img src=http://giulcenc.altervista.org/Bandiere/Toscana.gif> Comuni all'estremità della Toscana / Comune at the fins of Toscana
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Toscana.gif> Comuni all'estremità della Toscana / Comune at the fins of Toscana
 SubGroup=Comune più a Nord / Most Northern Comune
 54010;Agnino=Pontremoli
 54020;Molinello=Pontremoli
@@ -10313,7 +10313,7 @@ SubGroup=Comune più a Est / Most Eastern Comune
 SubGroup=Comune più a Ovest / Most Western Comune
 54020;Chiesa di Rossano=Zeri
 54029=Zeri
-Group=<img src=http://giulcenc.altervista.org/Bandiere/Trentino-Alto-Adige.gif> Comuni all'estremità del Trentino - AltoAdige/SüdTirol / Comune at the fins of Trentino - AltoAdige/SüdTirol
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Trentino-Alto-Adige.gif> Comuni all'estremità del Trentino - AltoAdige/SüdTirol / Comune at the fins of Trentino - AltoAdige/SüdTirol
 SubGroup=Comune più a Nord / Most Northern Comune
 39030;Predoi=Prettau / Predoi
 39030;Prettau=Prettau / Predoi
@@ -10407,7 +10407,7 @@ SubGroup=Comune più a Ovest / Most Western Comune
 39020;Rifair=Taufers im Münstertal / Tubre
 39020;Rifair / Rivaira=Taufers im Münstertal / Tubre
 39020;Rivaira / Rifair=Taufers im Münstertal / Tubre
-Group=<img src=http://giulcenc.altervista.org/Bandiere/Umbria.gif> Comuni all'estremità dell'Umbria / Comune at the fins of Umbria
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Umbria.gif> Comuni all'estremità dell'Umbria / Comune at the fins of Umbria
 SubGroup=Comune più a Nord / Most Northern Comune
 06010;Morra=Città di Castello
 06010;Muccignano=Città di Castello
@@ -10428,7 +10428,7 @@ SubGroup=Comune più a Est / Most Eastern Comune
 06046=Norcia
 SubGroup=Comune più a Ovest / Most Western Comune
 05011=Allerona
-Group=<img src=http://giulcenc.altervista.org/Bandiere/Valle-d_Aosta.gif> Comuni all'estremità della Valle d'Aosta / Comune at the fins of Valle d'Aosta
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Valle-d_Aosta.gif> Comuni all'estremità della Valle d'Aosta / Comune at the fins of Valle d'Aosta
 SubGroup=Comune più a Nord / Most Northern Comune
 11010;Bionaz=Bionaz
 11010;Balmes=Bionaz
@@ -10558,7 +10558,7 @@ SubGroup=Comune più a Ovest / Most Western Comune
 11013;Veny=Courmayeur
 11013;Visaille=Courmayeur
 11013;Zerotta=Courmayeur
-Group=<img src=http://giulcenc.altervista.org/Bandiere/Veneto.gif> Comuni all'estremità del Veneto / Comune at the fins of Veneto
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Veneto.gif> Comuni all'estremità del Veneto / Comune at the fins of Veneto
 SubGroup=Comune più a Nord / Most Northern Comune
 32040;Comelico Superiore=Comelico Superiore
 32040;Candide=Comelico Superiore
@@ -10601,18 +10601,18 @@ SubGroup=Comune più a Ovest / Most Western Comune
 
 Group=Isole d'Italia / Islands of Italy
 //by giulcenc
-SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Piemonte.gif> Isole del Piemonte
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Piemonte.gif> Isole del Piemonte
 28838;Isola Bella=Isole Borromee (Bella, Madre e dei pescatori)
 28838;Isola Madre=Isole Borromee (Bella, Madre e dei pescatori)
 28838;Isola dei pescatori=Isole Borromee (Bella, Madre e dei pescatori)
 28016;Isola San Giulio=Isola San Giulio
-SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Lombardia.gif> Isole della Lombardia
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Lombardia.gif> Isole della Lombardia
 25050;Monte Isola=Monte Isola
 25050;Carzano=Monte Isola
 25050;Peschiera Maraglio=Monte Isola
 25050;Siviano=Monte Isola
 22010;Isola Comacina=Isola Comacina
-SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Veneto.gif> Isole del Veneto
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Veneto.gif> Isole del Veneto
 45010;Albarella=Isola di Albarella
 30021;Brussa=Isola Brussa
 30126;Lido=Isole della Laguna Veneta: Lido
@@ -10628,14 +10628,14 @@ SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Veneto.gif> Isole del 
 //Isole della Laguna Veneta:Isola di San Michele
 //Isole della Laguna Veneta:San Servolo
 //Isole della Laguna Veneta:Torcello
-SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Friuli-Venezia-Giulia.gif> Isole del Friuli Venezia Giulia
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Friuli-Venezia-Giulia.gif> Isole del Friuli Venezia Giulia
 34073;Grado=Isola di Grado
-SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Liguria.gif> Isole della Liguria
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Liguria.gif> Isole della Liguria
 19025;Isola Palmaria=Isole spezzine (Palmaria, Tino e Tinetto)
 19025;Isola del Tino=Isole spezzine (Palmaria, Tino e Tinetto)
 17051;Isola Gallinara=Isola Gallinara
 17028;Isola di Bergeggi=Isola di Bergeggi
-SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Toscana.gif> Isole della Toscana
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Toscana.gif> Isole della Toscana
 57030;Marciana=Isola d'Elba
 57030;Poggio=Isola d'Elba
 57030;Pomonte=Isola d'Elba
@@ -10669,17 +10669,17 @@ SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Toscana.gif> Isole del
 58012,58013=Isola del Giglio
 58018;Giannutri=Isola di Giannutri
 58019;Giannutri=Isola di Giannutri
-SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Umbria.gif> Isole dell'Umbria
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Umbria.gif> Isole dell'Umbria
 06060;Isola Maggiore=Isola Maggiore
 06069;Isola Maggiore=Isola Maggiore
 06060;Isola Polvese=Isola Polvese
 06061;Isola Polvese=Isola Polvese
-SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Lazio.gif> Isole del Lazio
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Lazio.gif> Isole del Lazio
 04020;Santo Stefano=Isola di Santo Stefano (Ventotene)
 04020;Ventotene=Isola di Ventotene
 04020;Le Forna=Isola di Ponza
 04027;Ponza=Isola di Ponza
-SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Campania.gif> Isole della Campania
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Campania.gif> Isole della Campania
 80070;Serrara Fontana=Isola d'Ischia
 80070;Fontana=Isola d'Ischia
 80070;Sant'Angelo=Isola d'Ischia
@@ -10694,12 +10694,12 @@ SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Campania.gif> Isole de
 80074,80077=Isola d'Ischia
 80079=Isole Procida e Vivara
 //Nisida (Frazione del Comune di Napoli)
-SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Puglia.gif> Isole della Puglia
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Puglia.gif> Isole della Puglia
 71040;Isole Tremiti=Isole Tremiti (San Domino, San Nicola, Capraia e Pianosa)
 71040;San Domino=Isole Tremiti (San Domino, San Nicola, Capraia e Pianosa)
 71040;San Nicola=Isole Tremiti (San Domino, San Nicola, Capraia e Pianosa)
 71040;San Nicola di Tremiti=Isole Tremiti (San Domino, San Nicola, Capraia e Pianosa)
-SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Calabria.gif> Isole della Calabria
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Calabria.gif> Isole della Calabria
 87020;Isola di Cirella=Isola Cirella
 87020;Isola Cirella=Isola Cirella
 87020;Isola di cirella=Isola Cirella
@@ -10709,7 +10709,7 @@ SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Calabria.gif> Isole de
 87023;Isola di cirella=Isola Cirella
 87023;Isola cirella=Isola Cirella
 87028;Isola di Dino=Isola di Dino
-SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Sicilia.gif> Isole della Sicilia
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Sicilia.gif> Isole della Sicilia
 90010;Altavilla Milicia=Isola di Sicilia
 90010;Aspra=Isola di Sicilia
 90010;Borrello=Isola di Sicilia
@@ -10855,7 +10855,7 @@ SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Sicilia.gif> Isole del
 91010;Scauri Siculo=Isola di Pantelleria
 91017=Isola di Pantelleria
 96010;Isola di Capo Passero=Isola di Capo Passero
-SubGroup=<img src=http://giulcenc.altervista.org/Bandiere/Sardegna.gif> Isole della Sardegna
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Sardegna.gif> Isole della Sardegna
 07010,07019=Isola di Sardegna
 07020;Aggius=Isola di Sardegna
 07020;Aglientu=Isola di Sardegna
@@ -17300,7 +17300,7 @@ Group=Castelli romani
 00040;Airport of ciampino=Ciampino
 
 
-Group=<img src=http://www.dibarcola.it/EBT/flag/comuni/rc.gif> Comuni della piana di Gioia Tauro
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/rc.gif> Comuni della piana di Gioia Tauro
 //by anto989
 89020;Anoia=Anoia
 89020;Anoia Inferiore=Anoia
@@ -17386,7 +17386,7 @@ Group=<img src=http://www.dibarcola.it/EBT/flag/comuni/rc.gif> Comuni della pian
 89010;Varapodio=Varapodio
 
 
-Group=<img src=http://www.dibarcola.it/EBT/flag/comuni/rc.gif> Comuni della Costa Viola
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/rc.gif> Comuni della Costa Viola
 //by anto989
 89018=Villa San Giovanni
 89011=Bagnara Calabra
@@ -17396,7 +17396,7 @@ Group=<img src=http://www.dibarcola.it/EBT/flag/comuni/rc.gif> Comuni della Cost
 89028=Seminara
 
 
-Group=<img src=http://giulcenc.altervista.org/Bandiere/Calabria.gif> Comuni della Costa degli Dei
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Calabria.gif> Comuni della Costa degli Dei
 //by anto989
 89844;Nicotera=Nicotera
 89844;Badia di Nicotera=Nicotera
@@ -17430,7 +17430,7 @@ Group=<img src=http://giulcenc.altervista.org/Bandiere/Calabria.gif> Comuni dell
 89868=Zambrone
 
 
-Group=<img src=http://giulcenc.altervista.org/Bandiere/Calabria.gif> Citta' Magno Greche
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Calabria.gif> Citta' Magno Greche
 //by anto989
 89100,89135=Rhegion
 89044=Locri Epizefiri
@@ -17451,11 +17451,11 @@ Group=<img src=http://giulcenc.altervista.org/Bandiere/Calabria.gif> Citta' Magn
 
 
 
-Group=<img src=http://giulcenc.altervista.org/Bandiere/Arbereshe.gif> Comuni e Frazioni Italiani di lingua Arbëreshë / Comuni and Frazioni of Italy whose inhabitants speak Arbëreshë
+Group=<img src=https://dserrano5.es/ebt/ebtst/images/regions/Arbereshe.gif> Comuni e Frazioni Italiani di lingua Arbëreshë / Comuni and Frazioni of Italy whose inhabitants speak Arbëreshë
 //by _mico
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/pe.gif> Provincia di Pescara
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/pe.gif> Provincia di Pescara
 65020;Villa Badessa=Rosciano fraz. Villa Badessa / Badhesa
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/pz.gif> Provincia di Potenza
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/pz.gif> Provincia di Potenza
 85022=Barile / Barilli
 85020;Ginestra=Ginestra / Xhinestra
 85020;Maschito=Maschito / Mashqiti
@@ -17467,7 +17467,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/pz.gif> Provincia di P
 85030;San paolo albanese=San Paolo Albanese / Shën Pali
 85030;S. Paolo Albanese=San Paolo Albanese / Shën Pali
 85030;S. paolo albanese=San Paolo Albanese / Shën Pali
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/cz.gif> Provincia di Catanzaro
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/cz.gif> Provincia di Catanzaro
 88050;Andali=Andali / Andalli
 88050;Caraffa di Catanzaro=Caraffa di Catanzaro / Garafa
 88050;Caraffa di catanzaro=Caraffa di Catanzaro / Garafa
@@ -17475,7 +17475,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/cz.gif> Provincia di C
 88025;Vena=Maida fraz. Vena / Vina
 88025;Vena di Maida=Maida fraz. Vena / Vina
 88050;Marcedusa=Marcedusa / Marçeduza
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/cs.gif> Provincia di Cosenza
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/cs.gif> Provincia di Cosenza
 87010;Acquaformosa=Acquaformosa / Firmoza
 87070;Castroregio=Castroregio / Kastërnexhi
 87070;Farneta=Castroregio / Kastërnexhi
@@ -17624,7 +17624,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/cs.gif> Provincia di C
 87048=Santa Sofia D'Epiro / Shën Sofia
 87019=Spezzano Albanese / Spixana
 87060;Vaccarizzo Albanese=Vaccarizzo Albanese / Vakarici
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/kr.gif> Provincia di Crotone
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/kr.gif> Provincia di Crotone
 88817;Carfizzi=Carfizzi / Karfici
 88818=Pallagorio / Puhëriu
 88817;San Nicola dell'Alto=San Nicola dell'Alto / Shën Kolli
@@ -17635,14 +17635,14 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/kr.gif> Provincia di C
 88817;S. nicola dell'alto=San Nicola dell'Alto / Shën Kolli
 88817;S. Nicola dell'alto=San Nicola dell'Alto / Shën Kolli
 88817;S. nicola dell'Alto=San Nicola dell'Alto / Shën Kolli
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/av.gif> Provincia di Avellino
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/av.gif> Provincia di Avellino
 83030;Greci=Greci / Greçi
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/cb.gif> Provincia di Campobasso
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/cb.gif> Provincia di Campobasso
 86042=Campomarino / Këmarini
 86032=Montecilfone / Munxhfuni
 86045=Portocannone / Portkanuni
 86049=Ururi / Ruri
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/fg.gif> Provincia di Foggia
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/fg.gif> Provincia di Foggia
 71030;Casalvecchio di Puglia=Casalvecchio di Puglia / Kazallveqi
 71030;Casalvecchio=Casalvecchio di Puglia / Kazallveqi
 71010;Chieuti=Chieuti / Qefti
@@ -17653,14 +17653,14 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/fg.gif> Provincia di F
 71010;Lido di Chieuti=Chieuti / Qefti
 71010;Chieuti Lido=Chieuti / Qefti
 71010;Chieuti lido=Chieuti / Qefti
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/ta.gif> Provincia di Taranto
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/ta.gif> Provincia di Taranto
 74020;San Marzano di San Giuseppe=San Marzano di San Giuseppe / Shën Marcani
 74020;San marzano di san giuseppe=San Marzano di San Giuseppe / Shën Marcani
 74020;San Marzano=San Marzano di San Giuseppe / Shën Marcani
 74020;San marzano=San Marzano di San Giuseppe / Shën Marcani
 74020;S. Marzano di S. Giuseppe=San Marzano di San Giuseppe / Shën Marcani
 74020;S. marzano di S. giuseppe=San Marzano di San Giuseppe / Shën Marcani
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/pa.gif> Provincia di Palermo
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/pa.gif> Provincia di Palermo
 90030;Contessa Entellina=Contessa Entellina / Kundisa
 90030;Contessa entellina=Contessa Entellina / Kundisa
 90037=Piana degli Albanesi / Hora e Arbëreshëvet
@@ -17671,7 +17671,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/pa.gif> Provincia di P
 90030;Turdiepi=Santa Cristina Gela / Shëndha Stina
 90030;Pianetto=Santa Cristina Gela / Shëndha Stina
 
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/comuni/rc.gif> Comuni della Bovesia (Area Grecanica)
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/rc.gif> Comuni della Bovesia (Area Grecanica)
 //by anto989
 89060;Bagaladi=Bagaladi
 89060;Gornelle=Bagaladi

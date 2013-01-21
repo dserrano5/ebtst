@@ -35,7 +35,7 @@ Group=Hrvatske Županije - Counties of Croatia
 
 
 Group=Hrvatske administrativna podjela i stanovništvo (gradova i općina) - Croatian administrative divisions (cities and municipalities)
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/croatia/bjelovarsko.gif> Bjelovarsko-Bilogorska
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/bjelovarsko.gif> Bjelovarsko-Bilogorska
 43000=Bjelovar
 43240=Čazma
 43500=Daruvar
@@ -59,7 +59,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/croatia/bjelovarsko.gif> Bjel
 43226=Veliko Trojstvo
 43285=Velika Trnovitica
 43202=Zrinski Topolovac
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/croatia/brodsko.gif> Brodsko-Posavska
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/brodsko.gif> Brodsko-Posavska
 35400=Nova Gradiška
 35000=Slavonski Brod
 35254=Bebrina
@@ -88,7 +88,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/croatia/brodsko.gif> Brodsko-
 35221=Velika Kopanica
 35423=Vrbje
 35210=Vrpolje
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/croatia/dubrovacko.gif> Dubrovačko-Neretvanska
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/dubrovacko.gif> Dubrovačko-Neretvanska
 20000=Dubrovnik
 20260=Korčula
 20350=Metković
@@ -111,9 +111,9 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/croatia/dubrovacko.gif> Dubro
 20270=Vela Luka
 20353=Zažablje
 20207=Župa dubrovačka
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/croatia/grada_zagreba.gif> Grad Zagreb
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/grada_zagreba.gif> Grad Zagreb
 10000=Grad Zagreb
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/croatia/istarska.gif> Istarska 
+SubGroup=Istarska 
 52100=Pula
 52000=Pazin
 52440=Poreč
@@ -155,7 +155,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/croatia/istarska.gif> Istarsk
 52447=Vižinada
 52450=Vrsar
 52431=Žminj
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/croatia/karlovacka.gif> Karlovačka
+SubGroup=Karlovačka
 47250=Duga Resa
 47000=Karlovac
 47300=Ogulin
@@ -178,7 +178,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/croatia/karlovacka.gif> Karlo
 47264=Tounj
 47220=Vojnić
 47276=Žakanje
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/croatia/koprivnicko.gif> Koprivničko-Križevačka
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/koprivnicko.gif> Koprivničko-Križevačka
 48350=Đurđevac
 48000=Koprivnica
 48260=Križevci
@@ -203,7 +203,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/croatia/koprivnicko.gif> Kopr
 48214=Sveti Ivan Žabno
 48267=Sveti Petar Orehovec
 48326=Virje
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/croatia/krapinsko.gif> Krapinsko-zagorska
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/krapinsko.gif> Krapinsko-zagorska
 49240=Donja Stubica
 49290=Klanjec
 49000=Krapina
@@ -236,7 +236,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/croatia/krapinsko.gif> Krapin
 49214=Veliko Trgovišće
 49296=Zagorska Sela
 49247=Zlatar Bistrica
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/croatia/licko.gif> Ličko-Senjska
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/licko.gif> Ličko-Senjska
 53000=Gospić
 53291=Novalja
 53220=Otočac
@@ -249,7 +249,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/croatia/licko.gif> Ličko-Sen
 53230=Plitvička Jezera
 53434=Udbina
 53223=Vrhovine
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/croatia/medjimurske.gif> Međimurska
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/medjimurske.gif> Međimurska
 40000;Čakovec=Čakovec
 40000;Cakovec=Čakovec
 40000;Ivanovec=Čakovec
@@ -307,7 +307,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/croatia/medjimurske.gif> Međ
 40000;Knezovec=Šenkovec
 40312=Štrigova
 40316=Vratišinec
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/croatia/osjecko.gif> Osječko-Baranjska
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/osjecko.gif> Osječko-Baranjska
 31300=Beli Manastir
 31551=Belišće
 31540=Donji Miholjac
@@ -409,7 +409,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/croatia/osjecko.gif> Osječko
 31401=Viškovci
 31404=Vladislavci
 31403=Vuka
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/croatia/pozesko.gif> Požeško-Slavonska
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/pozesko.gif> Požeško-Slavonska
 34340=Kutjevo
 34551=Lipik
 34550=Pakrac
@@ -420,7 +420,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/croatia/pozesko.gif> Požešk
 34308=Jakšić
 34334=Kaptol
 34330=Velika
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/croatia/primorsko.gif> Primorsko-Goranska
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/primorsko.gif> Primorsko-Goranska
 51000=Rijeka
 51222=Bakar
 51557=Cres
@@ -456,7 +456,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/croatia/primorsko.gif> Primor
 51311=Skrad
 51253=Viškovo
 51516=Vrbnik
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/croatia/sisacko.gif> Sisačko-Moslavačka
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/sisacko.gif> Sisačko-Moslavačka
 44400=Glina
 44430=Hrvatska Kostajnica
 44320=Kutina
@@ -476,7 +476,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/croatia/sisacko.gif> Sisačko
 44210=Sunja
 44415=Topusko
 44316=Velika Ludina
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/croatia/sibensko.gif> Šibensko-Kninska
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/sibensko.gif> Šibensko-Kninska
 22320=Drniš
 22300;Knin=Knin
 22222=Skradin
@@ -555,7 +555,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/croatia/sibensko.gif> Šibens
 22212=Tribunj
 22240=Tisno
 22323=Unešić
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/croatia/splitsko.gif> Splitsko-Dalmatinska
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/splitsko.gif> Splitsko-Dalmatinska
 21450=Hvar
 21260=Imotski
 21212=Kaštela
@@ -625,7 +625,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/croatia/splitsko.gif> Splitsk
 21255=Zadvarje
 21270=Zagvozd
 21266=Zmijavci
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/croatia/varazdinska.gif> Varaždinska
+SubGroup=Varaždinska
 42240=Ivanec
 42250=Lepoglava
 42230=Ludbreg
@@ -664,7 +664,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/croatia/varazdinska.gif> Vara
 42205=Vidovec
 42207=Vinica
 42224=Visoko (Vž)
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/croatia/viroviticko.gif> Virovitičko-Podravska
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/viroviticko.gif> Virovitičko-Podravska
 33515=Orahovica
 33520=Slatina
 33000=Virovitica
@@ -681,7 +681,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/croatia/viroviticko.gif> Viro
 33404=Špišić Bukovica
 33522=Voćin
 33513=Zdenci
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/croatia/vukovarsko.gif> Vukovarsko-Srijemska
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/vukovarsko.gif> Vukovarsko-Srijemska
 32000;Vukovar=Vukovar
 32100=Vinkovci
 32236=Ilok
@@ -713,7 +713,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/croatia/vukovarsko.gif> Vukov
 32224=Trpinja
 32283=Vođinci
 32254=Vrbanja
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/croatia/zadarske.gif> Zadarska 
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/zadarske.gif> Zadarska 
 23000=Zadar
 23420;Benkovac=Benkovac
 23420;Podgrađe=Benkovac
@@ -815,7 +815,7 @@ SubGroup=<img src=http://www.dibarcola.it/EBT/flag/croatia/zadarske.gif> Zadarsk
 23222;Smoković=Zemunik Donji
 23222;Smokovic=Zemunik Donji
 23222;Gorica=Zemunik Donji
-SubGroup=<img src=http://www.dibarcola.it/EBT/flag/croatia/zagrebacka.gif> Zagrebačka
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/zagrebacka.gif> Zagrebačka
 10370;Dugo Selo=Dugo Selo
 10370;Dugo selo=Dugo Selo
 10370;Brckovljani=Dugo Selo

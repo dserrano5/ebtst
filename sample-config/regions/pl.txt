@@ -53,7 +53,7 @@ Group=Województwa w Polsce - Regions of Poland
 78100,78651=Zachodniopomorskie (Z)
 
 Group=Powiaty w Polsce - Counties of Poland
-SubGroup=<img src=http://www.dibarcola.it/ebt/flag/poland/pl-ds.gif> Dolnośląskie (D)
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/pl-ds.gif> Dolnośląskie (D)
 58500,58588=Miasto Jelenia Góra
 59200,59220=Miasto Legnica
 50041,54612=Miasto Wrocław
@@ -86,7 +86,7 @@ SubGroup=<img src=http://www.dibarcola.it/ebt/flag/poland/pl-ds.gif> Dolnośląs
 57200,57256=Ząbkowicki
 59900,59975=Zgorzelecki
 59500,59550=Złotoryjski
-SubGroup=<img src=http://www.dibarcola.it/ebt/flag/poland/pl-kp.gif> Kujawsko-Pomorskie (C)
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/pl-kp.gif> Kujawsko-Pomorskie (C)
 85000,85999=Miasto Bydgoszcz
 86300,86311=Miasto Grudziądz
 87100,87120=Miasto Toruń
@@ -126,7 +126,7 @@ SubGroup=<img src=http://www.dibarcola.it/ebt/flag/poland/pl-kp.gif> Kujawsko-Po
 87830,87890=Włocławski
 88190,88193=Żniński
 88400,88430=Żniński
-SubGroup=<img src=http://www.dibarcola.it/ebt/flag/poland/pl-lb.gif> Lubelskie (L)
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/pl-lb.gif> Lubelskie (L)
 21500,21502=Miasto Biała Podlaska
 21506=Miasto Biała Podlaska
 21527=Miasto Biała Podlaska
@@ -169,7 +169,7 @@ SubGroup=<img src=http://www.dibarcola.it/ebt/flag/poland/pl-lb.gif> Lubelskie (
 22600,22681=Tomaszowski (LL)
 22200,22244=Włodawski
 22413,22470=Zamojski
-SubGroup=<img src=http://www.dibarcola.it/ebt/flag/poland/pl-lu.gif> Lubuskie (F)
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/pl-lu.gif> Lubuskie (F)
 66400,66414=Miasto Gorzów Wielkopolski
 65901,65950=Miasto Zielona Góra
 66415,66433=Gorzowski
@@ -193,7 +193,7 @@ SubGroup=<img src=http://www.dibarcola.it/ebt/flag/poland/pl-lu.gif> Lubuskie (F
 68132=Żarski
 68200,68219=Żarski
 68300,68343=Żarski
-SubGroup=<img src=http://www.dibarcola.it/ebt/flag/poland/pl_ld.gif> Łódzkie (E)
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/pl_ld.gif> Łódzkie (E)
 90001,94413=Miasto Łódź
 97300,97302=Miasto Piotrków Trybunalski
 97308,97309=Miasto Piotrków Trybunalski
@@ -241,7 +241,7 @@ SubGroup=<img src=http://www.dibarcola.it/ebt/flag/poland/pl_ld.gif> Łódzkie (
 98220,98231=Zduńskowolski
 98240=Zduńskowolski
 95001,95110=Zgierski
-SubGroup=<img src=http://www.dibarcola.it/ebt/flag/poland/pl-mp.gif> Małopolskie (K)
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/pl-mp.gif> Małopolskie (K)
 30024,31962=Miasto Kraków
 33300,33310=Miasto Nowy Sącz
 33320=Miasto Nowy Sącz
@@ -287,7 +287,7 @@ SubGroup=<img src=http://www.dibarcola.it/ebt/flag/poland/pl-mp.gif> Małopolski
 34100,34146=Wadowicki
 32002,32020=Wielicki
 32420=Wielicki
-SubGroup=<img src=http://www.dibarcola.it/ebt/flag/poland/pl-ma.gif> Mazowieckie (W)
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/pl-ma.gif> Mazowieckie (W)
 07400,07401=Miasto Ostrołęka
 07409,07410=Miasto Ostrołęka
 07412,07413=Miasto Ostrołęka
@@ -391,7 +391,7 @@ SubGroup=<img src=http://www.dibarcola.it/ebt/flag/poland/pl-ma.gif> Mazowieckie
 96315=Żyrardowski
 96317,96320=Żyrardowski
 96323,96332=Żyrardowski
-SubGroup=<img src=http://www.dibarcola.it/ebt/flag/poland/pl_op.gif> Opolskie (O)
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/pl_op.gif> Opolskie (O)
 45001,45910=Miasto Opole
 49200=Brzeski
 49300,49351=Brzeski
@@ -407,7 +407,7 @@ SubGroup=<img src=http://www.dibarcola.it/ebt/flag/poland/pl_op.gif> Opolskie (O
 46100,46166=Namysłowski
 48200,48250=Prudnicki
 47100,47180=Strzelecki
-SubGroup=<img src=http://www.dibarcola.it/ebt/flag/poland/pl-pk.gif> Podkarpackie (R)
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/pl-pk.gif> Podkarpackie (R)
 38400,38404=Miasto Krosno
 38409,38411=Miasto Krosno
 37700,37706=Miasto Przemyśl
@@ -444,7 +444,7 @@ SubGroup=<img src=http://www.dibarcola.it/ebt/flag/poland/pl-pk.gif> Podkarpacki
 37433,37470=Stalowowolski
 38100,38131=Strzyżowski
 39410,39460=Tarnobrzeski
-SubGroup=<img src=http://www.dibarcola.it/ebt/flag/poland/pl-pd1.gif> Podlaskie (B)
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/pl-pd1.gif> Podlaskie (B)
 15001,15999=Miasto Białystok
 18400,18404=Miasto Łomża
 16400,16403=Miasto Suwałki
@@ -464,7 +464,7 @@ SubGroup=<img src=http://www.dibarcola.it/ebt/flag/poland/pl-pd1.gif> Podlaskie 
 16404,16427=Suwalski
 18200,18230=Wysokomazowiecki
 18300,18315=Zambrowski
-SubGroup=<img src=http://www.dibarcola.it/ebt/flag/poland/pl-pm.gif> Pomorskie (G)
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/pl-pm.gif> Pomorskie (G)
 80008,80958=Miasto Gdańsk
 81004,81919=Miasto Gdynia
 76200,76210=Miasto Słupsk
@@ -498,7 +498,7 @@ SubGroup=<img src=http://www.dibarcola.it/ebt/flag/poland/pl-pm.gif> Pomorskie (
 82450,82504=Sztumski
 83100,83140=Tczewski
 84200,84252=Wejherowski
-SubGroup=<img src=http://www.dibarcola.it/ebt/flag/poland/pl-sl.gif> Śląskie (S)
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/pl-sl.gif> Śląskie (S)
 43300,43382=Miasto Bielsko-Biała
 41900,41921=Miasto Bytom
 41923,41936=Miasto Bytom
@@ -574,7 +574,7 @@ SubGroup=<img src=http://www.dibarcola.it/ebt/flag/poland/pl-sl.gif> Śląskie (
 42400,42454=Zawierciański
 42480=Zawierciański
 34300,34383=Żywiecki
-SubGroup=<img src=http://www.dibarcola.it/ebt/flag/poland/pl-sw.gif> Świętokrzyskie (T)
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/pl-sw.gif> Świętokrzyskie (T)
 25001,25900=Miasto Kielce
 28100,28160=Buski
 28300,28366=Jędrzejowski
@@ -589,7 +589,7 @@ SubGroup=<img src=http://www.dibarcola.it/ebt/flag/poland/pl-sw.gif> Świętokrz
 27200,27230=Starachowicki
 28200,28236=Staszowski
 29100,29145=Włoszczowski
-SubGroup=<img src=http://www.dibarcola.it/ebt/flag/poland/pl-wm.png> Warmińsko-Mazurskie (N)
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/pl-wm.png> Warmińsko-Mazurskie (N)
 82300,82315=Miasto Elbląg
 10001,11041=Miasto Olsztyn
 11200,11230=Bartoszycki
@@ -617,7 +617,7 @@ SubGroup=<img src=http://www.dibarcola.it/ebt/flag/poland/pl-wm.png> Warmińsko-
 12200,12251=Piski
 12100,12160=Szczycieński
 11600,11610=Węgorzewski
-SubGroup=<img src=http://www.dibarcola.it/ebt/flag/poland/pl-wp.gif> Wielkopolskie (P)
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/pl-wp.gif> Wielkopolskie (P)
 62800,62821=Miasto Kalisz
 62500,62510=Miasto Konin
 64100,64106=Miasto Leszno
@@ -673,7 +673,7 @@ SubGroup=<img src=http://www.dibarcola.it/ebt/flag/poland/pl-wp.gif> Wielkopolsk
 64915,64918=Złotowski
 64965=Złotowski
 77400,77430=Złotowski
-SubGroup=<img src=http://www.dibarcola.it/ebt/flag/poland/pl-zp.gif> Zachodniopomorskie (Z)
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/pl-zp.gif> Zachodniopomorskie (Z)
 75001,75903=Miasto Koszalin
 70017,71871=Miasto Szczecin
 72600,72612=Miasto Świnoujście

@@ -128,18 +128,18 @@ Group=raions of Moldova
 3601,3630=Ungheni
 3632,3652=Ungheni
 
-Group=<img src="http://img.photobucket.com/albums/v231/ylivieska/vlaggen/Transnistria.gif" border="0" /> Transdnistria (regions)
-3200,3252=[flag must be <img src="http://img.photobucket.com/albums/v231/ylivieska/vlaggen/Transnistria.gif" border="0" />] Bender / Бендеры (Tighina)
-4316,4317=[flag must be <img src="http://img.photobucket.com/albums/v231/ylivieska/vlaggen/Transnistria.gif" border="0" />] Bender / Бендеры (Tighina)
-4501;Dubăsari=[flag must be <img src="http://img.photobucket.com/albums/v231/ylivieska/vlaggen/Transnistria.gif" border="0" />] Dubossary / Дубоссары (Dubăsari)
-4501;Mahala=[flag must be <img src="http://img.photobucket.com/albums/v231/ylivieska/vlaggen/Transnistria.gif" border="0" />] Dubossary / Дубоссары (Dubăsari)
-4502,4524=[flag must be <img src="http://img.photobucket.com/albums/v231/ylivieska/vlaggen/Transnistria.gif" border="0" />] Dubossary / Дубоссары (Dubăsari)
-4001,4029=[flag must be <img src="http://img.photobucket.com/albums/v231/ylivieska/vlaggen/Transnistria.gif" border="0" />] Grigoriopol / Григориополь
-6601,6635=[flag must be <img src="http://img.photobucket.com/albums/v231/ylivieska/vlaggen/Transnistria.gif" border="0" />] Kamenka / Каменка (Camenca)
-5501,5536=[flag must be <img src="http://img.photobucket.com/albums/v231/ylivieska/vlaggen/Transnistria.gif" border="0" />] Rybnitsa / Рыбница (Rîbniţa)
-5701,5715=[flag must be <img src="http://img.photobucket.com/albums/v231/ylivieska/vlaggen/Transnistria.gif" border="0" />] Slobozia / Слободзея
-5717,5728=[flag must be <img src="http://img.photobucket.com/albums/v231/ylivieska/vlaggen/Transnistria.gif" border="0" />] Slobozia / Слободзея
-3300,3352=[flag must be <img src="http://img.photobucket.com/albums/v231/ylivieska/vlaggen/Transnistria.gif" border="0" />] Tiraspol / Тирасполь
+Group=<img src="https://dserrano5.es/ebt/ebtst/images/regions/Transnistria.gif" border="0" /> Transdnistria (regions)
+3200,3252=[flag must be <img src="https://dserrano5.es/ebt/ebtst/images/regions/Transnistria.gif" border="0" />] Bender / Бендеры (Tighina)
+4316,4317=[flag must be <img src="https://dserrano5.es/ebt/ebtst/images/regions/Transnistria.gif" border="0" />] Bender / Бендеры (Tighina)
+4501;Dubăsari=[flag must be <img src="https://dserrano5.es/ebt/ebtst/images/regions/Transnistria.gif" border="0" />] Dubossary / Дубоссары (Dubăsari)
+4501;Mahala=[flag must be <img src="https://dserrano5.es/ebt/ebtst/images/regions/Transnistria.gif" border="0" />] Dubossary / Дубоссары (Dubăsari)
+4502,4524=[flag must be <img src="https://dserrano5.es/ebt/ebtst/images/regions/Transnistria.gif" border="0" />] Dubossary / Дубоссары (Dubăsari)
+4001,4029=[flag must be <img src="https://dserrano5.es/ebt/ebtst/images/regions/Transnistria.gif" border="0" />] Grigoriopol / Григориополь
+6601,6635=[flag must be <img src="https://dserrano5.es/ebt/ebtst/images/regions/Transnistria.gif" border="0" />] Kamenka / Каменка (Camenca)
+5501,5536=[flag must be <img src="https://dserrano5.es/ebt/ebtst/images/regions/Transnistria.gif" border="0" />] Rybnitsa / Рыбница (Rîbniţa)
+5701,5715=[flag must be <img src="https://dserrano5.es/ebt/ebtst/images/regions/Transnistria.gif" border="0" />] Slobozia / Слободзея
+5717,5728=[flag must be <img src="https://dserrano5.es/ebt/ebtst/images/regions/Transnistria.gif" border="0" />] Slobozia / Слободзея
+3300,3352=[flag must be <img src="https://dserrano5.es/ebt/ebtst/images/regions/Transnistria.gif" border="0" />] Tiraspol / Тирасполь
 
 
 // source : wikipedia

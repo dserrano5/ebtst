@@ -9,7 +9,7 @@
 
 
 Group=Slovenské Okres - Districts of Slovakia
-SubGroup=<img src=http://www.dibarcola.it/ebt/flag/slovakia/bratislavsky.png> Bratislavský kraj - Bratislava Region
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/bratislavsky.png> Bratislavský kraj - Bratislava Region
 80000,89999=Bratislava
 90001=Pezinok
 90021,90023=Pezinok
@@ -29,7 +29,7 @@ SubGroup=<img src=http://www.dibarcola.it/ebt/flag/slovakia/bratislavsky.png> Br
 90872,90875=Malacky
 92523=Senec
 92526=Senec
-SubGroup=<img src=http://www.dibarcola.it/ebt/flag/slovakia/trnavsky.png> Trnavský kraj - Trnava Region
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/trnavsky.png> Trnavský kraj - Trnava Region
 90501=Senica
 90602,90612=Senica
 90631,90635=Senica
@@ -60,7 +60,7 @@ SubGroup=<img src=http://www.dibarcola.it/ebt/flag/slovakia/trnavsky.png> Trnavs
 93052=Dunajská Streda
 93101=Dunajská Streda
 93201=Dunajská Streda
-SubGroup=<img src=http://www.dibarcola.it/ebt/flag/slovakia/trenciansky.png> Trenčiansky kraj - Trenčín Region
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/trenciansky.png> Trenčiansky kraj - Trenčín Region
 01701=Považská Bystrica
 01704,01707=Považská Bystrica
 01801,01803=Považská Bystrica
@@ -121,7 +121,7 @@ SubGroup=<img src=http://www.dibarcola.it/ebt/flag/slovakia/trenciansky.png> Tre
 97241,97248=Prievidza
 97251=Prievidza
 97271=Prievidza
-SubGroup=<img src=http://www.dibarcola.it/ebt/flag/slovakia/nitriansky.png> Nitriansky kraj - Nitra Region
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/nitriansky.png> Nitriansky kraj - Nitra Region
 92571,92572=Šaľa
 92581,92585=Šaľa
 92591=Šaľa
@@ -204,7 +204,7 @@ SubGroup=<img src=http://www.dibarcola.it/ebt/flag/slovakia/nitriansky.png> Nitr
 95638=Topoľčany
 96206=Detva
 96654=Zlaté Moravce
-SubGroup=<img src=http://www.dibarcola.it/ebt/flag/slovakia/zilina.png> Žilinský kraj - Žilina Region
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/zilina.png> Žilinský kraj - Žilina Region
 01001,01014=Žilina
 01301,01306=Žilina
 01311,01342=Žilina
@@ -243,7 +243,7 @@ SubGroup=<img src=http://www.dibarcola.it/ebt/flag/slovakia/zilina.png> Žilinsk
 03851,03854=Martin
 03861=Martin
 03901=Turčianske Teplice
-SubGroup=<img src=http://www.dibarcola.it/ebt/flag/slovakia/banskobystricky.png> Banskobystrický kraj - Banská Bystrica Region
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/banskobystricky.png> Banskobystrický kraj - Banská Bystrica Region
 04901=Revúca
 04913,04918=Revúca
 04961,04964=Revúca
@@ -301,7 +301,7 @@ SubGroup=<img src=http://www.dibarcola.it/ebt/flag/slovakia/banskobystricky.png>
 99001=Veľký Krtíš
 99101,99142=Veľký Krtíš
 99201=Veľký Krtíš
-SubGroup=<img src=http://www.dibarcola.it/ebt/flag/slovakia/presovsky.png> Prešovský kraj - Prešov Region
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/presovsky.png> Prešovský kraj - Prešov Region
 05302,05306=Levoča
 05314=Levoča
 05371,05374=Levoča
@@ -352,7 +352,7 @@ SubGroup=<img src=http://www.dibarcola.it/ebt/flag/slovakia/presovsky.png> Preš
 09401,09406=Vranov nad Topľou
 09406,09408=Humenné
 09409,09435=Vranov nad Topľou
-SubGroup=<img src=http://www.dibarcola.it/ebt/flag/slovakia/kosicky.png> Košický kraj - Košice Region
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/kosicky.png> Košický kraj - Košice Region
 04001=Košice I
 04001=Košice IV
 04011=Košice II

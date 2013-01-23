@@ -160,17 +160,18 @@ sub load_region_file {
         return;
     }
 
-    my $cfg = $config{'regions'}{$country} ||= [];
+    my $cfg = $config{'regions'}{$country} ||= {};
 
-    my ($group, $subgroup);
+    my ($group_name, $subgroup_name);
+    my ($group_idx, $subgroup_idx) = (-1, -1);
+    if (exists $cfg->{'groups'}   ) { $group_idx    = $#{ $cfg->{'groups'}    }; }  ## point to last entry, index will be increased before array is updated
+    if (exists $cfg->{'subgroups'}) { $subgroup_idx = $#{ $cfg->{'subgroups'} }; }
+
+    my $entries_seen = 0;
     my $entry_check = sub {
         my ($type, $line) = @_;
-        if (!$group) { $self->_log (warn => "no group defined yet, ignoring line (type ($type) line ($line))\n"); return; }
-        if (!$subgroup) {          ## entry without a subgroup, create a dummy subgroup
-            if ($group->{'subgroups'}) { $self->_log (error => "wow"); return; }   ## redundant sanity: there should be no previous subgroups
-            $group->{'subgroups'} = [ { entries => {} } ];
-            $subgroup = $group->{'subgroups'}[-1];
-        }
+        if (-1 == $group_idx) { $self->_log (warn => "no group defined yet, ignoring line (type ($type) line ($line))\n"); return; }
+        $entries_seen = 1;
         return 1;
     };
     while (defined (my $line = <$fd>)) {
@@ -182,28 +183,33 @@ sub load_region_file {
         given ($line) {
             when (/^PrintZeros/i) {}
             when (/^NMessage/) {}
-            when (/^\s*Group\s*=\s*(.*)/)         {
-                my $group_name = $1;
+            when (/^\s*Group\s*=\s*(.*)/) {
+                $group_name = $1;
                 $group_name =~ s/\s*$//;
-                push @$cfg, { name => $group_name };
-                $group = $cfg->[-1];
-                undef $subgroup;
+                $group_idx++;
+                $cfg->{'groups'}[$group_idx] = $group_name;
+
+                undef $subgroup_name;
+                $subgroup_idx++;
+                $cfg->{'subgroups'}[$subgroup_idx] = $subgroup_name;
+
+                $entries_seen = 0;
             }
-            when (/^\s*SubGroup\s*=\s*(.*)/)      {
-                if (!@$cfg) { $self->_log (warn => "subgroup without group, ignoring whole file '$f'\n"); return; }
-                if (!$group->{'subgroups'}) {                     ## first subgroup and no entries directly under the group
-                    my $subgroup_name = $1;
+            when (/^\s*SubGroup\s*=\s*(.*)/) {
+                if (!$group_name) { $self->_log (warn => "subgroup without group, ignoring whole file '$f'\n"); return; }
+                if (!$subgroup_name and !$entries_seen) {              ## first subgroup and no entries directly under the group
+                    $subgroup_name = $1;
                     $subgroup_name =~ s/\s*$//;
-                    push @{ $group->{'subgroups'} }, { name => $subgroup_name, entries => {} };
-                    $subgroup = $group->{'subgroups'}[-1];
+                    $subgroup_idx++;
+                    $cfg->{'subgroups'}[$subgroup_idx] = $subgroup_name;
 
-                } elsif ($subgroup->{'name'}) {                   ## prev subgroup has name, this is the next subgroup
-                    my $subgroup_name = $1;
+                } elsif ($subgroup_name) {                             ## prev subgroup has name, this is the next subgroup
+                    $subgroup_name = $1;
                     $subgroup_name =~ s/\s*$//;
-                    push @{ $group->{'subgroups'} }, { name => $subgroup_name, entries => {} };
-                    $subgroup = $group->{'subgroups'}[-1];
+                    $subgroup_idx++;
+                    $cfg->{'subgroups'}[$subgroup_idx] = $subgroup_name;
 
-                } elsif (!$subgroup->{'name'}) {                  ## prev subgroup has no name (entries directly under the group), this is an error
+                } elsif (!$subgroup_name) {                            ## first subgroup but there are already some entries directly under the group, this is an error
                     $self->_log (warn => "entries outside any subgroup, ignoring whole file '$f'");
                     return;
 
@@ -212,38 +218,49 @@ sub load_region_file {
                     return;
                 }
             }
-            when (/^\s*SubFlag\s*=\s*(.*)/)       {
-                if (!$subgroup) { $self->_log (warn => "subflag without subgroup, ignoring whole file '$f'\n"); return; }
+            when (/^\s*SubFlag\s*=\s*(.*)/) {
+                if (!$subgroup_name) { $self->_log (warn => "subflag without subgroup, ignoring whole file '$f'\n"); return; }
                 my $flag_url = $1;
                 $flag_url =~ s/\s*$//;
-                $subgroup->{'flag_url'} = $flag_url;
+                $cfg->{'subgroups'}[-1] .= "##$flag_url";
             }
-            when (/^\s*(\d+)\s*,\s*(\d+)\s*=\s*(.*)/)   {
+            when (/^\s*(\d+)\s*,\s*(\d+)\s*=\s*(.*)/) {
                 next unless $entry_check->(ranges => $_);
                 my ($start, $end, $name) = ($1, $2, $3);
                 $name =~ s/\s*$//;
-                push @{ $subgroup->{'entries'}{'ranges'} }, { start => $start, end => $end, name => $name };
+                for (my $i = $start; $i <= $end; $i++) {
+                    ## split and rejoin with the new entry
+                    $cfg->{'ranges'}[$i] = join '|',
+                        (split /\|/, $cfg->{'ranges'}[$i]//''),
+                        sprintf '%d,%d,%s', $group_idx, $subgroup_idx, $name;
+                }
             }
             when (/^\s*([\w\d]+)\s*;\s*([^=]+)=\s*(.*)/) {
                 next unless $entry_check->(specific => $_);
                 my ($zip, $csv_name, $name) = ($1, $2, $3);
                 $csv_name =~ s/\s*$//;
                 $name     =~ s/\s*$//;
-                push @{ $subgroup->{'entries'}{'specific'} }, { zip => $zip, csv_name => $csv_name, name => $name };
+                $cfg->{'specific'}{$zip}{$csv_name} = join '|',
+                    (split /\|/, $cfg->{'specific'}{$zip}{$csv_name}//''),
+                    sprintf '%d,%d,%s', $group_idx, $subgroup_idx, $name;
             }
-            when (/^\s*;\s*([^=]+)=\s*(.*)/)      {
+            when (/^\s*;\s*([^=]+)=\s*(.*)/) {
                 next unless $entry_check->(name_map => $_);
                 my ($csv_name, $name) = ($1, $2);
                 $csv_name =~ s/\s*$//;
                 $name     =~ s/\s*$//;
-                push @{ $subgroup->{'entries'}{'name_map'} }, { csv_name => $csv_name, name => $name };
+                $cfg->{'name_map'}{$csv_name} = join '|',
+                    (split /\|/, $cfg->{'name_map'}{$csv_name}//''),
+                    sprintf '%d,%d,%s', $group_idx, $subgroup_idx, $name;
             }
-            when (/^\s*([^=]+)=\s*(.*)/)         {
+            when (/^\s*([^=]+)=\s*(.*)/) {
                 next unless $entry_check->(zip_map => $_);
                 my ($zip, $name) = ($1, $2);
                 $zip  =~ s/\s*$//;
                 $name =~ s/\s*$//;
-                push @{ $subgroup->{'entries'}{'zip_map'} }, { zip => $zip, name => $name };
+                $cfg->{'zip_map'}{$zip} = join '|',
+                    (split /\|/, $cfg->{'zip_map'}{$zip}//''),
+                    sprintf '%d,%d,%s', $group_idx, $subgroup_idx, $name;
             }
             default { $self->_log (warn => "ignoring unrecognized line '$line'\n"); }
         }
@@ -253,32 +270,34 @@ sub load_region_file {
 
 $cfg = <<'EOF';
 $config{'regions'} = {
-    es => [     ## groups
-        {
-            name => 'Provinces',
-            subgroups => [
-                {
-                    name => 'foo',
-                    flag_url => 'http://bar',
-                    entries => {
-                        ranges => [
-                            { start => '0', end => '4', name => 'foo' },
-                        ],
-                        zip_map => [
-                            { zip => '9', name => 'baz' },
-                        ],
-                        specific => [
-                            { zip => '42', csv_name => 'foo', name => 'foo' },
-                        ],
-                        name_map => [
-                            { csv_name => 'foo', name => 'foo' },
-                        ],
-                    },
-                },
-            ],
+    es => {
+        groups => [
+            'foo',
+            'bar',
+            'foo',  ## dup ok
+        ],
+        subgroups => [
+            'sg1',
+            'sg2##http://bar',
+            'sg2##http://bar',  ## dup ok
+        ],
+        ranges => [
+            'group_idx,subgroup_idx,name|...',
+            '30,10,name|34,20,name2',
+        ],
+        specific => {
+            zip => {
+                csv_name => 'group_idx,subgroup_idx,name|...',
+            },
         },
-    ],
-}
+        name_map => {
+            csv_name => 'group_idx,subgroup_idx,name|...',
+        },
+        zip_map => {
+            zip => 'group_idx,subgroup_idx,name|...',
+        },
+    },
+};
 EOF
     return;
 }

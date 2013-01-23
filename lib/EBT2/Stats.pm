@@ -336,48 +336,36 @@ sub regions {
     my %ret;
     my $idx = 0;
 
+    my $populate = sub {
+        my ($cfg, $country, $str) = @_;
+
+        foreach my $entry (split /\|/, $str) {
+            my ($group, $subgroup, $flag_url, $name);
+
+            ($group, $subgroup, $name) = split /,/, $entry;
+            $group = $cfg->{'groups'}[$group];
+            if (defined $cfg->{'subgroups'}[$subgroup]) {
+                ($subgroup, $flag_url) = split '##', $cfg->{'subgroups'}[$subgroup];
+            } else {
+                ($subgroup, $flag_url) = ('__UNDEF__', undef);
+            }
+            $ret{'regions'}{$country}{$group}{$subgroup}{'flag_url'} ||= $flag_url;  ## maybe undef, that's ok
+            $ret{'regions'}{$country}{$group}{$subgroup}{$name}++;
+        }
+    };
+
     while (my $chunk = $data->note_getter (interval => $chunk_size)) {
         foreach my $note (@$chunk) {
             $idx++;
             if ($progress and 0 == $idx % $EBT2::progress_every) { $progress->set ($idx); }
 
             my $country = $note->[COUNTRY];
-            foreach my $group (@{ $EBT2::config{'regions'}{$country} }) {
-                my $group_name = $group->{'name'};
-                foreach my $subgroup (@{ $group->{'subgroups'} }) {
-                    my $subgroup_name = $subgroup->{'name'}//'__UNDEF__';
+            my $cfg = $EBT2::config{'regions'}{$country};
 
-                    if (exists $subgroup->{'entries'}{'ranges'}) {
-                        foreach my $entry (@{ $subgroup->{'entries'}{'ranges'} }) {
-                            no warnings 'numeric';   ## to be removed
-                            next if $note->[ZIP] < $entry->{'start'} or $note->[ZIP] > $entry->{'end'};
-                            $ret{'regions'}{$country}{$group_name}{$subgroup_name}{'flag_url'} ||= $subgroup->{'flag_url'};  ## maybe undef, that's ok
-                            $ret{'regions'}{$country}{$group_name}{$subgroup_name}{ $entry->{'name'} }++;
-                        }
-                    }
-                    if (exists $subgroup->{'entries'}{'zip_map'}) {
-                        foreach my $entry (@{ $subgroup->{'entries'}{'zip_map'} }) {
-                            next if $note->[ZIP] ne $entry->{'zip'};
-                            $ret{'regions'}{$country}{$group_name}{$subgroup_name}{'flag_url'} ||= $subgroup->{'flag_url'};  ## maybe undef, that's ok
-                            $ret{'regions'}{$country}{$group_name}{$subgroup_name}{ $entry->{'name'} }++;
-                        }
-                    }
-                    if (exists $subgroup->{'entries'}{'specific'}) {
-                        foreach my $entry (@{ $subgroup->{'entries'}{'specific'} }) {
-                            next if $note->[ZIP] ne $entry->{'zip'} or $note->[CITY] ne $entry->{'csv_name'};
-                            $ret{'regions'}{$country}{$group_name}{$subgroup_name}{'flag_url'} ||= $subgroup->{'flag_url'};  ## maybe undef, that's ok
-                            $ret{'regions'}{$country}{$group_name}{$subgroup_name}{ $entry->{'name'} }++;
-                        }
-                    }
-                    if (exists $subgroup->{'entries'}{'name_map'}) {
-                        foreach my $entry (@{ $subgroup->{'entries'}{'name_map'} }) {
-                            next if $note->[CITY] ne $entry->{'csv_name'};
-                            $ret{'regions'}{$country}{$group_name}{$subgroup_name}{'flag_url'} ||= $subgroup->{'flag_url'};  ## maybe undef, that's ok
-                            $ret{'regions'}{$country}{$group_name}{$subgroup_name}{ $entry->{'name'} }++;
-                        }
-                    }
-                }
-            }
+            if ($note->[ZIP] =~ /^\d+$/ and my $str = $cfg->{'ranges'}[ $note->[ZIP] ]) { $populate->($cfg, $country, $str); }
+            if (my $str = $cfg->{'zip_map'}{ $note->[ZIP] })                            { $populate->($cfg, $country, $str); }
+            if (my $str = $cfg->{'specific'}{ $note->[ZIP] }{ $note->[CITY] })          { $populate->($cfg, $country, $str); }
+            if (my $str = $cfg->{'specific'}{ $note->[CITY] })                          { $populate->($cfg, $country, $str); }
         }
     }
 

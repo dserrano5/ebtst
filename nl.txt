@@ -5,6 +5,7 @@ Information = Informatie
 Value = Waarde
 Countries = Landen
 Locations = Plaatsen
+Regions = Regio's
 Travel stats = Reisstatistieken
 Printers = Drukkers
 Huge table = Uitgebreide tabel
@@ -101,6 +102,10 @@ Countries with notes entered = Landen met ingevoerde biljetten
 Number of notes by location = Aantal biljetten per locatie
 Alphabets of locations by country = Alfabet van plaatsen per land
 First notes by printer code = Eerste biljetten per drukkercode
+
+## regions
+Name = Naam
+Percent of = Procent van
 
 ## travel_stats
 Location = Plaats

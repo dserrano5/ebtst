@@ -5,6 +5,7 @@ Information = Osnovni podatki
 Value = Vrednost
 Countries = Države
 Locations = Kraji
+Regions = Pokrajine
 Travel stats = Potovanja
 Printers = Tiskarne
 Huge table = Velika razpredelnica
@@ -101,6 +102,10 @@ Countries with notes entered = Države z vpisanimi bankovci
 Number of notes by location = Število bankovcev po krajih
 Alphabets of locations by country = Abeceda krajev po državah
 First notes by printer code = Prvi vpis bankovca po tiskarni
+
+## regions
+Name = Ime
+Percent of = Odstotek znotraj
 
 ## travel_stats
 Location = Kraj

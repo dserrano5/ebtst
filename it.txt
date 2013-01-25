@@ -5,6 +5,7 @@ Information = Informazioni
 Value = Valore
 Countries = Nazioni
 Locations = Località
+Regions = Regioni
 Travel stats = Statistiche sui viaggi
 Printers = Poligrafici
 Huge table = Tabella gigante
@@ -101,6 +102,10 @@ Countries with notes entered = Nazioni da cui sono state inserite banconote
 Number of notes by location = Numero di banconote per località
 Alphabets of locations by country = Alfabeto delle località per Nazione
 First notes by printer code = Prima banconota per codice del poligrafico
+
+## regions
+Name = Nome
+Percent of = Percento di
 
 ## travel_stats
 Location = Località

@@ -28,7 +28,7 @@ my %es; $es{$_} = $_ for
 my @bbcode_tags = (
     '[b]', '[/b]', '[i]', '[/i]', '[table]', '[/table]', '[tr]', '[/tr]', '[td]', '[/td]',
     '[url=https://eurobilltracker.com/notes/?id=', '[url=https://en.eurobilltracker.com/profile/?user=', '[/url]',
-    '[color=blue]', '[color=#000]', '[color=#B0B0B0]', '[color=darkblue]', '[color=darkred]', '[/color]',
+    '[color=black]', '[color=blue]', '[color=green]', '[color=red]', '[color=#000]', '[color=#B0B0B0]', '[color=#C0A000]', '[color=darkblue]', '[color=darkred]', '[/color]',
     '[img]/images/ba.gif[/img]',
     '[img]/images/rskm.gif[/img]',
     '[img]/images/rsme.gif[/img]',

@@ -7396,8 +7396,8 @@ Group=Dots of The Netherlands (ranking see <a href="http:forum.eurobilltracker.e
 4580,4589=60. Hulst (3-9)
 4640,4644=60. Hulst (3-9)
 4645=60. Hulst (3-9)
-4645 CW=61. Kalmthoutse heide (4-9) [klein]
-4645 RT=61. Kalmthoutse heide (4-9) [klein]
+4645CW=61. Kalmthoutse heide (4-9) [klein]
+4645RT=61. Kalmthoutse heide (4-9) [klein]
 5095,5096=62. Reusel (5-9)
 5530,5541=62. Reusel (5-9)
 5511=63. Valkenswaard (6-9)

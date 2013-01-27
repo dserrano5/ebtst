@@ -3,6 +3,7 @@ package EBT2::Stats;
 use warnings;
 use strict;
 use utf8;
+use 5.10.0;
 use DateTime;
 use Date::DayOfWeek;
 use List::Util qw/first sum reduce/;
@@ -362,10 +363,29 @@ sub regions {
             my $country = $note->[COUNTRY];
             my $cfg = $EBT2::config{'regions'}{$country};
 
-            if ($note->[ZIP] =~ /^\d+$/ and my $str = $cfg->{'ranges'}[ $note->[ZIP] ]) { $populate->($cfg, $country, $str); }
-            if (my $str = $cfg->{'zip_map'}{ $note->[ZIP] })                            { $populate->($cfg, $country, $str); }
-            if (my $str = $cfg->{'specific'}{ $note->[ZIP] }{ $note->[CITY] })          { $populate->($cfg, $country, $str); }
-            if (my $str = $cfg->{'specific'}{ $note->[CITY] })                          { $populate->($cfg, $country, $str); }
+            my $zip = $note->[ZIP]; $zip =~ s/\s//g;
+            my $zip2;
+            given ($country) {
+                when ('mt') { length $zip > 3 and $zip2 = substr $zip, 0, 3; }
+                when ('nl') { length $zip > 4 and $zip2 = substr $zip, 0, 4; }
+                when ('pl') { $zip2 = (join '', $zip =~ /^(..)-(...)$/)||undef; }
+                when ('pt') { length $zip > 4 and $zip2 = substr $zip, 0, 4; }
+                when ('uk') { length $zip > 2 and $zip2 = substr $zip, 0, 2; }
+                when ('us') { ($zip2) = $zip =~ /(\d{5})/; }
+            }
+            ## at this point $zip2 should be either something meaningful or undef. It shouldn't be '0', '', '-' or similar rubbish
+
+            my $str;
+            if    (                  $zip  =~ /^\d+$/ and $str = $cfg->{'ranges'}[$zip])  { $populate->($cfg, $country, $str); }
+            elsif (defined $zip2 and $zip2 =~ /^\d+$/ and $str = $cfg->{'ranges'}[$zip2]) { $populate->($cfg, $country, $str); }
+
+            if    (                  $str = $cfg->{'zip_map'}{$zip})                      { $populate->($cfg, $country, $str); }
+            elsif (defined $zip2 and $str = $cfg->{'zip_map'}{$zip2})                     { $populate->($cfg, $country, $str); }
+
+            if    (                  $str = $cfg->{'specific'}{$zip}{ $note->[CITY] })    { $populate->($cfg, $country, $str); }
+            elsif (defined $zip2 and $str = $cfg->{'specific'}{$zip2}{ $note->[CITY] })   { $populate->($cfg, $country, $str); }
+
+            if    (                  $str = $cfg->{'specific'}{ $note->[CITY] })          { $populate->($cfg, $country, $str); }
         }
     }
 

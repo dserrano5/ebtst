@@ -231,8 +231,8 @@ sub load_region_file {
                 $name =~ s/\s*$//;
                 for (my $i = $start; $i <= $end; $i++) {
                     ## split and rejoin with the new entry
-                    $cfg->{'ranges'}[$i] = join '|',
-                        (split /\|/, $cfg->{'ranges'}[$i]//''),
+                    $cfg->{'ranges'}[$i] = join '#',
+                        (split /#/, $cfg->{'ranges'}[$i]//''),
                         sprintf '%d,%d,%s', $group_idx, $subgroup_idx, $name;
                 }
             }
@@ -241,8 +241,8 @@ sub load_region_file {
                 my ($zip, $csv_name, $name) = ($1, $2, $3);
                 $csv_name =~ s/\s*$//;
                 $name     =~ s/\s*$//;
-                $cfg->{'specific'}{$zip}{$csv_name} = join '|',
-                    (split /\|/, $cfg->{'specific'}{$zip}{$csv_name}//''),
+                $cfg->{'specific'}{$zip}{$csv_name} = join '#',
+                    (split /#/, $cfg->{'specific'}{$zip}{$csv_name}//''),
                     sprintf '%d,%d,%s', $group_idx, $subgroup_idx, $name;
             }
             when (/^\s*;\s*([^=]+)=\s*(.*)/) {
@@ -250,8 +250,8 @@ sub load_region_file {
                 my ($csv_name, $name) = ($1, $2);
                 $csv_name =~ s/\s*$//;
                 $name     =~ s/\s*$//;
-                $cfg->{'name_map'}{$csv_name} = join '|',
-                    (split /\|/, $cfg->{'name_map'}{$csv_name}//''),
+                $cfg->{'name_map'}{$csv_name} = join '#',
+                    (split /#/, $cfg->{'name_map'}{$csv_name}//''),
                     sprintf '%d,%d,%s', $group_idx, $subgroup_idx, $name;
             }
             when (/^\s*([^=]+)=\s*(.*)/) {
@@ -259,8 +259,8 @@ sub load_region_file {
                 my ($zip, $name) = ($1, $2);
                 $zip  =~ s/\s*$//;
                 $name =~ s/\s*$//;
-                $cfg->{'zip_map'}{$zip} = join '|',
-                    (split /\|/, $cfg->{'zip_map'}{$zip}//''),
+                $cfg->{'zip_map'}{$zip} = join '#',
+                    (split /#/, $cfg->{'zip_map'}{$zip}//''),
                     sprintf '%d,%d,%s', $group_idx, $subgroup_idx, $name;
             }
             default { $self->_log (warn => "ignoring unrecognized line '$line'\n"); }

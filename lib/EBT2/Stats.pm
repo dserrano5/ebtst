@@ -340,10 +340,10 @@ sub regions {
     my $populate = sub {
         my ($cfg, $country, $str) = @_;
 
-        foreach my $entry (split /\|/, $str) {
+        foreach my $entry (split /#/, $str) {
             my ($group, $subgroup, $flag_url, $name);
 
-            ($group, $subgroup, $name) = split /,/, $entry;
+            ($group, $subgroup, $name) = split /,/, $entry, 3;
             $group = $cfg->{'groups'}[$group];
             if (defined $cfg->{'subgroups'}[$subgroup]) {
                 ($subgroup, $flag_url) = split '##', $cfg->{'subgroups'}[$subgroup];

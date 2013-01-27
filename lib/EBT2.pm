@@ -4,6 +4,7 @@ use warnings;
 use strict;
 use 5.10.0;
 use File::Basename;
+use List::MoreUtils qw/uniq/;
 use Storable qw/dclone freeze thaw/;
 use Time::HiRes qw/gettimeofday tv_interval/; my $t0;
 use Config::General;
@@ -304,9 +305,11 @@ EOF
 
 sub load_region_config {
     my ($self) = @_;
+    my @configured_countries = uniq map { /^([a-z]+)/ } map { basename $_ } glob File::Spec->catfile ($work_dir, 'regions', '*');
 
     my @countries = keys %{ $self->{'data'}{'existing_countries'} };
-    if (!@countries) { @countries = ''; }
+    if (!@countries) { @countries = @configured_countries; }  ## don't know what countries to load? then load them all
+    #@countries = @configured_countries;                      ## unconditionally load all (for development)
 
     foreach my $country (@countries) {
         my $region_files = File::Spec->catfile ($work_dir, 'regions', "$country*");

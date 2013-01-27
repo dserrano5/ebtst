@@ -48,7 +48,10 @@
             <th><%=l 'Hits' %></th>
             <th><%=l 'Percent' %></th>
         </tr>
-        <% foreach my $arrow (reverse sort { $a->{'num'} <=> $b->{'num'} } @$arrows) { =%>
+        <% my @sorted_arrows; { use locale; @sorted_arrows = sort { =%>
+        <%     $b->{'num'} <=> $a->{'num'} or $a->{'fromto'} cmp $b->{'fromto'} =%>
+        <% } @$arrows; } =%>
+        <% foreach my $arrow (@sorted_arrows) { =%>
             <tr>
                 <% my ($from, $to) = split /\|/, $arrow->{'fromto'}, 2; =%>
                 <% my ($from_country, $from_city) = split /,/, $from, 2; =%>
@@ -71,7 +74,10 @@
             <th><%=l 'Location' %></th>
             <th><%=l 'Hits' %></th>
         </tr>
-        <% foreach my $place (reverse sort { $local_hits->{$a} <=> $local_hits->{$b} } keys %$local_hits) { =%>
+        <% my @sorted_local_hits; { use locale; @sorted_local_hits = sort { =%>
+        <%     $local_hits->{$b} <=> $local_hits->{$a} or $a cmp $b =%>
+        <% } keys %$local_hits; } =%>
+        <% foreach my $place (@sorted_local_hits) { =%>
             <% my ($country, $city) = split /,/, $place, 2; =%>
             <tr>
                 <td><img src="<%= $images_prefix %>images/countries/<%= $country %>.gif"> <%= $city %></td>
@@ -91,7 +97,10 @@
             <th><%=l 'Location' %></th>
             <th><%=l 'Hits' %></th>
         </tr>
-        <% foreach my $bw (reverse sort { $both_ways->{$a} <=> $both_ways->{$b} } keys %$both_ways) { =%>
+        <% my @sorted_both_ways; { use locale; @sorted_both_ways = sort { =%>
+        <%     $both_ways->{$b} <=> $both_ways->{$a} or $a cmp $b =%>
+        <% } keys %$both_ways; } =%>
+        <% foreach my $bw (@sorted_both_ways) { =%>
             <% my ($from, $to) = split /\|/, $bw, 2; =%>
             <% my ($from_country, $from_city) = split /,/, $from, 2; =%>
             <% my ($to_country, $to_city) = split /,/, $to, 2; =%>

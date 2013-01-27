@@ -714,12 +714,12 @@ sub locations {
     my $c_data;
     foreach my $country (sort keys %$nbci) {
         my $loc_data;
-        foreach my $loc (
-            sort {
-                $nbci->{$country}{$b}{'total'} <=> $nbci->{$country}{$a}{'total'} or
-                $a cmp $b
-            } keys %{ $nbci->{$country} }
-        ) {
+        my @sorted_locs; { use locale; @sorted_locs = sort {
+            $nbci->{$country}{$b}{'total'} <=> $nbci->{$country}{$a}{'total'} or
+            $a cmp $b
+        } keys %{ $nbci->{$country} }; }
+
+        foreach my $loc (@sorted_locs) {
             my $detail;
             foreach my $v (@{ EBT2->values }) {
                 push @$detail, {
@@ -1512,7 +1512,10 @@ sub hit_locations {
             ratio     => $nbci->{$country}{$city}{'total'} / $hit_count_by_my_loc{$my_loc},
         };
     }
-    @my_locs = reverse sort { $a->{'notes'} <=> $b->{'notes'} } @my_locs;
+    { use locale; @my_locs = sort {
+        $b->{'notes'} <=> $a->{'notes'} or
+        $a->{'city'} cmp $b->{'city'}
+    } @my_locs; }
 
     my @their_locs;
     foreach my $their_loc (keys %hit_count_by_their_loc) {
@@ -1525,7 +1528,10 @@ sub hit_locations {
             hits_pct => 100 * $hit_count_by_their_loc{$their_loc} / (sum values %hit_count_by_their_loc),
         };
     }
-    @their_locs = reverse sort { $a->{'hits'} <=> $b->{'hits'} } @their_locs;
+    { use locale; @their_locs = sort {
+        $b->{'hits'} <=> $a->{'hits'} or
+        $a->{'city'} cmp $b->{'city'}
+    } @their_locs; }
 
     my @arrows;
     foreach my $k (keys %arrows) {
@@ -1542,7 +1548,8 @@ sub hit_locations {
         my ($from, $to) = split /\|/, $k, 2;
         my $reverse_k = sprintf '%s|%s', $to, $from;
         if ($k ne $reverse_k and exists $arrows{$reverse_k}) {
-            my $sorted_k = sprintf '%s|%s', sort $from, $to;
+            my @sorted_fromto; { use locale; @sorted_fromto = sort $from, $to; }
+            my $sorted_k = sprintf '%s|%s', @sorted_fromto;
             $both_ways{$sorted_k} += $arrows{$k};
         }
     }

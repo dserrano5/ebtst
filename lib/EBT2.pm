@@ -407,7 +407,7 @@ sub AUTOLOAD {
                         #$self->_log (debug => sprintf "scalar value for field '$field' not decrypted");
                     }
 
-                    #return ref $self->{'data'}{$field}{'data'} ? dclone $self->{'data'}{$field}{'data'} : $self->{'data'}{$field}{'data'};
+                    return ref $self->{'data'}{$field}{'data'} ? dclone $self->{'data'}{$field}{'data'} : $self->{'data'}{$field}{'data'};
                 }
                 #$self->_log (info => sprintf q{version '%s' of field '%s' is less than $STATS_VERSION '%s', recalculating},
                 #    $self->{'data'}{$field}{'version'}, $field, $EBT2::Stats::STATS_VERSION);

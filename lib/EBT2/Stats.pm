@@ -352,7 +352,9 @@ sub regions {
             } else {
                 ($subgroup_name, $flag_url) = ('__UNDEF__', undef);
             }
+
             $ret{'regions'}{$country}{$group_name}{'__num_locs'} = $num_locs;
+            $ret{'regions'}{$country}{$group_name}{$subgroup_name}{$loc_name} or $ret{'regions'}{$country}{$group_name}{'__seen_locs'}++;
             $ret{'regions'}{$country}{$group_name}{$subgroup_name}{'flag_url'} ||= $flag_url;  ## maybe undef, that's ok
             $ret{'regions'}{$country}{$group_name}{$subgroup_name}{$loc_name}++;
         }

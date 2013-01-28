@@ -19,7 +19,9 @@
                     </td>
                 </tr>
             <% } =%>
-            <% my @rows; { use locale; @rows = sort keys %{ $region_data->{$country}{$group_name}{$subgroup_name} }; } =%>
+            <% my @rows; { use locale; no warnings 'numeric'; @rows = sort { =%>
+            <%     ($a =~ /^\d/ and $b =~ /^\d/) ? ($a <=> $b) : ($a cmp $b) =%>
+            <% } keys %{ $region_data->{$country}{$group_name}{$subgroup_name} }; } =%>
             <% foreach my $row (@rows) { =%>
                 <% my $val = $region_data->{$country}{$group_name}{$subgroup_name}{$row}; =%>
                 <% $tot_notes += $val; =%>

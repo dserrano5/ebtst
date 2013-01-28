@@ -63,6 +63,8 @@
                     </tr><tr>
                         <td><a class="section_link" id="hit_locations"        href="hit_locations.html"><%=l 'Hit locations' %></a></td>
                     </tr><tr>
+                        <td><a class="section_link" id="hit_regions"          href="hit_regions.html"><%=l 'Hit regions' %></a></td>
+                    </tr><tr>
                         <td><a class="section_link" id="hit_analysis"         href="hit_analysis.html"><%=l 'Hit analysis' %></a></td>
                     </tr><tr>
                         <td><a class="section_link" id="hit_summary"          href="hit_summary.html"><%=l 'Hit summary' %></a></td>

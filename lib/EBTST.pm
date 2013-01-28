@@ -525,6 +525,7 @@ sub startup {
     $r_notes->get ('/hit_times_bingo')->to ('main#hit_times_bingo');
     $r_notes->get ('/hit_times_detail')->to ('main#hit_times_detail');
     $r_notes->get ('/hit_locations')->to ('main#hit_locations');
+    $r_notes->get ('/hit_regions')->to ('main#hit_regions');
     $r_notes->get ('/hit_analysis')->to ('main#hit_analysis');
     $r_notes->get ('/hit_summary')->to ('main#hit_summary');
     $r_notes->get ('/calendar')->to ('main#calendar');

@@ -371,6 +371,7 @@ sub load_hits {
                 die "Unrecognized hits file\n";
             }
             $hr->{'country'} = _cc $hr->{'country'};
+            $self->{'existing_countries'}{ $hr->{'country'} } = undef;
             if ($hr->{'lat'} > 90 or $hr->{'lat'} < -90 or $hr->{'long'} > 180 or $hr->{'long'} < -180) {
                 $hr->{'lat'} /= 10;
                 $hr->{'long'} /= 10;

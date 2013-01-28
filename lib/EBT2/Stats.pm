@@ -15,7 +15,7 @@ use EBT2::Data;
 use EBT2::Constants ':all';
 
 ## whenever there are changes in any stats format, this has to be increased in order to detect users with old stats formats
-our $STATS_VERSION = '20120925-01';
+our $STATS_VERSION = '20130128-01';
 my $chunk_size = '10000n';
 
 sub mean { return sum(@_)/@_; }
@@ -332,6 +332,23 @@ sub elem_notes_by_city { goto &bundle_locations; }
 sub alphabets          { goto &bundle_locations; }
 sub travel_stats       { goto &bundle_locations; }
 
+sub _alt_zip {
+    my ($country, $zip) = @_;
+    my $zip2;
+
+    given ($country) {
+        when ('mt') { length $zip > 3 and $zip2 = substr $zip, 0, 3; }
+        when ('nl') { length $zip > 4 and $zip2 = substr $zip, 0, 4; }
+        when ('pl') { $zip2 = (join '', $zip =~ /^(..)-(...)$/)||undef; }
+        when ('pt') { length $zip > 4 and $zip2 = substr $zip, 0, 4; }
+        when ('uk') { length $zip > 2 and $zip2 = substr $zip, 0, 2; }
+        when ('us') { ($zip2) = $zip =~ /(\d{5})/; }
+    }
+    ## at this point $zip2 should be either something meaningful or undef. It shouldn't be '0', '', '-' or similar rubbish
+
+    return $zip2;
+}
+
 sub regions {
     my ($self, $progress, $data) = @_;
     my %ret;
@@ -353,7 +370,7 @@ sub regions {
                 ($subgroup_name, $flag_url) = ('__UNDEF__', undef);
             }
 
-            $ret{'regions'}{$country}{$group_name}{'__num_locs'} = $num_locs;
+            $ret{'regions'}{$country}{$group_name}{'__num_locs'} = $num_locs;   ## this is uselessly done many times
             $ret{'regions'}{$country}{$group_name}{$subgroup_name}{$loc_name} or $ret{'regions'}{$country}{$group_name}{'__seen_locs'}++;
             $ret{'regions'}{$country}{$group_name}{$subgroup_name}{'flag_url'} ||= $flag_url;  ## maybe undef, that's ok
             $ret{'regions'}{$country}{$group_name}{$subgroup_name}{$loc_name}{'num_notes'}++;
@@ -368,18 +385,9 @@ sub regions {
 
             my $country = $note->[COUNTRY];
             my $cfg = $EBT2::config{'regions'}{$country};
-
+            my $city = $note->[CITY];
             my $zip = $note->[ZIP]; $zip =~ s/\s//g;
-            my $zip2;
-            given ($country) {
-                when ('mt') { length $zip > 3 and $zip2 = substr $zip, 0, 3; }
-                when ('nl') { length $zip > 4 and $zip2 = substr $zip, 0, 4; }
-                when ('pl') { $zip2 = (join '', $zip =~ /^(..)-(...)$/)||undef; }
-                when ('pt') { length $zip > 4 and $zip2 = substr $zip, 0, 4; }
-                when ('uk') { length $zip > 2 and $zip2 = substr $zip, 0, 2; }
-                when ('us') { ($zip2) = $zip =~ /(\d{5})/; }
-            }
-            ## at this point $zip2 should be either something meaningful or undef. It shouldn't be '0', '', '-' or similar rubbish
+            my $zip2 = _alt_zip $country, $zip;
 
             my $str;
             if    (                  $zip  =~ /^\d+$/ and $str = $cfg->{'ranges'}[$zip])  { $populate->($cfg, $country, $str, $note); }
@@ -388,10 +396,10 @@ sub regions {
             if    (                  $str = $cfg->{'zip_map'}{$zip})                      { $populate->($cfg, $country, $str, $note); }
             elsif (defined $zip2 and $str = $cfg->{'zip_map'}{$zip2})                     { $populate->($cfg, $country, $str, $note); }
 
-            if    (                  $str = $cfg->{'specific'}{$zip}{ $note->[CITY] })    { $populate->($cfg, $country, $str, $note); }
-            elsif (defined $zip2 and $str = $cfg->{'specific'}{$zip2}{ $note->[CITY] })   { $populate->($cfg, $country, $str, $note); }
+            if    (                  $str = $cfg->{'specific'}{$zip}{$city})              { $populate->($cfg, $country, $str, $note); }
+            elsif (defined $zip2 and $str = $cfg->{'specific'}{$zip2}{$city})             { $populate->($cfg, $country, $str, $note); }
 
-            if    (                  $str = $cfg->{'specific'}{ $note->[CITY] })          { $populate->($cfg, $country, $str, $note); }
+            if    (                  $str = $cfg->{'specific'}{$city})                    { $populate->($cfg, $country, $str, $note); }
         }
     }
 
@@ -904,6 +912,7 @@ sub hit_list {
                 id              => $note->[ID],
                 countries       => [ map { $_->{'country'} } @{ $hit->{'parts'} } ],
                 cities          => [ map { $_->{'city'} } @{ $hit->{'parts'} } ],
+                zips            => [ map { $_->{'zip'} } @{ $hit->{'parts'} } ],
                 km              => $hit->{'tot_km'},
                 days            => $hit->{'tot_days'},
                 hit_partners    => [ map { $_->{'user_name'} } @{ $hit->{'parts'} } ],
@@ -994,6 +1003,67 @@ sub hit_times {
         $ret{'hit_times'}{'dow'}{$dow}++;
         $ret{'hit_times'}{'dowhh'}{$dow}{$H}++;
         $ret{'hit_times'}{'dowhhmm'}{$dow}{$H}{$M}++;
+    }
+
+    return \%ret;
+}
+
+sub hit_regions {
+    my ($self, $progress, $data, $whoami, $hit_list) = @_;
+    my %ret;
+    my $idx = 0;
+
+    my $populate = sub {
+        my ($cfg, $country, $partner, $mine, $str, $hit) = @_;
+
+        foreach my $entry (split /#/, $str) {
+            my ($group_idx, $subgroup_idx, $loc_name) = split /,/, $entry, 3;
+            my $group_name = $cfg->{'groups'}[$group_idx]{'name'};
+            my $num_locs   = $cfg->{'groups'}[$group_idx]{'num_locs'};
+
+            my ($subgroup_name, $flag_url);
+            if (defined $cfg->{'subgroups'}[$subgroup_idx]{'name'}) {
+                $subgroup_name = $cfg->{'subgroups'}[$subgroup_idx]{'name'};
+                $flag_url      = $cfg->{'subgroups'}[$subgroup_idx]{'flag_url'};
+            } else {
+                ($subgroup_name, $flag_url) = ('__UNDEF__', undef);
+            }
+
+            $ret{'hit_regions'}{$country}{$group_name}{'__num_locs'} = $num_locs;   ## this is uselessly done many times
+            $ret{'hit_regions'}{$country}{$group_name}{$subgroup_name}{$loc_name} or $ret{'hit_regions'}{$country}{$group_name}{'__seen_locs'}++;
+            $ret{'hit_regions'}{$country}{$group_name}{$subgroup_name}{'flag_url'} ||= $flag_url;  ## maybe undef, that's ok
+            if ($mine) {
+                $ret{'hit_regions'}{$country}{$group_name}{$subgroup_name}{$loc_name}{'hits'}{ $hit->{'serial'} } = undef;
+            } else {
+                $ret{'hit_regions'}{$country}{$group_name}{$subgroup_name}{$loc_name}{'partners'}{ $partner } = undef;
+            }
+            $ret{'hit_regions'}{$country}{$group_name}{$subgroup_name}{$loc_name}{'id'} ||= $hit->{'id'};
+        }
+    };
+
+    foreach my $hit (@$hit_list) {
+        next if $hit->{'moderated'};
+        foreach my $idx (0..$#{ $hit->{'dates'} }) {
+            my $country = $hit->{'countries'}[$idx];
+            my $cfg = $EBT2::config{'regions'}{$country};
+            my $city = $hit->{'cities'}[$idx];
+            my $partner = $hit->{'hit_partners'}[$idx];
+            my $mine = $partner eq $whoami->{'name'};
+            my $zip = $hit->{'zips'}[$idx]; $zip =~ s/\s//g;
+            my $zip2 = _alt_zip $country, $zip;
+
+            my $str;
+            if    (                  $zip  =~ /^\d+$/ and $str = $cfg->{'ranges'}[$zip])  { $populate->($cfg, $country, $partner, $mine, $str, $hit); }
+            elsif (defined $zip2 and $zip2 =~ /^\d+$/ and $str = $cfg->{'ranges'}[$zip2]) { $populate->($cfg, $country, $partner, $mine, $str, $hit); }
+
+            if    (                  $str = $cfg->{'zip_map'}{$zip})                      { $populate->($cfg, $country, $partner, $mine, $str, $hit); }
+            elsif (defined $zip2 and $str = $cfg->{'zip_map'}{$zip2})                     { $populate->($cfg, $country, $partner, $mine, $str, $hit); }
+
+            if    (                  $str = $cfg->{'specific'}{$zip}{$city})              { $populate->($cfg, $country, $partner, $mine, $str, $hit); }
+            elsif (defined $zip2 and $str = $cfg->{'specific'}{$zip2}{$city})             { $populate->($cfg, $country, $partner, $mine, $str, $hit); }
+
+            if    (                  $str = $cfg->{'specific'}{$city})                    { $populate->($cfg, $country, $partner, $mine, $str, $hit); }
+        }
     }
 
     return \%ret;

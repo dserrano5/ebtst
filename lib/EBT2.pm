@@ -423,7 +423,7 @@ sub AUTOLOAD {
             #$self->_log (debug => "field ($field) doesn't exist, let's go for it");
         }
 
-        $self->load_region_config if 'regions' eq $field;
+        $self->load_region_config if grep { $field eq $_ } qw/regions hit_regions/;
         my $new_data = $self->{'stats'}->$field ($self->{'progress'}, $self->{'data'}, @args);
 
         if (!keys %$new_data) {

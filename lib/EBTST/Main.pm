@@ -44,7 +44,7 @@ my %users;
 my %section_titles;
 foreach my $section (qw/
     register information value countries locations regions travel_stats printers huge_table short_codes nice_serials
-    top_days plate_bingo bad_notes hit_list hit_locations hit_analysis hit_summary calendar help
+    top_days plate_bingo bad_notes hit_list hit_locations hit_regions hit_analysis hit_summary calendar help
 /) {
     my $title = ucfirst $section;
     $title =~ s/_/ /g;
@@ -1565,6 +1565,36 @@ sub hit_locations {
     );
 }
 
+sub hit_regions {
+    my ($self) = @_;
+    my $xhr = $self->req->is_xhr;
+    my ($pbase, $ptot) = split m{/}, $self->req->headers->header ('X-Calc-Sections-Progress') // '';
+
+    my $t0 = [gettimeofday];
+    my $count           = $self->ebt->get_count;               $xhr and $self->_init_progress (base => $pbase, tot => $ptot);
+    my $whoami          = $self->ebt->whoami;
+    my $hit_list        = $self->ebt->get_hit_list ($whoami);
+    my $hit_region_data = $self->ebt->get_hit_regions ($whoami, $hit_list);
+    #$self->_log (debug => report 'hit_regions get', $t0, $count);
+    $xhr and $self->{'progress'}->base_add ($count);
+    if ($xhr) { $self->res->headers->connection ('close'); return $self->_end_progress; }
+
+    my %partners;
+    foreach my $h (grep { !$_->{'moderated'} } @$hit_list) {
+        foreach my $partner (@{ $h->{'hit_partners'} }) {
+            $partners{$partner} = undef;
+        }
+    }
+    my $total_partners = -1 + keys %partners;   ## minus myself
+
+    $self->stash (
+        title           => $section_titles{'hit_regions'},
+        total_partners  => $total_partners,
+        total_hits      => (scalar grep { !$_->{'moderated'} } @$hit_list),
+        hit_region_data => $hit_region_data,
+    );
+}
+
 sub hit_analysis {
     my ($self) = @_;
     my $xhr = $self->req->is_xhr;
@@ -2028,7 +2058,7 @@ sub calc_sections {
         information value countries printers locations regions travel_stats huge_table short_codes nice_serials
         coords_bingo notes_per_year notes_per_month top_days time_analysis_bingo time_analysis_detail
         combs_bingo combs_detail plate_bingo bad_notes hit_list hit_times_bingo hit_times_detail
-        hit_locations hit_analysis hit_summary calendar
+        hit_locations hit_regions hit_analysis hit_summary calendar
     /;
 
     return $self->render_not_found unless $self->req->is_xhr;

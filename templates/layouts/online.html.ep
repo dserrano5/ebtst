@@ -62,6 +62,7 @@
                     %     [ hit_times_bingo      => 'Hit times (bingo)' ],
                     %     [ hit_times_detail     => 'Hit times (detail)' ],
                     %     [ hit_locations        => 'Hit locations' ],
+                    %     [ hit_regions          => 'Hit regions' ],
                     %     [ hit_analysis         => 'Hit analysis' ],
                     %     [ hit_summary          => 'Hit summary' ],
                     %     [ calendar             => 'Calendar' ],

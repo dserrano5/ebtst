@@ -1,0 +1,48 @@
+<h2><%=l 'Hit regions' %></h2>
+<table>
+<% foreach my $country (sort keys %$hit_region_data) { =%>
+    <% foreach my $group_name (sort keys %{ $hit_region_data->{$country} }) { =%>
+        <% my $num_locs = delete $hit_region_data->{$country}{$group_name}{'__num_locs'}; =%>
+        <% my $seen_locs = delete $hit_region_data->{$country}{$group_name}{'__seen_locs'}; =%>
+        <% my ($seen_hits, $seen_partners); =%>
+        <tr><td colspan="4"><h3>
+            <img src="<%= $images_prefix %>images/countries/<%= $country %>.gif"> <%== $group_name %> (<%= $seen_locs %>/<%= $num_locs %>)
+        </h3></td></tr>
+        <tr>
+            <th><%=l 'Name' %></th>
+            <th><%=l 'Hit partners' %></th>
+            <th><%=l 'Hit notes' %></th>
+        </tr>
+        <% foreach my $subgroup_name (sort keys %{ $hit_region_data->{$country}{$group_name} }) { =%>
+            <% my $flag_url = delete $hit_region_data->{$country}{$group_name}{$subgroup_name}{'flag_url'}; =%>
+            <% if ('__UNDEF__' ne $subgroup_name) { =%>
+                <tr>
+                    <td colspan="4" class="subgroup">
+                        <i><% if ($flag_url) { %><img src="<%= $flag_url %>"> <% } %><%== $subgroup_name %></i>
+                    </td>
+                </tr>
+            <% } =%>
+            <% my @rows; { use locale; no warnings 'numeric'; @rows = sort { =%>
+            <%     ($a =~ /^\d/ and $b =~ /^\d/) ? ($a <=> $b) : ($a cmp $b) =%>
+            <% } keys %{ $hit_region_data->{$country}{$group_name}{$subgroup_name} }; } =%>
+            <% foreach my $row (@rows) { =%>
+                <% my $nhits     = keys %{ $hit_region_data->{$country}{$group_name}{$subgroup_name}{$row}{'hits'} }; =%>
+                <% my $npartners = keys %{ $hit_region_data->{$country}{$group_name}{$subgroup_name}{$row}{'partners'} }; =%>
+                <% my $id = $hit_region_data->{$country}{$group_name}{$subgroup_name}{$row}{'id'}; =%>
+                <% $seen_hits += $nhits; =%>
+                <% $seen_partners += $npartners; =%>
+                <tr>
+                    <td><a href="https://eurobilltracker.com/notes/?id=<%= $id %>"><%== $row %></a></td>
+                    <td><%= $npartners %> (<%= sprintf '%.2f', $npartners*100/$total_partners %>%)</td>
+                    <td><%= $nhits %> (<%= sprintf '%.2f', $nhits*100/$total_hits %>%)</td>
+                </tr>
+            <% } =%>
+        <% } =%>
+        <tr>
+            <th><%=l 'Total' %></th>
+            <th><%= $seen_partners %> (<%= sprintf '%.2f', $seen_partners*100/$total_partners %>%)</th>
+            <th><%= $seen_hits %> (<%= sprintf '%.2f', $seen_hits*100/$total_hits %>%)</th>
+        </tr>
+    <% } =%>
+<% } =%>
+</table>

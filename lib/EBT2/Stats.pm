@@ -338,7 +338,7 @@ sub regions {
     my $idx = 0;
 
     my $populate = sub {
-        my ($cfg, $country, $str) = @_;
+        my ($cfg, $country, $str, $note) = @_;
 
         foreach my $entry (split /#/, $str) {
             my ($group_idx, $subgroup_idx, $loc_name) = split /,/, $entry, 3;
@@ -356,7 +356,8 @@ sub regions {
             $ret{'regions'}{$country}{$group_name}{'__num_locs'} = $num_locs;
             $ret{'regions'}{$country}{$group_name}{$subgroup_name}{$loc_name} or $ret{'regions'}{$country}{$group_name}{'__seen_locs'}++;
             $ret{'regions'}{$country}{$group_name}{$subgroup_name}{'flag_url'} ||= $flag_url;  ## maybe undef, that's ok
-            $ret{'regions'}{$country}{$group_name}{$subgroup_name}{$loc_name}++;
+            $ret{'regions'}{$country}{$group_name}{$subgroup_name}{$loc_name}{'num_notes'}++;
+            $ret{'regions'}{$country}{$group_name}{$subgroup_name}{$loc_name}{'id'} ||= $note->[ID];
         }
     };
 
@@ -381,16 +382,16 @@ sub regions {
             ## at this point $zip2 should be either something meaningful or undef. It shouldn't be '0', '', '-' or similar rubbish
 
             my $str;
-            if    (                  $zip  =~ /^\d+$/ and $str = $cfg->{'ranges'}[$zip])  { $populate->($cfg, $country, $str); }
-            elsif (defined $zip2 and $zip2 =~ /^\d+$/ and $str = $cfg->{'ranges'}[$zip2]) { $populate->($cfg, $country, $str); }
+            if    (                  $zip  =~ /^\d+$/ and $str = $cfg->{'ranges'}[$zip])  { $populate->($cfg, $country, $str, $note); }
+            elsif (defined $zip2 and $zip2 =~ /^\d+$/ and $str = $cfg->{'ranges'}[$zip2]) { $populate->($cfg, $country, $str, $note); }
 
-            if    (                  $str = $cfg->{'zip_map'}{$zip})                      { $populate->($cfg, $country, $str); }
-            elsif (defined $zip2 and $str = $cfg->{'zip_map'}{$zip2})                     { $populate->($cfg, $country, $str); }
+            if    (                  $str = $cfg->{'zip_map'}{$zip})                      { $populate->($cfg, $country, $str, $note); }
+            elsif (defined $zip2 and $str = $cfg->{'zip_map'}{$zip2})                     { $populate->($cfg, $country, $str, $note); }
 
-            if    (                  $str = $cfg->{'specific'}{$zip}{ $note->[CITY] })    { $populate->($cfg, $country, $str); }
-            elsif (defined $zip2 and $str = $cfg->{'specific'}{$zip2}{ $note->[CITY] })   { $populate->($cfg, $country, $str); }
+            if    (                  $str = $cfg->{'specific'}{$zip}{ $note->[CITY] })    { $populate->($cfg, $country, $str, $note); }
+            elsif (defined $zip2 and $str = $cfg->{'specific'}{$zip2}{ $note->[CITY] })   { $populate->($cfg, $country, $str, $note); }
 
-            if    (                  $str = $cfg->{'specific'}{ $note->[CITY] })          { $populate->($cfg, $country, $str); }
+            if    (                  $str = $cfg->{'specific'}{ $note->[CITY] })          { $populate->($cfg, $country, $str, $note); }
         }
     }
 

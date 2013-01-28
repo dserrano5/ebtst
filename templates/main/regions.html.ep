@@ -27,10 +27,11 @@
             <%     ($a =~ /^\d/ and $b =~ /^\d/) ? ($a <=> $b) : ($a cmp $b) =%>
             <% } keys %{ $region_data->{$country}{$group_name}{$subgroup_name} }; } =%>
             <% foreach my $row (@rows) { =%>
-                <% my $val = $region_data->{$country}{$group_name}{$subgroup_name}{$row}; =%>
+                <% my $val = $region_data->{$country}{$group_name}{$subgroup_name}{$row}{'num_notes'}; =%>
+                <% my $id = $region_data->{$country}{$group_name}{$subgroup_name}{$row}{'id'}; =%>
                 <% $tot_notes += $val; =%>
                 <tr>
-                    <td><%== $row %></td>
+                    <td><a href="https://eurobilltracker.com/notes/?id=<%= $id %>"><%== $row %></a></td>
                     <td><%= $val %></td>
                     <td><%= sprintf '%.2f', $val*100/$count %>%</td>
                     <td><%= sprintf '%.2f', $nbco->{$country}{'total'} ? $val*100/$nbco->{$country}{'total'} : 'N/A' %>%</td>

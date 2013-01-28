@@ -341,17 +341,20 @@ sub regions {
         my ($cfg, $country, $str) = @_;
 
         foreach my $entry (split /#/, $str) {
-            my ($group, $subgroup, $flag_url, $name);
+            my ($group_idx, $subgroup_idx, $loc_name) = split /,/, $entry, 3;
+            my $group_name = $cfg->{'groups'}[$group_idx]{'name'};
+            my $num_locs   = $cfg->{'groups'}[$group_idx]{'num_locs'};
 
-            ($group, $subgroup, $name) = split /,/, $entry, 3;
-            $group = $cfg->{'groups'}[$group];
-            if (defined $cfg->{'subgroups'}[$subgroup]) {
-                ($subgroup, $flag_url) = split '##', $cfg->{'subgroups'}[$subgroup];
+            my ($subgroup_name, $flag_url);
+            if (defined $cfg->{'subgroups'}[$subgroup_idx]{'name'}) {
+                $subgroup_name = $cfg->{'subgroups'}[$subgroup_idx]{'name'};
+                $flag_url      = $cfg->{'subgroups'}[$subgroup_idx]{'flag_url'};
             } else {
-                ($subgroup, $flag_url) = ('__UNDEF__', undef);
+                ($subgroup_name, $flag_url) = ('__UNDEF__', undef);
             }
-            $ret{'regions'}{$country}{$group}{$subgroup}{'flag_url'} ||= $flag_url;  ## maybe undef, that's ok
-            $ret{'regions'}{$country}{$group}{$subgroup}{$name}++;
+            $ret{'regions'}{$country}{$group_name}{'__num_locs'} = $num_locs;
+            $ret{'regions'}{$country}{$group_name}{$subgroup_name}{'flag_url'} ||= $flag_url;  ## maybe undef, that's ok
+            $ret{'regions'}{$country}{$group_name}{$subgroup_name}{$loc_name}++;
         }
     };
 

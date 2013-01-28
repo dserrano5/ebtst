@@ -165,6 +165,7 @@ sub load_region_file {
 
     my ($group_name, $subgroup_name);
     my ($group_idx, $subgroup_idx) = (-1, -1);
+    my %locs_in_group;
     if (exists $cfg->{'groups'}   ) { $group_idx    = $#{ $cfg->{'groups'}    }; }  ## point to last entry, index will be increased before array is updated
     if (exists $cfg->{'subgroups'}) { $subgroup_idx = $#{ $cfg->{'subgroups'} }; }
 
@@ -188,11 +189,21 @@ sub load_region_file {
                 $group_name = $1;
                 $group_name =~ s/\s*$//;
                 $group_idx++;
-                $cfg->{'groups'}[$group_idx] = $group_name;
+                $cfg->{'groups'}[$group_idx] = { name => $group_name };
 
                 undef $subgroup_name;
                 $subgroup_idx++;
                 $cfg->{'subgroups'}[$subgroup_idx] = $subgroup_name;
+
+                if ($group_idx) {
+                    my $nlocs = scalar keys %locs_in_group;
+                    ## $nlocs is zero when this is the first group in a given file
+                    ## without this check, we set to zero the last group in the previous file for the same language
+                    if ($nlocs) {
+                        $cfg->{'groups'}[$group_idx-1]{'num_locs'} = $nlocs;
+                    }
+                    undef %locs_in_group;
+                }
 
                 $entries_seen = 0;
             }
@@ -202,13 +213,13 @@ sub load_region_file {
                     $subgroup_name = $1;
                     $subgroup_name =~ s/\s*$//;
                     $subgroup_idx++;
-                    $cfg->{'subgroups'}[$subgroup_idx] = $subgroup_name;
+                    $cfg->{'subgroups'}[$subgroup_idx] = { name => $subgroup_name };
 
                 } elsif ($subgroup_name) {                             ## prev subgroup has name, this is the next subgroup
                     $subgroup_name = $1;
                     $subgroup_name =~ s/\s*$//;
                     $subgroup_idx++;
-                    $cfg->{'subgroups'}[$subgroup_idx] = $subgroup_name;
+                    $cfg->{'subgroups'}[$subgroup_idx] = { name => $subgroup_name };
 
                 } elsif (!$subgroup_name) {                            ## first subgroup but there are already some entries directly under the group, this is an error
                     $self->_log (warn => "entries outside any subgroup, ignoring whole file '$f'");
@@ -223,12 +234,13 @@ sub load_region_file {
                 if (!$subgroup_name) { $self->_log (warn => "subflag without subgroup, ignoring whole file '$f'\n"); return; }
                 my $flag_url = $1;
                 $flag_url =~ s/\s*$//;
-                $cfg->{'subgroups'}[-1] .= "##$flag_url";
+                $cfg->{'subgroups'}[-1]{'flag_url'} = $flag_url;
             }
             when (/^\s*(\d+)\s*,\s*(\d+)\s*=\s*(.*)/) {
                 next unless $entry_check->(ranges => $_);
                 my ($start, $end, $name) = ($1, $2, $3);
                 $name =~ s/\s*$//;
+                $locs_in_group{$name} = undef;
                 for (my $i = $start; $i <= $end; $i++) {
                     ## split and rejoin with the new entry
                     $cfg->{'ranges'}[$i] = join '#',
@@ -241,6 +253,7 @@ sub load_region_file {
                 my ($zip, $csv_name, $name) = ($1, $2, $3);
                 $csv_name =~ s/\s*$//;
                 $name     =~ s/\s*$//;
+                $locs_in_group{$name} = undef;
                 $cfg->{'specific'}{$zip}{$csv_name} = join '#',
                     (split /#/, $cfg->{'specific'}{$zip}{$csv_name}//''),
                     sprintf '%d,%d,%s', $group_idx, $subgroup_idx, $name;
@@ -250,6 +263,7 @@ sub load_region_file {
                 my ($csv_name, $name) = ($1, $2);
                 $csv_name =~ s/\s*$//;
                 $name     =~ s/\s*$//;
+                $locs_in_group{$name} = undef;
                 $cfg->{'name_map'}{$csv_name} = join '#',
                     (split /#/, $cfg->{'name_map'}{$csv_name}//''),
                     sprintf '%d,%d,%s', $group_idx, $subgroup_idx, $name;
@@ -259,6 +273,7 @@ sub load_region_file {
                 my ($zip, $name) = ($1, $2);
                 $zip  =~ s/\s*$//;
                 $name =~ s/\s*$//;
+                $locs_in_group{$name} = undef;
                 $cfg->{'zip_map'}{$zip} = join '#',
                     (split /#/, $cfg->{'zip_map'}{$zip}//''),
                     sprintf '%d,%d,%s', $group_idx, $subgroup_idx, $name;
@@ -267,20 +282,23 @@ sub load_region_file {
         }
     }
 
+    ## this is only done when a new group is found, need to repeat it for the last group
+    $cfg->{'groups'}[-1]{'num_locs'} = scalar keys %locs_in_group;
+
     close $fd;
 
 $cfg = <<'EOF';
 $config{'regions'} = {
     es => {
         groups => [
-            'foo',
-            'bar',
-            'foo',  ## dup ok
+            { name => 'foo', num_locs => 42 },
+            { name => 'bar', num_locs => 21 },
+            { name => 'foo', num_locs => 69 },  ## dup name ok
         ],
         subgroups => [
-            'sg1',
-            'sg2##http://bar',
-            'sg2##http://bar',  ## dup ok
+            { name => 'sg1' },
+            { name => 'sg2', flag => 'http://bar' },
+            { name => 'sg2', flag => 'http://bar' },  ## dup name ok
         ],
         ranges => [
             'group_idx,subgroup_idx,name|...',
@@ -389,7 +407,7 @@ sub AUTOLOAD {
                         #$self->_log (debug => sprintf "scalar value for field '$field' not decrypted");
                     }
 
-                    return ref $self->{'data'}{$field}{'data'} ? dclone $self->{'data'}{$field}{'data'} : $self->{'data'}{$field}{'data'};
+                    #return ref $self->{'data'}{$field}{'data'} ? dclone $self->{'data'}{$field}{'data'} : $self->{'data'}{$field}{'data'};
                 }
                 #$self->_log (info => sprintf q{version '%s' of field '%s' is less than $STATS_VERSION '%s', recalculating},
                 #    $self->{'data'}{$field}{'version'}, $field, $EBT2::Stats::STATS_VERSION);

@@ -1677,7 +1677,7 @@ sub hit_summary {
         my @all_dates;
 
         foreach my $elem (@$elem_ratio) {
-            my ($date, $ratio) = split /=/, $elem;
+            my ($date, undef, $ratio) = split /=/, $elem;
             push @all_dates, $date;
             push @{ $dpoints{'hit_ratio'} }, $ratio || undef;
         }

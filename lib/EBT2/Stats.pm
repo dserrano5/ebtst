@@ -860,7 +860,7 @@ sub hit_list {
                 push @{ $ret{'hits_dates'} }, $pas_hit->{'hit_date'};
                 $ret{'elem_travel_days'} .= $pas_hit->{'days'} . ',';
                 $ret{'elem_travel_km'} .= $pas_hit->{'km'} . ',';
-                push @{ $ret{'elem_ratio'} }, sprintf '%s=%s', $pas_hit->{'hit_date'}, $pas_hit->{'new_hit_ratio'}//0;
+                push @{ $ret{'elem_ratio'} }, sprintf '%s=%05s=%s', $pas_hit->{'hit_date'}, $hit_no2, $pas_hit->{'new_hit_ratio'}//0;
                 $notes_between = 0;     ## 0 because it would be -1 plus 1 for having already started another loop iteration
             }
         }
@@ -889,7 +889,7 @@ sub hit_list {
             if (%passive_pending) { $fill_passive_pending->($note); }
 
             ## this ratio is incorrect if this is an active interesting hit, we'll change it later
-            push @{ $ret{'elem_ratio'} }, sprintf '%s=%s', $note->[DATE_ENTERED], $hit_no ? $notes_elapsed/$hit_no : 0;
+            push @{ $ret{'elem_ratio'} }, sprintf '%s=%05s=%s', $note->[DATE_ENTERED], $hit_no2, $hit_no ? $notes_elapsed/$hit_no : 0;
 
             next unless $hit;
 
@@ -947,7 +947,7 @@ sub hit_list {
                 $ret{'elem_travel_km'} .= $entry->{'km'} . ',';
 
                 ## elem_ratio, replace last value
-                $ret{'elem_ratio'}[-1] = sprintf '%s=%s', $entry->{'hit_date'}, $entry->{'new_hit_ratio'}//0;
+                $ret{'elem_ratio'}[-1] = sprintf '%s=%05s=%s', $entry->{'hit_date'}, $hit_no2, $entry->{'new_hit_ratio'}//0;
             }
             push @{ $hit_list{ $hit->{'hit_date'} } }, $entry;
             if ($passive) {

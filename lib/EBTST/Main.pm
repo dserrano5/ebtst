@@ -887,9 +887,12 @@ sub huge_table {
     }
     #$self->_log (debug => report 'huge_table cook', $t0, $count);
 
+    my $url = $self->url_for;
+    $url = '' if $url =~ /gen_output_/;
     $self->stash (
         title => $section_titles{'huge_table'},
         ht    => $ht,
+        url   => $url,
     );
 }
 

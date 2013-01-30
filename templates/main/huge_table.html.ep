@@ -1,4 +1,8 @@
+<a name="top"></a>
 <h2><%=l 'Huge table' %></h2>
+
+<% my %seen_printers; @seen_printers{ map { substr $_, 0, 1 } keys %$ht } = undef; my @seen_printers = sort keys %seen_printers; =%>
+Jump to: <% foreach my $printer (@seen_printers) { %><a href="<%= sprintf '%s#%s', $url, $printer %>"><%= $printer %></a> <% } %><br>
 
 <p class="colors_legend"><%=l 'Notes have been entered up to' %>: <span class="recent_1"></span> <%=l '1 year ago' %>, <span class="recent_2"></span> <%=l '3 months ago' %>, <span class="recent_3"></span> <%=l '1 week ago' %>.</p>
 <table>
@@ -8,7 +12,16 @@
             <th><%= $v %></th>
         <% } =%>
     </tr>
+    <% my $old_printer = ''; =%>
     <% foreach my $plate (sort keys %$ht) { =%>
+    <% my $printer = substr $plate, 0, 1; if ($printer ne $old_printer) { =%>
+        <% $old_printer = $printer; =%>
+        <tr><th colspan="8">
+            <a name="<%= $printer %>"></a>
+            <%= $printer %>
+            <div class="top_link"><a href="<%= $url %>#top">Top</a></div>
+        </th></tr>
+    <% } =%>
     <tr>
         <td class="small_cell" style="vertical-align: top;">
             <img src="<%= $images_prefix %>images/countries/<%= $ht->{$plate}{'plate_flag'} %>.gif"> <%= $plate =%>

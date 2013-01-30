@@ -65,7 +65,7 @@ Jump to:
                 <a name="<%= $elem->{'cname'} %>"></a>
                 <h3>
                     <%= $elem->{'cname'} %> (<%= scalar @{ $elem->{'loc_data'} } %>)
-                    <div class="top_link"><a href="<%= $url %>#top">Top</a></div>
+                    <div class="top_link"><a href="<%= $url %>#top"><%=l 'Top' %></a></div>
                 </h3>
             </td>
         </tr>

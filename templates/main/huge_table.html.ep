@@ -19,7 +19,7 @@ Jump to: <% foreach my $printer (@seen_printers) { %><a href="<%= sprintf '%s#%s
         <tr><th colspan="8">
             <a name="<%= $printer %>"></a>
             <%= $printer %>
-            <div class="top_link"><a href="<%= $url %>#top">Top</a></div>
+            <div class="top_link"><a href="<%= $url %>#top"><%=l 'Top' %></a></div>
         </th></tr>
     <% } =%>
     <tr>

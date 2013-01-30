@@ -7,7 +7,7 @@ Jump to: <% foreach my $v (map { $_->{'value'} } @$plate_bingo) { %><a href="<%=
     <a name="<%= $elem->{'value'} %>"></a>
     <h3>
         <%= 'all' eq $elem->{'value'} ? (ucfirst l $elem->{'value'}) : $elem->{'value'} %>
-        <div class="top_link"><a href="<%= $url %>#top">Top</a></div>
+        <div class="top_link"><a href="<%= $url %>#top"><%=l 'Top' %></a></div>
     </h3>
     <% if ('all' eq $elem->{'value'}) { =%>
         <p class="colors_legend">

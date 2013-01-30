@@ -786,11 +786,18 @@ sub regions {
     $xhr and $self->{'progress'}->base_add ($count);
     if ($xhr) { $self->res->headers->connection ('close'); return $self->_end_progress; }
 
+    foreach my $country (sort keys %$region_data) {
+        $region_data->{$country}{'__cname'} = $self->_country_names ($country);
+    }
+
+    my $url = $self->url_for;
+    $url = '' if $url =~ /gen_output_/;
     $self->stash (
         title       => $section_titles{'regions'},
         count       => $count,
         nbco        => $nbco,
         region_data => $region_data,
+        url         => $url,
     );
 }
 

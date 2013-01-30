@@ -1,6 +1,22 @@
+<a name="top"></a>
 <h2><%=l 'Regions' %></h2>
+
+Jump to:
+<ul>
+    <% foreach my $country (sort keys %$region_data) { =%>
+        <% my $cname = $region_data->{$country}{'__cname'}; =%>
+        <li><a href="<%= sprintf '%s#%s', $url, $country %>"><%= $cname %></a></li>
+    <% } =%>
+</ul>
+
 <table>
 <% foreach my $country (sort keys %$region_data) { =%>
+    <% my $cname = delete $region_data->{$country}{'__cname'}; =%>
+    <tr><td colspan="4"><h3>
+        <a name="<%= $country %>"></a>
+        <img src="<%= $images_prefix %>images/countries/<%= $country %>.gif"> <%= $cname %>
+        <div class="top_link"><a href="<%= $url %>#top"><%=l 'Top' %></a></div>
+    </h3></td></tr>
     <% foreach my $group_name (sort keys %{ $region_data->{$country} }) { =%>
         <% my $num_locs = delete $region_data->{$country}{$group_name}{'__num_locs'}; =%>
         <% my $seen_locs = delete $region_data->{$country}{$group_name}{'__seen_locs'}; =%>

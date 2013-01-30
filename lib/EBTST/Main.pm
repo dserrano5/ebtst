@@ -1603,11 +1603,18 @@ sub hit_regions {
     }
     my $total_partners = -1 + keys %partners;   ## minus myself
 
+    foreach my $country (sort keys %$hit_region_data) {
+        $hit_region_data->{$country}{'__cname'} = $self->_country_names ($country);
+    }
+
+    my $url = $self->url_for;
+    $url = '' if $url =~ /gen_output_/;
     $self->stash (
         title           => $section_titles{'hit_regions'},
         total_partners  => $total_partners,
         total_hits      => (scalar grep { !$_->{'moderated'} } @$hit_list),
         hit_region_data => $hit_region_data,
+        url             => $url,
     );
 }
 

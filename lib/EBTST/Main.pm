@@ -760,6 +760,8 @@ sub locations {
     }
     #$self->_log (debug => report 'locations cook', $t0, $count);
 
+    my $url = $self->url_for;
+    $url = '' if $url =~ /gen_output_/;
     $self->stash (
         title     => $section_titles{'locations'},
         num_co    => scalar keys %$nbco,
@@ -767,6 +769,7 @@ sub locations {
         num_locs  => $distinct_cities,
         c_data    => $c_data,
         ab        => $ab,
+        url       => $url,
     );
 }
 

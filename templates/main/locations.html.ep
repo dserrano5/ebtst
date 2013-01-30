@@ -1,4 +1,5 @@
 <h2><%=l 'Countries with notes entered' %> (<%= $num_co %>)</h2>
+
 <table>
     <tr>
         <th><%=l 'Country' %></th>
@@ -27,11 +28,46 @@
 </table>
 <br>
 
+<h2><%=l 'Alphabets of locations by country' %></h2>
+<p class="colors_legend">
+    <span style="color: <%= color    0, 'notes' %>">0 <%=l 'notes' %></span>,
+    <span style="color: <%= color    1, 'notes' %>">1-49 <%=l 'notes' %></span>,
+    <span style="color: <%= color   50, 'notes' %>">50-99 <%=l 'notes' %></span>,
+    <span style="color: <%= color  100, 'notes' %>">100-499 <%=l 'notes' %></span>,
+    <span style="color: <%= color  500, 'notes' %>">500-999 <%=l 'notes' %></span>,
+    <span style="color: <%= color 1000, 'notes' %>">1000 <%=l 'or more' %> <%=l 'notes' %></span>.
+</p>
+<table>
+    <% foreach my $c (@$ab) { =%>
+        <tr>
+            <th class="small_cell"><img src="<%= $images_prefix %>images/countries/<%= $c->{'imgname'} %>.gif"> <%= $c->{'cname'} %></th>
+            <% foreach my $l ('A'..'Z') { =%>
+                <td class="small_cell"><span style='color: <%= color $c->{'letters'}{$l}, 'notes' %>'><%= $l %></span></td>
+            <% } =%>
+            <th class="numeric small_cell"><%= $c->{'tot'} %></th>
+        </tr>
+    <% } =%>
+</table>
+<br>
+
+<a name="top"></a>
 <h2><%=l 'Number of notes by location' %> (<%= $num_locs %>)</h2>
+Jump to:
+<ul>
+    <% foreach my $elem (@$c_data) { =%>
+        <li><a href="#<%= $elem->{'cname'} %>"><%= $elem->{'cname'} %></a></li>
+    <% } =%>
+</ul>
 <table>
     <% foreach my $elem (@$c_data) { =%>
         <tr>
-            <td colspan="9"><h3><%= $elem->{'cname'} %> (<%= scalar @{ $elem->{'loc_data'} } %>)</h3></td>
+            <td colspan="9">
+                <a name="<%= $elem->{'cname'} %>"></a>
+                <h3>
+                    <%= $elem->{'cname'} %> (<%= scalar @{ $elem->{'loc_data'} } %>)
+                    <div class="top_link"><a href="<%= $url %>#top">Top</a></div>
+                </h3>
+            </td>
         </tr>
         <tr>
             <th></th>
@@ -57,27 +93,5 @@
                 <% } =%>
             </tr>
         <% } =%>
-    <% } =%>
-</table>
-<br>
-
-<h2><%=l 'Alphabets of locations by country' %></h2>
-<p class="colors_legend">
-    <span style="color: <%= color    0, 'notes' %>">0 <%=l 'notes' %></span>,
-    <span style="color: <%= color    1, 'notes' %>">1-49 <%=l 'notes' %></span>,
-    <span style="color: <%= color   50, 'notes' %>">50-99 <%=l 'notes' %></span>,
-    <span style="color: <%= color  100, 'notes' %>">100-499 <%=l 'notes' %></span>,
-    <span style="color: <%= color  500, 'notes' %>">500-999 <%=l 'notes' %></span>,
-    <span style="color: <%= color 1000, 'notes' %>">1000 <%=l 'or more' %> <%=l 'notes' %></span>.
-</p>
-<table>
-    <% foreach my $c (@$ab) { =%>
-        <tr>
-            <th class="small_cell"><img src="<%= $images_prefix %>images/countries/<%= $c->{'imgname'} %>.gif"> <%= $c->{'cname'} %></th>
-            <% foreach my $l ('A'..'Z') { =%>
-                <td class="small_cell"><span style='color: <%= color $c->{'letters'}{$l}, 'notes' %>'><%= $l %></span></td>
-            <% } =%>
-            <th class="numeric small_cell"><%= $c->{'tot'} %></th>
-        </tr>
     <% } =%>
 </table>

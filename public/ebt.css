@@ -126,6 +126,10 @@ table tr .subgroup {
 a img {
     border-style: none;
 }
+.top_link {
+    float: right;
+    padding-right: 15px;
+}
 
 .cal_day_cell {
     padding: 6px;

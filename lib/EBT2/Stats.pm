@@ -961,7 +961,7 @@ sub hit_list {
     if (%passive_pending) { $fill_passive_pending->(); }
 
     foreach my $date (sort keys %hit_list) {
-        push @{ $ret{'hit_list'} }, @{ $hit_list{$date} };
+        push @{ $ret{'hit_list'} }, sort { $a->{'hit_no2'} <=> $b->{'hit_no2'} } @{ $hit_list{$date} };
     }
     if (!defined $ret{'hits_dates'}) {
         $ret{'hit_list'} = [];

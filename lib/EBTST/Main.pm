@@ -1353,9 +1353,12 @@ sub plate_bingo {
     }
     #$self->_log (debug => report 'plate_bingo cook', $t0, $count);
 
+    my $url = $self->url_for;
+    $url = '' if $url =~ /gen_output_/;
     $self->stash (
         title       => $section_titles{'plate_bingo'},
         plate_bingo => $cooked,
+        url         => $url,
     );
 }
 

@@ -1,6 +1,14 @@
+<a name="top"></a>
 <h2><%=l 'Plate bingo' %></h2>
+
+Jump to: <% foreach my $v (map { $_->{'value'} } @$plate_bingo) { %><a href="<%= sprintf '%s#%s', $url, $v %>"><%= $v %></a> <% } %><br>
+
 <% foreach my $elem (@$plate_bingo) { =%>
-    <h3><%= 'all' eq $elem->{'value'} ? (ucfirst l $elem->{'value'}) : $elem->{'value'} %></h3>
+    <a name="<%= $elem->{'value'} %>"></a>
+    <h3>
+        <%= 'all' eq $elem->{'value'} ? (ucfirst l $elem->{'value'}) : $elem->{'value'} %>
+        <div class="top_link"><a href="<%= $url %>#top">Top</a></div>
+    </h3>
     <% if ('all' eq $elem->{'value'}) { =%>
         <p class="colors_legend">
             <span style="color: <%= color    0, 'notes' %>">0 <%=l 'notes' %></span>,

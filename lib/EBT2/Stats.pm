@@ -1045,6 +1045,7 @@ sub hit_regions {
     foreach my $hit (@$hit_list) {
         next if $hit->{'moderated'};
         foreach my $idx (0..$#{ $hit->{'dates'} }) {
+            my $matched = 0;
             my $country = $hit->{'countries'}[$idx];
             my $cfg = $EBT2::config{'regions'}{$country};
             my $city = $hit->{'cities'}[$idx];
@@ -1054,16 +1055,18 @@ sub hit_regions {
             my $zip2 = _alt_zip $country, $zip;
 
             my $str;
-            if    (                  $zip  =~ /^\d+$/ and $str = $cfg->{'ranges'}[$zip])  { $populate->($cfg, $country, $partner, $mine, $str, $hit); }
-            elsif (defined $zip2 and $zip2 =~ /^\d+$/ and $str = $cfg->{'ranges'}[$zip2]) { $populate->($cfg, $country, $partner, $mine, $str, $hit); }
+            if    (                  $zip  =~ /^\d+$/ and $str = $cfg->{'ranges'}[$zip])  { $matched = 1; $populate->($cfg, $country, $partner, $mine, $str, $hit); }
+            elsif (defined $zip2 and $zip2 =~ /^\d+$/ and $str = $cfg->{'ranges'}[$zip2]) { $matched = 1; $populate->($cfg, $country, $partner, $mine, $str, $hit); }
 
-            if    (                  $str = $cfg->{'zip_map'}{$zip})                      { $populate->($cfg, $country, $partner, $mine, $str, $hit); }
-            elsif (defined $zip2 and $str = $cfg->{'zip_map'}{$zip2})                     { $populate->($cfg, $country, $partner, $mine, $str, $hit); }
+            if    (                  $str = $cfg->{'zip_map'}{$zip})                      { $matched = 1; $populate->($cfg, $country, $partner, $mine, $str, $hit); }
+            elsif (defined $zip2 and $str = $cfg->{'zip_map'}{$zip2})                     { $matched = 1; $populate->($cfg, $country, $partner, $mine, $str, $hit); }
 
-            if    (                  $str = $cfg->{'specific'}{$zip}{$city})              { $populate->($cfg, $country, $partner, $mine, $str, $hit); }
-            elsif (defined $zip2 and $str = $cfg->{'specific'}{$zip2}{$city})             { $populate->($cfg, $country, $partner, $mine, $str, $hit); }
+            if    (                  $str = $cfg->{'specific'}{$zip}{$city})              { $matched = 1; $populate->($cfg, $country, $partner, $mine, $str, $hit); }
+            elsif (defined $zip2 and $str = $cfg->{'specific'}{$zip2}{$city})             { $matched = 1; $populate->($cfg, $country, $partner, $mine, $str, $hit); }
 
-            if    (                  $str = $cfg->{'specific'}{$city})                    { $populate->($cfg, $country, $partner, $mine, $str, $hit); }
+            if    (                  $str = $cfg->{'specific'}{$city})                    { $matched = 1; $populate->($cfg, $country, $partner, $mine, $str, $hit); }
+
+            $matched or $ret{'hit_regions'}{$country}{'__unmatched'}{$zip} = undef;
         }
     }
 

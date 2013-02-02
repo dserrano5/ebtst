@@ -12,6 +12,8 @@ Jump to:
 <table>
 <% foreach my $country (sort keys %$hit_region_data) { =%>
     <% my $cname = delete $hit_region_data->{$country}{'__cname'}; =%>
+    <% my $unmatched = delete $hit_region_data->{$country}{'__unmatched'}; =%>
+    <% { use locale; $unmatched = [ sort keys %$unmatched ]; } =%>
     <tr><td colspan="4"><h3>
         <a name="<%= $country %>"></a>
         <img src="<%= $images_prefix %>images/countries/<%= $country %>.gif"> <%= $cname %>
@@ -64,6 +66,12 @@ Jump to:
             <th><%= $seen_our_side   %> (<%= sprintf '%.2f', $seen_our_side  *100/$total_hits %>%)</th>
             <th><%= $seen_their_side %> (<%= sprintf '%.2f', $seen_their_side*100/$total_hits %>%)</th>
         </tr>
+    <% } =%>
+    <% if (@$unmatched) { =%>
+        <tr><td colspan="4"><p>
+            <%=l 'Zips not found in' %> <img src="<%= $images_prefix %>images/countries/<%= $country %>.gif"> <%= $cname %>:
+            <%= join ', ', @$unmatched; %>
+        </p></td></tr>
     <% } =%>
 <% } =%>
 </table>

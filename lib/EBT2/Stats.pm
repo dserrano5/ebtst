@@ -1033,8 +1033,9 @@ sub hit_regions {
             $ret{'hit_regions'}{$country}{$group_name}{$subgroup_name}{$loc_name} or $ret{'hit_regions'}{$country}{$group_name}{'__seen_locs'}++;
             $ret{'hit_regions'}{$country}{$group_name}{$subgroup_name}{'flag_url'} ||= $flag_url;  ## maybe undef, that's ok
             if ($mine) {
-                $ret{'hit_regions'}{$country}{$group_name}{$subgroup_name}{$loc_name}{'hits'}{ $hit->{'serial'} } = undef;
+                $ret{'hit_regions'}{$country}{$group_name}{$subgroup_name}{$loc_name}{'our_side'}{ $hit->{'serial'} } = undef;
             } else {
+                $ret{'hit_regions'}{$country}{$group_name}{$subgroup_name}{$loc_name}{'their_side'}{ $hit->{'serial'} } = undef;
                 $ret{'hit_regions'}{$country}{$group_name}{$subgroup_name}{$loc_name}{'partners'}{ $partner } = undef;
             }
             $ret{'hit_regions'}{$country}{$group_name}{$subgroup_name}{$loc_name}{'id'} ||= $hit->{'id'};

@@ -12,6 +12,8 @@ Jump to:
 <table>
 <% foreach my $country (sort keys %$region_data) { =%>
     <% my $cname = delete $region_data->{$country}{'__cname'}; =%>
+    <% my $unmatched = delete $region_data->{$country}{'__unmatched'}; =%>
+    <% { use locale; $unmatched = [ sort keys %$unmatched ]; } =%>
     <tr><td colspan="4"><h3>
         <a name="<%= $country %>"></a>
         <img src="<%= $images_prefix %>images/countries/<%= $country %>.gif"> <%= $cname %>
@@ -60,6 +62,12 @@ Jump to:
             <th><%= sprintf '%.2f', $tot_notes*100/$count %>%</th>
             <th><%= sprintf '%.2f', $nbco->{$country}{'total'} ? $tot_notes*100/$nbco->{$country}{'total'} : 'N/A' %>%</th>
         </tr>
+    <% } =%>
+    <% if (@$unmatched) { =%>
+        <tr><td colspan="4"><p>
+            <%=l 'Post codes not found in' %> <img src="<%= $images_prefix %>images/countries/<%= $country %>.gif"> <%= $cname %>:
+            <%= join ', ', @$unmatched; %>
+        </p></td></tr>
     <% } =%>
 <% } =%>
 </table>

@@ -129,6 +129,7 @@ sub note_count        { my ($self)        = @_; $self->{'data'}->note_count; }
 sub has_notes         { my ($self)        = @_; $self->{'data'}->has_notes; }
 sub has_hits          { my ($self)        = @_; $self->{'data'}->has_hits; }
 sub has_bad_notes     { my ($self)        = @_; $self->{'data'}->has_bad_notes; }
+sub has_existing_countries { my ($self)   = @_; $self->{'data'}->has_existing_countries; }
 sub whoami            { my ($self)        = @_; $self->{'data'}->whoami; }
 sub set_checked_boxes { my ($self, @cbs)  = @_; $self->{'data'}->set_checked_boxes (@cbs); }
 sub get_checked_boxes { my ($self)        = @_; return $self->{'data'}->get_checked_boxes; }
@@ -341,7 +342,7 @@ sub done_data {
     my ($self) = @_;
 
     my %done = map { $_ => undef } keys %{ $self->{'data'} };
-    delete @done{qw/db whoami version eof has_hits has_notes has_bad_notes checked_boxes notes_pos/};
+    delete @done{qw/db whoami version eof has_hits has_notes has_bad_notes has_existing_countries checked_boxes notes_pos/};
     my @done = keys %done;
     return @done;
 }

@@ -111,6 +111,7 @@ sub bd_set_env_initial_stash {
     $self->stash (has_notes     => undef);
     $self->stash (has_hits      => undef);
     $self->stash (has_bad_notes => undef);
+    $self->stash (has_existing_countries => undef);
     $self->stash (user          => undef);
     $self->stash (msg           => '');
     $self->stash (title         => '');
@@ -475,6 +476,7 @@ sub startup {
         $self->stash (has_notes     => $self->ebt->has_notes);
         $self->stash (has_hits      => $self->ebt->has_hits);
         $self->stash (has_bad_notes => $self->ebt->has_bad_notes);
+        $self->stash (has_existing_countries => $self->ebt->has_existing_countries);
         $self->stash (html_dir      => $html_dir);
         $self->stash (statics_dir   => $statics_dir);
         $self->stash (images_dir    => $images_dir);

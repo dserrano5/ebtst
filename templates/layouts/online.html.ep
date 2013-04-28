@@ -74,6 +74,7 @@
                     %     my $href = exists $html_hrefs->{$section} ? $section : "javascript:go('$section')";
                     %
                     %     next if !$has_bad_notes and 'bad_notes' eq $section;
+                    %     next if !$has_existing_countries and ('regions' eq $section or 'hit_regions' eq $section);
                     %     next if !$has_hits and $section =~ /^hit_/;
                     %     if ('calc_sections' eq $section) {
                     %         my $td1 = '<td></td>';

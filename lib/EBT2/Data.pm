@@ -215,6 +215,7 @@ sub load_notes {
         }
     }
     $self->{'has_bad_notes'} = 0;
+    $self->{'has_existing_countries'} = 0;
 
     $self->_clean_object;
 
@@ -265,6 +266,7 @@ sub load_notes {
         $hr->{'dow'} = $dow;
         $hr->{'country'} = _cc $hr->{'country'};
         $self->{'existing_countries'}{ $hr->{'country'} } = undef;
+        $self->{'has_existing_countries'} = 1;
         $hr->{'signature'} = _find_out_signature @$hr{qw/value short_code serial/};
         $hr->{'errors'} = EBT2::NoteValidator::validate_note $hr;
         if ($hr->{'errors'}) {
@@ -372,6 +374,7 @@ sub load_hits {
             }
             $hr->{'country'} = _cc $hr->{'country'};
             $self->{'existing_countries'}{ $hr->{'country'} } = undef;
+            $self->{'has_existing_countries'} = 1;
             if ($hr->{'lat'} > 90 or $hr->{'lat'} < -90 or $hr->{'long'} > 180 or $hr->{'long'} < -180) {
                 $hr->{'lat'} /= 10;
                 $hr->{'long'} /= 10;
@@ -469,6 +472,12 @@ sub has_hits {
     my ($self) = @_;
 
     return $self->{'has_hits'};
+}
+
+sub has_existing_countries {
+    my ($self) = @_;
+
+    return $self->{'has_existing_countries'};
 }
 
 sub load_db {

@@ -39,41 +39,48 @@ sub _xor {
 ## - for presentation
 ## - used in the process of signature guessing when plates are shared
 sub serial_remove_meaningless_figures2 {
-    my ($value, $short, $serial) = @_;
+    my ($year, $value, $short, $serial) = @_;
 
     my $pc = substr $short, 0, 1;
     my $cc = substr $serial, 0, 1;
 
-    if ('M' eq $cc or 'T' eq $cc) {
-        #$serial = $cc . '*' . substr $serial, 2;
+    if ('2002' eq $year) {
+        if ('M' eq $cc or 'T' eq $cc) {
+            #$serial = $cc . '*' . substr $serial, 2;
 
-    } elsif ('N' eq $cc) {
-        if ('G' ne $pc) {
+        } elsif ('N' eq $cc) {
+            if ('G' ne $pc) {
+                $serial = $cc . '**' . substr $serial, 3;
+            }
+
+        } elsif ('H' eq $cc) {
+            if ('G' ne $pc) {
+                if (5 != $value) {
+                    $serial = $cc . '**' . substr $serial, 3;
+                }
+            }
+
+        } elsif ('U' eq $cc) {
+            $serial = $cc . '**' . substr $serial, 3;
+
+        } elsif ('P' eq $cc) {
+            if ('F' eq $pc) {
+                if (500 == $value) {
+                    $serial = $cc . '**' . substr $serial, 3;
+                } else {
+                    $serial = $cc . (substr $serial, 1, 2) . '**' . substr $serial, 5;
+                }
+            }
+
+        } elsif ('Z' eq $cc) {
+            $serial = $cc . (substr $serial, 1, 1) . '**' . substr $serial, 4;
+
+        }
+    } elsif ('2013' eq $year) {
+        if ('U' eq $cc) {
             $serial = $cc . '**' . substr $serial, 3;
         }
-
-    } elsif ('H' eq $cc) {
-        if ('G' ne $pc) {
-            if (5 != $value) {
-                $serial = $cc . '**' . substr $serial, 3;
-            }
-        }
-
-    } elsif ('U' eq $cc) {
-        $serial = $cc . '**' . substr $serial, 3;
-
-    } elsif ('P' eq $cc) {
-        if ('F' eq $pc) {
-            if (500 == $value) {
-                $serial = $cc . '**' . substr $serial, 3;
-            } else {
-                $serial = $cc . (substr $serial, 1, 2) . '**' . substr $serial, 5;
-            }
-        }
-
-    } elsif ('Z' eq $cc) {
-        $serial = $cc . (substr $serial, 1, 1) . '**' . substr $serial, 4;
-
+        return $serial;
     }
 
     return $serial;

@@ -60,8 +60,10 @@ sub get_checked_boxes {
     return $self->{'checked_boxes'};
 }
 
+## never tested with Europa notes, I guess it would work by ignoring both letters
+## if a range in the configuration needs to specify the letter, this needs to be changed
 sub _guess_signature {
-    my ($value, $short, $serial, $sign) = @_;
+    my ($year, $value, $short, $serial, $sign) = @_;
     
     $sign =~ s/\s//g;
     my $max_len = max map length, $sign =~ /\d+/g;  ## how many digits to evaluate
@@ -70,8 +72,8 @@ sub _guess_signature {
         my ($result, $range) = split /:/, $choice;
         my ($min, $max) = split /-/, $range;
 
-        $serial = serial_remove_meaningless_figures2 $value, $short, $serial;
-        $serial =~ s/\D//g;
+        $serial = serial_remove_meaningless_figures2 $year, $value, $short, $serial;
+        $serial =~ s/\D//g;     ## XXX: we might have to take the second letter into account for Europa notes, this line would have to be changed
         my ($num) = $serial =~ /^(.{$max_len})/;
         next if $num < $min or $num > $max;
 
@@ -82,7 +84,7 @@ sub _guess_signature {
 }
 
 sub _find_out_signature {
-    my ($value, $short, $serial) = @_;
+    my ($year, $value, $short, $serial) = @_;
 
     my $plate = substr $short, 0, 4;
     my $cc = substr $serial, 0, 1;
@@ -92,7 +94,7 @@ sub _find_out_signature {
         $sig = '_UNK';
     } else {
         if ($sig =~ /,/) {
-            if (!defined ($sig = _guess_signature $value, $short, $serial, $sig)) {
+            if (!defined ($sig = _guess_signature $year, $value, $short, $serial, $sig)) {
                 warn "Couldn't guess signature for note ($value) ($cc) ($plate) ($short) ($serial)\n";
                 $sig = '_UNK';
             }
@@ -228,7 +230,7 @@ sub load_notes {
     open $fd, '<:encoding(UTF-8)', $notes_file or die "open: '$notes_file': $!\n";
     my $header = <$fd>;
     $header =~ s/[\x0d\x0a]*$//;
-    die "Unrecognized notes file\n" if $header !~ /^\x{feff}?EBT notes v2;*$/;
+    die "Unrecognized notes file: bad header\n" if $header !~ /^\x{feff}?EBT notes v2;*$/;
 
     my $last_date;
     open my $outfd, '>:encoding(UTF-8)', $store_path or die "open: '$store_path': $!" if $store_path;
@@ -243,10 +245,10 @@ sub load_notes {
             $hr->{'date_entered'} = sprintf "%s-%02s-%02s %s:%s:00", $3, $2, $1, $4, $5;
         }
         if ($hr->{'date_entered'} !~ /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/) {
-            die "Unrecognized notes file\n";
+            die "Unrecognized notes file: bad date '$hr->{'date_entered'}'\n";
         }
         if ($last_date and -1 == ($hr->{'date_entered'} cmp $last_date)) {
-            die "Unrecognized notes file\n";
+            die "Unrecognized notes file: date not in ascending order '$hr->{'date_entered'}'\n";
         }
         $last_date = $hr->{'date_entered'};
         if ($hr->{'lat'} > 90 or $hr->{'lat'} < -90 or $hr->{'long'} > 180 or $hr->{'long'} < -180) {
@@ -267,7 +269,7 @@ sub load_notes {
         $hr->{'country'} = _cc $hr->{'country'};
         $self->{'existing_countries'}{ $hr->{'country'} } = undef;
         $self->{'has_existing_countries'} = 1;
-        $hr->{'signature'} = _find_out_signature @$hr{qw/value short_code serial/};
+        $hr->{'signature'} = _find_out_signature @$hr{qw/year value short_code serial/};
         $hr->{'errors'} = EBT2::NoteValidator::validate_note $hr;
         if ($hr->{'errors'}) {
             push @bad_notes, {
@@ -348,7 +350,7 @@ sub load_hits {
     open $fd, '<:encoding(UTF-8)', $hits_file or die "open: '$hits_file': $!\n";
     my $header = <$fd>;
     $header =~ s/[\x0d\x0a]*$//;
-    die "Unrecognized hits file\n" if $header !~ /^\x{feff}?EBT hits v4;*$/;
+    die "Unrecognized hits file: bad header\n" if $header !~ /^\x{feff}?EBT hits v4;*$/;
 
     my $last_date;
     my $hits_csv = Text::CSV->new ({ sep_char => ';', binary => 1 });
@@ -370,7 +372,7 @@ sub load_hits {
                 $hr->{'date_entered'} = sprintf "%s-%02s-%02s %s:%s:00", $3, $2, $1, $4, $5;
             }
             if ($hr->{'date_entered'} !~ /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/) {
-                die "Unrecognized hits file\n";
+                die "Unrecognized hits file: bad date '$hr->{'date_entered'}'\n";
             }
             $hr->{'country'} = _cc $hr->{'country'};
             $self->{'existing_countries'}{ $hr->{'country'} } = undef;
@@ -389,10 +391,10 @@ sub load_hits {
                 $hr->{'hit_date'} = sprintf "%s-%02s-%02s %s:%s:00", $3, $2, $1, $4, $5;
             }
             if ($hr->{'hit_date'} !~ /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/) {
-                die "Unrecognized hits file\n";
+                die "Unrecognized hits file: bad hit date '$hr->{'hit_date'}'\n";
             }
             if ($last_date and -1 == ($hr->{'hit_date'} cmp $last_date)) {
-                die "Unrecognized hits file\n";
+                die "Unrecognized hits file: hit date not in ascending order '$hr->{'hit_date'}'\n";
             }
             $last_date = $hr->{'date_entered'};
             $hits{$k} = $hr;
@@ -403,7 +405,7 @@ sub load_hits {
     ## check that all hits have parts. Otherwise, we haven't been given a complete hits file
     foreach my $k (keys %hits) {
         next if exists $hits{$k}{'parts'} and 'ARRAY' eq ref $hits{$k}{'parts'};
-        die "Unrecognized hits file\n";
+        die "Unrecognized hits file: probably incomplete file\n";
     }
 
     ## assign each entry in %hits to $self->{'notes'}[42]{'hit'}
@@ -427,7 +429,7 @@ sub load_hits {
         $hits{$serial}{'dow'} = $dow;
 
         my $note_num = $serials2idx{$serial};
-        defined $note_num or die "Unrecognized hits file\n";   ## TODO: some hits may have been assigned, then we die in the middle of the process
+        defined $note_num or die "Unrecognized hits file: hit absent from notes CSV\n";   ## TODO: some hits may have been assigned, then we die in the middle of the process
         my @arr = split ';', (_xor $self->{'notes'}[$note_num]), NCOLS;
         $arr[HIT] = encode_base64 +(freeze $hits{$serial}), '';
         $self->{'notes'}[$note_num] = _xor join ';', @arr;

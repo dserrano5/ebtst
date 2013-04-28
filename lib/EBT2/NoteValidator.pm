@@ -7,11 +7,16 @@ use List::MoreUtils qw/uniq/;
 use MIME::Base64;
 
 sub note_serial_cksum {
-    my ($s) = map uc, @_;
+    my ($y, $s) = map uc, @_;
 
-    return 0 if !defined $s or $s !~ /^[EFGHLMNPSTUVXYZ]\d{11}$/;
+    if ('2002' eq $y)      { return 0 if !defined $s or $s !~ /^[EFGHLMNPSTUVXYZ]\d{11}$/;
+    } elsif ('2013' eq $y) { return 0 if !defined $s or $s !~ /^[EFGHLMNPSTUVXYZ][A-J]\d{10}$/;
+    } else                 { return 0;
+    }
+
     return 0 if $s =~ /0$/;
 
+    if ('2013' eq $y) { $s =~ s/^(.)(.)/join '', $1, (ord $2)-63/e; }
     $s =~ s/^(.)/ (ord $1) - 64 /e;
     $s = sum split //, $s while 1 != length $s;
 
@@ -28,11 +33,20 @@ sub validate_note {
     my $position = substr $hr->{'short_code'}, 4, 2;
 
     push @errors, "Bad value '$v'" unless grep { $_ eq $v } @{ EBT2->values };
-    push @errors, "Bad year '$hr->{'year'}'" if '2002' ne $hr->{'year'};
-    if ($hr->{'serial'} =~ /^[EFGHLMNPSTUVXYZ]\d{11}$/) {
-        push @errors, 'Bad checksum for serial number' unless note_serial_cksum $hr->{'serial'};
+    if ('2002' eq $hr->{'year'}) {
+        if ($hr->{'serial'} =~ /^[EFGHLMNPSTUVXYZ]\d{11}$/) {
+            push @errors, 'Bad checksum for serial number' unless note_serial_cksum $hr->{'year'}, $hr->{'serial'};
+        } else {
+            push @errors, 'Bad serial number';
+        }
+    } elsif ('2013' eq $hr->{'year'}) {
+        if ($hr->{'serial'} =~ /^[EFGHLMNPSTUVXYZ][A-J]\d{10}$/) {
+            push @errors, 'Bad checksum for serial number' unless note_serial_cksum $hr->{'year'}, $hr->{'serial'};
+        } else {
+            push @errors, 'Bad serial number';
+        }
     } else {
-        push @errors, 'Bad serial number';
+        push @errors, "Bad year '$hr->{'year'}'" if '2002' ne $hr->{'year'};
     }
 
     ## date_entered has already been validated in load_notes
@@ -41,19 +55,25 @@ sub validate_note {
     #push @errors, "Bad country '$hr->{'country'}'" unless length $hr->{'country'};
     #push @errors, "Bad zip '$hr->{'zip'}'" unless length $hr->{'zip'};  ## irish notes may not have a zip code
 
-    if ($hr->{'short_code'} !~ /[DEFGHJKLMNPRTU]\d{3}[A-J][0-6]/) {
-        push @errors, "Bad short code '$hr->{'short_code'}'";
-    } else {
-        if (5 == $v or 10 == $v) {
-            push @errors, "Bad short code position '$position'" if $position !~ /^[A-J][0-6]$/;
-        } elsif (20 == $v) {
-            push @errors, "Bad short code position '$position'" if $position !~ /^[A-I][0-6]$/;
+    if ('2002' eq $hr->{'year'}) {
+        if ($hr->{'short_code'} !~ /[DEFGHJKLMNPRTU]\d{3}[A-J][0-6]/) {
+            push @errors, "Bad short code '$hr->{'short_code'}'";
         } else {
-            push @errors, "Bad short code position '$position'" if $position !~ /^[A-H][0-5]$/;
+            if (5 == $v or 10 == $v) {
+                push @errors, "Bad short code position '$position'" if $position !~ /^[A-J][0-6]$/;
+            } elsif (20 == $v) {
+                push @errors, "Bad short code position '$position'" if $position !~ /^[A-I][0-6]$/;
+            } else {
+                push @errors, "Bad short code position '$position'" if $position !~ /^[A-H][0-5]$/;
+            }
+        }
+    } elsif ('2013' eq $hr->{'year'}) {
+        if ($hr->{'short_code'} !~ /[A-Z]\d{3}[A-J][0-6]/) {   ## be lax, accept any printer code for Europa notes
+            push @errors, "Bad short code '$hr->{'short_code'}'";
         }
     }
 
-    if (!grep { $_ eq $plate } @{ $EBT2::all_plates{$cc}{$v} }) {
+    if ('2002' eq $hr->{'year'} and !grep { $_ eq $plate } @{ $EBT2::all_plates{$cc}{$v} }) {   ## be lax, accept any plate for Europa notes
         push @errors, "Plate '$plate' doesn't exist for $v/$cc";
     }
 

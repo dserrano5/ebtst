@@ -19,7 +19,9 @@ use constant COL_NAMES => @fields;
 use constant NCOLS => $nfields;
 
 our @ISA = 'Exporter';
-our @EXPORT_OK = (keys %$h, qw/COL_NAMES NCOLS/);
+our @EXPORT_OK = (keys %$h, qw/COL_NAMES NCOLS const_helper/);
 our %EXPORT_TAGS = (all => [ @EXPORT_OK ]);
+
+sub const_helper { return $h->{uc shift} }
 
 1;

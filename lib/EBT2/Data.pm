@@ -725,9 +725,9 @@ sub note_getter {
             foreach my $cond (keys %{ $args{'filter'} }) {
                 ## TODO: --timestamp(lt,gt) --date(lt,gt) --time(lt,gt) --latitude(lt,gt) --longitude(lt,gt)
                 if ('value' eq $cond) {
-                    next NOTE if $hr->{$cond} != $args{'filter'}{$cond};
+                    next NOTE if $hr->[const_helper $cond] != $args{'filter'}{$cond};
                 } else {
-                    next NOTE if $hr->{$cond} !~ $args{'filter'}{$cond};
+                    next NOTE if $hr->[const_helper $cond] !~ $args{'filter'}{$cond};
                 }
             }
             push @$new_notes, $hr;

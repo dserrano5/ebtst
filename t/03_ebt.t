@@ -10,7 +10,7 @@ use EBT2::Util qw/_xor/;
 use EBT2::Data;
 use EBT2::Constants ':all';
 
-plan tests => 26;
+plan tests => 28;
 
 my $obj = new_ok 'EBT2', [ db => '/tmp/ebt2-storable', xor_key => 'test' ];
 ok $obj->{'data'};
@@ -55,6 +55,17 @@ like $gotten, qr/^\d+/, 'Days elapsed';
 $gotten = $obj->get_notes_by_value;
 is $gotten->{'10'}, 1, 'One 10€ note';
 is $gotten->{'20'}, 1, 'One 20€ note';
+
+$obj->load_notes ('t/notes-europa.csv');
+$gotten = $obj->get_notes_by_pc;
+is_deeply $gotten, {
+    J => { total => 1, 20 => 1 },
+    L => { total => 1, 20 => 1 },
+    M => { total => 2, 20 => 1, 50 => 1 },
+}, 'notes_by_pc ignores Europa notes';
+
+$gotten = $obj->get_first_by_pc;
+ok !exists $gotten->{'U'}{'serial'}, 'first_by_pc ignores Europa notes';
 
 $obj->load_notes ('t/notes-validator.csv');
 is scalar @${ thaw _xor $obj->{'data'}{'bad_notes'}{'data'} }, 13, 'Correct number of bad notes after loading CSV';

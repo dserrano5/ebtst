@@ -247,7 +247,7 @@ sub notes_by_pc {
     my %ret;
     my $idx = 0;
 
-    while (my $chunk = $data->note_getter (interval => $chunk_size)) {
+    while (my $chunk = $data->note_getter (interval => $chunk_size, filter => { year => '2002' })) {
         foreach my $note (@$chunk) {
             $idx++;
             if ($progress and 0 == $idx % $EBT2::progress_every) { $progress->set ($idx); }
@@ -265,7 +265,7 @@ sub first_by_pc {
     my $at = 0;
     my %ret;
 
-    while (my $chunk = $data->note_getter (interval => $chunk_size)) {
+    while (my $chunk = $data->note_getter (interval => $chunk_size, filter => { year => '2002' })) {
         foreach my $note (@$chunk) {
             $at++;
             if ($progress and 0 == $at % $EBT2::progress_every) { $progress->set ($at); }

@@ -414,7 +414,7 @@ sub huge_table {
     my %ret;
     my $idx = 0;
 
-    while (my $chunk = $data->note_getter (interval => $chunk_size)) {
+    while (my $chunk = $data->note_getter (interval => $chunk_size, filter => { year => '2002' })) {
         foreach my $note (@$chunk) {
             $idx++;
             if ($progress and 0 == $idx % $EBT2::progress_every) { $progress->set ($idx); }

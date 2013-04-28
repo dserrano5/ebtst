@@ -10,7 +10,7 @@ use EBT2::Util qw/_xor/;
 use EBT2::Data;
 use EBT2::Constants ':all';
 
-plan tests => 28;
+plan tests => 29;
 
 my $obj = new_ok 'EBT2', [ db => '/tmp/ebt2-storable', xor_key => 'test' ];
 ok $obj->{'data'};
@@ -66,6 +66,14 @@ is_deeply $gotten, {
 
 $gotten = $obj->get_first_by_pc;
 ok !exists $gotten->{'U'}{'serial'}, 'first_by_pc ignores Europa notes';
+
+$gotten = $obj->get_huge_table;
+is_deeply $gotten, {
+    L057 => { 20 => { 'U**321' => { count => 1, recent => 0 } } },
+    J025 => { 20 => { S291     => { count => 1, recent => 0 } } },
+    M021 => { 20 => { V236     => { count => 1, recent => 0 } } },
+    M030 => { 50 => { V323     => { count => 1, recent => 0 } } }
+}, 'huge_table ignores Europa notes';
 
 $obj->load_notes ('t/notes-validator.csv');
 is scalar @${ thaw _xor $obj->{'data'}{'bad_notes'}{'data'} }, 13, 'Correct number of bad notes after loading CSV';

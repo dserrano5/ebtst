@@ -474,10 +474,12 @@ sub lowest_short_codes  { goto &fooest_short_codes; }
 sub highest_short_codes { goto &fooest_short_codes; }
 
 sub _serial_niceness {
-    my ($serial) = @_;
+    my ($year, $serial) = @_;
     my $prev_digit;
     my @consecutives;
     my %digits_present;
+
+    $serial = substr $serial, '2002' eq $year ? 1 : 2;
 
     my $idx = 0;
     foreach my $digit (split //, $serial) {
@@ -516,6 +518,7 @@ sub _serial_niceness {
         $repl_char++;
     }
     $visible_serial =~ s/[0-9]/*/g;
+    $visible_serial = sprintf '%s%s', ('2002' eq $year ? '*' : '**'), $visible_serial;
 
     return $niceness, $longest, $different_digits, $visible_serial;
 }
@@ -533,7 +536,7 @@ sub nice_serials {
             if ($progress and 0 == $idx % $EBT2::progress_every) { $progress->set ($idx); }
 
             my %hr2 = zip @{[ COL_NAMES ]}, @$note;
-            my ($score, $longest, $different_digits, $visible_serial) = _serial_niceness substr $note->[SERIAL], 1;
+            my ($score, $longest, $different_digits, $visible_serial) = _serial_niceness $note->[YEAR], $note->[SERIAL];
             if (@nicest < $num_elems or $score > $nicest[-1]{'score'}) {
                 ## this is a quicksort on an almost sorted list, I read
                 ## quicksort coughs on that so let's see how this performs
@@ -542,7 +545,7 @@ sub nice_serials {
                 } @nicest, {
                     %hr2,
                     score          => $score,
-                    visible_serial => "*$visible_serial",
+                    visible_serial => $visible_serial,
                 };
                 @nicest >= $num_elems and splice @nicest, $num_elems;
             }

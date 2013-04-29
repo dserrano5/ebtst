@@ -86,6 +86,8 @@ sub _guess_signature {
 sub _find_out_signature {
     my ($year, $value, $short, $serial) = @_;
 
+    return 'MD' if '2013' eq $year;   ## this will last until a new president is elected
+
     my $plate = substr $short, 0, 4;
     my $cc = substr $serial, 0, 1;
     my $sig = $EBT2::config{'sigs'}{$value}{$cc}{$plate};

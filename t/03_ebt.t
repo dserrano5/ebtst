@@ -10,7 +10,7 @@ use EBT2::Util qw/_xor/;
 use EBT2::Data;
 use EBT2::Constants ':all';
 
-plan tests => 30;
+plan tests => 31;
 
 my $obj = new_ok 'EBT2', [ db => '/tmp/ebt2-storable', xor_key => 'test' ];
 ok $obj->{'data'};
@@ -57,6 +57,10 @@ is $gotten->{'10'}, 1, 'One 10€ note';
 is $gotten->{'20'}, 1, 'One 20€ note';
 
 $obj->load_notes ('t/notes-europa.csv');
+
+$gotten = $obj->get_signatures;
+ok !exists $gotten->{'_UNK'}, 'No unknown signatures';
+
 $gotten = $obj->get_notes_by_pc;
 is_deeply $gotten, {
     J => { total => 1, 20 => 1 },

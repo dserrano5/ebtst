@@ -10,7 +10,7 @@ use EBT2::Util qw/_xor/;
 use EBT2::Data;
 use EBT2::Constants ':all';
 
-plan tests => 31;
+plan tests => 34;
 
 my $obj = new_ok 'EBT2', [ db => '/tmp/ebt2-storable', xor_key => 'test' ];
 ok $obj->{'data'};
@@ -81,6 +81,13 @@ is_deeply $gotten, {
 
 $gotten = $obj->get_nice_serials;
 ok +(!grep { 12 != length $_->{'visible_serial'} } @$gotten), 'nice_serials works with Europa notes';
+
+$gotten = $obj->get_missing_combs_and_history;
+ok !exists $gotten->{'sigs'}{'MD'}, 'missing_combs_and_history ignores Europa notes';
+
+$gotten = $obj->get_notes_by_combination;
+ok !exists $gotten->{'any'}{'UU'}, 'notes_by_combination ignores Europa notes';
+ok !exists $gotten->{'any'}{'VV'}, 'notes_by_combination ignores Europa notes';
 
 $obj->load_notes ('t/notes-validator.csv');
 is scalar @${ thaw _xor $obj->{'data'}{'bad_notes'}{'data'} }, 13, 'Correct number of bad notes after loading CSV';

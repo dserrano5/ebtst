@@ -666,7 +666,7 @@ sub missing_combs_and_history {
     my %combs = %{ \%EBT2::combs_pc_cc_val };
     my %sigs;
 
-    while (my $chunk = $data->note_getter (interval => $chunk_size)) {
+    while (my $chunk = $data->note_getter (interval => $chunk_size, filter => { year => 2002 })) {
         foreach my $note (@$chunk) {
             $num_note++;
             if ($progress and 0 == $num_note % $EBT2::progress_every) { $progress->set ($num_note); }
@@ -732,7 +732,7 @@ sub notes_by_combination {
     my %ret;
     my $idx;
 
-    while (my $chunk = $data->note_getter (interval => $chunk_size)) {
+    while (my $chunk = $data->note_getter (interval => $chunk_size, filter => { year => 2002 })) {
         foreach my $note (@$chunk) {
             $idx++;
             if ($progress and 0 == $idx % $EBT2::progress_every) { $progress->set ($idx); }
@@ -1237,7 +1237,7 @@ sub hit_summary {
 
         ## TODO: hit ratio/avg travel days/avg km, by value
 
-        ## hits by combination
+        ## hits by combination—don't ignore Europas here
         my $pc = substr $hit->{'short_code'}, 0, 1;
         my $cc = substr $hit->{'serial'}, 0, 1;
         my $combo = "$pc/$cc";

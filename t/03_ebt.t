@@ -10,7 +10,7 @@ use EBT2::Util qw/_xor/;
 use EBT2::Data;
 use EBT2::Constants ':all';
 
-plan tests => 34;
+plan tests => 36;
 
 my $obj = new_ok 'EBT2', [ db => '/tmp/ebt2-storable', xor_key => 'test' ];
 ok $obj->{'data'};
@@ -61,23 +61,37 @@ $obj->load_notes ('t/notes-europa.csv');
 $gotten = $obj->get_signatures;
 ok !exists $gotten->{'_UNK'}, 'No unknown signatures';
 
+$gotten = $obj->get_notes_by_cc;
+is_deeply $gotten, {
+    S => { total => 1, 20 => 1 },
+    U => { total => 1, 20 => 1 },
+    V => { total => 2, 20 => 1, 50 => 1 },
+}, 'notes_by_cc ignores Europa notes';
+
+$gotten = $obj->get_first_by_cc;
+isnt $gotten->{'U'}{'serial'}, 'UB1016833133', 'first_by_cc ignores Europa notes';
+
 $gotten = $obj->get_notes_by_pc;
 is_deeply $gotten, {
     J => { total => 1, 20 => 1 },
     L => { total => 1, 20 => 1 },
     M => { total => 2, 20 => 1, 50 => 1 },
-}, 'notes_by_pc ignores Europa notes';
+    U => { total => 2, 5  => 2, },
+    V => { total => 1, 5  => 1, },
+}, 'notes_by_pc';
 
 $gotten = $obj->get_first_by_pc;
-ok !exists $gotten->{'U'}{'serial'}, 'first_by_pc ignores Europa notes';
+is $gotten->{'U'}{'serial'}, 'UB1016833133', 'first_by_pc';
 
 $gotten = $obj->get_huge_table;
 is_deeply $gotten, {
-    L057 => { 20 => { 'U**321' => { count => 1, recent => 0 } } },
     J025 => { 20 => { S291     => { count => 1, recent => 0 } } },
+    L057 => { 20 => { 'U**321' => { count => 1, recent => 0 } } },
     M021 => { 20 => { V236     => { count => 1, recent => 0 } } },
-    M030 => { 50 => { V323     => { count => 1, recent => 0 } } }
-}, 'huge_table ignores Europa notes';
+    M030 => { 50 => { V323     => { count => 1, recent => 0 } } },
+    U002 => { 5  => { 'U**016' => { count => 2, recent => 0 } } },
+    V001 => { 5  => { VA07     => { count => 1, recent => 0 } } },
+}, 'huge_table';
 
 $gotten = $obj->get_nice_serials;
 ok +(!grep { 12 != length $_->{'visible_serial'} } @$gotten), 'nice_serials works with Europa notes';

@@ -8,7 +8,7 @@ use List::MoreUtils qw/zip/;
 my ($h, @fields, $nfields);
 BEGIN {
     @fields = qw/
-        note_no value year serial date_entered dow recent city country zip
+        note_no value year series serial date_entered dow recent city country zip
         short_code id times_entered moderated_hit lat long signature errors hit desc
     /;
     $nfields = @fields;

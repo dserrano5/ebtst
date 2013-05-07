@@ -17,7 +17,7 @@ use EBT2::NoteValidator;
 use EBT2::Constants ':all';
 
 ## whenever there are changes in the data format, this has to be increased in order to detect users with old data formats
-my $DATA_VERSION = '20120810-01';
+my $DATA_VERSION = '20130507-01';
 
 Locale::Country::alias_code (uk => 'gb');
 Locale::Country::add_country ('rskm' => 'Kosovo');                ## EBT lists Kosovo as a country, which isn't defined in ISO-3166-1 as a country. Use its ISO-3166-2 code
@@ -86,12 +86,11 @@ sub _guess_signature {
 sub _find_out_signature {
     my ($year, $value, $short, $serial) = @_;
 
-    return 'MD' if '2013' eq $year;   ## this will last until a new president is elected
-
     my $plate = substr $short, 0, 4;
     my $cc = substr $serial, 0, 1;
     my $sig = $EBT2::config{'sigs'}{$value}{$cc}{$plate};
     if (!defined $sig) {
+        return 'MD' if '2013' eq $year;   ## this will last until Europa plates are more or less well known
         #warn "No signature found (unknown combination?) for note ($value) ($cc) ($plate)\n";
         $sig = '_UNK';
     } else {
@@ -104,6 +103,11 @@ sub _find_out_signature {
     }
 
     return $sig;
+}
+
+sub year_to_series {
+    my ($year) = @_;
+    return $EBT2::config{'series'}{$year} // '';
 }
 
 ## only accepts English
@@ -267,6 +271,7 @@ sub load_notes {
         else                                       { $hr->{'recent'} = 0; }
 
         $hr->{'note_no'} = ++$note_no;
+        $hr->{'series'} = year_to_series $hr->{'year'};
         $hr->{'dow'} = $dow;
         $hr->{'country'} = _cc $hr->{'country'};
         $self->{'existing_countries'}{ $hr->{'country'} } = undef;

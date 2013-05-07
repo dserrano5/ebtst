@@ -12,7 +12,7 @@ use EBT2::Constants ':all';
 
 set_xor_key 'test';
 
-plan tests => 86;
+plan tests => 88;
 
 my @notes;
 
@@ -27,6 +27,7 @@ ok defined $obj->{'notes'}, 'There are notes after loading notes CSV';
 @notes = map { _xor $_ } @{ $obj->{'notes'} };
 is scalar @notes, 2, 'Correct number of notes';
 is +(split ';', $notes[1], NCOLS)[HIT], '', 'No hits at all after initial loading of notes CSV';
+is +(split ';', $notes[0], NCOLS)[SERIES], '2002', 'Series field is correct';
 $obj = new_ok 'EBT2::Data', [ db => '/tmp/ebt2-storable' ];
 $obj->load_db;
 ok defined $obj->{'notes'}, 'There are notes after loading db';
@@ -129,7 +130,8 @@ while (my $notes = $obj->note_getter (interval => 'all')) {
 $obj = new_ok 'EBT2::Data', [ db => '/tmp/ebt2-storable' ];
 $obj->load_notes (undef, 't/notes-europa.csv');
 @notes = map { _xor $_ } @{ $obj->{'notes'} };
-is scalar @notes, 7, 'Correct number of notes';
+is scalar @notes, 8, 'Correct number of notes';
+is +(split ';', $notes[0], NCOLS)[SERIES], 'europa', 'Series field is correct';
 
 
 is +(serial_remove_meaningless_figures2 '2002', 20,    'E001A1', 'H00000'), 'H**000', 'Remove meaningless figures in E/H';

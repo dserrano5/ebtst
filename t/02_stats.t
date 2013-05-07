@@ -11,7 +11,7 @@ use EBT2::Stats;
 
 set_xor_key 'test';
 
-plan tests => 257;
+plan tests => 254;
 
 my $data_obj = new_ok 'EBT2::Data', [ db => '/tmp/ebt2-storable' ];
 $data_obj->load_notes (undef, 't/notes2.csv');
@@ -280,14 +280,11 @@ is $res->{'bad_notes'}[10]{'errors'}[0], q{Bad latitude '442532.3'}, 'Bad latitu
 is $res->{'bad_notes'}[11]{'errors'}[0], q{Bad longitude '122317.6'}, 'Bad longitude';
 is $res->{'bad_notes'}[12]{'errors'}[0], q{Bad value '7'}, 'Multiple errors: bad value';
 is $res->{'bad_notes'}[12]{'errors'}[1], q{Bad year '2009'}, 'Multiple errors: bad year';
-is $res->{'bad_notes'}[12]{'errors'}[2], q{Bad checksum for serial number}, 'Multiple errors: bad checksum';
-is $res->{'bad_notes'}[12]{'errors'}[3], q{Bad short code 'L001A9'}, 'Multiple errors: bad short code';
-is $res->{'bad_notes'}[12]{'errors'}[4], q{Plate 'L001' doesn't exist for 7/U}, 'Multiple errors: unknown plate';
-is $res->{'bad_notes'}[12]{'errors'}[5], q{Bad note id '_9999999987'}, 'Multiple errors: bad note id';
-is $res->{'bad_notes'}[12]{'errors'}[6], q{Bad number of times entered '_'}, 'Multiple errors: bad times_entered';
-is $res->{'bad_notes'}[12]{'errors'}[7], q{Bad status of moderated hit '2'}, 'Multiple errors: bad is_moderated';
-is $res->{'bad_notes'}[12]{'errors'}[8], q{Bad latitude '44532.3'}, 'Multiple errors: bad latitude';
-is $res->{'bad_notes'}[12]{'errors'}[9], q{Bad longitude '12317.6'}, 'Multiple errors: bad longitude';
+is $res->{'bad_notes'}[12]{'errors'}[2], q{Bad note id '_9999999987'}, 'Multiple errors: bad note id';
+is $res->{'bad_notes'}[12]{'errors'}[3], q{Bad number of times entered '_'}, 'Multiple errors: bad times_entered';
+is $res->{'bad_notes'}[12]{'errors'}[4], q{Bad status of moderated hit '2'}, 'Multiple errors: bad is_moderated';
+is $res->{'bad_notes'}[12]{'errors'}[5], q{Bad latitude '44532.3'}, 'Multiple errors: bad latitude';
+is $res->{'bad_notes'}[12]{'errors'}[6], q{Bad longitude '12317.6'}, 'Multiple errors: bad longitude';
 
 
 unlink '/tmp/ebt2-storable' or warn "unlink: '/tmp/ebt2-storable': $!";

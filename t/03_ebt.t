@@ -10,7 +10,7 @@ use EBT2::Util qw/_xor/;
 use EBT2::Data;
 use EBT2::Constants ':all';
 
-plan tests => 36;
+plan tests => 37;
 
 my $obj = new_ok 'EBT2', [ db => '/tmp/ebt2-storable', xor_key => 'test' ];
 ok $obj->{'data'};
@@ -78,6 +78,7 @@ is_deeply $gotten, {
     M => { total => 2, 20 => 1, 50 => 1 },
     U => { total => 2, 5  => 2, },
     V => { total => 1, 5  => 1, },
+    Z => { total => 1, 5  => 1, },
 }, 'notes_by_pc';
 
 $gotten = $obj->get_first_by_pc;
@@ -91,6 +92,7 @@ is_deeply $gotten, {
     M030 => { 50 => { V323     => { count => 1, recent => 0 } } },
     U002 => { 5  => { 'U**016' => { count => 2, recent => 0 } } },
     V001 => { 5  => { VA07     => { count => 1, recent => 0 } } },
+    Z003 => { 5  => { ZB27     => { count => 1, recent => 3 } } },
 }, 'huge_table';
 
 $gotten = $obj->get_nice_serials;
@@ -102,6 +104,9 @@ ok !exists $gotten->{'sigs'}{'MD'}, 'missing_combs_and_history ignores Europa no
 $gotten = $obj->get_notes_by_combination;
 ok !exists $gotten->{'any'}{'UU'}, 'notes_by_combination ignores Europa notes';
 ok !exists $gotten->{'any'}{'VV'}, 'notes_by_combination ignores Europa notes';
+
+$gotten = $obj->get_bad_notes;
+is $gotten, undef, 'No bad Europa notes';
 
 $obj->load_notes ('t/notes-validator.csv');
 is scalar @${ thaw _xor $obj->{'data'}{'bad_notes'}{'data'} }, 13, 'Correct number of bad notes after loading CSV';

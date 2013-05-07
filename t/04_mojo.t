@@ -8,7 +8,7 @@ use File::Basename 'dirname';
 use Test::More;
 use Test::Mojo;
 
-plan tests => 550;
+plan tests => 551;
 
 my ($t, $csrftoken);
 
@@ -33,7 +33,7 @@ $t = Test::Mojo->new ('EBTST');
 
 my $users_file = $t->ua->app->config ('users_db');
 open my $fd, '<:encoding(UTF-8)', $users_file or die "open: '$users_file': $!"; my @lines = <$fd>; close $fd;
-if (5 != @lines) { die 'user database is broken'; }
+if (6 != @lines) { die 'user database is broken'; }
 
 ## wrong password
 $t->get_ok ('/')->status_is (200)->element_exists ('#mainbody #repl form[id="login"]', 'login form')->text_is ('div#error_msg' => '', 'no error_msg');
@@ -346,6 +346,16 @@ $t->post_form_ok ('/register' => {
 open $fd, '>:encoding(UTF-8)', $users_file or die "open: '$users_file': $!"; print $fd $_ for @lines; close $fd;
 
 
+## load old database, should reset the object in memory
+$t->get_ok ('/logout');
+$t->post_form_ok ('/login' => {
+    user => 'olddb',
+    pass => 'foopass',
+    #csrftoken => $csrftoken,
+})->status_is (302)->header_like (Location => qr/information/, 'log in with olddb user');
+$t->get_ok ('/information')->status_is (302)->header_like (Location => qr/configure/, 'redir to configure when database is old');;
+
+
 ## users with latin-* characters in username
 $t->get_ok ('/logout');
 $t->post_form_ok ('/login' => {
@@ -353,7 +363,6 @@ $t->post_form_ok ('/login' => {
     pass => 'foopass',
     #csrftoken => $csrftoken,
 })->status_is (302)->header_like (Location => qr/information/, 'log in with latin-* chars user');
-$t->get_ok ('/information')->status_is (200);
 
 
 ## users with unicode characters in username
@@ -363,7 +372,6 @@ $t->post_form_ok ('/login' => {
     pass => 'foopass',
     #csrftoken => $csrftoken,
 })->status_is (302)->header_like (Location => qr/information/, 'log in with unicode chars user');
-$t->get_ok ('/information')->status_is (200);
 
 
 ## users with both latin-* and unicode characters in username
@@ -373,7 +381,6 @@ $t->post_form_ok ('/login' => {
     pass => 'foopass',
     #csrftoken => $csrftoken,
 })->status_is (302)->header_like (Location => qr/information/, 'log in with latin-* and unicode chars user');
-$t->get_ok ('/information')->status_is (200);
 
 
 ## MSIE warning

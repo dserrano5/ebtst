@@ -92,7 +92,7 @@ is_deeply $gotten, {
     M030 => { 50 => { V323     => { count => 1, recent => 0 } } },
     U002 => { 5  => { 'U**016' => { count => 2, recent => 0 } } },
     V001 => { 5  => { VA07     => { count => 1, recent => 0 } } },
-    Z003 => { 5  => { ZB27     => { count => 1, recent => 3 } } },
+    Z003 => { 5  => { ZB27     => { count => 1, recent => 0 } } },
 }, 'huge_table';
 
 $gotten = $obj->get_nice_serials;

@@ -55,7 +55,7 @@
 Jump to:
 <ul>
     <% foreach my $elem (@$c_data) { =%>
-        <li><a href="#<%= $elem->{'cname'} %>"><%= $elem->{'cname'} %></a></li>
+        <li><a href="<%= sprintf '%s#%s', $url, $elem->{'cname'} %>"><%= $elem->{'cname'} %></a></li>
     <% } =%>
 </ul>
 <table>

@@ -421,9 +421,9 @@ sub value {
         };
     }
 
-    my $first_by;
+    my $first_by_val;
     foreach my $value (sort { $data_first->{$a}{'at'} <=> $data_first->{$b}{'at'} } keys %$data_first) {
-        push @$first_by, {
+        push @$first_by_val, {
             value    => $value,
             id       => $data_first->{$value}{'id'},
             at       => $data_first->{$value}{'at'},
@@ -503,98 +503,8 @@ sub value {
     $self->stash (
         title => $section_titles{'value'},
         nbval => $notes_by_val,
-        fbval => $first_by,
+        fbval => $first_by_val,
     );
-}
-
-sub _num_detail_1st {
-    my ($self, %args) = @_;
-
-    my ($data, $data_first, $method1, $method2, $notes_by_key) = @args{qw/data data_first method1 method2 notes_by_key/};
-
-    my $count = $self->ebt->get_count;
-    my $count_by_value;
-
-    foreach my $code1 (sort {
-        ($data->{$b}{'total'}//0) <=> ($data->{$a}{'total'}//0) ||
-        $a cmp $b
-    } keys %$data) {
-        foreach my $v (grep { /^\d+$/ } keys %{ $data->{$code1} }) {
-            $count_by_value->{$v} += $data->{$code1}{$v};
-        }
-    }
-
-    my $notes_by;
-    foreach my $code1 (sort {
-        ($data->{$b}{'total'}//0) <=> ($data->{$a}{'total'}//0) ||
-        $a cmp $b
-    } keys %{ EBT2->$method1 }) {
-        my $detail;
-        foreach my $v (@{ EBT2->values }) {
-            my $exists = 0;
-            foreach my $code2 (keys %{ EBT2->$method2 }) {
-                my $k;
-                if ('countries' eq $method1) {
-                    $k = sprintf '%s%s%03d', $code2, $code1, $v;
-                } else {
-                    $k = sprintf '%s%s%03d', $code1, $code2, $v;
-                }
-                if (exists $EBT2::combs_pc_cc_val{$k}) {
-                    $exists = 1;
-                    last;
-                }
-            }
-            if ($exists) {
-                if ($data->{$code1}{$v}) {
-                    push @$detail, {
-                        count => $data->{$code1}{$v},
-                        pct   => (sprintf '%.2f', 100 * $data->{$code1}{$v} / $count_by_value->{$v}),
-                    };
-                } else {
-                    push @$detail, {
-                        count => 0,
-                        pct   => (sprintf '%.2f', 0),
-                    };
-                }
-            } else {
-                push @$detail, {
-                    count => undef,
-                    pct   => undef,
-                };
-            }
-        }
-        push @$notes_by, {
-            cname   => $self->_country_names (EBT2->$method1 ($code1)),
-            imgname => EBT2->$method1 ($code1),
-            bbflag  => EBT2->flag (EBT2->$method1 ($code1)),
-            $notes_by_key => $code1,
-            count   => ($data->{$code1}{'total'}//0),
-            pct     => (sprintf '%.2f', 100 * ($data->{$code1}{'total'}//0) / $count),
-            detail  => $detail,
-        };
-    }
-
-    my $first_by;
-    foreach my $code1 (sort { $data_first->{$a}{'at'} <=> $data_first->{$b}{'at'} } keys %$data_first) {
-        push @$first_by, {
-            (
-                'countries' eq $method1 ?
-                (cname => $self->_country_names (EBT2->$method1 ($code1))) :
-                (pc => $code1)
-            ),
-            at       => $data_first->{$code1}{'at'},
-            id       => $data_first->{$code1}{'id'},
-            imgname  => EBT2->$method1 ($code1),
-            bbflag   => EBT2->flag (EBT2->$method1 ($code1)),
-            value    => $data_first->{$code1}{'value'},
-            on       => (split ' ', $data_first->{$code1}{'date_entered'})[0],
-            city     => $data_first->{$code1}{'city'},
-            imgname2 => $data_first->{$code1}{'country'},
-            bbflag2  => EBT2->flag ($data_first->{$code1}{'country'}),
-        };
-    }
-
-    return $notes_by, $count_by_value, $first_by;
 }
 
 sub countries {
@@ -613,23 +523,86 @@ sub countries {
     $xhr and $self->{'progress'}->base_add ($count);
     if ($xhr) { $self->res->headers->connection ('close'); return $self->_end_progress; }
 
-    my ($method1, $method2) = qw/countries printers/;
-    my $notes_by_key = 'cc';
     $t0 = [gettimeofday];
-    my ($notes_by, $count_by_value, $first_by) = $self->_num_detail_1st (
-        data         => $data,
-        data_first   => $data_first,
-        method1      => 'countries',
-        method2      => 'printers',
-        notes_by_key => 'cc',
-    );
+    my $count_by_value;
+    foreach my $cc (sort {
+        ($data->{$b}{'total'}//0) <=> ($data->{$a}{'total'}//0) ||
+        $a cmp $b
+    } keys %$data) {
+        foreach my $v (grep { /^\d+$/ } keys %{ $data->{$cc} }) {
+            $count_by_value->{$v} += $data->{$cc}{$v};
+        }
+    }
+
+    my $notes_by_cc;
+    foreach my $cc (sort {
+        ($data->{$b}{'total'}//0) <=> ($data->{$a}{'total'}//0) ||
+        $a cmp $b
+    } keys %{ EBT2->countries }) {
+        my $detail;
+        foreach my $v (@{ EBT2->values }) {
+            my $exists = 0;
+            foreach my $series (keys %{ EBT2->printers }) {
+                foreach my $pc (keys %{ EBT2->printers->{$series} }) {
+                    my $k = sprintf '%s%s%s%03d', $series, $pc, $cc, $v;
+                    if (exists $EBT2::combs_pc_cc_val{$k}) {
+                        $exists = 1;
+                        last;
+                    }
+                }
+            }
+            if ($exists) {
+                if ($data->{$cc}{$v}) {
+                    push @$detail, {
+                        count => $data->{$cc}{$v},
+                        pct   => (sprintf '%.2f', 100 * $data->{$cc}{$v} / $count_by_value->{$v}),
+                    };
+                } else {
+                    push @$detail, {
+                        count => 0,
+                        pct   => (sprintf '%.2f', 0),
+                    };
+                }
+            } else {
+                push @$detail, {
+                    count => undef,
+                    pct   => undef,
+                };
+            }
+        }
+        push @$notes_by_cc, {
+            cname   => $self->_country_names (EBT2->countries ($cc)),
+            imgname => EBT2->countries ($cc),
+            bbflag  => EBT2->flag (EBT2->countries ($cc)),
+            cc      => $cc,
+            count   => ($data->{$cc}{'total'}//0),
+            pct     => (sprintf '%.2f', 100 * ($data->{$cc}{'total'}//0) / $count),
+            detail  => $detail,
+        };
+    }
+
+    my $first_by_cc;
+    foreach my $cc (sort { $data_first->{$a}{'at'} <=> $data_first->{$b}{'at'} } keys %$data_first) {
+        push @$first_by_cc, {
+            (cname => $self->_country_names (EBT2->countries ($cc))),
+            at       => $data_first->{$cc}{'at'},
+            id       => $data_first->{$cc}{'id'},
+            imgname  => EBT2->countries ($cc),
+            bbflag   => EBT2->flag (EBT2->countries ($cc)),
+            value    => $data_first->{$cc}{'value'},
+            on       => (split ' ', $data_first->{$cc}{'date_entered'})[0],
+            city     => $data_first->{$cc}{'city'},
+            imgname2 => $data_first->{$cc}{'country'},
+            bbflag2  => EBT2->flag ($data_first->{$cc}{'country'}),
+        };
+    }
     #$self->_log (debug => report 'countries cook', $t0, $count);
 
     $self->stash (
         title     => $section_titles{'countries'},
-        nbcountry => $notes_by,
+        nbcountry => $notes_by_cc,
         tot_c_bv  => [ map { $count_by_value->{$_}//0 } @{ EBT2->values } ],
-        fbcc      => $first_by,
+        fbcc      => $first_by_cc,
     );
 }
 
@@ -646,23 +619,96 @@ sub printers {
     $xhr and $self->{'progress'}->base_add ($count);
     if ($xhr) { $self->res->headers->connection ('close'); return $self->_end_progress; }
 
-    my ($method1, $method2) = qw/printers countries/;
-    my $notes_by_key = 'pc';
     $t0 = [gettimeofday];
-    my ($notes_by, $count_by_value, $first_by) = $self->_num_detail_1st (
-        data         => $data,
-        data_first   => $data_first,
-        method1      => 'printers',
-        method2      => 'countries',
-        notes_by_key => 'pc',
-    );
+    my $count_by_value;
+    foreach my $series (keys %$data) {
+        foreach my $pc (sort {
+            ($data->{$series}{$b}{'total'}//0) <=> ($data->{$series}{$a}{'total'}//0) ||
+            $a cmp $b
+        } keys %{ $data->{$series} }) {
+            foreach my $v (grep { /^\d+$/ } keys %{ $data->{$series}{$pc} }) {
+                $count_by_value->{$v} += $data->{$series}{$pc}{$v};
+            }
+        }
+    }
+
+    my $notes_by_pc;
+    foreach my $series (keys %{ EBT2->printers }) {
+        foreach my $pc (keys %{ EBT2->printers->{$series} }) {
+            my $detail;
+            foreach my $v (@{ EBT2->values }) {
+                my $exists = 0;
+                foreach my $cc (keys %{ EBT2->countries }) {
+                    my $k = sprintf '%s%s%s%03d', $series, $pc, $cc, $v;
+                    if (exists $EBT2::combs_pc_cc_val{$k}) {
+                        $exists = 1;
+                        last;
+                    }
+                }
+                if ($exists) {
+                    if ($data->{$series}{$pc}{$v}) {
+                        push @$detail, {
+                            count => $data->{$series}{$pc}{$v},
+                            pct   => (sprintf '%.2f', 100 * $data->{$series}{$pc}{$v} / $count_by_value->{$v}),
+                        };
+                    } else {
+                        push @$detail, {
+                            count => 0,
+                            pct   => (sprintf '%.2f', 0),
+                        };
+                    }
+                } else {
+                    push @$detail, {
+                        count => undef,
+                        pct   => undef,
+                    };
+                }
+            }
+            my ($printer_iso3166, $printer_name) = split /,/, EBT2->printers ($pc, $series);
+            push @$notes_by_pc, {
+                cname   => "($series) $printer_name",
+                imgname => $printer_iso3166,
+                bbflag  => EBT2->flag ($printer_iso3166),
+                pc      => $pc,
+                count   => ($data->{$series}{$pc}{'total'}//0),
+                pct     => (sprintf '%.2f', 100 * ($data->{$series}{$pc}{'total'}//0) / $count),
+                detail  => $detail,
+            };
+        }
+    }
+    $notes_by_pc = [ sort {
+        ($b->{'count'}//0) <=> ($a->{'count'}//0) ||
+        $a->{'pc'}         cmp $b->{'pc'}         ||
+        $a->{'imgname'}    cmp $b->{'imgname'}
+    } @$notes_by_pc ];
+
+    my $first_by_pc;
+    foreach my $series (keys %$data_first) {
+        my $dfs = $data_first->{$series};
+        foreach my $pc (keys %$dfs) {
+            my ($printer_iso3166, $printer_name) = split /,/, EBT2->printers ($pc, $series);
+            push @$first_by_pc, {
+                pc       => $pc,
+                at       => $dfs->{$pc}{'at'},
+                id       => $dfs->{$pc}{'id'},
+                imgname  => $printer_iso3166,
+                bbflag   => EBT2->flag ($printer_iso3166),
+                value    => $dfs->{$pc}{'value'},
+                on       => (split ' ', $dfs->{$pc}{'date_entered'})[0],
+                city     => $dfs->{$pc}{'city'},
+                imgname2 => $dfs->{$pc}{'country'},
+                bbflag2  => EBT2->flag ($dfs->{$pc}{'country'}),
+            };
+        }
+    }
+    $first_by_pc = [ sort { $a->{'at'} <=> $b->{'at'} } @$first_by_pc ];
     #$self->_log (debug => report 'printers cook', $t0, $count);
 
     $self->stash (
         title     => $section_titles{'printers'},
-        nbprinter => $notes_by,
+        nbprinter => $notes_by_pc,
         tot_p_bv  => [ map { $count_by_value->{$_}//0 } @{ EBT2->values } ],
-        fbpc      => $first_by,
+        fbpc      => $first_by_pc,
     );
 }
 
@@ -883,14 +929,15 @@ sub huge_table {
 
     $t0 = [gettimeofday];
     my $ht;
-    foreach my $plate (keys %$ht_data) {
-        $ht->{$plate}{'values'} = $ht_data->{$plate};
-        foreach my $value (keys %{ $ht->{$plate}{'values'} }) {
-            foreach my $serial (keys %{ $ht->{$plate}{'values'}{$value} }) {
-                $ht->{$plate}{'values'}{$value}{$serial}{'flag'} = EBT2->countries (substr $serial, 0, 1);
+    foreach my $sp (keys %$ht_data) {
+        my ($series, $plate) = $sp =~ /^(.*)(.{4})$/;
+        $ht->{$sp}{'values'} = $ht_data->{$sp};
+        foreach my $value (keys %{ $ht->{$sp}{'values'} }) {
+            foreach my $serial (keys %{ $ht->{$sp}{'values'}{$value} }) {
+                $ht->{$sp}{'values'}{$value}{$serial}{'flag'} = EBT2->countries (substr $serial, 0, 1);
             }
         }
-        $ht->{$plate}{'plate_flag'} = EBT2->printers (substr $plate, 0, 1);
+        $ht->{$sp}{'plate_flag'} = (split /,/, EBT2->printers ((substr $plate, 0, 1), $series))[0];
     }
     #$self->_log (debug => report 'huge_table cook', $t0, $count);
 
@@ -936,9 +983,10 @@ sub short_codes {
                 my $pc = substr $records->{$what}{'short_code'}, 0, 1;
                 my $cc = substr $records->{$what}{'serial'},     0, 1;
                 my ($pc_str, $cc_str) = $split->($records->{$what}{'sort_key'});
+                my $pc_iso3166 = (split /,/, EBT2->printers ($pc, $records->{$what}{'series'}))[0];
                 $tmp->{$what} = {
-                    pc_img  => EBT2->printers ($pc),
-                    pc_flag => EBT2->flag (EBT2->printers ($pc)),
+                    pc_img  => $pc_iso3166,
+                    pc_flag => EBT2->flag ($pc_iso3166),
                     cc_img  => EBT2->countries ($cc),
                     cc_flag => EBT2->flag (EBT2->countries ($cc)),
                     pc_str  => $pc_str,
@@ -1273,12 +1321,12 @@ sub combs_bingo {
     $t0 = [gettimeofday];
     my $missing;
     foreach my $k (sort keys %{ $comb_data->{'missing_pcv'} }) {
-        my ($p, $c, $v) = $k =~ /^(.)(.)(\d{3})$/;
+        my ($ser, $p, $c, $v) = $k =~ /^(.+)(.)(.)(\d{3})$/;
         $v += 0;
 
         if (!exists $missing->{"$p$c"}) {
             $missing->{"$p$c"} = {
-                pname   => do { local $ENV{'EBT_LANG'} = 'en'; EBT2->printers ($p) },
+                pname   => do { local $ENV{'EBT_LANG'} = 'en'; (split /,/, EBT2->printers ($p, $ser))[0] },
                 cname   => do { local $ENV{'EBT_LANG'} = 'en'; EBT2->countries ($c) },
                 pletter => $p,
                 cletter => $c,
@@ -1291,13 +1339,13 @@ sub combs_bingo {
 
     my $history_pc; my %hpc_seen; my $hpc_idx = 0;
     foreach my $h (@{ $comb_data->{'history'} }) {
-        my $k = sprintf '%s%s', @$h{qw/pc cc/};
+        my $k = sprintf '%s%s%s', @$h{qw/series pc cc/};
         next if $hpc_seen{$k}++;
         push @$history_pc, {
             %$h,
             index        => ++$hpc_idx,
             ## this history ends up in the BBCode, let's assign its flags
-            pc_flag      => EBT2->flag (EBT2->printers  ($h->{'pc'})),
+            pc_flag      => EBT2->flag ((split /,/, EBT2->printers  ($h->{'pc'}, $h->{'series'}))[0]),
             cc_flag      => EBT2->flag (EBT2->countries ($h->{'cc'})),
             country_flag => EBT2->flag ($h->{'country'}),
         }
@@ -1310,6 +1358,7 @@ sub combs_bingo {
     $self->stash (
         title       => ($detail ? $section_titles{'combs_detail'} : $section_titles{'combs_bingo'}),
         nbcombo     => $nbcombo,
+        series      => $self->ebt->series,
         presidents  => $presidents,
         missing     => $missing,
         history_pc  => $history_pc,
@@ -1341,20 +1390,25 @@ sub plate_bingo {
         } keys %$plate_data
     ) {
         my %plates;
-        my @printers;
+        my %printers;
         my $highest = 0;
-        foreach my $plate (sort keys %{ $plate_data->{$value} }) {
-            $plates{$plate} = $plate_data->{$value}{$plate};
-            push @printers, substr $plate, 0, 1;
+        foreach my $sp (sort keys %{ $plate_data->{$value} }) {
+            my ($series, $plate) = $sp =~ /^(.*)(.{4})$/;
+            my $pc = substr $plate, 0, 1;
+            $plates{$sp} = $plate_data->{$value}{$sp};
+            $printers{"$series$pc"} ||= {
+                series     => $series,
+                pc         => $pc,
+                pc_iso3166 => (split /,/, EBT2->printers ($pc, $series))[0],
+            };
             my $ordinal = substr $plate, 1;
             $highest = $ordinal if $ordinal > $highest;
         }
-        @printers = sort +uniq @printers;
 
         push @$cooked, {
             value    => $value,
             plates   => \%plates,
-            printers => \@printers,
+            printers => [ sort { $a->{'pc'} cmp $b->{'pc'} || $a->{'pc_iso3166'} cmp $b->{'pc_iso3166'} } values %printers ],
             highest  => $highest,
         };
     }
@@ -1680,9 +1734,13 @@ sub hit_summary {
     #$self->_log (debug => report 'hit_summary get', $t0, $count);
 
     $t0 = [gettimeofday];
-    foreach my $combo (keys %{ $hs->{'hits_by_combo'} }) {
-        $hs->{'hits_by_combo'}{$combo}{'pcflag'} = EBT2->flag (EBT2->printers  ($hs->{'hits_by_combo'}{$combo}{'pc'})),
-        $hs->{'hits_by_combo'}{$combo}{'ccflag'} = EBT2->flag (EBT2->countries ($hs->{'hits_by_combo'}{$combo}{'cc'})),
+    foreach my $hbc_k (keys %{ $hs->{'hits_by_combo'} }) {
+        my $pc_iso3166 = (split /,/, EBT2->printers ($hs->{'hits_by_combo'}{$hbc_k}{'pc'}, $hs->{'hits_by_combo'}{$hbc_k}{'series'}))[0];
+        my $cc_iso3166 = EBT2->countries ($hs->{'hits_by_combo'}{$hbc_k}{'cc'});
+        $hs->{'hits_by_combo'}{$hbc_k}{'cc_iso3166'} = $cc_iso3166;
+        $hs->{'hits_by_combo'}{$hbc_k}{'pc_iso3166'} = $pc_iso3166;
+        $hs->{'hits_by_combo'}{$hbc_k}{'ccflag'} = EBT2->flag ($cc_iso3166);
+        $hs->{'hits_by_combo'}{$hbc_k}{'pcflag'} = EBT2->flag ($pc_iso3166);
     }
     #$self->_log (debug => report 'hit_summary cook', $t0, $count);
 

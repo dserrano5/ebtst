@@ -1,6 +1,7 @@
 <%= include 'main/_num_detail_1st',
         title         => (l 'Number of notes by printer code'),
         table_header  => (l 'Printer'),
+        table_id      => 'notes_by_pc',
         notes_by      => $nbprinter,
         notes_by_key  => 'pc',
         detail_title  => (l 'Detail of notes per value and printer code'),

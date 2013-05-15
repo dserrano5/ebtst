@@ -1,5 +1,5 @@
 <h2><%= $title %></h2>
-<table>
+<table id="<%= $table_id %>">
     <tr>
         <th><%= $table_header %></th>
         <th><%=l 'Notes' %></th>

@@ -41,39 +41,41 @@ use EBT2::Stats;
 our $progress_every = 5000;
 ## build empty hashes with all possible combinations
 #our %combs_pc_cc;
-our %combs_pc_cc_val;
-our %combs_pc_cc_sig;
-our %combs_pc_cc_val_sig;
+our %combs_pc_cc_val;       ## countries, printers, missing_combs_and_history
+our %combs_pc_cc_sig;       ## _combs.html.ep
+our %combs_pc_cc_val_sig;   ## _combs.html.ep
 #our %combs_plate_cc_val_sig;
 our %all_plates;
-foreach my $v (keys %{ $config{'sigs'} }) {
-    foreach my $cc (keys %{ $config{'sigs'}{$v} }) {
-        foreach my $plate (keys %{ $config{'sigs'}{$v}{$cc} }) {
-            my $pc = substr $plate, 0, 1;
+foreach my $series (@{ $config{'series'} }) {
+    foreach my $v (keys %{ $config{'sigs'}{$series} }) {
+        foreach my $cc (keys %{ $config{'sigs'}{$series}{$v} }) {
+            foreach my $plate (keys %{ $config{'sigs'}{$series}{$v}{$cc} }) {
+                my $pc = substr $plate, 0, 1;
 
-            #$combs_pc_cc{"$pc$cc"} = undef;
+                #$combs_pc_cc{"$series$pc$cc"} = undef;
 
-            my $k_pcv = sprintf '%s%s%03d', $pc, $cc, $v;
-            $combs_pc_cc_val{$k_pcv} = undef;
+                my $k_pcv = sprintf '%s%s%s%03d', $series, $pc, $cc, $v;
+                $combs_pc_cc_val{$k_pcv} = undef;
 
-            my $sig = [ split /, */, $config{'sigs'}{$v}{$cc}{$plate} ];
-            foreach my $s (@$sig) {
-                $s =~ /^([A-Z]+)/ or die "invalid signature '$s' found in configuration, v ($v) cc ($cc) plate ($plate)";
-                $s = $1;
+                my $sig = [ split /, */, $config{'sigs'}{$series}{$v}{$cc}{$plate} ];
+                foreach my $s (@$sig) {
+                    $s =~ /^([A-Z]+)/ or die "invalid signature '$s' found in configuration, series ($series) v ($v) cc ($cc) plate ($plate)";
+                    $s = $1;
 
-                $combs_pc_cc_sig{'any'}{"$pc$cc"} = undef;
-                $combs_pc_cc_sig{$s}{"$pc$cc"} = undef;
+                    $combs_pc_cc_sig{'any'}{"$series$pc$cc"} = undef;
+                    $combs_pc_cc_sig{$s}{"$series$pc$cc"} = undef;
 
-                my $k_pcv = sprintf '%s%s%03d', $pc, $cc, $v;
-                $combs_pc_cc_val_sig{'any'}{$k_pcv} = undef;
-                $combs_pc_cc_val_sig{$s}{$k_pcv} = undef;
+                    my $k_pcv = sprintf '%s%s%s%03d', $series, $pc, $cc, $v;
+                    $combs_pc_cc_val_sig{'any'}{$k_pcv} = undef;
+                    $combs_pc_cc_val_sig{$s}{$k_pcv} = undef;
 
-                #$k_pcv = sprintf '%s%s%03d', $plate, $cc, $v;
-                #$combs_plate_cc_val_sig{'any'}{$k_pcv} = undef;
-                #$combs_plate_cc_val_sig{$s}{$k_pcv} = undef;
+                    #$k_pcv = sprintf '%s%s%s%03d', $series, $plate, $cc, $v;
+                    #$combs_plate_cc_val_sig{'any'}{$k_pcv} = undef;
+                    #$combs_plate_cc_val_sig{$s}{$k_pcv} = undef;
+                }
+
+                push @{ $all_plates{$cc}{$v} }, $plate;
             }
-
-            push @{ $all_plates{$cc}{$v} }, $plate;
         }
     }
 }
@@ -113,7 +115,11 @@ sub flag {
     my ($self, $iso3166) = @_;
     my $flag_txt;
 
-    if (grep { $_ eq $iso3166 } values %{ EBT2->countries }, values %{ EBT2->printers }) {
+    if (!defined $iso3166) {
+        warn sprintf "flag: undefined iso3166, called from '%s'", (caller 1)[3];
+        return undef;
+    }
+    if (grep { $_ eq $iso3166 } qw/at be cy de es fi fr gr ie it mt nl pt si sk uk/) {
         $flag_txt = ":flag-$iso3166:";
     } else {
         $flag_txt = sprintf '[img]%s/images/%s.gif[/img]', $bbcode_flags_base_href, $iso3166;
@@ -137,6 +143,7 @@ sub set_progress_obj  { my ($self, $obj)  = @_; $self->{'progress'} = $obj; }
 sub del_progress_obj  { my ($self, $obj)  = @_; delete $self->{'progress'}; }
 sub set_logger        { my ($self, $log)  = @_; $self->{'log'} = $log; }
 sub values            { return $config{'values'};     }
+sub series            { return $config{'series'}; }
 sub presidents        { return $config{'presidents'}; }
 
 sub _log {
@@ -464,7 +471,7 @@ sub AUTOLOAD {
 
         return $ret;
 
-    } elsif ($field =~ /^(countries|printers)$/) {
+    } elsif ($field eq 'countries') {
         ## close over %config - the quoted eval doesn't do it, resulting in 'Variable "%config" is not available'
         %config if 0;
 
@@ -481,14 +488,19 @@ EOF
         $@ and die "eval failed: $@\n";
         goto &$field;
 
-    } elsif ($field =~ /^(printer_names)$/) {
+    } elsif ($field eq 'printers') {
         ## close over %config - the quoted eval doesn't do it, resulting in 'Variable "%config" is not available'
         %config if 0;
 
         eval <<"EOF";
             *$field = sub {
-                my (\$self, \$what) = \@_;
-                return \$config{\$field}{\$lang}{\$what};
+                my (\$self, \$what, \$series) = \@_;
+                \$series ||= '2002';
+                if (\$what) {
+                    return \$config{\$field}{\$series}{\$what};
+                } else {
+                    return \$config{\$field};
+                }
             };
 EOF
         $@ and die "eval failed: $@\n";

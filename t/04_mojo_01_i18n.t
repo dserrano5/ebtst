@@ -8,7 +8,7 @@ use File::Basename 'dirname';
 use Test::More;
 use Test::Mojo;
 
-plan tests => 114;
+plan tests => 122;
 
 my ($t, $csrftoken);
 
@@ -55,6 +55,7 @@ sub remove_xlated {
         ## ignore case in the first letter. Some templates call ucfirst on the translated text
         if ($pattern =~ /^(\w)(.*)/) { $pattern = "(?i)$1(?-i)$2"; }
 
+        #warn "all_text before ($all_text)\n";
         ## can't use \b around the pattern because some sentences begin/end with non alphanumerics (e.g. "Combinations (bingo) = Combinaciones (bingo)")
         $all_text =~ s/(?<=[\W\d])$pattern(?=[\W\d])//g;
     }
@@ -62,6 +63,7 @@ sub remove_xlated {
     $all_text =~ s/^[\W\d]+//;
     $all_text =~ s/[\W\d]+/ /g;
     $all_text =~ s/[\W\d]+$//;
+    #warn "all_text after ($all_text)\n";
     return $all_text;
 }
 
@@ -106,9 +108,9 @@ my $sha = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->text;
 next_is_xhr; $t->get_ok ("/import/$sha")->status_is (200);
 
 foreach my $section (qw/
-    information value countries printers locations travel_stats huge_table short_codes nice_serials coords_bingo notes_per_year notes_per_month
-    top_days time_analysis_bingo time_analysis_detail combs_bingo combs_detail plate_bingo hit_list hit_times_bingo hit_times_detail
-    hit_locations hit_analysis hit_summary calendar help
+    information value countries printers locations regions travel_stats huge_table short_codes nice_serials coords_bingo notes_per_year notes_per_month
+    top_days time_analysis_bingo time_analysis_detail combs_bingo combs_detail plate_bingo hit_list hit_times_bingo hit_times_detail hit_locations
+    hit_regions hit_analysis hit_summary calendar help
 /) {
     $t->get_ok ("/$section");     $all_text = remove_xlated; is $all_text, '', "translation of /$section";
     $t->get_ok ("/$section.txt"); $all_text = remove_xlated; is $all_text, '', "translation of /$section.txt";

@@ -39,12 +39,12 @@ sub _xor {
 ## - for presentation
 ## - used in the process of signature guessing when plates are shared
 sub serial_remove_meaningless_figures2 {
-    my ($year, $value, $short, $serial) = @_;
+    my ($series, $value, $short, $serial) = @_;
 
     my $pc = substr $short, 0, 1;
     my $cc = substr $serial, 0, 1;
 
-    if ('2002' eq $year) {
+    if ('2002' eq $series) {
         if ('M' eq $cc or 'T' eq $cc) {
             #$serial = $cc . '*' . substr $serial, 2;
 
@@ -76,9 +76,12 @@ sub serial_remove_meaningless_figures2 {
             $serial = $cc . (substr $serial, 1, 1) . '**' . substr $serial, 4;
 
         }
-    } elsif ('2013' eq $year) {
-        if ('U' eq $cc) {
+    } elsif ('europa' eq $series) {
+        if ('U' eq $cc or 'S' eq $cc) {
             $serial = $cc . '**' . substr $serial, 3;
+        }
+        if ('N' eq $cc or 'Z' eq $cc) {
+            $serial = $cc . (substr $serial, 1, 1) . '**' . substr $serial, 4;
         }
         return $serial;
     }

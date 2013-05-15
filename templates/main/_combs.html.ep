@@ -31,38 +31,40 @@
             <% } =%>
         </tr>
         <% my @rows; my %val_totals; =%>
-        <% foreach my $pc (sort keys %{ EBT2->printers }) { =%>
-            <% foreach my $cc (sort keys %{ EBT2->countries }) { =%>
-                <% my @cols; =%>
-                <% my $k = $pc.$cc; =%>
-                <% if (grep { $_ eq $k } keys %{ $EBT2::combs_pc_cc_sig{$sig} }) { =%>
-                    <% my $row_sum = 0; my $seen_values_in_comb; my $total_values_in_comb; =%>
-                    <% push @cols, "$pc/$cc"; =%>
-                    <% foreach my $v (@{ EBT2->values }) { =%>
-                        <% my $k_pcv = sprintf '%s%s%03d', $pc, $cc, $v; =%>
-                        <% if (exists $EBT2::combs_pc_cc_val_sig{$sig} and exists $EBT2::combs_pc_cc_val_sig{$sig}{$k_pcv}) { =%>
-                            <% $total{$v}++; =%>
-                            <% $total_values_in_comb++; =%>
-                            <% if (exists $nbcombo->{$sig}{$k} and exists $nbcombo->{$sig}{$k}{$v}) { =%>
-                                <% $seen{$v}++; $row_sum += $nbcombo->{$sig}{$k}{$v}{'count'}; =%>
-                                <% $val_totals{$v} += $nbcombo->{$sig}{$k}{$v}{'count'}; =%>
-                                <% $seen_values_in_comb++; =%>
-                                <% push @cols, { color => (color $nbcombo->{$sig}{$k}{$v}{'count'}, 'notes'), v => $v, num => $nbcombo->{$sig}{$k}{$v}{'count'}//0, id => $nbcombo->{$sig}{$k}{$v}{'last_id'} }; =%>
+        <% foreach my $ser (@$series) { =%>
+            <% foreach my $pc (sort keys %{ EBT2->printers->{$ser} }) { =%>
+                <% foreach my $cc (sort keys %{ EBT2->countries }) { =%>
+                    <% my @cols; =%>
+                    <% my $k = $ser.$pc.$cc; =%>
+                    <% if (grep { $_ eq $k } keys %{ $EBT2::combs_pc_cc_sig{$sig} }) { =%>
+                        <% my $row_sum = 0; my $seen_values_in_comb; my $total_values_in_comb; =%>
+                        <% push @cols, "$pc/$cc"; =%>
+                        <% foreach my $v (@{ EBT2->values }) { =%>
+                            <% my $k_pcv = sprintf '%s%s%s%03d', $ser, $pc, $cc, $v; =%>
+                            <% if (exists $EBT2::combs_pc_cc_val_sig{$sig} and exists $EBT2::combs_pc_cc_val_sig{$sig}{$k_pcv}) { =%>
+                                <% $total{$v}++; =%>
+                                <% $total_values_in_comb++; =%>
+                                <% if (exists $nbcombo->{$sig}{$k} and exists $nbcombo->{$sig}{$k}{$v}) { =%>
+                                    <% $seen{$v}++; $row_sum += $nbcombo->{$sig}{$k}{$v}{'count'}; =%>
+                                    <% $val_totals{$v} += $nbcombo->{$sig}{$k}{$v}{'count'}; =%>
+                                    <% $seen_values_in_comb++; =%>
+                                    <% push @cols, { color => (color $nbcombo->{$sig}{$k}{$v}{'count'}, 'notes'), v => $v, num => $nbcombo->{$sig}{$k}{$v}{'count'}//0, id => $nbcombo->{$sig}{$k}{$v}{'last_id'} }; =%>
+                                <% } else { =%>
+                                    <% push @cols, { color => (color 0, 'notes'), v => 0, num => 0 }; =%>
+                                <% } =%>
                             <% } else { =%>
-                                <% push @cols, { color => (color 0, 'notes'), v => 0, num => 0 }; =%>
+                                <% push @cols, undef; =%><%# shouldn't happen since this code doesn't receive bad notes =%>
                             <% } =%>
-                        <% } else { =%>
-                            <% push @cols, undef; =%><%# shouldn't happen since this code doesn't receive bad notes =%>
                         <% } =%>
+                        <% $total{'any'}++; =%>
+                        <% push @cols, { color => (color $row_sum, 'notes'), num => $row_sum, pct => 100*$row_sum/$count, seen_values_in_comb => $seen_values_in_comb, total_values_in_comb => $total_values_in_comb }; =%>
                     <% } =%>
-                    <% $total{'any'}++; =%>
-                    <% push @cols, { color => (color $row_sum, 'notes'), num => $row_sum, pct => 100*$row_sum/$count, seen_values_in_comb => $seen_values_in_comb, total_values_in_comb => $total_values_in_comb }; =%>
+                    <% if (@cols) { push @rows, \@cols; } =%>
                 <% } =%>
-                <% if (@cols) { push @rows, \@cols; } =%>
             <% } =%>
         <% } =%>
 
-        <% foreach my $row (@rows) { =%>
+        <% foreach my $row (sort { $a->[0] cmp $b->[0] } @rows) { =%>
             <% my $first = shift @$row; =%>
             <% my $last = pop @$row; =%>
             <tr>

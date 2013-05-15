@@ -63,7 +63,7 @@ sub get_checked_boxes {
 ## never tested with Europa notes, I guess it would work by ignoring both letters
 ## if a range in the configuration needs to specify the letter, this needs to be changed
 sub _guess_signature {
-    my ($year, $value, $short, $serial, $sign) = @_;
+    my ($series, $value, $short, $serial, $sign) = @_;
     
     $sign =~ s/\s//g;
     my $max_len = max map length, $sign =~ /\d+/g;  ## how many digits to evaluate
@@ -72,7 +72,7 @@ sub _guess_signature {
         my ($result, $range) = split /:/, $choice;
         my ($min, $max) = split /-/, $range;
 
-        $serial = serial_remove_meaningless_figures2 $year, $value, $short, $serial;
+        $serial = serial_remove_meaningless_figures2 $series, $value, $short, $serial;
         $serial =~ s/\D//g;     ## XXX: we might have to take the second letter into account for Europa notes, this line would have to be changed
         my ($num) = $serial =~ /^(.{$max_len})/;
         next if $num < $min or $num > $max;
@@ -83,19 +83,24 @@ sub _guess_signature {
     return;
 }
 
+sub year_to_series {
+    my ($year) = @_;
+    return $EBT2::config{'year_to_series'}{$year} // '';
+}
+
 sub _find_out_signature {
-    my ($year, $value, $short, $serial) = @_;
+    my ($series, $value, $short, $serial) = @_;
 
     my $plate = substr $short, 0, 4;
     my $cc = substr $serial, 0, 1;
-    my $sig = $EBT2::config{'sigs'}{$value}{$cc}{$plate};
+    my $sig = $EBT2::config{'sigs'}{$series}{$value}{$cc}{$plate};
     if (!defined $sig) {
-        return 'MD' if '2013' eq $year;   ## this will last until Europa plates are more or less well known
+        #return 'MD' if 'europa' eq $series;   ## this will last until Europa plates are more or less well known
         #warn "No signature found (unknown combination?) for note ($value) ($cc) ($plate)\n";
         $sig = '_UNK';
     } else {
         if ($sig =~ /,/) {
-            if (!defined ($sig = _guess_signature $year, $value, $short, $serial, $sig)) {
+            if (!defined ($sig = _guess_signature $series, $value, $short, $serial, $sig)) {
                 warn "Couldn't guess signature for note ($value) ($cc) ($plate) ($short) ($serial)\n";
                 $sig = '_UNK';
             }
@@ -103,11 +108,6 @@ sub _find_out_signature {
     }
 
     return $sig;
-}
-
-sub year_to_series {
-    my ($year) = @_;
-    return $EBT2::config{'series'}{$year} // '';
 }
 
 ## only accepts English
@@ -276,7 +276,7 @@ sub load_notes {
         $hr->{'country'} = _cc $hr->{'country'};
         $self->{'existing_countries'}{ $hr->{'country'} } = undef;
         $self->{'has_existing_countries'} = 1;
-        $hr->{'signature'} = _find_out_signature @$hr{qw/year value short_code serial/};
+        $hr->{'signature'} = _find_out_signature @$hr{qw/series value short_code serial/};
         $hr->{'errors'} = EBT2::NoteValidator::validate_note $hr;
         if ($hr->{'errors'}) {
             push @bad_notes, {

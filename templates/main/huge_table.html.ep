@@ -1,7 +1,7 @@
 <a name="top"></a>
 <h2><%=l 'Huge table' %></h2>
 
-<% my %seen_printers; @seen_printers{ map { substr $_, 0, 1 } keys %$ht } = undef; my @seen_printers = sort keys %seen_printers; =%>
+<% my %seen_printers; @seen_printers{ map { substr $_, -2, 1 } keys %$ht } = undef; my @seen_printers = sort keys %seen_printers; =%>
 Jump to: <% foreach my $printer (@seen_printers) { %><a href="<%= sprintf '%s#%s', $url, $printer %>"><%= $printer %></a> <% } %><br>
 
 <p class="colors_legend"><%=l 'Notes have been entered up to' %>: <span class="recent_1"></span> <%=l '1 year ago' %>, <span class="recent_2"></span> <%=l '3 months ago' %>, <span class="recent_3"></span> <%=l '1 week ago' %>.</p>
@@ -13,7 +13,8 @@ Jump to: <% foreach my $printer (@seen_printers) { %><a href="<%= sprintf '%s#%s
         <% } =%>
     </tr>
     <% my $old_printer = ''; =%>
-    <% foreach my $plate (sort keys %$ht) { =%>
+    <% foreach my $sp (sort { (substr $a, -4) cmp (substr $b, -4) } keys %$ht) { =%>
+    <% my ($series, $plate) = $sp =~ /^(.*)(.{4})$/; =%>
     <% my $printer = substr $plate, 0, 1; if ($printer ne $old_printer) { =%>
         <% $old_printer = $printer; =%>
         <tr><th colspan="8">
@@ -24,13 +25,13 @@ Jump to: <% foreach my $printer (@seen_printers) { %><a href="<%= sprintf '%s#%s
     <% } =%>
     <tr>
         <td class="small_cell" style="vertical-align: top;">
-            <img src="<%= $images_prefix %>images/countries/<%= $ht->{$plate}{'plate_flag'} %>.gif"> <%= $plate =%>
+            <img src="<%= $images_prefix %>images/countries/<%= $ht->{$sp}{'plate_flag'} %>.gif"> <%= $plate =%>
         </td>
         <% foreach my $v (@{ EBT2->values }) { =%>
         <td class="small_cell" style="vertical-align: top;">
-            <% if (exists $ht->{$plate}{'values'}{$v}) { =%>
-                <% foreach my $serial (sort keys %{ $ht->{$plate}{'values'}{$v} }) { =%>
-                    <% my $elem = $ht->{$plate}{'values'}{$v}{$serial}; =%>
+            <% if (exists $ht->{$sp}{'values'}{$v}) { =%>
+                <% foreach my $serial (sort keys %{ $ht->{$sp}{'values'}{$v} }) { =%>
+                    <% my $elem = $ht->{$sp}{'values'}{$v}{$serial}; =%>
                     <img src="<%= $images_prefix %>images/countries/<%= $elem->{'flag'} %>.gif">
                     <% if (1 == $elem->{'count'}) { =%>
                         <!--<a href="https://eurobilltracker.com/notes/?id=<%= $elem->{'last_id'} %>"><%= $serial %> - <%= $elem->{'count'} %></a><span class="recent_<%= $elem->{'recent'} %>"></span>-->

@@ -26,6 +26,7 @@ Hit list = Lista de hits
 Hit times (bingo) = Análisis de tiempo (hits, bingo)
 Hit times (detail) = Análisis de tiempo (hits, detalle)
 Hit locations = Localidades de hits
+Hit regions = Regiones de hits
 Hit analysis = Análisis de hits
 Hit summary = Resumen de hits
 Calendar = Calendario
@@ -98,6 +99,7 @@ entered on = introducido el
 note = billete
 
 ## locations
+Jump to = Ir a
 Countries with notes entered = Países en los que se han introducido billetes
 Number of notes by location = Número de billetes por localidad
 Alphabets of locations by country = Alfabetos de localidades por país
@@ -227,6 +229,13 @@ different locations = localidades distintas
 Frequent Directions = Direcciones habituales
 Local Hits = Hits locales
 Both ways hits = Hits en ambos sentidos
+
+## hit regions
+Hit partners = Compañeros de hit
+Hit notes = Billetes
+our side = nuestro
+their side = ajeno
+Post codes not found in = Códigos postales no encontrados en
 
 ## hit analysis
 Hit top-10 = Top-10

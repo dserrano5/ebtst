@@ -8,7 +8,7 @@ use File::Basename 'dirname';
 use Test::More;
 use Test::Mojo;
 
-plan tests => 551;
+plan tests => 563;
 
 my ($t, $csrftoken);
 
@@ -145,7 +145,6 @@ next_is_xhr; $t->post_form_ok ('/upload', {
     hits_csv_file => { file => 't/hits1.csv' },
     #csrftoken => $csrftoken,
 })->status_is (200)->content_type_is ('text/plain; charset=utf-8')->content_like (qr/^[0-9a-z]{8}$/, 'upload hits');
-
 $sha = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->text;
 next_is_xhr; $t->get_ok ("/import/$sha")->status_is (200)->content_type_is ('text/plain; charset=utf-8')->content_is ('information', 'import hits');
 
@@ -197,6 +196,26 @@ foreach my $section (qw/
     $t->get_ok ("/$section")->status_is (200);
     $t->get_ok ("/$section.txt")->status_is (200);
 }
+
+
+## upload europa notes
+$t->get_ok ('/information');
+#$csrftoken = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->html->body->div->[0]->form->input->{'value'};
+
+next_is_xhr; $t->post_form_ok ('/upload', {
+    notes_csv_file => { file => 't/notes-europa.csv' },
+    #csrftoken => $csrftoken,
+})->status_is (200)->content_type_is ('text/plain; charset=utf-8')->content_like (qr/^[0-9a-z]{8}$/, 'upload europa notes');
+$sha = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->text;
+next_is_xhr; $t->get_ok ("/import/$sha")->status_is (200)->content_type_is ('text/plain; charset=utf-8')->content_is ('information', 'import');
+## TODO: notes by series:   $t->get_ok ('/information')->status_is (200)->content_like (qr//, 'notes by series');
+$t->get_ok ('/printers')->status_is (200);
+my $printers_table = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->at ('#notes_by_pc');
+like
+    $printers_table->tr->[1]->td->[0]->content_xml,
+    qr{<img src="images/countries/..\.gif"\s*/>\s*<b>M</b>\s*.*oneda y .imbre},
+    'correct printer entry';
+#warn sprintf "tr[1]td[0]text (%s)\n", $printers_table->tr->[1]->td->[0]->content_xml;  ## <img src="images/countries/.gif" /> <b>2002</b>
 
 
 ## upload notes and hits CSV

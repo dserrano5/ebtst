@@ -252,8 +252,8 @@ sub notes_by_pc {
             $idx++;
             if ($progress and 0 == $idx % $EBT2::progress_every) { $progress->set ($idx); }
             my $pc = substr $note->[SHORT_CODE], 0, 1;
-            $ret{'notes_by_pc'}{$pc}{'total'}++;
-            $ret{'notes_by_pc'}{$pc}{ $note->[VALUE] }++;
+            $ret{'notes_by_pc'}{$note->[SERIES]}{$pc}{'total'}++;
+            $ret{'notes_by_pc'}{$note->[SERIES]}{$pc}{ $note->[VALUE] }++;
         }
     }
 
@@ -271,7 +271,7 @@ sub first_by_pc {
             if ($progress and 0 == $at % $EBT2::progress_every) { $progress->set ($at); }
             my %hr2 = zip @{[ COL_NAMES ]}, @$note;
             my $pc = substr $note->[SHORT_CODE], 0, 1;
-            $ret{'first_by_pc'}{$pc} ||= { %hr2, at => $at };
+            $ret{'first_by_pc'}{$note->[SERIES]}{$pc} ||= { %hr2, at => $at };
         }
     }
 
@@ -419,14 +419,15 @@ sub huge_table {
             $idx++;
             if ($progress and 0 == $idx % $EBT2::progress_every) { $progress->set ($idx); }
             next if $note->[ERRORS];
+            my $series = $note->[SERIES];
             my $plate = substr $note->[SHORT_CODE], 0, 4;
-            my $serial = serial_remove_meaningless_figures2 $note->[YEAR], $note->[VALUE], $note->[SHORT_CODE], $note->[SERIAL];
+            my $serial = serial_remove_meaningless_figures2 $note->[SERIES], $note->[VALUE], $note->[SHORT_CODE], $note->[SERIAL];
             my $num_stars = $serial =~ tr/*/*/;
             $serial = substr $serial, 0, 4+$num_stars;
 
-            $ret{'huge_table'}{$plate}{ $note->[VALUE] }{$serial}{'count'}++;
-            $ret{'huge_table'}{$plate}{ $note->[VALUE] }{$serial}{'recent'} = $note->[RECENT];  ## since @$chunk is ordered, we'll get the latest value
-            #$ret{'huge_table'}{$plate}{ $note->[VALUE] }{$serial}{'last_id'} = $note->[ID];
+            $ret{'huge_table'}{"$series$plate"}{ $note->[VALUE] }{$serial}{'count'}++;
+            $ret{'huge_table'}{"$series$plate"}{ $note->[VALUE] }{$serial}{'recent'} = $note->[RECENT];  ## since @$chunk is ordered, we'll get the latest value
+            #$ret{'huge_table'}{"$series$plate"}{ $note->[VALUE] }{$serial}{'last_id'} = $note->[ID];
         }
     }
 
@@ -445,7 +446,7 @@ sub fooest_short_codes {
             next if $note->[ERRORS];
             my %hr2 = zip @{[ COL_NAMES ]}, @$note;
             my $pc = substr $note->[SHORT_CODE], 0, 1;
-            my $serial = serial_remove_meaningless_figures2 $note->[YEAR], $note->[VALUE], $note->[SHORT_CODE], $note->[SERIAL];
+            my $serial = serial_remove_meaningless_figures2 $note->[SERIES], $note->[VALUE], $note->[SHORT_CODE], $note->[SERIAL];
             my $num_stars = $serial =~ tr/*/*/;
             $serial = substr $serial, 0, 4+$num_stars;
             my $sort_key = sprintf '%s%s', $note->[SHORT_CODE], $serial;
@@ -666,24 +667,26 @@ sub missing_combs_and_history {
     my %combs = %{ \%EBT2::combs_pc_cc_val };
     my %sigs;
 
-    while (my $chunk = $data->note_getter (interval => $chunk_size, filter => { year => 2002 })) {
+    while (my $chunk = $data->note_getter (interval => $chunk_size)) {
         foreach my $note (@$chunk) {
             $num_note++;
             if ($progress and 0 == $num_note % $EBT2::progress_every) { $progress->set ($num_note); }
 
             next if $note->[ERRORS];
 
+            my $ser = $note->[SERIES];
             my $p = substr $note->[SHORT_CODE], 0, 1;
             my $c = substr $note->[SERIAL], 0, 1;
             my $v = $note->[VALUE];
             my $s = (split ' ', $note->[SIGNATURE])[0];
 
-            my $k = sprintf '%s%s%03d', $p, $c, $v;
+            my $k = sprintf '%s%s%s%03d', $ser, $p, $c, $v;
             if (!$combs{$k}) {
                 push @history, {
                     index   => ++$hist_idx,
-                    pname   => EBT2->printers ($p),
+                    pname   => (split /,/, EBT2->printers ($p, $note->[SERIES]))[0],
                     cname   => EBT2->countries ($c),
+                    series  => $ser,
                     pc      => $p,
                     cc      => $c,
                     value   => $note->[VALUE],
@@ -706,7 +709,7 @@ sub missing_combs_and_history {
         $num_total_combs++;
 
         my $at_least_one_value = 0;
-        foreach my $value (sort { $a <=> $b } map { substr $_, 2 } $k) {
+        foreach my $value (sort { $a <=> $b } map { substr $_, -3 } $k) {
             if ($combs{$k}) {
                 $at_least_one_value = 1;
                 next;
@@ -732,14 +735,14 @@ sub notes_by_combination {
     my %ret;
     my $idx;
 
-    while (my $chunk = $data->note_getter (interval => $chunk_size, filter => { year => 2002 })) {
+    while (my $chunk = $data->note_getter (interval => $chunk_size)) {
         foreach my $note (@$chunk) {
             $idx++;
             if ($progress and 0 == $idx % $EBT2::progress_every) { $progress->set ($idx); }
 
             next if $note->[ERRORS];
-            my $comb1 = sprintf '%s%s',   (substr $note->[SHORT_CODE], 0, 1), (substr $note->[SERIAL], 0, 1);
-            #my $comb2 = sprintf '%s%s%s', (substr $note->[SHORT_CODE], 0, 1), (substr $note->[SERIAL], 0, 1), $note->[VALUE];
+            my $comb1 = sprintf '%s%s%s',   $note->[SERIES], (substr $note->[SHORT_CODE], 0, 1), (substr $note->[SERIAL], 0, 1);
+            #my $comb2 = sprintf '%s%s%s%s', $note->[SERIES], (substr $note->[SHORT_CODE], 0, 1), (substr $note->[SERIAL], 0, 1), $note->[VALUE];
             my ($sig) = $note->[SIGNATURE] =~ /^(\w+)/ or next;
 
             $ret{'notes_by_combination'}{'any'}{$comb1}{'total'}++;
@@ -763,13 +766,15 @@ sub plate_bingo {
     my $idx = 0;
 
     ## prepare
-    foreach my $v (keys %{ $EBT2::config{'sigs'} }) {
-        foreach my $cc (keys %{ $EBT2::config{'sigs'}{$v} }) { 
-            foreach my $plate (keys %{ $EBT2::config{'sigs'}{$v}{$cc} }) { 
-                $ret{'plate_bingo'}{$v}{$plate}{'count'} = 0;
-                $ret{'plate_bingo'}{'all'}{$plate}{'count'} = 0;
-            }    
-        }    
+    foreach my $series (keys %{ $EBT2::config{'sigs'} }) {
+        foreach my $v (keys %{ $EBT2::config{'sigs'}{$series} }) {
+            foreach my $cc (keys %{ $EBT2::config{'sigs'}{$series}{$v} }) {
+                foreach my $plate (keys %{ $EBT2::config{'sigs'}{$series}{$v}{$cc} }) {
+                    $ret{'plate_bingo'}{$v}{"$series$plate"}{'count'} = 0;
+                    $ret{'plate_bingo'}{'all'}{"$series$plate"}{'count'} = 0;
+                }
+            }
+        }
     }
 
     while (my $chunk = $data->note_getter (interval => $chunk_size)) {
@@ -778,11 +783,12 @@ sub plate_bingo {
             if ($progress and 0 == $idx % $EBT2::progress_every) { $progress->set ($idx); }
 
             next if $note->[ERRORS];
+            my $series = $note->[SERIES];
             my $plate = substr $note->[SHORT_CODE], 0, 4;
-            $ret{'plate_bingo'}{ $note->[VALUE] }{$plate}{'count'}++;
-            $ret{'plate_bingo'}{ $note->[VALUE] }{$plate}{'last_id'} = $note->[ID];
-            $ret{'plate_bingo'}{ 'all' }{$plate}{'count'}++;
-            $ret{'plate_bingo'}{ 'all' }{$plate}{'last_id'} = $note->[ID];
+            $ret{'plate_bingo'}{ $note->[VALUE] }{"$series$plate"}{'count'}++;
+            $ret{'plate_bingo'}{ $note->[VALUE] }{"$series$plate"}{'last_id'} = $note->[ID];
+            $ret{'plate_bingo'}{ 'all' }{"$series$plate"}{'count'}++;
+            $ret{'plate_bingo'}{ 'all' }{"$series$plate"}{'last_id'} = $note->[ID];
         }
     }
 
@@ -912,6 +918,7 @@ sub hit_list {
                 dates           => [ map { $_->{'date_entered'} } @{ $hit->{'parts'} } ],
                 hit_date        => $hit->{'hit_date'},
                 dow             => $hit->{'dow'},
+                series          => $note->[SERIES],
                 value           => $note->[VALUE],
                 serial          => $note->[SERIAL],
                 short_code      => $note->[SHORT_CODE],
@@ -1238,13 +1245,15 @@ sub hit_summary {
         ## TODO: hit ratio/avg travel days/avg km, by value
 
         ## hits by combination—don't ignore Europas here
+        my $series = $hit->{'series'};
         my $pc = substr $hit->{'short_code'}, 0, 1;
         my $cc = substr $hit->{'serial'}, 0, 1;
-        my $combo = "$pc/$cc";
-        $ret{'hit_summary'}{'hits_by_combo'}{$combo} = {
-            pc => $pc,
-            cc => $cc,
-            count => ($ret{'hit_summary'}{'hits_by_combo'}{$combo}{'count'} // 0) + 1,
+        my $hbc_k = "$series$pc$cc";
+        $ret{'hit_summary'}{'hits_by_combo'}{$hbc_k} = {
+            series => $series,
+            pc     => $pc,
+            cc     => $cc,
+            count  => ($ret{'hit_summary'}{'hits_by_combo'}{$hbc_k}{'count'} // 0) + 1,
         };
 
         ## frequent hit partner (min: 2 hits)

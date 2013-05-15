@@ -130,7 +130,7 @@ while (my $notes = $obj->note_getter (interval => 'all')) {
 $obj = new_ok 'EBT2::Data', [ db => '/tmp/ebt2-storable' ];
 $obj->load_notes (undef, 't/notes-europa.csv');
 @notes = map { _xor $_ } @{ $obj->{'notes'} };
-is scalar @notes, 8, 'Correct number of notes';
+is scalar @notes, 9, 'Correct number of notes';
 is +(split ';', $notes[0], NCOLS)[SERIES], 'europa', 'Series field is correct';
 
 

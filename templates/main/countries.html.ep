@@ -1,6 +1,7 @@
 <%= include 'main/_num_detail_1st',
         title         => (l 'Number of notes by country code'),
         table_header  => (l 'Country'),
+        table_id      => 'notes_by_cc',
         notes_by      => $nbcountry,
         notes_by_key  => 'cc',
         detail_title  => (l 'Detail of notes per value and country code'),

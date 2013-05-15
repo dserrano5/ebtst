@@ -26,6 +26,7 @@ Hit list = Hitlijst
 Hit times (bingo) = Hittijden (hits, bingo)
 Hit times (detail) = Hittijden (hits, detail)
 Hit locations = Hitplaatsen
+Hit regions = Hitregio's
 Hit analysis = Hitanalyse
 Hit summary = Hitoverzicht
 Calendar = Kalender
@@ -227,6 +228,13 @@ different locations = verschillende plaatsen
 Frequent Directions = veel voorkomende routes
 Local Hits = Lokale hits
 Both ways hits = Hits in beide richtingen
+
+## hit regions
+Hit partners = Hitpartners
+Hit notes = Hitbiljetten
+our side = onze kant
+their side = mijn kant
+Post codes not found in = Niet gevonden postcodes in
 
 ## hit analysis
 Hit top-10 = Top 10 hits

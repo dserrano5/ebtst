@@ -10,7 +10,7 @@ use EBT2::Util qw/_xor/;
 use EBT2::Data;
 use EBT2::Constants ':all';
 
-plan tests => 37;
+plan tests => 35;
 
 my $obj = new_ok 'EBT2', [ db => '/tmp/ebt2-storable', xor_key => 'test' ];
 ok $obj->{'data'};
@@ -63,6 +63,7 @@ ok !exists $gotten->{'_UNK'}, 'No unknown signatures';
 
 $gotten = $obj->get_notes_by_cc;
 is_deeply $gotten, {
+    M => { total => 1, 5 => 1 },
     S => { total => 1, 20 => 1 },
     U => { total => 1, 20 => 1 },
     V => { total => 2, 20 => 1, 50 => 1 },
@@ -73,37 +74,44 @@ isnt $gotten->{'U'}{'serial'}, 'UB1016833133', 'first_by_cc ignores Europa notes
 
 $gotten = $obj->get_notes_by_pc;
 is_deeply $gotten, {
-    J => { total => 1, 20 => 1 },
-    L => { total => 1, 20 => 1 },
-    M => { total => 2, 20 => 1, 50 => 1 },
-    U => { total => 2, 5  => 2, },
-    V => { total => 1, 5  => 1, },
-    Z => { total => 1, 5  => 1, },
+    2002 => {
+        J => { total => 1, 20 => 1 },
+        L => { total => 1, 20 => 1 },
+        M => { total => 2, 20 => 1, 50 => 1 },
+        U => { total => 1, 5  => 1, },
+    },
+    europa => {
+        U => { total => 2, 5  => 2, },
+        V => { total => 1, 5  => 1, },
+        Z => { total => 1, 5  => 1, },
+    },
 }, 'notes_by_pc';
 
 $gotten = $obj->get_first_by_pc;
-is $gotten->{'U'}{'serial'}, 'UB1016833133', 'first_by_pc';
+is $gotten->{'2002'}{'U'}{'serial'}, 'M18400000009', 'first_by_pc';
+is $gotten->{'europa'}{'U'}{'serial'}, 'UB1016833133', 'first_by_pc';
 
 $gotten = $obj->get_huge_table;
 is_deeply $gotten, {
-    J025 => { 20 => { S291     => { count => 1, recent => 0 } } },
-    L057 => { 20 => { 'U**321' => { count => 1, recent => 0 } } },
-    M021 => { 20 => { V236     => { count => 1, recent => 0 } } },
-    M030 => { 50 => { V323     => { count => 1, recent => 0 } } },
-    U002 => { 5  => { 'U**016' => { count => 2, recent => 0 } } },
-    V001 => { 5  => { VA07     => { count => 1, recent => 0 } } },
-    Z003 => { 5  => { ZB27     => { count => 1, recent => 0 } } },
+    '2002J025'   => { 20 => { S291     => { count => 1, recent => 0 } } },
+    '2002L057'   => { 20 => { 'U**321' => { count => 1, recent => 0 } } },
+    '2002M021'   => { 20 => { V236     => { count => 1, recent => 0 } } },
+    '2002M030'   => { 50 => { V323     => { count => 1, recent => 0 } } },
+    '2002U008'   => { 5  => { M184     => { count => 1, recent => 0 } } },
+    'europaU002' => { 5  => { 'U**016' => { count => 2, recent => 0 } } },
+    'europaV001' => { 5  => { VA07     => { count => 1, recent => 0 } } },
+    'europaZ003' => { 5  => { ZB27     => { count => 1, recent => 0 } } },
 }, 'huge_table';
 
 $gotten = $obj->get_nice_serials;
 ok +(!grep { 12 != length $_->{'visible_serial'} } @$gotten), 'nice_serials works with Europa notes';
 
-$gotten = $obj->get_missing_combs_and_history;
-ok !exists $gotten->{'sigs'}{'MD'}, 'missing_combs_and_history ignores Europa notes';
+#$gotten = $obj->get_missing_combs_and_history;
+#ok !exists $gotten->{'sigs'}{'MD'}, 'missing_combs_and_history ignores Europa notes';
 
-$gotten = $obj->get_notes_by_combination;
-ok !exists $gotten->{'any'}{'UU'}, 'notes_by_combination ignores Europa notes';
-ok !exists $gotten->{'any'}{'VV'}, 'notes_by_combination ignores Europa notes';
+#$gotten = $obj->get_notes_by_combination;
+#ok !exists $gotten->{'any'}{'UU'}, 'notes_by_combination ignores Europa notes';
+#ok !exists $gotten->{'any'}{'VV'}, 'notes_by_combination ignores Europa notes';
 
 $gotten = $obj->get_bad_notes;
 is $gotten, undef, 'No bad Europa notes';

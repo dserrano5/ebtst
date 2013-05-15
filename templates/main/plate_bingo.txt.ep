@@ -1,19 +1,23 @@
 [b]<%=l 'Plate bingo' %>[/b]
 % foreach my $elem (@$plate_bingo) {
 %     my %seen; my %total;
-%     foreach my $printer (@{ $elem->{'printers'} }) {
-%         $seen{$printer} = $total{$printer} = 0;
+%     foreach my $k (@{ $elem->{'printers'} }) {
+%         my ($series, $pc, $pc_iso3166) = @$k{qw/series pc pc_iso3166/};
+%         my $sp = "$series$pc";
+%         $seen{$sp} = $total{$sp} = 0;
 %     }
 %     foreach my $row (map { sprintf '%03d', $_ } 1 .. $elem->{'highest'}) {
-%             foreach my $printer (@{ $elem->{'printers'} }) {
-%                 my $plate = sprintf '%s%03d', $printer, $row;
-%                 if (exists $elem->{'plates'}{$plate}) {
-%                     $total{$printer}++;
-%                     if ($elem->{'plates'}{$plate}{'count'}) {
-%                         $seen{$printer}++;
-%                     }
+%         foreach my $k (@{ $elem->{'printers'} }) {
+%             my ($series, $pc, $pc_iso3166) = @$k{qw/series pc pc_iso3166/};
+%             my $sp = "$series$pc";
+%             my $plate = sprintf '%s%s%03d', $series, $pc, $row;
+%             if (exists $elem->{'plates'}{$plate}) {
+%                 $total{$sp}++;
+%                 if ($elem->{'plates'}{$plate}{'count'}) {
+%                     $seen{$sp}++;
 %                 }
 %             }
+%         }
 %     }
 %     my $all_seen;  $all_seen  += $_ for values %seen;
 %     my $all_total; $all_total += $_ for values %total;

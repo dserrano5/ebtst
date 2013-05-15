@@ -21,29 +21,36 @@ Jump to: <% foreach my $v (map { $_->{'value'} } @$plate_bingo) { %><a href="<%=
     <% } =%>
     <table>
         <% my %seen; my %total; =%>
-        <% foreach my $printer (@{ $elem->{'printers'} }) { =%>
-            <% $seen{$printer} = $total{$printer} = 0; =%>
+        <tr>
+        <% foreach my $k (@{ $elem->{'printers'} }) { =%>
+            <% my ($series, $pc, $pc_iso3166) = @$k{qw/series pc pc_iso3166/}; =%>
+            <% my $sp = "$series$pc"; =%>
+            <% $seen{$sp} = $total{$sp} = 0; =%>
+            <th class="small_cell"><img src="<%= $images_prefix %>images/countries/<%= $pc_iso3166 %>.gif"> <%= $pc %></th>
         <% } =%>
+        </tr>
         <% foreach my $row (map { sprintf '%03d', $_ } 1 .. $elem->{'highest'}) { =%>
             <tr>
-                <% foreach my $printer (@{ $elem->{'printers'} }) { =%>
-                    <% my $plate = sprintf '%s%03d', $printer, $row; =%>
+                <% foreach my $k (@{ $elem->{'printers'} }) { =%>
+                    <% my ($series, $pc, $pc_iso3166) = @$k{qw/series pc pc_iso3166/}; =%>
+                    <% my $sp = "$series$pc"; =%>
+                    <% my $plate = sprintf '%s%s%03d', $series, $pc, $row; =%>
                     <% my $color; =%>
                     <% if (exists $elem->{'plates'}{$plate}) { =%>
-                        <% $total{$printer}++; =%>
+                        <% $total{$sp}++; =%>
                         <% if ($elem->{'plates'}{$plate}{'count'}) { =%>
-                            <% $seen{$printer}++; =%>
+                            <% $seen{$sp}++; =%>
                             <% if ('err' eq $elem->{'plates'}{$plate}{'count'}) { =%><%# shouldn't happen since this code doesn't receive bad notes =%>
                                 <td class="small_cell"><div class="bingo_err"></div></td>
                             <% } else { =%>
                                 <% if (1 == $elem->{'plates'}{$plate}{'count'}) { =%>
-                                    <td class="small_cell"><a href="https://eurobilltracker.com/notes/?id=<%= $elem->{'plates'}{$plate}{'last_id'} %>"><span style="color: <%= color $elem->{'plates'}{$plate}{'count'}, 'notes' %>"><%= $plate %></span></a></td>
+                                    <td class="small_cell"><a href="https://eurobilltracker.com/notes/?id=<%= $elem->{'plates'}{$plate}{'last_id'} %>"><span style="color: <%= color $elem->{'plates'}{$plate}{'count'}, 'notes' %>"><%= substr $plate, -4 %></span></a></td>
                                 <% } else { =%>
-                                    <td class="small_cell"><span style="color: <%= color $elem->{'plates'}{$plate}{'count'}, 'notes' %>"><%= $plate %></span></td>
+                                    <td class="small_cell"><span style="color: <%= color $elem->{'plates'}{$plate}{'count'}, 'notes' %>"><%= substr $plate, -4 %></span></td>
                                 <% } =%>
                             <% } =%>
                         <% } else { =%>
-                            <td class="small_cell"><span style="color: <%= color 0, 'notes' %>"><%= $plate %></span></td>
+                            <td class="small_cell"><span style="color: <%= color 0, 'notes' %>"><%= substr $plate, -4 %></span></td>
                         <% } =%>
                     <% } else { =%>
                         <td class="small_cell"><div class="bingo_na"></div></td>
@@ -52,8 +59,10 @@ Jump to: <% foreach my $v (map { $_->{'value'} } @$plate_bingo) { %><a href="<%=
             </tr>
         <% } =%>
         <tr>
-            <% foreach my $printer (@{ $elem->{'printers'} }) { =%>
-                <td class="small_cell"><%= $seen{$printer} %>/<%= $total{$printer} %></td>
+            <% foreach my $k (@{ $elem->{'printers'} }) { =%>
+                <% my ($series, $pc, $pc_iso3166) = @$k{qw/series pc pc_iso3166/}; =%>
+                <% my $sp = "$series$pc"; =%>
+                <td class="small_cell"><%= $seen{$sp} %>/<%= $total{$sp} %></td>
             <% } =%>
         </tr>
     </table>

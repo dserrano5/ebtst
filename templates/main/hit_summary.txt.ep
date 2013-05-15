@@ -50,7 +50,8 @@
 
 [b]<%=l 'Hits by combination' %>[/b]
 <% foreach my $hbc (reverse sort { $hs->{'hits_by_combo'}{$a}{'count'} <=> $hs->{'hits_by_combo'}{$b}{'count'} } keys %{ $hs->{'hits_by_combo'} }) { =%>
-    <%= $hs->{'hits_by_combo'}{$hbc}{'pcflag'} %> <%= $hs->{'hits_by_combo'}{$hbc}{'ccflag'} %> <%= $hbc %> - <%= $hs->{'hits_by_combo'}{$hbc}{'count'} %> (<%= sprintf '%.2f', 100 * $hs->{'hits_by_combo'}{$hbc}{'count'} / $hs->{'total'} %>%)
+    <% my ($series, $pc, $cc) = $hbc =~ /^(.*)(.)(.)$/; =%>
+    <%= $hs->{'hits_by_combo'}{$hbc}{'pcflag'} %> <%= $hs->{'hits_by_combo'}{$hbc}{'ccflag'} %> <%= $pc %>/<%= $cc %> - <%= $hs->{'hits_by_combo'}{$hbc}{'count'} %> (<%= sprintf '%.2f', 100 * $hs->{'hits_by_combo'}{$hbc}{'count'} / $hs->{'total'} %>%)
 <% } =%>
 
 [table]\

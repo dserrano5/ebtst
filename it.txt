@@ -26,6 +26,7 @@ Hit list = Lista delle hit
 Hit times (bingo) = Analisi cronologica delle hit (bingo)
 Hit times (detail) = Analisi cronologica delle hit (dettaglio)
 Hit locations = Località delle hit
+Hit regions = Regioni delle hit
 Hit analysis = Analisi delle hit
 Hit summary = Sommario delle hit
 Calendar = Calendario
@@ -98,6 +99,7 @@ entered on = inserita il giorno
 note = banconota
 
 ## locations
+Jump to = Vai a
 Countries with notes entered = Nazioni da cui sono state inserite banconote
 Number of notes by location = Numero di banconote per località
 Alphabets of locations by country = Alfabeto delle località per Nazione
@@ -227,6 +229,13 @@ different locations = località differenti
 Frequent Directions = Direzioni frequenti
 Local Hits = Hit locali
 Both ways hits = Hit in entrambe le direzioni
+
+## hit regions
+Hit partners = Compagni di hit
+Hit notes = Banconote hit
+our side = dalla nostra parte
+their side = dalla loro parte [but it seems better: =dalla parte dei compagni di hit]
+Post codes not found in = Codici postali non trovati in
 
 ## hit analysis
 Hit top-10 = Top-10 delle hit

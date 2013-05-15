@@ -402,7 +402,7 @@ sub regions {
 
             if    (                  $str = $cfg->{'specific'}{$city})                    { $matched = 1; $populate->($cfg, $country, $str, $note); }
 
-            $matched or $ret{'hit_regions'}{$country}{'__unmatched'}{$zip} = undef;
+            $matched or $ret{'regions'}{$country}{'__unmatched'}{$zip} = undef;
         }
     }
 

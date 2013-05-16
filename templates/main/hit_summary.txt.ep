@@ -20,8 +20,8 @@
 
 [table]\
     [tr][td][/td][td] ❘ <%=l 'Best' %>[/td][td] ❘ <%=l 'Average' %>[/td][td] ❘ <%=l 'Worst' %>[/td][td] ❘ <%=l 'Current' %>[/td][/tr]\
-    [tr][td]<%=l 'Days between' %>[/td][td] ❘ <%= $hs->{'days_between'}{'best'}//0 %>[/td][td] ❘ <%= sprintf '%.2f', $hs->{'days_between'}{'avg'}//0 %>[/td][td] ❘ <%= $hs->{'days_between'}{'worst'}//0 %>[/td][td][b]<%= $hs->{'days_between'}{'current'}//0 %>[/b][/td][/tr]\
-    [tr][td]<%=l 'Notes between' %>[/td][td] ❘ <%= $hs->{'notes_between'}{'best'}//0 %>[/td][td] ❘ <%= sprintf '%.2f', $hs->{'notes_between'}{'avg'}//0 %>[/td][td] ❘ <%= $hs->{'notes_between'}{'worst'}//0 %>[/td][td][b]<%= $hs->{'notes_between'}{'current'}//0 %>[/b][/td][/tr]\
+    [tr][td]<%=l 'Days between' %>[/td][td] ❘ <%= $hs->{'days_between'}{'best'}//0 %>[/td][td] ❘ <%= sprintf '%.2f', $hs->{'days_between'}{'avg'}//0 %>[/td][td] ❘ <%= $hs->{'days_between'}{'worst'}//0 %>[/td][td] ❘ [b]<%= $hs->{'days_between'}{'current'}//0 %>[/b][/td][/tr]\
+    [tr][td]<%=l 'Notes between' %>[/td][td] ❘ <%= $hs->{'notes_between'}{'best'}//0 %>[/td][td] ❘ <%= sprintf '%.2f', $hs->{'notes_between'}{'avg'}//0 %>[/td][td] ❘ <%= $hs->{'notes_between'}{'worst'}//0 %>[/td][td] ❘ [b]<%= $hs->{'notes_between'}{'current'}//0 %>[/b][/td][/tr]\
 [/table]\
 
 <%=l 'Next hit should occur on average on' %> [b]<%= $hs->{'days_forecast'} %>[/b] (<%==l "or it's a dry spell" %> ;))

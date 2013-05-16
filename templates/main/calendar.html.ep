@@ -69,7 +69,7 @@
                                 <% foreach my $value ('all', @{ EBT2->values }) { =%>
                                     <% if ($entry->{'events'}{'notes'}{$value}) {
                                         <% push @txt_bottom, sprintf '%s<a href="https://eurobilltracker.com/notes/?id=%s">%s %d</a>', =%>
-                                        <%     ('all' eq $value ? '' : sprintf '<img src="${images_prefix}images/values/%s.gif">: ', $value), =%>
+                                        <%     ('all' eq $value ? '' : sprintf '<img src="%simages/values/%s.gif">: ', $images_prefix, $value), =%>
                                         <%     $entry->{'events'}{'notes'}{$value}{'id'}, (ucfirst l 'note'), $entry->{'events'}{'notes'}{$value}{'total'}; =%>
                                     <% } =%>
                                 <% } =%>

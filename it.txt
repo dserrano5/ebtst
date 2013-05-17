@@ -234,7 +234,7 @@ Both ways hits = Hit in entrambe le direzioni
 Hit partners = Compagni di hit
 Hit notes = Banconote hit
 our side = dalla nostra parte
-their side = dalla loro parte [but it seems better: =dalla parte dei compagni di hit]
+their side = dalla loro parte
 Post codes not found in = Codici postali non trovati in
 
 ## hit analysis

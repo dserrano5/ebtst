@@ -12,6 +12,7 @@ PrintZeros=0
 
 Group=Cidades e Vilas de Portugal
 
+SubGroup=Cidades
 2200;Abrantes=Abrantes
 2205;Abrantes=Abrantes
 2735;Agualva-Cacém=Agualva-Cacém
@@ -134,6 +135,7 @@ Group=Cidades e Vilas de Portugal
 8005;Faro=Faro
 8009;Faro=Faro
 2495;Fátima=Fátima
+2495;Fatima=Fátima
 4610;Felgueiras=Felgueiras
 4505;Fiães=Fiães
 3080;Figueira da Foz=Figueira da Foz
@@ -163,8 +165,8 @@ Group=Cidades e Vilas de Portugal
 4800;Guimaraes=Guimarães
 4810;Guimaraes=Guimarães
 9900;Horta=Horta
-9001;Horta=Horta
-9004;Horta=Horta
+9901;Horta=Horta
+9904;Horta=Horta
 3830;Ílhavo=Ílhavo
 3830;Ilhavo=Ílhavo
 9560;Lagoa=Açores
@@ -362,8 +364,7 @@ Group=Cidades e Vilas de Portugal
 3515;Viseu=Viseu
 4815;Vizela=Vizela
 
-Group=Vilas de Portugal
-
+SubGroup=Vilas
 2560;A-dos-Cunhados=A dos Cunhados
 2500;A-dos-Francos=A dos Francos
 4560;Abragão=Abragão

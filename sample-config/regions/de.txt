@@ -4780,6 +4780,7 @@ SubGroup=Bayern
 84453=Mühldorf am Inn
 95213=Münchberg
 85540;München=München
+80000,81929=München
 97702=Münnerstadt
 92507=Nabburg
 95119=Naila

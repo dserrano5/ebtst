@@ -30,6 +30,7 @@ Group=Autonomous Communities of Spain/Comunidades autónomas
 01000,01999=<img border='0' alt="Euskadi/País Vasco" src=https://dserrano5.es/ebt/ebtst/images/regions/800pxflagofthebasquecougr3.png> Euskadi/País Vasco
 20000,20999=<img border='0' alt="Euskadi/País Vasco" src=https://dserrano5.es/ebt/ebtst/images/regions/800pxflagofthebasquecougr3.png> Euskadi/País Vasco
 35000,35999=<img border='0' alt="Islas Canarias" src=https://dserrano5.es/ebt/ebtst/images/regions/744pxflagofthecanaryislut3.png> Islas Canarias
+38000,38999=<img border='0' alt="Islas Canarias" src=https://dserrano5.es/ebt/ebtst/images/regions/744pxflagofthecanaryislut3.png> Islas Canarias
 39000,39999=<img border='0' alt="Cantabria" src=https://dserrano5.es/ebt/ebtst/images/regions/800pxflagofcantabriasvgfj0.png> Cantabria
 19000,19999=Castilla-La Mancha
 45000,45999=Castilla-La Mancha

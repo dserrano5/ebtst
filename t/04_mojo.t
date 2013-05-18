@@ -8,7 +8,7 @@ use File::Basename 'dirname';
 use Test::More;
 use Test::Mojo;
 
-plan tests => 563;
+plan tests => 571;
 
 my ($t, $csrftoken);
 
@@ -173,11 +173,15 @@ next_is_xhr; $t->get_ok ("/import/$sha")->status_is (200)->content_type_is ('tex
 foreach my $section (qw/
     information value countries printers locations travel_stats huge_table short_codes nice_serials coords_bingo notes_per_year notes_per_month
     top_days time_analysis_bingo time_analysis_detail combs_bingo combs_detail plate_bingo hit_list hit_times_bingo hit_times_detail
-    hit_locations hit_analysis hit_summary calendar
+    hit_locations hit_analysis hit_summary calendar bad_notes
 /) {
     $t->get_ok ("/$section")->status_is (200);
     $t->get_ok ("/$section.txt")->status_is (200);
 }
+$t->get_ok ("/bad_notes")->status_is (200);
+my $bad_notes_html = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->html;
+unlike $bad_notes_html, qr{images/countries/.?\.gif},    'correct flag images (not too short)';
+unlike $bad_notes_html, qr{images/countries/[^.]{3,}\.gif}, 'correct flag images (not too long)';
 
 
 ## one passive moderated hit

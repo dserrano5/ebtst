@@ -1447,12 +1447,13 @@ sub bad_notes {
             $bn->{'serial'} =~ s/^([A-Z])....(....)...$/$1xxxx$2xxx/;
         }
         $bn->{'short_code'} = substr $bn->{'short_code'}, 0, 4;
+        my $pc_iso3166 = (split /,/, EBT2->printers ($pc, $bn->{'series'}))[0];
         push @cooked, {
             %$bn,
             idx        => ++$idx,
-            pc_img     => EBT2->printers ($pc),
+            pc_img     => $pc_iso3166,
             cc_img     => EBT2->countries ($cc),
-            bbflag_pc  => EBT2->flag (EBT2->printers ($pc)),
+            bbflag_pc  => EBT2->flag ($pc_iso3166),
             bbflag_cc  => EBT2->flag (EBT2->countries ($cc)),
             bbflag_got => EBT2->flag ($bn->{'country'}),
         };

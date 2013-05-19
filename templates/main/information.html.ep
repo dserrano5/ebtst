@@ -34,6 +34,11 @@
   <b><%=l 'Unknown' %>: <%= $sigs_unk %></b> (<%= $sigs_unk_pct %>%)
   <% } =%>
   <br>
+<%=l 'Series' %>:
+  <b>2002 <%= $series_2002 %></b> (<%= $series_2002_pct %>%)
+  -
+  <b>Europa <%= $series_europa %></b> (<%= $series_europa_pct %>%)
+  <br>
 <br>
 <%=l 'Average value per note' %>: <b><%= $avg_value %></b> EUR<br>
 <%=l 'Average entering rate' %>: <b><%= $avg_per_day %></b> <%=l 'notes/day' %><br>

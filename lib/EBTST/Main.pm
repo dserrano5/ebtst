@@ -328,19 +328,22 @@ sub information {
     my $ac          = $self->ebt->get_activity;                   $xhr and $self->{'progress'}->base_add ($count);
     my $total_value = $self->ebt->get_total_value;                ## (don't set progress, this has been already calculated and cached)
     my $sigs        = $self->ebt->get_signatures;                 ## already cached
+    my $series      = $self->ebt->get_series;                     ## already cached
     my $full_days   = $self->ebt->get_days_elapsed;               ## already cached
     my $notes_dates = $self->ebt->get_notes_dates;                ## already cached
     my $elem_by_pres = $self->ebt->get_elem_notes_by_president;   ## already cached
     #$self->_log (debug => report 'information get', $t0, $count);
 
     $t0 = [gettimeofday];
-    my $avg_value   = $total_value / $count;
-    my $wd          = $sigs->{'WD'}   // 0;
-    my $jct         = $sigs->{'JCT'}  // 0;
-    my $md          = $sigs->{'MD'}   // 0;
-    my $unk         = $sigs->{'_UNK'} // 0;
-    my $today       = DateTime->now->set_time_zone ('Europe/Madrid')->strftime ('%Y-%m-%d %H:%M:%S');
-    my $avg_per_day = $full_days ? $count / $full_days : undef;
+    my $avg_value     = $total_value / $count;
+    my $wd            = $sigs->{'WD'}   // 0;
+    my $jct           = $sigs->{'JCT'}  // 0;
+    my $md            = $sigs->{'MD'}   // 0;
+    my $unk           = $sigs->{'_UNK'} // 0;
+    my $series_2002   = $series->{'2002'} // 0;
+    my $series_europa = $series->{'europa'} // 0;
+    my $today         = DateTime->now->set_time_zone ('Europe/Madrid')->strftime ('%Y-%m-%d %H:%M:%S');
+    my $avg_per_day   = $full_days ? $count / $full_days : undef;
     #$self->_log (debug => report 'information cook', $t0, $count);
 
     $t0 = [gettimeofday];
@@ -370,23 +373,27 @@ sub information {
     if ($xhr) { $self->res->headers->connection ('close'); return $self->_end_progress; }
 
     $self->stash (
-        title        => $section_titles{'information'},
-        ac           => $ac,
-        bbflag       => EBT2->flag ($ac->{'first_note'}{'country'}),
-        today        => $today,
-        full_days    => $full_days,
-        count        => $count,
-        total_value  => $total_value,
-        avg_value    => (sprintf '%.2f', $avg_value),
-        avg_per_day  => (sprintf '%.2f', $avg_per_day//0),
-        sigs_wd      => $wd,
-        sigs_jct     => $jct,
-        sigs_md      => $md,
-        sigs_unk     => $unk,
-        sigs_wd_pct  => (sprintf '%.2f', 100 * $wd  / $count),
-        sigs_jct_pct => (sprintf '%.2f', 100 * $jct / $count),
-        sigs_md_pct  => (sprintf '%.2f', 100 * $md  / $count),
-        sigs_unk_pct => (sprintf '%.2f', 100 * $unk / $count),
+        title             => $section_titles{'information'},
+        ac                => $ac,
+        bbflag            => EBT2->flag ($ac->{'first_note'}{'country'}),
+        today             => $today,
+        full_days         => $full_days,
+        count             => $count,
+        total_value       => $total_value,
+        avg_value         => (sprintf '%.2f', $avg_value),
+        avg_per_day       => (sprintf '%.2f', $avg_per_day//0),
+        sigs_wd           => $wd,
+        sigs_jct          => $jct,
+        sigs_md           => $md,
+        sigs_unk          => $unk,
+        sigs_wd_pct       => (sprintf '%.2f', 100 * $wd  / $count),
+        sigs_jct_pct      => (sprintf '%.2f', 100 * $jct / $count),
+        sigs_md_pct       => (sprintf '%.2f', 100 * $md  / $count),
+        sigs_unk_pct      => (sprintf '%.2f', 100 * $unk / $count),
+        series_2002       => $series_2002,
+        series_europa     => $series_europa,
+        series_2002_pct   => (sprintf '%.2f', 100 * $series_2002 / $count),
+        series_europa_pct => (sprintf '%.2f', 100 * $series_europa / $count),
     );
 }
 

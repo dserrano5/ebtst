@@ -8,7 +8,7 @@ use File::Basename 'dirname';
 use Test::More;
 use Test::Mojo;
 
-plan tests => 571;
+plan tests => 574;
 
 my ($t, $csrftoken);
 
@@ -212,7 +212,9 @@ next_is_xhr; $t->post_form_ok ('/upload', {
 })->status_is (200)->content_type_is ('text/plain; charset=utf-8')->content_like (qr/^[0-9a-z]{8}$/, 'upload europa notes');
 $sha = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->text;
 next_is_xhr; $t->get_ok ("/import/$sha")->status_is (200)->content_type_is ('text/plain; charset=utf-8')->content_is ('information', 'import');
-## TODO: notes by series:   $t->get_ok ('/information')->status_is (200)->content_like (qr//, 'notes by series');
+## notes by series
+$t->get_ok ('/information')->status_is (200)->content_like (qr{\bSeries:\s+<b>2002 5</b> \([^%]+%\)\s+-\s+<b>Europa 4</b>}, 'notes by series');
+## printers
 $t->get_ok ('/printers')->status_is (200);
 my $printers_table = Mojo::DOM->new ($t->tx->res->content->asset->slurp)->at ('#notes_by_pc');
 like

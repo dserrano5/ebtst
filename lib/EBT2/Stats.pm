@@ -75,6 +75,9 @@ sub bundle_information {
             ## signatures
             $ret{'signatures'}{ $note->[SIGNATURE] }++;
 
+            ## series
+            $ret{'series'}{ $note->[SERIES] }++;
+
             ## days_elapsed
             if (!exists $ret{'days_elapsed'}) {
                 my $dt0 = DateTime->new (
@@ -161,6 +164,7 @@ sub bundle_information {
 sub activity     { goto &bundle_information; }
 sub total_value  { goto &bundle_information; }
 sub signatures   { goto &bundle_information; }
+sub series       { goto &bundle_information; }
 sub days_elapsed { goto &bundle_information; }
 sub notes_dates  { goto &bundle_information; }
 sub elem_notes_by_president { goto &bundle_information; }

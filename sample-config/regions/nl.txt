@@ -145,34 +145,34 @@ Group=Neterlands outside Europe
 
 Group=Provincial capitals in The Netherlands (see <a href="http://www.eurobilltrackerforum.com/viewtopic.php?t=11503">forum</a>)
 
-6800,6846=<img border='0' alt="Gelderland" src=https://dserrano5.es/ebt/ebtst/images/regions/GL.png> Arnhem
-9400,9408=<img border='0' alt="Drenthe" src=https://dserrano5.es/ebt/ebtst/images/regions/Dr.png> Assen
-2490,2597=<img border='0' alt="Zuid-Holland" src=https://dserrano5.es/ebt/ebtst/images/regions/ZH.png> Den Haag
-9700,9722=<img border='0' alt="Groningen" src=https://dserrano5.es/ebt/ebtst/images/regions/Gr.png> Groningen
-9723;Groningen=<img border='0' alt="Groningen" src=https://dserrano5.es/ebt/ebtst/images/regions/Gr.png> Groningen
-9724,9733=<img border='0' alt="Groningen" src=https://dserrano5.es/ebt/ebtst/images/regions/Gr.png> Groningen
-9734;Groningen=<img border='0' alt="Groningen" src=https://dserrano5.es/ebt/ebtst/images/regions/Gr.png> Groningen
-9735,9737=<img border='0' alt="Groningen" src=https://dserrano5.es/ebt/ebtst/images/regions/Gr.png> Groningen
-9738;Groningen=<img border='0' alt="Groningen" src=https://dserrano5.es/ebt/ebtst/images/regions/Gr.png> Groningen
-9741,9743=<img border='0' alt="Groningen" src=https://dserrano5.es/ebt/ebtst/images/regions/Gr.png> Groningen
-9745;Groningen=<img border='0' alt="Groningen" src=https://dserrano5.es/ebt/ebtst/images/regions/Gr.png> Groningen
-9746;Groningen=<img border='0' alt="Groningen" src=https://dserrano5.es/ebt/ebtst/images/regions/Gr.png> Groningen
-9747=<img border='0' alt="Groningen" src=https://dserrano5.es/ebt/ebtst/images/regions/Gr.png> Groningen
-2000,2037=<img border='0' alt="Noord-Holland" src=https://dserrano5.es/ebt/ebtst/images/regions/NH.png> Haarlem
-5200,5220=<img border='0' alt="Noord-Brabant" src=https://dserrano5.es/ebt/ebtst/images/regions/NB.png> 's-Hertogenbosch
-5221;'s-Hertogenbosch=<img border='0' alt="Noord-Brabant" src=https://dserrano5.es/ebt/ebtst/images/regions/NB.png> 's-Hertogenbosch
-5222,5234=<img border='0' alt="Noord-Brabant" src=https://dserrano5.es/ebt/ebtst/images/regions/NB.png> 's-Hertogenbosch
-5235;'s-Hertogenbosch=<img border='0' alt="Noord-Brabant" src=https://dserrano5.es/ebt/ebtst/images/regions/NB.png> 's-Hertogenbosch
-5236;'s-Hertogenbosch=<img border='0' alt="Noord-Brabant" src=https://dserrano5.es/ebt/ebtst/images/regions/NB.png> 's-Hertogenbosch
-5237=<img border='0' alt="Noord-Brabant" src=https://dserrano5.es/ebt/ebtst/images/regions/NB.png> 's-Hertogenbosch
-8900,8939=<img border='0' alt="Friesland / Fryslân" src=https://dserrano5.es/ebt/ebtst/public/images/FRL.png> Leeuwarden
-8200,8245=<img border='0' alt="Flevoland" src=https://dserrano5.es/ebt/ebtst/images/regions/FL.png> Lelystad
-6200,6222=<img border='0' alt="Limburg" src=https://dserrano5.es/ebt/ebtst/images/regions/Lb.png> Maastricht
-6223;Maastricht=<img border='0' alt="Limburg" src=https://dserrano5.es/ebt/ebtst/images/regions/Lb.png> Maastricht
-6224,6229=<img border='0' alt="Limburg" src=https://dserrano5.es/ebt/ebtst/images/regions/Lb.png> Maastricht
-4330,4338=<img border='0' alt="Zeeland" src=https://dserrano5.es/ebt/ebtst/images/regions/ZL.jpg> Middelburg
-3500,3585=<img border='0' alt="Utrecht" src=https://dserrano5.es/ebt/ebtst/images/regions/Ut.png> Utrecht
-8000,8045=<img border='0' alt="Overijssel" src=https://dserrano5.es/ebt/ebtst/images/regions/Ov.png> Zwolle
+6800,6846=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/GL.png> Arnhem
+9400,9408=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Dr.png> Assen
+2490,2597=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/ZH.png> Den Haag
+9700,9722=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Gr.png> Groningen
+9723;Groningen=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Gr.png> Groningen
+9724,9733=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Gr.png> Groningen
+9734;Groningen=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Gr.png> Groningen
+9735,9737=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Gr.png> Groningen
+9738;Groningen=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Gr.png> Groningen
+9741,9743=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Gr.png> Groningen
+9745;Groningen=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Gr.png> Groningen
+9746;Groningen=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Gr.png> Groningen
+9747=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Gr.png> Groningen
+2000,2037=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/NH.png> Haarlem
+5200,5220=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/NB.png> 's-Hertogenbosch
+5221;'s-Hertogenbosch=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/NB.png> 's-Hertogenbosch
+5222,5234=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/NB.png> 's-Hertogenbosch
+5235;'s-Hertogenbosch=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/NB.png> 's-Hertogenbosch
+5236;'s-Hertogenbosch=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/NB.png> 's-Hertogenbosch
+5237=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/NB.png> 's-Hertogenbosch
+8900,8939=<img border='0' src=https://dserrano5.es/ebt/ebtst/public/images/FRL.png> Leeuwarden
+8200,8245=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/FL.png> Lelystad
+6200,6222=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Lb.png> Maastricht
+6223;Maastricht=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Lb.png> Maastricht
+6224,6229=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Lb.png> Maastricht
+4330,4338=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/ZL.jpg> Middelburg
+3500,3585=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Ut.png> Utrecht
+8000,8045=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Ov.png> Zwolle
 
 
 Group=Biggest Cities in The Netherlands (see <a href="http://forum.eurobilltracker.eu/viewtopic.php?t=8261">forum</a>)

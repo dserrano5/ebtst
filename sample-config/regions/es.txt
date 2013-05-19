@@ -13,60 +13,60 @@
 
 
 Group=Autonomous Communities of Spain/Comunidades autónomas
-21000,21999=<img border='0' alt="Andalucía" src=https://dserrano5.es/ebt/ebtst/images/regions/flagesandaluca300pxresihh4.png> Andalucía
-41000,41999=<img border='0' alt="Andalucía" src=https://dserrano5.es/ebt/ebtst/images/regions/flagesandaluca300pxresihh4.png> Andalucía
-11000,11999=<img border='0' alt="Andalucía" src=https://dserrano5.es/ebt/ebtst/images/regions/flagesandaluca300pxresihh4.png> Andalucía
-14000,14999=<img border='0' alt="Andalucía" src=https://dserrano5.es/ebt/ebtst/images/regions/flagesandaluca300pxresihh4.png> Andalucía
-29000,29999=<img border='0' alt="Andalucía" src=https://dserrano5.es/ebt/ebtst/images/regions/flagesandaluca300pxresihh4.png> Andalucía
-18000,18999=<img border='0' alt="Andalucía" src=https://dserrano5.es/ebt/ebtst/images/regions/flagesandaluca300pxresihh4.png> Andalucía
-23000,23999=<img border='0' alt="Andalucía" src=https://dserrano5.es/ebt/ebtst/images/regions/flagesandaluca300pxresihh4.png> Andalucía
-04000,04999=<img border='0' alt="Andalucía" src=https://dserrano5.es/ebt/ebtst/images/regions/flagesandaluca300pxresihh4.png> Andalucía
-22000,22999=<img border='0' alt="Aragón" src=https://dserrano5.es/ebt/ebtst/images/regions/800pxflagofaragonsvgresqz1.png> Aragón
-50000,50999=<img border='0' alt="Aragón" src=https://dserrano5.es/ebt/ebtst/images/regions/800pxflagofaragonsvgresqz1.png> Aragón
-44000,44999=<img border='0' alt="Aragón" src=https://dserrano5.es/ebt/ebtst/images/regions/800pxflagofaragonsvgresqz1.png> Aragón
+21000,21999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/flagesandaluca300pxresihh4.png> Andalucía
+41000,41999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/flagesandaluca300pxresihh4.png> Andalucía
+11000,11999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/flagesandaluca300pxresihh4.png> Andalucía
+14000,14999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/flagesandaluca300pxresihh4.png> Andalucía
+29000,29999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/flagesandaluca300pxresihh4.png> Andalucía
+18000,18999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/flagesandaluca300pxresihh4.png> Andalucía
+23000,23999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/flagesandaluca300pxresihh4.png> Andalucía
+04000,04999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/flagesandaluca300pxresihh4.png> Andalucía
+22000,22999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/800pxflagofaragonsvgresqz1.png> Aragón
+50000,50999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/800pxflagofaragonsvgresqz1.png> Aragón
+44000,44999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/800pxflagofaragonsvgresqz1.png> Aragón
 33000,33999=Principado de Asturias
-07000,07999=<img border='0' alt="Illes Balears/Islas Baleares" src=https://dserrano5.es/ebt/ebtst/images/regions/540pxflagofthebalearici.png> Illes Balears/Islas Baleares
-48000,48999=<img border='0' alt="Euskadi/País Vasco" src=https://dserrano5.es/ebt/ebtst/images/regions/800pxflagofthebasquecougr3.png> Euskadi/País Vasco
-01000,01999=<img border='0' alt="Euskadi/País Vasco" src=https://dserrano5.es/ebt/ebtst/images/regions/800pxflagofthebasquecougr3.png> Euskadi/País Vasco
-20000,20999=<img border='0' alt="Euskadi/País Vasco" src=https://dserrano5.es/ebt/ebtst/images/regions/800pxflagofthebasquecougr3.png> Euskadi/País Vasco
-35000,35999=<img border='0' alt="Islas Canarias" src=https://dserrano5.es/ebt/ebtst/images/regions/744pxflagofthecanaryislut3.png> Islas Canarias
-38000,38999=<img border='0' alt="Islas Canarias" src=https://dserrano5.es/ebt/ebtst/images/regions/744pxflagofthecanaryislut3.png> Islas Canarias
-39000,39999=<img border='0' alt="Cantabria" src=https://dserrano5.es/ebt/ebtst/images/regions/800pxflagofcantabriasvgfj0.png> Cantabria
+07000,07999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/540pxflagofthebalearici.png> Illes Balears/Islas Baleares
+48000,48999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/800pxflagofthebasquecougr3.png> Euskadi/País Vasco
+01000,01999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/800pxflagofthebasquecougr3.png> Euskadi/País Vasco
+20000,20999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/800pxflagofthebasquecougr3.png> Euskadi/País Vasco
+35000,35999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/744pxflagofthecanaryislut3.png> Islas Canarias
+38000,38999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/744pxflagofthecanaryislut3.png> Islas Canarias
+39000,39999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/800pxflagofcantabriasvgfj0.png> Cantabria
 19000,19999=Castilla-La Mancha
 45000,45999=Castilla-La Mancha
 16000,16999=Castilla-La Mancha
 02000,02999=Castilla-La Mancha
 13000,13999=Castilla-La Mancha
-05000,05999=<img border='0' alt="Castilla y León" src=https://dserrano5.es/ebt/ebtst/images/regions/600pxflagofcastillaylenhz1.png> Castilla y León
-37000,37999=<img border='0' alt="Castilla y León" src=https://dserrano5.es/ebt/ebtst/images/regions/600pxflagofcastillaylenhz1.png> Castilla y León
-47000,47999=<img border='0' alt="Castilla y León" src=https://dserrano5.es/ebt/ebtst/images/regions/600pxflagofcastillaylenhz1.png> Castilla y León
-40000,40999=<img border='0' alt="Castilla y León" src=https://dserrano5.es/ebt/ebtst/images/regions/600pxflagofcastillaylenhz1.png> Castilla y León
-42000,42999=<img border='0' alt="Castilla y León" src=https://dserrano5.es/ebt/ebtst/images/regions/600pxflagofcastillaylenhz1.png> Castilla y León
-09000,09999=<img border='0' alt="Castilla y León" src=https://dserrano5.es/ebt/ebtst/images/regions/600pxflagofcastillaylenhz1.png> Castilla y León
-34000,34999=<img border='0' alt="Castilla y León" src=https://dserrano5.es/ebt/ebtst/images/regions/600pxflagofcastillaylenhz1.png> Castilla y León
-49000,49999=<img border='0' alt="Castilla y León" src=https://dserrano5.es/ebt/ebtst/images/regions/600pxflagofcastillaylenhz1.png> Castilla y León
-24000,24999=<img border='0' alt="Castilla y León" src=https://dserrano5.es/ebt/ebtst/images/regions/600pxflagofcastillaylenhz1.png> Castilla y León
+05000,05999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/600pxflagofcastillaylenhz1.png> Castilla y León
+37000,37999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/600pxflagofcastillaylenhz1.png> Castilla y León
+47000,47999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/600pxflagofcastillaylenhz1.png> Castilla y León
+40000,40999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/600pxflagofcastillaylenhz1.png> Castilla y León
+42000,42999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/600pxflagofcastillaylenhz1.png> Castilla y León
+09000,09999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/600pxflagofcastillaylenhz1.png> Castilla y León
+34000,34999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/600pxflagofcastillaylenhz1.png> Castilla y León
+49000,49999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/600pxflagofcastillaylenhz1.png> Castilla y León
+24000,24999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/600pxflagofcastillaylenhz1.png> Castilla y León
 17000,17999=Catalunya/Cataluña
 08000,08999=Catalunya/Cataluña
 25000,25999=Catalunya/Cataluña
 43000,43999=Catalunya/Cataluña
-06000,06999=<img border='0' alt="Extremadura" src=https://dserrano5.es/ebt/ebtst/images/regions/banderaextremaduraresizhg6.png> Extremadura
-10000,10999=<img border='0' alt="Extremadura" src=https://dserrano5.es/ebt/ebtst/images/regions/banderaextremaduraresizhg6.png> Extremadura
+06000,06999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/banderaextremaduraresizhg6.png> Extremadura
+10000,10999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/banderaextremaduraresizhg6.png> Extremadura
 27000,27999=Galicia
 32000,32999=Galicia
 36000,36999=Galicia
 15000,15999=Galicia
-26000,26999=<img border='0' alt="La Rioja" src=https://dserrano5.es/ebt/ebtst/images/regions/600pxflagoflariojawithcxl2.png> La Rioja
-28000,28999=<img border='0' alt="Madrid" src=https://dserrano5.es/ebt/ebtst/images/regions/800pxflagofthecommunityey1.png> Madrid
-30000,30999=<img border='0' alt="Murcia" src=https://dserrano5.es/ebt/ebtst/images/regions/744pxflagoftheregionofmmk7.png> Murcia
-31000,31999=<img border='0' alt="Nafarroa/Navarra" src=https://dserrano5.es/ebt/ebtst/images/regions/744pxflagofnavarresvgrexf7.png> Nafarroa/Navarra
-12000,12999=<img border='0' alt="Comunitat Valenciana/Comunidad Valenciana" src=https://dserrano5.es/ebt/ebtst/images/regions/800pxflagofthelandofvalou5.png> Comunitat Valenciana/Comunidad Valenciana
-46000,46999=<img border='0' alt="Comunitat Valenciana/Comunidad Valenciana" src=https://dserrano5.es/ebt/ebtst/images/regions/800pxflagofthelandofvalou5.png> Comunitat Valenciana/Comunidad Valenciana
-03000,03999=<img border='0' alt="Comunitat Valenciana/Comunidad Valenciana" src=https://dserrano5.es/ebt/ebtst/images/regions/800pxflagofthelandofvalou5.png> Comunitat Valenciana/Comunidad Valenciana
+26000,26999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/600pxflagoflariojawithcxl2.png> La Rioja
+28000,28999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/800pxflagofthecommunityey1.png> Madrid
+30000,30999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/744pxflagoftheregionofmmk7.png> Murcia
+31000,31999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/744pxflagofnavarresvgrexf7.png> Nafarroa/Navarra
+12000,12999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/800pxflagofthelandofvalou5.png> Comunitat Valenciana/Comunidad Valenciana
+46000,46999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/800pxflagofthelandofvalou5.png> Comunitat Valenciana/Comunidad Valenciana
+03000,03999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/800pxflagofthelandofvalou5.png> Comunitat Valenciana/Comunidad Valenciana
 
 Group=Autonomous cities/Ciudades autónomas
 51001,51080=Ceuta
-52001,52080=<img border='0' alt="Melilla" src=https://dserrano5.es/ebt/ebtst/images/regions/100pxflagofmelillasvg.png> Melilla
+52001,52080=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/100pxflagofmelillasvg.png> Melilla
 
 
 Group=Provinces of Spain/Provincias de España

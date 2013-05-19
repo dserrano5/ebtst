@@ -19,19 +19,19 @@ Group=Regions of Belgium
 4000,7999=Région Wallonne / Wallonische Region / Waals gewest
 
 Group=Provinces of Belgium (see <a href="http://forum.eurobilltracker.eu/viewtopic.php?t=9197">forum</a>)
-2000,2999=<img border='0' alt="Antwerpen" src=https://dserrano5.es/ebt/ebtst/images/regions/800pxantwerpenresizeev8.png> Antwerpen
-1000,1299=<img border='0' alt="Région de Bruxelles-Capitale / Brussels Hoofdstedelijk Gewest" src=https://dserrano5.es/ebt/ebtst/images/regions/744pxflagbelgiumbrusselgi9.png> Région de Bruxelles-Capitale / Brussels Hoofdstedelijk Gewest
-1300,1499=<img border='0' alt="Brabant Wallon" src=https://dserrano5.es/ebt/ebtst/images/regions/brabantwallonhtmlresizeao7.gif> Brabant Wallon
-6000,6599=<img border='0' alt="Hainaut" src=https://dserrano5.es/ebt/ebtst/images/regions/hainauthtmlresizein3.gif> Hainaut
-7000,7999=<img border='0' alt="Hainaut" src=https://dserrano5.es/ebt/ebtst/images/regions/hainauthtmlresizein3.gif> Hainaut
-4000,4999=<img border='0' alt="Liège" src=https://dserrano5.es/ebt/ebtst/images/regions/liegehtmlresizewr4.gif> Liège
-3500,3999=<img border='0' alt="Limburg" src=https://dserrano5.es/ebt/ebtst/images/regions/vlaamslimburgresizery4.png> Limburg
-6600,6999=<img border='0' alt="Luxembourg" src=https://dserrano5.es/ebt/ebtst/images/regions/800pxflagprovinceluxembcp3.png> Luxembourg
-5000,5999=<img border='0' alt="Namur" src=https://dserrano5.es/ebt/ebtst/images/regions/300pxflagprovincenamursnu5.png> Namur
-9000,9999=<img border='0' alt="Oost-Vlaanderen" src=https://dserrano5.es/ebt/ebtst/images/regions/oostvlaanderenresizerz9.png> Oost-Vlaanderen
-1500,1999=<img border='0' alt="Vlaams Brabant" src=https://dserrano5.es/ebt/ebtst/images/regions/flemishbrabantflagresizod7.png> Vlaams Brabant
-3000,3499=<img border='0' alt="Vlaams Brabant" src=https://dserrano5.es/ebt/ebtst/images/regions/flemishbrabantflagresizod7.png> Vlaams Brabant
-8000,8999=<img border='0' alt="West-Vlaanderen" src=https://dserrano5.es/ebt/ebtst/images/regions/324pxflagofwestflandersqr2.png> West-Vlaanderen
+2000,2999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/800pxantwerpenresizeev8.png> Antwerpen
+1000,1299=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/744pxflagbelgiumbrusselgi9.png> Région de Bruxelles-Capitale / Brussels Hoofdstedelijk Gewest
+1300,1499=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/brabantwallonhtmlresizeao7.gif> Brabant Wallon
+6000,6599=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/hainauthtmlresizein3.gif> Hainaut
+7000,7999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/hainauthtmlresizein3.gif> Hainaut
+4000,4999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/liegehtmlresizewr4.gif> Liège
+3500,3999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/vlaamslimburgresizery4.png> Limburg
+6600,6999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/800pxflagprovinceluxembcp3.png> Luxembourg
+5000,5999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/300pxflagprovincenamursnu5.png> Namur
+9000,9999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/oostvlaanderenresizerz9.png> Oost-Vlaanderen
+1500,1999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/flemishbrabantflagresizod7.png> Vlaams Brabant
+3000,3499=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/flemishbrabantflagresizod7.png> Vlaams Brabant
+8000,8999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/324pxflagofwestflandersqr2.png> West-Vlaanderen
 
 Group=Biggest Cities of Belgium (see <a href="http://forum.eurobilltracker.eu/viewtopic.php?t=8490">forum</a>)
 1000,1299=01 Brussel (Gewest/Région)

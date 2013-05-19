@@ -80,9 +80,9 @@
                         <% } else { =%>
                             <% my $pct = sprintf '%.2f', $val_totals{ $col->{'v'} } ? (100 * $col->{'num'} / $val_totals{ $col->{'v'} }) : 0; =%>
                             <% if (1 == $col->{'num'}) { =%>
-                                <td><a href="https://eurobilltracker.com/notes/?id=<%= $col->{'id'} %>"><span style="color: <%= $col->{'color'} %>"><%= $pct %>%</span></a></td>
+                                <td><a href="https://eurobilltracker.com/notes/?id=<%= $col->{'id'} %>"><span style="color: <%= $col->{'color'} %>"><%= $col->{'num'} %><br><%= $pct %>%</span></a></td>
                             <% } else { =%>
-                                <td><span style="color: <%= $col->{'color'} %>"><%= $pct %>%</span></td>
+                                <td><span style="color: <%= $col->{'color'} %>"><%= $col->{'num'} %><br><%= $pct %>%</span></td>
                             <% } =%>
                         <% } =%>
                     <% } else { =%>

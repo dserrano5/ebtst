@@ -71,6 +71,7 @@ Total number of notes = Numero totale di banconote
 Total value of all notes = Valore totale delle banconote
 Signatures = Firme
 Unknown = Sconosciuta
+Series = Serie
 Average value per note = Valore medio delle banconote
 Average entering rate = Quantità media di banconote al giorno
 notes/day = banconote/giorno

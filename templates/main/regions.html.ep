@@ -1,7 +1,7 @@
 <a name="top"></a>
 <h2><%=l 'Regions' %></h2>
 
-Jump to:
+<%=l 'Jump to' %>:
 <ul>
     <% foreach my $country (sort keys %$region_data) { =%>
         <% my $cname = $region_data->{$country}{'__cname'}; =%>

@@ -52,7 +52,7 @@
 
 <a name="top"></a>
 <h2><%=l 'Number of notes by location' %> (<%= $num_locs %>)</h2>
-Jump to:
+<%=l 'Jump to' %>:
 <ul>
     <% foreach my $elem (@$c_data) { =%>
         <li><a href="<%= sprintf '%s#%s', $url, $elem->{'cname'} %>"><%= $elem->{'cname'} %></a></li>

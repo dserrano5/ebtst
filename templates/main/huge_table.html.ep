@@ -2,7 +2,7 @@
 <h2><%=l 'Huge table' %></h2>
 
 <% my %seen_printers; @seen_printers{ map { substr $_, -4, 1 } keys %$ht } = undef; my @seen_printers = sort keys %seen_printers; =%>
-Jump to: <% foreach my $printer (@seen_printers) { %><a href="<%= sprintf '%s#%s', $url, $printer %>"><%= $printer %></a> <% } %><br>
+<%=l 'Jump to' %>: <% foreach my $printer (@seen_printers) { %><a href="<%= sprintf '%s#%s', $url, $printer %>"><%= $printer %></a> <% } %><br>
 
 <p class="colors_legend"><%=l 'Notes have been entered up to' %>: <span class="recent_1"></span> <%=l '1 year ago' %>, <span class="recent_2"></span> <%=l '3 months ago' %>, <span class="recent_3"></span> <%=l '1 week ago' %>.</p>
 <table>

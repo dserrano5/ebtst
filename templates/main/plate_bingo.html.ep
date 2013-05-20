@@ -1,7 +1,7 @@
 <a name="top"></a>
 <h2><%=l 'Plate bingo' %></h2>
 
-Jump to: <% foreach my $v (map { $_->{'value'} } @$plate_bingo) { %><a href="<%= sprintf '%s#%s', $url, $v %>"><%= $v %></a> <% } %><br>
+<%=l 'Jump to' %>: <% foreach my $v (map { $_->{'value'} } @$plate_bingo) { %><a href="<%= sprintf '%s#%s', $url, $v %>"><%= $v %></a> <% } %><br>
 
 <% foreach my $elem (@$plate_bingo) { =%>
     <a name="<%= $elem->{'value'} %>"></a>

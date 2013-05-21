@@ -223,7 +223,7 @@ Insert month = Mese di inserimento
 Hit times = Analisi cronologica delle hit
 
 ## hit locations
-My city = Le mia località
+My city = Le mie località
 Frequent Locations (Hit Partners') = Località più frequenti (dei compagni di hit)
 Altogether hit partners in = Complessivamente hai compagni di hit in
 different locations = località differenti

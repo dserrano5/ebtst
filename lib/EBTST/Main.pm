@@ -673,7 +673,7 @@ sub printers {
             }
             my ($printer_iso3166, $printer_name) = split /,/, EBT2->printers ($pc, $series);
             push @$notes_by_pc, {
-                cname   => "($series) $printer_name",
+                cname   => (sprintf '(%s) %s', ucfirst $series, $printer_name),
                 imgname => $printer_iso3166,
                 bbflag  => EBT2->flag ($printer_iso3166),
                 pc      => $pc,

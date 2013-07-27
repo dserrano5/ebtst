@@ -1638,7 +1638,9 @@ sub hit_locations {
     } @my_locs; }
 
     my @their_locs;
+    my $num_their_locs;
     foreach my $their_loc (keys %hit_count_by_their_loc) {
+        $num_their_locs++;
         next if $hit_count_by_their_loc{$their_loc} < 2;
         my ($country, $city) = split /,/, $their_loc, 2;
         push @their_locs, {
@@ -1679,6 +1681,7 @@ sub hit_locations {
         title      => $section_titles{'hit_locations'},
         my_locs    => \@my_locs,
         their_locs => \@their_locs,
+        num_their_locs => $num_their_locs,
         arrows     => \@arrows,
         local_hits => \%local_hits,
         both_ways  => \%both_ways,

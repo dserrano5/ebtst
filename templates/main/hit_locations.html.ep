@@ -34,7 +34,7 @@
             </tr>
         <% } =%>
     </table>
-    (<%=l 'Altogether hit partners in' %> <%= scalar @$their_locs %> <%=l 'different locations' %>)
+    (<%=l 'Altogether hit partners in' %> <%= scalar $num_their_locs %> <%=l 'different locations' %>)
 <% } else { =%>
     (<%=l 'None' %>)
 <% } =%>

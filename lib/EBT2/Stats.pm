@@ -91,6 +91,10 @@ sub bundle_information {
 
             ## elem_notes_by_president
             $ret{'elem_notes_by_president'} .= $note->[SIGNATURE] . ',';
+
+            ## monthly_notes_by_president
+            my $ym = substr $note->[DATE_ENTERED], 0, 7;
+            $ret{'monthly_notes_by_president'}{$ym}{ $note->[SIGNATURE] }++;
         }
     }
     chop $ret{'elem_notes_by_president'};
@@ -168,6 +172,7 @@ sub series       { goto &bundle_information; }
 sub days_elapsed { goto &bundle_information; }
 sub notes_dates  { goto &bundle_information; }
 sub elem_notes_by_president { goto &bundle_information; }
+sub monthly_notes_by_president { goto &bundle_information; }
 
 sub notes_by_value {
     my ($self, $progress, $data) = @_;

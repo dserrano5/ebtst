@@ -6,6 +6,10 @@ use DateTime;
 use List::MoreUtils qw/zip/;
 use Chart::Gnuplot;
 
+my $PI = 3.14159265;
+
+sub _deg2rad { return $_[0] * $PI/180; }
+
 sub _quantize {
     my ($limit, $xdata, $dsets) = @_;
 
@@ -189,6 +193,9 @@ sub bar_chart {
     foreach my $idx (0..$#{ $args{'labels'} }) {
         push @labels, sprintf '"%s" %d', $args{'labels'}[$idx], $idx;
     }
+    my $labels_rotate = $args{'labels_rotate'} // 0;
+    my $label_y_offset = -3.5 * sin _deg2rad $labels_rotate;
+    my $labels_offset = "0, $label_y_offset";
 
     my $gp = Chart::Gnuplot->new (
         encoding     => 'utf8',
@@ -207,6 +214,8 @@ sub bar_chart {
         },
         xtics => {
             labels => \@labels,
+            rotate => $labels_rotate,
+            offset => $labels_offset,
         },
         legend => {
             position => 'rmargin top',

@@ -324,14 +324,15 @@ sub information {
     my ($pbase, $ptot) = split m{/}, $self->req->headers->header ('X-Calc-Sections-Progress') // '';
 
     my $t0 = [gettimeofday];
-    my $count       = $self->ebt->get_count;                      $xhr and $self->_init_progress (base => $pbase, tot => $ptot);
-    my $ac          = $self->ebt->get_activity;                   $xhr and $self->{'progress'}->base_add ($count);
-    my $total_value = $self->ebt->get_total_value;                ## (don't set progress, this has been already calculated and cached)
-    my $sigs        = $self->ebt->get_signatures;                 ## already cached
-    my $series      = $self->ebt->get_series;                     ## already cached
-    my $full_days   = $self->ebt->get_days_elapsed;               ## already cached
-    my $notes_dates = $self->ebt->get_notes_dates;                ## already cached
-    my $elem_by_pres = $self->ebt->get_elem_notes_by_president;   ## already cached
+    my $count           = $self->ebt->get_count;                      $xhr and $self->_init_progress (base => $pbase, tot => $ptot);
+    my $ac              = $self->ebt->get_activity;                   $xhr and $self->{'progress'}->base_add ($count);
+    my $total_value     = $self->ebt->get_total_value;                ## (don't set progress, this has been already calculated and cached)
+    my $sigs            = $self->ebt->get_signatures;                 ## already cached
+    my $series          = $self->ebt->get_series;                     ## already cached
+    my $full_days       = $self->ebt->get_days_elapsed;               ## already cached
+    my $notes_dates     = $self->ebt->get_notes_dates;                ## already cached
+    my $elem_by_pres    = $self->ebt->get_elem_notes_by_president;    ## already cached
+    my $monthly_by_pres = $self->ebt->get_monthly_notes_by_president; ## already cached
     #$self->_log (debug => report 'information get', $t0, $count);
 
     $t0 = [gettimeofday];
@@ -347,9 +348,11 @@ sub information {
     #$self->_log (debug => report 'information cook', $t0, $count);
 
     $t0 = [gettimeofday];
-    my $dest_img = File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'pct_by_pres.svg');
-    if (!-e $dest_img) {
+    my $dest_img1 = File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'pct_by_pres.svg');
+    my $dest_img2 = File::Spec->catfile ($self->stash ('images_dir'), $self->stash ('user'), 'pct_by_pres_monthly.svg');
+    if (!-e $dest_img1 or !-e $dest_img2) {
         my @initials_pres = map { (split /:/)[0] } @{ EBT2->presidents };
+
         my %dpoints;
         foreach my $elem (map { (split ' ')[0] } split ',', $elem_by_pres) {
             push @{ $dpoints{$_} }, ($dpoints{$_}[-1]//0) for 'Total', @initials_pres;
@@ -357,15 +360,54 @@ sub information {
             $dpoints{$elem}[-1]++ if '_UNK' ne $elem;
         }
 
-        EBTST::Main::Gnuplot::bartime_chart
-            output => (encode 'UTF-8', $dest_img),
+        -e $dest_img1 or EBTST::Main::Gnuplot::bartime_chart
+            output => (encode 'UTF-8', $dest_img1),
             xdata => $notes_dates,
             title => (encode 'UTF-8', $self->l ('Historic percent notes by president')),
             percent => 1,
             dsets => [
-                { title =>    'WD', color => '#FF4040', points => $dpoints{'WD'}  },
-                { title =>   'JCT', color => '#4040FF', points => $dpoints{'JCT'} },
-                { title =>    'MD', color => '#40FF40', points => $dpoints{'MD'}  },
+                { title => 'WD',  color => '#FF4040', points => $dpoints{'WD'}  },
+                { title => 'JCT', color => '#4040FF', points => $dpoints{'JCT'} },
+                { title => 'MD',  color => '#40FF40', points => $dpoints{'MD'}  },
+            ];
+
+        my @labels_monthly;
+        my %dpoints_monthly;
+        my ($y, $m) = split /-/, (sort keys %$monthly_by_pres)[0];
+        my $cursor = DateTime->new (year => $y, month => $m);
+        my $now = DateTime->now;
+        while (1) {
+            my $ym = $cursor->strftime ('%Y-%m');
+            push @labels_monthly, $ym;
+            my $monthly_tot = 0;
+            foreach my $pres (@initials_pres) {
+                $monthly_tot += $monthly_by_pres->{$ym}{$pres} // 0;
+            }
+            foreach my $pres (@initials_pres) {
+                push @{ $dpoints_monthly{$pres} }, $monthly_tot ? ($monthly_by_pres->{$ym}{$pres} // 0)*100/$monthly_tot : 0;
+            }
+            $cursor->add (months => 1);
+            last if $cursor > $now;
+        }
+        ## empty some labels if there are too many of them to be properly displayed
+        my @idxs_to_empty;
+        if (@labels_monthly > 100) {
+            @idxs_to_empty = grep { $_ % 3 } 0..$#labels_monthly;
+        } elsif (@labels_monthly > 50) {
+            @idxs_to_empty = grep { $_ % 2 } 0..$#labels_monthly;
+        }
+        @labels_monthly[@idxs_to_empty] = ('') x @idxs_to_empty;
+
+        -e $dest_img2 or EBTST::Main::Gnuplot::bar_chart
+            output     => (encode 'UTF-8', $dest_img2),
+            labels     => \@labels_monthly,
+            labels_rotate => 90,
+            title => (encode 'UTF-8', $self->l ('Monthy percent notes by president')),
+            bar_border => (@labels_monthly > 100 ? 0 : 1),
+            dsets => [
+                { title => 'WD',  color => '#FF4040', points => $dpoints_monthly{'WD'}  },
+                { title => 'JCT', color => '#4040FF', points => $dpoints_monthly{'JCT'} },
+                { title => 'MD',  color => '#40FF40', points => $dpoints_monthly{'MD'}  },
             ];
     }
     #$self->_log (debug => report 'information chart', $t0, $count);

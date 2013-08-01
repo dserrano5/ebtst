@@ -9,8 +9,8 @@ use MIME::Base64;
 sub note_serial_cksum {
     my ($y, $s) = map uc, @_;
 
-    if ('2002' eq $y)      { return 0 if !defined $s or $s !~ /^[EFGHLMNPSTUVXYZ]\d{11}$/;
-    } elsif ('2013' eq $y) { return 0 if !defined $s or $s !~ /^[EFGHLMNPSTUVXYZ][A-J]\d{10}$/;
+    if ('2002' eq $y)      { return 0 if !defined $s or $s !~ /^[DEFGHLMNPSTUVXYZ]\d{11}$/;
+    } elsif ('2013' eq $y) { return 0 if !defined $s or $s !~ /^[DEFGHLMNPSTUVXYZ][A-J]\d{10}$/;
     } else                 { return 0;
     }
 
@@ -34,13 +34,13 @@ sub validate_note {
 
     push @errors, "Bad value '$v'" unless grep { $_ eq $v } @{ EBT2->values };
     if ('2002' eq $hr->{'year'}) {
-        if ($hr->{'serial'} =~ /^[EFGHLMNPSTUVXYZ]\d{11}$/) {
+        if ($hr->{'serial'} =~ /^[DEFGHLMNPSTUVXYZ]\d{11}$/) {
             push @errors, 'Bad checksum for serial number' unless note_serial_cksum $hr->{'year'}, $hr->{'serial'};
         } else {
             push @errors, 'Bad serial number';
         }
     } elsif ('2013' eq $hr->{'year'}) {
-        if ($hr->{'serial'} =~ /^[EFGHLMNPSTUVXYZ][A-J]\d{10}$/) {
+        if ($hr->{'serial'} =~ /^[DEFGHLMNPSTUVXYZ][A-J]\d{10}$/) {
             push @errors, 'Bad checksum for serial number' unless note_serial_cksum $hr->{'year'}, $hr->{'serial'};
         } else {
             push @errors, 'Bad serial number';

@@ -1,3 +1,2 @@
-kill $(cat ~/usr/ebtst/script/hypnotoad.pid)
-sleep 1
+pkill -f ebtst.pl; sleep 2; pgrep -lf ebtst.pl
 hypnotoad ~/usr/ebtst/script/ebtst.pl

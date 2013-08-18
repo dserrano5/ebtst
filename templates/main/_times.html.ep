@@ -251,13 +251,32 @@
 <br><br>
 
 <% %color_counts = (); =%>
-<b><%=l 'Hours, minutes and seconds' %></b><br>
-<% foreach my $h (keys %{ $time_data->{'hhmmss'} }) { =%>
-    <% foreach my $m (keys %{ $time_data->{'hhmmss'}{$h} }) { =%>
-        <% foreach my $s (keys %{ $time_data->{'hhmmss'}{$h}{$m} }) { =%>
-            <% my $color = color $time_data->{'hhmmss'}{$h}{$m}{$s}, $color_what; $color_counts{$color}++; =%>
-        <% } =%>
+<% foreach my $h (map { sprintf '%02d', $_ } 0 .. 23) { =%>
+    <b><%=l 'Hours, minutes and seconds' %>: <%= $h %></b><br>
+    <table>
+    <% if ('bingo' eq $mode) { =%>
+        <tr>
+            <th class="tiny_cell"></th>
+            <% foreach my $s (map { sprintf '%02d', $_ } 0 .. 59) { =%>
+                <th class="tiny_cell"><%= $s %></th>
+            <% } =%>
+        </tr>
     <% } =%>
+    <% foreach my $m (map { sprintf '%02d', $_ } 0 .. 59) { =%>
+        <tr>
+            <th class="tiny_cell"><%= $m %></th>
+            <% foreach my $s (map { sprintf '%02d', $_ } 0 .. 59) { =%>
+                <% my $color = color $time_data->{'hhmmss'}{$h}{$m}{$s}, $color_what; $color_counts{$color}++; =%>
+                <% my $class = 'bingo_' . (0 + !!$time_data->{'hhmmss'}{$h}{$m}{$s}); =%>
+                <% if ('detail' eq $mode) { =%>
+                    <td class="tiny_cell"><span style="color: <%= $color %>"><%= $s %></span></td>
+                <% } else { =%>
+                    <td class="tiny_cell"><span class="<%= $class %>"></span></td>
+                <% } =%>
+            <% } =%>
+        </tr>
+    <% } =%>
+    </table>
 <% } =%>
 <% if ('detail' eq $mode) { =%>
     <b><%=l 'Colors' %></b>:
@@ -311,13 +330,32 @@
 <br><br>
 
 <% %color_counts = (); =%>
-<b><%=l 'Days of week, hours and minutes' %></b><br>
-<% foreach my $dow (keys %{ $time_data->{'dowhhmm'} }) { =%>
-    <% foreach my $h (keys %{ $time_data->{'dowhhmm'}{$dow} }) { =%>
-        <% foreach my $m (keys %{ $time_data->{'dowhhmm'}{$dow}{$h} }) { =%>
-            <% my $color = color $time_data->{'dowhhmm'}{$dow}{$h}{$m}, $color_what; $color_counts{$color}++; =%>
-        <% } =%>
+<% foreach my $dow (1..7) { =%>
+<b><%=l 'Days of week, hours and minutes' %>: <%=l $EBTST::Main::dows{$dow} %></b><br>
+    <table>
+    <% if ('bingo' eq $mode) { =%>
+        <tr>
+            <th class="tiny_cell"></th>
+            <% foreach my $m (map { sprintf '%02d', $_ } 0 .. 59) { =%>
+                <th class="tiny_cell"><%= $m %></th>
+            <% } =%>
+        </tr>
     <% } =%>
+    <% foreach my $h (map { sprintf '%02d', $_ } 0 .. 23) { =%>
+        <tr>
+            <th class="tiny_cell"><%= $h %></th>
+            <% foreach my $m (map { sprintf '%02d', $_ } 0 .. 59) { =%>
+                <% my $color = color $time_data->{'dowhhmm'}{$dow}{$h}{$m}, $color_what; $color_counts{$color}++; =%>
+                <% my $class = 'bingo_' . (0 + !!$time_data->{'dowhhmm'}{$dow}{$h}{$m}); =%>
+                <% if ('detail' eq $mode) { =%>
+                    <td class="tiny_cell"><span style="color: <%= $color %>"><%= $m %></span></td>
+                <% } else { =%>
+                    <td class="tiny_cell"><span class="<%= $class %>"></span></td>
+                <% } =%>
+            <% } =%>
+        </tr>
+    <% } =%>
+    </table>
 <% } =%>
 <% if ('detail' eq $mode) { =%>
     <b><%=l 'Colors' %></b>:

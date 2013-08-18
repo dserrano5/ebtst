@@ -279,6 +279,7 @@ Current consecutive hit days = Días con hit consecutivos ahora mismo
 Consecutive hit days = Días con hit consecutivos
 Start = Inicio
 End = Fin
+Hit ratio by value = Hit ratio por denominación
 Hits by combination = Hits por combinación
 Frequent hit partner = Compañer@ de hit frecuente
 % of all hits = % de todos los hits

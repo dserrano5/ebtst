@@ -48,6 +48,12 @@
     <% } =%>
 [/table]\
 
+[b]<%=l 'Hit ratio by value' %>[/b]
+<% foreach my $v (@{ EBT2->values }) { =%>
+    <% next unless defined $hs->{'ratio'}{'by_value'}{$v}; =%>
+    :note-<%= $v %>: <%= sprintf '%.2f', $hs->{'ratio'}{'by_value'}{$v} %>
+<% } =%>
+
 [b]<%=l 'Hits by combination' %>[/b]
 <% foreach my $hbc (reverse sort { $hs->{'hits_by_combo'}{$a}{'count'} <=> $hs->{'hits_by_combo'}{$b}{'count'} } keys %{ $hs->{'hits_by_combo'} }) { =%>
     <% my ($series, $pc, $cc) = $hbc =~ /^(.*)(.)(.)$/; =%>

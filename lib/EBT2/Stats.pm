@@ -15,7 +15,7 @@ use EBT2::Data;
 use EBT2::Constants ':all';
 
 ## whenever there are changes in any stats format, this has to be increased in order to detect users with old stats formats
-our $STATS_VERSION = '20130128-01';
+our $STATS_VERSION = '20130818-01';
 my $chunk_size = '10000n';
 
 sub mean { return sum(@_)/@_; }
@@ -1168,7 +1168,7 @@ sub hit_analysis {
 }
 
 sub hit_summary {
-    my ($self, $progress, $data, $whoami, $activity, $count, $hit_list) = @_;
+    my ($self, $progress, $data, $whoami, $activity, $nbvalue, $count, $hit_list) = @_;
     my %ret;
     my $last_hit;
 
@@ -1251,7 +1251,10 @@ sub hit_summary {
 
         ## list of consecutive hit days
 
-        ## TODO: hit ratio/avg travel days/avg km, by value
+        ## hit ratio by value
+        $ret{'hit_summary'}{'ratio'}{'by_value'}{ $hit->{'value'} }++;
+
+        ## TODO: avg travel days/avg km, by value
 
         ## hits by combination—don't ignore Europas here
         my $series = $hit->{'series'};
@@ -1339,6 +1342,14 @@ sub hit_summary {
     $ret{'hit_summary'}{'hit_days'}{'total'}     = grep { 1 == $ret{'hit_summary'}{'hit_dates'}{$_} } keys %{ $ret{'hit_summary'}{'hit_dates'} };
     $ret{'hit_summary'}{'hitless_days'}{'total'} = grep { 0 == $ret{'hit_summary'}{'hit_dates'}{$_} } keys %{ $ret{'hit_summary'}{'hit_dates'} };
     $ret{'hit_summary'}{'total_days'} = scalar keys %{ $ret{'hit_summary'}{'hit_dates'} };
+
+    ## postfix: hit ratio by value
+    foreach my $v (@{ EBT2->values }) {
+        $ret{'hit_summary'}{'ratio'}{'by_value'}{$v} =
+            $ret{'hit_summary'}{'ratio'}{'by_value'}{$v} ?
+            ($nbvalue->{$v} / $ret{'hit_summary'}{'ratio'}{'by_value'}{$v}) :
+            undef;
+    }
 
     ## postfix: frequent hit partner (min: 2 hits) (remove myself, build data structure)
     if ($ret{'hit_summary'}{'total'}) {

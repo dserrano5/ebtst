@@ -107,6 +107,12 @@
     <% } =%>
 </table>
 <br>
+<b><%=l 'Hit ratio by value' %></b><br>
+<% foreach my $v (@{ EBT2->values }) { =%>
+    <% next unless defined $hs->{'ratio'}{'by_value'}{$v}; =%>
+    <img src="<%= $images_prefix %>images/values/<%= $v %>.gif">: <%= sprintf '%.2f', $hs->{'ratio'}{'by_value'}{$v} %><br>
+<% } =%>
+<br>
 <b><%=l 'Hits by combination' %></b><br>
 <% foreach my $hbc (reverse sort { $hs->{'hits_by_combo'}{$a}{'count'} <=> $hs->{'hits_by_combo'}{$b}{'count'} } keys %{ $hs->{'hits_by_combo'} }) { =%>
     <% my ($series, $pc, $cc) = $hbc =~ /^(.*)(.)(.)$/; =%>

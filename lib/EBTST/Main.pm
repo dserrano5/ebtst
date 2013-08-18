@@ -128,7 +128,7 @@ my %mults = (
     combs_bingo   => 2,
     combs_detail  => 2,
     hit_locations => 2,
-    hit_summary   => 1.6,
+    hit_summary   => 2.6,
 );
 $mults{'calc_sections'} = sum values %mults;
 
@@ -1777,9 +1777,10 @@ sub hit_summary {
     my $t0 = [gettimeofday];
     my $count        = $self->ebt->get_count;                  $xhr and $self->_init_progress (base => $pbase, tot => $ptot);
     my $activity     = $self->ebt->get_activity;               ## already cached (as part of 'information')
+    my $nbvalue      = $self->ebt->get_notes_by_value;         $xhr and $self->{'progress'}->base_add ($count);
     my $whoami       = $self->ebt->whoami;
     my $hit_list     = $self->ebt->get_hit_list ($whoami);     $xhr and $self->{'progress'}->base_add ($count);
-    my $hs           = $self->ebt->get_hit_summary ($whoami, $activity, $count, $hit_list);
+    my $hs           = $self->ebt->get_hit_summary ($whoami, $activity, $nbvalue, $count, $hit_list);
     my $hits_dates   = $self->ebt->get_hits_dates ($whoami);
     my $elem_ratio   = $self->ebt->get_elem_ratio ($whoami);
     my $elem_travel_days = $self->ebt->get_elem_travel_days ($whoami);

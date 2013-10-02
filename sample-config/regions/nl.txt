@@ -165,7 +165,7 @@ Group=Provincial capitals in The Netherlands (see <a href="http://www.eurobilltr
 5235;'s-Hertogenbosch=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/NB.png> 's-Hertogenbosch
 5236;'s-Hertogenbosch=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/NB.png> 's-Hertogenbosch
 5237=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/NB.png> 's-Hertogenbosch
-8900,8939=<img border='0' src=https://dserrano5.es/ebt/ebtst/public/images/regions/FRL.png> Leeuwarden
+8900,8939=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/FRL.png> Leeuwarden
 8200,8245=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/FL.png> Lelystad
 6200,6222=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Lb.png> Maastricht
 6223;Maastricht=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Lb.png> Maastricht
@@ -465,7 +465,7 @@ SubFlag=https://dserrano5.es/ebt/ebtst/images/regions/FL.png
 3890,3899=Zeewolde
 // Friesland 31 Municipalities
 SubGroup=Friesland / Fryslân
-SubFlag=https://dserrano5.es/ebt/ebtst/public/images/regions/FRL.png
+SubFlag=https://dserrano5.es/ebt/ebtst/images/regions/FRL.png
 9230,9233=Achtkarspelen
 9280,9289=Achtkarspelen
 9870,9873=Achtkarspelen
@@ -1260,7 +1260,7 @@ SubGroup=BES-Eilanden
 ;Oranjestad (Sint Eustatius)=Sint Eustatius
 
 Group=Disappeared Dutch Municipalities / Verdwenen Nederlandse Gemeentes (2002-2013)
-SubGroup=<img src=https://dserrano5.es/ebt/ebtst/public/images/regions/FRL.png> Friesland / Fryslân
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/FRL.png> Friesland / Fryslân
 8700,8702=Bolsward (2011: Súdwest Fryslân)
 8584=Nijefurd (2011: Súdwest Fryslân)
 8710,8729=Nijefurd (2011: Súdwest Fryslân)

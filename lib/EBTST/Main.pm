@@ -1959,19 +1959,19 @@ sub upload {
     unlink $local_notes_file or (2 == $! or $self->_log (warn => "upload: unlink: '$local_notes_file': $!\n"));
     unlink $local_hits_file  or (2 == $! or $self->_log (warn => "upload: unlink: '$local_hits_file': $!"));
 
-    my $something_done = 0;
+    my $some_csv_uploaded = 0;
     if ($notes_csv and $notes_csv->size) {
         $self->_log (debug => "upload: there's notes CSV");
         $notes_csv->move_to ($local_notes_file);
-        $something_done = 1;
+        $some_csv_uploaded = 1;
     }
     if ($hits_csv and $hits_csv->size) {
         $self->_log (debug => "upload: there's hits CSV");
         $hits_csv->move_to ($local_hits_file);
-        $something_done = 1;
+        $some_csv_uploaded = 1;
     }
 
-    if (!$something_done) {
+    if (!$some_csv_uploaded) {
         $self->_log (debug => "upload: no notes or hits given");
         $self->render_text ('no_csvs', layout => undef, format => 'txt');
         return;

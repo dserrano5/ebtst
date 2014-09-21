@@ -61,7 +61,13 @@ sub serial_remove_meaningless_figures2 {
             }
 
         } elsif ('U' eq $cc) {
-            $serial = $cc . '**' . substr $serial, 3;
+            if ($short =~ /^L087/ and $serial =~ /^U([0-9][0-9])/ and $1 >= 85) {
+                ## https://forum.eurobilltracker.com/viewtopic.php?f=20&t=50011&view=unread#p1082050
+                ## the first three significant digits are 1st, 2nd and 5th (U85**0, U86**4)
+                $serial = $cc . (substr $serial, 1, 2) . '**' . substr $serial, 5;
+            } else {
+                $serial = $cc . '**' . substr $serial, 3;
+            }
 
         } elsif ('P' eq $cc) {
             if ('F' eq $pc) {

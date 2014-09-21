@@ -1,5 +1,5 @@
 // Counties of Croatia added on Nov 27 2006 by robag
-// Revised by debemaks on Ago 25 2009; administrative divisions by debemaks
+// Revised by debemaks on May 18 2014; administrative divisions by debemaks
 // Types=
 //  -ranges "xxxxx,xxxxx=name" (must be numbers)
 
@@ -8,6 +8,11 @@ Group=Hrvatske Županije - Counties of Croatia
 43000,43541=Bjelovarsko-Bilogorska
 35000,35435=Brodsko-Posavska
 20000,20357=Dubrovačko-Neretvanska
+10000=Grad Zagreb
+10001,10253=Grad Zagreb
+10257=Grad Zagreb
+10360,10363=Grad Zagreb
+10373=Grad Zagreb
 47000,47314=Karlovačka
 48000,48363=Koprivničko-Križevačka
 49000,49296=Krapinsko-Zagorska
@@ -24,8 +29,10 @@ Group=Hrvatske Županije - Counties of Croatia
 33000,33533=Virovitičko-Podravska
 32000,32284=Vukovarsko-Srijemska
 23000,23452=Zadarska
-10000,10457=Zagrebačka
-
+10254,10256=Zagrebačka
+10258,10359=Zagrebačka
+10364,10372=Zagrebačka
+10374,10457=Zagrebačka
 
 
 //codes from the croatian post http://www.posta.hr/UserDocsimages/poste/mjestarh_20060519.zip
@@ -49,7 +56,7 @@ SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/bjelovarsko.gif>
 43203=Kapela
 43505=Končanica
 43272=Nova Rača
-43212=Nova Rača
+43212=Rovišće
 43274=Severin
 43541=Sirač
 43227=Šandrovac
@@ -113,14 +120,18 @@ SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/dubrovacko.gif> 
 20207=Župa dubrovačka
 SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/grada_zagreba.gif> Grad Zagreb
 10000=Grad Zagreb
-SubGroup=Istarska 
+10001,10253=Grad Zagreb
+10257=Grad Zagreb
+10360,10363=Grad Zagreb
+10373=Grad Zagreb
+SubGroup=<img src=http://www.dibarcola.it/EBT/flag/croatia/istarska.gif> Istarska
 52100=Pula
 52000=Pazin
 52440=Poreč
 52460=Buje
 52420=Buzet
 52220=Labin
-52446=Novigrad
+52446=Novigrad (PU)
 52210=Rovinj
 52470=Umag
 52215=Vodnjan
@@ -145,7 +156,7 @@ SubGroup=Istarska
 52428=Oprtalj
 52332=Pićan
 52223=Raša
-52231=Sveta Nedelja
+52231=Sveta Nedelja (PU)
 52448=Sveti Lovreč
 52404=Sveti Petar u Šumi
 52342=Svetvinčenat
@@ -186,6 +197,7 @@ SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/koprivnicko.gif>
 48316=Đelekovec
 48356=Ferdinandovac
 48331=Gola
+48268=Gornja Rijeka
 48323=Hlebine
 48361=Kalinovac
 48269=Kalnik
@@ -362,7 +374,7 @@ SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/osjecko.gif> Osj
 31500;Donja Moticina=Donja Motičina
 31500;Donja moticina=Donja Motičina
 31500;Motičina=Donja Motičina
-31500;Moticina=Donja Motičina 
+31500;Moticina=Donja Motičina
 31500;Gornja Motičina=Donja Motičina
 31500;Gornja motičina=Donja Motičina
 31500;Gornja Moticina=Donja Motičina
@@ -454,7 +466,9 @@ SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/primorsko.gif> P
 51521=Punat
 51314=Ravna Gora
 51311=Skrad
-51253=Viškovo
+51253;Vinodolska=Vinodolska
+51253;Viškovo=Viškovo
+51253;Viskovo=Viškovo
 51516=Vrbnik
 SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/sisacko.gif> Sisačko-Moslavačka
 44400=Glina
@@ -590,8 +604,8 @@ SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/splitsko.gif> Sp
 21405=Milna
 21203=Muć
 21423=Nerežišća
-21223=Okrug 
-21238=Otok (ŠI)
+21223=Okrug
+21238=Otok (ŠT)
 21262=Podbablje
 21327=Podgora
 21312=Podstrana
@@ -663,7 +677,7 @@ SubGroup=Varaždinska
 42231=Veliki Bukovec
 42205=Vidovec
 42207=Vinica
-42224=Visoko (Vž)
+42224=Visoko
 SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/viroviticko.gif> Virovitičko-Podravska
 33515=Orahovica
 33520=Slatina
@@ -713,7 +727,7 @@ SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/vukovarsko.gif> 
 32224=Trpinja
 32283=Vođinci
 32254=Vrbanja
-SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/zadarske.gif> Zadarska 
+SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/zadarske.gif> Zadarska
 23000=Zadar
 23420;Benkovac=Benkovac
 23420;Podgrađe=Benkovac
@@ -776,9 +790,9 @@ SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/zadarske.gif> Za
 23450;Muskovci=Obrovac
 23250=Pag
 23205=Bibinje
-23222;Galovac=Galovac (ZD)
+23222;Galovac=Galovac
 23440=Gračac
-23450;Jasenice=Jasenice (ZD)
+23450;Jasenice=Jasenice
 23272=Kali
 23251=Kolan
 23271=Kukljica
@@ -885,7 +899,9 @@ SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/zagrebacka.gif> 
 10370;Dragosicka=Dugo Selo
 10370;Nart Savski=Dugo Selo
 10370;Nart savski=Dugo Selo
-10310=Ivanić-Grad
+10310,10311=Ivanić-Grad
+10313=Ivanić-Grad
+10316=Ivanić-Grad
 10450;Jastrebarsko=Jastrebarsko
 10450;Klinča Sela=Jastrebarsko
 10450;Klinča sela=Jastrebarsko
@@ -993,17 +1009,28 @@ SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/zagrebacka.gif> 
 10450;Lokošin dol=Jastrebarsko
 10450;Lokosin Dol=Jastrebarsko
 10450;Lokosin dol=Jastrebarsko
+10453=Jastrebarsko
 10430=Samobor
-10431=Sveta Nedelja
+10432=Samobor
+10435,10436=Samobor
+10431=Sveta Nedelja (ZG)
+10434=Sveta Nedelja (ZG)
+10437=Sveta Nedelja (ZG)
 10380=Sveti Ivan Zelina
+10382,10383=Sveti Ivan Zelina
+10408=Velika Gorica
 10410=Velika Gorica
-10340=Vrbovec
+10412=Velika Gorica
+10415=Velika Gorica
+10417,10419=Velika Gorica
+10340,10341=Vrbovec
 10290=Zaprešić
+10295=Zaprešić
 10381=Bedenica
 10298=Bistra
 10370;Brckovljani=Brckovljani
 10291,10292=Brdovec
-10342=Dubrava
+10342,10343=Dubrava
 10293=Dubravica
 10344=Farkaševac
 10345=Gradec
@@ -1012,7 +1039,7 @@ SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/zagrebacka.gif> 
 10312=Kloštar Ivanić
 10454=Krašić
 10413=Kravarsko
-10314=Križ
+10314,10315=Križ
 10296=Luka
 10299=Marija Gorica
 10411=Orle
@@ -1023,7 +1050,7 @@ SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/zagrebacka.gif> 
 10347=Rakovec
 10370;Rugvica=Rugvica
 10255=Stupnik
-10455=Žumberak
+10455,10457=Žumberak
 
 //429 Opcina
 //127 gradova
@@ -1031,4 +1058,3 @@ SubGroup=<img src=https://dserrano5.es/ebt/ebtst/images/regions/zagrebacka.gif> 
 
 //http://hr.wikipedia.org/wiki/Hrvatske_%C5%BEupanije
 //http://www.geonames.org/postal-codes/postal-codes-croatia.html
-

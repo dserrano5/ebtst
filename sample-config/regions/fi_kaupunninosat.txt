@@ -71,7 +71,7 @@ Group=Districts of City of Espoo/Espoon kaupunginosat
 02860=Siikajärvi
 02920=Niipperi
 02921=Niipperi
-02940=Lippa
+02940=Lippajärvi
 
 Group=Districts of City of Helsinki/Helsingin kaupunginosat
 00100=Helsinki keskusta

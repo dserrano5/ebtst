@@ -9,14 +9,14 @@ use MIME::Base64;
 sub note_serial_cksum {
     my ($y, $s) = map uc, @_;
 
-    if ('2002' eq $y)      { return 0 if !defined $s or $s !~ /^[DEFGHLMNPSTUVXYZ]\d{11}$/;
-    } elsif ('2013' eq $y) { return 0 if !defined $s or $s !~ /^[DEFGHLMNPSTUVXYZ][A-J]\d{10}$/;
-    } else                 { return 0;
+    if ('2002' eq $y)                     { return 0 if !defined $s or $s !~ /^[DEFGHLMNPSTUVXYZ]\d{11}$/;
+    } elsif ($y >= '2013' and $y <= 2019) { return 0 if !defined $s or $s !~ /^[DEFGHLMNPSTUVXYZ][A-J]\d{10}$/;
+    } else                                { return 0;
     }
 
     return 0 if $s =~ /0$/;
 
-    if ('2013' eq $y) { $s =~ s/^(.)(.)/join '', $1, (ord $2)-63/e; }
+    if ($y >= '2013' and $y <= 2019) { $s =~ s/^(.)(.)/join '', $1, (ord $2)-63/e; }
     $s =~ s/^(.)/ (ord $1) - 64 /e;
     $s = sum split //, $s while 1 != length $s;
 
@@ -39,7 +39,7 @@ sub validate_note {
         } else {
             push @errors, 'Bad serial number';
         }
-    } elsif ('2013' eq $hr->{'year'}) {
+    } elsif ($hr->{'year'} >= 2013 and $hr->{'year'} <= 2019) {
         if ($hr->{'serial'} =~ /^[DEFGHLMNPSTUVXYZ][A-J]\d{10}$/) {
             push @errors, 'Bad checksum for serial number' unless note_serial_cksum $hr->{'year'}, $hr->{'serial'};
         } else {
@@ -67,7 +67,7 @@ sub validate_note {
                 push @errors, "Bad short code position '$position'" if $position !~ /^[A-H][0-5]$/;
             }
         }
-    } elsif ('2013' eq $hr->{'year'}) {
+    } elsif ($hr->{'year'} >= 2013 and $hr->{'year'} <= 2019) {
         if ($hr->{'short_code'} !~ /[A-Z]\d{3}[A-J][0-6]/) {   ## be lax, accept any printer code for Europa notes
             push @errors, "Bad short code '$hr->{'short_code'}'";
         }

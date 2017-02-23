@@ -68,7 +68,7 @@ sub validate_note {
             }
         }
     } elsif ($hr->{'year'} >= 2013 and $hr->{'year'} <= 2019) {
-        if ($hr->{'short_code'} !~ /[A-Z]\d{3}[A-J][0-6]/) {   ## be lax, accept any printer code for Europa notes
+        if ($hr->{'short_code'} !~ /[DEFGHLMNPRSTUVWXYZ]\d{3}[A-J][0-6]/) {
             push @errors, "Bad short code '$hr->{'short_code'}'";
         }
     }

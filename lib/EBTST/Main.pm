@@ -1501,7 +1501,7 @@ sub bad_notes {
             %$bn,
             idx        => ++$idx,
             pc_img     => $pc_iso3166,
-            cc_img     => EBT2->countries ($cc, $bn->{'series'}),
+            cc_img     => EBT2->series_countries ($cc, $bn->{'series'}),
             bbflag_pc  => EBT2->flag ($pc_iso3166),
             bbflag_cc  => EBT2->flag (EBT2->series_countries ($cc, $bn->{'series'})),
             bbflag_got => EBT2->flag ($bn->{'country'}),

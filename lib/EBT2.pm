@@ -488,7 +488,7 @@ EOF
         $@ and die "eval failed: $@\n";
         goto &$field;
 
-    } elsif ($field eq 'printers') {
+    } elsif ($field eq 'printers' || $field eq 'series_countries') {
         ## close over %config - the quoted eval doesn't do it, resulting in 'Variable "%config" is not available'
         %config if 0;
 

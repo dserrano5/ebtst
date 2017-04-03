@@ -983,7 +983,7 @@ sub huge_table {
         $ht->{$sp}{'values'} = $ht_data->{$sp};
         foreach my $value (keys %{ $ht->{$sp}{'values'} }) {
             foreach my $serial (keys %{ $ht->{$sp}{'values'}{$value} }) {
-                $ht->{$sp}{'values'}{$value}{$serial}{'flag'} = EBT2->countries (substr $serial, 0, 1);
+                $ht->{$sp}{'values'}{$value}{$serial}{'flag'} = EBT2->series_countries ((substr $serial, 0, 1), $series);
             }
         }
         $ht->{$sp}{'plate_flag'} = (split /,/, EBT2->printers ((substr $plate, 0, 1), $series))[0];
@@ -1036,8 +1036,8 @@ sub short_codes {
                 $tmp->{$what} = {
                     pc_img  => $pc_iso3166,
                     pc_flag => EBT2->flag ($pc_iso3166),
-                    cc_img  => EBT2->countries ($cc),
-                    cc_flag => EBT2->flag (EBT2->countries ($cc)),
+                    cc_img  => EBT2->series_countries ($cc, $records->{$what}{'series'}),
+                    cc_flag => EBT2->flag (EBT2->series_countries ($cc, $records->{$what}{'series'})),
                     pc_str  => $pc_str,
                     cc_str  => $cc_str,
                     id      => $records->{$what}{'id'},
@@ -1376,7 +1376,7 @@ sub combs_bingo {
         if (!exists $missing->{"$p$c"}) {
             $missing->{"$p$c"} = {
                 pname   => do { local $ENV{'EBT_LANG'} = 'en'; (split /,/, EBT2->printers ($p, $ser))[0] },
-                cname   => do { local $ENV{'EBT_LANG'} = 'en'; EBT2->countries ($c) },
+                cname   => do { local $ENV{'EBT_LANG'} = 'en'; EBT2->series_countries ($c, $ser) },
                 pletter => $p,
                 cletter => $c,
                 values  => [ $v ],
@@ -1395,7 +1395,7 @@ sub combs_bingo {
             index        => ++$hpc_idx,
             ## this history ends up in the BBCode, let's assign its flags
             pc_flag      => EBT2->flag ((split /,/, EBT2->printers  ($h->{'pc'}, $h->{'series'}))[0]),
-            cc_flag      => EBT2->flag (EBT2->countries ($h->{'cc'})),
+            cc_flag      => EBT2->flag (EBT2->series_countries ($h->{'cc'}, $h->{'series'})),
             country_flag => EBT2->flag ($h->{'country'}),
         }
     }
@@ -1501,9 +1501,9 @@ sub bad_notes {
             %$bn,
             idx        => ++$idx,
             pc_img     => $pc_iso3166,
-            cc_img     => EBT2->countries ($cc),
+            cc_img     => EBT2->series_countries ($cc, $bn->{'series'}),
             bbflag_pc  => EBT2->flag ($pc_iso3166),
-            bbflag_cc  => EBT2->flag (EBT2->countries ($cc)),
+            bbflag_cc  => EBT2->flag (EBT2->series_countries ($cc, $bn->{'series'})),
             bbflag_got => EBT2->flag ($bn->{'country'}),
         };
     }

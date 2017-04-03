@@ -694,7 +694,7 @@ sub missing_combs_and_history {
                 push @history, {
                     index   => ++$hist_idx,
                     pname   => (split /,/, EBT2->printers ($p, $note->[SERIES]))[0],
-                    cname   => EBT2->countries ($c),
+                    cname   => EBT2->series_countries ($c, $note->[SERIES]),
                     series  => $ser,
                     pc      => $p,
                     cc      => $c,

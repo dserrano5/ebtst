@@ -33,7 +33,7 @@
         <% my @rows; my %val_totals; =%>
         <% foreach my $ser (@$series) { =%>
             <% foreach my $pc (sort keys %{ EBT2->printers->{$ser} }) { =%>
-                <% foreach my $cc (sort keys %{ EBT2->countries }) { =%>
+                <% foreach my $cc (sort keys %{ EBT2->series_countries->{$ser} }) { =%>
                     <% my @cols; =%>
                     <% my $k = $ser.$pc.$cc; =%>
                     <% if (grep { $_ eq $k } keys %{ $EBT2::combs_pc_cc_sig{$sig} }) { =%>

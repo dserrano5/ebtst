@@ -19,7 +19,7 @@ use EBT2::Constants ':all';
 ## whenever there are changes in the data format, this has to be increased in order to detect users with old data formats
 my $DATA_VERSION = '20130507-01';
 
-Locale::Country::alias_code (uk => 'gb');
+Locale::Country::add_country_alias (uk => 'gb');
 Locale::Country::add_country ('rskm' => 'Kosovo');                ## EBT lists Kosovo as a country, which isn't defined in ISO-3166-1 as a country. Use its ISO-3166-2 code
 Locale::Country::rename_country ('ba' => 'Bosnia-Herzegovina');   ## Locale::Country gives a different name to this one
 Locale::Country::rename_country ('ci' => 'Ivory Coast');          ## Locale::Country gives a different name to this one

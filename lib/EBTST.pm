@@ -366,7 +366,7 @@ sub startup {
     $self->helper (hit_partners => \&helper_hit_partners);
     $self->helper (rss_process => \&helper_rss_process);
     $self->helper (html_hrefs => \&helper_html_hrefs);
-    $self->secret ('[12:36:04] gnome-screensaver-dialog: gkr-pam: unlocked login keyring');   ## :P
+    $self->secrets (['[12:36:04] gnome-screensaver-dialog: gkr-pam: unlocked login keyring']);   ## :P
     $self->defaults (layout => 'online');
     $self->plugin ('I18N');
 

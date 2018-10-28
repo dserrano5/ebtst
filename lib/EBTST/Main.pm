@@ -155,7 +155,7 @@ sub _end_progress {
     #$self->stash ('sess')->clear ('_xhr_working');
     #$self->stash ('sess')->flush;
     $self->_log (debug => "_end_progress: rendering text ($text)");
-    $self->render_text ($text, layout => undef, format => 'txt');
+    $self->render (text => $text, layout => undef, format => 'txt');
     return;
 }
 
@@ -1973,12 +1973,12 @@ sub upload {
 
     if (!$some_csv_uploaded) {
         $self->_log (debug => "upload: no notes or hits given");
-        $self->render_text ('no_csvs', layout => undef, format => 'txt');
+        $self->render (text => 'no_csvs', layout => undef, format => 'txt');
         return;
     }
 
     $self->app->log->debug ("sha ($sha)");
-    $self->render_text ($sha, layout => undef, format => 'txt');
+    $self->render (text => $sha, layout => undef, format => 'txt');
     return;
 }
 
@@ -2036,7 +2036,7 @@ sub import {
 
         if (!$theres_notes) {
             if (!$self->ebt->has_notes) {
-                $self->render_text ('no_notes', layout => undef, format => 'txt');
+                $self->render (text => 'no_notes', layout => undef, format => 'txt');
                 return;
             }
             $self->_init_progress (tot => $self->ebt->note_count * 0.1);
@@ -2096,7 +2096,7 @@ sub _save_html {
 
     my $index_symlink_done = 0;
     foreach my $param (@req_params) {
-        my $partial_html = encode 'UTF-8', $self->render_partial (template => "main/$param", format => 'html');
+        my $partial_html = encode 'UTF-8', $self->render_to_string (template => "main/$param", format => 'html');
         #if (my $rss = $self->rss_process) {
         #    $self->app->log->debug ("gen_output: process RSS is $rss Kb");
         #}
@@ -2136,7 +2136,7 @@ sub _trim_html_sections {
             $tr->replace ('');
         }
     }
-    return $dom->to_xml;
+    return $dom->to_string;
 }
 
 sub _ua_get {
@@ -2235,7 +2235,7 @@ sub gen_output {
     my $html_dir = File::Spec->catfile ($self->stash ('html_dir'), $self->stash ('user'));
     $self->_log (debug => "gen_output: html_dir '$html_dir'");
     $self->_prepare_html_dir ($self->stash ('statics_dir'), $html_dir);
-    my $html_output = encode 'UTF-8', $self->render_partial (template => 'layouts/offline', format => 'html', images_prefix => '../../');
+    my $html_output = encode 'UTF-8', $self->render_to_string (template => 'layouts/offline', format => 'html', images_prefix => '../../');
     $html_output = $self->_trim_html_sections ($html_output, @req_params);
 
     my $t0 = [gettimeofday];
@@ -2252,7 +2252,7 @@ sub gen_output {
     my @rendered_bbcode;
     foreach my $param (@req_params) {
         ## missing templates yield an undef result
-        my $r = $self->render_partial (template => "main/$param", format => 'txt');
+        my $r = $self->render_to_string (template => "main/$param", format => 'txt');
         push @rendered_bbcode, { title => $section_titles{$param}, text => $r };
     }
     #$self->_log (debug => report 'gen_output render', $t0);

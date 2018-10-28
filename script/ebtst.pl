@@ -24,10 +24,10 @@ Please visit http://mojolicio.us for detailed installation instructions.
 
 EOF
 
-print 'Enter encryption key: ';
-system 'stty -echo'; $::enc_key = <>; system 'stty echo'; print "\n";
-END { system 'stty echo'; }
-chomp $::enc_key;
+my $keyfile = File::Spec->catfile ($ENV{'HOME'}, '.ebt', 'ebtst-key');
+open my $fd, '<', $keyfile or die "open: '$keyfile': $!\n";
+$::enc_key = <$fd>; chomp $::enc_key;
+close $fd;
 
 $ENV{'MOJO_APP'} ||= 'EBTST';
 $ENV{'MOJO_MAX_MESSAGE_SIZE'} = 260*1024*1024;

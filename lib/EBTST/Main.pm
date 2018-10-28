@@ -2058,7 +2058,7 @@ sub import {
 }
 
 sub _prepare_html_dir {
-    my ($self, $statics_dir, $dest_dir) = @_;
+    my ($self, $dest_dir) = @_;
 
     system qq[rm -rf "$dest_dir"];
     if (-1 == $?) {
@@ -2077,16 +2077,27 @@ sub _prepare_html_dir {
         die "Couldn't create directory: '$dest_dir/images': $!\n";
     }
 
+    if (!mkdir "$dest_dir/images/" . $self->stash ('user')) {
+        die "Couldn't create directory: '$dest_dir/images/".$self->stash ('user')."': $!\n";
+    }
+
+    my $cmd = sprintf "bash -c 'cp -a %s/{*.gif,countries,regions,values} %s/stats/foo/images/'", $self->stash ('images_dir'), $self->stash ('statics_dir');
+    $self->_log (debug => "cmd ($cmd)");
+    system $cmd;
+    if (-1 == $?) {
+        die "system: $!";
+    } elsif (my $sig = $? & 127) {
+        die sprintf "system: child died with signal $sig";
+    } elsif (my $rc = $? >> 8) {
+        die "system: child exited with value $rc";
+    }
+
     my ($src, $dest);
 
     ## don't link but copy ebt.css, so generated stats don't break when the CSS is changed
-    $src  = File::Spec->catfile ($statics_dir, 'ebt.css');
-    $dest = File::Spec->catfile ($dest_dir,    'ebt.css');
+    $src  = File::Spec->catfile ($self->stash ('statics_dir'), 'ebt.css');
+    $dest = File::Spec->catfile ($dest_dir,                    'ebt.css');
     copy $src, $dest or $self->_log (warn => "copy: '$src' to '$dest': $!");
-
-    $src  = File::Spec->catfile ($statics_dir, sprintf 'images/%s/static', $self->stash ('user'));
-    $dest = File::Spec->catfile ($dest_dir,    sprintf 'images/%s',        $self->stash ('user'));
-    symlink $src, $dest or $self->_log (warn => "_prepare_html_dir: symlink: '$src' to '$dest': $!");
 
     return;
 }
@@ -2234,7 +2245,7 @@ sub gen_output {
 
     my $html_dir = File::Spec->catfile ($self->stash ('html_dir'), $self->stash ('user'));
     $self->_log (debug => "gen_output: html_dir '$html_dir'");
-    $self->_prepare_html_dir ($self->stash ('statics_dir'), $html_dir);
+    $self->_prepare_html_dir ($html_dir);
     my $html_output = encode 'UTF-8', $self->render_to_string (template => 'layouts/offline', format => 'html', images_prefix => '../../');
     $html_output = $self->_trim_html_sections ($html_output, @req_params);
 
@@ -2246,7 +2257,8 @@ sub gen_output {
     defined unlink glob $globpat or $self->_log (warn => "unlink: $!");
     $globpat = "$src/*.svg"; $globpat =~ s/ /\\ /g;
     foreach my $svg (glob $globpat) {
-        copy $svg, "$src/static" or $self->_log (warn => "copy: '$svg' to '$src/static': $!");
+        my $dest_dir = "$html_dir/images/".$self->stash ('user');
+        copy $svg, $dest_dir or $self->_log (warn => "copy: '$svg' to '$dest_dir': $!");
     }
 
     my @rendered_bbcode;

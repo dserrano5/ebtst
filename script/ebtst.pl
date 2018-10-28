@@ -29,8 +29,6 @@ open my $fd, '<', $keyfile or die "open: '$keyfile': $!\n";
 $::enc_key = <$fd>; chomp $::enc_key;
 close $fd;
 
-$ENV{'MOJO_APP'} ||= 'EBTST';
 $ENV{'MOJO_MAX_MESSAGE_SIZE'} = 260*1024*1024;
 $ENV{'MOJO_LOG_LEVEL'} = 'debug';
-Mojolicious::Commands->start (@ARGV);
-#Mojolicious::Commands->start ('daemon', '--listen' => 'http://localhost:8080');
+Mojolicious::Commands->start_app (EBTST => @ARGV);

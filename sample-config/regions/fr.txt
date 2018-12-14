@@ -6,13 +6,88 @@
 //  -single name ";PlaceNameinCSV=name"
 
 // Post codes by BaliBennie :)
-
 // 01/05/2010 - Flags added to Régions group, biggest cities list updated (Pole Doctor)
+// 12/12/2018 new 2016 regions with flags (Aloxe)
 
+Group=French Regions / Régions de France
+01000,01999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Region_Auvergne_Rhone_Alpes.png> Auvergne-Rhône-Alpes
+03000,03999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Region_Auvergne_Rhone_Alpes.png> Auvergne-Rhône-Alpes
+07000,07999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Region_Auvergne_Rhone_Alpes.png> Auvergne-Rhône-Alpes
+15000,15999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Region_Auvergne_Rhone_Alpes.png> Auvergne-Rhône-Alpes
+43000,43999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Region_Auvergne_Rhone_Alpes.png> Auvergne-Rhône-Alpes
+26000,26999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Region_Auvergne_Rhone_Alpes.png> Auvergne-Rhône-Alpes
+38000,38999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Region_Auvergne_Rhone_Alpes.png> Auvergne-Rhône-Alpes
+42000,42999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Region_Auvergne_Rhone_Alpes.png> Auvergne-Rhône-Alpes
+63000,63999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Region_Auvergne_Rhone_Alpes.png> Auvergne-Rhône-Alpes
+69000,69999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Region_Auvergne_Rhone_Alpes.png> Auvergne-Rhône-Alpes
+73000,74999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Region_Auvergne_Rhone_Alpes.png> Auvergne-Rhône-Alpes
+21000,21999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Region_Bourgogne-Franche-Comte.png> Bourgogne-Franche-Comté
+25000,25999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Region_Bourgogne-Franche-Comte.png> Bourgogne-Franche-Comté
+39000,39999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Region_Bourgogne-Franche-Comte.png> Bourgogne-Franche-Comté
+58000,58999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Region_Bourgogne-Franche-Comte.png> Bourgogne-Franche-Comté
+70000,71999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Region_Bourgogne-Franche-Comte.png> Bourgogne-Franche-Comté
+89000,90999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Region_Bourgogne-Franche-Comte.png> Bourgogne-Franche-Comté
+22000,22999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Drapeau-bzh_resize.jpg> Bretagne
+29000,29999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Drapeau-bzh_resize.jpg> Bretagne
+35000,35999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Drapeau-bzh_resize.jpg> Bretagne
+56000,56999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Drapeau-bzh_resize.jpg> Bretagne
+18000,18999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Centre-Val-de-Loire_flag.svg_resize.png> Centre-Val-de-Loire
+28000,28999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Centre-Val-de-Loire_flag.svg_resize.png> Centre-Val-de-Loire
+36000,37999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Centre-Val-de-Loire_flag.svg_resize.png> Centre-Val-de-Loire
+41000,41999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Centre-Val-de-Loire_flag.svg_resize.png> Centre-Val-de-Loire
+45000,45999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Centre-Val-de-Loire_flag.svg_resize.png> Centre-Val-de-Loire
+20000,20999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Flag_of_Corsica.svg_resize.png> Corse
+08000,08999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Region_Grand_Est.png> Grand Est
+10000,10999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Region_Grand_Est.png> Grand Est
+51000,52999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Region_Grand_Est.png> Grand Est
+54000,55999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Region_Grand_Est.png> Grand Est
+57000,57999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Region_Grand_Est.png> Grand Est
+67000,68999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Region_Grand_Est.png> Grand Est
+88000,88999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Region_Grand_Est.png> Grand Est
+59000,59999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Region_Hauts-de-France.png> Hauts-de-France
+62000,62999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Region_Hauts-de-France.png> Hauts-de-France
+02000,02999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Region_Hauts-de-France.png> Hauts-de-France
+60000,60999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Region_Hauts-de-France.png> Hauts-de-France
+80000,80999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Region_Hauts-de-France.png> Hauts-de-France
+75000,75999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/361px-Île-de-France_flag.svg_resize.png> Île-de-France
+77000,78999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/361px-Île-de-France_flag.svg_resize.png> Île-de-France
+91000,95999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/361px-Île-de-France_flag.svg_resize.png> Île-de-France
+14000,14999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Region_Normandie.png> Normandie
+27000,27999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Region_Normandie.png> Normandie
+50000,50999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Region_Normandie.png> Normandie
+61000,61999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Region_Normandie.png> Normandie
+76000,76999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Region_Normandie.png> Normandie
+16000,17999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Region_Nouvelle_Aquitaine.png> Nouvelle Aquitaine
+19000,19999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Region_Nouvelle_Aquitaine.png> Nouvelle Aquitaine
+23000,24999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Region_Nouvelle_Aquitaine.png> Nouvelle Aquitaine
+33000,33999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Region_Nouvelle_Aquitaine.png> Nouvelle Aquitaine
+40000,40999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Region_Nouvelle_Aquitaine.png> Nouvelle Aquitaine
+47000,47999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Region_Nouvelle_Aquitaine.png> Nouvelle Aquitaine
+64000,64999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Region_Nouvelle_Aquitaine.png> Nouvelle Aquitaine
+79000,79999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Region_Nouvelle_Aquitaine.png> Nouvelle Aquitaine
+86000,87999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Region_Nouvelle_Aquitaine.png> Nouvelle Aquitaine
+09000,09999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Region_Occitanie.png> Occitanie
+11000,12999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Region_Occitanie.png> Occitanie
+30000,32999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Region_Occitanie.png> Occitanie
+34000,34999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Region_Occitanie.png> Occitanie
+46000,46999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Region_Occitanie.png> Occitanie
+48000,48999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Region_Occitanie.png> Occitanie
+65000,66999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Region_Occitanie.png> Occitanie
+81000,82999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Region_Occitanie.png> Occitanie
+44000,44999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/359px-Pays-de-la-Loire_flag.svg_resize.png> Pays de la Loire
+49000,49999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/359px-Pays-de-la-Loire_flag.svg_resize.png> Pays de la Loire
+53000,53999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/359px-Pays-de-la-Loire_flag.svg_resize.png> Pays de la Loire
+72000,72999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/359px-Pays-de-la-Loire_flag.svg_resize.png> Pays de la Loire
+85000,85999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/359px-Pays-de-la-Loire_flag.svg_resize.png> Pays de la Loire
+04000,06999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/322px-Provence-Alpes-Côte-d'Azur_flag.svg_resize.png> Provence-Alpes-Côte d'Azur
+13000,13999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/322px-Provence-Alpes-Côte-d'Azur_flag.svg_resize.png> Provence-Alpes-Côte d'Azur
+83000,84999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/322px-Provence-Alpes-Côte-d'Azur_flag.svg_resize.png> Provence-Alpes-Côte d'Azur
+97100,97199=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/600px-Flag_of_Guadeloupe_(local).svg_resize.png> Guadeloupe
+97200,97299=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/750px-Flag_of_Martinique.svg_resize.png> Martinique
+97300,97399=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/GuyaneLogo1_resize.gif> Guyane Française
+97400,97499=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Logo_reunion_resize.jpg> La Réunion
 
-
-
-Group=Régions of France / Régions de France
+Group=Old régions of France / Anciennes régions de France
 67000,68999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Drap_alsace_resize.jpg> Alsace
 24000,24999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Aquitaine_flag.svg_resize.png> Aquitaine
 33000,33999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Aquitaine_flag.svg_resize.png> Aquitaine
@@ -34,11 +109,11 @@ Group=Régions of France / Régions de France
 29000,29999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Drapeau-bzh_resize.jpg> Bretagne
 35000,35999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Drapeau-bzh_resize.jpg> Bretagne
 56000,56999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/Drapeau-bzh_resize.jpg> Bretagne
-18000,18999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Centre-Val-de-Loire_flag.svg_resize.png> Centre
-28000,28999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Centre-Val-de-Loire_flag.svg_resize.png> Centre
-36000,37999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Centre-Val-de-Loire_flag.svg_resize.png> Centre
-41000,41999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Centre-Val-de-Loire_flag.svg_resize.png> Centre
-45000,45999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Centre-Val-de-Loire_flag.svg_resize.png> Centre
+18000,18999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Centre-Val-de-Loire_flag.svg_resize.png> Centre-Val-de-Loire
+28000,28999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Centre-Val-de-Loire_flag.svg_resize.png> Centre-Val-de-Loire
+36000,37999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Centre-Val-de-Loire_flag.svg_resize.png> Centre-Val-de-Loire
+41000,41999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Centre-Val-de-Loire_flag.svg_resize.png> Centre-Val-de-Loire
+45000,45999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Centre-Val-de-Loire_flag.svg_resize.png> Centre-Val-de-Loire
 08000,08999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Champagne-Ardenne_flag.svg_resize.png> Champagne-Ardenne
 10000,10999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Champagne-Ardenne_flag.svg_resize.png> Champagne-Ardenne
 51000,52999=<img border='0' src=https://dserrano5.es/ebt/ebtst/images/regions/360px-Champagne-Ardenne_flag.svg_resize.png> Champagne-Ardenne
@@ -281,18 +356,18 @@ Group=Overseas Régions of France / Régions d'Outre-Mer
 97300,97399=973 Guyane Française
 97400,97499=974 La Réunion
 97500,97599=975 Saint-Pierre-et-Miquelon
-97600,97699=976 Mayotte 
-98400,98499=984 Terres Australes et Antarctiques Françaises 
-98600,98699=986 Wallis-et-Futuna 
-98700,98799=987 Polynésie française 
-98800,98899=988 Nouvelle-Calédonie 
+97600,97699=976 Mayotte
+98400,98499=984 Terres Australes et Antarctiques Françaises
+98600,98699=986 Wallis-et-Futuna
+98700,98799=987 Polynésie française
+98800,98899=988 Nouvelle-Calédonie
 
 
 Group=Overseas collectivities of France / Autres collectivités d'Outre-Mer
-97199,97599=Départements d'outre mer (DOM) (Overseas departments) 
-97600,97699=Collectivités territoriales (TOM) (Territorial Collectivities) 
-98400,98499=Territoires sans Population Permanente (Territories without Permanent Population) 
-98600,98899=Pays et Territoires d'outre mer (PTOM) (Overseas Countries and Territories) 
+97199,97599=Départements d'outre mer (DOM) (Overseas departments)
+97600,97699=Collectivités territoriales (TOM) (Territorial Collectivities)
+98400,98499=Territoires sans Population Permanente (Territories without Permanent Population)
+98600,98899=Pays et Territoires d'outre mer (PTOM) (Overseas Countries and Territories)
 
 
 Group=Biggest Cities of France / Plus grandes villes de France

@@ -10,7 +10,7 @@ sub note_serial_cksum {
     my ($y, $s) = map uc, @_;
 
     if ('2002' eq $y)                     { return 0 if !defined $s or $s !~ /^[DEFGHLMNPSTUVXYZ]\d{11}$/;
-    } elsif ($y >= '2013' and $y <= 2019) { return 0 if !defined $s or $s !~ /^[DEFGHLMNPRSTUVWXYZ][A-JZ]\d{10}$/;
+    } elsif ($y >= '2013' and $y <= 2019) { return 0 if !defined $s or $s !~ /^[DEFGHLMNPRSTUVWXYZ][A-J]\d{10}$/;
     } else                                { return 0;
     }
 
@@ -40,7 +40,7 @@ sub validate_note {
             push @errors, 'Bad serial number';
         }
     } elsif ($hr->{'year'} >= 2013 and $hr->{'year'} <= 2019) {
-        if ($hr->{'serial'} =~ /^[DEFGHLMNPRSTUVWXYZ][A-JZ]\d{10}$/) {
+        if ($hr->{'serial'} =~ /^[DEFGHLMNPRSTUVWXYZ][A-J]\d{10}$/) {
             push @errors, 'Bad checksum for serial number' unless note_serial_cksum $hr->{'year'}, $hr->{'serial'};
         } else {
             push @errors, 'Bad serial number';

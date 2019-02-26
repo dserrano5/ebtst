@@ -687,7 +687,7 @@ sub printers {
             my $detail;
             foreach my $v (@{ EBT2->values }) {
                 my $exists = 0;
-                foreach my $cc (keys %{ EBT2->countries }) {
+                foreach my $cc (keys %{ EBT2->series_countries->{$series} }) {
                     my $k = sprintf '%s%s%s%03d', $series, $pc, $cc, $v;
                     if (exists $EBT2::combs_pc_cc_val{$k}) {
                         $exists = 1;
